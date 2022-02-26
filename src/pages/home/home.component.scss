@@ -1,3 +1,52 @@
 :host {
     display: block;
+    text-align: justify;
+    padding: 0 10px;
+}
+
+.app-profile {
+    height: 45vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+
+    &__picture {
+        width: 29vh;
+        border-radius: 50%;
+        border: 5px solid black;
+        background-color: black;
+    }
+
+    &__caption {
+        margin-top: 25px;
+        font-size: small;
+        font-style: oblique;
+    }
+}
+
+.app-separator {
+    border: none;
+    border-top: 1px solid black;
+}
+
+.app-my-history {
+    text-align: center;
+    margin: 20px 0;
+
+    &__button {
+        border: none;
+        background-color: #d17515;
+        color: #fbf2e2;
+        padding: 9px;
+        border-radius: 4px;
+        font-size: x-large;
+        box-shadow: 3px 3px 5px #cec9c1;
+
+        &:active {
+            transform: translateX(1px) translateY(2px);
+            box-shadow: 2px 1px 5px #cec9c1;
+        }
+    }
 }
