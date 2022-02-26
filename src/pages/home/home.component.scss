@@ -13,7 +13,8 @@
     text-align: center;
 
     &__picture {
-        width: 29vh;
+        width: 170px;
+        height: 170px;
         border-radius: 50%;
         border: 5px solid black;
         background-color: black;
@@ -31,22 +32,53 @@
     border-top: 1px solid black;
 }
 
-.app-my-history {
-    text-align: center;
-    margin: 20px 0;
+.app-intro {
+    .app-trayectory {
+        text-align: center;
+        margin: 20px 0;
 
-    &__button {
-        border: none;
-        background-color: #d17515;
-        color: #fbf2e2;
-        padding: 9px;
-        border-radius: 4px;
-        font-size: x-large;
-        box-shadow: 3px 3px 5px #cec9c1;
+        &__button {
+            border: none;
+            background-color: #d17515;
+            color: #fbf2e2;
+            padding: 9px;
+            border-radius: 4px;
+            font-size: x-large;
+            box-shadow: 3px 3px 5px #cec9c1;
 
-        &:active {
-            transform: translateX(1px) translateY(2px);
-            box-shadow: 2px 1px 5px #cec9c1;
+            &:active {
+                transform: translateX(1px) translateY(2px);
+                box-shadow: 2px 1px 5px #cec9c1;
+            }
+        }
+    }
+}
+
+@media (min-width: 768px) {
+    .app-profile-intro {
+        display: flex;
+        max-width: 1200px;
+        margin: 30px auto 0;
+
+        .app-profile {
+            height: auto;
+
+            &__caption {
+                margin-top: 15px;
+            }
+        }
+
+        .app-separator {
+            display: none;
+        }
+
+        .app-intro {
+            margin-right: 40px;
+
+            .app-trayectory {
+                text-align: left;
+                margin-top: 30px;
+            }
         }
     }
 }
