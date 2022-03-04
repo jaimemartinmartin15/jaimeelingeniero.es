@@ -1,0 +1,32 @@
+:host {
+    display: block;
+    border: 2px solid #d17515;
+    border-radius: 5px;
+    padding: 8px;
+    background-color: #fbfbff;
+}
+
+.title {
+    margin: 0;
+    font-weight: bold;
+}
+
+.date {
+    margin: 5px 0 0;
+    font-size: 0.8rem;
+    color: #525252;
+}
+
+.position {
+    font-size: 0.9rem;
+    color: #525252;
+    margin: 5px 0 17px;
+}
+
+.description {
+    margin: 0;
+
+    ::ng-deep p {
+        margin: 7px 0 0;
+    }
+}
