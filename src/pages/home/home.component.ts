@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -7,6 +8,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomeComponent implements OnInit {
   public years: number;
+
+  public constructor(private readonly _router: Router) { }
 
   ngOnInit(): void {
     this.years = this.calculateAge(new Date(1996, 10, 15));
@@ -20,5 +23,9 @@ export class HomeComponent implements OnInit {
       age--;
     }
     return age;
+  }
+
+  public goToMyTrayectory() {
+    this._router.navigate(['mi-trayectoria']);
   }
 }

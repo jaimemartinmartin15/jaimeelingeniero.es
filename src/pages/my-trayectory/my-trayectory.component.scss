@@ -1,0 +1,20 @@
+:host {
+    display: block;
+    margin: 45px 25px 25px 25px;
+}
+
+.intro-text {
+    margin-bottom: 30px;
+}
+
+.panel {
+    margin-bottom: 20px;
+}
+
+@media (min-width: 768px) {
+    :host {
+        max-width: 1200px;
+        padding: 45px;
+        margin: auto;
+    }
+}
