@@ -5,7 +5,7 @@
 .app-profile-intro {
     .app-profile {
         background-color: #3333ff;
-        padding: 35px 0;
+        padding: 35px 0 0;
         margin: 0;
         text-align: center;
 
@@ -22,9 +22,20 @@
 
             &__caption {
                 margin-top: 20px;
+                padding-bottom: 30px;
                 color: white;
                 font-size: small;
                 font-style: oblique;
+            }
+        }
+
+        .wave {
+            background-color: white;
+            fill: #3333ff;
+            display: block;
+
+            path {
+                transition: 1s linear;
             }
         }
     }
