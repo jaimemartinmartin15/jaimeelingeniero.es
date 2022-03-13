@@ -29,6 +29,7 @@ export class HomeComponent implements OnInit {
     'assets/home/profile.png',
     'assets/home/jame5.png'
   ];
+  public showWaves = false;
   public wavePathIndex: number = 0;
   public wavePathTemplates: string[] = [
     'M0,0L0,5C12.5,2.5,12.5,2.5,25,5C37.5,7.5,37.5,7.5,50,10 C62.5,10,62.5,10,75,5C87.5,0,87.5,0,100,2.5L100,0L0,0',
@@ -44,6 +45,7 @@ export class HomeComponent implements OnInit {
     this.years = this.calculateAge(new Date(1996, 10, 15));
     this.startWaveAnimation();
     this.startProfilePictureAnimation();
+    window.matchMedia("(min-width: 768px)").addEventListener('change', (e) => this.showWaves = !e.matches);
   }
 
   startProfilePictureAnimation() {
