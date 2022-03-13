@@ -59,11 +59,13 @@ export class HomeComponent implements OnInit {
       this.startProfilePictureAnimation();
 
       this.stateRotateProfilePicture = this.stateRotateProfilePicture === 'showLogo' ? 'showPhoto' : 'showLogo';
-      if (this.profilePictureIndex === this.profilePictures.length - 1) {
-        this.profilePictureIndex = 0;
-      } else {
-        this.profilePictureIndex++;
-      }
+      setTimeout(() => {
+        if (this.profilePictureIndex === this.profilePictures.length - 1) {
+          this.profilePictureIndex = 0;
+        } else {
+          this.profilePictureIndex++;
+        }
+      }, 196);
     }
   }
 
