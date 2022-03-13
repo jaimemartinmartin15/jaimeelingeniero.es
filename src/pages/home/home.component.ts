@@ -1,13 +1,34 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
+import { rotateProfilePicture } from './home.animations';
+
+const CHANGE_PICTURE_TIME = 10000; // 10 seconds
+
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.scss']
+  styleUrls: ['./home.component.scss'],
+  animations: [rotateProfilePicture]
 })
 export class HomeComponent implements OnInit {
   public years: number;
+  private profilePictureAnimationSubscription: ReturnType<typeof setTimeout>;
+  public allowRotateProfilePicture = true;
+  public stateRotateProfilePicture: 'showPhoto' | 'showLogo' = 'showPhoto';
+  public profilePictureIndex = 0;
+  public profilePictures: string[] = [
+    'assets/home/profile.png',
+    'assets/home/jame1.png',
+    'assets/home/profile.png',
+    'assets/home/jame2.png',
+    'assets/home/profile.png',
+    'assets/home/jame3.png',
+    'assets/home/profile.png',
+    'assets/home/jame4.png',
+    'assets/home/profile.png',
+    'assets/home/jame5.png'
+  ];
   public wavePathIndex: number = 0;
   public wavePathTemplates: string[] = [
     'M0,0L0,5C12.5,2.5,12.5,2.5,25,5C37.5,7.5,37.5,7.5,50,10 C62.5,10,62.5,10,75,5C87.5,0,87.5,0,100,2.5L100,0L0,0',
@@ -21,6 +42,32 @@ export class HomeComponent implements OnInit {
 
   ngOnInit(): void {
     this.years = this.calculateAge(new Date(1996, 10, 15));
+    this.startWaveAnimation();
+    this.startProfilePictureAnimation();
+  }
+
+  startProfilePictureAnimation() {
+    this.profilePictureAnimationSubscription = setTimeout(this.changeProfilePicture.bind(this), CHANGE_PICTURE_TIME);
+  }
+
+  changeProfilePicture() {
+    if (this.allowRotateProfilePicture) {
+      this.allowRotateProfilePicture = false;
+
+      // resets the timeout
+      clearTimeout(this.profilePictureAnimationSubscription);
+      this.startProfilePictureAnimation();
+
+      this.stateRotateProfilePicture = this.stateRotateProfilePicture === 'showLogo' ? 'showPhoto' : 'showLogo';
+      if (this.profilePictureIndex === this.profilePictures.length - 1) {
+        this.profilePictureIndex = 0;
+      } else {
+        this.profilePictureIndex++;
+      }
+    }
+  }
+
+  startWaveAnimation() {
     setInterval(() => {
       let randomWavePathIndex;
       do {

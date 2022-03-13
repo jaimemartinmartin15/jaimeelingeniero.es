@@ -1,7 +1,10 @@
 <div class="app-profile-intro">
   <div class="app-profile">
-    <figure class="figure">
-      <img src="assets/profile.png" alt="foto perfil" class="figure__picture">
+    <figure class="figure" [@rotateProfilePicture]="stateRotateProfilePicture"
+      (@rotateProfilePicture.done)="allowRotateProfilePicture = true">
+      <div class="figure__picture" (click)="changeProfilePicture()">
+        <img [src]="profilePictures[profilePictureIndex]" alt="foto perfil" class="figure__picture__img">
+      </div>
       <figcaption class="figure__caption">Jaime, el ingeniero</figcaption>
     </figure>
 
