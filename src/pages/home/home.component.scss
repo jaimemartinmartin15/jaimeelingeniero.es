@@ -82,7 +82,7 @@
     flex-wrap: wrap;
     justify-content: center;
     gap: 15px;
-    margin: 48px 20px 48px;
+    margin: 8px 20px 48px;
 
     .tech {
         display: flex;
@@ -146,6 +146,7 @@
 
     .technologies {
         gap:45px;
+        margin: 48px 20px 48px;
         
         .tech {
             width: 150px;
