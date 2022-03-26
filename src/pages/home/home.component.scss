@@ -123,6 +123,7 @@
                 margin: 0 0 0 90px;
 
                 &__picture {
+                    box-shadow: 0 0 20px white;
                     cursor: pointer;
                 }
             }
@@ -132,8 +133,13 @@
             flex: 55;
 
             &__inner-wrapper {
-                margin: 0 45px 0;
+                margin: 0 85px 0 0;
+                padding: 5px 40px;
                 max-width: 580px;
+                background-color: white;
+                color: black;
+                border: 5px solid #d17515;
+                box-shadow: 0 0 20px white;
 
                 .app-trayectory {
                     text-align: left;
