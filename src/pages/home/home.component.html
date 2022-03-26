@@ -8,9 +8,9 @@
       <figcaption class="figure__caption">Jaime, el ingeniero</figcaption>
     </figure>
 
-    <svg *ngIf="showWaves" class="wave" viewBox="0 0 100 10" xmlns="http://www.w3.org/2000/svg">
-      <path [attr.d]="wavePathTemplates[wavePathIndex]"></path>
-    </svg>
+    <ng-container *ngIf="isMobileViewPort">
+      <ng-container *ngTemplateOutlet="wavesTemplate"></ng-container>
+    </ng-container>
   </div>
 
   <div class="app-intro">
@@ -37,6 +37,10 @@
     </div>
   </div>
 </section>
+
+<ng-container *ngIf="!isMobileViewPort">
+  <ng-container *ngTemplateOutlet="wavesTemplate"></ng-container>
+</ng-container>
 
 <section class="technologies">
   <div class="tech">
@@ -84,3 +88,9 @@
     <span>Kubernetes</span>
   </div>
 </section>
+
+<ng-template #wavesTemplate>
+  <svg class="wave" [attr.viewBox]="waveViewBox">
+    <path [attr.d]="wavePath"></path>
+  </svg>
+</ng-template>

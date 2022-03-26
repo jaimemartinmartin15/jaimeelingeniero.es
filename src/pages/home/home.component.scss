@@ -35,16 +35,6 @@
                 font-style: oblique;
             }
         }
-
-        .wave {
-            background-color: white;
-            fill: #3333ff;
-            display: block;
-
-            path {
-                transition: 1s linear;
-            }
-        }
     }
 
     .app-intro {
@@ -74,6 +64,16 @@
                 }
             }
         }
+    }
+}
+
+.wave {
+    background-color: white;
+    fill: #3333ff;
+    display: block;
+
+    path {
+        transition: 2s linear;
     }
 }
 
