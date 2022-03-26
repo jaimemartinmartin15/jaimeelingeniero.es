@@ -77,6 +77,29 @@
     }
 }
 
+.technologies {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 15px;
+    margin: 48px 20px 48px;
+
+    .tech {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        width: 95px;
+        height: 110px;
+
+        svg {
+            user-select: none;
+            width: 95px;
+            padding: 10px 0 10px;
+        }
+    }
+}
+
 @media (min-width: 768px) {
     :host {
         max-width: 1200px;
@@ -118,6 +141,15 @@
                     }
                 }
             }
+        }
+    }
+
+    .technologies {
+        gap:45px;
+        
+        .tech {
+            width: 150px;
+            height: 150px;
         }
     }
 }
