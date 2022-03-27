@@ -103,6 +103,12 @@
             ],
             "scripts": []
           }
+        },
+        "icons": {
+          "builder": "@babbage-devkit/builders:icons",
+          "options": {
+            "configFile": "src/svg/svg.json"
+          }
         }
       }
     }

@@ -35,16 +35,6 @@
                 font-style: oblique;
             }
         }
-
-        .wave {
-            background-color: white;
-            fill: #3333ff;
-            display: block;
-
-            path {
-                transition: 1s linear;
-            }
-        }
     }
 
     .app-intro {
@@ -77,6 +67,39 @@
     }
 }
 
+.wave {
+    background-color: white;
+    fill: #3333ff;
+    display: block;
+
+    path {
+        transition: 2s linear;
+    }
+}
+
+.technologies {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 15px;
+    margin: 8px 20px 48px;
+
+    .tech {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        width: 95px;
+        height: 110px;
+
+        svg {
+            user-select: none;
+            width: 95px;
+            padding: 10px 0 10px;
+        }
+    }
+}
+
 @media (min-width: 768px) {
     :host {
         max-width: 1200px;
@@ -86,17 +109,21 @@
     .app-profile-intro {
         display: flex;
         justify-content: center;
+        background-color: #3333ff;
+        color: white;
+        padding: 60px 0;
 
         .app-profile {
             flex: 45;
             display: flex;
-            justify-content: flex-end;
+            justify-content: center;
             align-items: center;
 
             .figure {
-                margin-right: 65px;
+                margin: 0;
 
                 &__picture {
+                    box-shadow: 0 0 20px white;
                     cursor: pointer;
                 }
             }
@@ -106,8 +133,13 @@
             flex: 55;
 
             &__inner-wrapper {
-                margin: 0 0 0 45px;
+                margin: 0 85px 0 0;
+                padding: 5px 40px;
                 max-width: 580px;
+                background-color: white;
+                color: black;
+                border: 5px solid #d17515;
+                box-shadow: 0 0 20px white;
 
                 .app-trayectory {
                     text-align: left;
@@ -118,6 +150,16 @@
                     }
                 }
             }
+        }
+    }
+
+    .technologies {
+        gap: 45px;
+        margin: 48px 20px 48px;
+
+        .tech {
+            width: 150px;
+            height: 150px;
         }
     }
 }

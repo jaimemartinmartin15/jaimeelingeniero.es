@@ -1,0 +1,21 @@
+{
+    "inputDir": "src/svg/files",
+    "outputDir": "src/svg/generated",
+    "prefix": "app",
+    "modules": [
+        {
+            "name": "TechnologiesSvg",
+            "files": [
+                "angular-logo",
+                "html-logo",
+                "css-logo",
+                "javascript-logo",
+                "java-logo",
+                "spring-boot-logo",
+                "git-logo",
+                "docker-logo",
+                "kubernetes-logo"
+            ]
+        }
+    ]
+}
