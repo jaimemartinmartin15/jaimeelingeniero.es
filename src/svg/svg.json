@@ -16,6 +16,14 @@
                 "docker-logo",
                 "kubernetes-logo"
             ]
+        },
+        {
+            "name": "TopNavigationSvg",
+            "files": [
+                "gmail-logo",
+                "github-logo",
+                "linked-in-logo"
+            ]
         }
     ]
 }
