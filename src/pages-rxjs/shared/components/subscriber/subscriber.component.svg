@@ -1,5 +1,38 @@
-<svg viewBox="0 0 100 100">
-  <text text-anchor="middle" x="50" y="20" dy=".8em" font-size="4.5em">
-    🧍
+<svg viewBox="0 0 260 578">
+  <!-- face background -->
+  <path fill="orange" d="M74,83C95,156 177,133 184,84C170,30 170,30 135,17C88,24 88,24 74,83" />
+
+  <!-- hair -->
+  <path fill="brown" d="M74,83C62,26 94,-4 143,1C178,5 192,46 184,82C170,81 183,56 150,56C116,54 116,54 113,42C109,51 109,51 111,65C97,61 97,61 93,46C82,48 87,87 74,83" />
+
+  <!-- eyes -->
+  <circle fill="#000" cx="102" cy="83" r="8" />
+  <circle fill="#000" cx="158" cy="83" r="8" />
+
+  <!-- t-shirt -->
+  <path fill="aquamarine" d="M24,237L64,237 75,209 75,293 185,293 186,209 198,237 234,237C209,146 209,146 156,148L78,148C51,151 51,151 24,237" />
+
+  <!-- left arm -->
+  <path fill="orange" d="M5,296L24,237 64,237 42,313C30,347 -5,326 5,296" />
+
+
+  <!-- right arm -->
+  <path fill="orange" d="M220,315L198,237 234,237 258,306C260,334 230,335 220,315" />
+
+  <!-- pants -->
+  <path fill="blue" d="M75,293L185,293 184,475 150,475 150,365C140,337 112,348 110,365L110,475 75,475" />
+
+  <!-- left boot -->
+  <path fill="black" d="M150,475L184,475 185,490C200,495 200,495 200,510L150,510" />
+
+  <!-- right boot -->
+  <path fill="black" d="M110,475L75,475 75,490C57,495 57,495 55,510L 110,510" />
+
+  <!-- subscribe button -->
+  <g class="button-subscribe">
+    <rect fill="white" stroke="#d17515" stroke-width="3" x="25" y="530" width="220" height="40" rx="15" ry="15" />
+    <text text-anchor="middle" x="135" y="560" font-size="1.8em" (click)="onSubscribe$.emit()" fill="#d17515">
+    subscribe
   </text>
+  </g>
 </svg>
