@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { distinctUntilChanged, interval, Observable, Subscription } from 'rxjs';
+import { BehaviorSubject, distinctUntilChanged, filter, interval, Observable, Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-conveyor',
@@ -8,7 +8,7 @@ import { distinctUntilChanged, interval, Observable, Subscription } from 'rxjs';
 })
 export class ConveyorComponent implements OnInit {
   @Input()
-  public conveyorWorking$: Observable<boolean>;
+  public conveyorWorking$: BehaviorSubject<boolean>;
 
   @Input()
   public conveyorRotation: 'left' | 'right' = 'right';
@@ -41,7 +41,7 @@ export class ConveyorComponent implements OnInit {
       }
     });
 
-    this.addToConveyor$.subscribe((newElement) => {
+    this.addToConveyor$.pipe(filter(() => this.conveyorWorking$.getValue())).subscribe((newElement) => {
       this.elementsInConveyor.push({ text: newElement, x: this.conveyorRotation === 'right' ? -10 : 210 });
     });
   }

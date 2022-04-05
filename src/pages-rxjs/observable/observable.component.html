@@ -1,16 +1,31 @@
 <h1 class="screen-title">Observable</h1>
 
 <p>
-    ¿Qué es un Observable? Vamos a explicar que es un Observable con manzanas 🍎.
+    ¿Qué es un Observable? Voy a explicarte qué es un Observable con manzanas 🍎.
 </p>
 
 <p>
     Imagínate que un Observable es una cinta transportadora que emite manzanas (datos). Tú te pones al final llamando al
-    método subscribe y le pasas una callback (next), una callback (error) y una callback (complete) que se invocan
-    cuando la manzana llega al final (next), cuando una manzana viene pocha (error), o cuando la cinta se para
-    (complete).
+    método subscribe y le pasas una callback (<span class="next">next</span>), una callback
+    (<span class="error">error</span>) y una callback (<span class="complete">complete</span>) que se invocan
+    cuando la manzana llega al final (<span class="next">next</span>), cuando viene otra cosa que no es una manzana
+    (<span class="error">error</span>), o cuando la cinta se para (<span class="complete">complete</span>).
 </p>
 
 <p>
-    Entre medias (el pipe) estan los operadores, que pueden manipular esas manzanas.
+    Entre medias (el pipe) estan los operadores que pueden manipular esas manzanas, pero los veremos en otras secciones.
 </p>
+
+<div class="demo">
+    <app-conveyor-controller class="conveyor-controller" (onClickNext)="onClickNext()" (onClickError)="onClickError()"
+        (onClickComplete)="onClickComplete()">
+        <ng-container ngProjectAs="[next]">🍎</ng-container>
+        <ng-container ngProjectAs="[error]">🍌</ng-container>
+        <ng-container ngProjectAs="[complete]">🛑</ng-container>
+    </app-conveyor-controller>
+
+    <app-conveyor class="conveyor" [conveyorWorking$]="conveyorWorking$" [addToConveyor$]="addToConveyor$">
+    </app-conveyor>
+
+    <app-subscriber class="subscriber" (onSubscribe$)="subscribe()"></app-subscriber>
+</div>
