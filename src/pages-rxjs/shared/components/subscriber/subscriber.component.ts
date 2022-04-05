@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 
 @Component({
   selector: 'app-subscriber',
@@ -6,6 +6,6 @@ import { Component, EventEmitter, Input } from '@angular/core';
   styleUrls: ['./subscriber.component.scss'],
 })
 export class SubscriberComponent {
-  @Input()
+  @Output()
   public onSubscribe$ = new EventEmitter<void>();
 }

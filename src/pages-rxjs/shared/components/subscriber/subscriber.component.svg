@@ -29,9 +29,9 @@
   <path fill="black" d="M110,475L75,475 75,490C57,495 57,495 55,510L 110,510" />
 
   <!-- subscribe button -->
-  <g class="button-subscribe">
-    <rect fill="white" stroke="#d17515" stroke-width="3" x="25" y="530" width="220" height="40" rx="15" ry="15" />
-    <text text-anchor="middle" x="135" y="560" font-size="1.8em" (click)="onSubscribe$.emit()" fill="#d17515">
+  <g class="button-subscribe" (click)="onSubscribe$.emit()">
+    <rect fill="white" stroke="#d17515" stroke-width="3" x="5" y="523" width="252" height="50" rx="15" ry="15" />
+    <text text-anchor="middle" x="135" y="560" font-size="2.2em" fill="#d17515">
     subscribe
   </text>
   </g>
