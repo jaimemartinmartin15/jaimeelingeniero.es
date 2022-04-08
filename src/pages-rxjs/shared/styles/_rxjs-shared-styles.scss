@@ -1,3 +1,11 @@
-.screen-title {
+.page-header {
+    display: flex;
     margin-top: 50px;
+    justify-content: space-between;
+    align-items: center;
+
+    .link-rxjs {
+        color: #d17515;
+        text-decoration: none;
+    }
 }
