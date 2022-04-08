@@ -1,38 +1,42 @@
-<svg viewBox="0 0 260 578">
+<svg viewBox="0 0 400 620">
+  <!-- speech bubble -->
+  <g>
+    <path fill="none" [attr.stroke]="speechBubbleColor" stroke-width="2" d="M228 101L204,115L245,115C310,147 400,122 398,64C400,7 340,-3 275,3C210,7 185,67 228,101" />
+    <text text-anchor="middle" x="250" y="80" dx="1.2em" font-size="2.2em" fill="#d17515">{{speechBubbleText}}</text>
+  </g>
+
   <!-- face background -->
-  <path fill="orange" d="M74,83C95,156 177,133 184,84C170,30 170,30 135,17C88,24 88,24 74,83" />
+  <path fill="orange" d="M74,120C95,193 177,170 184,121C170,67 170,67 135,54C88,61 88,61 74,120" />
 
   <!-- hair -->
-  <path fill="brown" d="M74,83C62,26 94,-4 143,1C178,5 192,46 184,82C170,81 183,56 150,56C116,54 116,54 113,42C109,51 109,51 111,65C97,61 97,61 93,46C82,48 87,87 74,83" />
+  <path fill="brown" d="M74,125C62,68 94,38 143,43C178,47 192,88 184,124C170,123 183,98 150,98C116,96 116,96 113,84C109,93 109,93 111,107C97,103 97,103 93,88C82,90 87,129 74,125" />
 
   <!-- eyes -->
-  <circle fill="#000" cx="102" cy="83" r="8" />
-  <circle fill="#000" cx="158" cy="83" r="8" />
+  <circle fill="#000" cx="102" cy="124" r="8" />
+  <circle fill="#000" cx="158" cy="124" r="8" />
 
   <!-- t-shirt -->
-  <path fill="aquamarine" d="M24,237L64,237 75,209 75,293 185,293 186,209 198,237 234,237C209,146 209,146 156,148L78,148C51,151 51,151 24,237" />
+  <path fill="aquamarine" d="M24,279L64,279L75,251L75,335L185,335L186,251L198,279L234,279C209,188 209,188 156,190L78,190C51,193 51,193 24,279" />
 
   <!-- left arm -->
-  <path fill="orange" d="M5,296L24,237 64,237 42,313C30,347 -5,326 5,296" />
-
+  <path fill="orange" d="M5,338L24,279L64,279L42,355C30,389 -5,368 5,338" />
 
   <!-- right arm -->
-  <path fill="orange" d="M220,315L198,237 234,237 258,306C260,334 230,335 220,315" />
+  <path fill="orange" d="M220,357L198,279L234,279L258,348C260,376 230,377 220,357" />
 
   <!-- pants -->
-  <path fill="blue" d="M75,293L185,293 184,475 150,475 150,365C140,337 112,348 110,365L110,475 75,475" />
-
-  <!-- left boot -->
-  <path fill="black" d="M150,475L184,475 185,490C200,495 200,495 200,510L150,510" />
+  <path fill="blue" d="M75,335L185,335L184,517L150,517L150,407C140,379 112,390 110,407L110,517L75,517" />
 
   <!-- right boot -->
-  <path fill="black" d="M110,475L75,475 75,490C57,495 57,495 55,510L 110,510" />
+  <path fill="black" d="M150,517L184,517L185,532C200,537 200,537 200,552L150,552" />
+
+  <!-- left boot -->
+  <path fill="black" d="M110,517L75,517L75,532C57,537 57,537 55,552L110,552" />
 
   <!-- subscribe button -->
-  <g class="button-subscribe" (click)="onSubscribe$.emit()">
-    <rect fill="white" stroke="#d17515" stroke-width="3" x="5" y="523" width="252" height="50" rx="15" ry="15" />
-    <text text-anchor="middle" x="135" y="560" font-size="2.2em" fill="#d17515">
-    subscribe
-  </text>
+  <g class="button-subscribe">
+    <rect fill="white" stroke="#d17515" stroke-width="3" x="5" y="563" width="252" height="55" rx="15" ry="15" />
+    <text *ngIf="!isSubscribed" text-anchor="middle" x="135" y="604" font-size="2.2em" fill="#d17515" (click)="subscribe()">subscribe</text>
+    <text *ngIf="isSubscribed" text-anchor="middle" x="135" y="604" font-size="2.2em" fill="#d17515" (click)="unsubscribe()">unsubscribe</text>
   </g>
 </svg>
