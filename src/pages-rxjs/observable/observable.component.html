@@ -52,7 +52,8 @@ myFirstObservable.subscribe(
 </p>
 
 <p>
-    Lo bueno de esta función es que puede "devolver" varios resultados llamando al método <span class="next">next</span> del observador.
+    Lo bueno de esta función es que puede "devolver" varios resultados llamando al método <span class="next">next</span>
+    del observador.
     Cuando ha devuelto todos los valores el Observable se completa y ya no volverá a emitir más valores. Igual si
     el observable emite un error, ya no se devuelven más valores:
 </p>
@@ -94,11 +95,13 @@ new Observable((subscriber) => {
         (onClickComplete)="onClickComplete()">
         <ng-container ngProjectAs="[next]">🍎</ng-container>
         <ng-container ngProjectAs="[error]">🍌</ng-container>
-        <ng-container ngProjectAs="[complete]">🛑</ng-container>
+        <ng-container ngProjectAs="[complete]">🖐️</ng-container>
     </app-conveyor-controller>
 
-    <app-conveyor class="conveyor" [conveyorWorking$]="conveyorWorking$" [addToConveyor$]="addToConveyor$">
+    <app-conveyor class="conveyor" [conveyorWorking$]="conveyorWorking$" [addToConveyor$]="addToConveyor$"
+        (elementDelivered)="onEventDelivered($event)">
     </app-conveyor>
 
-    <app-subscriber class="subscriber" (onSubscribe$)="subscribe()"></app-subscriber>
+    <app-subscriber class="subscriber" [speechBubble$]="speechBubble$" (onSubscribe$)="onSubscribe($event)">
+    </app-subscriber>
 </div>
