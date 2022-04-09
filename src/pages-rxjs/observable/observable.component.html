@@ -32,7 +32,7 @@ const myFirstObservable = new Observable(observer => {
     observer.complete(); // will invoke complete callback passed in the subscribe method
 });
 
-// the callback functions passed to the observable are not executed until we subscribe
+// the callback function passed to the observable is not executed until we subscribe
 myFirstObservable.subscribe(
     value => console.log(`The next value is: ${value}`),
     error => console.log(`Error: ${error}`),
