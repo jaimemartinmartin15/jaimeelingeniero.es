@@ -20,9 +20,14 @@ export class SubscriberComponent implements OnInit {
 
   public ngOnInit(): void {
     this.speechBubble$.subscribe((event) => {
-      this.isSubscribed = event.color === '#0a0';
-      this.speechBubbleColor = event.color;
-      this.speechBubbleText = event.message;
+      // it will produce a flash in case two same elements are emited
+      this.speechBubbleColor = 'none';
+      this.speechBubbleText = '';
+      setTimeout(() => {
+        this.isSubscribed = event.color === '#0a0';
+        this.speechBubbleColor = event.color;
+        this.speechBubbleText = event.message;
+      }, 60);
     });
   }
 
