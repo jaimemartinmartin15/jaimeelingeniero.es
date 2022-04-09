@@ -6,6 +6,21 @@ const routes: Routes = [
   {
     path: '',
     component: PagesRxjsComponent,
+    children: [
+      {
+        path: 'observable',
+        loadChildren: () => import('./observable/observable.module').then(m => m.ObservableModule)
+      },
+      {
+        path: '',
+        redirectTo: 'observable'
+      },
+      {
+        path: '**',
+        redirectTo: 'observable',
+        pathMatch: 'full'
+      },
+    ]
   },
   {
     path: '**',

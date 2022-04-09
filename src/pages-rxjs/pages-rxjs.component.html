@@ -1,9 +1,8 @@
-<menu class="left-menu">
-  <a href="">observable</a>
-  <a href="">mergeMap</a>
-  <a href="">concatMap</a>
-  <a href="">switchMap</a>
-  <a href="">...</a>
-</menu>
+<nav class="left-menu">
+  <a [routerLink]="['/comprende-rxjs/observable']" routerLinkActive="menu-section-active">observable</a>
+  <a [routerLink]="['/comprende-rxjs/mergeMap']" routerLinkActive="menu-section-active">mergeMap</a>
+  <a [routerLink]="['/comprende-rxjs/concatMap']" routerLinkActive="menu-section-active">concatMap</a>
+  <a [routerLink]="['/comprende-rxjs/switchMap']" routerLinkActive="menu-section-active">switchMap</a>
+</nav>
 
 <router-outlet></router-outlet>

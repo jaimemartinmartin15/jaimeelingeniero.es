@@ -1,0 +1,42 @@
+<svg viewBox="0 0 400 620">
+  <!-- speech bubble -->
+  <g>
+    <path fill="none" [attr.stroke]="speechBubbleColor" stroke-width="2" d="M228 101L204,115L245,115C310,147 400,122 398,64C400,7 340,-3 275,3C210,7 185,67 228,101" />
+    <text text-anchor="middle" x="250" y="80" dx="1.2em" font-size="2.2em" fill="#d17515">{{speechBubbleText}}</text>
+  </g>
+
+  <!-- face background -->
+  <path fill="orange" d="M74,120C95,193 177,170 184,121C170,67 170,67 135,54C88,61 88,61 74,120" />
+
+  <!-- hair -->
+  <path fill="brown" d="M74,125C62,68 94,38 143,43C178,47 192,88 184,124C170,123 183,98 150,98C116,96 116,96 113,84C109,93 109,93 111,107C97,103 97,103 93,88C82,90 87,129 74,125" />
+
+  <!-- eyes -->
+  <circle fill="#000" cx="102" cy="124" r="8" />
+  <circle fill="#000" cx="158" cy="124" r="8" />
+
+  <!-- t-shirt -->
+  <path fill="aquamarine" d="M24,279L64,279L75,251L75,335L185,335L186,251L198,279L234,279C209,188 209,188 156,190L78,190C51,193 51,193 24,279" />
+
+  <!-- left arm -->
+  <path fill="orange" d="M5,338L24,279L64,279L42,355C30,389 -5,368 5,338" />
+
+  <!-- right arm -->
+  <path fill="orange" d="M220,357L198,279L234,279L258,348C260,376 230,377 220,357" />
+
+  <!-- pants -->
+  <path fill="blue" d="M75,335L185,335L184,517L150,517L150,407C140,379 112,390 110,407L110,517L75,517" />
+
+  <!-- right boot -->
+  <path fill="black" d="M150,517L184,517L185,532C200,537 200,537 200,552L150,552" />
+
+  <!-- left boot -->
+  <path fill="black" d="M110,517L75,517L75,532C57,537 57,537 55,552L110,552" />
+
+  <!-- subscribe button -->
+  <g class="button-subscribe">
+    <rect fill="white" stroke="#d17515" stroke-width="3" x="5" y="563" width="252" height="55" rx="15" ry="15" />
+    <text *ngIf="!isSubscribed" text-anchor="middle" x="135" y="604" font-size="2.2em" fill="#d17515" (click)="subscribe()">subscribe</text>
+    <text *ngIf="isSubscribed" text-anchor="middle" x="135" y="604" font-size="2.2em" fill="#d17515" (click)="unsubscribe()">unsubscribe</text>
+  </g>
+</svg>

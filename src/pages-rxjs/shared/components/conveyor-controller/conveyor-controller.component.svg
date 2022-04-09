@@ -1,0 +1,31 @@
+<svg viewBox="0 0 300 220">
+  <linearGradient id="background-controller" x1="0%" y1="0%" x2="100%" y2="0%">
+    <stop offset="0%" style="stop-color:#e8e8e8;stop-opacity:1" />
+    <stop offset="45%" style="stop-color:#fefefe;stop-opacity:1" />
+    <stop offset="55%" style="stop-color:#fefefe;stop-opacity:1" />
+    <stop offset="100%" style="stop-color:#e8e8e8;stop-opacity:1" />
+  </linearGradient>
+
+  <path fill="url(#background-controller)" stroke="#000" stroke-width="3" d="M107,24C146,29 146,29 186,24C230,-25 271,15 281,62C307,170 298,213 277,216C205,217 242,167 150,166C56,167 95,217 23,216C2,213 -7,170 19,62C29,15 70,-25 107,24" />
+
+  <g class="button-controller" (click)="onClickNext.emit()">
+    <circle cx="222" cy="70" r="32" fill="#bfb" stroke="#0a0" stroke-width="3" />
+    <text text-anchor="middle" x="222" y="70" dy=".4em" font-size="1.8em">
+      <ng-content select="[next]"></ng-content>
+    </text>
+  </g>
+
+  <g class="button-controller" (click)="onClickError.emit()">
+    <circle cx="78" cy="70" r="32" fill="#fbb" stroke="#d00" stroke-width="3" />
+    <text text-anchor="middle" x="78" y="70" dy=".4em" font-size="1.8em">
+      <ng-content select="[error]"></ng-content>
+    </text>
+  </g>
+
+  <g class="button-controller" (click)="onClickComplete.emit()">
+    <circle cx="150" cy="120" r="32" fill="#ffeeaa" stroke="#ffdd00" stroke-width="3" />
+    <text text-anchor="middle" x="150" y="120" dy=".4em" font-size="1.8em">
+      <ng-content select="[complete]"></ng-content>
+    </text>
+  </g>
+</svg>
