@@ -1,0 +1,40 @@
+@import "../shared/styles/rxjs-shared-styles";
+
+.next {
+    color: #0a0;
+}
+
+.error {
+    color: #ce4545;
+}
+
+.complete {
+    color: #b2a366;
+}
+
+.demo {
+    margin-top: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    gap: 20px;
+    padding: 20px;
+    border-radius: 5px;
+    background-color: #fbfbff;
+    box-shadow: 0 0 5px #d17515;
+
+    .conveyor-controller {
+        width: 155px;
+        margin-right: 30px;
+        margin-bottom: 50px;
+    }
+
+    .conveyor {
+        width: 300px;
+        padding-bottom: 30px;
+    }
+
+    .subscriber {
+        width: 160px;
+    }
+}

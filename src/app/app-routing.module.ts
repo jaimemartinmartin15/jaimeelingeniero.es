@@ -7,6 +7,10 @@ const routes: Routes = [
     loadChildren: () => import('../pages/my-trayectory/my-trayectory.module').then(m => m.MyTrayectoryModule),
   },
   {
+    path: 'comprende-rxjs',
+    loadChildren: () => import('../pages-rxjs/pages-rxjs.module').then(m => m.PagesRxjsModule),
+  },
+  {
     path: '',
     loadChildren: () => import('../pages/home/home.module').then(m => m.HomeModule),
   },
@@ -21,4 +25,4 @@ const routes: Routes = [
   imports: [RouterModule.forRoot(routes, {scrollPositionRestoration: 'top'})],
   exports: [RouterModule]
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

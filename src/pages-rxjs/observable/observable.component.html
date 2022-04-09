@@ -1,0 +1,107 @@
+<div class="page-header">
+    <h1>Observable</h1>
+    <a class="link-rxjs" href="https://rxjs.dev/guide/observable" target="_blank">rxjs observable ➡️</a>
+</div>
+
+<p>
+    ¿Qué es un Observable? Voy a explicarte qué es un Observable con manzanas 🍎.
+</p>
+
+<p>
+    Imagínate que un Observable es una cinta transportadora que emite manzanas (datos). Tú te pones al final llamando al
+    método subscribe y le pasas una callback (<span class="next">next</span>), una callback
+    (<span class="error">error</span>) y una callback (<span class="complete">complete</span>) que se invocan
+    cuando la manzana llega al final (<span class="next">next</span>), cuando viene otra cosa que no es una manzana
+    (<span class="error">error</span>), o cuando la cinta se para (<span class="complete">complete</span>).
+</p>
+
+<p>
+    Entre medias (el pipe) estan los operadores que pueden manipular esas manzanas, pero los veremos en otras secciones.
+</p>
+
+<p>Veamos un primer ejemplo, uno sencillo:</p>
+
+<textarea highlight-js [lang]="'typescript'">
+import { Observable } from 'rxjs';
+
+const myFirstObservable = new Observable(observer => {
+    doSomeStuff();
+    observer.next('🍎'); // will invoke next callback passed in the subscribe method
+    doOtherSuff();
+    observer.next('🍎');
+    observer.complete(); // will invoke complete callback passed in the subscribe method
+});
+
+// the callback function passed to the observable is not executed until we subscribe
+myFirstObservable.subscribe(
+    value => console.log(`The next value is: ${value}`),
+    error => console.log(`Error: ${error}`),
+    () => console.log('The observable has completed')
+)
+
+// Output
+// ======
+// The next value is: 🍎
+// The next value is: 🍎
+// The observable has completed
+</textarea>
+
+<p>
+    Cuando creamos un objeto de tipo Observable con la palabra reservada new, le tenemos que
+    pasar una funcion que toma un parámetro: el observador.
+</p>
+
+<p>
+    Lo bueno de esta función es que puede "devolver" varios resultados llamando al método <span class="next">next</span>
+    del observador.
+    Cuando ha devuelto todos los valores el Observable se completa y ya no volverá a emitir más valores. Igual si
+    el observable emite un error, ya no se devuelven más valores:
+</p>
+
+<textarea highlight-js [lang]="'typescript'">
+new Observable((subscriber) => {
+    setTimeout(() => observer.next('This is timeout 🍊'), 10); // it won't emit
+    observer.next('🍎');
+    observer.next('🍐');
+    observer.error('🚗')
+    console.log('This code still is executed: 🍓');
+    observer.next('🍍'); // it won't emit
+})
+.subscribe(
+    fruit => console.log(`Next: ${fruit}`),
+    error => console.log(`Error: ${fruit}`),
+    () => console.log('Observable completed'),
+);
+
+// Output
+// ======
+// Next: 🍎
+// Next: 🍐
+// Error: 🚗
+// This code still is executed: 🍓
+</textarea>
+
+<p>
+    Aunque por más que llamemos a más métodos del observador (next, error o complete) este no emitirá eventos y las
+    funciones callback del subscribe no se ejecutarán, porque el Observable ha completado o emitido un error.
+</p>
+
+<p>
+    A continuación te dejo un simulador para que pruebes:
+</p>
+
+<div class="demo">
+    <app-conveyor-controller class="conveyor-controller" (onClickNext)="onClickNext()" (onClickError)="onClickError()"
+        (onClickComplete)="onClickComplete()">
+        <ng-container ngProjectAs="[next]">🍎</ng-container>
+        <ng-container ngProjectAs="[error]">🍌</ng-container>
+        <ng-container ngProjectAs="[complete]">🖐️</ng-container>
+    </app-conveyor-controller>
+
+    <app-conveyor class="conveyor" [conveyorWorking$]="conveyorWorking$" [addToConveyor$]="addToConveyor$"
+        (elementDelivered)="onEventDelivered($event)">
+    </app-conveyor>
+
+    <app-subscriber class="subscriber" [speechBubble$]="speechBubble$" (onSubscribe$)="onSubscribe($event)">
+    </app-subscriber>
+</div>
