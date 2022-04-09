@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Observable } from 'rxjs';
-import { EventColor, SpeechBubble } from '../../styles/constants';
+import { EventColor, SpeechBubble } from '../../constants';
 
 @Component({
   selector: 'app-subscriber',

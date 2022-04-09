@@ -1,6 +1,6 @@
 <svg viewBox="0 0 200 85">
-  <text *ngFor="let element of elementsInConveyor" text-anchor="middle" [attr.x]="element.x" y="0" dy="1.4em" font-size="1em">
-      {{element.text}}
+  <text *ngFor="let element of elementsInConveyor" text-anchor="middle" [attr.x]="element.offset" y="0" dy="1.4em" font-size="1em">
+      {{element.value}}
   </text>
 
   <rect x="2" y="32" width="196" height="30" rx="15" ry="15" stroke="#888" fill="#ddd" stroke-width="1" />

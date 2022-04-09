@@ -5,3 +5,11 @@ export interface SpeechBubble {
   color: EventColor;
   message: string;
 }
+
+export type ObservableEvent = 'next' | 'error' | 'complete';
+
+export interface ElemementInConveyor {
+  type: ObservableEvent;
+  value: string;
+  offset: number;
+}
