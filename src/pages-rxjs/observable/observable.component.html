@@ -63,7 +63,7 @@ new Observable((subscriber) => {
     setTimeout(() => observer.next('This is timeout 🍊'), 10); // it won't emit
     observer.next('🍎');
     observer.next('🍐');
-    observer.error('🚗')
+    observer.error('🚗');
     console.log('This code still is executed: 🍓');
     observer.next('🍍'); // it won't emit
 })
