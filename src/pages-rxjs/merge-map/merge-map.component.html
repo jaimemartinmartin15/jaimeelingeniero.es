@@ -2,3 +2,64 @@
   <h1>MergeMap</h1>
   <a class="link-rxjs" href="https://rxjs.dev/api/operators/mergeMap" target="_blank">rxjs mergeMap ➡️</a>
 </div>
+
+<p>
+  Este operador coge cada uno de los elementos emitidos por un Observable fuente y devuelve un nuevo Observable por
+  cada elemento, cuyos elementos emitidos serán puestos de nuevo en el observable fuente y que serán los que se entregen
+  al subscriptor.
+</p>
+
+<textarea highlight-js [lang]="'typescript'">
+import { Observable, mergeMap } from 'rxjs';
+
+// This is the source observable
+const numbers$ = new Observable<number>((observer) => {
+  observer.next(2);
+  observer.next(3);
+  observer.next(0);
+  observer.next(4);
+});
+
+// use the pipe method to add operators
+numbers$
+  .pipe(
+    mergeMap(
+      (number) =>
+        new Observable((observer) => {
+          if (number === 0) {
+            observer.error('No existences');
+          } else {
+            observer.next('🍎'.repeat(number));
+            observer.complete();
+          }
+        })
+    )
+  )
+  .subscribe(
+    (value) => console.log(`The next value is: ${value}`),
+    (error) => console.error(`There is an error: ${error}`)
+  );
+
+// Output
+// ======
+// The next value is: 🍎🍎
+// The next value is: 🍎🍎🍎
+// There is an error: No existences
+</textarea>
+
+<p>
+  En este ejemplo tenemos un Observable que emite números, y por cada número tenemos otro observable que nos emite
+  tantas manzanas como diga ese número. En el momento que hay un error en cualquiera de los Observables este se emite al
+  subscriptor.
+</p>
+
+<p>
+  En este caso tan sencillo los elementos se emiten de forma síncrona, pero cuando hacemos alguna llamada real a algún
+  servidor podría emitir en otro orden, es decir, el Observable fuente pide primero dos manzanas y el Observable del
+  mergeMap las emite inmediatamente, pero en una llamada real esto quedaría a la espera y se emitiría el número tres,
+  pudiendo resolverse antes y entregando antes las tres manzanas que las dos que estamos esperando.
+</p>
+
+<p>
+  A continuación te dejo un simulador para que pruebes:
+</p>
