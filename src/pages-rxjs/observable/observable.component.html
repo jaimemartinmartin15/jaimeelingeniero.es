@@ -102,6 +102,6 @@ new Observable((subscriber) => {
         (elementDelivered)="onEventDelivered($event)">
     </app-conveyor>
 
-    <app-subscriber class="subscriber" [speechBubble$]="speechBubble$" (onSubscribe$)="onSubscribe($event)">
+    <app-subscriber class="subscriber" [showSpeechBubble$]="speechBubble$" (onSubscribe$)="onSubscribe($event)">
     </app-subscriber>
 </div>
