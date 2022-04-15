@@ -45,8 +45,9 @@ export class ConveyorComponent implements OnInit {
     this.addToConveyor$.pipe(filter(() => this.conveyorWorking$.getValue())).subscribe((elementToAdd) => {
       const newElement = elementToAdd as ElemementInConveyor;
 
-      newElement.startAt = newElement.startAt ?? this.conveyorRotation === 'right' ? 0 : 100;
-      newElement.removeAt = newElement.removeAt ?? this.conveyorRotation === 'right' ? 100 : 0;
+      newElement.startAt = newElement.startAt ?? (this.conveyorRotation === 'right' ? 0 : 100);
+
+      newElement.removeAt = newElement.removeAt ?? (this.conveyorRotation === 'right' ? 100 : 0);
 
       const valueOffset = newElement.value.length * this.charOffset;
       newElement.offset = this.length * (newElement.startAt / 100) + (this.conveyorRotation === 'right' ? -valueOffset : valueOffset);
