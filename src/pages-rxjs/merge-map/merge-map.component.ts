@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { BehaviorSubject, Subject } from 'rxjs';
-import { observableAnimation } from '../shared/animations';
+import { observableAnimation } from '../shared/rxjs-animations';
 import { ElemementInConveyor } from '../shared/element-in-conveyor';
 import { ObservableEventType } from '../shared/observable-event-type';
 import { SpeechBubble } from '../shared/speech-bubble';

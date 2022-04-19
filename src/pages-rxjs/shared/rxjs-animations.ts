@@ -2,8 +2,8 @@ import { animate, sequence, style, transition, trigger } from '@angular/animatio
 
 export const observableAnimation = trigger('observableAnimation', [
   transition(':enter', [
-    style({ opacity: 0 }),
-    animate('250ms', style({ opacity: '1' })),
+    style({ opacity: 0, maxHeight: '0' }),
+    animate('500ms', style({ opacity: '1', maxHeight: '1000px' })),
   ]),
   transition(':leave', [
     sequence([
