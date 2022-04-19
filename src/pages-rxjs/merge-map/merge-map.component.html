@@ -63,3 +63,37 @@ numbers$
 <p>
   A continuación te dejo un simulador para que pruebes:
 </p>
+
+<div class="demo-container">
+  <app-conveyor-controller class="main-conveyor-controller" (onClickNext)="onClickMainNext()"
+    (onClickError)="onClickMainError()" (onClickComplete)="onClickMainComplete()">
+    <ng-container ngProjectAs="[next]">{{applesToEmit}}</ng-container>
+    <ng-container ngProjectAs="[error]">🍌</ng-container>
+    <ng-container ngProjectAs="[complete]">🖐️</ng-container>
+  </app-conveyor-controller>
+
+  <div class="conveyors-container">
+    <div class="mergemap-conveyors-container">
+      <div class="merge-map-conveyor-and-controller" *ngFor="let observable of mergeMapObservables; let i = index"
+        [@observableAnimation]>
+        <app-conveyor-controller class="merge-map-conveyor-controller" (onClickNext)="onClickMergeMapNext(i)"
+          (onClickError)="onClickMergeMapError(i)" (onClickComplete)="onClickMergeMapComplete(i)">
+          <ng-container ngProjectAs="[next]">{{'🍎'.repeat(observable.value == '2️⃣' ? 2 : 1)}}</ng-container>
+          <ng-container ngProjectAs="[error]">🍌</ng-container>
+          <ng-container ngProjectAs="[complete]">🖐️</ng-container>
+        </app-conveyor-controller>
+
+        <app-conveyor-vertical class="merge-map-conveyor" [conveyorWorking$]="observable.conveyorWorking$"
+          [addToConveyor$]="observable.addToConveyor$" (elementDelivered)="onMergeMapElementDelivered(i, $event)">
+        </app-conveyor-vertical>
+      </div>
+    </div>
+
+    <app-conveyor class="main-conveyor" [length]="499.5" [conveyorWorking$]="mainConveyorWorking$"
+      [addToConveyor$]="addToMainConveyor$" (elementDelivered)="onMainElementDelivered($event)">
+    </app-conveyor>
+  </div>
+
+  <app-subscriber class="subscriber" [showSpeechBubble$]="speechBubble$" (onSubscribe$)="onSubscribe($event)">
+  </app-subscriber>
+</div>
