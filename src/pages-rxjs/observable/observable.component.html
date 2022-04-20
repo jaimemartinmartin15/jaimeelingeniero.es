@@ -8,15 +8,15 @@
 </p>
 
 <p>
-    Imagínate que un Observable es una cinta transportadora que emite manzanas (datos). Tú te pones al final llamando al
+    Imagínate que un Observable es una cinta transportadora que emite frutas (datos). Tú te pones al final llamando al
     método subscribe y le pasas una callback (<span class="next">next</span>), una callback
     (<span class="error">error</span>) y una callback (<span class="complete">complete</span>) que se invocan
-    cuando la manzana llega al final (<span class="next">next</span>), cuando viene otra cosa que no es una manzana
+    cuando la fruta llega al final (<span class="next">next</span>), cuando viene otra cosa que no es una fruta
     (<span class="error">error</span>), o cuando la cinta se para (<span class="complete">complete</span>).
 </p>
 
 <p>
-    Entre medias (el pipe) estan los operadores que pueden manipular esas manzanas, pero los veremos en otras secciones.
+    Entre medias (el pipe) estan los operadores que pueden manipular esas frutas, pero los veremos en otras secciones.
 </p>
 
 <p>Veamos un primer ejemplo, uno sencillo:</p>
@@ -91,11 +91,11 @@ new Observable((subscriber) => {
 </p>
 
 <div class="demo-container">
-    <app-conveyor-controller class="conveyor-controller" (onClickNext)="onClickNext()" (onClickError)="onClickError()"
-        (onClickComplete)="onClickComplete()">
-        <ng-container ngProjectAs="[next]">🍎</ng-container>
-        <ng-container ngProjectAs="[error]">🍌</ng-container>
-        <ng-container ngProjectAs="[complete]">🖐️</ng-container>
+    <app-conveyor-controller class="conveyor-controller" [button1]="{value: '🚗', type: ObservableEventType.ERROR}"
+        [button2]="{value: '🖐️', type: ObservableEventType.COMPLETE}"
+        [button3]="{value: '🍌', type: ObservableEventType.NEXT}"
+        [button4]="{value: '🍍', type: ObservableEventType.NEXT}"
+        [button5]="{value: '🍎', type: ObservableEventType.NEXT}" (onButtonClick)="onControllerButtonClick($event)">
     </app-conveyor-controller>
 
     <app-conveyor class="conveyor" [conveyorWorking$]="conveyorWorking$" [addToConveyor$]="addToConveyor$"
