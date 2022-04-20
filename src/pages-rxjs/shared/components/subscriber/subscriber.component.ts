@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Observable } from 'rxjs';
-import { EventColor, SpeechBubble } from '../../constants';
+import { ObservableEventType } from '../../observable-event-type';
+import { SpeechBubble } from '../../speech-bubble';
 
 @Component({
   selector: 'app-subscriber',
@@ -8,24 +9,24 @@ import { EventColor, SpeechBubble } from '../../constants';
   styleUrls: ['./subscriber.component.scss'],
 })
 export class SubscriberComponent implements OnInit {
-  public speechBubbleColor: EventColor = 'none';
+  public speechBubbleColor: string = 'none';
   public speechBubbleText: string;
   public isSubscribed: boolean = false;
 
   @Input()
-  public speechBubble$: Observable<SpeechBubble>;
+  public showSpeechBubble$: Observable<SpeechBubble>;
 
   @Output()
   public onSubscribe$ = new EventEmitter<boolean>();
 
   public ngOnInit(): void {
-    this.speechBubble$.subscribe((event) => {
+    this.showSpeechBubble$.subscribe((event) => {
       // it will produce a flash in case two same elements are emited
       this.speechBubbleColor = 'none';
       this.speechBubbleText = '';
       setTimeout(() => {
-        this.isSubscribed = event.color === '#0a0';
-        this.speechBubbleColor = event.color;
+        this.isSubscribed = event.type === ObservableEventType.NEXT;
+        this.speechBubbleColor = event.type.color;
         this.speechBubbleText = event.message;
       }, 60);
     });

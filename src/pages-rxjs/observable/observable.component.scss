@@ -1,5 +1,10 @@
 @import "../shared/styles/rxjs-shared-styles";
 
+:host {
+    display: block;
+    flex-grow: 1;
+}
+
 .next {
     color: #0a0;
 }
@@ -12,16 +17,12 @@
     color: #b2a366;
 }
 
-.demo {
+.demo-container {
     margin-top: 30px;
     display: flex;
     justify-content: center;
     align-items: flex-end;
     gap: 20px;
-    padding: 20px;
-    border-radius: 5px;
-    background-color: #fbfbff;
-    box-shadow: 0 0 5px #d17515;
 
     .conveyor-controller {
         width: 155px;

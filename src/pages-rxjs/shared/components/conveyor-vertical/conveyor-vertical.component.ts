@@ -4,20 +4,18 @@ import { ElemementInConveyor } from '../../element-in-conveyor';
 import { ObservableEventType } from '../../observable-event-type';
 
 @Component({
-  selector: 'app-conveyor',
-  templateUrl: './conveyor.component.svg',
-  styleUrls: ['./conveyor.component.scss'],
+  selector: 'app-conveyor-vertical',
+  templateUrl: './conveyor-vertical.component.svg',
+  styleUrls: ['./conveyor-vertical.component.scss'],
 })
-export class ConveyorComponent implements OnInit {
+export class ConveyorVerticalComponent implements OnInit {
   public viewBox: string;
-  public strokeDashoffset = 0;
   public elementsInConveyor: ElemementInConveyor[] = [];
-
+  
   private conveyorWorkingSubscription: Subscription;
-  private readonly charOffset = 5;
-
-  @Input()
-  public conveyorRotation: 'left' | 'right' = 'right';
+  public offsetLineInConveyor = 0;
+  private readonly charOffset = 25;
+  public linesInConveyor: number[];
 
   @Input()
   public length = 200;
@@ -32,7 +30,8 @@ export class ConveyorComponent implements OnInit {
   public elementDelivered = new EventEmitter<ElemementInConveyor>();
 
   ngOnInit(): void {
-    this.viewBox = `0 0 ${this.length} 85`;
+    this.viewBox = `0 0 65 ${this.length}`;
+    this.linesInConveyor = [...Array(Math.trunc(this.length / 9.5)).keys()];
 
     this.conveyorWorking$.pipe(distinctUntilChanged()).subscribe((working) => {
       if (working) {
@@ -45,12 +44,9 @@ export class ConveyorComponent implements OnInit {
     this.addToConveyor$.pipe(filter(() => this.conveyorWorking$.getValue())).subscribe((elementToAdd) => {
       const newElement = elementToAdd as ElemementInConveyor;
 
-      newElement.startAt = newElement.startAt ?? (this.conveyorRotation === 'right' ? 0 : 100);
-
-      newElement.removeAt = newElement.removeAt ?? (this.conveyorRotation === 'right' ? 100 : 0);
-
-      const valueOffset = newElement.value.length * this.charOffset;
-      newElement.offset = this.length * (newElement.startAt / 100) + (this.conveyorRotation === 'right' ? -valueOffset : valueOffset);
+      newElement.startAt = 0;
+      newElement.removeAt = 100;
+      newElement.offset = -this.charOffset;
 
       this.elementsInConveyor.push(newElement);
     });
@@ -58,20 +54,16 @@ export class ConveyorComponent implements OnInit {
 
   private startConveyor() {
     this.conveyorWorkingSubscription = interval(40).subscribe(() => {
-      this.conveyorRotation === 'right' ? this.strokeDashoffset-- : this.strokeDashoffset++;
+      this.offsetLineInConveyor < -8 ? (this.offsetLineInConveyor = 0) : this.offsetLineInConveyor--;
 
-      // moves the elements to the correct side
+      // moves the elements
       for (let i = 0; i < this.elementsInConveyor.length; i++) {
         const elementInConveyor = this.elementsInConveyor[i];
-        this.conveyorRotation === 'right' ? elementInConveyor.offset!++ : elementInConveyor.offset!--;
+        elementInConveyor.offset!++;
 
         // checks if has to be removed from the list
-        const valueOffset = elementInConveyor.value.length * this.charOffset;
-        const removeAtPosition =
-          this.conveyorRotation === 'right'
-            ? this.length * (elementInConveyor.removeAt! / 100) + valueOffset
-            : this.length * (elementInConveyor.removeAt! / 100) - valueOffset;
-        if (this.conveyorRotation === 'right' ? elementInConveyor.offset > removeAtPosition : elementInConveyor.offset < removeAtPosition) {
+        const removeAtPosition = this.length * (elementInConveyor.removeAt! / 100);
+        if (elementInConveyor.offset > removeAtPosition) {
           const [deliveredElement] = this.elementsInConveyor.splice(i, 1);
 
           if (deliveredElement.type === ObservableEventType.ERROR || deliveredElement.type === ObservableEventType.COMPLETE) {

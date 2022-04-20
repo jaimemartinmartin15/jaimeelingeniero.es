@@ -1,0 +1,14 @@
+<svg [attr.viewBox]="viewBox">
+  <rect fill="#ddd" x="5" y="0" width="55" [attr.height]="length"></rect>
+
+  <line *ngFor="let element of linesInConveyor; let i = index" x1="10" [attr.y1]="i*10-offsetLineInConveyor" x2="55" [attr.y2]="i*10-offsetLineInConveyor" stroke="#888" stroke-width="5" stroke-linecap="round" />
+
+  <text *ngFor="let element of elementsInConveyor" text-anchor="middle" x="33" [attr.y]="element.offset" dy="1.2em" font-size="1em">
+    {{element.value}}
+  </text>
+
+  <rect fill="#000" x="0" y="25" width="5" height="15"></rect>
+  <rect fill="#000" x="0" [attr.y]="length - 35" width="5" height="15"></rect>
+  <rect fill="#000" x="60" y="25" width="5" height="15"></rect>
+  <rect fill="#000" x="60" [attr.y]="length - 35" width="5" height="15"></rect>
+</svg>

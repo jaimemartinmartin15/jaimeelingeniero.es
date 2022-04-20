@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { BehaviorSubject, Subject } from 'rxjs';
-import { ElemementInConveyor, SpeechBubble } from '../shared/constants';
+import { ElemementInConveyor } from '../shared/element-in-conveyor';
+import { ObservableEventType } from '../shared/observable-event-type';
+import { SpeechBubble } from '../shared/speech-bubble';
 
 @Component({
   selector: 'app-observable',
@@ -18,38 +20,30 @@ export class ObservableComponent {
 
   public onClickNext() {
     this.addToConveyor$.next({
-      type: 'next',
+      type: ObservableEventType.NEXT,
       value: '🍎',
     });
   }
 
   public onClickError() {
     this.addToConveyor$.next({
-      type: 'error',
+      type: ObservableEventType.ERROR,
       value: '🍌',
     });
   }
 
   public onClickComplete() {
     this.addToConveyor$.next({
-      type: 'complete',
+      type: ObservableEventType.COMPLETE,
       value: '🖐️',
     });
   }
 
   public onEventDelivered(element: ElemementInConveyor) {
-    if (element.type === 'error' || element.type === 'complete') {
-      this.speechBubble$.next({
-        message: element.value,
-        color: element.type === 'error' ? '#d00' : '#ffdd00',
-      });
-      this.conveyorWorking$.next(false);
-    } else {
-      this.conveyorWorking$.next(true);
-      this.speechBubble$.next({
-        message: element.value,
-        color: '#0a0',
-      });
-    }
+    this.speechBubble$.next({
+      message: element.value,
+      type: element.type,
+    });
+    this.conveyorWorking$.next(element.type === ObservableEventType.NEXT);
   }
 }

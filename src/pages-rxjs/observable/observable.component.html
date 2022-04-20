@@ -37,7 +37,7 @@ myFirstObservable.subscribe(
     value => console.log(`The next value is: ${value}`),
     error => console.log(`Error: ${error}`),
     () => console.log('The observable has completed')
-)
+);
 
 // Output
 // ======
@@ -90,7 +90,7 @@ new Observable((subscriber) => {
     A continuación te dejo un simulador para que pruebes:
 </p>
 
-<div class="demo">
+<div class="demo-container">
     <app-conveyor-controller class="conveyor-controller" (onClickNext)="onClickNext()" (onClickError)="onClickError()"
         (onClickComplete)="onClickComplete()">
         <ng-container ngProjectAs="[next]">🍎</ng-container>
@@ -102,6 +102,6 @@ new Observable((subscriber) => {
         (elementDelivered)="onEventDelivered($event)">
     </app-conveyor>
 
-    <app-subscriber class="subscriber" [speechBubble$]="speechBubble$" (onSubscribe$)="onSubscribe($event)">
+    <app-subscriber class="subscriber" [showSpeechBubble$]="speechBubble$" (onSubscribe$)="onSubscribe($event)">
     </app-subscriber>
 </div>
