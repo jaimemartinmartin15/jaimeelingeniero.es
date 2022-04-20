@@ -11,7 +11,7 @@ export class ConveyorControllerComponent {
   public readonly ObservableEventType = ObservableEventType;
 
   @Input()
-  public id: string = '';
+  public controllerId: string;
 
   @Input()
   public button1: PickElementInConveyor;
@@ -29,7 +29,7 @@ export class ConveyorControllerComponent {
   public button5: PickElementInConveyor;
 
   @Output()
-  public onIdClick = new EventEmitter<string>();
+  public onControllerIdClick = new EventEmitter<string>();
 
   @Output()
   public onButtonClick = new EventEmitter<PickElementInConveyor>();

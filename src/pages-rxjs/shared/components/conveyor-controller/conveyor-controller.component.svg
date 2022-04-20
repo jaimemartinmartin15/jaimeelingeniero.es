@@ -9,7 +9,7 @@
   <path fill="url(#controller-background)" stroke="#000" stroke-width="3" d="M107,24C146,29 146,29 186,24C230,-25 271,15 281,62C307,170 298,213 277,216C205,217 242,167 150,166C56,167 95,217 23,216C2,213 -7,170 19,62C29,15 70,-25 107,24" />
 
   <!-- id of the controller -->
-  <text class="text" x="150" y="65" (click)="onIdClick.emit(id)">{{id}}</text>
+  <text *ngIf="controllerId" class="text" x="150" y="65" (click)="onControllerIdClick.emit(controllerId)">{{controllerId}}</text>
 
   <!-- top left button -->
   <g *ngIf="button1" class="controller-button" (click)="onControllerButtonClick(button1)">
