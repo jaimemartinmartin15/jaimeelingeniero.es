@@ -64,7 +64,7 @@ numbers$
   A continuación te dejo un simulador para que pruebes:
 </p>
 
-<div class="demo-container">
+<app-demo-container class="demo-container">
   <app-conveyor-controller class="main-conveyor-controller" [button1]="{value: '🚗', type: ObservableEventType.ERROR}"
     [button2]="{value: '🖐️', type: ObservableEventType.COMPLETE}"
     [button3]="{value: '1️⃣', type: ObservableEventType.NEXT}"
@@ -96,4 +96,4 @@ numbers$
 
   <app-subscriber class="subscriber" [showSpeechBubble$]="speechBubble$" (onSubscribe$)="onSubscribe($event)">
   </app-subscriber>
-</div>
+</app-demo-container>
