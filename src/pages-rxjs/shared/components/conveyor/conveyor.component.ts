@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { BehaviorSubject, distinctUntilChanged, filter, interval, Observable, Subscription } from 'rxjs';
 import { ElemementInConveyor } from '../../element-in-conveyor';
 import { ObservableEventType } from '../../observable-event-type';
+import { DemoContainerComponent } from '../demo-container/demo-container.component';
 
 @Component({
   selector: 'app-conveyor',
@@ -15,6 +16,12 @@ export class ConveyorComponent implements OnInit {
 
   private conveyorWorkingSubscription: Subscription;
   private readonly charOffset = 5;
+
+  public constructor(private readonly demo: DemoContainerComponent) {
+    if (demo == null) {
+      throw new Error('Cannot create ConveyorComponent outside a <app-demo-container> component');
+    }
+  }
 
   @Input()
   public conveyorRotation: 'left' | 'right' = 'right';
@@ -57,13 +64,13 @@ export class ConveyorComponent implements OnInit {
   }
 
   private startConveyor() {
-    this.conveyorWorkingSubscription = interval(40).subscribe(() => {
-      this.conveyorRotation === 'right' ? this.strokeDashoffset-- : this.strokeDashoffset++;
+    this.conveyorWorkingSubscription = interval(1000/60).subscribe(() => {
+      this.conveyorRotation === 'right' ? (this.strokeDashoffset -= this.demo.speed) : (this.strokeDashoffset += this.demo.speed);
 
       // moves the elements to the correct side
       for (let i = 0; i < this.elementsInConveyor.length; i++) {
         const elementInConveyor = this.elementsInConveyor[i];
-        this.conveyorRotation === 'right' ? elementInConveyor.offset!++ : elementInConveyor.offset!--;
+        this.conveyorRotation === 'right' ? (elementInConveyor.offset += this.demo.speed) : (elementInConveyor.offset -= this.demo.speed);
 
         // checks if has to be removed from the list
         const valueOffset = elementInConveyor.value.length * this.charOffset;

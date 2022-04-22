@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { BehaviorSubject, distinctUntilChanged, filter, interval, Observable, Subscription } from 'rxjs';
 import { ElemementInConveyor } from '../../element-in-conveyor';
 import { ObservableEventType } from '../../observable-event-type';
+import { DemoContainerComponent } from '../demo-container/demo-container.component';
 
 @Component({
   selector: 'app-conveyor-vertical',
@@ -11,7 +12,7 @@ import { ObservableEventType } from '../../observable-event-type';
 export class ConveyorVerticalComponent implements OnInit {
   public viewBox: string;
   public elementsInConveyor: ElemementInConveyor[] = [];
-  
+
   private conveyorWorkingSubscription: Subscription;
   public offsetLineInConveyor = 0;
   private readonly charOffset = 25;
@@ -28,6 +29,12 @@ export class ConveyorVerticalComponent implements OnInit {
 
   @Output()
   public elementDelivered = new EventEmitter<ElemementInConveyor>();
+
+  public constructor(private readonly demo: DemoContainerComponent) {
+    if (demo == null) {
+      throw new Error('Cannot create ConveyorVerticalComponent outside a <app-demo-container> component');
+    }
+  }
 
   ngOnInit(): void {
     this.viewBox = `0 0 65 ${this.length}`;
@@ -53,13 +60,13 @@ export class ConveyorVerticalComponent implements OnInit {
   }
 
   private startConveyor() {
-    this.conveyorWorkingSubscription = interval(40).subscribe(() => {
-      this.offsetLineInConveyor < -8 ? (this.offsetLineInConveyor = 0) : this.offsetLineInConveyor--;
+    this.conveyorWorkingSubscription = interval(1000 / 60).subscribe(() => {
+      this.offsetLineInConveyor < -9 ? (this.offsetLineInConveyor = 0) : (this.offsetLineInConveyor -= this.demo.speed);
 
       // moves the elements
       for (let i = 0; i < this.elementsInConveyor.length; i++) {
         const elementInConveyor = this.elementsInConveyor[i];
-        elementInConveyor.offset!++;
+        elementInConveyor.offset += this.demo.speed;
 
         // checks if has to be removed from the list
         const removeAtPosition = this.length * (elementInConveyor.removeAt! / 100);
