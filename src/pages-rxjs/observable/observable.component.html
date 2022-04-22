@@ -98,9 +98,9 @@ new Observable((subscriber) => {
         [button5]="{value: '🍎', type: ObservableEventType.NEXT}" (onButtonClick)="onControllerButtonClick($event)">
     </app-conveyor-controller>
 
-    <app-conveyor class="conveyor" [conveyorWorking$]="conveyorWorking$" [addToConveyor$]="addToConveyor$"
+    <app-conveyor-horizontal class="conveyor" [conveyorWorking$]="conveyorWorking$" [addToConveyor$]="addToConveyor$"
         (elementDelivered)="onEventDelivered($event)">
-    </app-conveyor>
+    </app-conveyor-horizontal>
 
     <app-subscriber class="subscriber" [showSpeechBubble$]="speechBubble$" (onSubscribe$)="onSubscribe($event)">
     </app-subscriber>

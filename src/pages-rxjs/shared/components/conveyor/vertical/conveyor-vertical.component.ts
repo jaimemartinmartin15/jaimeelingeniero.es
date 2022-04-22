@@ -1,8 +1,8 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { BehaviorSubject, distinctUntilChanged, filter, interval, Observable, Subscription } from 'rxjs';
-import { ElemementInConveyor } from '../../element-in-conveyor';
-import { ObservableEventType } from '../../observable-event-type';
-import { DemoContainerComponent } from '../demo-container/demo-container.component';
+import { ElemementInConveyor } from '../../../element-in-conveyor';
+import { ObservableEventType } from '../../../observable-event-type';
+import { DemoContainerComponent } from '../../demo-container/demo-container.component';
 
 @Component({
   selector: 'app-conveyor-vertical',

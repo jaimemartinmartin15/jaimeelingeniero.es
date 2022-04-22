@@ -89,9 +89,9 @@ numbers$
       </div>
     </div>
 
-    <app-conveyor class="main-conveyor" [length]="499.5" [conveyorWorking$]="mainConveyorWorking$"
+    <app-conveyor-horizontal class="main-conveyor" [length]="499.5" [conveyorWorking$]="mainConveyorWorking$"
       [addToConveyor$]="addToMainConveyor$" (elementDelivered)="onMainElementDelivered($event)">
-    </app-conveyor>
+    </app-conveyor-horizontal>
   </div>
 
   <app-subscriber class="subscriber" [showSpeechBubble$]="speechBubble$" (onSubscribe$)="onSubscribe($event)">

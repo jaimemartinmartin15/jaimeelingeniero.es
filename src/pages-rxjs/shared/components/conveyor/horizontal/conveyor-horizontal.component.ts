@@ -1,15 +1,15 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { BehaviorSubject, distinctUntilChanged, filter, interval, Observable, Subscription } from 'rxjs';
-import { ElemementInConveyor } from '../../element-in-conveyor';
-import { ObservableEventType } from '../../observable-event-type';
-import { DemoContainerComponent } from '../demo-container/demo-container.component';
+import { ElemementInConveyor } from '../../../element-in-conveyor';
+import { ObservableEventType } from '../../../observable-event-type';
+import { DemoContainerComponent } from '../../demo-container/demo-container.component';
 
 @Component({
-  selector: 'app-conveyor',
-  templateUrl: './conveyor.component.svg',
-  styleUrls: ['./conveyor.component.scss'],
+  selector: 'app-conveyor-horizontal',
+  templateUrl: './conveyor-horizontal.component.svg',
+  styleUrls: ['./conveyor-horizontal.component.scss'],
 })
-export class ConveyorComponent implements OnInit {
+export class ConveyorHorizontalComponent implements OnInit {
   public viewBox: string;
   public strokeDashoffset = 0;
   public elementsInConveyor: ElemementInConveyor[] = [];
