@@ -1,11 +1,13 @@
 <svg [attr.viewBox]="viewBox">
-  <text *ngFor="let element of elementsInConveyor" text-anchor="middle" [attr.x]="element.offset" y="0" dy="1.4em" font-size="1em">
-      {{element.value}}
+  <rect x="2" y="62" [attr.width]="length - 4" height="30" rx="15" ry="15" stroke="#888" fill="#ddd" stroke-width="1" />
+  <rect x="2" y="62" [attr.width]="length - 4" height="30" rx="15" ry="15" stroke="#888" fill="none" stroke-dasharray="5.07" stroke-width="4" [attr.stroke-dashoffset]="strokeDashoffset" />
+
+  <line x1="40" y1="90" x2="40" y2="110" stroke="#000" stroke-width="10" stroke-linecap="round" />
+  <line [attr.x1]=" length -40" y1="90" [attr.x2]=" length -40" y2="110" stroke="#000" stroke-width="10" stroke-linecap="round" />
+
+  <ng-content select="svg[appOperator]"></ng-content>
+
+  <text *ngFor="let element of elementsInConveyor" text-anchor="middle" [attr.x]="element.offset" y="56" font-size="1em">
+    {{element.value}}
   </text>
-
-  <rect x="2" y="32" [attr.width]="length - 4" height="30" rx="15" ry="15" stroke="#888" fill="#ddd" stroke-width="1" />
-  <rect x="2" y="32" [attr.width]="length - 4" height="30" rx="15" ry="15" stroke="#888" fill="none" stroke-dasharray="5.07" stroke-width="4" [attr.stroke-dashoffset]="strokeDashoffset" />
-
-  <line x1="40" y1="60" x2="40" y2="80" stroke="#000" stroke-width="10" stroke-linecap="round" />
-  <line [attr.x1]=" length -40" y1="60" [attr.x2]=" length -40" y2="80" stroke="#000" stroke-width="10" stroke-linecap="round" />
 </svg>

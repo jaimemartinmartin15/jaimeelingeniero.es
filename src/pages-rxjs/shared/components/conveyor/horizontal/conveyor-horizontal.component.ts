@@ -39,7 +39,7 @@ export class ConveyorHorizontalComponent implements OnInit {
   public elementDelivered = new EventEmitter<ElemementInConveyor>();
 
   ngOnInit(): void {
-    this.viewBox = `0 0 ${this.length} 85`;
+    this.viewBox = `0 0 ${this.length} 115`;
 
     this.conveyorWorking$.pipe(distinctUntilChanged()).subscribe((working) => {
       if (working) {
@@ -64,7 +64,7 @@ export class ConveyorHorizontalComponent implements OnInit {
   }
 
   private startConveyor() {
-    this.conveyorWorkingSubscription = interval(1000/60).subscribe(() => {
+    this.conveyorWorkingSubscription = interval(1000 / 60).subscribe(() => {
       this.conveyorRotation === 'right' ? (this.strokeDashoffset -= this.demo.speed) : (this.strokeDashoffset += this.demo.speed);
 
       // moves the elements to the correct side
