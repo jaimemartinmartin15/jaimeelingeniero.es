@@ -1,0 +1,23 @@
+:host {
+    padding: 20px;
+    border-radius: 5px;
+    background-color: #fbfbff;
+    box-shadow: 0 0 5px #d17515;
+    position: relative;
+}
+
+.speed-control {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 30px;
+    height: 30px;
+    border: 2px solid #fbf2e2;
+    border-radius: 5px;
+    background-color: #d17515;
+    color: #fbf2e2;
+    cursor: pointer;
+}

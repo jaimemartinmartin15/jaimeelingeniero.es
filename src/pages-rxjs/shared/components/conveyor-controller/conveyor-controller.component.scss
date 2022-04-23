@@ -2,7 +2,31 @@
     display: inline-block;
 }
 
-.button-controller {
+.text {
     cursor: pointer;
+    font-family: monospace;
+    font-size: 1.8em;
     text-anchor: middle;
+}
+
+.controller-button {
+    cursor: pointer;
+}
+
+.next-button {
+    fill: #bfb;
+    stroke: #0a0;
+    stroke-width: 3;
+}
+
+.error-button {
+    fill: #fbb;
+    stroke: #d00;
+    stroke-width: 3;
+}
+
+.complete-button {
+    fill: #ffeeaa;
+    stroke: #ffdd00;
+    stroke-width: 3;
 }

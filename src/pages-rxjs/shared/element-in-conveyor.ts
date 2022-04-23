@@ -7,3 +7,5 @@ export interface ElemementInConveyor {
   removeAt?: number; // percentage
   offset: number; // absolute
 }
+
+export type PickElementInConveyor = Pick<ElemementInConveyor, 'value' | 'type'>;
