@@ -28,3 +28,13 @@
         font-size: 1.3em;
     }
 }
+
+@media (max-width: 1200px) {
+    :host {
+        display: block;
+    }
+
+    .pages {
+        padding: 0 20px;
+    }
+}
