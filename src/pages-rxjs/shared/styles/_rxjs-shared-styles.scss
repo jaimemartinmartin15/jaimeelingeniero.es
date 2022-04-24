@@ -9,3 +9,20 @@
         text-decoration: none;
     }
 }
+
+@media (max-width: 1200px) {
+    .page-header {
+        margin-top: 0;
+    }
+}
+
+@media (max-width: 576px) {
+    .page-header {
+        display: block;
+        margin-bottom: 30px;
+
+        .title {
+            margin-bottom: 5px;
+        }
+    }
+}

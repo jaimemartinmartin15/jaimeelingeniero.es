@@ -7,24 +7,54 @@
 }
 
 .left-menu {
-    display: flex;
-    flex-direction: column;
-    padding: 20px 50px;
-    margin: 0 30px 0 0;
+    margin: 30px 50px 20px 20px;
 
-    a {
-        margin: 30px 0 0 0;
-        text-decoration: none;
-        color: black;
-        transition: 0.5s;
+    .links {
+        display: flex;
+        flex-direction: column;
 
-        &:hover:not(.menu-section-active) {
-            font-size: 1.1em;
+        a {
+            margin: 30px 0 0 0;
+            text-decoration: none;
+            color: black;
+            transition: 0.5s;
+
+            &:hover:not(.menu-section-active) {
+                font-size: 1.1em;
+            }
+        }
+
+        .menu-section-active {
+            color: #d17515;
+            font-size: 1.3em;
+        }
+    }
+}
+
+@media (max-width: 1200px) {
+    :host {
+        display: block;
+    }
+
+    .left-menu {
+        .collapsable-link {
+            cursor: pointer;
+            text-decoration: underline;
+        }
+
+        .links {
+            margin-left: 10px;
+            max-height: 150px; // adapt depending the number of links
+            transition: 0.6s;
+            overflow-y: hidden;
+
+            &--collapsed {
+                max-height: 0;
+            }
         }
     }
 
-    .menu-section-active {
-        color: #d17515;
-        font-size: 1.3em;
+    .pages {
+        padding: 0 20px;
     }
 }

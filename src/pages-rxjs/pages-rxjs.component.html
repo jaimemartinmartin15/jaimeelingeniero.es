@@ -1,8 +1,11 @@
-<nav class="left-menu">
-  <a [routerLink]="['/comprende-rxjs/observable']" routerLinkActive="menu-section-active">observable</a>
-  <a [routerLink]="['/comprende-rxjs/mergeMap']" routerLinkActive="menu-section-active">mergeMap</a>
-  <!-- <a [routerLink]="['/comprende-rxjs/concatMap']" routerLinkActive="menu-section-active">concatMap</a>
-  <a [routerLink]="['/comprende-rxjs/switchMap']" routerLinkActive="menu-section-active">switchMap</a> -->
-</nav>
+<div class="left-menu">
+  <div class="collapsable-link" *ngIf="isSmallerThanDesktop" (click)="collapse()">Contenido</div>
+  <nav class="links" [ngClass]="{'links--collapsed': linksCollapsed}">
+    <a [routerLink]="['/comprende-rxjs/observable']" routerLinkActive="menu-section-active">observable</a>
+    <a [routerLink]="['/comprende-rxjs/mergeMap']" routerLinkActive="menu-section-active">mergeMap</a>
+  </nav>
+</div>
 
-<router-outlet></router-outlet>
+<div class="pages">
+  <router-outlet></router-outlet>
+</div>
