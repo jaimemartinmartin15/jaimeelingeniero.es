@@ -22,19 +22,19 @@
     display: flex;
     justify-content: center;
     align-items: flex-end;
-    gap: 2%;
+    gap: 4%;
 
     .conveyor-controller {
-        min-width: 24%;
+        min-width: 16%;
         margin-bottom: 4%;
     }
 
     .conveyor {
-        min-width: 48%;
+        min-width: 34%;
         margin-bottom: 1%;
     }
 
     .subscriber {
-        min-width: 24%;
+        min-width: 16%;
     }
 }
