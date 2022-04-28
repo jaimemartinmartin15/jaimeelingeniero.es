@@ -75,7 +75,9 @@ export class ConcatMapComponent {
       this.addToMainConveyor$.next(element);
     } else if (element.type === ObservableEventType.COMPLETE) {
       this.concatMapObservables.splice(index, 1);
-      this.concatMapObservables[0].conveyorWorking$.next(true);
+      if (this.concatMapObservables.length >= 1) {
+        this.concatMapObservables[0].conveyorWorking$.next(true);
+      }
     } else {
       this.addToMainConveyor$.next(element);
       this.concatMapObservables.splice(index, 1);
