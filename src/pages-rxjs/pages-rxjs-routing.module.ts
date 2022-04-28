@@ -9,22 +9,26 @@ const routes: Routes = [
     children: [
       {
         path: 'observable',
-        loadChildren: () => import('./observable/observable.module').then(m => m.ObservableModule)
+        loadChildren: () => import('./observable/observable.module').then((m) => m.ObservableModule),
       },
       {
         path: 'mergeMap',
-        loadChildren: () => import('./merge-map/merge-map.module').then(m => m.MergeMapModule)
+        loadChildren: () => import('./merge-map/merge-map.module').then((m) => m.MergeMapModule),
+      },
+      {
+        path: 'concatMap',
+        loadChildren: () => import('./concat-map/concat-map.module').then((m) => m.ConcatMapModule),
       },
       {
         path: '',
-        redirectTo: 'observable'
+        redirectTo: 'observable',
       },
       {
         path: '**',
         redirectTo: 'observable',
-        pathMatch: 'full'
+        pathMatch: 'full',
       },
-    ]
+    ],
   },
   {
     path: '**',

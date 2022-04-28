@@ -1,16 +1,17 @@
 <div class="page-header">
-  <h1 class="title">MergeMap</h1>
-  <a class="link-rxjs" href="https://rxjs.dev/api/operators/mergeMap" target="_blank">rxjs mergeMap ➡️</a>
+  <h1 class="title">ConcatMap</h1>
+  <a class="link-rxjs" href="https://rxjs.dev/api/operators/concatMap" target="_blank">rxjs concatMap ➡️</a>
 </div>
 
 <p>
-  Este operador coge cada uno de los elementos emitidos por un Observable fuente y devuelve un nuevo Observable por
-  cada elemento, cuyos elementos emitidos serán puestos de nuevo en el observable fuente y que serán los que se entregen
-  al subscriptor.
+  Este operador coge cada uno de los elementos emitidos por un Observable fuente y devuelve, por orden, un nuevo
+  Observable por cada elemento. Es decir, hasta que no se completa el nuevo Observable, no crea uno nuevo para el
+  siguiente elemento en el Observable fuente. Los elementos del nuevo Observable son puestos en el Obsevable fuente
+  y son entregados al subscriptor.
 </p>
 
 <textarea highlight-js [lang]="'typescript'">
-import { Observable, mergeMap } from 'rxjs';
+import { Observable, concatMap } from 'rxjs';
 
 // This is the source observable
 const numbers$ = new Observable<number>((observer) => {
@@ -23,7 +24,7 @@ const numbers$ = new Observable<number>((observer) => {
 // Use the pipe method to add operators
 numbers$
   .pipe(
-    mergeMap(
+    concatMap(
       (number) =>
         new Observable((observer) => {
           if (number === 0) {
@@ -49,23 +50,24 @@ numbers$
 
 // Output
 // ======
-// The next value is: 🍎🍎
-// The next value is: 🍎🍎🍎
 // The next value is: 🍎
+// The next value is: 🍎🍎
 // There is an error: No existences
 </textarea>
 
 <p>
   En este ejemplo tenemos un Observable que emite números, y por cada número tenemos otro observable que nos emite
   tantas manzanas como diga ese número. En el momento que hay un error en cualquiera de los Observables este se emite al
-  subscriptor y todos los Observables pendientes se cancelan.
+  subscriptor.
 </p>
 
 <p>
-  Primero se emite el elemento número 1. Este elemento crea un Observable que emitirá una manzana pasado un segundo. A
-  continuación se emite el elemento número 2. Este se resuelve inmediatamente y se entrega al subscriptor. Lo mismo con
-  el elemento número 3. Después se recibe el elemento número 0 que emitirá un error pasado un segundo. Finalmente al
-  cabo de un segundo el elemento número 1 se resuelve y después el error.
+  Primero se emite el elemento número 1. Entonces se crea un nuevo observable y al cabo de un segundo se emite una
+  manzana. A continuación se emite el elemento número 2, pero las dos manzanas no serán entregadas hasta que se emita la
+  primera manzana, porque hasta que no complete el primer Observable, no se subcribe al siguiente. Lo mismo pasa con el
+  elemento número 0. Hasta que no se emita la primera manzana y luego las otras dos, no se producirá el error. Al
+  Observable creado por el elemento número 3 no se llegará a subscribir ni emitir las tres manzanas, porque antes se
+  producirá el error con el elemento número 0.
 </p>
 
 <p>
@@ -81,18 +83,18 @@ numbers$
   </app-conveyor-controller>
 
   <div class="conveyors-container">
-    <div class="mergemap-conveyors-container">
-      <div class="merge-map-conveyor-and-controller" *ngFor="let observable of mergeMapObservables; let i = index"
+    <div class="concatmap-conveyors-container">
+      <div class="concat-map-conveyor-and-controller" *ngFor="let observable of concatMapObservables; let i = index"
         [@observableAnimation]>
-        <app-conveyor-controller class="merge-map-conveyor-controller"
+        <app-conveyor-controller class="concat-map-conveyor-controller"
           [button1]="{value: '🚗', type: ObservableEventType.ERROR}"
           [button3]="{value: '🖐️', type: ObservableEventType.COMPLETE}"
           [button4]="{value: observable.value, type: ObservableEventType.NEXT}"
-          (onButtonClick)="onMergeMapControllerButtonClick($event, i)">
+          (onButtonClick)="onConcatMapControllerButtonClick($event, i)">
         </app-conveyor-controller>
 
-        <app-conveyor-vertical class="merge-map-conveyor" [conveyorWorking$]="observable.conveyorWorking$"
-          [addToConveyor$]="observable.addToConveyor$" (elementDelivered)="onMergeMapElementDelivered($event, i)">
+        <app-conveyor-vertical class="concat-map-conveyor" [conveyorWorking$]="observable.conveyorWorking$"
+          [addToConveyor$]="observable.addToConveyor$" (elementDelivered)="onConcatMapElementDelivered($event, i)">
         </app-conveyor-vertical>
       </div>
     </div>
