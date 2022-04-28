@@ -20,6 +20,10 @@ const routes: Routes = [
         loadChildren: () => import('./concat-map/concat-map.module').then((m) => m.ConcatMapModule),
       },
       {
+        path: 'switchMap',
+        loadChildren: () => import('./switch-map/switch-map.module').then((m) => m.SwitchMapModule),
+      },
+      {
         path: '',
         redirectTo: 'observable',
       },

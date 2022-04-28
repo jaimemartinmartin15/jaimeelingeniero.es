@@ -59,7 +59,6 @@ export class ConcatMapComponent {
         message: element.value,
         type: element.type,
       });
-      this.concatMapObservables.length = 0;
       this.mainConveyorWorking$.next(false);
       this.concatMapObservables.length = 0;
     }
