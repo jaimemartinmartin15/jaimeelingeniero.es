@@ -59,7 +59,6 @@ export class MergeMapComponent {
         message: element.value,
         type: element.type,
       });
-      this.mergeMapObservables.length = 0;
       this.mainConveyorWorking$.next(false);
       this.mergeMapObservables.length = 0;
     }

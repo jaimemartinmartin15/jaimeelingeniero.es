@@ -6,7 +6,8 @@
 <p>
   Este operador coge cada uno de los elementos emitidos por un Observable fuente y devuelve un nuevo Observable por
   cada elemento, cuyos elementos emitidos serán puestos de nuevo en el observable fuente y que serán los que se entregen
-  al subscriptor.
+  al subscriptor. En el momento en el que un nuevo elemento es emitido en el Observable fuente, se cancela el Observable
+  creado del elemento anterior y se suscribe al nuevo.
 </p>
 
 <textarea highlight-js [lang]="'typescript'">
@@ -51,8 +52,6 @@ numbers$
 // ======
 // The next value is: 🍎🍎
 // The next value is: 🍎🍎🍎
-// The next value is: 🍎
-// There is an error: No existences
 </textarea>
 
 <p>
@@ -63,9 +62,10 @@ numbers$
 
 <p>
   Primero se emite el elemento número 1. Este elemento crea un Observable que emitirá una manzana pasado un segundo. A
-  continuación se emite el elemento número 2. Este se resuelve inmediatamente y se entrega al subscriptor. Lo mismo con
-  el elemento número 3. Después se recibe el elemento número 0 que emitirá un error pasado un segundo. Finalmente al
-  cabo de un segundo el elemento número 1 se resuelve y después el error.
+  continuación se emite el elemento número 2. Esto provoca que el Observable que emitía una manzana se cancele y hace
+  que se emitan las dos manzanas inmediatamente. El Observable del número 2 completa y se emite el número 0, que emitirá
+  un error al cabo de un segundo. Pero entonces se emite el número 3, que cancela el Observable que emite el error y se
+  emiten las tres manzanas.
 </p>
 
 <p>
@@ -82,17 +82,17 @@ numbers$
 
   <div class="conveyors-container">
     <div class="switchmap-conveyors-container">
-      <div class="switch-map-conveyor-and-controller" *ngFor="let observable of switchMapObservables; let i = index"
+      <div class="switch-map-conveyor-and-controller" *ngFor="let observable of switchMapObservables"
         [@observableAnimation]>
         <app-conveyor-controller class="switch-map-conveyor-controller"
           [button1]="{value: '🚗', type: ObservableEventType.ERROR}"
           [button3]="{value: '🖐️', type: ObservableEventType.COMPLETE}"
           [button4]="{value: observable.value, type: ObservableEventType.NEXT}"
-          (onButtonClick)="onSwitchMapControllerButtonClick($event, i)">
+          (onButtonClick)="onSwitchMapControllerButtonClick($event)">
         </app-conveyor-controller>
 
         <app-conveyor-vertical class="switch-map-conveyor" [conveyorWorking$]="observable.conveyorWorking$"
-          [addToConveyor$]="observable.addToConveyor$" (elementDelivered)="onSwitchMapElementDelivered($event, i)">
+          [addToConveyor$]="observable.addToConveyor$" (elementDelivered)="onSwitchMapElementDelivered($event)">
         </app-conveyor-vertical>
       </div>
     </div>

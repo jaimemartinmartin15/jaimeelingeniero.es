@@ -53,31 +53,33 @@ export class SwitchMapComponent {
           addToConveyor$: new Subject(),
           value: '🍎'.repeat(['1️⃣', '2️⃣', '3️⃣'].indexOf(element.value) + 1),
         });
+        if (this.switchMapObservables.length === 2) {
+          this.switchMapObservables.splice(0, 1);
+        }
       }
     } else {
       this.speechBubble$.next({
         message: element.value,
         type: element.type,
       });
-      this.switchMapObservables.length = 0;
       this.mainConveyorWorking$.next(false);
       this.switchMapObservables.length = 0;
     }
   }
 
-  public onSwitchMapControllerButtonClick(element: PickElementInConveyor, index: number) {
-    this.switchMapObservables[index].addToConveyor$.next(element);
+  public onSwitchMapControllerButtonClick(element: PickElementInConveyor) {
+    this.switchMapObservables[0].addToConveyor$.next(element);
   }
 
-  public onSwitchMapElementDelivered(element: ElemementInConveyor, index: number) {
+  public onSwitchMapElementDelivered(element: ElemementInConveyor) {
     element.startAt = 50;
     if (element.type === ObservableEventType.NEXT) {
       this.addToMainConveyor$.next(element);
     } else if (element.type === ObservableEventType.COMPLETE) {
-      this.switchMapObservables.splice(index, 1);
+      this.switchMapObservables.splice(0, 1);
     } else {
       this.addToMainConveyor$.next(element);
-      this.switchMapObservables.splice(index, 1);
+      this.switchMapObservables.splice(0, 1);
     }
   }
 }
