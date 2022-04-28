@@ -14,20 +14,27 @@ import { Observable, mergeMap } from 'rxjs';
 
 // This is the source observable
 const numbers$ = new Observable<number>((observer) => {
+  observer.next(1);
   observer.next(2);
-  observer.next(3);
   observer.next(0);
-  observer.next(4);
+  observer.next(3);
 });
 
-// use the pipe method to add operators
+// Use the pipe method to add operators
 numbers$
   .pipe(
     mergeMap(
       (number) =>
         new Observable((observer) => {
           if (number === 0) {
-            observer.error('No existences');
+            setTimeout(() => {
+              observer.error('No existences');
+            }, 1000);
+          } else if (number == 1) {
+            setTimeout(() => {
+              observer.next('🍎'.repeat(number));
+              observer.complete();
+            }, 1000);
           } else {
             observer.next('🍎'.repeat(number));
             observer.complete();
@@ -44,20 +51,21 @@ numbers$
 // ======
 // The next value is: 🍎🍎
 // The next value is: 🍎🍎🍎
+// The next value is: 🍎
 // There is an error: No existences
 </textarea>
 
 <p>
   En este ejemplo tenemos un Observable que emite números, y por cada número tenemos otro observable que nos emite
   tantas manzanas como diga ese número. En el momento que hay un error en cualquiera de los Observables este se emite al
-  subscriptor.
+  subscriptor y todos los Observables pendientes se cancelan.
 </p>
 
 <p>
-  En este caso tan sencillo los elementos se emiten de forma síncrona, pero cuando hacemos alguna llamada real a algún
-  servidor podría emitir en otro orden, es decir, el Observable fuente pide primero dos manzanas y el Observable del
-  mergeMap las emite inmediatamente, pero en una llamada real esto quedaría a la espera y se emitiría el número tres,
-  pudiendo resolverse antes y entregando antes las tres manzanas que las dos que estamos esperando.
+  Primero se emite el elemento número 1. Este elemento crea un Observable que emitirá una manzana pasado un segundo. A
+  continuación se emite el elemento número 2. Este se resuelve inmediatamente y se entrega al subscriptor. Lo mismo con
+  el elemento número 3. Después se recibe el elemento número 0 que emitirá un error pasado un segundo. Finalmente al
+  cabo de un segundo el elemento número 1 se resuelve y después el error.
 </p>
 
 <p>

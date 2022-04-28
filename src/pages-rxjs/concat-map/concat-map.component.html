@@ -15,20 +15,27 @@ import { Observable, concatMap } from 'rxjs';
 
 // This is the source observable
 const numbers$ = new Observable<number>((observer) => {
+  observer.next(1);
   observer.next(2);
-  observer.next(3);
   observer.next(0);
-  observer.next(4);
+  observer.next(3);
 });
 
-// use the pipe method to add operators
+// Use the pipe method to add operators
 numbers$
   .pipe(
     concatMap(
       (number) =>
         new Observable((observer) => {
           if (number === 0) {
-            observer.error('No existences');
+            setTimeout(() => {
+              observer.error('No existences');
+            }, 1000);
+          } else if (number == 1) {
+            setTimeout(() => {
+              observer.next('🍎'.repeat(number));
+              observer.complete();
+            }, 1000);
           } else {
             observer.next('🍎'.repeat(number));
             observer.complete();
@@ -43,8 +50,8 @@ numbers$
 
 // Output
 // ======
+// The next value is: 🍎
 // The next value is: 🍎🍎
-// The next value is: 🍎🍎🍎
 // There is an error: No existences
 </textarea>
 
@@ -55,8 +62,12 @@ numbers$
 </p>
 
 <p>
-  Al contrario que podía pasar con el mergeMap, si primero se emite el número 2, el operador concatMap nos asegura que
-  se entregarán primero las dos manzanas al subscriptor, incluso si el observable fuente emite el siguiente número.
+  Primero se emite el elemento número 1. Entonces se crea un nuevo observable y al cabo de un segundo se emite una
+  manzana. A continuación se emite el elemento número 2, pero las dos manzanas no serán entregadas hasta que se emita la
+  primera manzana, porque hasta que no complete el primer Observable, no se subcribe al siguiente. Lo mismo pasa con el
+  elemento número 0. Hasta que no se emita la primera manzana y luego las otras dos, no se producirá el error. Al
+  Observable creado por el elemento número 3 no se llegará a subscribir ni emitir las tres manzanas, porque antes se
+  producirá el error con el elemento número 0.
 </p>
 
 <p>
