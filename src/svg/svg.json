@@ -20,6 +20,8 @@
         {
             "name": "TopNavigationSvg",
             "files": [
+                "jame-logo",
+                "learning-icon",
                 "gmail-logo",
                 "github-logo",
                 "linked-in-logo"

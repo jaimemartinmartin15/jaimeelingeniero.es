@@ -1,0 +1,10 @@
+<svg>
+    <path stroke="#000" stroke-width="5" fill="#EEc" d="M2,20L2,90 98,90 98,20C90,12 75,8 65,12L35,12C25,8 10,12 0,20" />
+    <path stroke="#000" stroke-width="5" fill="#EEF" d="M0,90C15,75 35,75 50,90C65,75 85,75 100,90z" />
+    <line stroke="#000" stroke-width="5" x1="50" y1="12" x2="50" y2="90" />
+    <path stroke="#000" stroke-width="5" fill="#888" d="M40,48C40,70 60,70 60,48z" />
+    <path stroke="#000" stroke-width="5" fill="#FF0" d="M60,48C60,40 72,36 70,25C70,-5 30,-5 30,25C28,36 40,40 40,48" />
+    <line stroke="#000" stroke-width="5" x1="50" y1="48" x2="50" y2="35" />
+    <line stroke="#000" stroke-width="5" x1="50" y1="35" x2="40" y2="28" />
+    <line stroke="#000" stroke-width="5" x1="50" y1="35" x2="60" y2="28" />
+</svg>
