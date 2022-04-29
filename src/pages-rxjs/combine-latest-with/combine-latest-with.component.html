@@ -1,15 +1,80 @@
 <div class="page-header">
   <h1 class="title">CombineLatestWith</h1>
-  <a class="link-rxjs" href="https://rxjs.dev/api/operators/combineLatestWith" target="_blank">rxjs combineLatest ➡️</a>
+  <a class="link-rxjs" href="https://rxjs.dev/api/operators/combineLatestWith" target="_blank">rxjs combineLatestWith
+    ➡️</a>
 </div>
 
 <p>
-  Intro aquí
+  Este operador crea un nuevo Observable que combina los últimos elementos emitidos por el Observable fuente y los
+  Observables pasados como argumentos, siempre que todos los Observables hayan emitido al menos un elemento.
 </p>
 
 <textarea highlight-js [lang]="'typescript'">
-  <!-- TODO -->
+import { combineLatestWith, Observable } from 'rxjs';
+
+const observable1 = new Observable((observer) => {
+  setTimeout(() => observer.next('🍎'), 100);
+  setTimeout(() => observer.next('🍌'), 200);
+  setTimeout(() => observer.complete(), 600);
+});
+
+const observable2 = new Observable((observer) => {
+  setTimeout(() => observer.next('🍐'), 300);
+  setTimeout(() => observer.next('🍍'), 800);
+  setTimeout(() => observer.complete(), 900);
+});
+
+const source$ = new Observable((observer) => {
+  setTimeout(() => observer.next('🍓'), 400);
+  setTimeout(() => observer.next('🍉'), 500);
+  setTimeout(() => observer.complete(), 700);
+});
+
+source$.pipe(
+  combineLatestWith(observable1, observable2),
+).subscribe({
+  next: (value) => console.log('Next', value),
+  error: (error) => console.log('Error', error),
+  complete: () => console.log('Completed'),
+});
+
+// Output
+// Next ['🍓', '🍌', '🍐']
+// Next ['🍉', '🍌', '🍐']
+// Next ['🍉', '🍌', '🍍']
+// Complete
 </textarea>
+
+<p>
+  Voy a explicar el ejemplo.
+</p>
+
+<p>
+  Tenemos dos Observables que pasamos como argumentos al operador y el Observable fuente. Al subscribirnos al Observable
+  fuente el operador se subscribe también a los dos Observables que le pasamos. Ahora independientemente de que
+  Obsevable emita, se emitirá un nuevo elemento en forma de array al subscriptor con el último elemento que cada
+  Observable haya emitido, siempre y cuando todos los Observables hayan emitido al menos un elemento ya.
+</p>
+
+<p>
+  Por lo tanto, el observable1 emite una 🍎. Como los demás Observables no han emitido nada aún no se emite nada al
+  subscriptor. El observable1 vuelve a emitir un 🍌. Como los demás Observables no han emitido nada aún no se emite
+  nada al subscriptor. El observable2 emite una 🍐. Como el Observable fuente aún queda por emitir no se emite nada al
+  subscriptor. El Obsevable fuente emite una 🍓. Como todos los Observables han emitido un elemento ya, se entrega al
+  subscriptor un array ['🍓', '🍌', '🍐'] con los últimos elementos de cada Observable. El Observable fuente emite una
+  🍉. Por tanto se emite al subscriptor de nuevo los últimos elementos de cada Observable ['🍉', '🍌', '🍐']. Después el
+  observable2 emite una 🍍 y se emite al subscriptor un nuevo array ['🍉', '🍌', '🍍'].
+</p>
+
+<p>
+  Una cosa a tener en cuenta es que el Observable al que se subscribe el subscriptor solo completa cuando todos los
+  Observables han completado. Si alguno de los Observables completa y otro emite un elemento, todavía se entregará un
+  array al subscriptor, incluyendo también el último elemento de los Observables que ya han completado.
+</p>
+
+<p>
+  A continuación te dejo un simulador para que pruebes:
+</p>
 
 <app-demo-container class="demo-container">
   <!-- TODO -->
