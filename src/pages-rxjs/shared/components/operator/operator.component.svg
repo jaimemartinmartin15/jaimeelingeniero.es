@@ -17,4 +17,7 @@
 
   <!-- right arm -->
   <path fill="pink" d="M44 63L40 48L47 48L52 62C52 67 46 67 44 63" />
+
+  <!-- operator name -->
+  <text *ngIf="operatorName" x="25" y="110" text-anchor="middle" font-size="0.6em">{{operatorName}}</text>
 </svg:g>

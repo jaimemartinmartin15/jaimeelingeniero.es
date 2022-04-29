@@ -101,7 +101,7 @@ numbers$
 
     <app-conveyor-horizontal class="main-conveyor" [length]="499.5" [conveyorWorking$]="mainConveyorWorking$"
       [addToConveyor$]="addToMainConveyor$" (elementDelivered)="onMainElementDelivered($event)">
-      <svg appOperator></svg>
+      <svg appOperator="concatMap"></svg>
     </app-conveyor-horizontal>
   </div>
 

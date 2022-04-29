@@ -10,6 +10,9 @@ export class OperatorComponent {
   @Input()
   public position: number = 50;
 
+  @Input("appOperator")
+  public operatorName: string;
+
   public transformation: string = '';
 
   public constructor(conveyor: ConveyorHorizontalComponent) {
