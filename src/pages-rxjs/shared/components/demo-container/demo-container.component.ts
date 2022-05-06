@@ -6,7 +6,7 @@ interface SpeedTuple {
 }
 
 @Component({
-  selector: 'app-demo-container',
+  selector: 'svg[appDemoContainer]',
   templateUrl: './demo-container.component.html',
   styleUrls: ['./demo-container.component.scss'],
 })

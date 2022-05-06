@@ -1,5 +1,6 @@
-<button class="speed-control" (click)="changeSpeed()">
-    {{speeds[currentSpeed].speedDisplay}}
-</button>
+<svg:g (click)="changeSpeed()" class="speed-control">
+    <rect x="15" y="15" rx="5" ry="5" width="45" height="45"></rect>
+    <text x="37.5" y="39" class="speed-number">{{speeds[currentSpeed].speedDisplay}}</text>
+</svg:g>
 
 <ng-content></ng-content>
