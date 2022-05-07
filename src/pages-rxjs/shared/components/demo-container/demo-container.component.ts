@@ -30,4 +30,8 @@ export class DemoContainerComponent {
   public get speed() {
     return this.speeds[this.currentSpeed].speed;
   }
+
+  public get fps() {
+    return 1000 / 60;
+  }
 }

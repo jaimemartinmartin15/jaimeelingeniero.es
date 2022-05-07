@@ -28,10 +28,9 @@ export class ConveyorHorizontalComponent implements OnInit {
   }
 
   public ngOnInit(): void {
-    const FPS = 1000 / 60;
     this.conveyorWorking$.pipe(distinctUntilChanged()).subscribe((working) => {
       if (working) {
-        this.conveyorWorkingSubscription = interval(FPS).subscribe(() => {
+        this.conveyorWorkingSubscription = interval(this.demo.fps).subscribe(() => {
           if (this.conveyorRotation === 'right') {
             this.strokeDashoffset -= this.demo.speed;
           } else {
