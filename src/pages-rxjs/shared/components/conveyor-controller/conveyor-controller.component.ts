@@ -40,7 +40,7 @@ export class ConveyorControllerComponent {
       this.onButtonClick.emit({
         type: button.type,
         value: button.value,
-        controllerId: this.controllerId,
+        controllerId: this.controllerId ?? button.controllerId,
       });
     }
   }

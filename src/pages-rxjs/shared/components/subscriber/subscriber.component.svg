@@ -1,40 +1,39 @@
 <!-- speech bubble -->
 <svg:g>
-  <path fill="none" [attr.stroke]="speechBubbleColor" stroke-width="2" d="M228 101L204,115L245,115C310,147 400,122 398,64C400,7 340,-3 275,3C210,7 185,67 228,101" />
-  <text text-anchor="middle" x="250" y="80" dx="1.2em" font-size="2.2em" fill="#d17515">{{speechBubbleText}}</text>
+  <path fill="none" [attr.stroke]="speechBubbleColor" stroke-width="2" d="M71.96 32.32L64.28 36.8L77.4 36.8C98.2 47.04 127 39.04 126.36 20.48C127 2.24 107.8 -0.96 87 0.96C66.2 2.24 58.2 21.44 71.96 32.32" />
+  <text text-anchor="middle" x="70" y="30" dx="1.2em" font-size="1.2em" fill="#d17515">{{speechBubbleText}}</text>
 </svg:g>
 
 <!-- face background -->
-<svg:path fill="orange" d="M74,120C95,193 177,170 184,121C170,67 170,67 135,54C88,61 88,61 74,120" />
+<svg:path fill="orange" d="M22.68 38.4C29.4 61.76 55.64 54.4 57.88 38.72C53.4 21.44 53.4 21.44 42.2 17.28C27.16 19.52 27.16 19.52 22.68 38.4" />
 
 <!-- hair -->
-<svg:path fill="brown" d="M74,125C62,68 94,38 143,43C178,47 192,88 184,124C170,123 183,98 150,98C116,96 116,96 113,84C109,93 109,93 111,107C97,103 97,103 93,88C82,90 87,129 74,125" />
+<svg:path fill="brown" d="M22.68 40C18.84 21.76 29.08 12.16 44.76 13.76C55.96 15.04 60.44 28.16 57.88 39.68C53.4 39.36 57.56 31.36 47 31.36C36.12 30.72 36.12 30.72 35.16 26.88C33.88 29.76 33.88 29.76 34.52 34.24C30.04 32.96 30.04 32.96 28.76 28.16C25.24 28.8 26.84 41.28 22.68 40" />
 
 <!-- eyes -->
-<svg:circle fill="#000" cx="102" cy="124" r="8" />
-<svg:circle fill="#000" cx="158" cy="124" r="8" />
+<svg:circle fill="#000" cx="33" cy="40" r="2.5" /><svg:circle fill="#000" cx="48" cy="40" r="2.5" />
 
 <!-- t-shirt -->
-<svg:path fill="aquamarine" d="M24,279L64,279L75,251L75,335L185,335L186,251L198,279L234,279C209,188 209,188 156,190L78,190C51,193 51,193 24,279" />
+<svg:path fill="aquamarine" d="M6.68 89.28L19.48 89.28L23 80.32L23 107.2L58.2 107.2L58.52 80.32L62.36 89.28L73.88 89.28C65.88 60.16 65.88 60.16 48.92 60.8L23.96 60.8C15.32 61.76 15.32 61.76 6.68 89.28" />
 
 <!-- left arm -->
-<svg:path fill="orange" d="M5,338L24,279L64,279L42,355C30,389 -5,368 5,338" />
+<svg:path fill="orange" d="M0.6 108.16L6.68 89.28L19.48 89.28L12.44 113.6C8.6 124.48 -2.6 117.76 0.6 108.16" />
 
 <!-- right arm -->
-<svg:path fill="orange" d="M220,357L198,279L234,279L258,348C260,376 230,377 220,357" />
+<svg:path fill="orange" d="M69.4 114.24L62.36 89.28L73.88 89.28L81.56 111.36C82.2 120.32 72.6 120.64 69.4 114.24" />
 
 <!-- pants -->
-<svg:path fill="blue" d="M75,335L185,335L184,517L150,517L150,407C140,379 112,390 110,407L110,517L75,517" />
+<svg:path fill="blue" d="M23 107.2L58.2 107.2L57.88 165.44L47 165.44L47 130.24C43.8 121.28 34.84 124.8 34.2 130.24L34.2 165.44L23 165.44" />
 
 <!-- right boot -->
-<svg:path fill="black" d="M150,517L184,517L185,532C200,537 200,537 200,552L150,552" />
+<svg:path fill="black" d="M47 165.44L57.88 165.44L58.2 170.24C63 171.84 63 171.84 63 176.64L47 176.64" />
 
 <!-- left boot -->
-<svg:path fill="black" d="M110,517L75,517L75,532C57,537 57,537 55,552L110,552" />
+<svg:path fill="black" d="M34.2 165.44L23 165.44L23 170.24C17.24 171.84 17.24 171.84 16.6 176.64L34.2 176.64" />
 
 <!-- subscribe button -->
 <svg:g class="button-subscribe">
-  <rect fill="white" stroke="#d17515" stroke-width="3" x="5" y="563" width="252" height="55" rx="15" ry="15" />
-  <text *ngIf="!isSubscribed" text-anchor="middle" x="135" y="604" font-size="2.2em" fill="#d17515" (click)="subscribe()">subscribe</text>
-  <text *ngIf="isSubscribed" text-anchor="middle" x="135" y="604" font-size="2.2em" fill="#d17515" (click)="unsubscribe()">unsubscribe</text>
+  <rect fill="white" stroke="#d17515" stroke-width="2" x="2" y="185" width="80" height="15" rx="5" ry="5" />
+  <text *ngIf="!isSubscribed" text-anchor="middle" x="43" y="197" font-size="0.75em" fill="#d17515" (click)="subscribe()">subscribe</text>
+  <text *ngIf="isSubscribed" text-anchor="middle" x="43" y="197" font-size="0.75em" fill="#d17515" (click)="unsubscribe()">unsubscribe</text>
 </svg:g>
