@@ -1,9 +1,9 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { PickElementInConveyor } from '../../element-in-conveyor';
 import { ObservableEventType } from '../../observable-event-type';
+import { ButtonController } from './button-controller';
 
 @Component({
-  selector: 'app-conveyor-controller',
+  selector: 'g[appConveyorController]',
   templateUrl: './conveyor-controller.component.svg',
   styleUrls: ['./conveyor-controller.component.scss'],
 })
@@ -14,36 +14,43 @@ export class ConveyorControllerComponent {
   public controllerId: string;
 
   @Input()
-  public button1: PickElementInConveyor;
+  public button1: ButtonController;
 
   @Input()
-  public button2: PickElementInConveyor;
+  public button2: ButtonController;
 
   @Input()
-  public button3: PickElementInConveyor;
+  public button3: ButtonController;
 
   @Input()
-  public button4: PickElementInConveyor;
+  public button4: ButtonController;
 
   @Input()
-  public button5: PickElementInConveyor;
+  public button5: ButtonController;
 
   @Output()
   public onControllerIdClick = new EventEmitter<string>();
 
   @Output()
-  public onButtonClick = new EventEmitter<PickElementInConveyor>();
+  public onButtonClick = new EventEmitter<ButtonController>();
 
-  public onControllerButtonClick(button: PickElementInConveyor) {
-    // return a copy of the value so that same reference is not in the conveyor several times
-    this.onButtonClick.emit({ ...button });
+  public onControllerButtonClick(button: ButtonController) {
+    if (button.enabled !== false) {
+      // return a copy of the value (different reference)
+      this.onButtonClick.emit({
+        type: button.type,
+        value: button.value,
+        controllerId: this.controllerId ?? button.controllerId,
+      });
+    }
   }
 
-  public getButtonClass(button: PickElementInConveyor) {
+  public getButtonClass(button: ButtonController) {
     return {
-      'next-button': button.type === ObservableEventType.NEXT,
-      'error-button': button.type === ObservableEventType.ERROR,
-      'complete-button': button.type === ObservableEventType.COMPLETE,
+      'controller-button--next': button.type === ObservableEventType.NEXT,
+      'controller-button--error': button.type === ObservableEventType.ERROR,
+      'controller-button--complete': button.type === ObservableEventType.COMPLETE,
+      'controller-button--disabled': button.enabled != null && !button.enabled,
     };
   }
 }
