@@ -1,7 +1,7 @@
 <!-- speech bubble -->
 <svg:g>
   <path fill="none" [attr.stroke]="speechBubbleColor" stroke-width="1" d="M71.96 32.32L64.28 36.8L77.4 36.8C98.2 47.04 127 39.04 126.36 20.48C127 2.24 107.8 -0.96 87 0.96C66.2 2.24 58.2 21.44 71.96 32.32" />
-  <text text-anchor="middle" x="97" y="24" font-size="0.55em" fill="#d17515">{{speechBubbleText}}</text>
+  <text text-anchor="middle" x="97" y="24" font-size="0.55em" fill="#000">{{speechBubbleText}}</text>
 </svg:g>
 
 <!-- face background -->
