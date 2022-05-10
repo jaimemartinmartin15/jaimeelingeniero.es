@@ -41,6 +41,7 @@ export class ConveyorControllerComponent {
         type: button.type,
         value: button.value,
         controllerId: this.controllerId ?? button.controllerId,
+        enabled: button.enabled,
       });
     }
   }
@@ -50,7 +51,7 @@ export class ConveyorControllerComponent {
       'controller-button--next': button.type === ObservableEventType.NEXT,
       'controller-button--error': button.type === ObservableEventType.ERROR,
       'controller-button--complete': button.type === ObservableEventType.COMPLETE,
-      'controller-button--disabled': button.enabled != null && !button.enabled,
+      'controller-button--disabled': !button.enabled,
     };
   }
 }

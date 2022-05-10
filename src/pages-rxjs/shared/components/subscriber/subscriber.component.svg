@@ -1,7 +1,7 @@
 <!-- speech bubble -->
 <svg:g>
-  <path fill="none" [attr.stroke]="speechBubbleColor" stroke-width="2" d="M71.96 32.32L64.28 36.8L77.4 36.8C98.2 47.04 127 39.04 126.36 20.48C127 2.24 107.8 -0.96 87 0.96C66.2 2.24 58.2 21.44 71.96 32.32" />
-  <text text-anchor="middle" x="70" y="30" dx="1.2em" font-size="1.2em" fill="#d17515">{{speechBubbleText}}</text>
+  <path fill="none" [attr.stroke]="speechBubbleColor" stroke-width="1" d="M71.96 32.32L64.28 36.8L77.4 36.8C98.2 47.04 127 39.04 126.36 20.48C127 2.24 107.8 -0.96 87 0.96C66.2 2.24 58.2 21.44 71.96 32.32" />
+  <text text-anchor="middle" x="97" y="24" font-size="0.55em" fill="#d17515">{{speechBubbleText}}</text>
 </svg:g>
 
 <!-- face background -->
@@ -33,7 +33,7 @@
 
 <!-- subscribe button -->
 <svg:g class="button-subscribe">
-  <rect fill="white" stroke="#d17515" stroke-width="2" x="2" y="185" width="80" height="15" rx="5" ry="5" />
+  <rect fill="white" stroke="#d17515" stroke-width="1" x="2" y="185" width="80" height="15" rx="5" ry="5" />
   <text *ngIf="!isSubscribed" text-anchor="middle" x="43" y="197" font-size="0.75em" fill="#d17515" (click)="subscribe()">subscribe</text>
   <text *ngIf="isSubscribed" text-anchor="middle" x="43" y="197" font-size="0.75em" fill="#d17515" (click)="unsubscribe()">unsubscribe</text>
 </svg:g>
