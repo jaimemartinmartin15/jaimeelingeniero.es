@@ -35,7 +35,7 @@ export class ObservableComponent implements AfterViewInit {
     interval(this.demo.fps).subscribe(() => {
       this.elementsInConveyor.forEach((e) => {
         e.x += this.demo.speed;
-        if (e.x >= 440) {
+        if (e.x >= 450) {
           this.elementsInConveyor.splice(this.elementsInConveyor.indexOf(e), 1);
           this.speechBubble$.next({
             type: e.type,
@@ -52,6 +52,7 @@ export class ObservableComponent implements AfterViewInit {
   public onSubscribe(isSubscribed: boolean) {
     this.conveyorWorking$.next(isSubscribed);
     this.controllerButtons.forEach((b) => (b.enabled = isSubscribed));
+    this.elementsInConveyor.length = 0;
   }
 
   public onControllerButtonClick(button: ButtonController) {
@@ -62,8 +63,8 @@ export class ObservableComponent implements AfterViewInit {
     this.elementsInConveyor.push({
       type: button.type,
       value: button.value,
-      x: 210,
-      y: 156,
+      x: 220,
+      y: 136,
       conveyorId: button.controllerId,
     });
   }
