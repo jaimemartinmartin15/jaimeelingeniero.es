@@ -1,3 +1,44 @@
+<br>
+
+<svg appDemoContainer viewBox="0 0 850 600">
+  <g appConveyorController transform="translate(50,390)" [button1]="controllerButtons[MAIN][0]"
+    [button2]="controllerButtons[MAIN][1]" [button3]="controllerButtons[MAIN][2]" [button4]="controllerButtons[MAIN][3]"
+    [button5]="controllerButtons[MAIN][4]" (onButtonClick)="onControllerButtonClick($event)">
+  </g>
+
+  <g transform="translate(260, 390)" appConveyorHorizontal [length]="403" [conveyorWorking$]="conveyorsWorking[MAIN]">
+  </g>
+
+  <g appSubscriber transform="translate(690,320)" [showSpeechBubble$]="speechBubble$"
+    (onSubscribe$)="onSubscribe($event)"></g>
+
+  <!-- <div class="conveyors-container">
+    <div class="mergemap-conveyors-container">
+      <div class="merge-map-conveyor-and-controller" *ngFor="let observable of mergeMapObservables; let i = index"
+        [@observableAnimation]>
+        <app-conveyor-controller class="merge-map-conveyor-controller"
+          [button1]="{value: '🚗', type: ObservableEventType.ERROR}"
+          [button3]="{value: '🖐️', type: ObservableEventType.COMPLETE}"
+          [button4]="{value: observable.value, type: ObservableEventType.NEXT}"
+          (onButtonClick)="onMergeMapControllerButtonClick($event, i)">
+        </app-conveyor-controller>
+
+        <app-conveyor-vertical class="merge-map-conveyor" [conveyorWorking$]="observable.conveyorWorking$"
+          [addToConveyor$]="observable.addToConveyor$" (elementDelivered)="onMergeMapElementDelivered($event, i)">
+        </app-conveyor-vertical>
+      </div>
+    </div>
+
+    <app-conveyor-horizontal class="main-conveyor" [length]="499.5" [conveyorWorking$]="mainConveyorWorking$"
+      [addToConveyor$]="addToMainConveyor$" (elementDelivered)="onMainElementDelivered($event)">
+      <svg appOperator="mergeMap"></svg>
+    </app-conveyor-horizontal>
+  </div>
+
+  <app-subscriber class="subscriber" [showSpeechBubble$]="speechBubble$" (onSubscribe$)="onSubscribe($event)">
+  </app-subscriber> -->
+</svg>
+
 <div class="page-header">
   <h1 class="title">MergeMap</h1>
   <a class="link-rxjs" href="https://rxjs.dev/api/operators/mergeMap" target="_blank">rxjs mergeMap ➡️</a>
@@ -72,7 +113,7 @@ numbers$
   A continuación te dejo un simulador para que pruebes:
 </p>
 
-<app-demo-container class="demo-container">
+<!-- <app-demo-container class="demo-container">
   <app-conveyor-controller class="main-conveyor-controller" [button1]="{value: '🚗', type: ObservableEventType.ERROR}"
     [button2]="{value: '🖐️', type: ObservableEventType.COMPLETE}"
     [button3]="{value: '1️⃣', type: ObservableEventType.NEXT}"
@@ -105,4 +146,4 @@ numbers$
 
   <app-subscriber class="subscriber" [showSpeechBubble$]="speechBubble$" (onSubscribe$)="onSubscribe($event)">
   </app-subscriber>
-</app-demo-container>
+</app-demo-container> -->

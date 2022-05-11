@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
 import { BehaviorSubject, Subject } from 'rxjs';
 import { observableAnimation } from '../shared/rxjs-animations';
-import { ElemementInConveyor, PickElementInConveyor } from '../shared/element-in-conveyor';
+import { ElemementInConveyor2, PickElementInConveyor } from '../shared/element-in-conveyor';
 import { ObservableEventType } from '../shared/observable-event-type';
 import { SpeechBubble } from '../shared/speech-bubble';
+import { ButtonController } from '../shared/components/conveyor-controller/button-controller';
 
 interface MergeMapConveyor {
   conveyorWorking$: BehaviorSubject<boolean>;
@@ -18,65 +19,32 @@ interface MergeMapConveyor {
   animations: [observableAnimation],
 })
 export class MergeMapComponent {
-  public readonly ObservableEventType = ObservableEventType;
+  public readonly MAIN = '0';
 
-  public mergeMapObservables: MergeMapConveyor[] = [];
+  public readonly speechBubble$ = new Subject<SpeechBubble>();
 
-  public mainConveyorWorking$ = new BehaviorSubject<boolean>(false);
-  public addToMainConveyor$ = new Subject<Pick<ElemementInConveyor, 'type' | 'value' | 'removeAt'>>();
-  public speechBubble$ = new Subject<SpeechBubble>();
+  public controllerButtons: { [key: string]: ButtonController[] } = {
+    [this.MAIN]: [
+      { value: '🏠', type: ObservableEventType.ERROR, controllerId: this.MAIN, enabled: false },
+      { value: '🖐️', type: ObservableEventType.COMPLETE, controllerId: this.MAIN, enabled: false },
+      { value: '🍎', type: ObservableEventType.NEXT, controllerId: this.MAIN, enabled: false },
+      { value: '🍌', type: ObservableEventType.NEXT, controllerId: this.MAIN, enabled: false },
+      { value: '🥝', type: ObservableEventType.NEXT, controllerId: this.MAIN, enabled: false },
+    ],
+  };
 
-  public onSubscribe(isSubscribed: boolean) {
-    this.mainConveyorWorking$.next(isSubscribed);
-    if (!isSubscribed) {
-      this.mergeMapObservables.length = 0;
-    }
+  public conveyorsWorking: { [key: string]: BehaviorSubject<boolean> } = {
+    [this.MAIN]: new BehaviorSubject<boolean>(false),
+  };
+
+  public onSubscribe(isSubscribed: boolean): void {
+    Object.values(this.controllerButtons).forEach((controller) => controller.forEach((button) => (button.enabled = isSubscribed)));
+    Object.values(this.conveyorsWorking).forEach((conveyor) => conveyor.next(isSubscribed));
   }
 
-  public onMainControllerButtonClick(button: PickElementInConveyor) {
-    this.addToMainConveyor$.next({
-      ...button,
-      removeAt: button.type === ObservableEventType.NEXT ? 50 : 100,
-    });
-  }
-
-  public onMainElementDelivered(element: ElemementInConveyor) {
-    if (element.type === ObservableEventType.NEXT) {
-      if (element.startAt != 0) {
-        this.speechBubble$.next({
-          message: element.value,
-          type: element.type,
-        });
-      } else {
-        this.mergeMapObservables.push({
-          conveyorWorking$: new BehaviorSubject<boolean>(true),
-          addToConveyor$: new Subject(),
-          value: '🍎'.repeat(['1️⃣', '2️⃣', '3️⃣'].indexOf(element.value) + 1),
-        });
-      }
-    } else {
-      this.speechBubble$.next({
-        message: element.value,
-        type: element.type,
-      });
-      this.mainConveyorWorking$.next(false);
-      this.mergeMapObservables.length = 0;
-    }
-  }
-
-  public onMergeMapControllerButtonClick(element: PickElementInConveyor, index: number) {
-    this.mergeMapObservables[index].addToConveyor$.next(element);
-  }
-
-  public onMergeMapElementDelivered(element: ElemementInConveyor, index: number) {
-    element.startAt = 50;
-    if (element.type === ObservableEventType.NEXT) {
-      this.addToMainConveyor$.next(element);
-    } else if (element.type === ObservableEventType.COMPLETE) {
-      this.mergeMapObservables.splice(index, 1);
-    } else {
-      this.addToMainConveyor$.next(element);
-      this.mergeMapObservables.splice(index, 1);
+  public onControllerButtonClick(button: ButtonController) {
+    if (button.type === ObservableEventType.ERROR || button.type === ObservableEventType.COMPLETE) {
+      Object.values(this.controllerButtons).forEach((controller) => controller.forEach((button) => (button.enabled = false)));
     }
   }
 }
