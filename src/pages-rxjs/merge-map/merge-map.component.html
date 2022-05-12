@@ -1,22 +1,38 @@
 <br>
 
-<svg appDemoContainer viewBox="0 0 850 600">
-  <g appConveyorController transform="translate(50,390)" [button1]="controllerButtons[MAIN_M][0]"
-    [button2]="controllerButtons[MAIN_M][1]" [button3]="controllerButtons[MAIN_M][2]" [button4]="controllerButtons[MAIN_M][3]"
-    [button5]="controllerButtons[MAIN_M][4]" (onButtonClick)="onControllerButtonClick($event)">
+<svg appDemoContainer viewBox="0 0 850 640">
+  <g appConveyorController transform="translate(50,480)" [button1]="controllerButtons[MAIN_M][0]"
+    [button2]="controllerButtons[MAIN_M][1]" [button3]="controllerButtons[MAIN_M][2]"
+    [button4]="controllerButtons[MAIN_M][3]" [button5]="controllerButtons[MAIN_M][4]"
+    (onButtonClick)="onControllerButtonClick($event)">
   </g>
 
-  <g transform="translate(260, 390)" appConveyorHorizontal [length]="403" [conveyorWorking$]="conveyorsWorking[MAIN_M]">
+  <g transform="translate(260, 480)" appConveyorHorizontal [length]="403" [conveyorWorking$]="conveyorsWorking[MAIN_M]">
   </g>
 
-  <g appSubscriber transform="translate(690,320)" [showSpeechBubble$]="speechBubble$"
+  <g appSubscriber transform="translate(690,410)" [showSpeechBubble$]="speechBubble$"
     (onSubscribe$)="onSubscribe($event)"></g>
 
-  <g appOperator transform="translate(420, 352)"></g>
+  <g appOperator transform="translate(420, 442)"></g>
 
   <g>
     <text *ngFor="let element of elementsInConveyor" [attr.x]="element.x" [attr.y]="element.y">{{element.value}}</text>
   </g>
+
+  <g [attr.transform]="'translate('+(485 - (100*MERGE.length))+', 70)'">
+    <g [attr.transform]="'translate('+(200*i) +',0)'" *ngFor="let M_ID of MERGE; let i = index;">
+      <g appConveyorController [attr.transform]="'translate(0,0)'" [button1]="controllerButtons[M_ID][0]"
+        [button2]="controllerButtons[M_ID][1]" [button3]="controllerButtons[M_ID][2]"
+        [button4]="controllerButtons[M_ID][3]" [button5]="controllerButtons[M_ID][4]"
+        (onButtonClick)="onControllerButtonClick($event)">
+      </g>
+
+      <g [attr.transform]="'translate(45, 120)'" appConveyorVertical [length]="203"
+        [conveyorWorking$]="conveyorsWorking[M_ID]">
+      </g>
+    </g>
+  </g>
+
   <!-- <div class="conveyors-container">
     <div class="mergemap-conveyors-container">
       <div class="merge-map-conveyor-and-controller" *ngFor="let observable of mergeMapObservables; let i = index"

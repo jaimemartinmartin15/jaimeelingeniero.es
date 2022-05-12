@@ -16,6 +16,7 @@ import { DemoContainerComponent } from '../shared/components/demo-container/demo
 export class MergeMapComponent implements AfterViewInit {
   public readonly MAIN_M = '0';
   public readonly MAIN_E = '1';
+  public readonly MERGE: string[] = [];
 
   @ViewChild(DemoContainerComponent)
   public demo: DemoContainerComponent;
@@ -25,13 +26,13 @@ export class MergeMapComponent implements AfterViewInit {
   public elementsInConveyor: ElementInConveyor[] = [];
 
   private readonly initialPositions: { [key: string]: { x: number; y: number } } = {
-    [this.MAIN_M]: { x: 260, y: 446 },
-    [this.MAIN_E]: { x: 466, y: 446 },
+    [this.MAIN_M]: { x: 260, y: 536 },
+    [this.MAIN_E]: { x: 466, y: 536 },
   };
 
   private readonly finalPositions: { [key: string]: { x: number; y: number } } = {
-    [this.MAIN_M]: { x: 420, y: 446 },
-    [this.MAIN_E]: { x: 645, y: 446 },
+    [this.MAIN_M]: { x: 420, y: 536 },
+    [this.MAIN_E]: { x: 645, y: 536 },
   };
 
   public controllerButtons: { [key: string]: ButtonController[] } = {
@@ -76,7 +77,18 @@ export class MergeMapComponent implements AfterViewInit {
   }
 
   public addNewMergeMapConveyor() {
-    // TODO
+    const M_ID = this.MERGE.length + 2;
+    this.MERGE.push(`${M_ID}`);
+
+    this.controllerButtons[M_ID] = [
+      { value: '🏠', type: ObservableEventType.ERROR, controllerId: this.MAIN_M, enabled: true },
+      { value: '🖐️', type: ObservableEventType.COMPLETE, controllerId: this.MAIN_M, enabled: true },
+      { value: '🍎', type: ObservableEventType.NEXT, controllerId: this.MAIN_M, enabled: true },
+      { value: '🍌', type: ObservableEventType.NEXT, controllerId: this.MAIN_M, enabled: true },
+      { value: '🥝', type: ObservableEventType.NEXT, controllerId: this.MAIN_M, enabled: true },
+    ];
+
+    this.conveyorsWorking[M_ID] = new BehaviorSubject<boolean>(true);
   }
 
   public moveElementInConveyor(e: ElementInConveyor): boolean {
@@ -98,6 +110,9 @@ export class MergeMapComponent implements AfterViewInit {
   public onSubscribe(isSubscribed: boolean): void {
     Object.values(this.controllerButtons).forEach((controller) => controller.forEach((button) => (button.enabled = isSubscribed)));
     Object.values(this.conveyorsWorking).forEach((conveyor) => conveyor.next(isSubscribed));
+
+    this.MERGE.length = 0;
+    this.elementsInConveyor.length = 0;
   }
 
   public onControllerButtonClick(button: ButtonController) {
