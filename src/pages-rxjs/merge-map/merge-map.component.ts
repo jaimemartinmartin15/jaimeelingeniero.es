@@ -19,7 +19,7 @@ export class MergeMapComponent implements AfterViewInit {
   public readonly MERGE: string[] = [];
 
   @ViewChild(DemoContainerComponent)
-  public demo: DemoContainerComponent;
+  private demo: DemoContainerComponent;
 
   public readonly speechBubble$ = new Subject<SpeechBubble>();
 
@@ -62,7 +62,7 @@ export class MergeMapComponent implements AfterViewInit {
     });
   }
 
-  public handleDeliveredElement(e: ElementInConveyor) {
+  private handleDeliveredElement(e: ElementInConveyor) {
     if (e.conveyorId === this.MAIN_M && e.type === ObservableEventType.NEXT) {
       this.addNewMergeMapConveyor();
     } else if (e.conveyorId === this.MAIN_E && e.type === ObservableEventType.NEXT) {
@@ -76,8 +76,9 @@ export class MergeMapComponent implements AfterViewInit {
         type: e.type,
       });
       this.onSubscribe(false);
+    } else if (e.type === ObservableEventType.COMPLETE) {
+      this.removeMergeMapConveyor(e.conveyorId);
     } else {
-      // TODO handle before complete events
       this.elementsInConveyor.push({
         conveyorId: this.MAIN_E,
         type: e.type,
@@ -87,7 +88,11 @@ export class MergeMapComponent implements AfterViewInit {
     }
   }
 
-  public addNewMergeMapConveyor() {
+  private removeMergeMapConveyor(id: string) {
+    // TODO
+  }
+
+  private addNewMergeMapConveyor() {
     const M_ID = `${this.MERGE.length + 2}`;
     this.MERGE.push(M_ID);
 
@@ -125,7 +130,7 @@ export class MergeMapComponent implements AfterViewInit {
     });
   }
 
-  public moveElementInConveyor(e: ElementInConveyor): boolean {
+  private moveElementInConveyor(e: ElementInConveyor): boolean {
     let isOutside = false;
     if (e.conveyorId === this.MAIN_M || e.conveyorId === this.MAIN_E) {
       e.x += this.demo.speed;
@@ -155,8 +160,14 @@ export class MergeMapComponent implements AfterViewInit {
   }
 
   public onControllerButtonClick(button: ButtonController) {
-    if (button.type === ObservableEventType.ERROR || button.type === ObservableEventType.COMPLETE) {
+    if (button.type === ObservableEventType.ERROR) {
       Object.values(this.controllerButtons).forEach((controller) => controller.forEach((button) => (button.enabled = false)));
+    } else if (button.type === ObservableEventType.COMPLETE) {
+      if (button.controllerId === this.MAIN_M) {
+        Object.values(this.controllerButtons).forEach((controller) => controller.forEach((button) => (button.enabled = false)));
+      } else {
+        this.controllerButtons[button.controllerId].forEach((button) => (button.enabled = false));
+      }
     }
 
     this.elementsInConveyor.push({
