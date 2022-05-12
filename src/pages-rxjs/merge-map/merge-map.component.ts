@@ -14,6 +14,8 @@ import { DemoContainerComponent } from '../shared/components/demo-container/demo
   animations: [observableAnimation],
 })
 export class MergeMapComponent implements AfterViewInit {
+  private nextMergeMapId = 2;
+
   public readonly MAIN_M = '0';
   public readonly MAIN_E = '1';
   public readonly MERGE: string[] = [];
@@ -89,11 +91,40 @@ export class MergeMapComponent implements AfterViewInit {
   }
 
   private removeMergeMapConveyor(id: string) {
-    // TODO
+    this.MERGE.splice(this.MERGE.indexOf(id), 1);
+
+    delete this.controllerButtons[id];
+    delete this.conveyorsWorking[id];
+    delete this.initialPositions[id];
+    delete this.finalPositions[id];
+
+    this.recalculatePositionOfElementsInConveyor();
+  }
+
+  private recalculatePositionOfElementsInConveyor() {
+    Object.keys(this.initialPositions)
+      .slice(2)
+      .forEach((key, index) => {
+        this.initialPositions[key].x = 450 - 100 * (this.MERGE.length - 1) + index * 200;
+        this.initialPositions[key].y = 200;
+      });
+
+    Object.keys(this.finalPositions)
+      .slice(2)
+      .forEach((key, index) => {
+        this.finalPositions[key].x = 450 - 100 * (this.MERGE.length - 1) + index * 200;
+        this.finalPositions[key].y = 405;
+      });
+
+    this.elementsInConveyor.forEach((e, index) => {
+      if (e.conveyorId !== this.MAIN_M && e.conveyorId !== this.MAIN_E) {
+        e.x = 450 - 100 * (this.MERGE.length - 1) + index * 200;
+      }
+    });
   }
 
   private addNewMergeMapConveyor() {
-    const M_ID = `${this.MERGE.length + 2}`;
+    const M_ID = `${this.nextMergeMapId++}`;
     this.MERGE.push(M_ID);
 
     this.controllerButtons[M_ID] = [
@@ -109,25 +140,7 @@ export class MergeMapComponent implements AfterViewInit {
     this.initialPositions[M_ID] = { x: 450 - 100 * (this.MERGE.length - 1) + (parseInt(M_ID) - 2) * 200, y: 200 };
     this.finalPositions[M_ID] = { x: 450 - 100 * (this.MERGE.length - 1) + (parseInt(M_ID) - 2) * 200, y: 405 };
 
-    Object.keys(this.initialPositions)
-      .slice(2)
-      .forEach((key) => {
-        this.initialPositions[key].x = 450 - 100 * (this.MERGE.length - 1) + (parseInt(key) - 2) * 200;
-        this.initialPositions[key].y = 200;
-      });
-
-    Object.keys(this.finalPositions)
-      .slice(2)
-      .forEach((key) => {
-        this.finalPositions[key].x = 450 - 100 * (this.MERGE.length - 1) + (parseInt(key) - 2) * 200;
-        this.finalPositions[key].y = 405;
-      });
-
-    this.elementsInConveyor.forEach((e) => {
-      if (e.conveyorId !== this.MAIN_M && e.conveyorId !== this.MAIN_E) {
-        e.x = 450 - 100 * (this.MERGE.length - 1) + (parseInt(e.conveyorId) - 2) * 200;
-      }
-    });
+    this.recalculatePositionOfElementsInConveyor();
   }
 
   private moveElementInConveyor(e: ElementInConveyor): boolean {
