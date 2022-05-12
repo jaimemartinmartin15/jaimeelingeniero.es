@@ -26,13 +26,13 @@ export class MergeMapComponent implements AfterViewInit {
   public elementsInConveyor: ElementInConveyor[] = [];
 
   private readonly initialPositions: { [key: string]: { x: number; y: number } } = {
-    [this.MAIN_M]: { x: 260, y: 536 },
-    [this.MAIN_E]: { x: 466, y: 536 },
+    [this.MAIN_M]: { x: 260, y: 546 },
+    [this.MAIN_E]: { x: 466, y: 546 },
   };
 
   private readonly finalPositions: { [key: string]: { x: number; y: number } } = {
-    [this.MAIN_M]: { x: 420, y: 536 },
-    [this.MAIN_E]: { x: 645, y: 536 },
+    [this.MAIN_M]: { x: 420, y: 546 },
+    [this.MAIN_E]: { x: 645, y: 546 },
   };
 
   public controllerButtons: { [key: string]: ButtonController[] } = {
@@ -65,43 +65,82 @@ export class MergeMapComponent implements AfterViewInit {
   public handleDeliveredElement(e: ElementInConveyor) {
     if (e.conveyorId === this.MAIN_M && e.type === ObservableEventType.NEXT) {
       this.addNewMergeMapConveyor();
-    } else if (e.conveyorId === this.MAIN_M) {
+    } else if (e.conveyorId === this.MAIN_E && e.type === ObservableEventType.NEXT) {
+      this.speechBubble$.next({
+        message: e.value,
+        type: e.type,
+      });
+    } else if (e.conveyorId === this.MAIN_M || e.conveyorId === this.MAIN_E) {
       this.speechBubble$.next({
         message: e.value,
         type: e.type,
       });
       this.onSubscribe(false);
     } else {
-      // TODO
+      // TODO handle before complete events
+      this.elementsInConveyor.push({
+        conveyorId: this.MAIN_E,
+        type: e.type,
+        value: e.value,
+        ...this.initialPositions[this.MAIN_E],
+      });
     }
   }
 
   public addNewMergeMapConveyor() {
-    const M_ID = this.MERGE.length + 2;
-    this.MERGE.push(`${M_ID}`);
+    const M_ID = `${this.MERGE.length + 2}`;
+    this.MERGE.push(M_ID);
 
     this.controllerButtons[M_ID] = [
-      { value: '🏠', type: ObservableEventType.ERROR, controllerId: this.MAIN_M, enabled: true },
-      { value: '🖐️', type: ObservableEventType.COMPLETE, controllerId: this.MAIN_M, enabled: true },
-      { value: '🍎', type: ObservableEventType.NEXT, controllerId: this.MAIN_M, enabled: true },
-      { value: '🍌', type: ObservableEventType.NEXT, controllerId: this.MAIN_M, enabled: true },
-      { value: '🥝', type: ObservableEventType.NEXT, controllerId: this.MAIN_M, enabled: true },
+      { value: '🏠', type: ObservableEventType.ERROR, controllerId: M_ID, enabled: true },
+      { value: '🖐️', type: ObservableEventType.COMPLETE, controllerId: M_ID, enabled: true },
+      { value: '🍎', type: ObservableEventType.NEXT, controllerId: M_ID, enabled: true },
+      { value: '🍌', type: ObservableEventType.NEXT, controllerId: M_ID, enabled: true },
+      { value: '🥝', type: ObservableEventType.NEXT, controllerId: M_ID, enabled: true },
     ];
 
     this.conveyorsWorking[M_ID] = new BehaviorSubject<boolean>(true);
+
+    this.initialPositions[M_ID] = { x: 450 - 100 * (this.MERGE.length - 1) + (parseInt(M_ID) - 2) * 200, y: 200 };
+    this.finalPositions[M_ID] = { x: 450 - 100 * (this.MERGE.length - 1) + (parseInt(M_ID) - 2) * 200, y: 405 };
+
+    Object.keys(this.initialPositions)
+      .slice(2)
+      .forEach((key) => {
+        this.initialPositions[key].x = 450 - 100 * (this.MERGE.length - 1) + (parseInt(key) - 2) * 200;
+        this.initialPositions[key].y = 200;
+      });
+
+    Object.keys(this.finalPositions)
+      .slice(2)
+      .forEach((key) => {
+        this.finalPositions[key].x = 450 - 100 * (this.MERGE.length - 1) + (parseInt(key) - 2) * 200;
+        this.finalPositions[key].y = 405;
+      });
+
+    this.elementsInConveyor.forEach((e) => {
+      if (e.conveyorId !== this.MAIN_M && e.conveyorId !== this.MAIN_E) {
+        e.x = 450 - 100 * (this.MERGE.length - 1) + (parseInt(e.conveyorId) - 2) * 200;
+      }
+    });
   }
 
   public moveElementInConveyor(e: ElementInConveyor): boolean {
     let isOutside = false;
-    if (e.conveyorId === this.MAIN_M) {
+    if (e.conveyorId === this.MAIN_M || e.conveyorId === this.MAIN_E) {
       e.x += this.demo.speed;
-      isOutside = e.x >= this.finalPositions[this.MAIN_M].x && e.type === ObservableEventType.NEXT;
+      if (e.conveyorId === this.MAIN_M) {
+        isOutside = e.x >= this.finalPositions[this.MAIN_M].x;
+      } else {
+        isOutside = e.x >= this.finalPositions[this.MAIN_E].x;
+      }
+
       if (e.type !== ObservableEventType.NEXT) {
         isOutside = e.x >= this.finalPositions[this.MAIN_E].x;
       }
     } else {
       e.y += this.demo.speed;
-      isOutside = e.y >= this.finalPositions[this.MAIN_M].y;
+      isOutside = e.y >= this.finalPositions[e.conveyorId].y;
     }
 
     return isOutside;

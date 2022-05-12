@@ -1,23 +1,19 @@
 <br>
 
 <svg appDemoContainer viewBox="0 0 850 640">
-  <g appConveyorController transform="translate(50,480)" [button1]="controllerButtons[MAIN_M][0]"
+  <g appConveyorController transform="translate(50,490)" [button1]="controllerButtons[MAIN_M][0]"
     [button2]="controllerButtons[MAIN_M][1]" [button3]="controllerButtons[MAIN_M][2]"
     [button4]="controllerButtons[MAIN_M][3]" [button5]="controllerButtons[MAIN_M][4]"
     (onButtonClick)="onControllerButtonClick($event)">
   </g>
 
-  <g transform="translate(260, 480)" appConveyorHorizontal [length]="403" [conveyorWorking$]="conveyorsWorking[MAIN_M]">
+  <g transform="translate(260, 490)" appConveyorHorizontal [length]="403" [conveyorWorking$]="conveyorsWorking[MAIN_M]">
   </g>
 
-  <g appSubscriber transform="translate(690,410)" [showSpeechBubble$]="speechBubble$"
+  <g appSubscriber transform="translate(690,420)" [showSpeechBubble$]="speechBubble$"
     (onSubscribe$)="onSubscribe($event)"></g>
 
-  <g appOperator transform="translate(420, 442)"></g>
-
-  <g>
-    <text *ngFor="let element of elementsInConveyor" [attr.x]="element.x" [attr.y]="element.y">{{element.value}}</text>
-  </g>
+  <g appOperator transform="translate(420, 452)"></g>
 
   <g [attr.transform]="'translate('+(485 - (100*MERGE.length))+', 70)'">
     <g [attr.transform]="'translate('+(200*i) +',0)'" *ngFor="let M_ID of MERGE; let i = index;">
@@ -33,31 +29,9 @@
     </g>
   </g>
 
-  <!-- <div class="conveyors-container">
-    <div class="mergemap-conveyors-container">
-      <div class="merge-map-conveyor-and-controller" *ngFor="let observable of mergeMapObservables; let i = index"
-        [@observableAnimation]>
-        <app-conveyor-controller class="merge-map-conveyor-controller"
-          [button1]="{value: '🚗', type: ObservableEventType.ERROR}"
-          [button3]="{value: '🖐️', type: ObservableEventType.COMPLETE}"
-          [button4]="{value: observable.value, type: ObservableEventType.NEXT}"
-          (onButtonClick)="onMergeMapControllerButtonClick($event, i)">
-        </app-conveyor-controller>
-
-        <app-conveyor-vertical class="merge-map-conveyor" [conveyorWorking$]="observable.conveyorWorking$"
-          [addToConveyor$]="observable.addToConveyor$" (elementDelivered)="onMergeMapElementDelivered($event, i)">
-        </app-conveyor-vertical>
-      </div>
-    </div>
-
-    <app-conveyor-horizontal class="main-conveyor" [length]="499.5" [conveyorWorking$]="mainConveyorWorking$"
-      [addToConveyor$]="addToMainConveyor$" (elementDelivered)="onMainElementDelivered($event)">
-      <svg appOperator="mergeMap"></svg>
-    </app-conveyor-horizontal>
-  </div>
-
-  <app-subscriber class="subscriber" [showSpeechBubble$]="speechBubble$" (onSubscribe$)="onSubscribe($event)">
-  </app-subscriber> -->
+  <g>
+    <text *ngFor="let element of elementsInConveyor" [attr.x]="element.x" [attr.y]="element.y">{{element.value}}</text>
+  </g>
 </svg>
 
 <div class="page-header">
