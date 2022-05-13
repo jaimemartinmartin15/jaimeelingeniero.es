@@ -93,7 +93,7 @@ export class MergeMapComponent implements AfterViewInit {
         conveyorId: this.MAIN_S,
         type: e.type,
         value: e.value,
-        y: this.initialPositions[this.MAIN_S].y,
+        x: this.initialPositions[this.MAIN_S].x,
       } as ElementInConveyor);
     } else {
       this.elementsInConveyor.push({
