@@ -1,14 +1,17 @@
-<svg [attr.viewBox]="viewBox">
-  <rect fill="#ddd" x="5" y="0" width="55" [attr.height]="length"></rect>
+<svg:rect class="chassis" x="5" y="0" width="55" [attr.height]="length"/>
 
-  <line *ngFor="let element of linesInConveyor; let i = index" x1="10" [attr.y1]="i*10-offsetLineInConveyor" x2="55" [attr.y2]="i*10-offsetLineInConveyor" stroke="#888" stroke-width="5" stroke-linecap="round" />
+<svg:g [attr.transform]="'translate(0,'+offsetLineInConveyor+')'">
+  <!-- each line has width 5. To put origin on bottom of the line, substract 2.5 -->
+  <!-- space between lines are 6. each line with its space takes 11 -->
+  <line *ngFor="let element of linesInConveyor; let i = index" x1="10" [attr.y1]="i*11-2.5" x2="55" [attr.y2]="i*11-2.5" class="chain" />
+</svg:g>
 
-  <text *ngFor="let element of elementsInConveyor" text-anchor="middle" x="33" [attr.y]="element.offset" dy="1.2em" font-size="1em">
-    {{element.value}}
-  </text>
+<!-- hide chain outside the chassis -->
+<svg:rect x="0" y="-21" width="65" height="21" class="hide-remaining-chain"/>
+<svg:rect x="0" [attr.y]="length" width="65" height="21" class="hide-remaining-chain"/>
 
-  <rect fill="#000" x="0" y="25" width="5" height="15"></rect>
-  <rect fill="#000" x="0" [attr.y]="length - 35" width="5" height="15"></rect>
-  <rect fill="#000" x="60" y="25" width="5" height="15"></rect>
-  <rect fill="#000" x="60" [attr.y]="length - 35" width="5" height="15"></rect>
-</svg>
+<!-- paws -->
+<svg:rect  x="0" y="25" width="5" height="15" class="paw"/>
+<svg:rect  x="0" [attr.y]="length - 35" width="5" height="15" class="paw"/>
+<svg:rect  x="60" y="25" width="5" height="15" class="paw"/>
+<svg:rect  x="60" [attr.y]="length - 35" width="5" height="15" class="paw"/>

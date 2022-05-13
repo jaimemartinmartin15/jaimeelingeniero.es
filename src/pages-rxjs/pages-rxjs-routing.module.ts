@@ -24,6 +24,10 @@ const routes: Routes = [
         loadChildren: () => import('./switch-map/switch-map.module').then((m) => m.SwitchMapModule),
       },
       {
+        path: 'combineLatestWith',
+        loadChildren: () => import('./combine-latest-with/combine-latest-with.module').then((m) => m.CombineLatestWithModule),
+      },
+      {
         path: '',
         redirectTo: 'observable',
       },

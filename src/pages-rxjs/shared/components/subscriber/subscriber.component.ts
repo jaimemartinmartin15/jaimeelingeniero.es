@@ -4,7 +4,7 @@ import { ObservableEventType } from '../../observable-event-type';
 import { SpeechBubble } from '../../speech-bubble';
 
 @Component({
-  selector: 'app-subscriber',
+  selector: 'g[appSubscriber]',
   templateUrl: './subscriber.component.svg',
   styleUrls: ['./subscriber.component.scss'],
 })

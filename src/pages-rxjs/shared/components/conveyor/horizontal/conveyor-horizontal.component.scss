@@ -1,3 +1,18 @@
-:host {
-    display: inline-block;
+.chassis {
+    stroke: #888;
+    fill: #ddd;
+    stroke-width: 1;
+}
+
+.chain {
+    stroke: #888;
+    fill: none;
+    stroke-dasharray: 5.07;
+    stroke-width: 4;
+}
+
+.paw {
+    stroke: #000;
+    stroke-width: 10;
+    stroke-linecap: round;
 }
