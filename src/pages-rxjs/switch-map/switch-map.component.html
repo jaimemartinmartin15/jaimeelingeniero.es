@@ -72,37 +72,36 @@ numbers$
   A continuación te dejo un simulador para que pruebes:
 </p>
 
-<app-demo-container class="demo-container">
-  <app-conveyor-controller class="main-conveyor-controller" [button1]="{value: '🚗', type: ObservableEventType.ERROR}"
-    [button2]="{value: '🖐️', type: ObservableEventType.COMPLETE}"
-    [button3]="{value: '1️⃣', type: ObservableEventType.NEXT}"
-    [button4]="{value: '2️⃣', type: ObservableEventType.NEXT}"
-    [button5]="{value: '3️⃣', type: ObservableEventType.NEXT}" (onButtonClick)="onMainControllerButtonClick($event)">
-  </app-conveyor-controller>
+<svg appDemoContainer viewBox="0 0 850 640">
+  <g appConveyorController transform="translate(50,490)" [button1]="controllerButtons[MAIN_M][0]"
+    [button2]="controllerButtons[MAIN_M][1]" [button3]="controllerButtons[MAIN_M][2]"
+    [button4]="controllerButtons[MAIN_M][3]" [button5]="controllerButtons[MAIN_M][4]"
+    (onButtonClick)="onControllerButtonClick($event)">
+  </g>
 
-  <div class="conveyors-container">
-    <div class="switchmap-conveyors-container">
-      <div class="switch-map-conveyor-and-controller" *ngFor="let observable of switchMapObservables"
-        [@observableAnimation]>
-        <app-conveyor-controller class="switch-map-conveyor-controller"
-          [button1]="{value: '🚗', type: ObservableEventType.ERROR}"
-          [button3]="{value: '🖐️', type: ObservableEventType.COMPLETE}"
-          [button4]="{value: observable.value, type: ObservableEventType.NEXT}"
-          (onButtonClick)="onSwitchMapControllerButtonClick($event)">
-        </app-conveyor-controller>
+  <g transform="translate(260, 490)" appConveyorHorizontal [length]="403" [conveyorWorking$]="conveyorsWorking[MAIN_M]">
+  </g>
 
-        <app-conveyor-vertical class="switch-map-conveyor" [conveyorWorking$]="observable.conveyorWorking$"
-          [addToConveyor$]="observable.addToConveyor$" (elementDelivered)="onSwitchMapElementDelivered($event)">
-        </app-conveyor-vertical>
-      </div>
-    </div>
+  <g appSubscriber transform="translate(690,420)" [showSpeechBubble$]="speechBubble$"
+    (onSubscribe$)="onSubscribe($event)"></g>
 
-    <app-conveyor-horizontal class="main-conveyor" [length]="499.5" [conveyorWorking$]="mainConveyorWorking$"
-      [addToConveyor$]="addToMainConveyor$" (elementDelivered)="onMainElementDelivered($event)">
-      <svg appOperator="switchMap"></svg>
-    </app-conveyor-horizontal>
-  </div>
+  <g appOperator transform="translate(420, 452)"></g>
 
-  <app-subscriber class="subscriber" [showSpeechBubble$]="speechBubble$" (onSubscribe$)="onSubscribe($event)">
-  </app-subscriber>
-</app-demo-container>
+  <g [attr.transform]="'translate('+(485 - (100*SWITCH.length))+', 70)'">
+    <g [attr.transform]="'translate('+(200*i) +',0)'" *ngFor="let S_ID of SWITCH; let i = index;">
+      <g appConveyorController [attr.transform]="'translate(0,0)'" [button1]="controllerButtons[S_ID][0]"
+        [button2]="controllerButtons[S_ID][1]" [button3]="controllerButtons[S_ID][2]"
+        [button4]="controllerButtons[S_ID][3]" [button5]="controllerButtons[S_ID][4]"
+        (onButtonClick)="onControllerButtonClick($event)">
+      </g>
+
+      <g [attr.transform]="'translate(45, 120)'" appConveyorVertical [length]="203"
+        [conveyorWorking$]="conveyorsWorking[S_ID]">
+      </g>
+    </g>
+  </g>
+
+  <g>
+    <text *ngFor="let element of elementsInConveyor" [attr.x]="element.x" [attr.y]="element.y">{{element.value}}</text>
+  </g>
+</svg>
