@@ -16,8 +16,8 @@ import { DemoContainerComponent } from '../shared/components/demo-container/demo
 export class MergeMapComponent implements AfterViewInit {
   private nextMergeMapId = 2;
 
-  public readonly MAIN_M = '0';
-  public readonly MAIN_E = '1';
+  public readonly MAIN_O = '0'; // Main deliver to operator
+  public readonly MAIN_S = '1'; // Main deliver to subscriber
   public readonly MERGE: string[] = [];
 
   @ViewChild(DemoContainerComponent)
@@ -28,27 +28,27 @@ export class MergeMapComponent implements AfterViewInit {
   public elementsInConveyor: ElementInConveyor[] = [];
 
   private readonly initialPositions: { [key: string]: { x: number; y: number } } = {
-    [this.MAIN_M]: { x: 260, y: 546 },
-    [this.MAIN_E]: { x: 466, y: 546 },
+    [this.MAIN_O]: { x: 260, y: 546 },
+    [this.MAIN_S]: { x: 466, y: 546 },
   };
 
   private readonly finalPositions: { [key: string]: { x: number; y: number } } = {
-    [this.MAIN_M]: { x: 420, y: 546 },
-    [this.MAIN_E]: { x: 645, y: 546 },
+    [this.MAIN_O]: { x: 420, y: 546 },
+    [this.MAIN_S]: { x: 645, y: 546 },
   };
 
   public controllerButtons: { [key: string]: ButtonController[] } = {
-    [this.MAIN_M]: [
-      { value: '🏠', type: ObservableEventType.ERROR, controllerId: this.MAIN_M, enabled: false },
-      { value: '🖐️', type: ObservableEventType.COMPLETE, controllerId: this.MAIN_M, enabled: false },
-      { value: '🍎', type: ObservableEventType.NEXT, controllerId: this.MAIN_M, enabled: false },
-      { value: '🍌', type: ObservableEventType.NEXT, controllerId: this.MAIN_M, enabled: false },
-      { value: '🥝', type: ObservableEventType.NEXT, controllerId: this.MAIN_M, enabled: false },
+    [this.MAIN_O]: [
+      { value: '🏠', type: ObservableEventType.ERROR, controllerId: this.MAIN_O, enabled: false },
+      { value: '🖐️', type: ObservableEventType.COMPLETE, controllerId: this.MAIN_O, enabled: false },
+      { value: '🍎', type: ObservableEventType.NEXT, controllerId: this.MAIN_O, enabled: false },
+      { value: '🍌', type: ObservableEventType.NEXT, controllerId: this.MAIN_O, enabled: false },
+      { value: '🥝', type: ObservableEventType.NEXT, controllerId: this.MAIN_O, enabled: false },
     ],
   };
 
   public conveyorsWorking: { [key: string]: BehaviorSubject<boolean> } = {
-    [this.MAIN_M]: new BehaviorSubject<boolean>(false),
+    [this.MAIN_O]: new BehaviorSubject<boolean>(false),
   };
 
   public ngAfterViewInit(): void {
@@ -65,14 +65,22 @@ export class MergeMapComponent implements AfterViewInit {
   }
 
   private handleDeliveredElement(e: ElementInConveyor) {
-    if (e.conveyorId === this.MAIN_M && e.type === ObservableEventType.NEXT) {
+    if (e.conveyorId === this.MAIN_O && e.type === ObservableEventType.NEXT) {
       this.addNewMergeMapConveyor();
-    } else if (e.conveyorId === this.MAIN_E && e.type === ObservableEventType.NEXT) {
+    } else if (e.conveyorId === this.MAIN_O) {
+      this.elementsInConveyor.push({
+        conveyorId: this.MAIN_S,
+        type: e.type,
+        value: e.value,
+        x: e.x,
+        y: e.y,
+      });
+    } else if (e.conveyorId === this.MAIN_S && e.type === ObservableEventType.NEXT) {
       this.speechBubble$.next({
         message: e.value,
         type: e.type,
       });
-    } else if (e.conveyorId === this.MAIN_M || e.conveyorId === this.MAIN_E) {
+    } else if (e.conveyorId === this.MAIN_S) {
       this.speechBubble$.next({
         message: e.value,
         type: e.type,
@@ -80,14 +88,42 @@ export class MergeMapComponent implements AfterViewInit {
       this.onSubscribe(false);
     } else if (e.type === ObservableEventType.COMPLETE) {
       this.removeMergeMapConveyor(e.conveyorId);
-    } else {
+    } else if (e.type === ObservableEventType.ERROR) {
+      this.conveyorsWorking[e.conveyorId].next(false);
       this.elementsInConveyor.push({
-        conveyorId: this.MAIN_E,
+        conveyorId: this.MAIN_S,
         type: e.type,
         value: e.value,
-        ...this.initialPositions[this.MAIN_E],
+        ...this.initialPositions[this.MAIN_S],
+      });
+    } else {
+      this.elementsInConveyor.push({
+        conveyorId: this.MAIN_S,
+        type: e.type,
+        value: e.value,
+        ...this.initialPositions[this.MAIN_S],
       });
     }
+  }
+
+  private addNewMergeMapConveyor() {
+    const M_ID = `${this.nextMergeMapId++}`;
+    this.MERGE.push(M_ID);
+
+    this.controllerButtons[M_ID] = [
+      { value: '🏠', type: ObservableEventType.ERROR, controllerId: M_ID, enabled: this.controllerButtons[this.MAIN_O][0].enabled },
+      { value: '🖐️', type: ObservableEventType.COMPLETE, controllerId: M_ID, enabled: this.controllerButtons[this.MAIN_O][0].enabled },
+      { value: '🍎', type: ObservableEventType.NEXT, controllerId: M_ID, enabled: this.controllerButtons[this.MAIN_O][0].enabled },
+      { value: '🍌', type: ObservableEventType.NEXT, controllerId: M_ID, enabled: this.controllerButtons[this.MAIN_O][0].enabled },
+      { value: '🥝', type: ObservableEventType.NEXT, controllerId: M_ID, enabled: this.controllerButtons[this.MAIN_O][0].enabled },
+    ];
+
+    this.conveyorsWorking[M_ID] = new BehaviorSubject<boolean>(true);
+
+    this.initialPositions[M_ID] = { x: 450 - 100 * this.MERGE.length + 50, y: 200 };
+    this.finalPositions[M_ID] = { x: 450 - 100 * this.MERGE.length + 50, y: 405 };
+
+    this.recalculatePositionOfElementsInConveyor();
   }
 
   private removeMergeMapConveyor(id: string) {
@@ -105,56 +141,33 @@ export class MergeMapComponent implements AfterViewInit {
     Object.keys(this.initialPositions)
       .slice(2)
       .forEach((key, index) => {
-        this.initialPositions[key].x = 450 - 100 * (this.MERGE.length - 1) + index * 200;
+        this.initialPositions[key].x = 450 - 100 * (this.MERGE.length - 1) + 200 * index;
         this.initialPositions[key].y = 200;
       });
 
     Object.keys(this.finalPositions)
       .slice(2)
       .forEach((key, index) => {
-        this.finalPositions[key].x = 450 - 100 * (this.MERGE.length - 1) + index * 200;
+        this.finalPositions[key].x = 450 - 100 * (this.MERGE.length - 1) + 200 * index;
         this.finalPositions[key].y = 405;
       });
 
     this.elementsInConveyor.forEach((e, index) => {
-      if (e.conveyorId !== this.MAIN_M && e.conveyorId !== this.MAIN_E) {
-        e.x = 450 - 100 * (this.MERGE.length - 1) + index * 200;
+      if (e.conveyorId !== this.MAIN_O && e.conveyorId !== this.MAIN_S) {
+        e.x = 450 - 100 * (this.MERGE.length - 1) + 200 * index;
       }
     });
   }
 
-  private addNewMergeMapConveyor() {
-    const M_ID = `${this.nextMergeMapId++}`;
-    this.MERGE.push(M_ID);
-
-    this.controllerButtons[M_ID] = [
-      { value: '🏠', type: ObservableEventType.ERROR, controllerId: M_ID, enabled: true },
-      { value: '🖐️', type: ObservableEventType.COMPLETE, controllerId: M_ID, enabled: true },
-      { value: '🍎', type: ObservableEventType.NEXT, controllerId: M_ID, enabled: true },
-      { value: '🍌', type: ObservableEventType.NEXT, controllerId: M_ID, enabled: true },
-      { value: '🥝', type: ObservableEventType.NEXT, controllerId: M_ID, enabled: true },
-    ];
-
-    this.conveyorsWorking[M_ID] = new BehaviorSubject<boolean>(true);
-
-    this.initialPositions[M_ID] = { x: 450 - 100 * (this.MERGE.length - 1) + (parseInt(M_ID) - 2) * 200, y: 200 };
-    this.finalPositions[M_ID] = { x: 450 - 100 * (this.MERGE.length - 1) + (parseInt(M_ID) - 2) * 200, y: 405 };
-
-    this.recalculatePositionOfElementsInConveyor();
-  }
-
   private moveElementInConveyor(e: ElementInConveyor): boolean {
     let isOutside = false;
-    if (e.conveyorId === this.MAIN_M || e.conveyorId === this.MAIN_E) {
+    if (e.conveyorId === this.MAIN_O || e.conveyorId === this.MAIN_S) {
       e.x += this.demo.speed;
-      if (e.conveyorId === this.MAIN_M) {
-        isOutside = e.x >= this.finalPositions[this.MAIN_M].x;
-      } else {
-        isOutside = e.x >= this.finalPositions[this.MAIN_E].x;
-      }
 
-      if (e.type !== ObservableEventType.NEXT) {
-        isOutside = e.x >= this.finalPositions[this.MAIN_E].x;
+      if (e.conveyorId === this.MAIN_O) {
+        isOutside = e.x >= this.finalPositions[this.MAIN_O].x;
+      } else {
+        isOutside = e.x >= this.finalPositions[this.MAIN_S].x;
       }
     } else {
       e.y += this.demo.speed;
@@ -168,17 +181,26 @@ export class MergeMapComponent implements AfterViewInit {
     Object.values(this.controllerButtons).forEach((controller) => controller.forEach((button) => (button.enabled = isSubscribed)));
     Object.values(this.conveyorsWorking).forEach((conveyor) => conveyor.next(isSubscribed));
 
+    this.MERGE.slice(2).forEach((id) => {
+      delete this.conveyorsWorking[id];
+      delete this.controllerButtons[id];
+      delete this.initialPositions[id];
+      delete this.finalPositions[id];
+    });
     this.MERGE.length = 0;
     this.elementsInConveyor.length = 0;
   }
 
   public onControllerButtonClick(button: ButtonController) {
     if (button.type === ObservableEventType.ERROR) {
+      // disable all buttons of all controllers
       Object.values(this.controllerButtons).forEach((controller) => controller.forEach((button) => (button.enabled = false)));
     } else if (button.type === ObservableEventType.COMPLETE) {
-      if (button.controllerId === this.MAIN_M) {
+      if (button.controllerId === this.MAIN_O) {
+        // disable all buttons of all controllers
         Object.values(this.controllerButtons).forEach((controller) => controller.forEach((button) => (button.enabled = false)));
       } else {
+        // disable all buttons of the merge map controller
         this.controllerButtons[button.controllerId].forEach((button) => (button.enabled = false));
       }
     }

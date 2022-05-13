@@ -73,13 +73,13 @@ numbers$
 </p>
 
 <svg appDemoContainer viewBox="0 0 850 640">
-  <g appConveyorController transform="translate(50,490)" [button1]="controllerButtons[MAIN_M][0]"
-    [button2]="controllerButtons[MAIN_M][1]" [button3]="controllerButtons[MAIN_M][2]"
-    [button4]="controllerButtons[MAIN_M][3]" [button5]="controllerButtons[MAIN_M][4]"
+  <g appConveyorController transform="translate(50,490)" [button1]="controllerButtons[MAIN_O][0]"
+    [button2]="controllerButtons[MAIN_O][1]" [button3]="controllerButtons[MAIN_O][2]"
+    [button4]="controllerButtons[MAIN_O][3]" [button5]="controllerButtons[MAIN_O][4]"
     (onButtonClick)="onControllerButtonClick($event)">
   </g>
 
-  <g transform="translate(260, 490)" appConveyorHorizontal [length]="403" [conveyorWorking$]="conveyorsWorking[MAIN_M]">
+  <g transform="translate(260, 490)" appConveyorHorizontal [length]="403" [conveyorWorking$]="conveyorsWorking[MAIN_O]">
   </g>
 
   <g appSubscriber transform="translate(690,420)" [showSpeechBubble$]="speechBubble$"
@@ -87,15 +87,20 @@ numbers$
 
   <g appOperator transform="translate(420, 452)"></g>
 
-  <g [attr.transform]="'translate('+(485 - (100*MERGE.length))+', 70)'">
-    <g [attr.transform]="'translate('+(200*i) +',0)'" *ngFor="let M_ID of MERGE; let i = index;">
-      <g appConveyorController [attr.transform]="'translate(0,0)'" [button1]="controllerButtons[M_ID][0]"
+  <g [attr.transform]="'translate('+(460 - (200*(MERGE.length/2)))+', 70)'">
+    <!-- TODO remove this debug lines -->
+    <line [attr.x1]="100*MERGE.length" y1="0" [attr.x2]="100*MERGE.length" y2="500" stroke="red" stroke-width="3" />
+    <line *ngFor="let M_ID of MERGE; let i = index;" [attr.x1]="200*i" y1="0" [attr.x2]="200*i+200" y2="0" stroke="red"
+      stroke-width="3" />
+
+    <g [attr.transform]="'translate('+200*i+',0)'" *ngFor="let M_ID of MERGE; let i = index;">
+      <g appConveyorController [attr.transform]="'translate(25,0)'" [button1]="controllerButtons[M_ID][0]"
         [button2]="controllerButtons[M_ID][1]" [button3]="controllerButtons[M_ID][2]"
         [button4]="controllerButtons[M_ID][3]" [button5]="controllerButtons[M_ID][4]"
         (onButtonClick)="onControllerButtonClick($event)">
       </g>
 
-      <g [attr.transform]="'translate(45, 120)'" appConveyorVertical [length]="203"
+      <g [attr.transform]="'translate(70, 120)'" appConveyorVertical [length]="203"
         [conveyorWorking$]="conveyorsWorking[M_ID]">
       </g>
     </g>
