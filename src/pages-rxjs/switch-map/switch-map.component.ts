@@ -87,7 +87,7 @@ export class SwitchMapComponent implements AfterViewInit {
       this.onSubscribe(false);
     } else if (e.type === ObservableEventType.COMPLETE) {
       this.removeSwitchMapConveyor(e.conveyorId);
-      this.controllerButtons[this.MAIN_O].forEach((button) => (button.enabled = this.controllerButtons[this.MAIN_O][0].enabled));
+      this.controllerButtons[this.MAIN_O].forEach((button) => (button.enabled = true));
     } else if (e.type === ObservableEventType.ERROR) {
       this.conveyorsWorking[e.conveyorId].next(false);
       this.elementsInConveyor.push({
@@ -105,10 +105,7 @@ export class SwitchMapComponent implements AfterViewInit {
       } as ElementInConveyor);
 
       this.controllerButtons[this.MAIN_O].forEach(
-        (button) =>
-          (button.enabled = !this.elementsInConveyor
-            .filter((ec) => ec.conveyorId === e.conveyorId)
-            .some((ec) => ec.type !== ObservableEventType.COMPLETE))
+        (button) => (button.enabled = this.elementsInConveyor.filter((ec) => ec.conveyorId === e.conveyorId).length === 0)
       );
     }
   }
@@ -180,17 +177,9 @@ export class SwitchMapComponent implements AfterViewInit {
   }
 
   public onControllerButtonClick(button: ButtonController) {
-    if (button.type === ObservableEventType.ERROR) {
+    if (button.type === ObservableEventType.ERROR || button.type === ObservableEventType.COMPLETE) {
       // disable all buttons of all controllers
       Object.values(this.controllerButtons).forEach((controller) => controller.forEach((button) => (button.enabled = false)));
-    } else if (button.type === ObservableEventType.COMPLETE) {
-      if (button.controllerId === this.MAIN_O) {
-        // disable all buttons of all controllers
-        Object.values(this.controllerButtons).forEach((controller) => controller.forEach((button) => (button.enabled = false)));
-      } else {
-        // disable all buttons of the switch map controller
-        this.controllerButtons[button.controllerId].forEach((button) => (button.enabled = false));
-      }
     } else if (button.controllerId == this.MAIN_O && this.SWITCH.length > 0) {
       // disable all buttons of the switch map controller
       this.controllerButtons[this.SWITCH[0]].forEach((button) => (button.enabled = false));

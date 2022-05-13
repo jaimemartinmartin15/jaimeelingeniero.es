@@ -87,6 +87,10 @@ export class ConcatMapComponent implements AfterViewInit {
       this.onSubscribe(false);
     } else if (e.type === ObservableEventType.COMPLETE) {
       this.removeConcatMapConveyor(e.conveyorId);
+      this.controllerButtons[this.MAIN_O][0].enabled =
+        this.elementsInConveyor.filter((ec) => ec.conveyorId !== this.MAIN_O && ec.conveyorId !== this.MAIN_S).length === 0;
+      this.controllerButtons[this.MAIN_O][1].enabled =
+        this.elementsInConveyor.filter((ec) => ec.conveyorId !== this.MAIN_O && ec.conveyorId !== this.MAIN_S).length === 0;
     } else if (e.type === ObservableEventType.ERROR) {
       this.conveyorsWorking[e.conveyorId].next(false);
       this.elementsInConveyor.push({
@@ -102,6 +106,10 @@ export class ConcatMapComponent implements AfterViewInit {
         value: e.value,
         x: this.initialPositions[this.MAIN_S].x,
       } as ElementInConveyor);
+      this.controllerButtons[this.MAIN_O][0].enabled =
+        this.elementsInConveyor.filter((ec) => ec.conveyorId !== this.MAIN_O && ec.conveyorId !== this.MAIN_S).length === 0;
+      this.controllerButtons[this.MAIN_O][1].enabled =
+        this.elementsInConveyor.filter((ec) => ec.conveyorId !== this.MAIN_O && ec.conveyorId !== this.MAIN_S).length === 0;
     }
   }
 
@@ -109,7 +117,7 @@ export class ConcatMapComponent implements AfterViewInit {
     const C_ID = `${this.nextConcatMapId++}`;
     this.CONCAT.push(C_ID);
 
-    const buttonsEnabled = this.controllerButtons[this.MAIN_O][0].enabled && this.CONCAT.length === 1;
+    const buttonsEnabled = this.controllerButtons[this.MAIN_O][2].enabled && this.CONCAT.length === 1;
     this.controllerButtons[C_ID] = [
       { value: '🏠', type: ObservableEventType.ERROR, controllerId: C_ID, enabled: buttonsEnabled },
       { value: '🖐️', type: ObservableEventType.COMPLETE, controllerId: C_ID, enabled: buttonsEnabled },
@@ -134,7 +142,7 @@ export class ConcatMapComponent implements AfterViewInit {
 
     if (this.CONCAT.length > 0) {
       const c_id = this.CONCAT[0];
-      this.controllerButtons[c_id].forEach((button) => (button.enabled = this.controllerButtons[this.MAIN_O][0].enabled));
+      this.controllerButtons[c_id].forEach((button) => (button.enabled = this.controllerButtons[this.MAIN_O][2].enabled));
       this.conveyorsWorking[c_id].next(true);
     }
   }
@@ -182,7 +190,14 @@ export class ConcatMapComponent implements AfterViewInit {
       } else {
         // disable all buttons of the concat map controller
         this.controllerButtons[button.controllerId].forEach((button) => (button.enabled = false));
+        // disable error and complete buttons of main controller
+        this.controllerButtons[this.MAIN_O][0].enabled = false;
+        this.controllerButtons[this.MAIN_O][1].enabled = false;
       }
+    } else if (button.controllerId !== this.MAIN_O) {
+      // disable error and complete buttons of main controller
+      this.controllerButtons[this.MAIN_O][0].enabled = false;
+      this.controllerButtons[this.MAIN_O][1].enabled = false;
     }
 
     this.elementsInConveyor.push({
