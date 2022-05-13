@@ -87,8 +87,9 @@ numbers$
 
   <g appOperator transform="translate(420, 452)"></g>
 
-  <g [attr.transform]="'translate('+(460 - (200*(SWITCH.length/2)))+', 70)'">
-    <g [attr.transform]="'translate('+200*i+',0)'" *ngFor="let S_ID of SWITCH; let i = index;">
+  <g [attr.transform]="'translate('+(460 - (200*SWITCH.length/2))+', 70)'" class="smooth-tranform-animation">
+    <g [attr.transform]="'translate('+200*i+',0)'" *ngFor="let S_ID of SWITCH; let i = index;" @fadeInOut
+      class="smooth-tranform-animation">
       <g appConveyorController [attr.transform]="'translate(25,0)'" [button1]="controllerButtons[S_ID][0]"
         [button2]="controllerButtons[S_ID][1]" [button3]="controllerButtons[S_ID][2]"
         [button4]="controllerButtons[S_ID][3]" [button5]="controllerButtons[S_ID][4]"
@@ -98,10 +99,19 @@ numbers$
       <g [attr.transform]="'translate(70, 120)'" appConveyorVertical [length]="203"
         [conveyorWorking$]="conveyorsWorking[S_ID]">
       </g>
+
+      <g>
+        <ng-container *ngFor="let element of elementsInConveyor">
+          <text *ngIf="element.conveyorId === S_ID" x="90" [attr.y]="element.y">{{element.value}}</text>
+        </ng-container>
+      </g>
     </g>
   </g>
 
   <g>
-    <text *ngFor="let element of elementsInConveyor" [attr.x]="element.x" [attr.y]="element.y">{{element.value}}</text>
+    <ng-container *ngFor="let element of elementsInConveyor">
+      <text *ngIf="element.conveyorId === MAIN_O || element.conveyorId === MAIN_S" [attr.x]="element.x"
+        y="546">{{element.value}}</text>
+    </ng-container>
   </g>
 </svg>

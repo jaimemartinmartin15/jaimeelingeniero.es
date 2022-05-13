@@ -3,3 +3,7 @@
 :host {
     display: block;
 }
+
+.smooth-tranform-animation {
+    transition: transform 1s;
+}

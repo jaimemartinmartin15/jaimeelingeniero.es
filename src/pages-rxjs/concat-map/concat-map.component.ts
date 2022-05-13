@@ -1,6 +1,6 @@
 import { AfterViewInit, Component, ViewChild } from '@angular/core';
 import { BehaviorSubject, interval, Subject } from 'rxjs';
-import { observableAnimation } from '../shared/rxjs-animations';
+import { fadeInOut } from '../shared/rxjs-animations';
 import { ElementInConveyor } from '../shared/element-in-conveyor';
 import { ObservableEventType } from '../shared/observable-event-type';
 import { SpeechBubble } from '../shared/speech-bubble';
@@ -11,7 +11,7 @@ import { DemoContainerComponent } from '../shared/components/demo-container/demo
   selector: 'app-concat-map',
   templateUrl: './concat-map.component.html',
   styleUrls: ['./concat-map.component.scss'],
-  animations: [observableAnimation],
+  animations: [fadeInOut],
 })
 export class ConcatMapComponent implements AfterViewInit {
   private nextConcatMapId = 2;
@@ -27,14 +27,14 @@ export class ConcatMapComponent implements AfterViewInit {
 
   public elementsInConveyor: ElementInConveyor[] = [];
 
-  private readonly initialPositions: { [key: string]: { x: number; y: number } } = {
-    [this.MAIN_O]: { x: 260, y: 546 },
-    [this.MAIN_S]: { x: 466, y: 546 },
+  private readonly initialPositions: { [key: string]: { x?: number; y?: number } } = {
+    [this.MAIN_O]: { x: 260 },
+    [this.MAIN_S]: { x: 466 },
   };
 
-  private readonly finalPositions: { [key: string]: { x: number; y: number } } = {
-    [this.MAIN_O]: { x: 420, y: 546 },
-    [this.MAIN_S]: { x: 645, y: 546 },
+  private readonly finalPositions: { [key: string]: { x?: number; y?: number } } = {
+    [this.MAIN_O]: { x: 420 },
+    [this.MAIN_S]: { x: 645 },
   };
 
   public controllerButtons: { [key: string]: ButtonController[] } = {
@@ -73,8 +73,7 @@ export class ConcatMapComponent implements AfterViewInit {
         type: e.type,
         value: e.value,
         x: e.x,
-        y: e.y,
-      });
+      } as ElementInConveyor);
     } else if (e.conveyorId === this.MAIN_S && e.type === ObservableEventType.NEXT) {
       this.speechBubble$.next({
         message: e.value,
@@ -94,15 +93,15 @@ export class ConcatMapComponent implements AfterViewInit {
         conveyorId: this.MAIN_S,
         type: e.type,
         value: e.value,
-        ...this.initialPositions[this.MAIN_S],
-      });
+        x: this.initialPositions[this.MAIN_S].x,
+      } as ElementInConveyor);
     } else {
       this.elementsInConveyor.push({
         conveyorId: this.MAIN_S,
         type: e.type,
         value: e.value,
-        ...this.initialPositions[this.MAIN_S],
-      });
+        x: this.initialPositions[this.MAIN_S].x,
+      } as ElementInConveyor);
     }
   }
 
@@ -121,10 +120,8 @@ export class ConcatMapComponent implements AfterViewInit {
 
     this.conveyorsWorking[C_ID] = new BehaviorSubject<boolean>(buttonsEnabled);
 
-    this.initialPositions[C_ID] = { x: 450 - 100 * this.CONCAT.length + 50, y: 200 };
-    this.finalPositions[C_ID] = { x: 450 - 100 * this.CONCAT.length + 50, y: 405 };
-
-    this.recalculatePositionOfElementsInConveyor();
+    this.initialPositions[C_ID] = { y: 120 };
+    this.finalPositions[C_ID] = { y: 325 };
   }
 
   private removeConcatMapConveyor(id: string) {
@@ -140,30 +137,6 @@ export class ConcatMapComponent implements AfterViewInit {
       this.controllerButtons[c_id].forEach((button) => (button.enabled = this.controllerButtons[this.MAIN_O][0].enabled));
       this.conveyorsWorking[c_id].next(true);
     }
-
-    this.recalculatePositionOfElementsInConveyor();
-  }
-
-  private recalculatePositionOfElementsInConveyor() {
-    Object.keys(this.initialPositions)
-      .slice(2)
-      .forEach((key, index) => {
-        this.initialPositions[key].x = 450 - 100 * (this.CONCAT.length - 1) + 200 * index;
-        this.initialPositions[key].y = 200;
-      });
-
-    Object.keys(this.finalPositions)
-      .slice(2)
-      .forEach((key, index) => {
-        this.finalPositions[key].x = 450 - 100 * (this.CONCAT.length - 1) + 200 * index;
-        this.finalPositions[key].y = 405;
-      });
-
-    this.elementsInConveyor.forEach((e) => {
-      if (e.conveyorId !== this.MAIN_O && e.conveyorId !== this.MAIN_S) {
-        e.x = 450 - 100 * (this.CONCAT.length - 1) + 200 * this.CONCAT.indexOf(e.conveyorId);
-      }
-    });
   }
 
   private moveElementInConveyor(e: ElementInConveyor): boolean {
@@ -172,13 +145,13 @@ export class ConcatMapComponent implements AfterViewInit {
       e.x += this.demo.speed;
 
       if (e.conveyorId === this.MAIN_O) {
-        isOutside = e.x >= this.finalPositions[this.MAIN_O].x;
+        isOutside = e.x >= this.finalPositions[this.MAIN_O].x!;
       } else {
-        isOutside = e.x >= this.finalPositions[this.MAIN_S].x;
+        isOutside = e.x >= this.finalPositions[this.MAIN_S].x!;
       }
     } else {
       e.y += this.demo.speed;
-      isOutside = e.y >= this.finalPositions[e.conveyorId].y;
+      isOutside = e.y >= this.finalPositions[e.conveyorId].y!;
     }
 
     return isOutside;
@@ -217,6 +190,6 @@ export class ConcatMapComponent implements AfterViewInit {
       value: button.value,
       ...this.initialPositions[button.controllerId],
       conveyorId: button.controllerId,
-    });
+    } as ElementInConveyor);
   }
 }
