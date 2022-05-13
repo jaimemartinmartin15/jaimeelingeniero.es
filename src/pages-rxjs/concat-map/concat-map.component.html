@@ -90,15 +90,15 @@ numbers$
   <g appOperator transform="translate(420, 452)"></g>
 
   <g [attr.transform]="'translate('+(485 - (100*CONCAT.length))+', 70)'">
-    <g [attr.transform]="'translate('+(200*i) +',0)'" *ngFor="let M_ID of CONCAT; let i = index;">
-      <g appConveyorController [attr.transform]="'translate(0,0)'" [button1]="controllerButtons[M_ID][0]"
-        [button2]="controllerButtons[M_ID][1]" [button3]="controllerButtons[M_ID][2]"
-        [button4]="controllerButtons[M_ID][3]" [button5]="controllerButtons[M_ID][4]"
+    <g [attr.transform]="'translate('+(200*i) +',0)'" *ngFor="let C_ID of CONCAT; let i = index;">
+      <g appConveyorController [attr.transform]="'translate(0,0)'" [button1]="controllerButtons[C_ID][0]"
+        [button2]="controllerButtons[C_ID][1]" [button3]="controllerButtons[C_ID][2]"
+        [button4]="controllerButtons[C_ID][3]" [button5]="controllerButtons[C_ID][4]"
         (onButtonClick)="onControllerButtonClick($event)">
       </g>
 
       <g [attr.transform]="'translate(45, 120)'" appConveyorVertical [length]="203"
-        [conveyorWorking$]="conveyorsWorking[M_ID]">
+        [conveyorWorking$]="conveyorsWorking[C_ID]">
       </g>
     </g>
   </g>
