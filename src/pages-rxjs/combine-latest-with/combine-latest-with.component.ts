@@ -198,7 +198,9 @@ export class CombineLatestWithComponent implements AfterViewInit {
   }
 
   public onControllerButtonClick(button: ButtonController) {
-    if (button.type === ObservableEventType.ERROR || button.type === ObservableEventType.COMPLETE) {
+    if (button.type === ObservableEventType.ERROR) {
+      Object.values(this.controllerButtons).forEach((controller) => controller.forEach((button) => (button.enabled = false)));
+    } else if (button.type === ObservableEventType.COMPLETE) {
       this.controllerButtons[button.controllerId].forEach((b) => (b.enabled = false));
     }
 
