@@ -87,6 +87,10 @@ export class MergeMapComponent implements AfterViewInit {
       this.onSubscribe(false);
     } else if (e.type === ObservableEventType.COMPLETE) {
       this.removeMergeMapConveyor(e.conveyorId);
+      this.controllerButtons[this.MAIN_O][0].enabled =
+        this.elementsInConveyor.filter((ec) => ec.conveyorId !== this.MAIN_O && ec.conveyorId !== this.MAIN_S).length === 0;
+      this.controllerButtons[this.MAIN_O][1].enabled =
+        this.elementsInConveyor.filter((ec) => ec.conveyorId !== this.MAIN_O && ec.conveyorId !== this.MAIN_S).length === 0;
     } else if (e.type === ObservableEventType.ERROR) {
       this.conveyorsWorking[e.conveyorId].next(false);
       this.elementsInConveyor.push({
@@ -102,6 +106,10 @@ export class MergeMapComponent implements AfterViewInit {
         value: e.value,
         x: this.initialPositions[this.MAIN_S].x,
       } as ElementInConveyor);
+      this.controllerButtons[this.MAIN_O][0].enabled =
+        this.elementsInConveyor.filter((ec) => ec.conveyorId !== this.MAIN_O && ec.conveyorId !== this.MAIN_S).length === 0;
+      this.controllerButtons[this.MAIN_O][1].enabled =
+        this.elementsInConveyor.filter((ec) => ec.conveyorId !== this.MAIN_O && ec.conveyorId !== this.MAIN_S).length === 0;
     }
   }
 
@@ -110,11 +118,11 @@ export class MergeMapComponent implements AfterViewInit {
     this.MERGE.push(M_ID);
 
     this.controllerButtons[M_ID] = [
-      { value: '🏠', type: ObservableEventType.ERROR, controllerId: M_ID, enabled: this.controllerButtons[this.MAIN_O][0].enabled },
-      { value: '🖐️', type: ObservableEventType.COMPLETE, controllerId: M_ID, enabled: this.controllerButtons[this.MAIN_O][0].enabled },
-      { value: '🍎', type: ObservableEventType.NEXT, controllerId: M_ID, enabled: this.controllerButtons[this.MAIN_O][0].enabled },
-      { value: '🍌', type: ObservableEventType.NEXT, controllerId: M_ID, enabled: this.controllerButtons[this.MAIN_O][0].enabled },
-      { value: '🥝', type: ObservableEventType.NEXT, controllerId: M_ID, enabled: this.controllerButtons[this.MAIN_O][0].enabled },
+      { value: '🏠', type: ObservableEventType.ERROR, controllerId: M_ID, enabled: this.controllerButtons[this.MAIN_O][2].enabled },
+      { value: '🖐️', type: ObservableEventType.COMPLETE, controllerId: M_ID, enabled: this.controllerButtons[this.MAIN_O][2].enabled },
+      { value: '🍎', type: ObservableEventType.NEXT, controllerId: M_ID, enabled: this.controllerButtons[this.MAIN_O][2].enabled },
+      { value: '🍌', type: ObservableEventType.NEXT, controllerId: M_ID, enabled: this.controllerButtons[this.MAIN_O][2].enabled },
+      { value: '🥝', type: ObservableEventType.NEXT, controllerId: M_ID, enabled: this.controllerButtons[this.MAIN_O][2].enabled },
     ];
 
     this.conveyorsWorking[M_ID] = new BehaviorSubject<boolean>(true);
@@ -175,7 +183,14 @@ export class MergeMapComponent implements AfterViewInit {
       } else {
         // disable all buttons of the merge map controller
         this.controllerButtons[button.controllerId].forEach((button) => (button.enabled = false));
+        // disable error and complete buttons of main controller
+        this.controllerButtons[this.MAIN_O][0].enabled = false;
+        this.controllerButtons[this.MAIN_O][1].enabled = false;
       }
+    } else if (button.controllerId !== this.MAIN_O) {
+      // disable error and complete buttons of main controller
+      this.controllerButtons[this.MAIN_O][0].enabled = false;
+      this.controllerButtons[this.MAIN_O][1].enabled = false;
     }
 
     this.elementsInConveyor.push({
