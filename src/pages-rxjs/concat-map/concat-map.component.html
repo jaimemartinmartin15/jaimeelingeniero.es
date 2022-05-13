@@ -90,7 +90,7 @@ numbers$
   <g appOperator transform="translate(420, 452)"></g>
 
   <g [attr.transform]="'translate('+(460 - (200*(CONCAT.length/2)))+', 70)'">
-    <g [attr.transform]="'translate('+200*i+',0)'" *ngFor="let C_ID of CONCAT; let i = index;">
+    <g [attr.transform]="'translate('+200*i+',0)'" *ngFor="let C_ID of CONCAT; let i = index;" @animationConveyor>
       <g appConveyorController [attr.transform]="'translate(25,0)'" [button1]="controllerButtons[C_ID][0]"
         [button2]="controllerButtons[C_ID][1]" [button3]="controllerButtons[C_ID][2]"
         [button4]="controllerButtons[C_ID][3]" [button5]="controllerButtons[C_ID][4]"

@@ -88,7 +88,7 @@ numbers$
   <g appOperator transform="translate(420, 452)"></g>
 
   <g [attr.transform]="'translate('+(460 - (200*(MERGE.length/2)))+', 70)'">
-    <g [attr.transform]="'translate('+200*i+',0)'" *ngFor="let M_ID of MERGE; let i = index;">
+    <g [attr.transform]="'translate('+200*i+',0)'" *ngFor="let M_ID of MERGE; let i = index;" @animationConveyor>
       <g appConveyorController [attr.transform]="'translate(25,0)'" [button1]="controllerButtons[M_ID][0]"
         [button2]="controllerButtons[M_ID][1]" [button3]="controllerButtons[M_ID][2]"
         [button4]="controllerButtons[M_ID][3]" [button5]="controllerButtons[M_ID][4]"

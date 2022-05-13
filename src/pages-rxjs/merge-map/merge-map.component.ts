@@ -1,6 +1,6 @@
 import { AfterViewInit, Component, ViewChild } from '@angular/core';
 import { BehaviorSubject, interval, Subject } from 'rxjs';
-import { observableAnimation } from '../shared/rxjs-animations';
+import { animationConveyor } from '../shared/rxjs-animations';
 import { ElementInConveyor } from '../shared/element-in-conveyor';
 import { ObservableEventType } from '../shared/observable-event-type';
 import { SpeechBubble } from '../shared/speech-bubble';
@@ -11,7 +11,7 @@ import { DemoContainerComponent } from '../shared/components/demo-container/demo
   selector: 'app-merge-map',
   templateUrl: './merge-map.component.html',
   styleUrls: ['./merge-map.component.scss'],
-  animations: [observableAnimation],
+  animations: [animationConveyor],
 })
 export class MergeMapComponent implements AfterViewInit {
   private nextMergeMapId = 2;

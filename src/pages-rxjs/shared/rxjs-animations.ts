@@ -1,14 +1,11 @@
-import { animate, sequence, style, transition, trigger } from '@angular/animations';
+import { animate, style, transition, trigger } from '@angular/animations';
 
-export const observableAnimation = trigger('observableAnimation', [
+export const animationConveyor = trigger('animationConveyor', [
   transition(':enter', [
-    style({ opacity: 0, maxHeight: '0' }),
-    animate('500ms', style({ opacity: '1', maxHeight: '1000px' })),
+    style({ opacity: 0,  }),
+    animate('500ms', style({ opacity: '1' }))
   ]),
   transition(':leave', [
-    sequence([
-      animate('225ms', style({ opacity: '0' })), 
-      animate('225ms', style({ width: '0', height: '0' })),
-    ]),
-  ]),
+    style({ opacity: 1 }),
+    animate('500ms', style({ opacity: '0' }))]),
 ]);

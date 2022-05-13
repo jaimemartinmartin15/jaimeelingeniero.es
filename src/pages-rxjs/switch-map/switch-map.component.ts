@@ -1,6 +1,6 @@
 import { AfterViewInit, Component, ViewChild } from '@angular/core';
 import { BehaviorSubject, interval, Subject } from 'rxjs';
-import { observableAnimation } from '../shared/rxjs-animations';
+import { animationConveyor } from '../shared/rxjs-animations';
 import { ElementInConveyor } from '../shared/element-in-conveyor';
 import { ObservableEventType } from '../shared/observable-event-type';
 import { SpeechBubble } from '../shared/speech-bubble';
@@ -11,7 +11,7 @@ import { DemoContainerComponent } from '../shared/components/demo-container/demo
   selector: 'app-switch-map',
   templateUrl: './switch-map.component.html',
   styleUrls: ['./switch-map.component.scss'],
-  animations: [observableAnimation],
+  animations: [animationConveyor],
 })
 export class SwitchMapComponent implements AfterViewInit {
   private nextSwitchMapId = 2;
