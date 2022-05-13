@@ -87,7 +87,7 @@ export class SwitchMapComponent implements AfterViewInit {
       this.onSubscribe(false);
     } else if (e.type === ObservableEventType.COMPLETE) {
       this.removeSwitchMapConveyor(e.conveyorId);
-      this.controllerButtons[this.MAIN_O].forEach((button) => (button.enabled = true));
+      this.controllerButtons[this.MAIN_O].forEach((button) => (button.enabled = this.controllerButtons[this.MAIN_O][0].enabled));
     } else if (e.type === ObservableEventType.ERROR) {
       this.conveyorsWorking[e.conveyorId].next(false);
       this.elementsInConveyor.push({
