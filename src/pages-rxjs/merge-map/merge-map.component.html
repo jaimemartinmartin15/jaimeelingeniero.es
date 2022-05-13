@@ -72,37 +72,46 @@ numbers$
   A continuación te dejo un simulador para que pruebes:
 </p>
 
-<app-demo-container class="demo-container">
-  <app-conveyor-controller class="main-conveyor-controller" [button1]="{value: '🚗', type: ObservableEventType.ERROR}"
-    [button2]="{value: '🖐️', type: ObservableEventType.COMPLETE}"
-    [button3]="{value: '1️⃣', type: ObservableEventType.NEXT}"
-    [button4]="{value: '2️⃣', type: ObservableEventType.NEXT}"
-    [button5]="{value: '3️⃣', type: ObservableEventType.NEXT}" (onButtonClick)="onMainControllerButtonClick($event)">
-  </app-conveyor-controller>
+<svg appDemoContainer viewBox="0 0 850 640">
+  <g appConveyorController transform="translate(50,490)" [button1]="controllerButtons[MAIN_O][0]"
+    [button2]="controllerButtons[MAIN_O][1]" [button3]="controllerButtons[MAIN_O][2]"
+    [button4]="controllerButtons[MAIN_O][3]" [button5]="controllerButtons[MAIN_O][4]"
+    (onButtonClick)="onControllerButtonClick($event)">
+  </g>
 
-  <div class="conveyors-container">
-    <div class="mergemap-conveyors-container">
-      <div class="merge-map-conveyor-and-controller" *ngFor="let observable of mergeMapObservables; let i = index"
-        [@observableAnimation]>
-        <app-conveyor-controller class="merge-map-conveyor-controller"
-          [button1]="{value: '🚗', type: ObservableEventType.ERROR}"
-          [button3]="{value: '🖐️', type: ObservableEventType.COMPLETE}"
-          [button4]="{value: observable.value, type: ObservableEventType.NEXT}"
-          (onButtonClick)="onMergeMapControllerButtonClick($event, i)">
-        </app-conveyor-controller>
+  <g transform="translate(260, 490)" appConveyorHorizontal [length]="403" [conveyorWorking$]="conveyorsWorking[MAIN_O]">
+  </g>
 
-        <app-conveyor-vertical class="merge-map-conveyor" [conveyorWorking$]="observable.conveyorWorking$"
-          [addToConveyor$]="observable.addToConveyor$" (elementDelivered)="onMergeMapElementDelivered($event, i)">
-        </app-conveyor-vertical>
-      </div>
-    </div>
+  <g appSubscriber transform="translate(690,420)" [showSpeechBubble$]="speechBubble$"
+    (onSubscribe$)="onSubscribe($event)"></g>
 
-    <app-conveyor-horizontal class="main-conveyor" [length]="499.5" [conveyorWorking$]="mainConveyorWorking$"
-      [addToConveyor$]="addToMainConveyor$" (elementDelivered)="onMainElementDelivered($event)">
-      <svg appOperator="mergeMap"></svg>
-    </app-conveyor-horizontal>
-  </div>
+  <g appOperator transform="translate(420, 452)"></g>
 
-  <app-subscriber class="subscriber" [showSpeechBubble$]="speechBubble$" (onSubscribe$)="onSubscribe($event)">
-  </app-subscriber>
-</app-demo-container>
+  <g [attr.transform]="'translate('+(460 - (200*MERGE.length/2))+', 70)'" class="smooth-tranform-animation">
+    <g [attr.transform]="'translate('+200*i+',0)'" *ngFor="let M_ID of MERGE; let i = index;" @fadeInOut
+      class="smooth-tranform-animation">
+      <g appConveyorController [attr.transform]="'translate(25,0)'" [button1]="controllerButtons[M_ID][0]"
+        [button2]="controllerButtons[M_ID][1]" [button3]="controllerButtons[M_ID][2]"
+        [button4]="controllerButtons[M_ID][3]" [button5]="controllerButtons[M_ID][4]"
+        (onButtonClick)="onControllerButtonClick($event)">
+      </g>
+
+      <g [attr.transform]="'translate(70, 120)'" appConveyorVertical [length]="203"
+        [conveyorWorking$]="conveyorsWorking[M_ID]">
+      </g>
+
+      <g>
+        <ng-container *ngFor="let element of elementsInConveyor">
+          <text *ngIf="element.conveyorId === M_ID" x="90" [attr.y]="element.y">{{element.value}}</text>
+        </ng-container>
+      </g>
+    </g>
+  </g>
+
+  <g>
+    <ng-container *ngFor="let element of elementsInConveyor">
+      <text *ngIf="element.conveyorId === MAIN_O || element.conveyorId === MAIN_S" [attr.x]="element.x"
+        y="546">{{element.value}}</text>
+    </ng-container>
+  </g>
+</svg>

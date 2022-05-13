@@ -3,37 +3,3 @@
 :host {
     display: block;
 }
-
-.next {
-    color: #0a0;
-}
-
-.error {
-    color: #ce4545;
-}
-
-.complete {
-    color: #b2a366;
-}
-
-.demo-container {
-    margin-top: 30px;
-    display: flex;
-    justify-content: center;
-    align-items: flex-end;
-    gap: 4%;
-
-    .conveyor-controller {
-        min-width: 16%;
-        margin-bottom: 4%;
-    }
-
-    .conveyor {
-        min-width: 34%;
-        margin-bottom: 1%;
-    }
-
-    .subscriber {
-        min-width: 16%;
-    }
-}
