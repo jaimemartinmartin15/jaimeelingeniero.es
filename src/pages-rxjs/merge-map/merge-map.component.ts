@@ -152,9 +152,9 @@ export class MergeMapComponent implements AfterViewInit {
         this.finalPositions[key].y = 405;
       });
 
-    this.elementsInConveyor.forEach((e, index) => {
+    this.elementsInConveyor.forEach((e) => {
       if (e.conveyorId !== this.MAIN_O && e.conveyorId !== this.MAIN_S) {
-        e.x = 450 - 100 * (this.MERGE.length - 1) + 200 * index;
+        e.x = 450 - 100 * (this.MERGE.length - 1) + 200 * this.MERGE.indexOf(e.conveyorId);
       }
     });
   }
@@ -181,7 +181,7 @@ export class MergeMapComponent implements AfterViewInit {
     Object.values(this.controllerButtons).forEach((controller) => controller.forEach((button) => (button.enabled = isSubscribed)));
     Object.values(this.conveyorsWorking).forEach((conveyor) => conveyor.next(isSubscribed));
 
-    this.MERGE.slice(2).forEach((id) => {
+    this.MERGE.forEach((id) => {
       delete this.conveyorsWorking[id];
       delete this.controllerButtons[id];
       delete this.initialPositions[id];
