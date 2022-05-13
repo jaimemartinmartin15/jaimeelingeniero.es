@@ -27,14 +27,14 @@ export class MergeMapComponent implements AfterViewInit {
 
   public elementsInConveyor: ElementInConveyor[] = [];
 
-  private readonly initialPositions: { [key: string]: { x: number; y: number } } = {
-    [this.MAIN_O]: { x: 260, y: 546 },
-    [this.MAIN_S]: { x: 466, y: 546 },
+  private readonly initialPositions: { [key: string]: { x?: number; y?: number } } = {
+    [this.MAIN_O]: { x: 260 },
+    [this.MAIN_S]: { x: 466 },
   };
 
-  private readonly finalPositions: { [key: string]: { x: number; y: number } } = {
-    [this.MAIN_O]: { x: 420, y: 546 },
-    [this.MAIN_S]: { x: 645, y: 546 },
+  private readonly finalPositions: { [key: string]: { x?: number; y?: number } } = {
+    [this.MAIN_O]: { x: 420 },
+    [this.MAIN_S]: { x: 645 },
   };
 
   public controllerButtons: { [key: string]: ButtonController[] } = {
@@ -73,8 +73,7 @@ export class MergeMapComponent implements AfterViewInit {
         type: e.type,
         value: e.value,
         x: e.x,
-        y: e.y,
-      });
+      } as ElementInConveyor);
     } else if (e.conveyorId === this.MAIN_S && e.type === ObservableEventType.NEXT) {
       this.speechBubble$.next({
         message: e.value,
@@ -94,15 +93,15 @@ export class MergeMapComponent implements AfterViewInit {
         conveyorId: this.MAIN_S,
         type: e.type,
         value: e.value,
-        ...this.initialPositions[this.MAIN_S],
-      });
+        y: this.initialPositions[this.MAIN_S].y,
+      } as ElementInConveyor);
     } else {
       this.elementsInConveyor.push({
         conveyorId: this.MAIN_S,
         type: e.type,
         value: e.value,
-        ...this.initialPositions[this.MAIN_S],
-      });
+        x: this.initialPositions[this.MAIN_S].x,
+      } as ElementInConveyor);
     }
   }
 
@@ -120,10 +119,8 @@ export class MergeMapComponent implements AfterViewInit {
 
     this.conveyorsWorking[M_ID] = new BehaviorSubject<boolean>(true);
 
-    this.initialPositions[M_ID] = { x: 450 - 100 * this.MERGE.length + 50, y: 200 };
-    this.finalPositions[M_ID] = { x: 450 - 100 * this.MERGE.length + 50, y: 405 };
-
-    this.recalculatePositionOfElementsInConveyor();
+    this.initialPositions[M_ID] = { y: 120 };
+    this.finalPositions[M_ID] = { y: 325 };
   }
 
   private removeMergeMapConveyor(id: string) {
@@ -133,30 +130,6 @@ export class MergeMapComponent implements AfterViewInit {
     delete this.conveyorsWorking[id];
     delete this.initialPositions[id];
     delete this.finalPositions[id];
-
-    this.recalculatePositionOfElementsInConveyor();
-  }
-
-  private recalculatePositionOfElementsInConveyor() {
-    Object.keys(this.initialPositions)
-      .slice(2)
-      .forEach((key, index) => {
-        this.initialPositions[key].x = 450 - 100 * (this.MERGE.length - 1) + 200 * index;
-        this.initialPositions[key].y = 200;
-      });
-
-    Object.keys(this.finalPositions)
-      .slice(2)
-      .forEach((key, index) => {
-        this.finalPositions[key].x = 450 - 100 * (this.MERGE.length - 1) + 200 * index;
-        this.finalPositions[key].y = 405;
-      });
-
-    this.elementsInConveyor.forEach((e) => {
-      if (e.conveyorId !== this.MAIN_O && e.conveyorId !== this.MAIN_S) {
-        e.x = 450 - 100 * (this.MERGE.length - 1) + 200 * this.MERGE.indexOf(e.conveyorId);
-      }
-    });
   }
 
   private moveElementInConveyor(e: ElementInConveyor): boolean {
@@ -165,13 +138,13 @@ export class MergeMapComponent implements AfterViewInit {
       e.x += this.demo.speed;
 
       if (e.conveyorId === this.MAIN_O) {
-        isOutside = e.x >= this.finalPositions[this.MAIN_O].x;
+        isOutside = e.x >= this.finalPositions[this.MAIN_O].x!;
       } else {
-        isOutside = e.x >= this.finalPositions[this.MAIN_S].x;
+        isOutside = e.x >= this.finalPositions[this.MAIN_S].x!;
       }
     } else {
       e.y += this.demo.speed;
-      isOutside = e.y >= this.finalPositions[e.conveyorId].y;
+      isOutside = e.y >= this.finalPositions[e.conveyorId].y!;
     }
 
     return isOutside;
@@ -210,6 +183,6 @@ export class MergeMapComponent implements AfterViewInit {
       value: button.value,
       ...this.initialPositions[button.controllerId],
       conveyorId: button.controllerId,
-    });
+    } as ElementInConveyor);
   }
 }

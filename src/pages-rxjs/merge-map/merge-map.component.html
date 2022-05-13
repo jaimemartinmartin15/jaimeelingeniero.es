@@ -99,11 +99,19 @@ numbers$
       <g [attr.transform]="'translate(70, 120)'" appConveyorVertical [length]="203"
         [conveyorWorking$]="conveyorsWorking[M_ID]">
       </g>
+
+      <g>
+        <ng-container *ngFor="let element of elementsInConveyor">
+          <text *ngIf="element.conveyorId === M_ID" x="90" [attr.y]="element.y">{{element.value}}</text>
+        </ng-container>
+      </g>
     </g>
   </g>
 
   <g>
-    <text *ngFor="let element of elementsInConveyor" [attr.x]="element.x" [attr.y]="element.y"
-      class="smooth-tranform-animation">{{element.value}}</text>
+    <ng-container *ngFor="let element of elementsInConveyor">
+      <text *ngIf="element.conveyorId === MAIN_O || element.conveyorId === MAIN_S" [attr.x]="element.x"
+        y="546">{{element.value}}</text>
+    </ng-container>
   </g>
 </svg>
