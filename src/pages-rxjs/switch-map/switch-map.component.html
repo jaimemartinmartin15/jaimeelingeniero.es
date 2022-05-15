@@ -14,11 +14,11 @@
 import { Observable, switchMap } from 'rxjs';
 
 // This is the source observable
-const hearts$ = new Observable<string>((observer) => {
-  observer.next('💜');
-  setTimeout(() => observer.next('💚'), 100);
-  setTimeout(() => observer.next('❤️'), 200);
-  setTimeout(() => observer.next('🏘️'), 300);
+const hearts$ = new Observable<string>((subscriber) => {
+  subscriber.next('💜');
+  setTimeout(() => subscriber.next('💚'), 100);
+  setTimeout(() => subscriber.next('❤️'), 200);
+  setTimeout(() => subscriber.next('🏘️'), 300);
 });
 
 // Use the pipe method to add operators
@@ -26,22 +26,22 @@ hearts$
   .pipe(
     switchMap(
       (heart) =>
-        new Observable((observer) => {
+        new Observable((subscriber) => {
           if (heart === '💜') {
             setTimeout(() => {
-              observer.next('🍇');
-              observer.complete();
+              subscriber.next('🍇');
+              subscriber.complete();
             }, 150);
           } else if (heart === '💚') {
-            observer.next('🍏');
-            observer.complete();
+            subscriber.next('🍏');
+            subscriber.complete();
           } else if (heart === '❤️') {
             setTimeout(() => {
-              observer.next('🍓');
-              observer.complete();
+              subscriber.next('🍓');
+              subscriber.complete();
             }, 150);
           } else {
-            observer.error(`No heart value: ${heart}`);
+            subscriber.error(`No heart value: ${heart}`);
           }
         })
     )
@@ -65,11 +65,11 @@ hearts$
 </p>
 
 <p>
-  Primero se emite el corazón morado. Este creará un Observable que emitirá unas uvas pasados 150 milisegundos. A
-  continuación se emite el corazón verde. Esto provoca que se cancele el Observable del corazón morado sin emitir las
-  uvas. El Observable del corazón verde emite inmediatamente una manzana y completa. Después se emite el corazón rojo,
-  que crea un Observable que emite una fresa pasados 150 milisegundos. Por último se emite la casa, que hace que el
-  Observable del corazón rojo se cancele sin emitir la fresa, y se emite el error inmediatamente.
+  Veamos los detalles. Primero se emite el corazón morado. Este creará un Observable que emitirá unas uvas pasados 150
+  milisegundos. A continuación se emite el corazón verde. Esto provoca que se cancele el Observable del corazón morado
+  sin emitir las uvas. El Observable del corazón verde emite inmediatamente una manzana y completa. Después se emite el
+  corazón rojo, que crea un Observable que emite una fresa pasados 150 milisegundos. Por último se emite la casa, que
+  hace que el Observable del corazón rojo se cancele sin emitir la fresa, y se emite el error inmediatamente.
 </p>
 
 <p>
