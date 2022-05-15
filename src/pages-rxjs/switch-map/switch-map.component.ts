@@ -41,9 +41,9 @@ export class SwitchMapComponent implements AfterViewInit {
     [this.MAIN_O]: [
       { value: '🏠', type: ObservableEventType.ERROR, controllerId: this.MAIN_O, enabled: false },
       { value: '🖐️', type: ObservableEventType.COMPLETE, controllerId: this.MAIN_O, enabled: false },
-      { value: '🍎', type: ObservableEventType.NEXT, controllerId: this.MAIN_O, enabled: false },
-      { value: '🍌', type: ObservableEventType.NEXT, controllerId: this.MAIN_O, enabled: false },
-      { value: '🥝', type: ObservableEventType.NEXT, controllerId: this.MAIN_O, enabled: false },
+      { value: '💜', type: ObservableEventType.NEXT, controllerId: this.MAIN_O, enabled: false },
+      { value: '❤️', type: ObservableEventType.NEXT, controllerId: this.MAIN_O, enabled: false },
+      { value: '💚', type: ObservableEventType.NEXT, controllerId: this.MAIN_O, enabled: false },
     ],
   };
 
@@ -66,7 +66,7 @@ export class SwitchMapComponent implements AfterViewInit {
 
   private handleDeliveredElement(e: ElementInConveyor) {
     if (e.conveyorId === this.MAIN_O && e.type === ObservableEventType.NEXT) {
-      this.replaceSwitchMapConveyor();
+      this.replaceSwitchMapConveyor(e.value === '💜' ? ['🍇', '🍆', '🍒'] : e.value === '💚' ? ['🍏', '🥒', '🥦'] : ['🍓', '🍉', '🍅']);
     } else if (e.conveyorId === this.MAIN_O) {
       this.elementsInConveyor.push({
         conveyorId: this.MAIN_S,
@@ -110,7 +110,7 @@ export class SwitchMapComponent implements AfterViewInit {
     }
   }
 
-  private replaceSwitchMapConveyor() {
+  private replaceSwitchMapConveyor([value1, value2, value3]: string[]) {
     const S_ID = `${this.nextSwitchMapId++}`;
     this.SWITCH.push(S_ID);
 
@@ -118,9 +118,9 @@ export class SwitchMapComponent implements AfterViewInit {
     this.controllerButtons[S_ID] = [
       { value: '🏠', type: ObservableEventType.ERROR, controllerId: S_ID, enabled: buttonsEnabled },
       { value: '🖐️', type: ObservableEventType.COMPLETE, controllerId: S_ID, enabled: buttonsEnabled },
-      { value: '🍎', type: ObservableEventType.NEXT, controllerId: S_ID, enabled: buttonsEnabled },
-      { value: '🍌', type: ObservableEventType.NEXT, controllerId: S_ID, enabled: buttonsEnabled },
-      { value: '🥝', type: ObservableEventType.NEXT, controllerId: S_ID, enabled: buttonsEnabled },
+      { value: value1, type: ObservableEventType.NEXT, controllerId: S_ID, enabled: buttonsEnabled },
+      { value: value2, type: ObservableEventType.NEXT, controllerId: S_ID, enabled: buttonsEnabled },
+      { value: value3, type: ObservableEventType.NEXT, controllerId: S_ID, enabled: buttonsEnabled },
     ];
 
     this.conveyorsWorking[S_ID] = new BehaviorSubject<boolean>(true);
