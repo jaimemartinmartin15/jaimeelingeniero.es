@@ -1,6 +1,6 @@
 import { ObservableEventType } from './observable-event-type';
 
-export interface ElemementInConveyor {
+export interface ElemementInConveyor2 {
   type: ObservableEventType;
   value: string;
   startAt: number; // percentage
@@ -8,4 +8,12 @@ export interface ElemementInConveyor {
   offset: number; // absolute
 }
 
-export type PickElementInConveyor = Pick<ElemementInConveyor, 'value' | 'type'>;
+export type PickElementInConveyor = Pick<ElemementInConveyor2, 'value' | 'type'>;
+
+export interface ElementInConveyor {
+  type: ObservableEventType;
+  value: string;
+  x: number;
+  y: number;
+  conveyorId: string;
+}

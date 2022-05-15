@@ -1,23 +1,22 @@
 :host {
-    padding: 30px 20px 20px;
+    display: block;
     border-radius: 5px;
     background-color: #fbfbff;
     box-shadow: 0 0 5px #d17515;
-    position: relative;
+    user-select: none;
 }
 
 .speed-control {
-    position: absolute;
-    top: 15px;
-    left: 15px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 30px;
-    height: 30px;
-    border: 2px solid #fbf2e2;
-    border-radius: 5px;
-    background-color: #d17515;
-    color: #fbf2e2;
+    stroke: #fbf2e2;
+    stroke-width: 2;
+    fill: #d17515;
     cursor: pointer;
+
+    .speed-number {
+        text-anchor: middle;
+        dominant-baseline: middle;
+        stroke: none;
+        fill: #fbf2e2;
+        font-size: 1.1em;
+    }
 }

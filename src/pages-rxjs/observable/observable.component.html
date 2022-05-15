@@ -90,18 +90,21 @@ new Observable((subscriber) => {
     A continuación te dejo un simulador para que pruebes:
 </p>
 
-<app-demo-container class="demo-container">
-    <app-conveyor-controller class="conveyor-controller" [button1]="{value: '🚗', type: ObservableEventType.ERROR}"
-        [button2]="{value: '🖐️', type: ObservableEventType.COMPLETE}"
-        [button3]="{value: '🍌', type: ObservableEventType.NEXT}"
-        [button4]="{value: '🍍', type: ObservableEventType.NEXT}"
-        [button5]="{value: '🍎', type: ObservableEventType.NEXT}" (onButtonClick)="onControllerButtonClick($event)">
-    </app-conveyor-controller>
+<svg appDemoContainer viewBox="0 0 640 240">
+    <g transform="translate(30, 80)" appConveyorController [button1]="controllerButtons[0]"
+        [button2]="controllerButtons[1]" [button3]="controllerButtons[2]" [button4]="controllerButtons[3]"
+        [button5]="controllerButtons[4]" (onButtonClick)="onControllerButtonClick($event)">
+    </g>
 
-    <app-conveyor-horizontal class="conveyor" [conveyorWorking$]="conveyorWorking$" [addToConveyor$]="addToConveyor$"
-        (elementDelivered)="onEventDelivered($event)">
-    </app-conveyor-horizontal>
+    <g transform="translate(220, 80)" appConveyorHorizontal [conveyorWorking$]="conveyorWorking$" [length]="250.8">
+    </g>
 
-    <app-subscriber class="subscriber" [showSpeechBubble$]="speechBubble$" (onSubscribe$)="onSubscribe($event)">
-    </app-subscriber>
-</app-demo-container>
+    <g transform="translate(496, 20)" appSubscriber [showSpeechBubble$]="speechBubble$" 
+        (onSubscribe$)="onSubscribe($event)">
+    </g>
+
+    <g>
+        <text *ngFor="let element of elementsInConveyor" [attr.x]="element.x"
+            [attr.y]="element.y">{{element.value}}</text>
+    </g>
+</svg>

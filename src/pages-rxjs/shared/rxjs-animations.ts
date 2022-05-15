@@ -1,14 +1,6 @@
-import { animate, sequence, style, transition, trigger } from '@angular/animations';
+import { animate, style, transition, trigger } from '@angular/animations';
 
-export const observableAnimation = trigger('observableAnimation', [
-  transition(':enter', [
-    style({ opacity: 0, maxHeight: '0' }),
-    animate('500ms', style({ opacity: '1', maxHeight: '1000px' })),
-  ]),
-  transition(':leave', [
-    sequence([
-      animate('225ms', style({ opacity: '0' })), 
-      animate('225ms', style({ width: '0', height: '0' })),
-    ]),
-  ]),
+export const fadeInOut = trigger('fadeInOut', [
+  transition(':enter', [style({ opacity: 0 }), animate('300ms', style({ opacity: '1' }))]),
+  transition(':leave', [style({ opacity: 1 }), animate('300ms', style({ opacity: '0' }))]),
 ]);

@@ -14,97 +14,113 @@
 import { Observable, concatMap } from 'rxjs';
 
 // This is the source observable
-const numbers$ = new Observable<number>((observer) => {
-  observer.next(1);
-  observer.next(2);
-  observer.next(0);
-  observer.next(3);
+const hearts$ = new Observable<string>((observer) => {
+  observer.next('💜');
+  setTimeout(() => observer.next('💚'), 100);
+  setTimeout(() => observer.next('❤️'), 200);
+  setTimeout(() => observer.next('🏘️'), 300);
 });
 
 // Use the pipe method to add operators
-numbers$
+hearts$
   .pipe(
     concatMap(
-      (number) =>
+      (heart) =>
         new Observable((observer) => {
-          if (number === 0) {
+          if (heart === '💜') {
             setTimeout(() => {
-              observer.error('No existences');
-            }, 1000);
-          } else if (number == 1) {
-            setTimeout(() => {
-              observer.next('🍎'.repeat(number));
+              observer.next('🍇');
               observer.complete();
-            }, 1000);
-          } else {
-            observer.next('🍎'.repeat(number));
+            }, 150);
+          } else if (heart === '💚') {
+            observer.next('🍏');
             observer.complete();
+          } else if (heart === '❤️') {
+            setTimeout(() => {
+              observer.next('🍓');
+              observer.complete();
+            }, 150);
+          } else {
+            observer.error(`No heart value: ${heart}`);
           }
         })
     )
   )
-  .subscribe(
-    (value) => console.log(`The next value is: ${value}`),
-    (error) => console.error(`There is an error: ${error}`)
-  );
+  .subscribe({
+    next: (value) => console.log(`The next value is: ${value}`),
+    error: (error) => console.error(`There is an error: ${error}`),
+    complete: () => console.log('Completed'),
+  });
 
 // Output
 // ======
-// The next value is: 🍎
-// The next value is: 🍎🍎
-// There is an error: No existences
+// The next value is: 🍇
+// The next value is: 🍏
+// The next value is: 🍓
+// There is an error: No heart value: 🏘️
 </textarea>
 
 <p>
-  En este ejemplo tenemos un Observable que emite números, y por cada número tenemos otro observable que nos emite
-  tantas manzanas como diga ese número. En el momento que hay un error en cualquiera de los Observables este se emite al
-  subscriptor.
+  En este ejemplo tenemos un Observable que emite corazones de colores, y por cada corazón tenemos otro observable que
+  nos emite una fruta del mismo color que el corazón. En el momento que hay un error en cualquiera de los Observables
+  este se emite al subscriptor.
 </p>
 
 <p>
-  Primero se emite el elemento número 1. Entonces se crea un nuevo observable y al cabo de un segundo se emite una
-  manzana. A continuación se emite el elemento número 2, pero las dos manzanas no serán entregadas hasta que se emita la
-  primera manzana, porque hasta que no complete el primer Observable, no se subcribe al siguiente. Lo mismo pasa con el
-  elemento número 0. Hasta que no se emita la primera manzana y luego las otras dos, no se producirá el error. Al
-  Observable creado por el elemento número 3 no se llegará a subscribir ni emitir las tres manzanas, porque antes se
-  producirá el error con el elemento número 0.
+  Primero se emite el corazón morado. Este creará un Observable que emitirá unas uvas pasados 150 milisegundos. Pasados
+  100 milisegundos, se emite el corazón verde. Como el Observable del corazón morado aún no ha completado, se retrasa la
+  creación del Observable para el corazón verde. Pasan entonces 50 milisegundos y se emiten las uvas y se completa el
+  Observable. En ese momento el Observable del corazón verde esta pendiente, asi que se subscribe a él y emite
+  inmediatamente una manzana y completa. Pasan 50 milisegundos más y se emite el corazón rojo, que emitirá pasados 150
+  milisegundos una fresa. Pasan 100 milisegundos y se emite la casa. Como el Observable del corazón rojo aún no ha
+  completado, se retrasa la creación del nuevo Observable. Pasan 50 milisegundos más y se emite la fresa y completa. El
+  Observable pendiente de la casa entonces emite ahora el error.
 </p>
 
 <p>
   A continuación te dejo un simulador para que pruebes:
 </p>
 
-<app-demo-container class="demo-container">
-  <app-conveyor-controller class="main-conveyor-controller" [button1]="{value: '🚗', type: ObservableEventType.ERROR}"
-    [button2]="{value: '🖐️', type: ObservableEventType.COMPLETE}"
-    [button3]="{value: '1️⃣', type: ObservableEventType.NEXT}"
-    [button4]="{value: '2️⃣', type: ObservableEventType.NEXT}"
-    [button5]="{value: '3️⃣', type: ObservableEventType.NEXT}" (onButtonClick)="onMainControllerButtonClick($event)">
-  </app-conveyor-controller>
+<svg appDemoContainer viewBox="0 0 850 640">
+  <g appConveyorController transform="translate(50,490)" [button1]="controllerButtons[MAIN_O][0]"
+    [button2]="controllerButtons[MAIN_O][1]" [button3]="controllerButtons[MAIN_O][2]"
+    [button4]="controllerButtons[MAIN_O][3]" [button5]="controllerButtons[MAIN_O][4]"
+    (onButtonClick)="onControllerButtonClick($event)">
+  </g>
 
-  <div class="conveyors-container">
-    <div class="concatmap-conveyors-container">
-      <div class="concat-map-conveyor-and-controller" *ngFor="let observable of concatMapObservables; let i = index"
-        [@observableAnimation]>
-        <app-conveyor-controller class="concat-map-conveyor-controller"
-          [button1]="{value: '🚗', type: ObservableEventType.ERROR}"
-          [button3]="{value: '🖐️', type: ObservableEventType.COMPLETE}"
-          [button4]="{value: observable.value, type: ObservableEventType.NEXT}"
-          (onButtonClick)="onConcatMapControllerButtonClick($event, i)">
-        </app-conveyor-controller>
+  <g transform="translate(260, 490)" appConveyorHorizontal [length]="403" [conveyorWorking$]="conveyorsWorking[MAIN_O]">
+  </g>
 
-        <app-conveyor-vertical class="concat-map-conveyor" [conveyorWorking$]="observable.conveyorWorking$"
-          [addToConveyor$]="observable.addToConveyor$" (elementDelivered)="onConcatMapElementDelivered($event, i)">
-        </app-conveyor-vertical>
-      </div>
-    </div>
+  <g appSubscriber transform="translate(690,420)" [showSpeechBubble$]="speechBubble$"
+    (onSubscribe$)="onSubscribe($event)"></g>
 
-    <app-conveyor-horizontal class="main-conveyor" [length]="499.5" [conveyorWorking$]="mainConveyorWorking$"
-      [addToConveyor$]="addToMainConveyor$" (elementDelivered)="onMainElementDelivered($event)">
-      <svg appOperator="concatMap"></svg>
-    </app-conveyor-horizontal>
-  </div>
+  <g appOperator transform="translate(420, 452)"></g>
 
-  <app-subscriber class="subscriber" [showSpeechBubble$]="speechBubble$" (onSubscribe$)="onSubscribe($event)">
-  </app-subscriber>
-</app-demo-container>
+  <g [attr.transform]="'translate('+(460 - (200*CONCAT.length/2))+', 70)'" class="smooth-tranform-animation">
+    <g [attr.transform]="'translate('+200*i+',0)'" *ngFor="let C_ID of CONCAT; let i = index;" @fadeInOut
+      class="smooth-tranform-animation">
+      <g appConveyorController [attr.transform]="'translate(25,0)'" [button1]="controllerButtons[C_ID][0]"
+        [button2]="controllerButtons[C_ID][1]" [button3]="controllerButtons[C_ID][2]"
+        [button4]="controllerButtons[C_ID][3]" [button5]="controllerButtons[C_ID][4]"
+        (onButtonClick)="onControllerButtonClick($event)">
+      </g>
+
+      <g [attr.transform]="'translate(70, 120)'" appConveyorVertical [length]="203"
+        [conveyorWorking$]="conveyorsWorking[C_ID]">
+      </g>
+
+      <g>
+        <ng-container *ngFor="let element of elementsInConveyor">
+          <text *ngIf="element.conveyorId === C_ID" x="90" [attr.y]="element.y">{{element.value}}</text>
+        </ng-container>
+      </g>
+    </g>
+  </g>
+
+  <g>
+    <ng-container *ngFor="let element of elementsInConveyor">
+      <text *ngIf="element.conveyorId === MAIN_O || element.conveyorId === MAIN_S" [attr.x]="element.x"
+        y="546">{{element.value}}</text>
+    </ng-container>
+  </g>
+</svg>
