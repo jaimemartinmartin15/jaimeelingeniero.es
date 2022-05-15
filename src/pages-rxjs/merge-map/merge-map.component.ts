@@ -41,9 +41,9 @@ export class MergeMapComponent implements AfterViewInit {
     [this.MAIN_O]: [
       { value: '🏠', type: ObservableEventType.ERROR, controllerId: this.MAIN_O, enabled: false },
       { value: '🖐️', type: ObservableEventType.COMPLETE, controllerId: this.MAIN_O, enabled: false },
-      { value: '🍎', type: ObservableEventType.NEXT, controllerId: this.MAIN_O, enabled: false },
-      { value: '🍌', type: ObservableEventType.NEXT, controllerId: this.MAIN_O, enabled: false },
-      { value: '🥝', type: ObservableEventType.NEXT, controllerId: this.MAIN_O, enabled: false },
+      { value: '💜', type: ObservableEventType.NEXT, controllerId: this.MAIN_O, enabled: false },
+      { value: '❤️', type: ObservableEventType.NEXT, controllerId: this.MAIN_O, enabled: false },
+      { value: '💚', type: ObservableEventType.NEXT, controllerId: this.MAIN_O, enabled: false },
     ],
   };
 
@@ -66,7 +66,7 @@ export class MergeMapComponent implements AfterViewInit {
 
   private handleDeliveredElement(e: ElementInConveyor) {
     if (e.conveyorId === this.MAIN_O && e.type === ObservableEventType.NEXT) {
-      this.addNewMergeMapConveyor();
+      this.addNewMergeMapConveyor(e.value === '💜' ? ['🍇', '🍆', '🍒'] : e.value === '💚' ? ['🍏', '🥒', '🥦'] : ['🍓', '🍉', '🍅']);
     } else if (e.conveyorId === this.MAIN_O) {
       this.elementsInConveyor.push({
         conveyorId: this.MAIN_S,
@@ -113,16 +113,16 @@ export class MergeMapComponent implements AfterViewInit {
     }
   }
 
-  private addNewMergeMapConveyor() {
+  private addNewMergeMapConveyor([value1, value2, value3]: string[]) {
     const M_ID = `${this.nextMergeMapId++}`;
     this.MERGE.push(M_ID);
 
     this.controllerButtons[M_ID] = [
       { value: '🏠', type: ObservableEventType.ERROR, controllerId: M_ID, enabled: this.controllerButtons[this.MAIN_O][2].enabled },
       { value: '🖐️', type: ObservableEventType.COMPLETE, controllerId: M_ID, enabled: this.controllerButtons[this.MAIN_O][2].enabled },
-      { value: '🍎', type: ObservableEventType.NEXT, controllerId: M_ID, enabled: this.controllerButtons[this.MAIN_O][2].enabled },
-      { value: '🍌', type: ObservableEventType.NEXT, controllerId: M_ID, enabled: this.controllerButtons[this.MAIN_O][2].enabled },
-      { value: '🥝', type: ObservableEventType.NEXT, controllerId: M_ID, enabled: this.controllerButtons[this.MAIN_O][2].enabled },
+      { value: value1, type: ObservableEventType.NEXT, controllerId: M_ID, enabled: this.controllerButtons[this.MAIN_O][2].enabled },
+      { value: value2, type: ObservableEventType.NEXT, controllerId: M_ID, enabled: this.controllerButtons[this.MAIN_O][2].enabled },
+      { value: value3, type: ObservableEventType.NEXT, controllerId: M_ID, enabled: this.controllerButtons[this.MAIN_O][2].enabled },
     ];
 
     this.conveyorsWorking[M_ID] = new BehaviorSubject<boolean>(true);

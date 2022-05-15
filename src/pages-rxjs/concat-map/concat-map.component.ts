@@ -41,9 +41,9 @@ export class ConcatMapComponent implements AfterViewInit {
     [this.MAIN_O]: [
       { value: '🏠', type: ObservableEventType.ERROR, controllerId: this.MAIN_O, enabled: false },
       { value: '🖐️', type: ObservableEventType.COMPLETE, controllerId: this.MAIN_O, enabled: false },
-      { value: '🍎', type: ObservableEventType.NEXT, controllerId: this.MAIN_O, enabled: false },
-      { value: '🍌', type: ObservableEventType.NEXT, controllerId: this.MAIN_O, enabled: false },
-      { value: '🥝', type: ObservableEventType.NEXT, controllerId: this.MAIN_O, enabled: false },
+      { value: '💜', type: ObservableEventType.NEXT, controllerId: this.MAIN_O, enabled: false },
+      { value: '❤️', type: ObservableEventType.NEXT, controllerId: this.MAIN_O, enabled: false },
+      { value: '💚', type: ObservableEventType.NEXT, controllerId: this.MAIN_O, enabled: false },
     ],
   };
 
@@ -66,7 +66,7 @@ export class ConcatMapComponent implements AfterViewInit {
 
   private handleDeliveredElement(e: ElementInConveyor) {
     if (e.conveyorId === this.MAIN_O && e.type === ObservableEventType.NEXT) {
-      this.addNewConcatMapConveyor();
+      this.addNewConcatMapConveyor(e.value === '💜' ? ['🍇', '🍆', '🍒'] : e.value === '💚' ? ['🍏', '🥒', '🥦'] : ['🍓', '🍉', '🍅']);
     } else if (e.conveyorId === this.MAIN_O) {
       this.elementsInConveyor.push({
         conveyorId: this.MAIN_S,
@@ -113,7 +113,7 @@ export class ConcatMapComponent implements AfterViewInit {
     }
   }
 
-  private addNewConcatMapConveyor() {
+  private addNewConcatMapConveyor([value1, value2, value3]: string[]) {
     const C_ID = `${this.nextConcatMapId++}`;
     this.CONCAT.push(C_ID);
 
@@ -121,9 +121,9 @@ export class ConcatMapComponent implements AfterViewInit {
     this.controllerButtons[C_ID] = [
       { value: '🏠', type: ObservableEventType.ERROR, controllerId: C_ID, enabled: buttonsEnabled },
       { value: '🖐️', type: ObservableEventType.COMPLETE, controllerId: C_ID, enabled: buttonsEnabled },
-      { value: '🍎', type: ObservableEventType.NEXT, controllerId: C_ID, enabled: buttonsEnabled },
-      { value: '🍌', type: ObservableEventType.NEXT, controllerId: C_ID, enabled: buttonsEnabled },
-      { value: '🥝', type: ObservableEventType.NEXT, controllerId: C_ID, enabled: buttonsEnabled },
+      { value: value1, type: ObservableEventType.NEXT, controllerId: C_ID, enabled: buttonsEnabled },
+      { value: value2, type: ObservableEventType.NEXT, controllerId: C_ID, enabled: buttonsEnabled },
+      { value: value3, type: ObservableEventType.NEXT, controllerId: C_ID, enabled: buttonsEnabled },
     ];
 
     this.conveyorsWorking[C_ID] = new BehaviorSubject<boolean>(buttonsEnabled);

@@ -13,59 +13,64 @@
 import { Observable, mergeMap } from 'rxjs';
 
 // This is the source observable
-const numbers$ = new Observable<number>((observer) => {
-  observer.next(1);
-  observer.next(2);
-  observer.next(0);
-  observer.next(3);
+const hearts$ = new Observable<string>((observer) => {
+  observer.next('💜');
+  setTimeout(() => observer.next('💚'), 100);
+  setTimeout(() => observer.next('❤️'), 200);
+  setTimeout(() => observer.next('🏘️'), 300);
 });
 
 // Use the pipe method to add operators
-numbers$
+hearts$
   .pipe(
     mergeMap(
-      (number) =>
+      (heart) =>
         new Observable((observer) => {
-          if (number === 0) {
+          if (heart === '💜') {
             setTimeout(() => {
-              observer.error('No existences');
-            }, 1000);
-          } else if (number == 1) {
-            setTimeout(() => {
-              observer.next('🍎'.repeat(number));
+              observer.next('🍇');
               observer.complete();
-            }, 1000);
-          } else {
-            observer.next('🍎'.repeat(number));
+            }, 150);
+          } else if (heart === '💚') {
+            observer.next('🍏');
             observer.complete();
+          } else if (heart === '❤️') {
+            setTimeout(() => {
+              observer.next('🍓');
+              observer.complete();
+            }, 150);
+          } else {
+            observer.error(`No heart value: ${heart}`);
           }
         })
     )
   )
-  .subscribe(
-    (value) => console.log(`The next value is: ${value}`),
-    (error) => console.error(`There is an error: ${error}`)
-  );
+  .subscribe({
+    next: (value) => console.log(`The next value is: ${value}`),
+    error: (error) => console.error(`There is an error: ${error}`),
+    complete: () => console.log('Completed'),
+  });
 
 // Output
 // ======
-// The next value is: 🍎🍎
-// The next value is: 🍎🍎🍎
-// The next value is: 🍎
-// There is an error: No existences
+// The next value is: 🍏
+// The next value is: 🍇
+// There is an error: No heart value: 🏘️
 </textarea>
 
 <p>
-  En este ejemplo tenemos un Observable que emite números, y por cada número tenemos otro observable que nos emite
-  tantas manzanas como diga ese número. En el momento que hay un error en cualquiera de los Observables este se emite al
-  subscriptor y todos los Observables pendientes se cancelan.
+  En este ejemplo tenemos un Observable que emite corazones de colores, y por cada corazón tenemos otro observable que
+  nos emite una fruta del mismo color que el corazón. En el momento que hay un error en cualquiera de los Observables
+  este se emite al subscriptor y todos los Observables pendientes se cancelan.
 </p>
 
 <p>
-  Primero se emite el elemento número 1. Este elemento crea un Observable que emitirá una manzana pasado un segundo. A
-  continuación se emite el elemento número 2. Este se resuelve inmediatamente y se entrega al subscriptor. Lo mismo con
-  el elemento número 3. Después se recibe el elemento número 0 que emitirá un error pasado un segundo. Finalmente al
-  cabo de un segundo el elemento número 1 se resuelve y después el error.
+  Primero se emite el corazón morado. Este elemento crea un Observable que emitirá unas uvas pasados 150 milisegundos.
+  Pasados 100 milisegundos, se emite el corazón verde, que crea un nuevo Observable que emite inmediatamente la manzana
+  y completa. Pasados otros 50 milisegundos, se emiten las uvas y se completa el Observable. Pasan entonces otros 50
+  milisegundos y se emite el corazón rojo. Este emitirá una fresa pasados otros 150 milisegundos. Por último se emite la
+  casa en el Observable fuente, que produce inmediatamente un error que se entrega al subscriptor. Por lo tanto el
+  Observable de la fresa se cancela y no se emite al subscriptor.
 </p>
 
 <p>
