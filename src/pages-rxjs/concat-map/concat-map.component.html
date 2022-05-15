@@ -7,18 +7,18 @@
   Este operador coge cada uno de los elementos emitidos por un Observable fuente y devuelve, por orden, un nuevo
   Observable por cada elemento. Es decir, hasta que no se completa el nuevo Observable, no crea uno nuevo para el
   siguiente elemento en el Observable fuente. Los elementos del nuevo Observable son puestos en el Obsevable fuente
-  y son entregados al subscriptor.
+  y son entregados al suscriptor.
 </p>
 
 <textarea highlight-js [lang]="'typescript'">
 import { Observable, concatMap } from 'rxjs';
 
 // This is the source observable
-const hearts$ = new Observable<string>((observer) => {
-  observer.next('💜');
-  setTimeout(() => observer.next('💚'), 100);
-  setTimeout(() => observer.next('❤️'), 200);
-  setTimeout(() => observer.next('🏘️'), 300);
+const hearts$ = new Observable<string>((subscriber) => {
+  subscriber.next('💜');
+  setTimeout(() => subscriber.next('💚'), 100);
+  setTimeout(() => subscriber.next('❤️'), 200);
+  setTimeout(() => subscriber.next('🏘️'), 300);
 });
 
 // Use the pipe method to add operators
@@ -26,22 +26,22 @@ hearts$
   .pipe(
     concatMap(
       (heart) =>
-        new Observable((observer) => {
+        new Observable((subscriber) => {
           if (heart === '💜') {
             setTimeout(() => {
-              observer.next('🍇');
-              observer.complete();
+              subscriber.next('🍇');
+              subscriber.complete();
             }, 150);
           } else if (heart === '💚') {
-            observer.next('🍏');
-            observer.complete();
+            subscriber.next('🍏');
+            subscriber.complete();
           } else if (heart === '❤️') {
             setTimeout(() => {
-              observer.next('🍓');
-              observer.complete();
+              subscriber.next('🍓');
+              subscriber.complete();
             }, 150);
           } else {
-            observer.error(`No heart value: ${heart}`);
+            subscriber.error(`No heart value: ${heart}`);
           }
         })
     )
@@ -63,18 +63,18 @@ hearts$
 <p>
   En este ejemplo tenemos un Observable que emite corazones de colores, y por cada corazón tenemos otro observable que
   nos emite una fruta del mismo color que el corazón. En el momento que hay un error en cualquiera de los Observables
-  este se emite al subscriptor.
+  este se emite al suscriptor y todos los Observables pendientes se cancelan.
 </p>
 
 <p>
-  Primero se emite el corazón morado. Este creará un Observable que emitirá unas uvas pasados 150 milisegundos. Pasados
-  100 milisegundos, se emite el corazón verde. Como el Observable del corazón morado aún no ha completado, se retrasa la
-  creación del Observable para el corazón verde. Pasan entonces 50 milisegundos y se emiten las uvas y se completa el
-  Observable. En ese momento el Observable del corazón verde esta pendiente, asi que se subscribe a él y emite
-  inmediatamente una manzana y completa. Pasan 50 milisegundos más y se emite el corazón rojo, que emitirá pasados 150
-  milisegundos una fresa. Pasan 100 milisegundos y se emite la casa. Como el Observable del corazón rojo aún no ha
-  completado, se retrasa la creación del nuevo Observable. Pasan 50 milisegundos más y se emite la fresa y completa. El
-  Observable pendiente de la casa entonces emite ahora el error.
+  Ahora veamos los detalles. Primero se emite el corazón morado. Este creará un Observable que emitirá unas uvas pasados
+  150 milisegundos. Pasados 100 milisegundos, se emite el corazón verde. Como el Observable del corazón morado aún no ha
+  completado, se retrasa la creación del Observable para el corazón verde. Pasan entonces 50 milisegundos y se emiten
+  las uvas y se completa el Observable. En ese momento el Observable del corazón verde esta pendiente, así que se
+  subscribe a él y emite inmediatamente una manzana y completa. Pasan 50 milisegundos más y se emite el corazón rojo,
+  que emitirá pasados 150 milisegundos una fresa. Pasan 100 milisegundos y se emite la casa. Como el Observable del
+  corazón rojo aún no ha completado, se retrasa la creación del nuevo Observable. Pasan 50 milisegundos más y se emite
+  la fresa y completa. El Observable pendiente de la casa entonces emite ahora el error.
 </p>
 
 <p>

@@ -6,18 +6,18 @@
 <p>
   Este operador coge cada uno de los elementos emitidos por un Observable fuente y devuelve un nuevo Observable por
   cada elemento, cuyos elementos emitidos serán puestos de nuevo en el observable fuente y que serán los que se entregen
-  al subscriptor.
+  al suscriptor.
 </p>
 
 <textarea highlight-js [lang]="'typescript'">
 import { Observable, mergeMap } from 'rxjs';
 
 // This is the source observable
-const hearts$ = new Observable<string>((observer) => {
-  observer.next('💜');
-  setTimeout(() => observer.next('💚'), 100);
-  setTimeout(() => observer.next('❤️'), 200);
-  setTimeout(() => observer.next('🏘️'), 300);
+const hearts$ = new Observable<string>((subscriber) => {
+  subscriber.next('💜');
+  setTimeout(() => subscriber.next('💚'), 100);
+  setTimeout(() => subscriber.next('❤️'), 200);
+  setTimeout(() => subscriber.next('🏘️'), 300);
 });
 
 // Use the pipe method to add operators
@@ -25,22 +25,22 @@ hearts$
   .pipe(
     mergeMap(
       (heart) =>
-        new Observable((observer) => {
+        new Observable((subscriber) => {
           if (heart === '💜') {
             setTimeout(() => {
-              observer.next('🍇');
-              observer.complete();
+              subscriber.next('🍇');
+              subscriber.complete();
             }, 150);
           } else if (heart === '💚') {
-            observer.next('🍏');
-            observer.complete();
+            subscriber.next('🍏');
+            subscriber.complete();
           } else if (heart === '❤️') {
             setTimeout(() => {
-              observer.next('🍓');
-              observer.complete();
+              subscriber.next('🍓');
+              subscriber.complete();
             }, 150);
           } else {
-            observer.error(`No heart value: ${heart}`);
+            subscriber.error(`No heart value: ${heart}`);
           }
         })
     )
@@ -59,18 +59,18 @@ hearts$
 </textarea>
 
 <p>
-  En este ejemplo tenemos un Observable que emite corazones de colores, y por cada corazón tenemos otro observable que
+  En este ejemplo tenemos un Observable que emite corazones de colores, y por cada corazón tenemos otro Observable que
   nos emite una fruta del mismo color que el corazón. En el momento que hay un error en cualquiera de los Observables
-  este se emite al subscriptor y todos los Observables pendientes se cancelan.
+  este se emite al suscriptor y todos los Observables pendientes se cancelan.
 </p>
 
 <p>
-  Primero se emite el corazón morado. Este elemento crea un Observable que emitirá unas uvas pasados 150 milisegundos.
-  Pasados 100 milisegundos, se emite el corazón verde, que crea un nuevo Observable que emite inmediatamente la manzana
-  y completa. Pasados otros 50 milisegundos, se emiten las uvas y se completa el Observable. Pasan entonces otros 50
-  milisegundos y se emite el corazón rojo. Este emitirá una fresa pasados otros 150 milisegundos. Por último se emite la
-  casa en el Observable fuente, que produce inmediatamente un error que se entrega al subscriptor. Por lo tanto el
-  Observable de la fresa se cancela y no se emite al subscriptor.
+  Ahora voy a explicarlo. Primero se emite el corazón morado. Este elemento crea un Observable que emitirá unas uvas
+  pasados 150 milisegundos. Pasados 100 milisegundos se emite el corazón verde, que crea un nuevo Observable que emite
+  inmediatamente la manzana y completa. Pasados otros 50 milisegundos se emiten las uvas y se completa el Observable.
+  Pasan entonces otros 50 milisegundos y se emite el corazón rojo. Este emitirá una fresa pasados otros 150
+  milisegundos. Por último se emite la casa en el Observable fuente, que produce inmediatamente un error que se entrega
+  al suscriptor. Por lo tanto el Observable de la fresa se cancela y no se emite al suscriptor.
 </p>
 
 <p>
