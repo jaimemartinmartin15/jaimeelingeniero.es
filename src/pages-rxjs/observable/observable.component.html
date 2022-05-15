@@ -24,20 +24,20 @@
 <textarea highlight-js [lang]="'typescript'">
 import { Observable } from 'rxjs';
 
-const myFirstObservable = new Observable(observer => {
-    doSomeStuff();
-    observer.next('🍎'); // will invoke next callback passed in the subscribe method
-    doOtherSuff();
-    observer.next('🍎');
-    observer.complete(); // will invoke complete callback passed in the subscribe method
+const myFirstObservable = new Observable((subscriber) => {
+  doSomeStuff();
+  subscriber.next('🍎'); // will invoke next callback passed in the subscribe method
+  doOtherSuff();
+  subscriber.next('🍎');
+  subscriber.complete(); // will invoke complete callback passed in the subscribe method
 });
 
 // the callback function passed to the observable is not executed until we subscribe
-myFirstObservable.subscribe(
-    value => console.log(`The next value is: ${value}`),
-    error => console.log(`Error: ${error}`),
-    () => console.log('The observable has completed')
-);
+myFirstObservable.subscribe({
+  next: (value) => console.log(`The next value is: ${value}`),
+  error: (error) => console.log(`Error: ${error}`),
+  complete: () => console.log('The observable has completed'),
+});
 
 // Output
 // ======
@@ -48,7 +48,7 @@ myFirstObservable.subscribe(
 
 <p>
     Cuando creamos un objeto de tipo Observable con la palabra reservada new, le tenemos que
-    pasar una funcion que toma un parámetro: el observador.
+    pasar una función que toma un parámetro: el subscriptor.
 </p>
 
 <p>
@@ -60,18 +60,17 @@ myFirstObservable.subscribe(
 
 <textarea highlight-js [lang]="'typescript'">
 new Observable((subscriber) => {
-    setTimeout(() => observer.next('This is timeout 🍊'), 10); // it won't emit
-    observer.next('🍎');
-    observer.next('🍐');
-    observer.error('🚗');
-    console.log('This code still is executed: 🍓');
-    observer.next('🍍'); // it won't emit
-})
-.subscribe(
-    fruit => console.log(`Next: ${fruit}`),
-    error => console.log(`Error: ${fruit}`),
-    () => console.log('Observable completed')
-);
+  setTimeout(() => subscriber.next('This is timeout 🍊'), 10); // it won't emit
+  subscriber.next('🍎');
+  subscriber.next('🍐');
+  subscriber.error('🚗');
+  console.log('This code still is executed: 🍓');
+  subscriber.next('🍍'); // it won't emit
+}).subscribe({
+  next: (fruit) => console.log(`Next: ${fruit}`),
+  error: (error) => console.log(`Error: ${error}`),
+  complete: () => console.log('Observable completed'),
+});
 
 // Output
 // ======
@@ -82,7 +81,8 @@ new Observable((subscriber) => {
 </textarea>
 
 <p>
-    Aunque por más que llamemos a más métodos del observador (next, error o complete) este no emitirá eventos y las
+    Aunque por más veces que llamemos a los métodos del subscriptor (<span class="next">next</span>,
+    <span class="error">error</span> o <span class="complete">complete</span>) este no emitirá eventos y las
     funciones callback del subscribe no se ejecutarán, porque el Observable ha completado o emitido un error.
 </p>
 
@@ -99,7 +99,7 @@ new Observable((subscriber) => {
     <g transform="translate(220, 80)" appConveyorHorizontal [conveyorWorking$]="conveyorWorking$" [length]="250.8">
     </g>
 
-    <g transform="translate(496, 20)" appSubscriber [showSpeechBubble$]="speechBubble$" 
+    <g transform="translate(496, 20)" appSubscriber [showSpeechBubble$]="speechBubble$"
         (onSubscribe$)="onSubscribe($event)">
     </g>
 
