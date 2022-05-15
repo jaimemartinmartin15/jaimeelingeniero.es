@@ -6,7 +6,7 @@
 <p>
   Este operador coge cada uno de los elementos emitidos por un Observable fuente y devuelve un nuevo Observable por
   cada elemento, cuyos elementos emitidos serán puestos de nuevo en el observable fuente y que serán los que se entregen
-  al suscritor.
+  al suscriptor.
 </p>
 
 <textarea highlight-js [lang]="'typescript'">
@@ -61,7 +61,7 @@ hearts$
 <p>
   En este ejemplo tenemos un Observable que emite corazones de colores, y por cada corazón tenemos otro Observable que
   nos emite una fruta del mismo color que el corazón. En el momento que hay un error en cualquiera de los Observables
-  este se emite al suscritor y todos los Observables pendientes se cancelan.
+  este se emite al suscriptor y todos los Observables pendientes se cancelan.
 </p>
 
 <p>
@@ -70,7 +70,7 @@ hearts$
   inmediatamente la manzana y completa. Pasados otros 50 milisegundos se emiten las uvas y se completa el Observable.
   Pasan entonces otros 50 milisegundos y se emite el corazón rojo. Este emitirá una fresa pasados otros 150
   milisegundos. Por último se emite la casa en el Observable fuente, que produce inmediatamente un error que se entrega
-  al suscritor. Por lo tanto el Observable de la fresa se cancela y no se emite al suscritor.
+  al suscriptor. Por lo tanto el Observable de la fresa se cancela y no se emite al suscriptor.
 </p>
 
 <p>

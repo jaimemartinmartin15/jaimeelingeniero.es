@@ -48,7 +48,7 @@ myFirstObservable.subscribe({
 
 <p>
     Cuando creamos un objeto de tipo Observable con la palabra reservada new, le tenemos que
-    pasar una función que toma un parámetro: el suscritor.
+    pasar una función que toma un parámetro: el suscriptor.
 </p>
 
 <p>
@@ -81,7 +81,7 @@ new Observable((subscriber) => {
 </textarea>
 
 <p>
-    Aunque por más veces que llamemos a los métodos del suscritor (<span class="next">next</span>,
+    Aunque por más veces que llamemos a los métodos del suscriptor (<span class="next">next</span>,
     <span class="error">error</span> o <span class="complete">complete</span>) este no emitirá eventos y las
     funciones callback del subscribe no se ejecutarán, porque el Observable ha completado o emitido un error.
 </p>
