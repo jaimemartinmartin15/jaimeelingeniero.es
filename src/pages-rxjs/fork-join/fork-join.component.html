@@ -52,3 +52,33 @@ forkJoin([observable1, observable2]).subscribe({
 <p>
   A continuación te dejo un simulador para que pruebes:
 </p>
+
+<svg appDemoContainer viewBox="0 0 850 500">
+  <g transform="translate(55, 350)" appConveyorHorizontal [length]="403" [conveyorWorking$]="conveyorsWorking[MAIN]">
+  </g>
+
+  <g appSubscriber transform="translate(485,280)" [showSpeechBubble$]="speechBubble$"
+    (onSubscribe$)="onSubscribe($event)"></g>
+
+  <!-- left jorkJoin conveyor controller -->
+  <g appConveyorController transform="translate(85,35)" [button1]="controllerButtons[LEFT][0]"
+    [button2]="controllerButtons[LEFT][1]" [button3]="controllerButtons[LEFT][2]" [button4]="controllerButtons[LEFT][3]"
+    [button5]="controllerButtons[LEFT][4]" (onButtonClick)="onControllerButtonClick($event)"></g>
+
+  <!-- left jorkJoin conveyor -->
+  <g appConveyorVertical transform="translate(130,155)" [conveyorWorking$]="conveyorsWorking[LEFT]"></g>
+
+  <!-- right jorkJoin conveyor controller -->
+  <g appConveyorController transform="translate(275,35)" [button1]="controllerButtons[RIGHT][0]"
+    [button2]="controllerButtons[RIGHT][1]" [button3]="controllerButtons[RIGHT][2]"
+    [button4]="controllerButtons[RIGHT][3]" [button5]="controllerButtons[RIGHT][4]"
+    (onButtonClick)="onControllerButtonClick($event)"></g>
+
+  <!-- right jorkJoin conveyor -->
+  <g appConveyorVertical transform="translate(320,155)" [conveyorWorking$]="conveyorsWorking[RIGHT]"></g>
+
+  <g>
+    <text *ngFor="let element of elementsInStandby" [attr.x]="element.x" [attr.y]="element.y">{{element.value}}</text>
+    <text *ngFor="let element of elementsInConveyor" [attr.x]="element.x" [attr.y]="element.y">{{element.value}}</text>
+  </g>
+</svg>
