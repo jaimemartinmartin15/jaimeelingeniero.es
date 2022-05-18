@@ -1,0 +1,81 @@
+<div class="page-header">
+  <h1 class="title">ForkJoin</h1>
+  <a class="link-rxjs" href="https://rxjs.dev/api/index/function/forkJoin" target="_blank">rxjs forkJoin ➡️</a>
+</div>
+
+<p>
+  Esta función toma un array de Observables y nos devuelve un Observable que emite cuando todos los Observables del
+  array han completado. El elemento emitido es un array con los últimos elementos de cada Observable antes de completar.
+</p>
+
+<textarea highlight-js [lang]="'typescript'">
+import { forkJoin, Observable } from 'rxjs';
+
+const observable1 = new Observable((subscriber) => {
+  setTimeout(() => subscriber.next('🍎'), 100);
+  setTimeout(() => subscriber.next('🍇'), 200);
+  setTimeout(() => subscriber.complete(), 250);
+});
+
+const observable2 = new Observable((subscriber) => {
+  setTimeout(() => subscriber.next('🍊'), 150);
+  setTimeout(() => subscriber.next('🍌'), 300);
+  setTimeout(() => subscriber.complete(), 350);
+});
+
+forkJoin([observable1, observable2]).subscribe({
+  next: (value) => console.log('Next:', value),
+  error: (error) => console.error(`Error: ${error}`),
+  complete: () => console.log('Completed'),
+});
+
+// Output
+// ======
+// Next: ['🍇', '🍌']
+// Completed
+</textarea>
+
+<p>
+  Bueno, pues en este ejemplo sencillito tenemos dos Observables que emiten elementos. Primero se emite la manzana en el
+  observable1, luego la naranja en el observable2, luego las uvas en el observable1 y entonces completa el observable1.
+  Como el observable2 aún no ha completado el forkJoin no emite. Entonces se sigue emitiendo el plátano en el
+  observable2 y por último el observable2 completa. Esto es así que ahora todos los Observables del array que pasamos
+  como argumento han completado y se emite el elemento ['🍇', '🍌'] en el Observable devuelto por el forkJoin. Como
+  todos los Observables han completado, también se emite el evento de completed.
+</p>
+
+<p>
+  En caso de haber tenido algún error en los Observables del array que pasamos como argumento, este error se entregaría
+  directamente al Observable devuelto por jorkJoin.
+</p>
+
+<p>
+  Si alguno de los Observables completa sin haber emitido elementos, se completa el Observable devuelto por forkJoin.
+</p>
+
+<p>
+  A continuación te dejo un simulador para que pruebes:
+</p>
+
+<svg appDemoContainer viewBox="0 0 850 500">
+  <g transform="translate(55, 350)" appConveyorHorizontal [length]="600.6" [conveyorWorking$]="conveyorsWorking[MAIN]">
+  </g>
+
+  <g appSubscriber transform="translate(682,280)" [showSpeechBubble$]="speechBubble$"
+    (onSubscribe$)="onSubscribe($event)"></g>
+
+  <ng-container *ngFor="let F_ID of FORKJOIN; let i = index">
+    <g appConveyorController [attr.transform]="'translate('+(85 + 195*i)+',35)'" [button1]="controllerButtons[F_ID][0]"
+      [button2]="controllerButtons[F_ID][1]" [button3]="controllerButtons[F_ID][2]"
+      [button4]="controllerButtons[F_ID][3]" [button5]="controllerButtons[F_ID][4]"
+      (onButtonClick)="onControllerButtonClick($event)"></g>
+
+    <g appConveyorVertical [attr.transform]="'translate('+(130+ 195*i)+',155)'"
+      [conveyorWorking$]="conveyorsWorking[F_ID]"></g>
+  </ng-container>
+
+  <g>
+    <text *ngFor="let element of elementsInStandby" [attr.x]="element.x" [attr.y]="element.y">{{element.value}}</text>
+    <text *ngFor="let element of elementsInConveyor" [attr.x]="element.x" [attr.y]="element.y">{{element.value}}</text>
+  </g>
+</svg>

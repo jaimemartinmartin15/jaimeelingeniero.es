@@ -28,6 +28,14 @@ const routes: Routes = [
         loadChildren: () => import('./combine-latest-with/combine-latest-with.module').then((m) => m.CombineLatestWithModule),
       },
       {
+        path: 'exhaustMap',
+        loadChildren: () => import('./exhaust-map/exhaust-map.module').then((m) => m.ExhaustMapModule),
+      },
+      {
+        path: 'forkJoin',
+        loadChildren: () => import('./fork-join/fork-join.module').then((m) => m.ForkJoinModule),
+      },
+      {
         path: '',
         redirectTo: 'observable',
       },
