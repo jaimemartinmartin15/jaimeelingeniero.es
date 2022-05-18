@@ -13,55 +13,69 @@ import { SpeechBubble } from '../shared/speech-bubble';
 })
 export class ForkJoinComponent {
   public readonly MAIN = '0';
-  public readonly LEFT = '1';
-  public readonly RIGHT = '2';
+  public readonly FORKJOIN = ['1', '2', '3'];
 
   @ViewChild(DemoContainerComponent)
   public demo: DemoContainerComponent;
 
   public readonly conveyorsWorking: { [key: string]: BehaviorSubject<boolean> } = {
     [this.MAIN]: new BehaviorSubject<boolean>(false),
-    [this.LEFT]: new BehaviorSubject<boolean>(false),
-    [this.RIGHT]: new BehaviorSubject<boolean>(false),
+    [this.FORKJOIN[0]]: new BehaviorSubject<boolean>(false),
+    [this.FORKJOIN[1]]: new BehaviorSubject<boolean>(false),
+    [this.FORKJOIN[2]]: new BehaviorSubject<boolean>(false),
   };
 
   public readonly controllerButtons: { [key: string]: ButtonController[] } = {
-    [this.LEFT]: [
-      { value: '🧲', type: ObservableEventType.ERROR, controllerId: this.LEFT, enabled: false },
-      { value: '🖐️', type: ObservableEventType.COMPLETE, controllerId: this.LEFT, enabled: false },
-      { value: '🍐', type: ObservableEventType.NEXT, controllerId: this.LEFT, enabled: false },
-      { value: '🍍', type: ObservableEventType.NEXT, controllerId: this.LEFT, enabled: false },
-      { value: '🍇', type: ObservableEventType.NEXT, controllerId: this.LEFT, enabled: false },
+    [this.FORKJOIN[0]]: [
+      { value: '🧲', type: ObservableEventType.ERROR, controllerId: this.FORKJOIN[0], enabled: false },
+      { value: '🖐️', type: ObservableEventType.COMPLETE, controllerId: this.FORKJOIN[0], enabled: false },
+      { value: '🍐', type: ObservableEventType.NEXT, controllerId: this.FORKJOIN[0], enabled: false },
+      { value: '🍍', type: ObservableEventType.NEXT, controllerId: this.FORKJOIN[0], enabled: false },
+      { value: '🍇', type: ObservableEventType.NEXT, controllerId: this.FORKJOIN[0], enabled: false },
     ],
-    [this.RIGHT]: [
-      { value: '🥁', type: ObservableEventType.ERROR, controllerId: this.RIGHT, enabled: false },
-      { value: '🖐️', type: ObservableEventType.COMPLETE, controllerId: this.RIGHT, enabled: false },
-      { value: '🍓', type: ObservableEventType.NEXT, controllerId: this.RIGHT, enabled: false },
-      { value: '🍉', type: ObservableEventType.NEXT, controllerId: this.RIGHT, enabled: false },
-      { value: '🍊', type: ObservableEventType.NEXT, controllerId: this.RIGHT, enabled: false },
+    [this.FORKJOIN[1]]: [
+      { value: '🥁', type: ObservableEventType.ERROR, controllerId: this.FORKJOIN[1], enabled: false },
+      { value: '🖐️', type: ObservableEventType.COMPLETE, controllerId: this.FORKJOIN[1], enabled: false },
+      { value: '🍓', type: ObservableEventType.NEXT, controllerId: this.FORKJOIN[1], enabled: false },
+      { value: '🍉', type: ObservableEventType.NEXT, controllerId: this.FORKJOIN[1], enabled: false },
+      { value: '🍊', type: ObservableEventType.NEXT, controllerId: this.FORKJOIN[1], enabled: false },
+    ],
+    [this.FORKJOIN[2]]: [
+      { value: '👕', type: ObservableEventType.ERROR, controllerId: this.FORKJOIN[2], enabled: false },
+      { value: '🖐️', type: ObservableEventType.COMPLETE, controllerId: this.FORKJOIN[2], enabled: false },
+      { value: '🍏', type: ObservableEventType.NEXT, controllerId: this.FORKJOIN[2], enabled: false },
+      { value: '🥕', type: ObservableEventType.NEXT, controllerId: this.FORKJOIN[2], enabled: false },
+      { value: '🥝', type: ObservableEventType.NEXT, controllerId: this.FORKJOIN[2], enabled: false },
     ],
   };
 
   private readonly initialPositions: { [key: string]: { x: number; y: number } } = {
     [this.MAIN]: { x: 55, y: 406 },
-    [this.LEFT]: { x: 150, y: 155 },
-    [this.RIGHT]: { x: 340, y: 155 },
+    [this.FORKJOIN[0]]: { x: 150, y: 155 },
+    [this.FORKJOIN[1]]: { x: 345, y: 155 },
+    [this.FORKJOIN[2]]: { x: 540, y: 155 },
   };
 
   private readonly finalPositions: { [key: string]: { x: number; y: number } } = {
-    [this.MAIN]: { x: 460, y: 406 },
-    [this.LEFT]: { x: 150, y: 377 },
-    [this.RIGHT]: { x: 340, y: 377 },
+    [this.MAIN]: { x: 640, y: 406 },
+    [this.FORKJOIN[0]]: { x: 150, y: 377 },
+    [this.FORKJOIN[1]]: { x: 345, y: 377 },
+    [this.FORKJOIN[2]]: { x: 540, y: 377 },
   };
 
   public elementsInConveyor: ElementInConveyor[] = [];
-  public elementsInStandby: [ElementInConveyor, ElementInConveyor] = [{} as any as ElementInConveyor, {} as any as ElementInConveyor];
+  public elementsInStandby: [ElementInConveyor, ElementInConveyor, ElementInConveyor] = [
+    {} as any as ElementInConveyor,
+    {} as any as ElementInConveyor,
+    {} as any as ElementInConveyor,
+  ];
 
   public speechBubble$ = new Subject<SpeechBubble>();
 
   private demoSubjects: { [key: string]: Subject<ElementInConveyor> } = {
-    [this.LEFT]: new Subject(),
-    [this.RIGHT]: new Subject(),
+    [this.FORKJOIN[0]]: new Subject(),
+    [this.FORKJOIN[1]]: new Subject(),
+    [this.FORKJOIN[2]]: new Subject(),
   };
 
   public ngAfterViewInit(): void {
@@ -80,7 +94,7 @@ export class ForkJoinComponent {
               this.onSubscribe(false);
             }
           } else if (e.type === ObservableEventType.NEXT) {
-            this.elementsInStandby[parseInt(e.conveyorId)] = e;
+            this.elementsInStandby[parseInt(e.conveyorId) - 1] = e;
             this.demoSubjects[e.conveyorId].next(e);
           } else if (e.type === ObservableEventType.ERROR) {
             this.demoSubjects[e.conveyorId].error(e);
@@ -121,23 +135,22 @@ export class ForkJoinComponent {
 
     Object.values(this.controllerButtons).forEach((values) => values.forEach((b) => (b.enabled = isSubscribed)));
 
-    this.elementsInStandby = [{} as any as ElementInConveyor, {} as any as ElementInConveyor];
+    this.elementsInStandby = [{} as any as ElementInConveyor, {} as any as ElementInConveyor, {} as any as ElementInConveyor];
 
     this.demoSubjects = {
-      [this.MAIN]: new Subject(),
-      [this.LEFT]: new Subject(),
-      [this.RIGHT]: new Subject(),
+      [this.FORKJOIN[0]]: new Subject(),
+      [this.FORKJOIN[1]]: new Subject(),
+      [this.FORKJOIN[2]]: new Subject(),
     };
 
-    forkJoin([this.demoSubjects[this.LEFT], this.demoSubjects[this.RIGHT]])
-      .pipe(map(([left, right]) => [left.value, right.value]))
+    forkJoin(Object.values(this.demoSubjects))
+      .pipe(map((elements) => elements.map((v) => v.value)))
       .subscribe({
-        next: ([left, right]) => {
-          console.log('holla');
+        next: (elements) => {
           this.elementsInConveyor.push({
             conveyorId: this.MAIN,
             type: ObservableEventType.NEXT,
-            value: `[${left},${right}]`,
+            value: `[${elements.join(',')}]`,
             ...this.initialPositions[this.MAIN],
           });
         },
@@ -167,6 +180,13 @@ export class ForkJoinComponent {
       Object.values(this.controllerButtons).forEach((controller) => controller.forEach((button) => (button.enabled = false)));
     } else if (button.type === ObservableEventType.COMPLETE) {
       this.controllerButtons[button.controllerId].forEach((b) => (b.enabled = false));
+      // if one Observable emits without emiting values before, disable all buttons to complete main Observable
+      if (
+        Object.keys(this.elementsInStandby[parseInt(button.controllerId) - 1]).length === 0 &&
+        this.elementsInConveyor.every((e) => e.conveyorId !== button.controllerId)
+      ) {
+        Object.values(this.controllerButtons).forEach((controller) => controller.forEach((button) => (button.enabled = false)));
+      }
     }
 
     this.elementsInConveyor.push({
