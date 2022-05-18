@@ -32,6 +32,10 @@ const routes: Routes = [
         loadChildren: () => import('./exhaust-map/exhaust-map.module').then((m) => m.ExhaustMapModule),
       },
       {
+        path: 'forkJoin',
+        loadChildren: () => import('./fork-join/fork-join.module').then((m) => m.ForkJoinModule),
+      },
+      {
         path: '',
         redirectTo: 'observable',
       },
