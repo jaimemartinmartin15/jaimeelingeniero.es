@@ -36,6 +36,10 @@ const routes: Routes = [
         loadChildren: () => import('./fork-join/fork-join.module').then((m) => m.ForkJoinModule),
       },
       {
+        path: 'startWith',
+        loadChildren: () => import('./start-with/start-with.module').then((m) => m.StartWithModule),
+      },
+      {
         path: '',
         redirectTo: 'observable',
       },
