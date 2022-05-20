@@ -40,4 +40,20 @@ new Observable<string>((subscriber) => {
   Pruébalo en esta sencilla demo, donde se emitirá una pera antes que otro elemento:
 </p>
 
-<!-- TODO demo -->
+<svg appDemoContainer viewBox="0 0 640 240">
+  <g transform="translate(30, 80)" appConveyorController [button1]="controllerButtons[0]"
+    [button2]="controllerButtons[1]" [button3]="controllerButtons[2]" [button4]="controllerButtons[3]"
+    [button5]="controllerButtons[4]" (onButtonClick)="onControllerButtonClick($event)">
+  </g>
+
+  <g transform="translate(220, 80)" appConveyorHorizontal [conveyorWorking$]="conveyorWorking$" [length]="250.8">
+  </g>
+
+  <g transform="translate(496, 20)" appSubscriber [showSpeechBubble$]="speechBubble$"
+    (onSubscribe$)="onSubscribe($event)">
+  </g>
+
+  <g>
+    <text *ngFor="let element of elementsInConveyor" [attr.x]="element.x" y="136">{{element.value}}</text>
+  </g>
+</svg>
