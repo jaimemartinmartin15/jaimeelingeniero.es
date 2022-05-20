@@ -2,3 +2,42 @@
   <h1 class="title">StartWith</h1>
   <a class="link-rxjs" href="https://rxjs.dev/api/operators/startWith" target="_blank">rxjs startWith ➡️</a>
 </div>
+
+<p>
+  Este operador emite inmediatamente un nuevo elemento en el pipe del Observable cuando un suscriptor se suscribe.
+</p>
+
+<textarea highlight-js [lang]="'typescript'">
+import { Observable, startWith } from 'rxjs';
+
+// This is the source observable
+new Observable<string>((subscriber) => {
+  subscriber.next('🍌');
+  subscriber.next('🍎');
+  subscriber.complete();
+})
+  .pipe(startWith('🍇'))
+  .subscribe({
+    next: (value) => console.log(`The next value is: ${value}`),
+    error: (error) => console.error(`There is an error: ${error}`),
+    complete: () => console.log('Completed'),
+  });
+
+// Output
+// ======
+// The next value is: 🍇
+// The next value is: 🍌
+// The next value is: 🍎
+// Completed
+</textarea>
+
+<p>
+  Pues lo dicho, antes de ejecutar la función que pasamos al constructor del Observable, se invoca el método next del
+  suscriptor con el elemento que le pasamos a este operador.
+</p>
+
+<p>
+  Pruébalo en esta sencilla demo, donde se emitirá una pera antes que otro elemento:
+</p>
+
+<!-- TODO demo -->
