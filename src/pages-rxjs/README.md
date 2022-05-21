@@ -1,3 +1,3 @@
 # How to setup new page
 
-Run command `ng generate ./app-schematics/src/collection.json:rxjs-page --name=<page-name>`
+Run command `ng generate rxjs-page pageName`
