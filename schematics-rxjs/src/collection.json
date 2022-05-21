@@ -2,8 +2,9 @@
   "$schema": "../node_modules/@angular-devkit/schematics/collection-schema.json",
   "schematics": {
     "schematics-rxjs": {
-      "description": "A blank schematic.",
-      "factory": "./schematics-rxjs/index#schematicsRxjs"
+      "description": "Schematic that generates the setup for a new rxjs page",
+      "factory": "./schematics-rxjs/index#schematicsRxjs",
+      "schema": "./schematics-rxjs/schema.json"
     }
   }
 }
