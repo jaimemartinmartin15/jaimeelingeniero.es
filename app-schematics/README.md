@@ -1,8 +1,4 @@
-# Getting Started With Schematics
-
-This repository is a basic Schematic implementation that serves as a starting point to create and publish Schematics to NPM.
-
-### Testing
+# Setup
 
 To test locally, install `@angular-devkit/schematics-cli` globally and use the `schematics` command line tool. That tool acts the same as the `generate` command of the Angular CLI, but also has a debug mode.
 
@@ -12,11 +8,11 @@ Check the documentation with
 schematics --help
 ```
 
-### Unit Testing
+# Developing
 
-`npm run test` will run the unit tests, using Jasmine as a runner and test framework.
+Run `npm run build:watch` to build the schematic in watch mode. Use `schematics .:rxjs-page --dry-run=false --name=somePageName` to execute the schematic.
 
-### Publishing
+# Publishing
 
 To publish, simply do:
 

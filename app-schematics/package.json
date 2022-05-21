@@ -1,7 +1,7 @@
 {
-  "name": "schematics-rxjs",
+  "name": "app-schematics",
   "version": "0.0.0",
-  "description": "A blank schematics",
+  "description": "Schematics for the app",
   "scripts": {
     "build": "tsc -p tsconfig.json",
     "build:watch": "tsc -p tsconfig.json --watch",

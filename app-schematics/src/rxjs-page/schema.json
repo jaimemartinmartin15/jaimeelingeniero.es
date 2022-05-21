@@ -1,6 +1,6 @@
 {
     "$schema": "http://json-schema.org/schema",
-    "$id": "RxjsSchema",
+    "$id": "RxjsPageSchema",
     "type": "object",
     "properties": {
         "name": {
