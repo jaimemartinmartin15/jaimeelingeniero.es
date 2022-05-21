@@ -7,6 +7,7 @@ import { classify, dasherize } from '@angular-devkit/core/src/utils/strings';
 
 const RXJS_ROUTING_MODULE_PATH = 'src/pages-rxjs/pages-rxjs-routing.module.ts';
 const RXJS_MAIN_PAGE_HTML_PATH = 'src/pages-rxjs/pages-rxjs.component.html';
+const RXJS_MAIN_PAGE_SCSS_PATH = 'src/pages-rxjs/pages-rxjs.component.scss';
 
 export function rxjsPage({ name }: Schema): Rule {
   return (tree: Tree, _context: SchematicContext) => {
@@ -39,6 +40,18 @@ export function rxjsPage({ name }: Schema): Rule {
     )}  <a [routerLink]="['/comprende-rxjs/${name}']" routerLinkActive="menu-section-active">${name}</a>
   ${rxjsMainPageHtml.slice(indexToInsert)}`;
     tree.overwrite(RXJS_MAIN_PAGE_HTML_PATH, rxjsMainPageHtml);
+
+    // updates the max-height in the scss
+    let rxjsMainPageScss: string = tree.read(RXJS_MAIN_PAGE_SCSS_PATH)!.toString();
+    indexToInsert = rxjsMainPageScss.indexOf('px; // updated by schematic');
+    let numberLength = 0;
+    let i = indexToInsert - 1;
+    while (rxjsMainPageScss.charAt(i - numberLength) != ' ') {
+      numberLength++;
+    }
+    const newMaxHeight = parseInt(rxjsMainPageScss.substring(indexToInsert - numberLength, indexToInsert)) + 51;
+    rxjsMainPageScss = `${rxjsMainPageScss.slice(0,indexToInsert - numberLength)}${newMaxHeight}${rxjsMainPageScss.slice(indexToInsert)}`;
+    tree.overwrite(RXJS_MAIN_PAGE_SCSS_PATH, rxjsMainPageScss);
 
     return mergeWith(sourceParametrizedTemplates);
   };
