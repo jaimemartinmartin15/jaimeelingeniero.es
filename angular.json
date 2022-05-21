@@ -113,5 +113,8 @@
       }
     }
   },
+  "cli": {
+    "defaultCollection": "./app-schematics"
+  },
   "defaultProject": "jaimeelingeniero"
 }

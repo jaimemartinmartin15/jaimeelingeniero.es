@@ -1,0 +1,13 @@
+{
+  "$schema": "../node_modules/@angular-devkit/schematics/collection-schema.json",
+  "extends": [
+    "@schematics/angular"
+  ],
+  "schematics": {
+    "rxjs-page": {
+      "description": "Schematic that generates the setup for a new rxjs page",
+      "factory": "./rxjs-page/index#rxjsPage",
+      "schema": "./rxjs-page/schema.json"
+    }
+  }
+}
