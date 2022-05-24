@@ -4,6 +4,11 @@ import { PagesRxjsComponent } from './pages-rxjs.component';
 
 const routes: Routes = [
   {
+    path: 'inicio',
+    loadChildren: () => import('./home/home.module').then((m) => m.HomeModule),
+  },
+  { path: '', redirectTo: 'inicio', pathMatch: 'full' },
+  {
     path: '',
     component: PagesRxjsComponent,
     children: [
@@ -39,20 +44,11 @@ const routes: Routes = [
         path: 'startWith',
         loadChildren: () => import('./start-with/start-with.module').then((m) => m.StartWithModule),
       },
-      {
-        path: '',
-        redirectTo: 'observable',
-      },
-      {
-        path: '**',
-        redirectTo: 'observable',
-        pathMatch: 'full',
-      },
     ],
   },
   {
     path: '**',
-    redirectTo: '',
+    redirectTo: 'inicio',
     pathMatch: 'full',
   },
 ];
