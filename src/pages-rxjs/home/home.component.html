@@ -1,1 +1,23 @@
-<h1>Comprende Rxjs</h1>
+<h1 class="screen-title">Comprende Rxjs</h1>
+
+<div class="group-of-groups">
+    <div class="operators-group">
+        <h2 class="subtitle">{{HOME_LINKS[0].subtitle}}</h2>
+        <ul class="operators-list">
+            <li class="operator-link" *ngFor="let link of HOME_LINKS[0].links">
+                <a [routerLink]="link.url">{{link.display}}</a>
+            </li>
+        </ul>
+    </div>
+</div>
+
+<div class="group-of-groups">
+    <div class="operators-group" *ngFor="let group of HOME_LINKS | slice:1">
+        <h2 class="subtitle">{{group.subtitle}}</h2>
+        <ul class="operators-list">
+            <li class="operator-link" *ngFor="let link of group.links">
+                <a [routerLink]="link.url">{{link.display}}</a>
+            </li>
+        </ul>
+    </div>
+</div>

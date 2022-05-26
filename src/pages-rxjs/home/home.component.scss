@@ -1,8 +1,53 @@
 :host {
     display: block;
-    max-width: 1200px;
+    max-width: 1100px;
     margin: auto;
     height: 100%;
     padding-bottom: 65px;
+}
+
+.screen-title {
     text-align: center;
+}
+
+.group-of-groups {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+
+    .operators-group {
+        padding: 30px;
+        width: 33.3%;
+        box-sizing: border-box;
+
+        .operators-list {
+            list-style: none;
+            padding: 0;
+        }
+    }
+
+    &::after {
+        content: "";
+        flex: auto;
+    }
+}
+
+@media (max-width: 992px) {
+    :host {
+        max-width: none;
+        margin: 50px;
+    }
+    .group-of-groups {
+        .operators-group {
+            width: 50%;
+        }
+    }
+}
+
+@media (max-width: 768px) {
+    .group-of-groups {
+        .operators-group {
+            width: 100%;
+        }
+    }
 }
