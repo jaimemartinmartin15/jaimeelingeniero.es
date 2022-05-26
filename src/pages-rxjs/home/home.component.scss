@@ -16,13 +16,18 @@
     justify-content: space-evenly;
 
     .operators-group {
-        padding: 30px;
+        padding-left: 30px;
         width: 33.3%;
+        margin-top: 20px;
         box-sizing: border-box;
 
         .operators-list {
             list-style: none;
             padding: 0;
+
+            .operator-link:not(:first-child) {
+                margin-top: 10px;
+            }
         }
     }
 
