@@ -36,12 +36,12 @@ forkJoin([observable1, observable2]).subscribe({
 </textarea>
 
 <p>
-  Bueno, pues en este ejemplo sencillito tenemos dos Observables que emiten elementos. Primero se emite la manzana en el
-  observable1, luego la naranja en el observable2, luego las uvas en el observable1 y entonces completa el observable1.
-  Como el observable2 aún no ha completado el forkJoin no emite. Entonces se sigue emitiendo el plátano en el
-  observable2 y por último el observable2 completa. Esto es así que ahora todos los Observables del array que pasamos
-  como argumento han completado y se emite el elemento ['🍇', '🍌'] en el Observable devuelto por el forkJoin. Como
-  todos los Observables han completado, también se emite el evento de completed.
+  Bueno, pues en este ejemplo sencillito tenemos dos Observables que emiten elementos. Primero se emite la 🍎 en el
+  observable1, luego la 🍊 en el observable2, luego las 🍇 en el observable1 y entonces completa el observable1. Como el
+  observable2 aún no ha completado el forkJoin no emite. Entonces se sigue emitiendo el 🍌 en el observable2 y por
+  último el observable2 completa. Esto es así que ahora todos los Observables del array que pasamos como argumento han
+  completado y se emite el elemento <span class="no-break">['🍇', '🍌']</span> en el Observable devuelto por el
+  forkJoin. Como todos los Observables han completado, también se emite el evento de completed.
 </p>
 
 <p>
