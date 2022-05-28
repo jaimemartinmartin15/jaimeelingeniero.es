@@ -2,3 +2,42 @@
     <h1 class="title">EndWith</h1>
     <a class="link-rxjs" href="https://rxjs.dev/api/operators/endWith" target="_blank">rxjs endWith ➡️</a>
 </div>
+
+<p>
+    Este operador emite inmediatamente un nuevo elemento en el pipe del Observable justo antes de que complete.
+</p>
+
+<textarea highlight-js [lang]="'typescript'">
+import { Observable, endWith } from 'rxjs';
+
+new Observable<string>((subscriber) => {
+  subscriber.next('🍌');
+  subscriber.next('🍎');
+  subscriber.complete();
+})
+.pipe(endWith('🍇'))
+.subscribe({
+  next: (value) => console.log(`The next value is: ${value}`),
+  error: (error) => console.error(`There is an error: ${error}`),
+  complete: () => console.log('Completed'),
+});
+
+// Output
+// ======
+// The next value is: 🍌
+// The next value is: 🍎
+// The next value is: 🍇
+// Completed
+</textarea>
+
+<p>
+    El ejemplo es muy sencillo de explicar. Primero se emite el 🍌, luego la 🍎 y por último completa. Pero antes de
+    emitir el evento de complete, justo antes, el operador emite las 🍇 y luego entonces ya si se emite el evento de
+    complete.
+</p>
+
+<p>
+    Si lo que se emite es un error, el operador no emite su evento.
+</p>
+
+<p>Pruébalo en esta demo:</p>
