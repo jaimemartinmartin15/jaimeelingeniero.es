@@ -1,10 +1,10 @@
 <div class="page-header">
-    <h1 class="title">EndWith</h1>
-    <a class="link-rxjs" href="https://rxjs.dev/api/operators/endWith" target="_blank">rxjs endWith ➡️</a>
+  <h1 class="title">EndWith</h1>
+  <a class="link-rxjs" href="https://rxjs.dev/api/operators/endWith" target="_blank">rxjs endWith ➡️</a>
 </div>
 
 <p>
-    Este operador emite inmediatamente un nuevo elemento en el pipe del Observable justo antes de que complete.
+  Este operador emite inmediatamente un nuevo elemento en el pipe del Observable justo antes de que complete.
 </p>
 
 <textarea highlight-js [lang]="'typescript'">
@@ -31,13 +31,31 @@ new Observable<string>((subscriber) => {
 </textarea>
 
 <p>
-    El ejemplo es muy sencillo de explicar. Primero se emite el 🍌, luego la 🍎 y por último completa. Pero antes de
-    emitir el evento de complete, justo antes, el operador emite las 🍇 y luego entonces ya si se emite el evento de
-    complete.
+  El ejemplo es muy sencillo de explicar. Primero se emite el 🍌, luego la 🍎 y por último completa. Pero antes de
+  emitir el evento de complete, justo antes, el operador emite las 🍇 y luego entonces ya si se emite el evento de
+  complete.
 </p>
 
 <p>
-    Si lo que se emite es un error, el operador no emite su evento.
+  Si lo que se emite es un error, el operador no emite su evento.
 </p>
 
-<p>Pruébalo en esta demo:</p>
+<p>Pruébalo en esta demo donde se emitirá una 🍐 antes de completar:</p>
+
+<svg appDemoContainer viewBox="0 0 640 240">
+  <g transform="translate(30, 80)" appConveyorController [button1]="controllerButtons[0]"
+    [button2]="controllerButtons[1]" [button3]="controllerButtons[2]" [button4]="controllerButtons[3]"
+    [button5]="controllerButtons[4]" (onButtonClick)="onControllerButtonClick($event)">
+  </g>
+
+  <g transform="translate(220, 80)" appConveyorHorizontal [conveyorWorking$]="conveyorWorking$" [length]="250.8">
+  </g>
+
+  <g transform="translate(496, 20)" appSubscriber [showSpeechBubble$]="speechBubble$"
+    (onSubscribe$)="onSubscribe($event)">
+  </g>
+
+  <g>
+    <text *ngFor="let element of elementsInConveyor" [attr.x]="element.x" y="136">{{element.value}}</text>
+  </g>
+</svg>
