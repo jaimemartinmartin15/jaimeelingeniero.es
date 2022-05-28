@@ -26,6 +26,7 @@ export const HOME_LINKS: HomeLink[] = [
       { display: 'combineLatestWith', url: '/comprende-rxjs/combineLatestWith' },
       { display: 'forkJoin', url: '/comprende-rxjs/forkJoin' },
       { display: 'startWith', url: '/comprende-rxjs/startWith' },
+      { display: 'endWith', url: '/comprende-rxjs/endWith' },
     ],
   },
 ];
