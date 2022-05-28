@@ -13,6 +13,10 @@ const routes: Routes = [
     component: PagesRxjsComponent,
     children: [
       {
+        path: 'endWith',
+        loadChildren: () => import('./end-with/end-with.module').then((m) => m.EndWithModule),
+      },
+      {
         path: 'observable',
         loadChildren: () => import('./observable/observable.module').then((m) => m.ObservableModule),
       },
