@@ -1,5 +1,5 @@
 import { AfterViewInit, Component, ViewChild } from '@angular/core';
-import { BehaviorSubject, interval, Subject } from 'rxjs';
+import { BehaviorSubject, interval, Subject, Subscription } from 'rxjs';
 import { ButtonController } from '../shared/components/conveyor-controller/button-controller';
 import { DemoContainerComponent } from '../shared/components/demo-container/demo-container.component';
 import { ElementInConveyor } from '../shared/element-in-conveyor';
@@ -25,9 +25,12 @@ export class DebounceTimeComponent implements AfterViewInit {
     { value: '🍇', type: ObservableEventType.NEXT, controllerId: this.ID, enabled: false },
   ];
 
+  public counter = 3;
+
   public conveyorWorking$ = new BehaviorSubject<boolean>(false);
 
-  private previousTimeOut: ReturnType<typeof setTimeout>;
+  private previousTimeout: ReturnType<typeof setTimeout>;
+  private counterSubscription: Subscription;
 
   public elementsInConveyor: ElementInConveyor[] = [];
   public elementInStandBy: string;
@@ -42,11 +45,17 @@ export class DebounceTimeComponent implements AfterViewInit {
           this.elementsInConveyor.splice(this.elementsInConveyor.indexOf(e), 1);
           this.elementInStandBy = e.value;
 
-          if (this.previousTimeOut != null) {
-            clearTimeout(this.previousTimeOut);
+          if (this.previousTimeout != null) {
+            clearTimeout(this.previousTimeout);
           }
 
-          this.previousTimeOut = setTimeout(() => {
+          if (this.counterSubscription != null) {
+            this.counterSubscription.unsubscribe();
+          }
+
+          this.counter = 3;
+          this.counterSubscription = interval(100).subscribe(() => (this.counter = parseFloat((this.counter - 0.1).toFixed(2))));
+          this.previousTimeout = setTimeout(() => {
             this.elementsInConveyor.push({
               type: e.type,
               value: e.value,
@@ -54,6 +63,9 @@ export class DebounceTimeComponent implements AfterViewInit {
               conveyorId: e.conveyorId,
             } as ElementInConveyor);
             this.elementInStandBy = '';
+
+            this.counter = 3;
+            this.counterSubscription.unsubscribe();
 
             // was completed but the event was not pushed to the conveyor
             if (this.controllerButtons[0].enabled == false) {
@@ -86,6 +98,17 @@ export class DebounceTimeComponent implements AfterViewInit {
     this.controllerButtons.forEach((b) => (b.enabled = isSubscribed));
     this.elementsInConveyor.length = 0;
     this.elementInStandBy = '';
+    this.counter = 3;
+
+    if (!isSubscribed) {
+      if (this.counterSubscription != null) {
+        this.counterSubscription.unsubscribe();
+      }
+
+      if (this.previousTimeout != null) {
+        clearTimeout(this.previousTimeout);
+      }
+    }
   }
 
   public onControllerButtonClick(button: ButtonController) {
@@ -96,10 +119,13 @@ export class DebounceTimeComponent implements AfterViewInit {
       if (button.type === ObservableEventType.ERROR) {
         this.elementsInConveyor = this.elementsInConveyor.filter((e) => e.x > 350);
         this.elementInStandBy = '';
-        if (this.previousTimeOut != null) {
-          clearTimeout(this.previousTimeOut);
+        if (this.previousTimeout != null) {
+          clearTimeout(this.previousTimeout);
         }
-      } else if (this.elementInStandBy == '' && this.elementsInConveyor.every((e) => e.type !== ObservableEventType.NEXT)) {
+        if (this.counterSubscription != null) {
+          this.counterSubscription.unsubscribe();
+        }
+      } else if (this.elementInStandBy == '' && this.elementsInConveyor.every((e) => e.type !== ObservableEventType.NEXT || e.x > 320)) {
         emitComplete = true;
       }
     }

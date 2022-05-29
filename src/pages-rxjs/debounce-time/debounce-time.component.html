@@ -55,6 +55,8 @@ new Observable((suscriptor) => {
 
     <g appOperator transform="translate(295, 45)"></g>
 
+    <text x="337" y="110" fill="white" text-anchor="middle" font-size="0.8em">{{counter}}s</text>
+
     <g transform="translate(496, 20)" appSubscriber [showSpeechBubble$]="speechBubble$"
         (onSubscribe$)="onSubscribe($event)">
     </g>
