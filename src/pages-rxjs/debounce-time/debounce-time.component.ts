@@ -30,6 +30,7 @@ export class DebounceTimeComponent implements AfterViewInit {
   public conveyorWorking$ = new BehaviorSubject<boolean>(false);
 
   private previousTimeout: ReturnType<typeof setTimeout>;
+  private completedTimeout: ReturnType<typeof setTimeout>;
   private counterSubscription: Subscription;
 
   public elementsInConveyor: ElementInConveyor[] = [];
@@ -69,7 +70,7 @@ export class DebounceTimeComponent implements AfterViewInit {
 
             // was completed but the event was not pushed to the conveyor
             if (this.controllerButtons[0].enabled == false) {
-              setTimeout(() => {
+              this.completedTimeout = setTimeout(() => {
                 this.elementsInConveyor.push({
                   type: ObservableEventType.COMPLETE,
                   value: this.controllerButtons[1].value,
@@ -107,6 +108,10 @@ export class DebounceTimeComponent implements AfterViewInit {
 
       if (this.previousTimeout != null) {
         clearTimeout(this.previousTimeout);
+      }
+
+      if (this.completedTimeout != null) {
+        clearTimeout(this.completedTimeout);
       }
     }
   }
