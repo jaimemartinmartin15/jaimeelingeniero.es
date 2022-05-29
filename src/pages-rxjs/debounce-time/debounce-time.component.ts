@@ -1,5 +1,5 @@
 import { AfterViewInit, Component, ViewChild } from '@angular/core';
-import { BehaviorSubject, debounceTime, interval, Observable, Subject } from 'rxjs';
+import { BehaviorSubject, interval, Subject } from 'rxjs';
 import { ButtonController } from '../shared/components/conveyor-controller/button-controller';
 import { DemoContainerComponent } from '../shared/components/demo-container/demo-container.component';
 import { ElementInConveyor } from '../shared/element-in-conveyor';
