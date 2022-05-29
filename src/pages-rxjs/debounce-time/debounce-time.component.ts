@@ -38,7 +38,7 @@ export class DebounceTimeComponent implements AfterViewInit {
     interval(this.demo.fps).subscribe(() => {
       this.elementsInConveyor.forEach((e) => {
         e.x += this.demo.speed;
-        if (e.x >= 300 && e.x < 320) {
+        if (e.x >= 300 && e.x < 320 && e.type === ObservableEventType.NEXT) {
           this.elementsInConveyor.splice(this.elementsInConveyor.indexOf(e), 1);
           this.elementInStandBy = e.value;
 
@@ -54,6 +54,18 @@ export class DebounceTimeComponent implements AfterViewInit {
               conveyorId: e.conveyorId,
             } as ElementInConveyor);
             this.elementInStandBy = '';
+
+            // was completed but the event was not pushed to the conveyor
+            if (this.controllerButtons[0].enabled == false) {
+              setTimeout(() => {
+                this.elementsInConveyor.push({
+                  type: ObservableEventType.COMPLETE,
+                  value: this.controllerButtons[1].value,
+                  x: 220,
+                  conveyorId: this.ID,
+                } as ElementInConveyor);
+              }, 1000 / this.demo.speed);
+            }
           }, 3000);
         } else if (e.x >= 450) {
           this.elementsInConveyor.splice(this.elementsInConveyor.indexOf(e), 1);
@@ -77,15 +89,28 @@ export class DebounceTimeComponent implements AfterViewInit {
   }
 
   public onControllerButtonClick(button: ButtonController) {
+    let emitComplete = false;
     if (button.type === ObservableEventType.ERROR || button.type === ObservableEventType.COMPLETE) {
       this.controllerButtons.forEach((b) => (b.enabled = false));
+
+      if (button.type === ObservableEventType.ERROR) {
+        this.elementsInConveyor = this.elementsInConveyor.filter((e) => e.x > 350);
+        this.elementInStandBy = '';
+        if (this.previousTimeOut != null) {
+          clearTimeout(this.previousTimeOut);
+        }
+      } else if (this.elementInStandBy == '' && this.elementsInConveyor.every((e) => e.type !== ObservableEventType.NEXT)) {
+        emitComplete = true;
+      }
     }
 
-    this.elementsInConveyor.push({
-      type: button.type,
-      value: button.value,
-      x: 220,
-      conveyorId: button.controllerId,
-    } as ElementInConveyor);
+    if (button.type !== ObservableEventType.COMPLETE || emitComplete) {
+      this.elementsInConveyor.push({
+        type: button.type,
+        value: button.value,
+        x: 220,
+        conveyorId: button.controllerId,
+      } as ElementInConveyor);
+    }
   }
 }
