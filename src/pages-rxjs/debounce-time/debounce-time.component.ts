@@ -130,7 +130,7 @@ export class DebounceTimeComponent implements AfterViewInit {
         if (this.counterSubscription != null) {
           this.counterSubscription.unsubscribe();
         }
-      } else if (this.elementInStandBy == '' && this.elementsInConveyor.every((e) => e.type !== ObservableEventType.NEXT || e.x > 320)) {
+      } else if (this.elementInStandBy == '' && this.elementsInConveyor.every((e) => e.x > 320)) {
         emitComplete = true;
       }
     }
