@@ -29,4 +29,8 @@ export const HOME_LINKS: HomeLink[] = [
       { display: 'endWith', url: '/comprende-rxjs/endWith' },
     ],
   },
+  {
+    subtitle: 'Tiempo',
+    links: [{ display: 'DebounceTime', url: '/comprende-rxjs/debounceTime' }],
+  },
 ];
