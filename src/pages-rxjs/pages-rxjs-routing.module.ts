@@ -4,9 +4,22 @@ import { PagesRxjsComponent } from './pages-rxjs.component';
 
 const routes: Routes = [
   {
+    path: 'inicio',
+    loadChildren: () => import('./home/home.module').then((m) => m.HomeModule),
+  },
+  { path: '', redirectTo: 'inicio', pathMatch: 'full' },
+  {
     path: '',
     component: PagesRxjsComponent,
     children: [
+      {
+        path: 'debounceTime',
+        loadChildren: () => import('./debounce-time/debounce-time.module').then((m) => m.DebounceTimeModule),
+      },
+      {
+        path: 'endWith',
+        loadChildren: () => import('./end-with/end-with.module').then((m) => m.EndWithModule),
+      },
       {
         path: 'observable',
         loadChildren: () => import('./observable/observable.module').then((m) => m.ObservableModule),
@@ -36,19 +49,14 @@ const routes: Routes = [
         loadChildren: () => import('./fork-join/fork-join.module').then((m) => m.ForkJoinModule),
       },
       {
-        path: '',
-        redirectTo: 'observable',
-      },
-      {
-        path: '**',
-        redirectTo: 'observable',
-        pathMatch: 'full',
+        path: 'startWith',
+        loadChildren: () => import('./start-with/start-with.module').then((m) => m.StartWithModule),
       },
     ],
   },
   {
     path: '**',
-    redirectTo: '',
+    redirectTo: 'inicio',
     pathMatch: 'full',
   },
 ];

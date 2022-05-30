@@ -1,0 +1,68 @@
+<div class="page-header">
+    <h1 class="title">DebounceTime</h1>
+    <a class="link-rxjs" href="https://rxjs.dev/api/operators/debounceTime" target="_blank">rxjs debounceTime ➡️</a>
+</div>
+
+<p>
+    Este operador espera un tiempo para emitir los elementos del Observable fuente al suscriptor. Si pasado ese tiempo,
+    no se emiten otros elementos, se emite al suscriptor. Si llega otro elemento, el previo se descarta y se reinicia el
+    contador.
+</p>
+
+<textarea highlight-js [lang]="'typescript'">
+import { debounceTime, Observable } from 'rxjs';
+
+new Observable((suscriptor) => {
+  setTimeout(() => suscriptor.next('🍎'), 100);
+  setTimeout(() => suscriptor.next('🍌'), 300);
+  setTimeout(() => suscriptor.next('🍇'), 850);
+  setTimeout(() => suscriptor.next('🍓'), 1000);
+  setTimeout(() => suscriptor.next('🍊'), 1450);
+})
+.pipe(debounceTime(500))
+.subscribe({
+  next: (value) => console.log(`The next value is: ${value}`),
+  error: (error) => console.error(`There is an error: ${error}`),
+  complete: () => console.log('Completed'),
+});
+
+// Output
+// The next value is: 🍌
+// The next value is: 🍊
+</textarea>
+
+<p>
+    Expliquemos el ejemplo. Primero se emite la 🍎. Entonces se inicia el contador a 500 milisegundos que es lo que le
+    pasamos al operador. Pasados 200 milisegundos se emite el 🍌. Como el contador no había llegado a cero, la 🍎 se
+    descarta y se reinicia el contador a 500 otra vez. Estos 500 milisegundos pasan sin emitirse mas elementos, por lo
+    que se emite el 🍌 al suscriptor. Después de los 500 milisegundos pasan otros 50 y se emiten las 🍇. En este momento
+    el contador se vuelve a reiniciar siempre a 500 milisegundos. Pero antes de que llegue a cero, se emite la 🍓 y el
+    contador se reinicia, descartando emitir las 🍇 al suscriptor. Pasan 450 milisegundos más y se emite la 🍊. El
+    contador se reinicia y la 🍓 se descarta. Como no se vuelven a emitir más elementos pasados 500 milisegundos, se
+    emite la 🍊.
+</p>
+
+<p>Prúebalo en esta demo, donde el debounceTime es de 3 segundos:</p>
+
+<svg appDemoContainer viewBox="0 0 640 240">
+    <g transform="translate(30, 80)" appConveyorController [button1]="controllerButtons[0]"
+        [button2]="controllerButtons[1]" [button3]="controllerButtons[2]" [button4]="controllerButtons[3]"
+        [button5]="controllerButtons[4]" (onButtonClick)="onControllerButtonClick($event)">
+    </g>
+
+    <g transform="translate(220, 80)" appConveyorHorizontal [conveyorWorking$]="conveyorWorking$" [length]="250.8">
+    </g>
+
+    <g appOperator transform="translate(295, 45)"></g>
+
+    <text x="337" y="110" fill="white" text-anchor="middle" font-size="0.8em">{{counter}}s</text>
+
+    <g transform="translate(496, 20)" appSubscriber [showSpeechBubble$]="speechBubble$"
+        (onSubscribe$)="onSubscribe($event)">
+    </g>
+
+    <g>
+        <text *ngFor="let element of elementsInConveyor" [attr.x]="element.x" y="136">{{element.value}}</text>
+        <text x="300" y="136">{{elementInStandBy}}</text>
+    </g>
+</svg>
