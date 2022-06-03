@@ -46,12 +46,14 @@ new Observable((suscriptor) => {
   operador mira y ve que lo último que se emitio fue la 🍊, asi que la emite al suscriptor.
 </p>
 
+<p>Básicamente sampleTime nos limita a como máximo uno, el número de elementos emitidos el intervalo que le digamos.</p>
+
 <p>Pruébalo tú mismo en esta demo donde el operador mira cada 3 segundos:</p>
 
 <svg appDemoContainer viewBox="0 0 640 240">
   <g transform="translate(30, 80)" appConveyorController [button1]="controllerButtons[0]"
-      [button2]="controllerButtons[1]" [button3]="controllerButtons[2]" [button4]="controllerButtons[3]"
-      [button5]="controllerButtons[4]" (onButtonClick)="onControllerButtonClick($event)">
+    [button2]="controllerButtons[1]" [button3]="controllerButtons[2]" [button4]="controllerButtons[3]"
+    [button5]="controllerButtons[4]" (onButtonClick)="onControllerButtonClick($event)">
   </g>
 
   <g transform="translate(220, 80)" appConveyorHorizontal [conveyorWorking$]="conveyorWorking$" [length]="250.8">
@@ -62,11 +64,11 @@ new Observable((suscriptor) => {
   <text x="337" y="110" fill="white" text-anchor="middle" font-size="0.8em">{{counter}}s</text>
 
   <g transform="translate(496, 20)" appSubscriber [showSpeechBubble$]="speechBubble$"
-      (onSubscribe$)="onSubscribe($event)">
+    (onSubscribe$)="onSubscribe($event)">
   </g>
 
   <g>
-      <text *ngFor="let element of elementsInConveyor" [attr.x]="element.x" y="136">{{element.value}}</text>
-      <text x="300" y="136">{{elementInStandBy}}</text>
+    <text *ngFor="let element of elementsInConveyor" [attr.x]="element.x" y="136">{{element.value}}</text>
+    <text x="300" y="136">{{elementInStandBy}}</text>
   </g>
 </svg>
