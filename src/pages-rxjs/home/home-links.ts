@@ -31,6 +31,9 @@ export const HOME_LINKS: HomeLink[] = [
   },
   {
     subtitle: 'Tiempo',
-    links: [{ display: 'DebounceTime', url: '/comprende-rxjs/debounceTime' }],
+    links: [
+      { display: 'debounceTime', url: '/comprende-rxjs/debounceTime' },
+      { display: 'sampleTime', url: '/comprende-rxjs/sampleTime' },
+    ],
   },
 ];

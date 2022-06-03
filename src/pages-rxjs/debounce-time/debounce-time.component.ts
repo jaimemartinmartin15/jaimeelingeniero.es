@@ -12,7 +12,7 @@ import { SpeechBubble } from '../shared/speech-bubble';
   styleUrls: ['./debounce-time.component.scss'],
 })
 export class DebounceTimeComponent implements AfterViewInit {
-  public ID = '0';
+  private readonly ID = '0';
 
   @ViewChild(DemoContainerComponent)
   public demo: DemoContainerComponent;
