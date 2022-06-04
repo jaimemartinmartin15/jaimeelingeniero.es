@@ -2,3 +2,40 @@
     <h1 class="title">AuditTime</h1>
     <a class="link-rxjs" href="https://rxjs.dev/api/operators/auditTime" target="_blank">rxjs auditTime ➡️</a>
 </div>
+
+<p>
+    Este operador ignora los elementos del Observable fuente durante un tiempo determinado y luego emite el último que
+    se haya emitido pasado ese tiempo. El contador para ignorar los elementos comienza cuando se detecta un elemento en
+    el Observable fuente.
+</p>
+
+<textarea highlight-js [lang]="'typescript'">
+import { auditTime, Observable } from 'rxjs';
+
+new Observable((suscriptor) => {
+  setTimeout(() => suscriptor.next('🍎'), 200);
+  setTimeout(() => suscriptor.next('🍌'), 300);
+  setTimeout(() => suscriptor.next('🍓'), 1100);
+  setTimeout(() => suscriptor.next('🍊'), 1200);
+})
+  .pipe(auditTime(500))
+  .subscribe({
+    next: (value) => console.log(`The next value is: ${value}`),
+    error: (error) => console.error(`There is an error: ${error}`),
+    complete: () => console.log('Completed'),
+  });
+
+// Output
+// The next value is: 🍌
+// The next value is: 🍊
+</textarea>
+
+<p>
+    Expliquemos el ejemplo. Primero se emite una 🍎 a los 200 milisegundos. En este momento comienza el temporizador del
+    operador. Después se emite el 🍌 pasados 100 milisegundos más. Y cuando llega el contador total a 700 milisegundos,
+    el temporizador termina. Como el último elemento emitido es el 🍌, se emite el 🍌. Ahora el tiempo simplemente pasa,
+    hasta que se emite la 🍓. Entonces el contador se vuelve a iniciar. Se emite también la 🍊. Y cuando el temporizador
+    llega a cero en los 1600 milisegundos, se emite la 🍊, porque fué lo último que se emitió.
+</p>
+
+<p>Pruébalo en esta demo:</p>
