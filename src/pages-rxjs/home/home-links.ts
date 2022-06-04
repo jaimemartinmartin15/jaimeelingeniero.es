@@ -34,6 +34,7 @@ export const HOME_LINKS: HomeLink[] = [
     links: [
       { display: 'debounceTime', url: '/comprende-rxjs/debounceTime' },
       { display: 'sampleTime', url: '/comprende-rxjs/sampleTime' },
+      { display: 'auditTime', url: '/comprende-rxjs/auditTime' },
     ],
   },
 ];
