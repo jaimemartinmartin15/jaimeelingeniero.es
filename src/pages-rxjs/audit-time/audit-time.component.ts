@@ -50,9 +50,7 @@ export class AuditTimeComponent implements AfterViewInit {
   }
 
   private _nextElementReachesAuditTimeOperator(e: ElementInConveyor) {
-    if (!this.controllerButtons[1].enabled) {
-      this._nextElementReachesAuditTimeOperatorWithObservableCompleted(e);
-    } else {
+    if (this.controllerButtons[1].enabled) {
       // normal flow (observable not completed and no error, more events can be emitted)
       this.elementsInConveyor.splice(this.elementsInConveyor.indexOf(e), 1);
       this.elementInStandBy = e.value;
@@ -78,16 +76,25 @@ export class AuditTimeComponent implements AfterViewInit {
     this.counterSubscription = undefined;
   }
 
-  private _nextElementReachesAuditTimeOperatorWithObservableCompleted(e: ElementInConveyor) {
-    // TODO
-  }
-
   public onSubscribe(isSubscribed: boolean) {
     this.conveyorWorking$.next(isSubscribed);
     this.controllerButtons.forEach((button) => (button.enabled = isSubscribed));
 
     this.elementInStandBy = '';
     this.elementsInConveyor.length = 0;
+
+    this.counter = 3;
+
+    if (!isSubscribed) {
+      if (this.counterSubscription != null) {
+        this.counterSubscription.unsubscribe();
+        this.counterSubscription = undefined;
+      }
+      if (this.operatorTimeout != null) {
+        clearTimeout(this.operatorTimeout);
+        this.operatorTimeout = undefined;
+      }
+    }
   }
 
   public onControllerButtonClick(button: ButtonController) {
