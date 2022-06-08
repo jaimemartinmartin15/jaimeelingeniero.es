@@ -40,18 +40,32 @@ export class AuditTimeComponent implements AfterViewInit {
   public ngAfterViewInit(): void {
     interval(this.demo.fps).subscribe(() => {
       this.elementsInConveyor.forEach((e) => {
-        e.x++;
+        e.x += this.demo.speed;
 
         if (e.x >= 300 && e.x < 320 && e.type === ObservableEventType.NEXT) {
           this._nextElementReachesAuditTimeOperator(e);
+        } else if (e.x >= 450) {
+          this._elementDeliveredToSubscriber(e);
         }
       });
     });
   }
 
+  private _elementDeliveredToSubscriber(e: ElementInConveyor) {
+    this.elementsInConveyor.splice(this.elementsInConveyor.indexOf(e), 1);
+
+    this.speechBubble$.next({
+      type: e.type,
+      message: e.value,
+    });
+
+    if (e.type === ObservableEventType.ERROR || e.type === ObservableEventType.COMPLETE) {
+      this.onSubscribe(false);
+    }
+  }
+
   private _nextElementReachesAuditTimeOperator(e: ElementInConveyor) {
     if (this.controllerButtons[1].enabled) {
-      // normal flow (observable not completed and no error, more events can be emitted)
       this.elementsInConveyor.splice(this.elementsInConveyor.indexOf(e), 1);
       this.elementInStandBy = e.value;
 
@@ -98,13 +112,9 @@ export class AuditTimeComponent implements AfterViewInit {
   }
 
   public onControllerButtonClick(button: ButtonController) {
-    if (button.type === ObservableEventType.ERROR) {
-      this._onErrorControllerButtonClick(button);
-    } else if (button.type === ObservableEventType.COMPLETE) {
-      this._onCompleteControllerButtonClick(button);
+    if (button.type === ObservableEventType.ERROR || button.type === ObservableEventType.COMPLETE) {
+      this._onErrorCompleteControllerButtonClick();
     }
-
-    // NEXT elements are simply added
 
     this.elementsInConveyor.push({
       conveyorId: button.controllerId,
@@ -114,11 +124,19 @@ export class AuditTimeComponent implements AfterViewInit {
     } as ElementInConveyor);
   }
 
-  private _onErrorControllerButtonClick(button: ButtonController) {
+  private _onErrorCompleteControllerButtonClick() {
     this.controllerButtons.forEach((button) => (button.enabled = false));
-  }
 
-  private _onCompleteControllerButtonClick(button: ButtonController) {
-    this.controllerButtons.forEach((button) => (button.enabled = false));
+    this.elementsInConveyor = this.elementsInConveyor.filter((e) => e.x >= 350);
+    this.elementInStandBy = '';
+
+    if (this.counterSubscription != null) {
+      this.counterSubscription.unsubscribe();
+      this.counterSubscription = undefined;
+    }
+    if (this.operatorTimeout != null) {
+      clearTimeout(this.operatorTimeout);
+      this.operatorTimeout = undefined;
+    }
   }
 }
