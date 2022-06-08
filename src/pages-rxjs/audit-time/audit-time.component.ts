@@ -1,5 +1,5 @@
 import { AfterViewInit, Component, ViewChild } from '@angular/core';
-import { auditTime, BehaviorSubject, interval, Observable, Subject, Subscription } from 'rxjs';
+import { BehaviorSubject, interval, Subject, Subscription } from 'rxjs';
 import { ButtonController } from '../shared/components/conveyor-controller/button-controller';
 import { DemoContainerComponent } from '../shared/components/demo-container/demo-container.component';
 import { ElementInConveyor } from '../shared/element-in-conveyor';
@@ -44,11 +44,34 @@ export class AuditTimeComponent implements AfterViewInit {
 
         if (e.x >= 300 && e.x < 320 && e.type === ObservableEventType.NEXT) {
           this._nextElementReachesAuditTimeOperator(e);
+        } else if (e.x >= 300 && e.x < 320 && e.type === ObservableEventType.COMPLETE) {
+          this._completeElementReachesAuditTimeOperator(e);
         } else if (e.x >= 450) {
           this._elementDeliveredToSubscriber(e);
         }
       });
     });
+  }
+
+  private _completeElementReachesAuditTimeOperator(e: ElementInConveyor) {
+    if (this.elementInStandBy != '') {
+      if (this.counterSubscription != null) {
+        this.counterSubscription.unsubscribe();
+        this.counterSubscription = undefined;
+      }
+      if (this.operatorTimeout != null) {
+        clearTimeout(this.operatorTimeout);
+        this.operatorTimeout = undefined;
+      }
+
+      this.elementsInConveyor.push({
+        type: ObservableEventType.NEXT,
+        value: this.elementInStandBy,
+        x: 350,
+        conveyorId: e.conveyorId,
+      } as ElementInConveyor);
+      this.elementInStandBy = '';
+    }
   }
 
   private _elementDeliveredToSubscriber(e: ElementInConveyor) {
@@ -65,14 +88,12 @@ export class AuditTimeComponent implements AfterViewInit {
   }
 
   private _nextElementReachesAuditTimeOperator(e: ElementInConveyor) {
-    if (this.controllerButtons[1].enabled) {
-      this.elementsInConveyor.splice(this.elementsInConveyor.indexOf(e), 1);
-      this.elementInStandBy = e.value;
+    this.elementsInConveyor.splice(this.elementsInConveyor.indexOf(e), 1);
+    this.elementInStandBy = e.value;
 
-      if (this.counterSubscription == null) {
-        this.counterSubscription = interval(100).subscribe(() => (this.counter = parseFloat((this.counter - 0.1).toFixed(2))));
-        this.operatorTimeout = setTimeout(() => this._operatorEmitNextElementAfterTimeout(e), 3000);
-      }
+    if (this.counterSubscription == null) {
+      this.counterSubscription = interval(100).subscribe(() => (this.counter = parseFloat((this.counter - 0.1).toFixed(2))));
+      this.operatorTimeout = setTimeout(() => this._operatorEmitNextElementAfterTimeout(e), 3000);
     }
   }
 
@@ -112,8 +133,10 @@ export class AuditTimeComponent implements AfterViewInit {
   }
 
   public onControllerButtonClick(button: ButtonController) {
-    if (button.type === ObservableEventType.ERROR || button.type === ObservableEventType.COMPLETE) {
-      this._onErrorCompleteControllerButtonClick();
+    if (button.type === ObservableEventType.ERROR) {
+      this._onErrorControllerButtonClick();
+    } else if (button.type === ObservableEventType.COMPLETE) {
+      this._onCompleteControllerButtonClick();
     }
 
     this.elementsInConveyor.push({
@@ -124,7 +147,7 @@ export class AuditTimeComponent implements AfterViewInit {
     } as ElementInConveyor);
   }
 
-  private _onErrorCompleteControllerButtonClick() {
+  private _onErrorControllerButtonClick() {
     this.controllerButtons.forEach((button) => (button.enabled = false));
 
     this.elementsInConveyor = this.elementsInConveyor.filter((e) => e.x >= 350);
@@ -138,5 +161,9 @@ export class AuditTimeComponent implements AfterViewInit {
       clearTimeout(this.operatorTimeout);
       this.operatorTimeout = undefined;
     }
+  }
+
+  private _onCompleteControllerButtonClick() {
+    this.controllerButtons.forEach((button) => (button.enabled = false));
   }
 }
