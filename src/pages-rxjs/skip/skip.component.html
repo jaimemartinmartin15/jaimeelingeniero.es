@@ -1,10 +1,10 @@
 <div class="page-header">
-    <h1 class="title">Skip</h1>
-    <a class="link-rxjs" href="https://rxjs.dev/api/operators/skip" target="_blank">rxjs skip ➡️</a>
+  <h1 class="title">Skip</h1>
+  <a class="link-rxjs" href="https://rxjs.dev/api/operators/skip" target="_blank">rxjs skip ➡️</a>
 </div>
 
 <p>
-    Este operador rechaza totalmente la primera cantidad de elementos que le indiquemos.
+  Este operador rechaza totalmente la primera cantidad de elementos que le indiquemos.
 </p>
 
 <textarea highlight-js [lang]="'typescript'">
@@ -29,8 +29,30 @@ new Observable((suscriptor) => {
 </textarea>
 
 <p>
-    Pues lo dicho. Como le hemos indicado que los dos primeros elementos emitidos en el Observable fuente los ignore,
-    ignora la 🍎 y el 🍌. Luego ya deja pasar las 🍇, el 🍋 y todo lo que pudiese venir después.
+  Pues lo dicho. Como le hemos indicado que los dos primeros elementos emitidos en el Observable fuente los ignore,
+  ignora la 🍎 y el 🍌. Luego ya deja pasar las 🍇, el 🍋 y todo lo que pudiese venir después.
 </p>
 
 <p>Juega un poco con esta demo, donse se ignoran los 3️⃣ primeros elementos:</p>
+
+<svg appDemoContainer viewBox="0 0 640 240">
+  <g transform="translate(30, 80)" appConveyorController [button1]="controllerButtons[0]"
+    [button2]="controllerButtons[1]" [button3]="controllerButtons[2]" [button4]="controllerButtons[3]"
+    [button5]="controllerButtons[4]" (onButtonClick)="onControllerButtonClick($event)">
+  </g>
+
+  <g transform="translate(220, 80)" appConveyorHorizontal [conveyorWorking$]="conveyorWorking$" [length]="250.8">
+  </g>
+
+  <g appOperator transform="translate(295, 45)"></g>
+
+  <text x="320" y="106" font-size="0.5em" *ngIf="counterSkip != 0">{{counterSkipEmojis[counterSkip-1]}}</text>
+
+  <g transform="translate(496, 20)" appSubscriber [showSpeechBubble$]="speechBubble$"
+    (onSubscribe$)="onSubscribe($event)">
+  </g>
+
+  <g>
+    <text *ngFor="let element of elementsInConveyor" [attr.x]="element.x" y="136">{{element.value}}</text>
+  </g>
+</svg>
