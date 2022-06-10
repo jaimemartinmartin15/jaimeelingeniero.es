@@ -13,6 +13,10 @@ const routes: Routes = [
     component: PagesRxjsComponent,
     children: [
       {
+        path: 'distinctUntilChanged',
+        loadChildren: () => import('./distinct-until-changed/distinct-until-changed.module').then((m) => m.DistinctUntilChangedModule),
+      },
+      {
         path: 'auditTime',
         loadChildren: () => import('./audit-time/audit-time.module').then((m) => m.AuditTimeModule),
       },
