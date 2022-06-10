@@ -13,6 +13,10 @@ const routes: Routes = [
     component: PagesRxjsComponent,
     children: [
       {
+        path: 'skip',
+        loadChildren: () => import('./skip/skip.module').then((m) => m.SkipModule),
+      },
+      {
         path: 'distinctUntilChanged',
         loadChildren: () => import('./distinct-until-changed/distinct-until-changed.module').then((m) => m.DistinctUntilChangedModule),
       },
