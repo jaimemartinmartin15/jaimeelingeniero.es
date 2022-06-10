@@ -1,0 +1,75 @@
+<div class="page-header">
+  <h1 class="title">AuditTime</h1>
+  <a class="link-rxjs" href="https://rxjs.dev/api/operators/auditTime" target="_blank">rxjs auditTime ➡️</a>
+</div>
+
+<p>
+  Este operador espera a que se emita un elemento en el Observable fuente. A continuación inicia un temporizador, y
+  cuando termina, emite el último elemento que haya pasado en el Observable fuente. A continuación espera el siguiente
+  elemento y repite el proceso.
+</p>
+
+<textarea highlight-js [lang]="'typescript'">
+import { auditTime, Observable } from 'rxjs';
+
+new Observable((suscriptor) => {
+  setTimeout(() => suscriptor.next('🍎'), 10);
+  setTimeout(() => suscriptor.next('🍌'), 100);
+  setTimeout(() => suscriptor.next('🥒'), 250);
+  setTimeout(() => suscriptor.next('🍇'), 280);
+  setTimeout(() => suscriptor.next('🍋'), 320);
+  setTimeout(() => suscriptor.next('🍍'), 380);
+  setTimeout(() => suscriptor.next('🍓'), 390);
+  setTimeout(() => suscriptor.complete(), 400);
+})
+  .pipe(auditTime(100))
+  .subscribe({
+    next: (value) => console.log(`The next value is: ${value}`),
+    error: (error) => console.error(`There is an error: ${error}`),
+    complete: () => console.log('Completed'),
+  });
+
+// Output
+// The next value is: 🍌
+// The next value is: 🍋
+// The next value is: 🍓
+// Completed
+</textarea>
+
+<p>
+  Expliquemos el ejemplo. Primero se emite una 🍎 a los 10 milisegundos. En este momento comienza el temporizador del
+  operador. Después se emite el 🍌 pasados 90 milisegundos más. Por lo tanto la 🍎 se ignora y cuando el temporizador
+  del operador llegue a cero se emitirá el 🍌. Esto pasa 10 milisegundos más tarde, y el operador emite el 🍌 en el
+  milisegundo 110 de los totales. Después pasan 140 milisegundos sin más hasta que se emite el 🥒. El operador vuelve a
+  iniciar su temporizador a 100 milisegundos. Se emiten unas 🍇 30 milisegundos después, y también un 🍋 40 milisegundos
+  más tarde. Pasan 30 milisegundos más y el temporizador llega a cero en el milisegundo 350 de los totales. Como lo
+  último que se emitió fue el 🍋 el operador lo emite. Pasan entoces 60 milisegundos sin más hasta que se emite la 🍍.
+  El operador comienza su temporizado de nuevo. Se emite también una 🍓 10 milisegundos después. Al temporizador del
+  operador le quedan 90 milisegundos para volver a emitir. Pero como el Observable completa antes, se emite
+  inmediatamente la 🍓 al subscriptor.
+</p>
+
+<p>Pruébalo en esta demo, donde el valor del temporizador es de 3️⃣ segundos:</p>
+
+<svg appDemoContainer viewBox="0 0 640 240">
+  <g transform="translate(30, 80)" appConveyorController [button1]="controllerButtons[0]"
+    [button2]="controllerButtons[1]" [button3]="controllerButtons[2]" [button4]="controllerButtons[3]"
+    [button5]="controllerButtons[4]" (onButtonClick)="onControllerButtonClick($event)">
+  </g>
+
+  <g transform="translate(220, 80)" appConveyorHorizontal [conveyorWorking$]="conveyorWorking$" [length]="250.8">
+  </g>
+
+  <g appOperator transform="translate(295, 45)"></g>
+
+  <text x="337" y="110" fill="white" text-anchor="middle" font-size="0.8em">{{counter}}s</text>
+
+  <g transform="translate(496, 20)" appSubscriber [showSpeechBubble$]="speechBubble$"
+    (onSubscribe$)="onSubscribe($event)">
+  </g>
+
+  <g>
+    <text x="300" y="136">{{elementInStandBy}}</text>
+    <text *ngFor="let element of elementsInConveyor" [attr.x]="element.x" y="136">{{element.value}}</text>
+  </g>
+</svg>

@@ -13,6 +13,10 @@ const routes: Routes = [
     component: PagesRxjsComponent,
     children: [
       {
+        path: 'auditTime',
+        loadChildren: () => import('./audit-time/audit-time.module').then((m) => m.AuditTimeModule),
+      },
+      {
         path: 'sampleTime',
         loadChildren: () => import('./sample-time/sample-time.module').then((m) => m.SampleTimeModule),
       },
