@@ -2,3 +2,35 @@
     <h1 class="title">Skip</h1>
     <a class="link-rxjs" href="https://rxjs.dev/api/operators/skip" target="_blank">rxjs skip ➡️</a>
 </div>
+
+<p>
+    Este operador rechaza totalmente la primera cantidad de elementos que le indiquemos.
+</p>
+
+<textarea highlight-js [lang]="'typescript'">
+import { Observable, skip } from 'rxjs';    
+
+new Observable((suscriptor) => {
+  setTimeout(() => suscriptor.next('🍎'), 100);
+  setTimeout(() => suscriptor.next('🍌'), 200);
+  setTimeout(() => suscriptor.next('🍇'), 300);
+  setTimeout(() => suscriptor.next('🍋'), 400);
+})
+  .pipe(skip(2))
+  .subscribe({
+    next: (value) => console.log(`The next value is: ${value}`),
+    error: (error) => console.error(`There is an error: ${error}`),
+    complete: () => console.log('Completed'),
+  });
+
+// Output
+// The next value is: 🍇
+// The next value is: 🍋
+</textarea>
+
+<p>
+    Pues lo dicho. Como le hemos indicado que los dos primeros elementos emitidos en el Observable fuente los ignore,
+    ignora la 🍎 y el 🍌. Luego ya deja pasar las 🍇, el 🍋 y todo lo que pudiese venir después.
+</p>
+
+<p>Juega un poco con esta demo, donse se ignoran los 3️⃣ primeros elementos:</p>
