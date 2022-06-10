@@ -37,4 +37,8 @@ export const HOME_LINKS: HomeLink[] = [
       { display: 'auditTime', url: '/comprende-rxjs/auditTime' },
     ],
   },
+  {
+    subtitle: 'Filtro',
+    links: [{ display: 'distinctUntilChanged', url: '/comprende-rxjs/distinctUntilChanged' }],
+  },
 ];

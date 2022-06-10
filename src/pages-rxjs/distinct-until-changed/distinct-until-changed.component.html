@@ -1,0 +1,70 @@
+<div class="page-header">
+  <h1 class="title">DistinctUntilChanged</h1>
+  <a class="link-rxjs" href="https://rxjs.dev/api/operators/distinctUntilChanged" target="_blank">rxjs
+    distinctUntilChanged ➡️</a>
+</div>
+
+<p>
+  Este operador evita que se emitan dos eventos iguales seguidos.
+</p>
+
+<textarea highlight-js [lang]="'typescript'">
+import { distinctUntilChanged, Observable } from 'rxjs';
+
+new Observable((suscriptor) => {
+  setTimeout(() => suscriptor.next('🍎'), 100);
+  setTimeout(() => suscriptor.next('🍌'), 200);
+  setTimeout(() => suscriptor.next('🍌'), 300);
+  setTimeout(() => suscriptor.next('🍇'), 400);
+  setTimeout(() => suscriptor.next('🍋'), 500);
+  setTimeout(() => suscriptor.next('🍋'), 600);
+})
+  .pipe(distinctUntilChanged())
+  .subscribe({
+    next: (value) => console.log(`The next value is: ${value}`),
+    error: (error) => console.error(`There is an error: ${error}`),
+    complete: () => console.log('Completed'),
+  });
+
+// Output
+// The next value is: 🍎
+// The next value is: 🍌
+// The next value is: 🍇
+// The next value is: 🍋
+</textarea>
+
+<p>
+  Bueno, vamos a explicar que ha pasado. Primero se emite la 🍎. Como no se había emitido nada antes, el operador no
+  tiene con que comparar, así que lo deja pasar al suscriptor. Luego se emite un 🍌. Como es diferente a la 🍎, se
+  emite también al suscriptor. Luego se emite otro 🍌. Esta vez se filtra, pues es igual que el que se había emitido
+  por última vez. Después se emiten unas 🍇. Esto no es lo mismo que un 🍌, así que se emite también al suscriptor.
+  Luego se emite un 🍋. Como es diferente a las 🍇 se emite también. Por último se emite otro 🍋. Como lo de antes era
+  también un 🍋, no se deja pasar al suscriptor.
+</p>
+
+<p>Pruébalo en esta demo:</p>
+
+<svg appDemoContainer viewBox="0 0 640 240">
+  <g transform="translate(30, 80)" appConveyorController [button1]="controllerButtons[0]"
+    [button2]="controllerButtons[1]" [button3]="controllerButtons[2]" [button4]="controllerButtons[3]"
+    [button5]="controllerButtons[4]" (onButtonClick)="onControllerButtonClick($event)">
+  </g>
+
+  <g transform="translate(220, 80)" appConveyorHorizontal [conveyorWorking$]="conveyorWorking$" [length]="250.8">
+  </g>
+
+  <g appOperator transform="translate(295, 45)"></g>
+
+  <g>
+    <text x="320" y="106" font-size="0.5em">{{lastEmittedElement}}</text>
+    <text x="340" y="106" font-size="0.5em" *ngIf="showCheckCrossIndicator != ''">{{showCheckCrossIndicator}}</text>
+  </g>
+
+  <g transform="translate(496, 20)" appSubscriber [showSpeechBubble$]="speechBubble$"
+    (onSubscribe$)="onSubscribe($event)">
+  </g>
+
+  <g>
+    <text *ngFor="let element of elementsInConveyor" [attr.x]="element.x" y="136">{{element.value}}</text>
+  </g>
+</svg>
