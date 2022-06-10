@@ -4,21 +4,25 @@
 </div>
 
 <p>
-  Este operador ignora los elementos del Observable fuente durante un tiempo determinado y luego emite el último que
-  se haya emitido pasado ese tiempo. El contador para ignorar los elementos comienza cuando se detecta un elemento en
-  el Observable fuente.
+  Este operador espera a que se emita un elemento en el Observable fuente. A continuación inicia un temporizador, y
+  cuando termina, emite el último elemento que haya pasado en el Observable fuente. A continuación espera el siguiente
+  elemento y repite el proceso.
 </p>
 
 <textarea highlight-js [lang]="'typescript'">
 import { auditTime, Observable } from 'rxjs';
 
 new Observable((suscriptor) => {
-  setTimeout(() => suscriptor.next('🍎'), 200);
-  setTimeout(() => suscriptor.next('🍌'), 300);
-  setTimeout(() => suscriptor.next('🍓'), 1100);
-  setTimeout(() => suscriptor.next('🍊'), 1200);
+  setTimeout(() => suscriptor.next('🍎'), 10);
+  setTimeout(() => suscriptor.next('🍌'), 100);
+  setTimeout(() => suscriptor.next('🥒'), 250);
+  setTimeout(() => suscriptor.next('🍇'), 280);
+  setTimeout(() => suscriptor.next('🍋'), 320);
+  setTimeout(() => suscriptor.next('🍍'), 380);
+  setTimeout(() => suscriptor.next('🍓'), 390);
+  setTimeout(() => suscriptor.complete(), 400);
 })
-  .pipe(auditTime(500))
+  .pipe(auditTime(100))
   .subscribe({
     next: (value) => console.log(`The next value is: ${value}`),
     error: (error) => console.error(`There is an error: ${error}`),
@@ -27,15 +31,22 @@ new Observable((suscriptor) => {
 
 // Output
 // The next value is: 🍌
-// The next value is: 🍊
+// The next value is: 🍋
+// The next value is: 🍓
+// Completed
 </textarea>
 
 <p>
-  Expliquemos el ejemplo. Primero se emite una 🍎 a los 200 milisegundos. En este momento comienza el temporizador del
-  operador. Después se emite el 🍌 pasados 100 milisegundos más. Y cuando llega el contador total a 700 milisegundos,
-  el temporizador termina. Como el último elemento emitido es el 🍌, se emite el 🍌. Ahora el tiempo simplemente pasa,
-  hasta que se emite la 🍓. Entonces el contador se vuelve a iniciar. Se emite también la 🍊. Y cuando el temporizador
-  llega a cero en los 1600 milisegundos, se emite la 🍊, porque fué lo último que se emitió.
+  Expliquemos el ejemplo. Primero se emite una 🍎 a los 10 milisegundos. En este momento comienza el temporizador del
+  operador. Después se emite el 🍌 pasados 90 milisegundos más. Por lo tanto la 🍎 se ignora y cuando el temporizador
+  del operador llegue a cero se emitirá el 🍌. Esto pasa 10 milisegundos más tarde, y el operador emite el 🍌 en el
+  milisegundo 110 de los totales. Después pasan 140 milisegundos sin más hasta que se emite el 🥒. El operador vuelve a
+  iniciar su temporizador a 100 milisegundos. Se emiten unas 🍇 30 milisegundos después, y también un 🍋 40 milisegundos
+  más tarde. Pasan 30 milisegundos más y el temporizador llega a cero en el milisegundo 350 de los totales. Como lo
+  último que se emitió fue el 🍋 el operador lo emite. Pasan entoces 60 milisegundos sin más hasta que se emite la 🍍.
+  El operador comienza su temporizado de nuevo. Se emite también una 🍓 10 milisegundos después. Al temporizador del
+  operador le quedan 90 milisegundos para volver a emitir. Pero como el Observable completa antes, se emite
+  inmediatamente la 🍓 al subscriptor.
 </p>
 
 <p>Pruébalo en esta demo, donde el valor del temporizador es de 3️⃣ segundos:</p>
