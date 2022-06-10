@@ -39,6 +39,9 @@ export const HOME_LINKS: HomeLink[] = [
   },
   {
     subtitle: 'Filtro',
-    links: [{ display: 'distinctUntilChanged', url: '/comprende-rxjs/distinctUntilChanged' }],
+    links: [
+      { display: 'distinctUntilChanged', url: '/comprende-rxjs/distinctUntilChanged' },
+      { display: 'skip', url: '/comprende-rxjs/skip' },
+    ],
   },
 ];
