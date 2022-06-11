@@ -1,11 +1,36 @@
-import { Component } from '@angular/core';
-import { HOME_LINKS } from './home-links';
+import { Component, OnInit } from '@angular/core';
+import { FormControl } from '@angular/forms';
+import { HOME_LINKS_OTHERS, HOME_LINKS_TO_START } from './home-links';
 
 @Component({
   selector: 'app-rxjs-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
 })
-export class HomeComponent {
-  public HOME_LINKS = HOME_LINKS;
+export class HomeComponent implements OnInit {
+  public showHomeLinksToStart = true;
+
+  public filtered_home_links = HOME_LINKS_OTHERS;
+  public HOME_LINKS_TO_START = HOME_LINKS_TO_START;
+
+  public searchControl = new FormControl('');
+
+  public ngOnInit(): void {
+    this.searchControl.valueChanges.subscribe((searchCriteria: string) => {
+      searchCriteria = searchCriteria.toLocaleLowerCase();
+
+      this.showHomeLinksToStart = HOME_LINKS_TO_START.links.some((operator) => operator.display.toLocaleLowerCase().includes(searchCriteria));
+
+      this.filtered_home_links = HOME_LINKS_OTHERS.filter((group) =>
+        group.links.some((operator) => operator.display.toLocaleLowerCase().includes(searchCriteria))
+      ).map((group) => {
+        const groupFiltered = {
+          subtitle: group.subtitle,
+          links: group.links.filter((operator) => operator.display.toLocaleLowerCase().includes(searchCriteria)),
+        };
+
+        return groupFiltered;
+      });
+    });
+  }
 }

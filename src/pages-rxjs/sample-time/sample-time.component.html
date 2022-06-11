@@ -1,0 +1,74 @@
+<div class="page-header">
+  <h1 class="title">SampleTime</h1>
+  <a class="link-rxjs" href="https://rxjs.dev/api/operators/sampleTime" target="_blank">rxjs sampleTime ➡️</a>
+</div>
+
+<p>
+  Este operador mira cada cierto tiempo el Observable fuente y emite el último elemento que se se haya emitido hasta
+  ese momento desde la última vez que miró.
+</p>
+
+
+<textarea highlight-js [lang]="'typescript'">
+import { Observable, sampleTime } from 'rxjs';
+
+new Observable((suscriptor) => {
+  setTimeout(() => suscriptor.next('🍎'), 200);
+  setTimeout(() => suscriptor.next('🍌'), 300);
+  setTimeout(() => suscriptor.next('🍓'), 1100);
+  setTimeout(() => suscriptor.next('🍊'), 1200);
+})
+  .pipe(sampleTime(500))
+  .subscribe({
+    next: (value) => console.log(`The next value is: ${value}`),
+    error: (error) => console.error(`There is an error: ${error}`),
+    complete: () => console.log('Completed'),
+  });
+
+// Output
+// The next value is: 🍌
+// The next value is: 🍊
+</textarea>
+
+<p>
+  Como siempre, vamos a explicar el ejemplo. El operador está configurado para mirar el Observable fuente cada medio
+  segundo, y empieza a mirar desde el momento en el que se suscribe.
+</p>
+
+<p>
+  Primero se emite la 🍎 a los 200 milisegundos. El operador lo retiene hasta que llegue el momento en el que tiene
+  que mirar el Observable fuente. Después de 100 milisegundos más se emite el 🍌. El operador lo retiene también y
+  descarta la 🍎. Finalmente pasan otros 200 milisegundos y llega el momento del operador. Lo último que se emitió fue
+  el 🍌, así que lo emite al suscriptor. Pasan otros 500 milisegundos y el operador vuelve a mirar el Observable
+  fuente. Como no se ha emitido nada desde la última vez que miró, el operador no hace nada. Luego pasan 100
+  milisegundos y se emite la 🍓. El operador la retiene hasta que le llegue el momento de mirar de nuevo. Pasan otros
+  100 milisegundos y se emite la 🍊. El operador descarta la 🍓 y guarda la 🍊. Cuando pasan otros 300 milisegundos el
+  operador mira y ve que lo último que se emitio fue la 🍊, asi que la emite al suscriptor.
+</p>
+
+<p>Básicamente sampleTime nos limita a como máximo uno, el número de elementos emitidos el intervalo que le digamos.</p>
+
+<p>Pruébalo tú mismo en esta demo donde el operador mira cada 3️⃣ segundos:</p>
+
+<svg appDemoContainer viewBox="0 0 640 240">
+  <g transform="translate(30, 80)" appConveyorController [button1]="controllerButtons[0]"
+    [button2]="controllerButtons[1]" [button3]="controllerButtons[2]" [button4]="controllerButtons[3]"
+    [button5]="controllerButtons[4]" (onButtonClick)="onControllerButtonClick($event)">
+  </g>
+
+  <g transform="translate(220, 80)" appConveyorHorizontal [conveyorWorking$]="conveyorWorking$" [length]="250.8">
+  </g>
+
+  <g appOperator transform="translate(295, 45)"></g>
+
+  <text x="337" y="110" fill="white" text-anchor="middle" font-size="0.8em">{{counter}}s</text>
+
+  <g transform="translate(496, 20)" appSubscriber [showSpeechBubble$]="speechBubble$"
+    (onSubscribe$)="onSubscribe($event)">
+  </g>
+
+  <g>
+    <text *ngFor="let element of elementsInConveyor" [attr.x]="element.x" y="136">{{element.value}}</text>
+    <text x="300" y="136">{{elementInStandBy}}</text>
+  </g>
+</svg>

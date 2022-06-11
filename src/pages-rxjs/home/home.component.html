@@ -1,10 +1,22 @@
 <h1 class="screen-title">Comprende Rxjs</h1>
 
-<div class="group-of-groups">
+<div class="search-input-box">
+    <span class="icon-and-input">
+        <i>
+            <svg viewBox="0 0 15 20" transform="rotate(-45)">
+                <circle cx="8" cy="7" r="5" stroke="black" stroke-width="2" fill="none" />
+                <line x1="8" y1="12" x2="8" y2="20" stroke="black" stroke-width="2" />
+            </svg>
+        </i>
+        <input type="text" name="filter" id="filter" placeholder="Busca aquí" [formControl]="searchControl">
+    </span>
+</div>
+
+<div class="group-of-groups" *ngIf="showHomeLinksToStart">
     <div class="operators-group">
-        <h2 class="subtitle">{{HOME_LINKS[0].subtitle}}</h2>
+        <h2 class="subtitle">{{HOME_LINKS_TO_START.subtitle}}</h2>
         <ul class="operators-list">
-            <li class="operator-link" *ngFor="let link of HOME_LINKS[0].links">
+            <li class="operator-link" *ngFor="let link of HOME_LINKS_TO_START.links">
                 <a [routerLink]="link.url">{{link.display}}</a>
             </li>
         </ul>
@@ -12,7 +24,7 @@
 </div>
 
 <div class="group-of-groups">
-    <div class="operators-group" *ngFor="let group of HOME_LINKS | slice:1">
+    <div class="operators-group" *ngFor="let group of filtered_home_links">
         <h2 class="subtitle">{{group.subtitle}}</h2>
         <ul class="operators-list">
             <li class="operator-link" *ngFor="let link of group.links">

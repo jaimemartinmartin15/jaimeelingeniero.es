@@ -6,11 +6,12 @@ export interface HomeLink {
   }[];
 }
 
-export const HOME_LINKS: HomeLink[] = [
-  {
-    subtitle: 'Para empezar',
-    links: [{ display: 'Observable', url: '/comprende-rxjs/observable' }],
-  },
+export const HOME_LINKS_TO_START: HomeLink = {
+  subtitle: 'Para empezar',
+  links: [{ display: 'Observable', url: '/comprende-rxjs/observable' }],
+};
+
+export const HOME_LINKS_OTHERS: HomeLink[] = [
   {
     subtitle: 'Transformación',
     links: [
@@ -31,6 +32,18 @@ export const HOME_LINKS: HomeLink[] = [
   },
   {
     subtitle: 'Tiempo',
-    links: [{ display: 'DebounceTime', url: '/comprende-rxjs/debounceTime' }],
+    links: [
+      { display: 'debounceTime', url: '/comprende-rxjs/debounceTime' },
+      { display: 'sampleTime', url: '/comprende-rxjs/sampleTime' },
+      { display: 'auditTime', url: '/comprende-rxjs/auditTime' },
+    ],
+  },
+  {
+    subtitle: 'Filtro',
+    links: [
+      { display: 'distinctUntilChanged', url: '/comprende-rxjs/distinctUntilChanged' },
+      { display: 'skip', url: '/comprende-rxjs/skip' },
+      { display: 'first', url: '/comprende-rxjs/first' },
+    ],
   },
 ];
