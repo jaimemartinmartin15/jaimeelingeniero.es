@@ -1,0 +1,108 @@
+<div class="page-header">
+  <h1 class="title">First</h1>
+  <a class="link-rxjs" href="https://rxjs.dev/api/operators/first" target="_blank">rxjs first ➡️</a>
+</div>
+
+<p>
+  Este operador deja pasar sólo el primer elemento del Observable fuente.
+</p>
+
+<textarea highlight-js [lang]="'typescript'">
+import { first, Observable } from 'rxjs';
+
+new Observable((suscriptor) => {
+  setTimeout(() => suscriptor.next('🍎'), 100);
+  setTimeout(() => suscriptor.next('🍌'), 200);
+  setTimeout(() => suscriptor.next('🥦'), 300);
+})
+  .pipe(first())
+  .subscribe({
+    next: (value) => console.log(`The next value is: ${value}`),
+    error: (error) => console.error(`There is an error: ${error}`),
+    complete: () => console.log('Completed'),
+  });
+
+// Output
+// The next value is: 🍎
+// Completed
+</textarea>
+
+<p>
+  En este ejemplo lo primero que se emite es la 🍎. El operador toma esta 🍎 y la emite al suscriptor. Inmediatamente
+  emite también un evento de complete, por lo que el 🍌 y el 🥦 son ignorados.
+</p>
+
+<p>
+  Si el Observable fuente completa sin emitir elementos, lanza un error:
+</p>
+
+<textarea highlight-js [lang]="'typescript'">
+import { first, Observable } from 'rxjs';
+    
+new Observable((suscriptor) => {
+  suscriptor.complete();
+})
+  .pipe(first())
+  .subscribe({
+     next: (value) => console.log(`The next value is: ${value}`),
+     error: (error) => console.error(`There is an error: ${error}`),
+     complete: () => console.log('Completed'),
+  });
+
+// Output
+// There is an error: EmptyError: no elements in sequence
+</textarea>
+
+<p>
+  Este operador también acepta una función que indica una condición sobre el elemento a emitir:
+</p>
+
+<textarea highlight-js [lang]="'typescript'">
+import { first, Observable } from 'rxjs';
+
+new Observable((suscriptor) => {
+  setTimeout(() => suscriptor.next('🍎'), 100);
+  setTimeout(() => suscriptor.next('🍌'), 200);
+  setTimeout(() => suscriptor.next('🥦'), 300);
+})
+.pipe(first(element => element === '🍌'))
+.subscribe({
+  next: (value) => console.log(`The next value is: ${value}`),
+  error: (error) => console.error(`There is an error: ${error}`),
+  complete: () => console.log('Completed'),
+});
+
+// Output
+// The next value is: 🍌
+// Completed
+</textarea>
+
+<p>
+  En este último ejemplo, primero se emite la 🍎, pero como no cumple la condición del operador, se ignora. Luego se
+  emite el 🍌, y este sí cumple la condición, por lo que el operador se lo entrega al suscriptor y completa el
+  Observable. Después se emite el 🥦, pero como el Observable ya está completado, se ignora.
+</p>
+
+<p>
+  Como siempre, te dejo un demo para que pruebes:
+</p>
+
+<svg appDemoContainer viewBox="0 0 640 240">
+  <g transform="translate(30, 80)" appConveyorController [button1]="controllerButtons[0]"
+    [button2]="controllerButtons[1]" [button3]="controllerButtons[2]" [button4]="controllerButtons[3]"
+    [button5]="controllerButtons[4]" (onButtonClick)="onControllerButtonClick($event)">
+  </g>
+
+  <g transform="translate(220, 80)" appConveyorHorizontal [conveyorWorking$]="conveyorWorking$" [length]="250.8">
+  </g>
+
+  <g appOperator transform="translate(295, 45)"></g>
+
+  <g transform="translate(496, 20)" appSubscriber [showSpeechBubble$]="speechBubble$"
+    (onSubscribe$)="onSubscribe($event)">
+  </g>
+
+  <g>
+    <text *ngFor="let element of elementsInConveyor" [attr.x]="element.x" y="136">{{element.value}}</text>
+  </g>
+</svg>
