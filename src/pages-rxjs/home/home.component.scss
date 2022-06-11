@@ -10,6 +10,30 @@
     text-align: center;
 }
 
+.search-input-box {
+    text-align: center;
+
+    .icon-and-input {
+        position: relative;
+
+        i {
+            position: absolute;
+            left: 10px;
+            top: 0;
+            min-width: 18px;
+        }
+
+        input[type="text"] {
+            border: 2px solid black;
+            border-radius: 5px;
+            min-width: 380px;
+            min-height: 25px;
+            padding: 4px 40px;
+            font-size: 1em;
+        }
+    }
+}
+
 .group-of-groups {
     display: flex;
     flex-wrap: wrap;
@@ -68,6 +92,16 @@
     .group-of-groups {
         .operators-group {
             width: 100%;
+        }
+    }
+
+    .search-input-box {
+        .icon-and-input {
+            input[type="text"] {
+                box-sizing: border-box;
+                min-width: unset;
+                width: 100%;
+            }
         }
     }
 }
