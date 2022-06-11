@@ -42,6 +42,7 @@ export const HOME_LINKS: HomeLink[] = [
     links: [
       { display: 'distinctUntilChanged', url: '/comprende-rxjs/distinctUntilChanged' },
       { display: 'skip', url: '/comprende-rxjs/skip' },
+      { display: 'first', url: '/comprende-rxjs/first' },
     ],
   },
 ];
