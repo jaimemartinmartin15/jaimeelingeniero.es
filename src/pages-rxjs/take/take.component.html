@@ -2,3 +2,44 @@
     <h1 class="title">Take</h1>
     <a class="link-rxjs" href="https://rxjs.dev/api/operators/take" target="_blank">rxjs take ➡️</a>
 </div>
+
+<p>
+    Este operador entrega solamente la primera cantidad de elementos que le digamos.
+</p>
+
+
+<textarea highlight-js [lang]="'typescript'">
+import { Observable, take } from 'rxjs';
+
+new Observable((suscriptor) => {
+  setTimeout(() => suscriptor.next('🍎'), 100);
+  setTimeout(() => suscriptor.next('🍌'), 200);
+  setTimeout(() => suscriptor.next('🥦'), 300);
+  setTimeout(() => suscriptor.next('🍆'), 300);
+  setTimeout(() => suscriptor.next('🍅'), 300);
+})
+  .pipe(take(2))
+  .subscribe({
+    next: (value) => console.log(`The next value is: ${value}`),
+    error: (error) => console.error(`There is an error: ${error}`),
+    complete: () => console.log('Completed'),
+  });
+
+// Output
+// The next value is: 🍎
+// The next value is: 🍌
+// Completed
+</textarea>
+
+<p>
+    Esto es muy fácil de entender. Le hemos dicho al operador take que solo nos entregue los dos primeros elementos del
+    Observable fuente. Por lo tanto, primero se emite la 🍎 y después el 🍌. Como estos elementos ya suman dos, el 🥦,
+    el 🍆 y el 🍅 son ignorados. El Observable completa inmediatamente después de emitir el segundo elemento.
+</p>
+
+<p>
+    Al contrario que con el operador first, si no se emiten elementos y el Observable fuente completa, el operador take
+    no emite un error.
+</p>
+
+<p>Usa esta demo para probar, donde se dejan pasar solo los 3️⃣ primeros elementos:</p>
