@@ -13,6 +13,10 @@ const routes: Routes = [
     component: PagesRxjsComponent,
     children: [
       {
+        path: 'take',
+        loadChildren: () => import('./take/take.module').then((m) => m.TakeModule),
+      },
+      {
         path: 'first',
         loadChildren: () => import('./first/first.module').then((m) => m.FirstModule),
       },
