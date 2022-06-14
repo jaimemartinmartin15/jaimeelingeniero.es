@@ -2,3 +2,47 @@
     <h1 class="title">TakeUntil</h1>
     <a class="link-rxjs" href="https://rxjs.dev/api/operators/takeUntil" target="_blank">rxjs takeUntil ➡️</a>
 </div>
+
+<p>
+    Este operador deja pasar los elementos del Observable fuente hasta que otro
+    Observable, el notificador, emite algún valor.
+</p>
+
+<textarea highlight-js [lang]="'typescript'">
+import { Observable, takeUntil } from 'rxjs';
+
+const notifier = new Observable((suscriber) => {
+  setTimeout(() => suscriber.next('✊'), 500);
+});
+
+new Observable((suscriptor) => {
+  setTimeout(() => suscriptor.next('🍎'), 100);
+  setTimeout(() => suscriptor.next('🍌'), 200);
+  setTimeout(() => suscriptor.next('🍆'), 300);
+  setTimeout(() => suscriptor.next('🥦'), 600);
+})
+  .pipe(takeUntil(notifier))
+  .subscribe({
+    next: (value) => console.log(`The next value is: ${value}`),
+    error: (error) => console.error(`There is an error: ${error}`),
+    complete: () => console.log('Completed'),
+  });
+
+// Output
+// The next value is: 🍎
+// The next value is: 🍌
+// The next value is: 🍆
+// Completed
+</textarea>
+
+<p>
+    Pues vamos a explicar el ejemplo. Tenemos dos Observables en juego. El primero de ellos es el notificador. Este
+    Observable nos dice hasta cuando el Observable fuente puede emitir elementos. En nuesto caso será hasta que pasen
+    500 milisegundos.
+    <br>
+    El segundo Observable es el Observable fuente. Este simplemente emite primero una 🍎 en el milisegundo 100. Después
+    emite un 🍌. A los 300 milisegundos emite un 🍆. Después pasan 200 milisegundos más y el notificador emite el ✊, por
+    lo tanto el Observable fuente completa y el 🥦 es ignorado, no se entrega al suscriptor.
+</p>
+
+<p>Pruebalo en esta demo tú mismo:</p>
