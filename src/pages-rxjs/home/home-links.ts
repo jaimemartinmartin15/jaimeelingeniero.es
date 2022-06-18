@@ -44,6 +44,8 @@ export const HOME_LINKS_OTHERS: HomeLink[] = [
       { display: 'distinctUntilChanged', url: '/comprende-rxjs/distinctUntilChanged' },
       { display: 'skip', url: '/comprende-rxjs/skip' },
       { display: 'first', url: '/comprende-rxjs/first' },
+      { display: 'take', url: '/comprende-rxjs/take' },
+      { display: 'takeUntil', url: '/comprende-rxjs/takeUntil' },
     ],
   },
 ];
