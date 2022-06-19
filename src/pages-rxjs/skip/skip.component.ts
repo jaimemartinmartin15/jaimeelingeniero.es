@@ -1,4 +1,5 @@
-import { AfterViewInit, Component, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Meta, Title } from '@angular/platform-browser';
 import { BehaviorSubject, interval, Subject } from 'rxjs';
 import { ButtonController } from '../shared/components/conveyor-controller/button-controller';
 import { DemoContainerComponent } from '../shared/components/demo-container/demo-container.component';
@@ -11,7 +12,7 @@ import { SpeechBubble } from '../shared/speech-bubble';
   templateUrl: './skip.component.html',
   styleUrls: ['./skip.component.scss'],
 })
-export class SkipComponent implements AfterViewInit {
+export class SkipComponent implements OnInit, AfterViewInit, OnDestroy {
   private readonly ID = '0';
 
   @ViewChild(DemoContainerComponent)
@@ -31,6 +32,13 @@ export class SkipComponent implements AfterViewInit {
   public readonly counterSkipEmojis = ['1️⃣', '2️⃣', '3️⃣'];
 
   public speechBubble$ = new Subject<SpeechBubble>();
+
+  public constructor(private readonly titleService: Title, private readonly metaService: Meta) {}
+
+  public ngOnInit() {
+    this.titleService.setTitle('Skip rxjs');
+    this.metaService.updateTag({ name: 'description', content: 'Explicación del operador rxjs skip' });
+  }
 
   public ngAfterViewInit(): void {
     interval(this.demo.fps).subscribe(() => {
@@ -84,5 +92,9 @@ export class SkipComponent implements AfterViewInit {
       x: 220,
       conveyorId: button.controllerId,
     } as ElementInConveyor);
+  }
+
+  public ngOnDestroy(): void {
+    this.metaService.removeTag('name="description"');
   }
 }

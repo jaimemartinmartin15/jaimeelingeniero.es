@@ -8,21 +8,21 @@ import { ObservableEventType } from '../shared/observable-event-type';
 import { SpeechBubble } from '../shared/speech-bubble';
 
 @Component({
-  selector: 'app-observable',
-  templateUrl: './observable.component.html',
-  styleUrls: ['./observable.component.scss'],
+  selector: 'app-filter',
+  templateUrl: './filter.component.html',
+  styleUrls: ['./filter.component.scss'],
 })
-export class ObservableComponent implements OnInit, AfterViewInit, OnDestroy {
+export class FilterComponent implements OnInit, AfterViewInit, OnDestroy {
   public ID = '0';
 
   @ViewChild(DemoContainerComponent)
   public demo: DemoContainerComponent;
 
   public controllerButtons: ButtonController[] = [
-    { value: '🧲', type: ObservableEventType.ERROR, controllerId: this.ID, enabled: false },
+    { value: '⚽', type: ObservableEventType.ERROR, controllerId: this.ID, enabled: false },
     { value: '🖐️', type: ObservableEventType.COMPLETE, controllerId: this.ID, enabled: false },
-    { value: '🍐', type: ObservableEventType.NEXT, controllerId: this.ID, enabled: false },
-    { value: '🍍', type: ObservableEventType.NEXT, controllerId: this.ID, enabled: false },
+    { value: '🥦', type: ObservableEventType.NEXT, controllerId: this.ID, enabled: false },
+    { value: '🍌', type: ObservableEventType.NEXT, controllerId: this.ID, enabled: false },
     { value: '🍇', type: ObservableEventType.NEXT, controllerId: this.ID, enabled: false },
   ];
 
@@ -35,26 +35,38 @@ export class ObservableComponent implements OnInit, AfterViewInit, OnDestroy {
   public constructor(private readonly titleService: Title, private readonly metaService: Meta) {}
 
   public ngOnInit() {
-    this.titleService.setTitle('Observable rxjs');
-    this.metaService.updateTag({ name: 'description', content: 'Explicación un Observable' });
+    this.titleService.setTitle('Filter rxjs');
+    this.metaService.updateTag({ name: 'description', content: 'Explicación del operador rxjs filter' });
   }
 
-  public ngAfterViewInit(): void {
+  public ngAfterViewInit() {
     interval(this.demo.fps).subscribe(() => {
       this.elementsInConveyor.forEach((e) => {
         e.x += this.demo.speed;
-        if (e.x >= 450) {
+
+        if (e.x >= 300 && e.x < 320 && e.type === ObservableEventType.NEXT) {
+          this._nextElementReachesOperator(e);
+        } else if (e.x >= 450) {
           this.elementsInConveyor.splice(this.elementsInConveyor.indexOf(e), 1);
           this.speechBubble$.next({
             type: e.type,
             message: e.value,
           });
-          if (e.type === ObservableEventType.ERROR || e.type === ObservableEventType.COMPLETE) {
+
+          if (e.type === ObservableEventType.COMPLETE || e.type === ObservableEventType.ERROR) {
             this.onSubscribe(false);
           }
         }
       });
     });
+  }
+
+  private _nextElementReachesOperator(e: ElementInConveyor) {
+    if (e.value === '🥦') {
+      e.x = 350;
+    } else {
+      this.elementsInConveyor.splice(this.elementsInConveyor.indexOf(e), 1);
+    }
   }
 
   public onSubscribe(isSubscribed: boolean) {
@@ -72,9 +84,8 @@ export class ObservableComponent implements OnInit, AfterViewInit, OnDestroy {
       type: button.type,
       value: button.value,
       x: 220,
-      y: 136,
       conveyorId: button.controllerId,
-    });
+    } as ElementInConveyor);
   }
 
   public ngOnDestroy(): void {

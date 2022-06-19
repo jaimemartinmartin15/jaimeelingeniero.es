@@ -1,4 +1,5 @@
-import { AfterViewInit, Component, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Meta, Title } from '@angular/platform-browser';
 import { BehaviorSubject, interval, Subject } from 'rxjs';
 import { ButtonController } from '../shared/components/conveyor-controller/button-controller';
 import { DemoContainerComponent } from '../shared/components/demo-container/demo-container.component';
@@ -11,7 +12,7 @@ import { SpeechBubble } from '../shared/speech-bubble';
   templateUrl: './take-until.component.html',
   styleUrls: ['./take-until.component.scss'],
 })
-export class TakeUntilComponent implements AfterViewInit {
+export class TakeUntilComponent implements OnInit, AfterViewInit, OnDestroy {
   public readonly MAIN = '0';
   public readonly TAKE_UNTIL = '1';
 
@@ -43,6 +44,13 @@ export class TakeUntilComponent implements AfterViewInit {
   public elementsInConveyor: ElementInConveyor[] = [];
 
   public speechBubble$ = new Subject<SpeechBubble>();
+
+  public constructor(private readonly titleService: Title, private readonly metaService: Meta) {}
+
+  public ngOnInit() {
+    this.titleService.setTitle('TakeUntil rxjs');
+    this.metaService.updateTag({ name: 'description', content: 'Explicación del operador rxjs takeUntil' });
+  }
 
   public ngAfterViewInit(): void {
     interval(this.demo.fps).subscribe(() => {
@@ -169,5 +177,9 @@ export class TakeUntilComponent implements AfterViewInit {
       y: 435,
       x: 240,
     });
+  }
+
+  public ngOnDestroy(): void {
+    this.metaService.removeTag('name="description"');
   }
 }

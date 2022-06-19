@@ -1,4 +1,5 @@
-import { AfterViewInit, Component, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Meta, Title } from '@angular/platform-browser';
 import { BehaviorSubject, interval, Subject } from 'rxjs';
 import { ButtonController } from '../shared/components/conveyor-controller/button-controller';
 import { DemoContainerComponent } from '../shared/components/demo-container/demo-container.component';
@@ -11,7 +12,7 @@ import { SpeechBubble } from '../shared/speech-bubble';
   templateUrl: './end-with.component.html',
   styleUrls: ['./end-with.component.scss'],
 })
-export class EndWithComponent implements AfterViewInit {
+export class EndWithComponent implements OnInit, AfterViewInit, OnDestroy {
   public ID = '0';
 
   @ViewChild(DemoContainerComponent)
@@ -30,6 +31,13 @@ export class EndWithComponent implements AfterViewInit {
   public elementsInConveyor: ElementInConveyor[] = [];
 
   public speechBubble$ = new Subject<SpeechBubble>();
+
+  public constructor(private readonly titleService: Title, private readonly metaService: Meta) {}
+
+  public ngOnInit() {
+    this.titleService.setTitle('EndWith rxjs');
+    this.metaService.updateTag({ name: 'description', content: 'Explicación del operador rxjs endWith' });
+  }
 
   public ngAfterViewInit(): void {
     interval(this.demo.fps).subscribe(() => {
@@ -88,5 +96,9 @@ export class EndWithComponent implements AfterViewInit {
       x: 220,
       conveyorId: button.controllerId,
     } as ElementInConveyor);
+  }
+
+  public ngOnDestroy(): void {
+    this.metaService.removeTag('name="description"');
   }
 }

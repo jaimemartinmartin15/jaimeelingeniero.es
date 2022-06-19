@@ -1,4 +1,5 @@
-import { AfterViewInit, Component, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Meta, Title } from '@angular/platform-browser';
 import { BehaviorSubject, interval, Subject, Subscription } from 'rxjs';
 import { ButtonController } from '../shared/components/conveyor-controller/button-controller';
 import { DemoContainerComponent } from '../shared/components/demo-container/demo-container.component';
@@ -11,7 +12,7 @@ import { SpeechBubble } from '../shared/speech-bubble';
   templateUrl: './debounce-time.component.html',
   styleUrls: ['./debounce-time.component.scss'],
 })
-export class DebounceTimeComponent implements AfterViewInit {
+export class DebounceTimeComponent implements OnInit, AfterViewInit, OnDestroy {
   private readonly ID = '0';
 
   @ViewChild(DemoContainerComponent)
@@ -37,6 +38,13 @@ export class DebounceTimeComponent implements AfterViewInit {
   public elementInStandBy: string;
 
   public speechBubble$ = new Subject<SpeechBubble>();
+
+  public constructor(private readonly titleService: Title, private readonly metaService: Meta) {}
+
+  public ngOnInit() {
+    this.titleService.setTitle('DebounceTime rxjs');
+    this.metaService.updateTag({ name: 'description', content: 'Explicación del operador rxjs debounceTime' });
+  }
 
   public ngAfterViewInit(): void {
     interval(this.demo.fps).subscribe(() => {
@@ -143,5 +151,9 @@ export class DebounceTimeComponent implements AfterViewInit {
         conveyorId: button.controllerId,
       } as ElementInConveyor);
     }
+  }
+
+  public ngOnDestroy(): void {
+    this.metaService.removeTag('name="description"');
   }
 }

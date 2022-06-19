@@ -1,4 +1,5 @@
-import { AfterViewInit, Component, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Meta, Title } from '@angular/platform-browser';
 import { BehaviorSubject, interval, Subject, Subscription, tap } from 'rxjs';
 import { ButtonController } from '../shared/components/conveyor-controller/button-controller';
 import { DemoContainerComponent } from '../shared/components/demo-container/demo-container.component';
@@ -11,7 +12,7 @@ import { SpeechBubble } from '../shared/speech-bubble';
   templateUrl: './sample-time.component.html',
   styleUrls: ['./sample-time.component.scss'],
 })
-export class SampleTimeComponent implements AfterViewInit {
+export class SampleTimeComponent implements OnInit, AfterViewInit, OnDestroy {
   private readonly ID = '0';
 
   @ViewChild(DemoContainerComponent)
@@ -33,6 +34,13 @@ export class SampleTimeComponent implements AfterViewInit {
   public elementInStandBy: string;
 
   public speechBubble$ = new Subject<SpeechBubble>();
+
+  public constructor(private readonly titleService: Title, private readonly metaService: Meta) {}
+
+  public ngOnInit() {
+    this.titleService.setTitle('SampleTime rxjs');
+    this.metaService.updateTag({ name: 'description', content: 'Explicación del operador rxjs sampleTime' });
+  }
 
   public ngAfterViewInit(): void {
     interval(this.demo.fps).subscribe(() => {
@@ -101,5 +109,9 @@ export class SampleTimeComponent implements AfterViewInit {
       x: 220,
       conveyorId: button.controllerId,
     } as ElementInConveyor);
+  }
+
+  public ngOnDestroy(): void {
+    this.metaService.removeTag('name="description"');
   }
 }
