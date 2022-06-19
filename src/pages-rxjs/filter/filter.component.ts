@@ -1,4 +1,5 @@
-import { AfterViewInit, Component, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Meta, Title } from '@angular/platform-browser';
 import { BehaviorSubject, interval, Subject } from 'rxjs';
 import { ButtonController } from '../shared/components/conveyor-controller/button-controller';
 import { DemoContainerComponent } from '../shared/components/demo-container/demo-container.component';
@@ -11,7 +12,7 @@ import { SpeechBubble } from '../shared/speech-bubble';
   templateUrl: './filter.component.html',
   styleUrls: ['./filter.component.scss'],
 })
-export class FilterComponent implements AfterViewInit {
+export class FilterComponent implements OnInit, AfterViewInit, OnDestroy {
   public ID = '0';
 
   @ViewChild(DemoContainerComponent)
@@ -30,6 +31,13 @@ export class FilterComponent implements AfterViewInit {
   public elementsInConveyor: ElementInConveyor[] = [];
 
   public speechBubble$ = new Subject<SpeechBubble>();
+
+  public constructor(private readonly titleService: Title, private readonly metaService: Meta) {}
+
+  public ngOnInit() {
+    this.titleService.setTitle('Filter rxjs');
+    this.metaService.updateTag({ name: 'description', content: 'Explicación del operador rxjs filter' });
+  }
 
   public ngAfterViewInit() {
     interval(this.demo.fps).subscribe(() => {
@@ -78,5 +86,9 @@ export class FilterComponent implements AfterViewInit {
       x: 220,
       conveyorId: button.controllerId,
     } as ElementInConveyor);
+  }
+
+  public ngOnDestroy(): void {
+    this.metaService.removeTag('name="description"');
   }
 }
