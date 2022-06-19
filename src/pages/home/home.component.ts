@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Meta, Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { intervalArray } from 'src/utils/arrays';
@@ -22,7 +22,7 @@ const VIEW_BOX_HEIGHT_DESKTOP = 10;
   styleUrls: ['./home.component.scss'],
   animations: [rotateProfilePicture],
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent implements OnInit, OnDestroy {
   public years: number;
 
   // profile animation
@@ -153,5 +153,10 @@ export class HomeComponent implements OnInit {
 
   public goToMyTrayectory() {
     this._router.navigate(['mi-trayectoria']);
+  }
+
+  public ngOnDestroy(): void {
+    this.metaService.removeTag('name="description"');
+    this.metaService.removeTag('name="keywords"');
   }
 }
