@@ -2,3 +2,40 @@
     <h1 class="title">Filter</h1>
     <a class="link-rxjs" href="https://rxjs.dev/api/operators/filter" target="_blank">rxjs filter ➡️</a>
 </div>
+
+<p>
+    Este operador solo deja pasar los elementos que cumplen una condición.
+</p>
+
+<textarea highlight-js [lang]="'typescript'">
+import { filter, Observable } from 'rxjs';
+
+new Observable<string>((subscriber) => {
+  subscriber.next('🍌');
+  subscriber.next('🍎');
+  subscriber.next('🍅');
+  subscriber.next('🍆');
+})
+.pipe(filter(fruit => fruit === '🍎' || fruit === '🍅'))
+.subscribe({
+  next: (value) => console.log(`The next value is: ${value}`),
+  error: (error) => console.error(`There is an error: ${error}`),
+  complete: () => console.log('Completed'),
+});
+
+// Output
+// ======
+// The next value is: 🍎
+// The next value is: 🍅
+</textarea>
+
+<p>
+    Esta es la explicación de la salida. La idea es dejar pasar solo las frutas de color 🔴. Primero se emite el 🍌.
+    Como esta fruta no cumple la condición del filtro, no se entrega al suscriptor. Después se emite la 🍎. Esta fruta
+    sí cumple la condición y se entrega al suscriptor. Después se emite el 🍅, que también cumple la condición y se
+    entrega al suscriptor. Por último se emite el 🍆 que no cumple la condición.
+</p>
+
+<p>
+    Pruébalo tú mismo en esta demo donde solo se dejan pasar las frutas de color 🟢:
+</p>
