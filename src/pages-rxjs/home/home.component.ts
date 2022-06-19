@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
+import { Meta, Title } from '@angular/platform-browser';
 import { HOME_LINKS_OTHERS, HOME_LINKS_TO_START } from './home-links';
 
 @Component({
@@ -7,7 +8,7 @@ import { HOME_LINKS_OTHERS, HOME_LINKS_TO_START } from './home-links';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent implements OnInit, OnDestroy {
   public showHomeLinksToStart = true;
 
   public filtered_home_links = HOME_LINKS_OTHERS;
@@ -15,7 +16,12 @@ export class HomeComponent implements OnInit {
 
   public searchControl = new FormControl('');
 
+  public constructor(private readonly titleService: Title, private readonly metaService: Meta) {}
+
   public ngOnInit(): void {
+    this.titleService.setTitle('Índice operadores rxjs');
+    this.metaService.updateTag({ name: 'description', content: 'Accede a la lista de operadores rxjs' });
+
     this.searchControl.valueChanges.subscribe((searchCriteria: string) => {
       searchCriteria = searchCriteria.toLocaleLowerCase();
 
@@ -32,5 +38,9 @@ export class HomeComponent implements OnInit {
         return groupFiltered;
       });
     });
+  }
+
+  public ngOnDestroy(): void {
+    this.metaService.removeTag('name="description"');
   }
 }
