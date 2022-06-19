@@ -1,10 +1,10 @@
 <div class="page-header">
-    <h1 class="title">Filter</h1>
-    <a class="link-rxjs" href="https://rxjs.dev/api/operators/filter" target="_blank">rxjs filter ➡️</a>
+  <h1 class="title">Filter</h1>
+  <a class="link-rxjs" href="https://rxjs.dev/api/operators/filter" target="_blank">rxjs filter ➡️</a>
 </div>
 
 <p>
-    Este operador solo deja pasar los elementos que cumplen una condición.
+  Este operador solo deja pasar los elementos que cumplen una condición.
 </p>
 
 <textarea highlight-js [lang]="'typescript'">
@@ -30,12 +30,32 @@ new Observable<string>((subscriber) => {
 </textarea>
 
 <p>
-    Esta es la explicación de la salida. La idea es dejar pasar solo las frutas de color 🔴. Primero se emite el 🍌.
-    Como esta fruta no cumple la condición del filtro, no se entrega al suscriptor. Después se emite la 🍎. Esta fruta
-    sí cumple la condición y se entrega al suscriptor. Después se emite el 🍅, que también cumple la condición y se
-    entrega al suscriptor. Por último se emite el 🍆 que no cumple la condición.
+  Esta es la explicación de la salida. La idea es dejar pasar solo las frutas de color 🔴. Primero se emite el 🍌.
+  Como esta fruta no cumple la condición del filtro, no se entrega al suscriptor. Después se emite la 🍎. Esta fruta
+  sí cumple la condición y se entrega al suscriptor. Después se emite el 🍅, que también cumple la condición y se
+  entrega al suscriptor. Por último se emite el 🍆 que no cumple la condición.
 </p>
 
 <p>
-    Pruébalo tú mismo en esta demo donde solo se dejan pasar las frutas de color 🟢:
+  Pruébalo tú mismo en esta demo donde solo se dejan pasar las frutas de color 🟢:
 </p>
+
+<svg appDemoContainer viewBox="0 0 640 240">
+  <g transform="translate(30, 80)" appConveyorController [button1]="controllerButtons[0]"
+    [button2]="controllerButtons[1]" [button3]="controllerButtons[2]" [button4]="controllerButtons[3]"
+    [button5]="controllerButtons[4]" (onButtonClick)="onControllerButtonClick($event)">
+  </g>
+
+  <g transform="translate(220, 80)" appConveyorHorizontal [conveyorWorking$]="conveyorWorking$" [length]="250.8">
+  </g>
+
+  <g appOperator transform="translate(295, 45)"></g>
+
+  <g transform="translate(496, 20)" appSubscriber [showSpeechBubble$]="speechBubble$"
+    (onSubscribe$)="onSubscribe($event)">
+  </g>
+
+  <g>
+    <text *ngFor="let element of elementsInConveyor" [attr.x]="element.x" y="136">{{element.value}}</text>
+  </g>
+</svg>
