@@ -1,4 +1,5 @@
-import { AfterViewInit, Component, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Meta, Title } from '@angular/platform-browser';
 import { BehaviorSubject, interval, Subject } from 'rxjs';
 import { ButtonController } from '../shared/components/conveyor-controller/button-controller';
 import { DemoContainerComponent } from '../shared/components/demo-container/demo-container.component';
@@ -11,7 +12,7 @@ import { SpeechBubble } from '../shared/speech-bubble';
   templateUrl: './distinct-until-changed.component.html',
   styleUrls: ['./distinct-until-changed.component.scss'],
 })
-export class DistinctUntilChangedComponent implements AfterViewInit {
+export class DistinctUntilChangedComponent implements OnInit, AfterViewInit, OnDestroy {
   private readonly ID = '0';
 
   @ViewChild(DemoContainerComponent)
@@ -31,6 +32,13 @@ export class DistinctUntilChangedComponent implements AfterViewInit {
   public showCheckCrossIndicator = '';
 
   public speechBubble$ = new Subject<SpeechBubble>();
+
+  public constructor(private readonly titleService: Title, private readonly metaService: Meta) {}
+
+  public ngOnInit() {
+    this.titleService.setTitle('DistinctUntilChanged rxjs');
+    this.metaService.updateTag({ name: 'description', content: 'Explicación del operador rxjs distinctUntilChanged' });
+  }
 
   public ngAfterViewInit(): void {
     interval(this.demo.fps).subscribe(() => {
@@ -88,5 +96,9 @@ export class DistinctUntilChangedComponent implements AfterViewInit {
       x: 220,
       conveyorId: button.controllerId,
     } as ElementInConveyor);
+  }
+
+  public ngOnDestroy(): void {
+    this.metaService.removeTag('name="description"');
   }
 }
