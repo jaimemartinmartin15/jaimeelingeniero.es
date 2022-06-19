@@ -1,4 +1,5 @@
-import { AfterViewInit, Component, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Meta, Title } from '@angular/platform-browser';
 import { BehaviorSubject, interval, Subject, Subscription } from 'rxjs';
 import { ButtonController } from '../shared/components/conveyor-controller/button-controller';
 import { DemoContainerComponent } from '../shared/components/demo-container/demo-container.component';
@@ -11,7 +12,7 @@ import { SpeechBubble } from '../shared/speech-bubble';
   templateUrl: './audit-time.component.html',
   styleUrls: ['./audit-time.component.scss'],
 })
-export class AuditTimeComponent implements AfterViewInit {
+export class AuditTimeComponent implements OnInit, AfterViewInit, OnDestroy {
   private readonly ID = '0';
 
   @ViewChild(DemoContainerComponent)
@@ -36,6 +37,13 @@ export class AuditTimeComponent implements AfterViewInit {
   public elementInStandBy: string;
 
   public speechBubble$ = new Subject<SpeechBubble>();
+
+  public constructor(private readonly titleService: Title, private readonly metaService: Meta) {}
+
+  public ngOnInit() {
+    this.titleService.setTitle('AuditTime rxjs');
+    this.metaService.updateTag({ name: 'description', content: 'Explicación del operador rxjs auditTime' });
+  }
 
   public ngAfterViewInit(): void {
     interval(this.demo.fps).subscribe(() => {
@@ -165,5 +173,9 @@ export class AuditTimeComponent implements AfterViewInit {
 
   private _onCompleteControllerButtonClick() {
     this.controllerButtons.forEach((button) => (button.enabled = false));
+  }
+
+  public ngOnDestroy(): void {
+    this.metaService.removeTag('name="description"');
   }
 }

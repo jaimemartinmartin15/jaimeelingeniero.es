@@ -1,4 +1,5 @@
-import { Component, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Meta, Title } from '@angular/platform-browser';
 import { BehaviorSubject, forkJoin, interval, map, Subject } from 'rxjs';
 import { ButtonController } from '../shared/components/conveyor-controller/button-controller';
 import { DemoContainerComponent } from '../shared/components/demo-container/demo-container.component';
@@ -11,7 +12,7 @@ import { SpeechBubble } from '../shared/speech-bubble';
   templateUrl: './fork-join.component.html',
   styleUrls: ['./fork-join.component.scss'],
 })
-export class ForkJoinComponent {
+export class ForkJoinComponent implements OnInit, AfterViewInit, OnDestroy {
   public readonly MAIN = '0';
   public readonly FORKJOIN = ['1', '2', '3'];
 
@@ -77,6 +78,13 @@ export class ForkJoinComponent {
     [this.FORKJOIN[1]]: new Subject(),
     [this.FORKJOIN[2]]: new Subject(),
   };
+
+  public constructor(private readonly titleService: Title, private readonly metaService: Meta) {}
+
+  public ngOnInit() {
+    this.titleService.setTitle('ForkJoin rxjs');
+    this.metaService.updateTag({ name: 'description', content: 'Explicación del operador rxjs forkJoin' });
+  }
 
   public ngAfterViewInit(): void {
     interval(this.demo.fps).subscribe(() => {
@@ -195,5 +203,9 @@ export class ForkJoinComponent {
       ...this.initialPositions[button.controllerId],
       conveyorId: button.controllerId,
     });
+  }
+
+  public ngOnDestroy(): void {
+    this.metaService.removeTag('name="description"');
   }
 }

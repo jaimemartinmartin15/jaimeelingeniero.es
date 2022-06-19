@@ -1,4 +1,5 @@
-import { AfterViewInit, Component, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Meta, Title } from '@angular/platform-browser';
 import { BehaviorSubject, interval, Subject } from 'rxjs';
 import { fadeInOut } from '../shared/rxjs-animations';
 import { ElementInConveyor } from '../shared/element-in-conveyor';
@@ -13,7 +14,7 @@ import { DemoContainerComponent } from '../shared/components/demo-container/demo
   styleUrls: ['./merge-map.component.scss'],
   animations: [fadeInOut],
 })
-export class MergeMapComponent implements AfterViewInit {
+export class MergeMapComponent implements OnInit, AfterViewInit, OnDestroy {
   private nextMergeMapId = 2;
 
   public readonly MAIN_O = '0'; // Main deliver to operator
@@ -50,6 +51,13 @@ export class MergeMapComponent implements AfterViewInit {
   public conveyorsWorking: { [key: string]: BehaviorSubject<boolean> } = {
     [this.MAIN_O]: new BehaviorSubject<boolean>(false),
   };
+
+  public constructor(private readonly titleService: Title, private readonly metaService: Meta) {}
+
+  public ngOnInit() {
+    this.titleService.setTitle('MergeMap rxjs');
+    this.metaService.updateTag({ name: 'description', content: 'Explicación del operador rxjs mergeMap' });
+  }
 
   public ngAfterViewInit(): void {
     interval(this.demo.fps).subscribe(() => {
@@ -199,5 +207,9 @@ export class MergeMapComponent implements AfterViewInit {
       ...this.initialPositions[button.controllerId],
       conveyorId: button.controllerId,
     } as ElementInConveyor);
+  }
+
+  public ngOnDestroy(): void {
+    this.metaService.removeTag('name="description"');
   }
 }

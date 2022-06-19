@@ -1,4 +1,5 @@
-import { AfterViewInit, Component, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Meta, Title } from '@angular/platform-browser';
 import { BehaviorSubject, interval, Subject } from 'rxjs';
 import { fadeInOut } from '../shared/rxjs-animations';
 import { ElementInConveyor } from '../shared/element-in-conveyor';
@@ -13,7 +14,7 @@ import { DemoContainerComponent } from '../shared/components/demo-container/demo
   styleUrls: ['./switch-map.component.scss'],
   animations: [fadeInOut],
 })
-export class SwitchMapComponent implements AfterViewInit {
+export class SwitchMapComponent implements OnInit, AfterViewInit, OnDestroy {
   private nextSwitchMapId = 2;
 
   public readonly MAIN_O = '0'; // Main deliver to operator
@@ -50,6 +51,13 @@ export class SwitchMapComponent implements AfterViewInit {
   public conveyorsWorking: { [key: string]: BehaviorSubject<boolean> } = {
     [this.MAIN_O]: new BehaviorSubject<boolean>(false),
   };
+
+  public constructor(private readonly titleService: Title, private readonly metaService: Meta) {}
+
+  public ngOnInit() {
+    this.titleService.setTitle('SwitchMap rxjs');
+    this.metaService.updateTag({ name: 'description', content: 'Explicación del operador rxjs switchMap' });
+  }
 
   public ngAfterViewInit(): void {
     interval(this.demo.fps).subscribe(() => {
@@ -194,5 +202,9 @@ export class SwitchMapComponent implements AfterViewInit {
       ...this.initialPositions[button.controllerId],
       conveyorId: button.controllerId,
     } as ElementInConveyor);
+  }
+
+  public ngOnDestroy(): void {
+    this.metaService.removeTag('name="description"');
   }
 }

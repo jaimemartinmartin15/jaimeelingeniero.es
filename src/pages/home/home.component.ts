@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Meta, Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { intervalArray } from 'src/utils/arrays';
 
@@ -21,7 +22,7 @@ const VIEW_BOX_HEIGHT_DESKTOP = 10;
   styleUrls: ['./home.component.scss'],
   animations: [rotateProfilePicture],
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent implements OnInit, OnDestroy {
   public years: number;
 
   // profile animation
@@ -50,10 +51,15 @@ export class HomeComponent implements OnInit {
   public waveViewBox = `0 0 ${this.viewBoxWidth} ${this.viewBoxHeight}`;
   public wavePath = '';
 
-  public constructor(private readonly _router: Router) {}
+  public constructor(private readonly _router: Router, private readonly titleService: Title, private readonly metaService: Meta) {}
 
   ngOnInit(): void {
     this.years = this.calculateAge(new Date(1996, 10, 15));
+
+    this.titleService.setTitle('Presentación');
+    this.metaService.updateTag({ name: 'description', content: `Me llamo Jaime, tengo ${this.years} años y soy ingeniero informático` });
+    this.metaService.updateTag({ name: 'keywords', content: 'Jaime, ingeniero informático' });
+
     this.calculateWavePath();
     this.startWaveAnimation(0);
     this.startProfilePictureAnimation();
@@ -147,5 +153,10 @@ export class HomeComponent implements OnInit {
 
   public goToMyTrayectory() {
     this._router.navigate(['mi-trayectoria']);
+  }
+
+  public ngOnDestroy(): void {
+    this.metaService.removeTag('name="description"');
+    this.metaService.removeTag('name="keywords"');
   }
 }

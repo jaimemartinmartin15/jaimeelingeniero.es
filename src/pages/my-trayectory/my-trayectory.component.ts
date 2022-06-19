@@ -1,9 +1,20 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Meta, Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-my-trayectory',
   templateUrl: './my-trayectory.component.html',
-  styleUrls: ['./my-trayectory.component.scss']
+  styleUrls: ['./my-trayectory.component.scss'],
 })
-export class MyTrayectoryComponent {
+export class MyTrayectoryComponent implements OnInit, OnDestroy {
+  public constructor(private readonly titleService: Title, private readonly metaService: Meta) {}
+
+  public ngOnInit() {
+    this.titleService.setTitle('Trayectoria');
+    this.metaService.updateTag({ name: 'description', content: 'Esta es mi carrera profesional hasta hoy' });
+  }
+
+  public ngOnDestroy(): void {
+    this.metaService.removeTag('name="description"');
+  }
 }

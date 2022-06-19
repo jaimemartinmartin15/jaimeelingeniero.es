@@ -1,4 +1,5 @@
-import { AfterViewInit, Component, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Meta, Title } from '@angular/platform-browser';
 import { BehaviorSubject, combineLatestWith, interval, map, Subject } from 'rxjs';
 import { ButtonController } from '../shared/components/conveyor-controller/button-controller';
 import { DemoContainerComponent } from '../shared/components/demo-container/demo-container.component';
@@ -11,7 +12,7 @@ import { SpeechBubble } from '../shared/speech-bubble';
   templateUrl: './combine-latest-with.component.html',
   styleUrls: ['./combine-latest-with.component.scss'],
 })
-export class CombineLatestWithComponent implements AfterViewInit {
+export class CombineLatestWithComponent implements OnInit, AfterViewInit, OnDestroy {
   public readonly MAIN_L = '0';
   public readonly LEFT = '1';
   public readonly RIGHT = '2';
@@ -79,6 +80,13 @@ export class CombineLatestWithComponent implements AfterViewInit {
     [this.LEFT]: new Subject(),
     [this.RIGHT]: new Subject(),
   };
+
+  public constructor(private readonly titleService: Title, private readonly metaService: Meta) {}
+
+  public ngOnInit() {
+    this.titleService.setTitle('CombineLatestWith rxjs');
+    this.metaService.updateTag({ name: 'description', content: 'Explicación del operador rxjs combineLatestWith' });
+  }
 
   public ngAfterViewInit(): void {
     interval(this.demo.fps).subscribe(() => {
@@ -210,5 +218,9 @@ export class CombineLatestWithComponent implements AfterViewInit {
       ...this.initialPositions[button.controllerId],
       conveyorId: button.controllerId,
     });
+  }
+
+  public ngOnDestroy(): void {
+    this.metaService.removeTag('name="description"');
   }
 }
