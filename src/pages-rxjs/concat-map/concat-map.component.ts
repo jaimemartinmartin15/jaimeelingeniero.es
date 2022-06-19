@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { BehaviorSubject, interval, Subject } from 'rxjs';
 import { fadeInOut } from '../shared/rxjs-animations';
 import { ElementInConveyor } from '../shared/element-in-conveyor';
@@ -6,6 +6,7 @@ import { ObservableEventType } from '../shared/observable-event-type';
 import { SpeechBubble } from '../shared/speech-bubble';
 import { ButtonController } from '../shared/components/conveyor-controller/button-controller';
 import { DemoContainerComponent } from '../shared/components/demo-container/demo-container.component';
+import { Meta, Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-concat-map',
@@ -13,7 +14,7 @@ import { DemoContainerComponent } from '../shared/components/demo-container/demo
   styleUrls: ['./concat-map.component.scss'],
   animations: [fadeInOut],
 })
-export class ConcatMapComponent implements AfterViewInit {
+export class ConcatMapComponent implements OnInit, AfterViewInit, OnDestroy {
   private nextConcatMapId = 2;
 
   public readonly MAIN_O = '0'; // Main deliver to operator
@@ -50,6 +51,13 @@ export class ConcatMapComponent implements AfterViewInit {
   public conveyorsWorking: { [key: string]: BehaviorSubject<boolean> } = {
     [this.MAIN_O]: new BehaviorSubject<boolean>(false),
   };
+
+  public constructor(private readonly titleService: Title, private readonly metaService: Meta) {}
+
+  public ngOnInit() {
+    this.titleService.setTitle('ConcatMap rxjs');
+    this.metaService.updateTag({ name: 'description', content: 'Explicación del operador rxjs concatMap' });
+  }
 
   public ngAfterViewInit(): void {
     interval(this.demo.fps).subscribe(() => {
@@ -206,5 +214,9 @@ export class ConcatMapComponent implements AfterViewInit {
       ...this.initialPositions[button.controllerId],
       conveyorId: button.controllerId,
     } as ElementInConveyor);
+  }
+
+  public ngOnDestroy(): void {
+    this.metaService.removeTag('name="description"');
   }
 }
