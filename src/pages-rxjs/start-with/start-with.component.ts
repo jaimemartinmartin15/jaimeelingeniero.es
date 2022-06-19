@@ -1,4 +1,5 @@
-import { Component, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Meta, Title } from '@angular/platform-browser';
 import { BehaviorSubject, interval, Subject } from 'rxjs';
 import { ButtonController } from '../shared/components/conveyor-controller/button-controller';
 import { DemoContainerComponent } from '../shared/components/demo-container/demo-container.component';
@@ -11,7 +12,7 @@ import { SpeechBubble } from '../shared/speech-bubble';
   templateUrl: './start-with.component.html',
   styleUrls: ['./start-with.component.scss'],
 })
-export class StartWithComponent {
+export class StartWithComponent implements OnInit, AfterViewInit, OnDestroy {
   public ID = '0';
 
   @ViewChild(DemoContainerComponent)
@@ -30,6 +31,13 @@ export class StartWithComponent {
   public elementsInConveyor: ElementInConveyor[] = [];
 
   public speechBubble$ = new Subject<SpeechBubble>();
+
+  public constructor(private readonly titleService: Title, private readonly metaService: Meta) {}
+
+  public ngOnInit() {
+    this.titleService.setTitle('StartWith rxjs');
+    this.metaService.updateTag({ name: 'description', content: 'Explicación del operador rxjs startWith' });
+  }
 
   public ngAfterViewInit(): void {
     interval(this.demo.fps).subscribe(() => {
@@ -74,5 +82,9 @@ export class StartWithComponent {
       x: 220,
       conveyorId: button.controllerId,
     } as ElementInConveyor);
+  }
+
+  public ngOnDestroy(): void {
+    this.metaService.removeTag('name="description"');
   }
 }
