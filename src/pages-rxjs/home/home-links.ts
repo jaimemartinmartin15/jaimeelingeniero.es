@@ -46,6 +46,7 @@ export const HOME_LINKS_OTHERS: HomeLink[] = [
       { display: 'first', url: '/comprende-rxjs/first' },
       { display: 'take', url: '/comprende-rxjs/take' },
       { display: 'takeUntil', url: '/comprende-rxjs/takeUntil' },
+      { display: 'filter', url: '/comprende-rxjs/filter' },
     ],
   },
 ];
