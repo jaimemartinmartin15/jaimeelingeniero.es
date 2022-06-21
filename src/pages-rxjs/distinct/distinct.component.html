@@ -52,6 +52,10 @@ new Observable<string>((subscriber) => {
 
   <g appOperator transform="translate(295, 45)"></g>
 
+  <g>
+    <text *ngFor="let element of elementsEmmited; let i = index" [attr.x]="300 + i*27" y="36">{{element}}</text>
+  </g>
+
   <g transform="translate(496, 20)" appSubscriber [showSpeechBubble$]="speechBubble$"
     (onSubscribe$)="onSubscribe($event)">
   </g>

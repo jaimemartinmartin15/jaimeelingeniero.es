@@ -32,6 +32,7 @@ export class DistinctComponent implements OnInit, AfterViewInit, OnDestroy {
   public conveyorWorking$ = new BehaviorSubject<boolean>(false);
 
   public elementsInConveyor: ElementInConveyor[] = [];
+  public elementsEmmited: string[] = [];
 
   public speechBubble$ = new Subject<SpeechBubble>();
 
@@ -91,6 +92,7 @@ export class DistinctComponent implements OnInit, AfterViewInit, OnDestroy {
   public onSubscribe(isSubscription: boolean) {
     this.controllerButtons.forEach((button) => (button.enabled = isSubscription));
     this.elementsInConveyor.length = 0;
+    this.elementsEmmited.length = 0;
     this.conveyorWorking$.next(isSubscription);
 
     if (!isSubscription) {
@@ -98,13 +100,15 @@ export class DistinctComponent implements OnInit, AfterViewInit, OnDestroy {
     } else {
       this.elementReachesOperator$ = new Subject();
       this.demoSubscription = this.elementReachesOperator$.pipe(distinct()).subscribe({
-        next: (value) =>
+        next: (value) => {
+          this.elementsEmmited.push(value);
           this.elementsInConveyor.push({
             type: ObservableEventType.NEXT,
             value,
             conveyorId: this.ID,
             x: 350,
-          } as ElementInConveyor),
+          } as ElementInConveyor);
+        },
         error: (value) =>
           this.elementsInConveyor.push({
             type: ObservableEventType.ERROR,
