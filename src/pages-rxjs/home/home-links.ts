@@ -48,6 +48,7 @@ export const HOME_LINKS_OTHERS: HomeLink[] = [
       { display: 'takeUntil', url: '/comprende-rxjs/takeUntil' },
       { display: 'filter', url: '/comprende-rxjs/filter' },
       { display: 'takeWhile', url: '/comprende-rxjs/takeWhile' }, // TODO this demo uses operator
+      { display: 'distinct', url: '/comprende-rxjs/distinct' }, // TODO this demo uses operator
     ],
   },
 ];
