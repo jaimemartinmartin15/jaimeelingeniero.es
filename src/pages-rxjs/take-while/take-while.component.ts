@@ -1,6 +1,6 @@
 import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { Meta, Title } from '@angular/platform-browser';
-import { BehaviorSubject, Subject } from 'rxjs';
+import { BehaviorSubject, interval, Subject, Subscription, takeWhile } from 'rxjs';
 import { ButtonController } from '../shared/components/conveyor-controller/button-controller';
 import { DemoContainerComponent } from '../shared/components/demo-container/demo-container.component';
 import { ElementInConveyor } from '../shared/element-in-conveyor';
@@ -17,6 +17,9 @@ export class TakeWhileComponent implements OnInit, AfterViewInit, OnDestroy {
 
   @ViewChild(DemoContainerComponent)
   public demo: DemoContainerComponent;
+
+  private demoSubscription: Subscription;
+  private elementReachesOperator$: Subject<ElementInConveyor>;
 
   public controllerButtons: ButtonController[] = [
     { value: '🎻', type: ObservableEventType.ERROR, controllerId: this.ID, enabled: false },
@@ -39,13 +42,44 @@ export class TakeWhileComponent implements OnInit, AfterViewInit, OnDestroy {
     this.metaService.updateTag({ name: 'description', content: 'Explicación del operador rxjs takeWhile' });
   }
 
-  public ngAfterViewInit() {}
+  public ngAfterViewInit() {
+    interval(this.demo.fps).subscribe(() => {
+      this.elementsInConveyor.forEach((e) => {
+        e.x += this.demo.speed;
+
+        if (e.x >= 300 && e.x <= 320) {
+          this._elementReachesOperator(e);
+        } else if (e.x >= 450) {
+          this._elementDeliveredToSubscriber(e);
+        }
+      });
+    });
+  }
+
+  private _elementDeliveredToSubscriber(e: ElementInConveyor) {
+    this.elementsInConveyor.splice(this.elementsInConveyor.indexOf(e), 1);
+    this.speechBubble$.next({
+      message: e.value,
+      type: e.type,
+    });
+
+    if (e.type !== ObservableEventType.NEXT) {
+      this.onSubscribe(false);
+    }
+  }
+
+  private _elementReachesOperator(e: ElementInConveyor) {
+    this.elementsInConveyor.splice(this.elementsInConveyor.indexOf(e), 1);
+    if (e.type === ObservableEventType.NEXT) {
+      this.elementReachesOperator$.next(e);
+    } else if (e.type === ObservableEventType.ERROR) {
+      this.elementReachesOperator$.error(e);
+    } else {
+      this.elementReachesOperator$.complete();
+    }
+  }
 
   public onControllerButtonClick(button: ButtonController) {
-    if (button.type === ObservableEventType.COMPLETE || button.type === ObservableEventType.ERROR) {
-      this.controllerButtons.forEach((button) => (button.enabled = false));
-    }
-
     this.elementsInConveyor.push({
       type: button.type,
       value: button.value,
@@ -54,10 +88,27 @@ export class TakeWhileComponent implements OnInit, AfterViewInit, OnDestroy {
     } as ElementInConveyor);
   }
 
-  public onSubscribe(isSubscribed: boolean) {
-    this.controllerButtons.forEach((button) => (button.enabled = isSubscribed));
+  public onSubscribe(isSubscription: boolean) {
+    this.controllerButtons.forEach((button) => (button.enabled = isSubscription));
     this.elementsInConveyor.length = 0;
-    this.conveyorWorking$.next(isSubscribed);
+    this.conveyorWorking$.next(isSubscription);
+
+    if (!isSubscription) {
+      this.demoSubscription.unsubscribe();
+    } else {
+      this.elementReachesOperator$ = new Subject();
+      this.demoSubscription = this.elementReachesOperator$.pipe(takeWhile((e) => e.value === '🥦' || e.value === '🍐')).subscribe({
+        next: (e) => this.elementsInConveyor.push({ ...e, x: 350 }),
+        error: (e) => this.elementsInConveyor.push({ ...e, x: 350 }),
+        complete: () =>
+          this.elementsInConveyor.push({
+            type: ObservableEventType.COMPLETE,
+            value: this.controllerButtons[1].value,
+            conveyorId: this.ID,
+            x: 350,
+          } as ElementInConveyor),
+      });
+    }
   }
 
   public ngOnDestroy(): void {
