@@ -42,11 +42,22 @@ export class TakeWhileComponent implements OnInit, AfterViewInit, OnDestroy {
   public ngAfterViewInit() {}
 
   public onControllerButtonClick(button: ButtonController) {
-    // TODO
+    if (button.type === ObservableEventType.COMPLETE || button.type === ObservableEventType.ERROR) {
+      this.controllerButtons.forEach((button) => (button.enabled = false));
+    }
+
+    this.elementsInConveyor.push({
+      type: button.type,
+      value: button.value,
+      x: 220,
+      conveyorId: button.controllerId,
+    } as ElementInConveyor);
   }
 
   public onSubscribe(isSubscribed: boolean) {
-    // TODO
+    this.controllerButtons.forEach((button) => (button.enabled = isSubscribed));
+    this.elementsInConveyor.length = 0;
+    this.conveyorWorking$.next(isSubscribed);
   }
 
   public ngOnDestroy(): void {
