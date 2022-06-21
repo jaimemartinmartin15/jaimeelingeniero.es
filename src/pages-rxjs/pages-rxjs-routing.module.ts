@@ -13,6 +13,10 @@ const routes: Routes = [
     component: PagesRxjsComponent,
     children: [
       {
+        path: 'takeWhile',
+        loadChildren: () => import('./take-while/take-while.module').then((m) => m.TakeWhileModule),
+      },
+      {
         path: 'filter',
         loadChildren: () => import('./filter/filter.module').then((m) => m.FilterModule),
       },
