@@ -1,10 +1,10 @@
 <div class="page-header">
-    <h1 class="title">Distinct</h1>
-    <a class="link-rxjs" href="https://rxjs.dev/api/operators/distinct" target="_blank">rxjs distinct ➡️</a>
+  <h1 class="title">Distinct</h1>
+  <a class="link-rxjs" href="https://rxjs.dev/api/operators/distinct" target="_blank">rxjs distinct ➡️</a>
 </div>
 
 <p>
-    Este operador solo deja pasar elementos que no se hayan emitido anteriormente.
+  Este operador solo deja pasar elementos que no se hayan emitido anteriormente.
 </p>
 
 <textarea highlight-js [lang]="'typescript'">
@@ -32,11 +32,31 @@ new Observable<string>((subscriber) => {
 </textarea>
 
 <p>
-    Vamos a explicar el operador con el ejemplo. Primero se emite el 🍌. Como antes no se había emitido ningún 🍌 este
-    se entrega al suscriptor. Después se emite la 🍎. Tampoco se había emitido ninguna 🍎 antes, por lo que también se
-    entrega al suscriptor. Luego se emite un 🍌. Antes ya se había entregado al subscriptor un 🍌, por lo que se
-    rechaza. Después se emite un 🥦. Este es un nuevo elemento, por lo que se entrega al suscriptor. Por último, se
-    emite otra 🍎. Como ya se había emitido otra 🍎 anteriormente se rechaza.
+  Vamos a explicar el operador con el ejemplo. Primero se emite el 🍌. Como antes no se había emitido ningún 🍌 este
+  se entrega al suscriptor. Después se emite la 🍎. Tampoco se había emitido ninguna 🍎 antes, por lo que también se
+  entrega al suscriptor. Luego se emite un 🍌. Antes ya se había entregado al subscriptor un 🍌, por lo que se
+  rechaza. Después se emite un 🥦. Este es un nuevo elemento, por lo que se entrega al suscriptor. Por último, se
+  emite otra 🍎. Como ya se había emitido otra 🍎 anteriormente se rechaza.
 </p>
 
 <p>Juega con la siguiente demo para aprender más:</p>
+
+<svg appDemoContainer viewBox="0 0 640 240">
+  <g transform="translate(30, 80)" appConveyorController [button1]="controllerButtons[0]"
+    [button2]="controllerButtons[1]" [button3]="controllerButtons[2]" [button4]="controllerButtons[3]"
+    [button5]="controllerButtons[4]" (onButtonClick)="onControllerButtonClick($event)">
+  </g>
+
+  <g transform="translate(220, 80)" appConveyorHorizontal [conveyorWorking$]="conveyorWorking$" [length]="250.8">
+  </g>
+
+  <g appOperator transform="translate(295, 45)"></g>
+
+  <g transform="translate(496, 20)" appSubscriber [showSpeechBubble$]="speechBubble$"
+    (onSubscribe$)="onSubscribe($event)">
+  </g>
+
+  <g>
+    <text *ngFor="let element of elementsInConveyor" [attr.x]="element.x" y="136">{{element.value}}</text>
+  </g>
+</svg>
