@@ -2,3 +2,41 @@
     <h1 class="title">Distinct</h1>
     <a class="link-rxjs" href="https://rxjs.dev/api/operators/distinct" target="_blank">rxjs distinct ➡️</a>
 </div>
+
+<p>
+    Este operador solo deja pasar elementos que no se hayan emitido anteriormente.
+</p>
+
+<textarea highlight-js [lang]="'typescript'">
+import { distinct, Observable } from 'rxjs';
+
+new Observable<string>((subscriber) => {
+  subscriber.next('🍌');
+  subscriber.next('🍎');
+  subscriber.next('🍌');
+  subscriber.next('🥦');
+  subscriber.next('🍎');
+})
+  .pipe(distinct())
+  .subscribe({
+    next: (value) => console.log(`The next value is: ${value}`),
+    error: (error) => console.error(`There is an error: ${error}`),
+    complete: () => console.log('Completed'),
+  });
+
+// Output
+// ======
+// The next value is: 🍌
+// The next value is: 🍎
+// The next value is: 🥦
+</textarea>
+
+<p>
+    Vamos a explicar el operador con el ejemplo. Primero se emite el 🍌. Como antes no se había emitido ningún 🍌 este
+    se entrega al suscriptor. Después se emite la 🍎. Tampoco se había emitido ninguna 🍎 antes, por lo que también se
+    entrega al suscriptor. Luego se emite un 🍌. Antes ya se había entregado al subscriptor un 🍌, por lo que se
+    rechaza. Después se emite un 🥦. Este es un nuevo elemento, por lo que se entrega al suscriptor. Por último, se
+    emite otra 🍎. Como ya se había emitido otra 🍎 anteriormente se rechaza.
+</p>
+
+<p>Juega con la siguiente demo para aprender más:</p>
