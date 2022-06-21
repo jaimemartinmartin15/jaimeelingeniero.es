@@ -1,11 +1,11 @@
 <div class="page-header">
-    <h1 class="title">TakeWhile</h1>
-    <a class="link-rxjs" href="https://rxjs.dev/api/operators/takeWhile" target="_blank">rxjs takeWhile ➡️</a>
+  <h1 class="title">TakeWhile</h1>
+  <a class="link-rxjs" href="https://rxjs.dev/api/operators/takeWhile" target="_blank">rxjs takeWhile ➡️</a>
 </div>
 
 <p>
-    Este operador deja pasar los elementos del Observable fuente mientras cumplan una condición. En el momento que uno
-    de los elementos no cumple la condición el Observable completa.
+  Este operador deja pasar los elementos del Observable fuente mientras cumplan una condición. En el momento que uno
+  de los elementos no cumple la condición el Observable completa.
 </p>
 
 
@@ -33,10 +33,30 @@ new Observable<string>((subscriber) => {
 </textarea>
 
 <p>
-    Vamos a explicar el ejemplo. La idea es dejar pasar las frutas mientras sean de color 🔴. Entonces lo primero que
-    se emite es la 🍎 y luego el 🍅. Como son de color rojo, se entregan al suscriptor. Lo siguiente que hay en el
-    Observable fuente es un 🍌. Como ya no es de color rojo, no pasa y el Observable completa. También se emite una 🍓,
-    pero como el Observable ha completado, no se entrega al subscriptor.
+  Vamos a explicar el ejemplo. La idea es dejar pasar las frutas mientras sean de color 🔴. Entonces lo primero que
+  se emite es la 🍎 y luego el 🍅. Como son de color rojo, se entregan al suscriptor. Lo siguiente que hay en el
+  Observable fuente es un 🍌. Como ya no es de color rojo, no pasa y el Observable completa. También se emite una 🍓,
+  pero como el Observable ha completado, no se entrega al subscriptor.
 </p>
 
 <p>Pruébalo en esta demo, donde se emiten elementos mientras sean de color 🟢:</p>
+
+<svg appDemoContainer viewBox="0 0 640 240">
+  <g transform="translate(30, 80)" appConveyorController [button1]="controllerButtons[0]"
+    [button2]="controllerButtons[1]" [button3]="controllerButtons[2]" [button4]="controllerButtons[3]"
+    [button5]="controllerButtons[4]" (onButtonClick)="onControllerButtonClick($event)">
+  </g>
+
+  <g transform="translate(220, 80)" appConveyorHorizontal [conveyorWorking$]="conveyorWorking$" [length]="250.8">
+  </g>
+
+  <g appOperator transform="translate(295, 45)"></g>
+
+  <g transform="translate(496, 20)" appSubscriber [showSpeechBubble$]="speechBubble$"
+    (onSubscribe$)="onSubscribe($event)">
+  </g>
+
+  <g>
+    <text *ngFor="let element of elementsInConveyor" [attr.x]="element.x" y="136">{{element.value}}</text>
+  </g>
+</svg>

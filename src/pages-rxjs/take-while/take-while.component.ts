@@ -1,5 +1,11 @@
-import { AfterViewInit, Component, OnDestroy, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { Meta, Title } from '@angular/platform-browser';
+import { BehaviorSubject, Subject } from 'rxjs';
+import { ButtonController } from '../shared/components/conveyor-controller/button-controller';
+import { DemoContainerComponent } from '../shared/components/demo-container/demo-container.component';
+import { ElementInConveyor } from '../shared/element-in-conveyor';
+import { ObservableEventType } from '../shared/observable-event-type';
+import { SpeechBubble } from '../shared/speech-bubble';
 
 @Component({
   selector: 'app-take-while',
@@ -7,6 +13,24 @@ import { Meta, Title } from '@angular/platform-browser';
   styleUrls: ['./take-while.component.scss'],
 })
 export class TakeWhileComponent implements OnInit, AfterViewInit, OnDestroy {
+  public ID = '0';
+
+  @ViewChild(DemoContainerComponent)
+  public demo: DemoContainerComponent;
+
+  public controllerButtons: ButtonController[] = [
+    { value: '🎻', type: ObservableEventType.ERROR, controllerId: this.ID, enabled: false },
+    { value: '🖐️', type: ObservableEventType.COMPLETE, controllerId: this.ID, enabled: false },
+    { value: '🥦', type: ObservableEventType.NEXT, controllerId: this.ID, enabled: false },
+    { value: '🍐', type: ObservableEventType.NEXT, controllerId: this.ID, enabled: false },
+    { value: '🍋', type: ObservableEventType.NEXT, controllerId: this.ID, enabled: false },
+  ];
+
+  public conveyorWorking$ = new BehaviorSubject<boolean>(false);
+
+  public elementsInConveyor: ElementInConveyor[] = [];
+
+  public speechBubble$ = new Subject<SpeechBubble>();
 
   public constructor(private readonly titleService: Title, private readonly metaService: Meta) {}
 
@@ -16,6 +40,14 @@ export class TakeWhileComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   public ngAfterViewInit() {}
+
+  public onControllerButtonClick(button: ButtonController) {
+    // TODO
+  }
+
+  public onSubscribe(isSubscribed: boolean) {
+    // TODO
+  }
 
   public ngOnDestroy(): void {
     this.metaService.removeTag('name="description"');
