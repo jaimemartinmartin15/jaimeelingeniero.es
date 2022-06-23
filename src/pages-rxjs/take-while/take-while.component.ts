@@ -1,117 +1,79 @@
-import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Component } from '@angular/core';
 import { Meta, Title } from '@angular/platform-browser';
-import { BehaviorSubject, interval, Subject, Subscription, takeWhile } from 'rxjs';
+import { BehaviorSubject, takeWhile } from 'rxjs';
+import { BaseOperatorComponent } from '../shared/base-operator.component';
 import { ButtonController } from '../shared/components/conveyor-controller/button-controller';
-import { DemoContainerComponent } from '../shared/components/demo-container/demo-container.component';
 import { ElementInConveyor } from '../shared/element-in-conveyor';
 import { ObservableEventType } from '../shared/observable-event-type';
-import { SpeechBubble } from '../shared/speech-bubble';
 
 @Component({
   selector: 'app-take-while',
   templateUrl: './take-while.component.html',
   styleUrls: ['./take-while.component.scss'],
 })
-export class TakeWhileComponent implements OnInit, AfterViewInit, OnDestroy {
-  public ID = '0';
+export class TakeWhileComponent extends BaseOperatorComponent {
+  protected operator = takeWhile((e) => e === '🥦' || e === '🍐');
 
-  @ViewChild(DemoContainerComponent)
-  public demo: DemoContainerComponent;
+  public controllerButtons: { [key: string]: ButtonController[] } = {
+    [this.MAIN_ID]: [
+      { value: '🎻', type: ObservableEventType.ERROR, controllerId: this.MAIN_ID, enabled: false },
+      { value: '🖐️', type: ObservableEventType.COMPLETE, controllerId: this.MAIN_ID, enabled: false },
+      { value: '🥦', type: ObservableEventType.NEXT, controllerId: this.MAIN_ID, enabled: false },
+      { value: '🍐', type: ObservableEventType.NEXT, controllerId: this.MAIN_ID, enabled: false },
+      { value: '🍋', type: ObservableEventType.NEXT, controllerId: this.MAIN_ID, enabled: false },
+    ],
+  };
 
-  private demoSubscription: Subscription;
-  private elementReachesOperator$: Subject<ElementInConveyor>;
+  public conveyorsWorking: { [key: string]: BehaviorSubject<boolean> } = {
+    [this.MAIN_ID]: new BehaviorSubject<boolean>(false),
+  };
 
-  public controllerButtons: ButtonController[] = [
-    { value: '🎻', type: ObservableEventType.ERROR, controllerId: this.ID, enabled: false },
-    { value: '🖐️', type: ObservableEventType.COMPLETE, controllerId: this.ID, enabled: false },
-    { value: '🥦', type: ObservableEventType.NEXT, controllerId: this.ID, enabled: false },
-    { value: '🍐', type: ObservableEventType.NEXT, controllerId: this.ID, enabled: false },
-    { value: '🍋', type: ObservableEventType.NEXT, controllerId: this.ID, enabled: false },
-  ];
-
-  public conveyorWorking$ = new BehaviorSubject<boolean>(false);
-
-  public elementsInConveyor: ElementInConveyor[] = [];
-
-  public speechBubble$ = new Subject<SpeechBubble>();
-
-  public constructor(private readonly titleService: Title, private readonly metaService: Meta) {}
-
-  public ngOnInit() {
-    this.titleService.setTitle('TakeWhile rxjs');
-    this.metaService.updateTag({ name: 'description', content: 'Explicación del operador rxjs takeWhile' });
+  public constructor(titleService: Title, metaService: Meta) {
+    super(titleService, metaService, 'takeWhile');
   }
 
-  public ngAfterViewInit() {
-    interval(this.demo.fps).subscribe(() => {
-      this.elementsInConveyor.forEach((e) => {
-        e.x += this.demo.speed;
-
-        if (e.x >= 300 && e.x <= 320) {
-          this._elementReachesOperator(e);
-        } else if (e.x >= 450) {
-          this._elementDeliveredToSubscriber(e);
-        }
-      });
-    });
+  protected moveElement(e: ElementInConveyor): void {
+    e.x += this.demo.speed;
   }
 
-  private _elementDeliveredToSubscriber(e: ElementInConveyor) {
-    this.elementsInConveyor.splice(this.elementsInConveyor.indexOf(e), 1);
-    this.speechBubble$.next({
-      message: e.value,
-      type: e.type,
-    });
-
-    if (e.type !== ObservableEventType.NEXT) {
-      this.onSubscribe(false);
-    }
+  protected isElementDeliveredToOperator(e: ElementInConveyor): boolean {
+    return e.x >= 300 && e.x <= 320;
   }
 
-  private _elementReachesOperator(e: ElementInConveyor) {
-    this.elementsInConveyor.splice(this.elementsInConveyor.indexOf(e), 1);
-    if (e.type === ObservableEventType.NEXT) {
-      this.elementReachesOperator$.next(e);
-    } else if (e.type === ObservableEventType.ERROR) {
-      this.elementReachesOperator$.error(e);
-    } else {
-      this.elementReachesOperator$.complete();
-    }
+  protected isElementDeliveredToSubscriber(e: ElementInConveyor): boolean {
+    return e.x >= 450;
   }
 
-  public onControllerButtonClick(button: ButtonController) {
+  protected addElementToBeginningOfConveyor(conveyorId: string, type: ObservableEventType, value: string) {
+    this.elementsInConveyor.push({ conveyorId, type, value, x: 220 } as ElementInConveyor);
+  }
+
+  public onSubscribeHook() {}
+
+  protected onOperatorDeliverNextEvent(value: string): void {
     this.elementsInConveyor.push({
-      type: button.type,
-      value: button.value,
-      x: 220,
-      conveyorId: button.controllerId,
+      conveyorId: this.MAIN_ID,
+      type: ObservableEventType.NEXT,
+      value,
+      x: 350,
     } as ElementInConveyor);
   }
 
-  public onSubscribe(isSubscription: boolean) {
-    this.controllerButtons.forEach((button) => (button.enabled = isSubscription));
-    this.elementsInConveyor.length = 0;
-    this.conveyorWorking$.next(isSubscription);
-
-    if (!isSubscription) {
-      this.demoSubscription.unsubscribe();
-    } else {
-      this.elementReachesOperator$ = new Subject();
-      this.demoSubscription = this.elementReachesOperator$.pipe(takeWhile((e) => e.value === '🥦' || e.value === '🍐')).subscribe({
-        next: (e) => this.elementsInConveyor.push({ ...e, x: 350 }),
-        error: (e) => this.elementsInConveyor.push({ ...e, x: 350 }),
-        complete: () =>
-          this.elementsInConveyor.push({
-            type: ObservableEventType.COMPLETE,
-            value: this.controllerButtons[1].value,
-            conveyorId: this.ID,
-            x: 350,
-          } as ElementInConveyor),
-      });
-    }
+  protected onOperatorDeliverErrorEvent(value: string): void {
+    this.elementsInConveyor.push({
+      conveyorId: this.MAIN_ID,
+      type: ObservableEventType.ERROR,
+      value,
+      x: 350,
+    } as ElementInConveyor);
   }
 
-  public ngOnDestroy(): void {
-    this.metaService.removeTag('name="description"');
+  protected onOperatorDeliverCompleteEvent(): void {
+    this.elementsInConveyor.push({
+      conveyorId: this.MAIN_ID,
+      type: ObservableEventType.COMPLETE,
+      value: this.controllerButtons[this.MAIN_ID][1].value,
+      x: 350,
+    } as ElementInConveyor);
   }
 }

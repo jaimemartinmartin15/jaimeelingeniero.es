@@ -19,7 +19,7 @@ export abstract class BaseOperatorComponent implements OnInit, AfterViewInit, On
 
   public speechBubble$ = new Subject<SpeechBubble>();
 
-  protected abstract operator: Function;
+  protected abstract operator: any;
   private demoSubscription: Subscription;
 
   protected elementReachesOperator$: Subject<string>;
@@ -91,7 +91,7 @@ export abstract class BaseOperatorComponent implements OnInit, AfterViewInit, On
       this.demoSubscription.unsubscribe();
     } else {
       this.elementReachesOperator$ = new Subject();
-      this.demoSubscription = this.elementReachesOperator$.pipe(this.operator()).subscribe({
+      this.demoSubscription = this.elementReachesOperator$.pipe(this.operator).subscribe({
         next: (value) => this.onOperatorDeliverNextEvent(value as string),
         error: (value) => this.onOperatorDeliverErrorEvent(value),
         complete: () => this.onOperatorDeliverCompleteEvent(),

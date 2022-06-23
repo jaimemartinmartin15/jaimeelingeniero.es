@@ -12,7 +12,7 @@ import { BaseOperatorComponent } from '../shared/base-operator.component';
   styleUrls: ['./distinct.component.scss'],
 })
 export class DistinctComponent extends BaseOperatorComponent {
-  protected operator = distinct;
+  protected operator = distinct();
 
   public controllerButtons: { [key: string]: ButtonController[] } = {
     [this.MAIN_ID]: [
