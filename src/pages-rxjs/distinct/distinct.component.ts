@@ -50,9 +50,11 @@ export class DistinctComponent extends BaseOperatorComponent {
     this.elementsInConveyor.push({ conveyorId, type, value, x: 220 } as ElementInConveyor);
   }
 
-  public onSubscribeHook() {
+  protected onSubscribeHook() {
     this.elementsEmmited.length = 0;
   }
+
+  protected onOperatorConveyorDeliverElement(e: ElementInConveyor): void {}
 
   protected onOperatorDeliverNextEvent(value: string): void {
     this.elementsEmmited.push(value);

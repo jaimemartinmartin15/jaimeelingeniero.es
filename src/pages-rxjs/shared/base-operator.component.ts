@@ -59,14 +59,20 @@ export abstract class BaseOperatorComponent implements OnInit, AfterViewInit, On
 
   private _elementReachesOperator(e: ElementInConveyor) {
     this.elementsInConveyor.splice(this.elementsInConveyor.indexOf(e), 1);
-    if (e.type === ObservableEventType.NEXT) {
-      this.elementReachesOperator$.next(e.value);
-    } else if (e.type === ObservableEventType.ERROR) {
-      this.elementReachesOperator$.error(e.value);
+    if (e.conveyorId === this.MAIN_ID) {
+      if (e.type === ObservableEventType.NEXT) {
+        this.elementReachesOperator$.next(e.value);
+      } else if (e.type === ObservableEventType.ERROR) {
+        this.elementReachesOperator$.error(e.value);
+      } else {
+        this.elementReachesOperator$.complete();
+      }
     } else {
-      this.elementReachesOperator$.complete();
+      this.onOperatorConveyorDeliverElement(e);
     }
   }
+
+  protected abstract onOperatorConveyorDeliverElement(e: ElementInConveyor): void;
 
   protected _elementDeliveredToSubscriber(e: ElementInConveyor) {
     this.elementsInConveyor.splice(this.elementsInConveyor.indexOf(e), 1);
