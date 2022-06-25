@@ -50,11 +50,9 @@ export class TakeComponent extends BaseOperatorComponent {
     this.elementsInConveyor.push({ conveyorId, type, value, x: 220 } as ElementInConveyor);
   }
 
-  protected onSubscribeHook() {
+  public override onSubscribeHook() {
     this.counterTake = 3;
   }
-
-  protected onOperatorConveyorDeliverElement(e: ElementInConveyor): void {}
 
   protected onOperatorDeliverNextEvent(value: string): void {
     this.counterTake--;

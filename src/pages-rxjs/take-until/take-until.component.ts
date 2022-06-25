@@ -56,7 +56,7 @@ export class TakeUntilComponent extends BaseOperatorComponent {
     }
   }
 
-  protected onOperatorConveyorDeliverElement(e: ElementInConveyor): void {
+  public override onOperatorConveyorDeliverElement(e: ElementInConveyor): void {
     if (e.type === ObservableEventType.NEXT) {
       this.takeUntil$.next(e.value);
     } else if (e.type === ObservableEventType.ERROR) {
@@ -84,7 +84,7 @@ export class TakeUntilComponent extends BaseOperatorComponent {
     }
   }
 
-  public onSubscribeHook() {
+  public override onSubscribeHook() {
     this.takeUntil$ = new Subject<string>();
     this.operator = takeUntil(this.takeUntil$);
   }

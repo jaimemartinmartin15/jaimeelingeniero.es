@@ -8,6 +8,14 @@ import { ElementInConveyor } from './element-in-conveyor';
 import { ObservableEventType } from './observable-event-type';
 import { SpeechBubble } from './speech-bubble';
 
+export interface BaseOperatorComponent {
+  onOperatorConveyorDeliverElement?(e: ElementInConveyor): void;
+  elementReachesOperatorNextHook?(e: ElementInConveyor): void;
+  elementReachesOperatorErrorHook?(e: ElementInConveyor): void;
+  elementReachesOperatorCompleteHook?(e: ElementInConveyor): void;
+  onSubscribeHook?(isSubscription: boolean): void;
+}
+
 @Component({
   template: '',
 })
@@ -62,17 +70,26 @@ export abstract class BaseOperatorComponent implements OnInit, AfterViewInit, On
     if (e.conveyorId === this.MAIN_ID) {
       if (e.type === ObservableEventType.NEXT) {
         this.elementReachesOperator$.next(e.value);
+        if (this.elementReachesOperatorNextHook != null) {
+          this.elementReachesOperatorNextHook(e);
+        }
       } else if (e.type === ObservableEventType.ERROR) {
         this.elementReachesOperator$.error(e.value);
+        if (this.elementReachesOperatorErrorHook != null) {
+          this.elementReachesOperatorErrorHook(e);
+        }
       } else {
         this.elementReachesOperator$.complete();
+        if (this.elementReachesOperatorCompleteHook != null) {
+          this.elementReachesOperatorCompleteHook(e);
+        }
       }
     } else {
-      this.onOperatorConveyorDeliverElement(e);
+      if (this.onOperatorConveyorDeliverElement != null) {
+        this.onOperatorConveyorDeliverElement(e);
+      }
     }
   }
-
-  protected abstract onOperatorConveyorDeliverElement(e: ElementInConveyor): void;
 
   protected _elementDeliveredToSubscriber(e: ElementInConveyor) {
     this.elementsInConveyor.splice(this.elementsInConveyor.indexOf(e), 1);
@@ -91,7 +108,9 @@ export abstract class BaseOperatorComponent implements OnInit, AfterViewInit, On
     Object.values(this.conveyorsWorking).forEach((c) => c.next(isSubscription));
     this.elementsInConveyor.length = 0;
 
-    this.onSubscribeHook(isSubscription);
+    if (this.onSubscribeHook != null) {
+      this.onSubscribeHook(isSubscription);
+    }
 
     if (!isSubscription) {
       this.demoSubscription.unsubscribe();
@@ -104,8 +123,6 @@ export abstract class BaseOperatorComponent implements OnInit, AfterViewInit, On
       });
     }
   }
-
-  protected abstract onSubscribeHook(isSubscription: boolean): void;
 
   protected abstract onOperatorDeliverNextEvent(value: string): void;
   protected abstract onOperatorDeliverErrorEvent(value: string): void;

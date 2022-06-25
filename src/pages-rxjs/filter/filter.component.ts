@@ -48,9 +48,6 @@ export class FilterComponent extends BaseOperatorComponent {
     this.elementsInConveyor.push({ conveyorId, type, value, x: 220 } as ElementInConveyor);
   }
 
-  protected onSubscribeHook() {}
-  protected onOperatorConveyorDeliverElement(e: ElementInConveyor): void {}
-
   protected onOperatorDeliverNextEvent(value: string): void {
     this.elementsInConveyor.push({
       conveyorId: this.MAIN_ID,
