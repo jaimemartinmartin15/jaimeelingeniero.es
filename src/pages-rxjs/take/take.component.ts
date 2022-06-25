@@ -31,7 +31,7 @@ export class TakeComponent extends BaseOperatorComponent {
   };
 
   public constructor(titleService: Title, metaService: Meta) {
-    super(titleService, metaService, 'filter');
+    super(titleService, metaService, 'take');
   }
 
   protected moveElement(e: ElementInConveyor): void {
