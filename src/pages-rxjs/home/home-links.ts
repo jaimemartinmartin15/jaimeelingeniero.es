@@ -42,13 +42,13 @@ export const HOME_LINKS_OTHERS: HomeLink[] = [
     subtitle: 'Filtro',
     links: [
       { display: 'distinctUntilChanged', url: '/comprende-rxjs/distinctUntilChanged' },
-      { display: 'skip', url: '/comprende-rxjs/skip' }, // TODO this demo uses operator (with base component)
-      { display: 'first', url: '/comprende-rxjs/first' }, // TODO this demo uses operator (with base component)
-      { display: 'take', url: '/comprende-rxjs/take' }, // TODO this demo uses operator (with base component)
-      { display: 'takeUntil', url: '/comprende-rxjs/takeUntil' }, // TODO this demo uses operator (with base component)
-      { display: 'filter', url: '/comprende-rxjs/filter' }, // TODO this demo uses operator (with base component)
-      { display: 'takeWhile', url: '/comprende-rxjs/takeWhile' }, // TODO this demo uses operator (with base component)
-      { display: 'distinct', url: '/comprende-rxjs/distinct' }, // TODO this demo uses operator (with base component)
+      { display: 'skip', url: '/comprende-rxjs/skip' },
+      { display: 'first', url: '/comprende-rxjs/first' },
+      { display: 'take', url: '/comprende-rxjs/take' },
+      { display: 'takeUntil', url: '/comprende-rxjs/takeUntil' },
+      { display: 'filter', url: '/comprende-rxjs/filter' },
+      { display: 'takeWhile', url: '/comprende-rxjs/takeWhile' },
+      { display: 'distinct', url: '/comprende-rxjs/distinct' },
     ],
   },
 ];
