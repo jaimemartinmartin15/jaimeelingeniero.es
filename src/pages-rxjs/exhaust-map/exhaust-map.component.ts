@@ -65,11 +65,14 @@ export class ExhaustMapComponent extends BaseOperatorComponent {
       this.exhaustMap$[e.conveyorId].error(e.value);
       this.controllerButtons[e.conveyorId].forEach((button) => (button.enabled = false));
       this.conveyorsWorking[e.conveyorId].next(false);
+      this.elementsInConveyor = this.elementsInConveyor.filter((e2) => e2.conveyorId !== e.conveyorId);
+      this.EXHAUSTMAP.splice(this.EXHAUSTMAP.indexOf(e.conveyorId), 1);
     } else if (e.type === ObservableEventType.COMPLETE) {
       this.exhaustMap$[e.conveyorId].complete();
       delete this.exhaustMap$[e.conveyorId];
       delete this.controllerButtons[e.conveyorId];
       delete this.conveyorsWorking[e.conveyorId];
+      this.elementsInConveyor = this.elementsInConveyor.filter((e2) => e2.conveyorId !== e.conveyorId);
       this.EXHAUSTMAP.splice(this.EXHAUSTMAP.indexOf(e.conveyorId), 1);
     }
   }
@@ -91,7 +94,7 @@ export class ExhaustMapComponent extends BaseOperatorComponent {
     this.controllerButtons[this.MAIN_ID].forEach((button) => (button.enabled = isSubscribed));
 
     this.operator = exhaustMap((value) => {
-      this.EXHAUSTMAP[this.EXHAUSTMAP.length] = `${this.nextExhaustMapId}`;
+      this.EXHAUSTMAP.push(`${this.nextExhaustMapId}`);
       this.conveyorsWorking[this.nextExhaustMapId] = new BehaviorSubject<boolean>(true);
       const [value1, value2, value3] = value === '💜' ? ['🍇', '🍆', '🍒'] : value === '💚' ? ['🍏', '🥒', '🥦'] : ['🍓', '🍉', '🍅'];
       this.controllerButtons[this.nextExhaustMapId] = [
@@ -102,7 +105,7 @@ export class ExhaustMapComponent extends BaseOperatorComponent {
         { value: value3, type: ObservableEventType.NEXT, controllerId: `${this.nextExhaustMapId}`, enabled: true },
       ];
       this.exhaustMap$[this.nextExhaustMapId] = new Subject<string>();
-      return this.exhaustMap$[this.nextExhaustMapId];
+      return this.exhaustMap$[this.nextExhaustMapId++];
     });
   }
 
