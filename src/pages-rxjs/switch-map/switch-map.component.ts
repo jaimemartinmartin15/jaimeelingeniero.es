@@ -1,12 +1,11 @@
-import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Component } from '@angular/core';
 import { Meta, Title } from '@angular/platform-browser';
-import { BehaviorSubject, interval, Subject } from 'rxjs';
+import { BehaviorSubject, Subject, switchMap } from 'rxjs';
 import { fadeInOut } from '../shared/rxjs-animations';
 import { ElementInConveyor } from '../shared/element-in-conveyor';
 import { ObservableEventType } from '../shared/observable-event-type';
-import { SpeechBubble } from '../shared/speech-bubble';
 import { ButtonController } from '../shared/components/conveyor-controller/button-controller';
-import { DemoContainerComponent } from '../shared/components/demo-container/demo-container.component';
+import { BaseOperatorComponent } from '../shared/base-operator.component';
 
 @Component({
   selector: 'app-switch-map',
@@ -14,197 +13,133 @@ import { DemoContainerComponent } from '../shared/components/demo-container/demo
   styleUrls: ['./switch-map.component.scss'],
   animations: [fadeInOut],
 })
-export class SwitchMapComponent implements OnInit, AfterViewInit, OnDestroy {
-  private nextSwitchMapId = 2;
-
-  public readonly MAIN_O = '0'; // Main deliver to operator
-  public readonly MAIN_S = '1'; // Main deliver to subscriber
-  public readonly SWITCH: string[] = [];
-
-  @ViewChild(DemoContainerComponent)
-  private demo: DemoContainerComponent;
-
-  public readonly speechBubble$ = new Subject<SpeechBubble>();
-
-  public elementsInConveyor: ElementInConveyor[] = [];
-
-  private readonly initialPositions: { [key: string]: { x?: number; y?: number } } = {
-    [this.MAIN_O]: { x: 260 },
-    [this.MAIN_S]: { x: 466 },
-  };
-
-  private readonly finalPositions: { [key: string]: { x?: number; y?: number } } = {
-    [this.MAIN_O]: { x: 420 },
-    [this.MAIN_S]: { x: 645 },
-  };
+export class SwitchMapComponent extends BaseOperatorComponent {
+  private nextSwitchMapId = 1;
+  public readonly SWITCHMAP: string[] = [];
+  protected operator: any;
 
   public controllerButtons: { [key: string]: ButtonController[] } = {
-    [this.MAIN_O]: [
-      { value: '🏠', type: ObservableEventType.ERROR, controllerId: this.MAIN_O, enabled: false },
-      { value: '🖐️', type: ObservableEventType.COMPLETE, controllerId: this.MAIN_O, enabled: false },
-      { value: '💜', type: ObservableEventType.NEXT, controllerId: this.MAIN_O, enabled: false },
-      { value: '❤️', type: ObservableEventType.NEXT, controllerId: this.MAIN_O, enabled: false },
-      { value: '💚', type: ObservableEventType.NEXT, controllerId: this.MAIN_O, enabled: false },
+    [this.MAIN_ID]: [
+      { value: '🏠', type: ObservableEventType.ERROR, controllerId: this.MAIN_ID, enabled: false },
+      { value: '🖐️', type: ObservableEventType.COMPLETE, controllerId: this.MAIN_ID, enabled: false },
+      { value: '💜', type: ObservableEventType.NEXT, controllerId: this.MAIN_ID, enabled: false },
+      { value: '❤️', type: ObservableEventType.NEXT, controllerId: this.MAIN_ID, enabled: false },
+      { value: '💚', type: ObservableEventType.NEXT, controllerId: this.MAIN_ID, enabled: false },
     ],
   };
 
   public conveyorsWorking: { [key: string]: BehaviorSubject<boolean> } = {
-    [this.MAIN_O]: new BehaviorSubject<boolean>(false),
+    [this.MAIN_ID]: new BehaviorSubject<boolean>(false),
   };
 
-  public constructor(private readonly titleService: Title, private readonly metaService: Meta) {}
+  private switchMap$: { [key: string]: Subject<string> } = {};
 
-  public ngOnInit() {
-    this.titleService.setTitle('SwitchMap rxjs');
-    this.metaService.updateTag({ name: 'description', content: 'Explicación del operador rxjs switchMap' });
+  public constructor(titleService: Title, metaService: Meta) {
+    super(titleService, metaService, 'switchMap');
   }
 
-  public ngAfterViewInit(): void {
-    interval(this.demo.fps).subscribe(() => {
-      this.elementsInConveyor.forEach((e) => {
-        const isOutside = this.moveElementInConveyor(e);
-
-        if (isOutside) {
-          this.elementsInConveyor.splice(this.elementsInConveyor.indexOf(e), 1);
-          this.handleDeliveredElement(e);
-        }
-      });
-    });
-  }
-
-  private handleDeliveredElement(e: ElementInConveyor) {
-    if (e.conveyorId === this.MAIN_O && e.type === ObservableEventType.NEXT) {
-      this.replaceSwitchMapConveyor(e.value === '💜' ? ['🍇', '🍆', '🍒'] : e.value === '💚' ? ['🍏', '🥒', '🥦'] : ['🍓', '🍉', '🍅']);
-    } else if (e.conveyorId === this.MAIN_O) {
-      this.elementsInConveyor.push({
-        conveyorId: this.MAIN_S,
-        type: e.type,
-        value: e.value,
-        x: e.x,
-      } as ElementInConveyor);
-    } else if (e.conveyorId === this.MAIN_S && e.type === ObservableEventType.NEXT) {
-      this.speechBubble$.next({
-        message: e.value,
-        type: e.type,
-      });
-    } else if (e.conveyorId === this.MAIN_S) {
-      this.speechBubble$.next({
-        message: e.value,
-        type: e.type,
-      });
-      this.onSubscribe(false);
-    } else if (e.type === ObservableEventType.COMPLETE) {
-      this.removeSwitchMapConveyor(e.conveyorId);
-      this.controllerButtons[this.MAIN_O].forEach((button) => (button.enabled = true));
-    } else if (e.type === ObservableEventType.ERROR) {
-      this.conveyorsWorking[e.conveyorId].next(false);
-      this.elementsInConveyor.push({
-        conveyorId: this.MAIN_S,
-        type: e.type,
-        value: e.value,
-        x: this.initialPositions[this.MAIN_S].x,
-      } as ElementInConveyor);
-    } else {
-      this.elementsInConveyor.push({
-        conveyorId: this.MAIN_S,
-        type: e.type,
-        value: e.value,
-        x: this.initialPositions[this.MAIN_S].x,
-      } as ElementInConveyor);
-
-      this.controllerButtons[this.MAIN_O].forEach(
-        (button) => (button.enabled = this.elementsInConveyor.filter((ec) => ec.conveyorId === e.conveyorId).length === 0)
-      );
-    }
-  }
-
-  private replaceSwitchMapConveyor([value1, value2, value3]: string[]) {
-    const S_ID = `${this.nextSwitchMapId++}`;
-    this.SWITCH.push(S_ID);
-
-    const buttonsEnabled = this.controllerButtons[this.MAIN_O][0].enabled && this.elementsInConveyor.every((e) => e.conveyorId != this.MAIN_O);
-    this.controllerButtons[S_ID] = [
-      { value: '🏠', type: ObservableEventType.ERROR, controllerId: S_ID, enabled: buttonsEnabled },
-      { value: '🖐️', type: ObservableEventType.COMPLETE, controllerId: S_ID, enabled: buttonsEnabled },
-      { value: value1, type: ObservableEventType.NEXT, controllerId: S_ID, enabled: buttonsEnabled },
-      { value: value2, type: ObservableEventType.NEXT, controllerId: S_ID, enabled: buttonsEnabled },
-      { value: value3, type: ObservableEventType.NEXT, controllerId: S_ID, enabled: buttonsEnabled },
-    ];
-
-    this.conveyorsWorking[S_ID] = new BehaviorSubject<boolean>(true);
-
-    this.initialPositions[S_ID] = { y: 120 };
-    this.finalPositions[S_ID] = { y: 325 };
-
-    if (this.SWITCH.length == 2) {
-      this.removeSwitchMapConveyor(this.SWITCH[0]);
-    }
-  }
-
-  private removeSwitchMapConveyor(id: string) {
-    this.SWITCH.splice(this.SWITCH.indexOf(id), 1);
-
-    delete this.controllerButtons[id];
-    delete this.conveyorsWorking[id];
-    delete this.initialPositions[id];
-    delete this.finalPositions[id];
-
-    this.elementsInConveyor = this.elementsInConveyor.filter((e) => e.conveyorId !== id);
-  }
-
-  private moveElementInConveyor(e: ElementInConveyor): boolean {
-    let isOutside = false;
-    if (e.conveyorId === this.MAIN_O || e.conveyorId === this.MAIN_S) {
+  protected moveElement(e: ElementInConveyor): void {
+    if (e.conveyorId === this.MAIN_ID) {
       e.x += this.demo.speed;
-
-      if (e.conveyorId === this.MAIN_O) {
-        isOutside = e.x >= this.finalPositions[this.MAIN_O].x!;
-      } else {
-        isOutside = e.x >= this.finalPositions[this.MAIN_S].x!;
-      }
     } else {
       e.y += this.demo.speed;
-      isOutside = e.y >= this.finalPositions[e.conveyorId].y!;
     }
-
-    return isOutside;
   }
 
-  public onSubscribe(isSubscribed: boolean): void {
-    Object.values(this.controllerButtons).forEach((controller) => controller.forEach((button) => (button.enabled = isSubscribed)));
-    Object.values(this.conveyorsWorking).forEach((conveyor) => conveyor.next(isSubscribed));
+  protected isElementDeliveredToOperator(e: ElementInConveyor): boolean {
+    if (e.conveyorId === this.MAIN_ID) {
+      return e.x >= 420 && e.x < 440;
+    } else {
+      return e.y >= 325;
+    }
+  }
 
-    this.SWITCH.forEach((id) => {
-      delete this.conveyorsWorking[id];
+  protected isElementDeliveredToSubscriber(e: ElementInConveyor): boolean {
+    return e.x >= 645;
+  }
+
+  public override onOperatorConveyorDeliverElement(e: ElementInConveyor) {
+    if (e.type === ObservableEventType.NEXT) {
+      this.switchMap$[e.conveyorId].next(e.value);
+    } else if (e.type === ObservableEventType.ERROR) {
+      this.switchMap$[e.conveyorId].error(e.value);
+      this.controllerButtons[e.conveyorId].forEach((button) => (button.enabled = false));
+      this.conveyorsWorking[e.conveyorId].next(false);
+    } else if (e.type === ObservableEventType.COMPLETE) {
+      this.switchMap$[e.conveyorId].complete();
+      delete this.switchMap$[e.conveyorId];
+      delete this.controllerButtons[e.conveyorId];
+      delete this.conveyorsWorking[e.conveyorId];
+      this.SWITCHMAP.splice(this.SWITCHMAP.indexOf(e.conveyorId), 1);
+    }
+  }
+
+  public override elementReachesOperatorNextHook() {
+    if (this.SWITCHMAP.length === 2) {
+      const id = this.SWITCHMAP.shift()!;
       delete this.controllerButtons[id];
-      delete this.initialPositions[id];
-      delete this.finalPositions[id];
-    });
-    this.SWITCH.length = 0;
-    this.elementsInConveyor.length = 0;
+      delete this.conveyorsWorking[id];
+      delete this.switchMap$[id];
+      this.elementsInConveyor = this.elementsInConveyor.filter((e) => e.conveyorId !== id);
+    }
   }
 
-  public onControllerButtonClick(button: ButtonController) {
-    if (button.type === ObservableEventType.ERROR || button.type === ObservableEventType.COMPLETE) {
-      // disable all buttons of all controllers
-      Object.values(this.controllerButtons).forEach((controller) => controller.forEach((button) => (button.enabled = false)));
-    } else if (button.controllerId == this.MAIN_O && this.SWITCH.length > 0) {
-      // disable all buttons of the switch map controller
-      this.controllerButtons[this.SWITCH[0]].forEach((button) => (button.enabled = false));
-    } else if (button.controllerId != this.MAIN_O) {
-      // disable all buttons of the main controller
-      this.controllerButtons[this.MAIN_O].forEach((button) => (button.enabled = false));
+  protected addElementToBeginningOfConveyor(conveyorId: string, type: ObservableEventType, value: string) {
+    if (conveyorId === this.MAIN_ID) {
+      this.elementsInConveyor.push({ conveyorId, type, value, x: 260 } as ElementInConveyor);
+    } else {
+      this.elementsInConveyor.push({ conveyorId, type, value, y: 120 } as ElementInConveyor);
     }
+  }
 
+  public override onSubscribeHook(isSubscribed: boolean) {
+    this.SWITCHMAP.length = 0;
+    this.elementsInConveyor.length = 0;
+    this.conveyorsWorking = { [this.MAIN_ID]: this.conveyorsWorking[this.MAIN_ID] };
+    this.conveyorsWorking[this.MAIN_ID].next(isSubscribed);
+    this.controllerButtons = { [this.MAIN_ID]: this.controllerButtons[this.MAIN_ID] };
+    this.controllerButtons[this.MAIN_ID].forEach((button) => (button.enabled = isSubscribed));
+
+    this.operator = switchMap((value) => {
+      this.SWITCHMAP.push(`${this.nextSwitchMapId}`);
+      this.conveyorsWorking[this.nextSwitchMapId] = new BehaviorSubject<boolean>(true);
+      const [value1, value2, value3] = value === '💜' ? ['🍇', '🍆', '🍒'] : value === '💚' ? ['🍏', '🥒', '🥦'] : ['🍓', '🍉', '🍅'];
+      this.controllerButtons[this.nextSwitchMapId] = [
+        { value: '🏠', type: ObservableEventType.ERROR, controllerId: `${this.nextSwitchMapId}`, enabled: true },
+        { value: '🖐️', type: ObservableEventType.COMPLETE, controllerId: `${this.nextSwitchMapId}`, enabled: true },
+        { value: value1, type: ObservableEventType.NEXT, controllerId: `${this.nextSwitchMapId}`, enabled: true },
+        { value: value2, type: ObservableEventType.NEXT, controllerId: `${this.nextSwitchMapId}`, enabled: true },
+        { value: value3, type: ObservableEventType.NEXT, controllerId: `${this.nextSwitchMapId}`, enabled: true },
+      ];
+      this.switchMap$[this.nextSwitchMapId] = new Subject<string>();
+      return this.switchMap$[this.nextSwitchMapId++];
+    });
+  }
+
+  protected onOperatorDeliverNextEvent(value: string) {
     this.elementsInConveyor.push({
-      type: button.type,
-      value: button.value,
-      ...this.initialPositions[button.controllerId],
-      conveyorId: button.controllerId,
+      conveyorId: this.MAIN_ID,
+      type: ObservableEventType.NEXT,
+      value,
+      x: 475,
     } as ElementInConveyor);
   }
 
-  public ngOnDestroy(): void {
-    this.metaService.removeTag('name="description"');
+  protected onOperatorDeliverErrorEvent(value: string) {
+    this.elementsInConveyor.push({
+      conveyorId: this.MAIN_ID,
+      type: ObservableEventType.ERROR,
+      value,
+      x: 475,
+    } as ElementInConveyor);
+  }
+
+  protected onOperatorDeliverCompleteEvent() {
+    this.elementsInConveyor.push({
+      conveyorId: this.MAIN_ID,
+      type: ObservableEventType.COMPLETE,
+      value: '🖐️',
+      x: 475,
+    } as ElementInConveyor);
   }
 }
