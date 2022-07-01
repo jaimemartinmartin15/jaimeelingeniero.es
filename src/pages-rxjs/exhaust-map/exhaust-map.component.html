@@ -18,7 +18,7 @@ const hearts$ = new Observable<string>((subscriber) => {
   subscriber.next('💜');
   setTimeout(() => subscriber.next('💚'), 100);
   setTimeout(() => subscriber.next('❤️'), 200);
-  setTimeout(() => subscriber.error('🏘️'), 300);
+  setTimeout(() => subscriber.next('🏘️'), 300);
 });
 
 // Use the pipe method to add operators
@@ -55,7 +55,7 @@ hearts$
 // Output
 // ======
 // The next value is: 🍇
-// There is an error: 🏘️
+// The next value is: 🍓
 </textarea>
 
 <p>
@@ -67,8 +67,9 @@ hearts$
   Primero se emite el 💜 y se crea un Observable. Cuando pasen 150 milisegundos se emitirán unas 🍇. Después pasan 100
   milisegundos y se emite el 💚. Como el Observabable del 💜 aún no ha completado, el 💚 se ignora y nunca se emitirá
   una 🍏. Pasan entonces 50 milisegundos más y se emiten las 🍇. Pasan otros 50 milisegundos y se emite el ❤️ en el
-  Observable fuente. Esto crea un nuevo Observable que emite una 🍓 pasados 150 milisegundos. Pasan 100 milisegundos y
-  se emite la 🏘️, que produce un error inmediatamente y evita que se emita la 🍓.
+  Observable fuente. Esto crear un nuevo Observable que emite una 🍓 pasados 150 milisegundos. Pasan 100 milisegundos y
+  se emite la 🏘️, que debería producir un error. Pero como el Observable del ❤️ no ha completado, la 🏘️ se ignora.
+  Entonces pasan 50 milisegundos más y se emite la 🍓.
 </p>
 
 <p>
