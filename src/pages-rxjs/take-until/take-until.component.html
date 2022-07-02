@@ -49,12 +49,13 @@ new Observable((suscriptor) => {
 
 <svg appDemoContainer viewBox="0 0 880 550">
   <!-- main conveyor controller -->
-  <g appConveyorController transform="translate(45,350)" [button1]="controllerButtons[MAIN][0]"
-    [button2]="controllerButtons[MAIN][1]" [button3]="controllerButtons[MAIN][2]" [button4]="controllerButtons[MAIN][3]"
-    [button5]="controllerButtons[MAIN][4]" (onButtonClick)="onControllerButtonClick($event)"></g>
+  <g appConveyorController transform="translate(45,350)" [button1]="controllerButtons[MAIN_ID][0]"
+    [button2]="controllerButtons[MAIN_ID][1]" [button3]="controllerButtons[MAIN_ID][2]"
+    [button4]="controllerButtons[MAIN_ID][3]" [button5]="controllerButtons[MAIN_ID][4]"
+    (onButtonClick)="onControllerButtonClick($event)"></g>
 
   <!-- main conveyor -->
-  <g appConveyorHorizontal transform="translate(240,380)" [length]="459" [conveyorWorking$]="conveyorsWorking[MAIN]">
+  <g appConveyorHorizontal transform="translate(240,380)" [length]="459" [conveyorWorking$]="conveyorsWorking[MAIN_ID]">
   </g>
 
   <g appOperator transform="translate(435,345)"></g>

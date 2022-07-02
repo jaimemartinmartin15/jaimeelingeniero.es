@@ -1,90 +1,79 @@
-import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Component } from '@angular/core';
 import { Meta, Title } from '@angular/platform-browser';
-import { BehaviorSubject, interval, Subject } from 'rxjs';
+import { BehaviorSubject, startWith } from 'rxjs';
+import { BaseOperatorComponent } from '../shared/base-operator.component';
 import { ButtonController } from '../shared/components/conveyor-controller/button-controller';
-import { DemoContainerComponent } from '../shared/components/demo-container/demo-container.component';
 import { ElementInConveyor } from '../shared/element-in-conveyor';
 import { ObservableEventType } from '../shared/observable-event-type';
-import { SpeechBubble } from '../shared/speech-bubble';
 
 @Component({
   selector: 'app-start-with',
   templateUrl: './start-with.component.html',
   styleUrls: ['./start-with.component.scss'],
 })
-export class StartWithComponent implements OnInit, AfterViewInit, OnDestroy {
-  public ID = '0';
+export class StartWithComponent extends BaseOperatorComponent {
+  protected operator = startWith('🍐');
 
-  @ViewChild(DemoContainerComponent)
-  public demo: DemoContainerComponent;
+  public controllerButtons: { [key: string]: ButtonController[] } = {
+    [this.MAIN_ID]: [
+      { value: '🧲', type: ObservableEventType.ERROR, controllerId: this.MAIN_ID, enabled: false },
+      { value: '🖐️', type: ObservableEventType.COMPLETE, controllerId: this.MAIN_ID, enabled: false },
+      { value: '🍎', type: ObservableEventType.NEXT, controllerId: this.MAIN_ID, enabled: false },
+      { value: '🍌', type: ObservableEventType.NEXT, controllerId: this.MAIN_ID, enabled: false },
+      { value: '🍇', type: ObservableEventType.NEXT, controllerId: this.MAIN_ID, enabled: false },
+    ],
+  };
 
-  public controllerButtons: ButtonController[] = [
-    { value: '🧲', type: ObservableEventType.ERROR, controllerId: this.ID, enabled: false },
-    { value: '🖐️', type: ObservableEventType.COMPLETE, controllerId: this.ID, enabled: false },
-    { value: '🍎', type: ObservableEventType.NEXT, controllerId: this.ID, enabled: false },
-    { value: '🍌', type: ObservableEventType.NEXT, controllerId: this.ID, enabled: false },
-    { value: '🍇', type: ObservableEventType.NEXT, controllerId: this.ID, enabled: false },
-  ];
+  public conveyorsWorking: { [key: string]: BehaviorSubject<boolean> } = {
+    [this.MAIN_ID]: new BehaviorSubject<boolean>(false),
+  };
 
-  public conveyorWorking$ = new BehaviorSubject<boolean>(false);
-
-  public elementsInConveyor: ElementInConveyor[] = [];
-
-  public speechBubble$ = new Subject<SpeechBubble>();
-
-  public constructor(private readonly titleService: Title, private readonly metaService: Meta) {}
-
-  public ngOnInit() {
-    this.titleService.setTitle('StartWith rxjs');
-    this.metaService.updateTag({ name: 'description', content: 'Explicación del operador rxjs startWith' });
+  public constructor(titleService: Title, metaService: Meta) {
+    super(titleService, metaService, 'startWith');
   }
 
-  public ngAfterViewInit(): void {
-    interval(this.demo.fps).subscribe(() => {
-      this.elementsInConveyor.forEach((e) => {
-        e.x += this.demo.speed;
-        if (e.x >= 450) {
-          this.elementsInConveyor.splice(this.elementsInConveyor.indexOf(e), 1);
-          this.speechBubble$.next({
-            type: e.type,
-            message: e.value,
-          });
-          if (e.type === ObservableEventType.ERROR || e.type === ObservableEventType.COMPLETE) {
-            this.onSubscribe(false);
-          }
-        }
-      });
-    });
+  protected moveElement(e: ElementInConveyor): void {
+    e.x += this.demo.speed;
   }
 
-  public onSubscribe(isSubscribed: boolean) {
-    this.conveyorWorking$.next(isSubscribed);
-    this.controllerButtons.forEach((b) => (b.enabled = isSubscribed));
-    this.elementsInConveyor.length = 0;
-    if (isSubscribed) {
-      this.elementsInConveyor.push({
-        type: ObservableEventType.NEXT,
-        value: '🍐',
-        x: 220,
-        conveyorId: this.ID,
-      } as ElementInConveyor);
-    }
+  protected isElementDeliveredToOperator(e: ElementInConveyor): boolean {
+    return e.x >= 300 && e.x <= 320;
   }
 
-  public onControllerButtonClick(button: ButtonController) {
-    if (button.type === ObservableEventType.ERROR || button.type === ObservableEventType.COMPLETE) {
-      this.controllerButtons.forEach((b) => (b.enabled = false));
-    }
+  protected isElementDeliveredToSubscriber(e: ElementInConveyor): boolean {
+    return e.x >= 450;
+  }
 
+  protected addElementToBeginningOfConveyor(conveyorId: string, type: ObservableEventType, value: string) {
+    this.elementsInConveyor.push({ conveyorId, type, value, x: 220 } as ElementInConveyor);
+  }
+
+  protected onOperatorDeliverNextEvent(value: string): void {
     this.elementsInConveyor.push({
-      type: button.type,
-      value: button.value,
-      x: 220,
-      conveyorId: button.controllerId,
+      conveyorId: this.MAIN_ID,
+      type: ObservableEventType.NEXT,
+      value,
+      x: 350,
     } as ElementInConveyor);
   }
 
-  public ngOnDestroy(): void {
-    this.metaService.removeTag('name="description"');
+  protected onOperatorDeliverErrorEvent(value: string): void {
+    this.elementsInConveyor.push({
+      conveyorId: this.MAIN_ID,
+      type: ObservableEventType.ERROR,
+      value,
+      x: 350,
+    } as ElementInConveyor);
+  }
+
+  protected onOperatorDeliverCompleteEvent(): void {
+    setTimeout(() => {
+      this.elementsInConveyor.push({
+        conveyorId: this.MAIN_ID,
+        type: ObservableEventType.COMPLETE,
+        value: this.controllerButtons[this.MAIN_ID][1].value,
+        x: 350,
+      } as ElementInConveyor);
+    }, 1000 / this.demo.speed);
   }
 }
