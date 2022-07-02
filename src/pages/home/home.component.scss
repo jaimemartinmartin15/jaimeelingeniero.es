@@ -25,8 +25,8 @@ $figure-size: 200px;
             user-select: none;
             border-radius: 50%;
             border: 5px solid #d17515;
-            background-color: white;
-            box-shadow: 0 0 20px white;
+            background-color: #fcfcfc;
+            box-shadow: 0 0 20px #fcfcfc;
 
             &__img {
                 border-radius: 50%;
@@ -34,7 +34,7 @@ $figure-size: 200px;
         }
 
         .title {
-            color: white;
+            color: #fcfcfc;
             font-size: 3.8em;
             margin: 0 50px 0;
         }
@@ -44,12 +44,52 @@ $figure-size: 200px;
         position: relative;
         top: -1px; // avoids small border line flashing
         z-index: -1;
-        background-color: white;
+        background-color: #fcfcfc;
         fill: #3333ff;
         display: block;
 
         path {
             transition: 2s linear;
+        }
+    }
+}
+
+.about-me {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: 100vh;
+    background-color: #fcfcfc;
+
+    .title {
+        text-align: center;
+        font-size: 4em;
+    }
+
+    .presentation {
+        display: flex;
+        align-items: center;
+        gap: 30px;
+        max-width: 850px;
+        margin: 0 auto;
+        font-size: 1.15em;
+
+        .my-trayectory-link {
+            border: none;
+            background-color: #d17515;
+            color: #fbf2e2;
+            padding: 9px;
+            border-radius: 4px;
+            font-size: 1.5rem;
+            box-shadow: 3px 3px 5px #cec9c1;
+            flex-shrink: 0;
+            text-decoration: none;
+
+            &:active {
+                transform: translateX(1px) translateY(2px);
+                box-shadow: 2px 1px 5px #cec9c1;
+            }
         }
     }
 }
