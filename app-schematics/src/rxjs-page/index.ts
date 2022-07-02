@@ -49,8 +49,8 @@ export function rxjsPage({ name }: Schema): Rule {
     while (rxjsMainPageScss.charAt(i - numberLength) != ' ') {
       numberLength++;
     }
-    const newMaxHeight = parseInt(rxjsMainPageScss.substring(indexToInsert - numberLength, indexToInsert)) + 51;
-    rxjsMainPageScss = `${rxjsMainPageScss.slice(0,indexToInsert - numberLength)}${newMaxHeight}${rxjsMainPageScss.slice(indexToInsert)}`;
+    const newMaxHeight = parseInt(rxjsMainPageScss.substring(indexToInsert - numberLength, indexToInsert)) + 55;
+    rxjsMainPageScss = `${rxjsMainPageScss.slice(0, indexToInsert - numberLength)}${newMaxHeight}${rxjsMainPageScss.slice(indexToInsert)}`;
     tree.overwrite(RXJS_MAIN_PAGE_SCSS_PATH, rxjsMainPageScss);
 
     return mergeWith(sourceParametrizedTemplates);
