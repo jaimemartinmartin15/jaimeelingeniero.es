@@ -36,18 +36,48 @@ $figure-size: 200px;
         .title {
             color: white;
             font-size: 3.8em;
+            margin: 0 50px 0;
         }
     }
 
     .waves {
         position: relative;
         top: -1px; // avoids small border line flashing
+        z-index: -1;
         background-color: white;
         fill: #3333ff;
         display: block;
 
         path {
             transition: 2s linear;
+        }
+    }
+}
+
+@media (max-width: 1200px) {
+    .intro {
+        .figure-and-title {
+            gap: 20px;
+
+            .title {
+                font-size: 3em;
+            }
+        }
+    }
+}
+
+@media (max-width: 991px) {
+    .intro {
+        .figure-and-title {
+            flex-direction: column;
+
+            .figure__picture {
+                cursor: default;
+            }
+
+            .title {
+                text-align: center;
+            }
         }
     }
 }
