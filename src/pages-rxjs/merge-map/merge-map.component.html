@@ -78,33 +78,39 @@ hearts$
 </p>
 
 <svg appDemoContainer viewBox="0 0 850 640">
-  <g appConveyorController transform="translate(50,490)" [button1]="controllerButtons[MAIN_O][0]"
-    [button2]="controllerButtons[MAIN_O][1]" [button3]="controllerButtons[MAIN_O][2]"
-    [button4]="controllerButtons[MAIN_O][3]" [button5]="controllerButtons[MAIN_O][4]"
+  <!-- main conveyor controller -->
+  <g appConveyorController transform="translate(50,490)" [button1]="controllerButtons[MAIN_ID][0]"
+    [button2]="controllerButtons[MAIN_ID][1]" [button3]="controllerButtons[MAIN_ID][2]"
+    [button4]="controllerButtons[MAIN_ID][3]" [button5]="controllerButtons[MAIN_ID][4]"
     (onButtonClick)="onControllerButtonClick($event)">
   </g>
 
-  <g transform="translate(260, 490)" appConveyorHorizontal [length]="403" [conveyorWorking$]="conveyorsWorking[MAIN_O]">
+  <!-- main conveyor -->
+  <g transform="translate(260, 490)" appConveyorHorizontal [length]="403"
+    [conveyorWorking$]="conveyorsWorking[MAIN_ID]">
   </g>
 
-  <g appSubscriber transform="translate(690,420)" [showSpeechBubble$]="speechBubble$"
-    (onSubscribe$)="onSubscribe($event)"></g>
-
+  <!-- operator -->
   <g appOperator transform="translate(420, 452)"></g>
 
-  <g [attr.transform]="'translate('+(460 - (200*MERGE.length/2))+', 70)'" class="smooth-tranform-animation">
-    <g [attr.transform]="'translate('+200*i+',0)'" *ngFor="let M_ID of MERGE; let i = index;" @fadeInOut
+  <!-- operator conveyor and controllers -->
+  <g [attr.transform]="'translate('+(460 - (200*MERGEMAP.length/2))+', 70)'" class="smooth-tranform-animation">
+    <g [attr.transform]="'translate('+200*i+',0)'" *ngFor="let M_ID of MERGEMAP; let i = index;" @fadeInOut
       class="smooth-tranform-animation">
+
+      <!-- operator conveyor controller -->
       <g appConveyorController [attr.transform]="'translate(25,0)'" [button1]="controllerButtons[M_ID][0]"
         [button2]="controllerButtons[M_ID][1]" [button3]="controllerButtons[M_ID][2]"
         [button4]="controllerButtons[M_ID][3]" [button5]="controllerButtons[M_ID][4]"
         (onButtonClick)="onControllerButtonClick($event)">
       </g>
 
+      <!-- operator conveyor -->
       <g [attr.transform]="'translate(70, 120)'" appConveyorVertical [length]="203"
         [conveyorWorking$]="conveyorsWorking[M_ID]">
       </g>
 
+      <!-- elements in operator conveyor -->
       <g>
         <ng-container *ngFor="let element of elementsInConveyor">
           <text *ngIf="element.conveyorId === M_ID" x="90" [attr.y]="element.y">{{element.value}}</text>
@@ -113,10 +119,14 @@ hearts$
     </g>
   </g>
 
+  <!-- subscriber -->
+  <g appSubscriber transform="translate(690,420)" [showSpeechBubble$]="speechBubble$"
+    (onSubscribe$)="onSubscribe($event)"></g>
+
+  <!-- elements in main conveyor -->
   <g>
     <ng-container *ngFor="let element of elementsInConveyor">
-      <text *ngIf="element.conveyorId === MAIN_O || element.conveyorId === MAIN_S" [attr.x]="element.x"
-        y="546">{{element.value}}</text>
+      <text *ngIf="element.conveyorId === MAIN_ID" [attr.x]="element.x" y="546">{{element.value}}</text>
     </ng-container>
   </g>
 </svg>
