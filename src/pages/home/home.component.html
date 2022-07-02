@@ -1,96 +1,20 @@
-<section class="app-profile-intro">
-  <div class="app-profile">
+<section class="intro">
+  <div class="figure-and-title">
     <figure class="figure" [@rotateProfilePicture]="stateRotateProfilePicture"
       (@rotateProfilePicture.done)="allowRotateProfilePicture = true">
       <div class="figure__picture" (click)="changeProfilePicture()">
         <img [src]="profilePictures[profilePictureIndex]" alt="foto perfil" class="figure__picture__img">
       </div>
-      <figcaption class="figure__caption">Jaime, el ingeniero</figcaption>
     </figure>
 
-    <ng-container *ngIf="isMobileViewPort">
-      <ng-container *ngTemplateOutlet="wavesTemplate"></ng-container>
-    </ng-container>
+    <h1 class="title">
+      Jaime
+      <br>
+      Ingeniero informático
+    </h1>
   </div>
 
-  <div class="app-intro">
-    <div class="app-intro__inner-wrapper">
-      <p>
-        Hola 👋
-      </p>
-
-      <p>
-        Me llamo Jaime, tengo {{years}} años y soy ingeniero informático.
-      </p>
-
-      <p>
-        Desde que empecé la carrera en la universidad de Salamanca programar y desarrollar es algo que me apasiona.
-      </p>
-
-      <p>
-        Por eso he decidido aventurarme con este sitio web, para aprender y compartir mi experiencia.
-      </p>
-
-      <div class="app-trayectory">
-        <button class="app-trayectory__button" (click)="goToMyTrayectory()">Ver trayectoria 📚</button>
-      </div>
-    </div>
-  </div>
-</section>
-
-<ng-container *ngIf="!isMobileViewPort">
-  <ng-container *ngTemplateOutlet="wavesTemplate"></ng-container>
-</ng-container>
-
-<section class="technologies">
-  <div class="tech">
-    <svg appHtmlLogoSvg viewBox="0 0 100 100"></svg>
-    <span>Html 5</span>
-  </div>
-
-  <div class="tech">
-    <svg appCssLogoSvg viewBox="0 0 100 100"></svg>
-    <span>Css 3</span>
-  </div>
-
-  <div class="tech">
-    <svg appJavascriptLogoSvg viewBox="0 0 100 100"></svg>
-    <span>Javascript</span>
-  </div>
-
-  <div class="tech">
-    <svg appAngularLogoSvg viewBox="0 0 100 100"></svg>
-    <span>Angular</span>
-  </div>
-
-  <div class="tech">
-    <svg appJavaLogoSvg viewBox="0 0 100 100"></svg>
-    <span>Java</span>
-  </div>
-
-  <div class="tech">
-    <svg appSpringBootLogoSvg viewBox="0 0 100 100"></svg>
-    <span>Spring boot</span>
-  </div>
-
-  <div class="tech">
-    <svg appGitLogoSvg viewBox="0 0 100 100"></svg>
-    <span>Git</span>
-  </div>
-
-  <div class="tech">
-    <svg appDockerLogoSvg viewBox="0 0 100 100"></svg>
-    <span>Docker</span>
-  </div>
-
-  <div class="tech">
-    <svg appKubernetesLogoSvg viewBox="0 0 100 100"></svg>
-    <span>Kubernetes</span>
-  </div>
-</section>
-
-<ng-template #wavesTemplate>
-  <svg class="wave" [attr.viewBox]="waveViewBox">
+  <svg class="waves" [attr.viewBox]="waveViewBox">
     <path [attr.d]="wavePath"></path>
   </svg>
-</ng-template>
+</section>

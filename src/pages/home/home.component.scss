@@ -1,165 +1,53 @@
+$figure-size: 200px;
+
 :host {
     display: block;
 }
 
-.app-profile-intro {
-    .app-profile {
-        background-color: #3333ff;
-        padding: 35px 0 0;
-        margin: 0;
-        text-align: center;
-
-        .figure {
-            margin: 0;
-
-            &__picture {
-                margin: auto;
-                width: 170px;
-                height: 170px;
-                user-select: none;
-                border-radius: 50%;
-                border: 5px solid #d17515;
-                background-color: white;
-
-                &__img {
-                    width: 170px;
-                    border-radius: 50%;
-                }
-            }
-
-            &__caption {
-                margin-top: 20px;
-                padding-bottom: 30px;
-                color: white;
-                font-size: 0.9rem;
-                font-style: oblique;
-            }
-        }
-    }
-
-    .app-intro {
-        display: flex;
-        align-items: center;
-
-        &__inner-wrapper {
-            margin: 16px 25px;
-
-            .app-trayectory {
-                text-align: center;
-                margin: 35px 0;
-
-                &__button {
-                    border: none;
-                    background-color: #d17515;
-                    color: #fbf2e2;
-                    padding: 9px;
-                    border-radius: 4px;
-                    font-size: 1.5rem;
-                    box-shadow: 3px 3px 5px #cec9c1;
-
-                    &:active {
-                        transform: translateX(1px) translateY(2px);
-                        box-shadow: 2px 1px 5px #cec9c1;
-                    }
-                }
-            }
-        }
-    }
-}
-
-.wave {
-    background-color: white;
-    fill: #3333ff;
-    display: block;
-
-    path {
-        transition: 2s linear;
-    }
-}
-
-.technologies {
+.intro {
+    height: 98vh;
     display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 15px;
-    margin: 8px 20px 48px;
+    flex-direction: column;
+    position: relative;
 
-    .tech {
+    .figure-and-title {
         display: flex;
-        flex-direction: column;
+        justify-content: center;
         align-items: center;
-        justify-content: center;
-        width: 95px;
-        height: 110px;
-
-        svg {
-            user-select: none;
-            width: 95px;
-            padding: 10px 0 10px;
-        }
-    }
-}
-
-@media (min-width: 768px) {
-    :host {
-        max-width: 1200px;
-        margin: 0 auto;
-    }
-
-    .app-profile-intro {
-        display: flex;
-        justify-content: center;
+        flex-grow: 1;
+        gap: 50px;
         background-color: #3333ff;
-        color: white;
-        padding: 60px 0;
 
-        .app-profile {
-            flex: 45;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+        .figure__picture {
+            cursor: pointer;
+            width: $figure-size;
+            height: $figure-size;
+            user-select: none;
+            border-radius: 50%;
+            border: 5px solid #d17515;
+            background-color: white;
+            box-shadow: 0 0 20px white;
 
-            .figure {
-                margin: 0;
-
-                &__picture {
-                    box-shadow: 0 0 20px white;
-                    cursor: pointer;
-                }
+            &__img {
+                border-radius: 50%;
             }
         }
 
-        .app-intro {
-            flex: 55;
-
-            &__inner-wrapper {
-                margin: 0 85px 0 0;
-                padding: 5px 40px;
-                max-width: 580px;
-                background-color: white;
-                color: black;
-                border: 5px solid #d17515;
-                box-shadow: 0 0 20px white;
-
-                .app-trayectory {
-                    text-align: left;
-                    margin-bottom: 16px;
-
-                    &__button {
-                        cursor: pointer;
-                    }
-                }
-            }
+        .title {
+            color: white;
+            font-size: 3.8em;
         }
     }
 
-    .technologies {
-        gap: 45px;
-        margin: 48px 20px 48px;
+    .waves {
+        position: relative;
+        top: -1px; // avoids small border line flashing
+        background-color: white;
+        fill: #3333ff;
+        display: block;
 
-        .tech {
-            width: 150px;
-            height: 150px;
+        path {
+            transition: 2s linear;
         }
     }
 }
