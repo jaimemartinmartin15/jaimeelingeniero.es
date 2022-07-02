@@ -92,6 +92,7 @@ export class ExhaustMapComponent extends BaseOperatorComponent {
     this.conveyorsWorking[this.MAIN_ID].next(isSubscribed);
     this.controllerButtons = { [this.MAIN_ID]: this.controllerButtons[this.MAIN_ID] };
     this.controllerButtons[this.MAIN_ID].forEach((button) => (button.enabled = isSubscribed));
+    this.exhaustMap$ = {};
 
     this.operator = exhaustMap((value) => {
       this.EXHAUSTMAP.push(`${this.nextExhaustMapId}`);

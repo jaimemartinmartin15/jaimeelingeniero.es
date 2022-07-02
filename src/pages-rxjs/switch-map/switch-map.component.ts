@@ -99,6 +99,7 @@ export class SwitchMapComponent extends BaseOperatorComponent {
     this.conveyorsWorking[this.MAIN_ID].next(isSubscribed);
     this.controllerButtons = { [this.MAIN_ID]: this.controllerButtons[this.MAIN_ID] };
     this.controllerButtons[this.MAIN_ID].forEach((button) => (button.enabled = isSubscribed));
+    this.switchMap$ = {};
 
     this.operator = switchMap((value) => {
       this.SWITCHMAP.push(`${this.nextSwitchMapId}`);
