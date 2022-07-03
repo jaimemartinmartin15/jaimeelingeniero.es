@@ -3,7 +3,7 @@
 }
 
 .intro {
-    height: 98vh;
+    min-height: 98vh;
     display: flex;
     flex-direction: column;
     position: relative;
@@ -15,6 +15,7 @@
         flex-grow: 1;
         gap: 50px;
         background-color: #3333ff;
+        padding: 50px;
 
         .figure__picture {
             $figure-size: 200px;
@@ -36,7 +37,6 @@
         .title {
             color: #fcfcfc;
             font-size: 3.8em;
-            margin: 0 50px 0;
         }
     }
 
@@ -59,8 +59,9 @@
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    height: 100vh;
+    min-height: 100vh;
     background-color: #fcfcfc;
+    padding: 50px;
 
     .title {
         text-align: center;
@@ -73,7 +74,6 @@
         gap: 30px;
         max-width: 850px;
         font-size: 1.15em;
-        margin: 0 50px 0;
 
         .my-trayectory-link {
             border: none;
@@ -95,11 +95,12 @@
 }
 
 .technologies {
-    height: 100vh;
+    min-height: 100vh;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    padding: 50px;
 
     .title {
         text-align: center;
@@ -113,9 +114,9 @@
         gap: 50px;
         max-width: 1200px;
 
-        $tech-size: 200px;
-
         .tech {
+            $tech-size: 150px;
+
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -163,6 +164,41 @@
         .presentation {
             max-width: 510px;
             flex-direction: column;
+        }
+    }
+}
+
+@media (max-width: 575px) {
+    $title-size: 3em;
+
+    .about-me {
+        padding: 20px;
+
+        .title {
+            font-size: $title-size;
+        }
+    }
+
+    .technologies {
+        padding: 20px;
+
+        .title {
+            font-size: $title-size;
+        }
+
+        .tech-list {
+            gap: 25px;
+
+            .tech {
+                $tech-size: 130px;
+
+                width: $tech-size;
+                height: $tech-size;
+
+                svg {
+                    width: $tech-size;
+                }
+            }
         }
     }
 }
