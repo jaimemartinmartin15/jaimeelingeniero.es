@@ -28,9 +28,14 @@
             border: 5px solid #d17515;
             background-color: #fcfcfc;
             box-shadow: 0 0 20px #fcfcfc;
+            display: flex;
+            justify-content: center;
+            align-items: center;
 
             &__img {
                 border-radius: 50%;
+                width: $figure-size + 1px;
+                height: $figure-size + 1px;
             }
         }
 
