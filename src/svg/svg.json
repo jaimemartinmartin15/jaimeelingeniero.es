@@ -18,10 +18,8 @@
             ]
         },
         {
-            "name": "TopNavigationSvg",
+            "name": "ContactIconsSvg",
             "files": [
-                "jame-logo",
-                "learning-icon",
                 "gmail-logo",
                 "github-logo",
                 "linked-in-logo"
