@@ -1,5 +1,3 @@
-$figure-size: 200px;
-
 :host {
     display: block;
 }
@@ -19,6 +17,8 @@ $figure-size: 200px;
         background-color: #3333ff;
 
         .figure__picture {
+            $figure-size: 200px;
+
             cursor: pointer;
             width: $figure-size;
             height: $figure-size;
@@ -89,6 +89,44 @@ $figure-size: 200px;
             &:active {
                 transform: translateX(1px) translateY(2px);
                 box-shadow: 2px 1px 5px #cec9c1;
+            }
+        }
+    }
+}
+
+.technologies {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    .title {
+        text-align: center;
+        font-size: 4em;
+    }
+
+    .tech-list {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 50px;
+        max-width: 1200px;
+
+        $tech-size: 200px;
+
+        .tech {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: $tech-size;
+            height: $tech-size;
+
+            svg {
+                user-select: none;
+                width: $tech-size;
+                padding: 10px 0 10px;
             }
         }
     }
