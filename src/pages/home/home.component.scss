@@ -182,6 +182,37 @@
     }
 }
 
+.contact {
+    background-color: rgb(126, 126, 126);
+    padding: 50px;
+    display: flex;
+    justify-content: center;
+
+    .contact-list {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr 6fr);
+        grid-gap: 10px;
+        max-width: 720px;
+
+        address {
+            align-self: center;
+        }
+
+        svg {
+            width: 50px;
+            align-self: center;
+        }
+
+        .email,
+        .linked-in,
+        .github {
+            color: #fefefe;
+            text-decoration: none;
+            align-self: center;
+        }
+    }
+}
+
 @media (max-width: 1200px) {
     .intro {
         .figure-and-title {
@@ -213,6 +244,17 @@
         .presentation {
             max-width: 510px;
             flex-direction: column;
+        }
+    }
+}
+
+@media (max-width: 768px) {
+    .contact {
+        padding: 20px;
+
+        .contact-list {
+            grid-template-columns: 1fr 6fr;
+            grid-gap: 20px;
         }
     }
 }
