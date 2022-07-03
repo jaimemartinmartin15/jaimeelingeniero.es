@@ -1,100 +1,87 @@
-import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Component } from '@angular/core';
 import { Meta, Title } from '@angular/platform-browser';
-import { BehaviorSubject, interval, Subject } from 'rxjs';
+import { BehaviorSubject, skip } from 'rxjs';
+import { BaseOperatorComponent } from '../shared/base-operator.component';
 import { ButtonController } from '../shared/components/conveyor-controller/button-controller';
-import { DemoContainerComponent } from '../shared/components/demo-container/demo-container.component';
 import { ElementInConveyor } from '../shared/element-in-conveyor';
 import { ObservableEventType } from '../shared/observable-event-type';
-import { SpeechBubble } from '../shared/speech-bubble';
 
 @Component({
   selector: 'app-skip',
   templateUrl: './skip.component.html',
   styleUrls: ['./skip.component.scss'],
 })
-export class SkipComponent implements OnInit, AfterViewInit, OnDestroy {
-  private readonly ID = '0';
-
-  @ViewChild(DemoContainerComponent)
-  public demo: DemoContainerComponent;
-
-  public controllerButtons: ButtonController[] = [
-    { value: '🧲', type: ObservableEventType.ERROR, controllerId: this.ID, enabled: false },
-    { value: '🖐️', type: ObservableEventType.COMPLETE, controllerId: this.ID, enabled: false },
-    { value: '🍓', type: ObservableEventType.NEXT, controllerId: this.ID, enabled: false },
-    { value: '🍋', type: ObservableEventType.NEXT, controllerId: this.ID, enabled: false },
-    { value: '🥦', type: ObservableEventType.NEXT, controllerId: this.ID, enabled: false },
-  ];
-  public conveyorWorking$ = new BehaviorSubject<boolean>(false);
-
-  public elementsInConveyor: ElementInConveyor[] = [];
-  public counterSkip: number = 3;
+export class SkipComponent extends BaseOperatorComponent {
+  public counterSkip = 3;
   public readonly counterSkipEmojis = ['1️⃣', '2️⃣', '3️⃣'];
+  protected operator = skip(3);
 
-  public speechBubble$ = new Subject<SpeechBubble>();
+  public controllerButtons: { [key: string]: ButtonController[] } = {
+    [this.MAIN_ID]: [
+      { value: '🧲', type: ObservableEventType.ERROR, controllerId: this.MAIN_ID, enabled: false },
+      { value: '🖐️', type: ObservableEventType.COMPLETE, controllerId: this.MAIN_ID, enabled: false },
+      { value: '🍓', type: ObservableEventType.NEXT, controllerId: this.MAIN_ID, enabled: false },
+      { value: '🍋', type: ObservableEventType.NEXT, controllerId: this.MAIN_ID, enabled: false },
+      { value: '🥦', type: ObservableEventType.NEXT, controllerId: this.MAIN_ID, enabled: false },
+    ],
+  };
 
-  public constructor(private readonly titleService: Title, private readonly metaService: Meta) {}
+  public conveyorsWorking: { [key: string]: BehaviorSubject<boolean> } = {
+    [this.MAIN_ID]: new BehaviorSubject<boolean>(false),
+  };
 
-  public ngOnInit() {
-    this.titleService.setTitle('Skip rxjs');
-    this.metaService.updateTag({ name: 'description', content: 'Explicación del operador rxjs skip' });
+  public constructor(titleService: Title, metaService: Meta) {
+    super(titleService, metaService, 'skip');
   }
 
-  public ngAfterViewInit(): void {
-    interval(this.demo.fps).subscribe(() => {
-      this.elementsInConveyor.forEach((e) => {
-        e.x += this.demo.speed;
-
-        if (e.x >= 300 && e.x < 320 && e.type === ObservableEventType.NEXT) {
-          this._nextElementReachesOperator(e);
-        } else if (e.x >= 450) {
-          this._elementDeliveredToSubscriber(e);
-        }
-      });
-    });
+  protected moveElement(e: ElementInConveyor): void {
+    e.x += this.demo.speed;
   }
 
-  private _elementDeliveredToSubscriber(e: ElementInConveyor) {
-    this.elementsInConveyor.splice(this.elementsInConveyor.indexOf(e), 1);
-    if (e.type === ObservableEventType.ERROR || e.type === ObservableEventType.COMPLETE) {
-      this.onSubscribe(false);
-    }
-    this.speechBubble$.next({
-      type: e.type,
-      message: e.value,
-    });
+  protected isElementDeliveredToOperator(e: ElementInConveyor): boolean {
+    return e.x >= 300 && e.x <= 320;
   }
 
-  private _nextElementReachesOperator(e: ElementInConveyor) {
-    if (this.counterSkip > 0) {
-      this.elementsInConveyor.splice(this.elementsInConveyor.indexOf(e), 1);
-      this.counterSkip--;
-    } else {
-      e.x = 350;
-    }
+  protected isElementDeliveredToSubscriber(e: ElementInConveyor): boolean {
+    return e.x >= 450;
   }
 
-  public onSubscribe(isSubscribed: boolean) {
-    this.conveyorWorking$.next(isSubscribed);
-    this.controllerButtons.forEach((b) => (b.enabled = isSubscribed));
-    this.elementsInConveyor.length = 0;
+  protected addElementToBeginningOfConveyor(conveyorId: string, type: ObservableEventType, value: string) {
+    this.elementsInConveyor.push({ conveyorId, type, value, x: 220 } as ElementInConveyor);
+  }
+
+  public override onSubscribeHook() {
     this.counterSkip = 3;
   }
 
-  public onControllerButtonClick(button: ButtonController) {
-    if (button.type === ObservableEventType.COMPLETE || button.type === ObservableEventType.ERROR) {
-      this.controllerButtons.forEach((b) => (b.enabled = false));
-    }
+  public override elementReachesOperatorNextHook(e: ElementInConveyor): void {
+    this.counterSkip--;
+  }
 
+  protected onOperatorDeliverNextEvent(value: string): void {
     this.elementsInConveyor.push({
-      type: button.type,
-      value: button.value,
-      x: 220,
-      conveyorId: button.controllerId,
+      conveyorId: this.MAIN_ID,
+      type: ObservableEventType.NEXT,
+      value,
+      x: 350,
     } as ElementInConveyor);
   }
 
-  public ngOnDestroy(): void {
-    this.metaService.removeTag('name="description"');
+  protected onOperatorDeliverErrorEvent(value: string): void {
+    this.elementsInConveyor.push({
+      conveyorId: this.MAIN_ID,
+      type: ObservableEventType.ERROR,
+      value,
+      x: 350,
+    } as ElementInConveyor);
+  }
+
+  protected onOperatorDeliverCompleteEvent(): void {
+    this.elementsInConveyor.push({
+      conveyorId: this.MAIN_ID,
+      type: ObservableEventType.COMPLETE,
+      value: this.controllerButtons[this.MAIN_ID][1].value,
+      x: 350,
+    } as ElementInConveyor);
   }
 }

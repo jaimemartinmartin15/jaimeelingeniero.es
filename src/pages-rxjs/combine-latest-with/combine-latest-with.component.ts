@@ -1,226 +1,161 @@
-import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Component } from '@angular/core';
 import { Meta, Title } from '@angular/platform-browser';
-import { BehaviorSubject, combineLatestWith, interval, map, Subject } from 'rxjs';
+import { BehaviorSubject, combineLatestWith, Subject } from 'rxjs';
+import { BaseOperatorComponent } from '../shared/base-operator.component';
 import { ButtonController } from '../shared/components/conveyor-controller/button-controller';
-import { DemoContainerComponent } from '../shared/components/demo-container/demo-container.component';
 import { ElementInConveyor } from '../shared/element-in-conveyor';
 import { ObservableEventType } from '../shared/observable-event-type';
-import { SpeechBubble } from '../shared/speech-bubble';
 
 @Component({
   selector: 'app-combine-latest-with',
   templateUrl: './combine-latest-with.component.html',
   styleUrls: ['./combine-latest-with.component.scss'],
 })
-export class CombineLatestWithComponent implements OnInit, AfterViewInit, OnDestroy {
-  public readonly MAIN_L = '0';
-  public readonly LEFT = '1';
-  public readonly RIGHT = '2';
-  public readonly MAIN_R = '3';
-
-  @ViewChild(DemoContainerComponent)
-  public demo: DemoContainerComponent;
-
-  public readonly conveyorsWorking: { [key: string]: BehaviorSubject<boolean> } = {
-    [this.MAIN_L]: new BehaviorSubject<boolean>(false),
-    [this.LEFT]: new BehaviorSubject<boolean>(false),
-    [this.RIGHT]: new BehaviorSubject<boolean>(false),
-    [this.MAIN_R]: new BehaviorSubject<boolean>(false),
-  };
+export class CombineLatestWithComponent extends BaseOperatorComponent {
+  public readonly COMBINELATESTWITH = [
+    '1', // Combine latest with left
+    '2', // Combine latest with right
+    '3', // Main conveyor right
+  ];
+  protected operator: any;
 
   public readonly controllerButtons: { [key: string]: ButtonController[] } = {
-    [this.MAIN_L]: [
-      { value: '🏠', type: ObservableEventType.ERROR, controllerId: this.MAIN_L, enabled: false },
-      { value: '🖐️', type: ObservableEventType.COMPLETE, controllerId: this.MAIN_L, enabled: false },
-      { value: '🍎', type: ObservableEventType.NEXT, controllerId: this.MAIN_L, enabled: false },
-      { value: '🍌', type: ObservableEventType.NEXT, controllerId: this.MAIN_L, enabled: false },
-      { value: '🥝', type: ObservableEventType.NEXT, controllerId: this.MAIN_L, enabled: false },
+    [this.MAIN_ID]: [
+      { value: '🏠', type: ObservableEventType.ERROR, controllerId: this.MAIN_ID, enabled: false },
+      { value: '🖐️', type: ObservableEventType.COMPLETE, controllerId: this.MAIN_ID, enabled: false },
+      { value: '🍎', type: ObservableEventType.NEXT, controllerId: this.MAIN_ID, enabled: false },
+      { value: '🍌', type: ObservableEventType.NEXT, controllerId: this.MAIN_ID, enabled: false },
+      { value: '🥝', type: ObservableEventType.NEXT, controllerId: this.MAIN_ID, enabled: false },
     ],
-    [this.LEFT]: [
-      { value: '🧲', type: ObservableEventType.ERROR, controllerId: this.LEFT, enabled: false },
-      { value: '🖐️', type: ObservableEventType.COMPLETE, controllerId: this.LEFT, enabled: false },
-      { value: '🍐', type: ObservableEventType.NEXT, controllerId: this.LEFT, enabled: false },
-      { value: '🍍', type: ObservableEventType.NEXT, controllerId: this.LEFT, enabled: false },
-      { value: '🍇', type: ObservableEventType.NEXT, controllerId: this.LEFT, enabled: false },
+    [this.COMBINELATESTWITH[0]]: [
+      { value: '🧲', type: ObservableEventType.ERROR, controllerId: this.COMBINELATESTWITH[0], enabled: false },
+      { value: '🖐️', type: ObservableEventType.COMPLETE, controllerId: this.COMBINELATESTWITH[0], enabled: false },
+      { value: '🍐', type: ObservableEventType.NEXT, controllerId: this.COMBINELATESTWITH[0], enabled: false },
+      { value: '🍍', type: ObservableEventType.NEXT, controllerId: this.COMBINELATESTWITH[0], enabled: false },
+      { value: '🍇', type: ObservableEventType.NEXT, controllerId: this.COMBINELATESTWITH[0], enabled: false },
     ],
-    [this.RIGHT]: [
-      { value: '🥁', type: ObservableEventType.ERROR, controllerId: this.RIGHT, enabled: false },
-      { value: '🖐️', type: ObservableEventType.COMPLETE, controllerId: this.RIGHT, enabled: false },
-      { value: '🍓', type: ObservableEventType.NEXT, controllerId: this.RIGHT, enabled: false },
-      { value: '🍉', type: ObservableEventType.NEXT, controllerId: this.RIGHT, enabled: false },
-      { value: '🍊', type: ObservableEventType.NEXT, controllerId: this.RIGHT, enabled: false },
+    [this.COMBINELATESTWITH[1]]: [
+      { value: '🥁', type: ObservableEventType.ERROR, controllerId: this.COMBINELATESTWITH[1], enabled: false },
+      { value: '🖐️', type: ObservableEventType.COMPLETE, controllerId: this.COMBINELATESTWITH[1], enabled: false },
+      { value: '🍓', type: ObservableEventType.NEXT, controllerId: this.COMBINELATESTWITH[1], enabled: false },
+      { value: '🍉', type: ObservableEventType.NEXT, controllerId: this.COMBINELATESTWITH[1], enabled: false },
+      { value: '🍊', type: ObservableEventType.NEXT, controllerId: this.COMBINELATESTWITH[1], enabled: false },
     ],
   };
 
-  private readonly initialPositions: { [key: string]: { x: number; y: number } } = {
-    [this.MAIN_L]: { x: 240, y: 486 },
-    [this.LEFT]: { x: 355, y: 160 },
-    [this.RIGHT]: { x: 545, y: 160 },
-    [this.MAIN_R]: { x: 480, y: 486 },
+  public readonly conveyorsWorking: { [key: string]: BehaviorSubject<boolean> } = {
+    [this.MAIN_ID]: new BehaviorSubject<boolean>(false),
+    [this.COMBINELATESTWITH[0]]: new BehaviorSubject<boolean>(false),
+    [this.COMBINELATESTWITH[1]]: new BehaviorSubject<boolean>(false),
+    [this.COMBINELATESTWITH[2]]: new BehaviorSubject<boolean>(false),
   };
 
-  private readonly finalPositions: { [key: string]: { x: number; y: number } } = {
-    [this.MAIN_L]: { x: 435, y: 486 },
-    [this.LEFT]: { x: 355, y: 380 },
-    [this.RIGHT]: { x: 545, y: 380 },
-    [this.MAIN_R]: { x: 660, y: 486 },
+  private combineLatestWith$: { [key: string]: Subject<string> } = {
+    [this.COMBINELATESTWITH[0]]: new Subject<string>(),
+    [this.COMBINELATESTWITH[1]]: new Subject<string>(),
   };
 
-  public elementsInConveyor: ElementInConveyor[] = [];
   public elementsInStandby: [ElementInConveyor, ElementInConveyor, ElementInConveyor] = [
     {} as any as ElementInConveyor,
     {} as any as ElementInConveyor,
     {} as any as ElementInConveyor,
   ];
 
-  public speechBubble$ = new Subject<SpeechBubble>();
-
-  private demoSubjects: { [key: string]: Subject<ElementInConveyor> } = {
-    [this.MAIN_L]: new Subject(),
-    [this.LEFT]: new Subject(),
-    [this.RIGHT]: new Subject(),
-  };
-
-  public constructor(private readonly titleService: Title, private readonly metaService: Meta) {}
-
-  public ngOnInit() {
-    this.titleService.setTitle('CombineLatestWith rxjs');
-    this.metaService.updateTag({ name: 'description', content: 'Explicación del operador rxjs combineLatestWith' });
+  public constructor(titleService: Title, metaService: Meta) {
+    super(titleService, metaService, 'combineLatestWith');
   }
 
-  public ngAfterViewInit(): void {
-    interval(this.demo.fps).subscribe(() => {
-      this.elementsInConveyor.forEach((e) => {
-        let isOutside = this.moveElementInConveyor(e);
-
-        if (isOutside) {
-          this.elementsInConveyor.splice(this.elementsInConveyor.indexOf(e), 1);
-          if (e.conveyorId === this.MAIN_R) {
-            this.speechBubble$.next({
-              message: e.value,
-              type: e.type,
-            });
-            if (e.type === ObservableEventType.ERROR || e.type === ObservableEventType.COMPLETE) {
-              this.onSubscribe(false);
-            }
-          } else if (e.type === ObservableEventType.NEXT) {
-            this.elementsInStandby[parseInt(e.conveyorId)] = e;
-            this.demoSubjects[e.conveyorId].next(e);
-          } else if (e.type === ObservableEventType.ERROR) {
-            this.elementsInConveyor.push({
-              type: e.type,
-              value: e.value,
-              ...this.initialPositions[this.MAIN_R],
-              conveyorId: this.MAIN_R,
-            });
-            this.conveyorsWorking[e.conveyorId].next(false);
-          } else {
-            this.conveyorsWorking[e.conveyorId].next(false);
-            if (
-              [
-                this.conveyorsWorking[this.MAIN_L].getValue(),
-                this.conveyorsWorking[this.LEFT].getValue(),
-                this.conveyorsWorking[this.RIGHT].getValue(),
-              ].every((working) => !working)
-            ) {
-              this.elementsInConveyor.push({
-                type: ObservableEventType.COMPLETE,
-                value: '🖐️',
-                ...this.initialPositions[this.MAIN_R],
-                conveyorId: this.MAIN_R,
-              });
-            }
-          }
-        }
-      });
-    });
-  }
-
-  private moveElementInConveyor(e: ElementInConveyor): boolean {
-    let isOutside = false;
-    switch (e.conveyorId) {
-      case this.MAIN_L:
-        if (e.x < this.finalPositions[this.MAIN_L].x) {
-          e.x += this.demo.speed;
-          isOutside = false;
-        } else {
-          isOutside = true;
-        }
-        break;
-      case this.LEFT:
-        if (e.y < this.finalPositions[this.LEFT].y) {
-          e.y += this.demo.speed;
-          isOutside = false;
-        } else {
-          isOutside = true;
-        }
-        break;
-      case this.RIGHT:
-        if (e.y < this.finalPositions[this.RIGHT].y) {
-          e.y += this.demo.speed;
-          isOutside = false;
-        } else {
-          isOutside = true;
-        }
-        break;
-      case this.MAIN_R:
-        if (e.x < this.finalPositions[this.MAIN_R].x) {
-          e.x += this.demo.speed;
-          isOutside = false;
-        } else {
-          isOutside = true;
-        }
-        break;
+  protected moveElement(e: ElementInConveyor): void {
+    if (e.conveyorId === this.MAIN_ID || e.conveyorId === this.COMBINELATESTWITH[2]) {
+      e.x += this.demo.speed;
+    } else {
+      e.y += this.demo.speed;
     }
-    return isOutside;
   }
 
-  public onSubscribe(isSubscribed: boolean) {
-    Object.values(this.conveyorsWorking).forEach((c) => c.next(isSubscribed));
+  protected isElementDeliveredToOperator(e: ElementInConveyor): boolean {
+    if (e.conveyorId === this.MAIN_ID) {
+      return e.x >= 435;
+    } else if (e.conveyorId === this.COMBINELATESTWITH[0] || e.conveyorId === this.COMBINELATESTWITH[1]) {
+      return e.y >= 380;
+    }
 
-    this.elementsInConveyor.length = 0;
+    return false;
+  }
 
-    Object.values(this.controllerButtons).forEach((values) => values.forEach((b) => (b.enabled = isSubscribed)));
+  protected isElementDeliveredToSubscriber(e: ElementInConveyor): boolean {
+    return e.x >= 680;
+  }
 
+  protected addElementToBeginningOfConveyor(conveyorId: string, type: ObservableEventType, value: string) {
+    if (conveyorId === this.MAIN_ID) {
+      this.elementsInConveyor.push({ conveyorId, type, value, x: 240, y: 486 });
+    } else if (conveyorId === this.COMBINELATESTWITH[0]) {
+      this.elementsInConveyor.push({ conveyorId, type, value, x: 355, y: 160 });
+    } else if (conveyorId === this.COMBINELATESTWITH[1]) {
+      this.elementsInConveyor.push({ conveyorId, type, value, x: 545, y: 160 });
+    } else {
+      this.elementsInConveyor.push({ conveyorId, type, value, x: 480, y: 486 });
+    }
+  }
+
+  public override elementReachesOperatorNextHook(e: ElementInConveyor) {
+    this.elementsInStandby[0] = e;
+  }
+
+  public override elementReachesOperatorErrorHook(e: ElementInConveyor) {
+    this.controllerButtons[e.conveyorId].forEach((button) => (button.enabled = false));
+    this.conveyorsWorking[e.conveyorId].next(false);
+    this.elementsInConveyor = this.elementsInConveyor.filter((e2) => e2.conveyorId != e.conveyorId);
+    this.elementsInStandby[0] = e;
+  }
+
+  public override elementReachesOperatorCompleteHook(e: ElementInConveyor) {
+    this.controllerButtons[e.conveyorId].forEach((button) => (button.enabled = false));
+    this.conveyorsWorking[e.conveyorId].next(false);
+    this.elementsInConveyor = this.elementsInConveyor.filter((e2) => e2.conveyorId != e.conveyorId);
+  }
+
+  public override onOperatorConveyorDeliverElement(e: ElementInConveyor) {
+    if (e.type === ObservableEventType.COMPLETE || e.type === ObservableEventType.ERROR) {
+      this.controllerButtons[e.conveyorId].forEach((button) => (button.enabled = false));
+      this.conveyorsWorking[e.conveyorId].next(false);
+      this.elementsInConveyor = this.elementsInConveyor.filter((e2) => e2.conveyorId != e.conveyorId);
+    }
+
+    if (e.type === ObservableEventType.NEXT || e.type === ObservableEventType.ERROR) {
+      this.elementsInStandby[parseInt(e.conveyorId)] = e;
+    }
+
+    if (e.type === ObservableEventType.COMPLETE) {
+      this.combineLatestWith$[e.conveyorId].complete();
+    } else if (e.type === ObservableEventType.NEXT) {
+      this.combineLatestWith$[e.conveyorId].next(e.value);
+    } else {
+      this.combineLatestWith$[e.conveyorId].error(e.value);
+    }
+  }
+
+  public override onSubscribeHook() {
     this.elementsInStandby = [{} as any as ElementInConveyor, {} as any as ElementInConveyor, {} as any as ElementInConveyor];
-
-    this.demoSubjects = {
-      [this.MAIN_L]: new Subject(),
-      [this.LEFT]: new Subject(),
-      [this.RIGHT]: new Subject(),
+    this.combineLatestWith$ = {
+      [this.COMBINELATESTWITH[0]]: new Subject<string>(),
+      [this.COMBINELATESTWITH[1]]: new Subject<string>(),
     };
-
-    this.demoSubjects[this.MAIN_L]
-      .pipe(
-        combineLatestWith(this.demoSubjects[this.LEFT], this.demoSubjects[this.RIGHT]),
-        map(([main, left, right]) => [main.value, left.value, right.value])
-      )
-      .subscribe(([main, left, right]) => {
-        this.elementsInConveyor.push({
-          conveyorId: this.MAIN_R,
-          type: ObservableEventType.NEXT,
-          value: `[${main},${left},${right}]`,
-          ...this.initialPositions[this.MAIN_R],
-        });
-      });
+    this.operator = combineLatestWith(Object.values(this.combineLatestWith$));
   }
 
-  public onControllerButtonClick(button: ButtonController) {
-    if (button.type === ObservableEventType.ERROR) {
-      Object.values(this.controllerButtons).forEach((controller) => controller.forEach((button) => (button.enabled = false)));
-    } else if (button.type === ObservableEventType.COMPLETE) {
-      this.controllerButtons[button.controllerId].forEach((b) => (b.enabled = false));
-    }
-
-    this.elementsInConveyor.push({
-      type: button.type,
-      value: button.value,
-      ...this.initialPositions[button.controllerId],
-      conveyorId: button.controllerId,
-    });
+  protected onOperatorDeliverNextEvent(value: string): void {
+    this.addElementToBeginningOfConveyor(this.COMBINELATESTWITH[2], ObservableEventType.NEXT, `[${value}]`);
   }
 
-  public ngOnDestroy(): void {
-    this.metaService.removeTag('name="description"');
+  protected onOperatorDeliverErrorEvent(value: string): void {
+    this.addElementToBeginningOfConveyor(this.COMBINELATESTWITH[2], ObservableEventType.ERROR, value);
+  }
+
+  protected onOperatorDeliverCompleteEvent(): void {
+    setTimeout(() => {
+      this.addElementToBeginningOfConveyor(this.COMBINELATESTWITH[2], ObservableEventType.COMPLETE, '🖐️');
+    }, 1000 / this.demo.speed);
   }
 }

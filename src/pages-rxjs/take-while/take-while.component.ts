@@ -1,26 +1,26 @@
 import { Component } from '@angular/core';
 import { Meta, Title } from '@angular/platform-browser';
-import { BehaviorSubject, startWith } from 'rxjs';
+import { BehaviorSubject, takeWhile } from 'rxjs';
 import { BaseOperatorComponent } from '../shared/base-operator.component';
 import { ButtonController } from '../shared/components/conveyor-controller/button-controller';
 import { ElementInConveyor } from '../shared/element-in-conveyor';
 import { ObservableEventType } from '../shared/observable-event-type';
 
 @Component({
-  selector: 'app-start-with',
-  templateUrl: './start-with.component.html',
-  styleUrls: ['./start-with.component.scss'],
+  selector: 'app-take-while',
+  templateUrl: './take-while.component.html',
+  styleUrls: ['./take-while.component.scss'],
 })
-export class StartWithComponent extends BaseOperatorComponent {
-  protected operator = startWith('🍐');
+export class TakeWhileComponent extends BaseOperatorComponent {
+  protected operator = takeWhile((e) => e === '🥦' || e === '🍐');
 
   public controllerButtons: { [key: string]: ButtonController[] } = {
     [this.MAIN_ID]: [
-      { value: '🧲', type: ObservableEventType.ERROR, controllerId: this.MAIN_ID, enabled: false },
+      { value: '🎻', type: ObservableEventType.ERROR, controllerId: this.MAIN_ID, enabled: false },
       { value: '🖐️', type: ObservableEventType.COMPLETE, controllerId: this.MAIN_ID, enabled: false },
-      { value: '🍎', type: ObservableEventType.NEXT, controllerId: this.MAIN_ID, enabled: false },
-      { value: '🍌', type: ObservableEventType.NEXT, controllerId: this.MAIN_ID, enabled: false },
-      { value: '🍇', type: ObservableEventType.NEXT, controllerId: this.MAIN_ID, enabled: false },
+      { value: '🥦', type: ObservableEventType.NEXT, controllerId: this.MAIN_ID, enabled: false },
+      { value: '🍐', type: ObservableEventType.NEXT, controllerId: this.MAIN_ID, enabled: false },
+      { value: '🍋', type: ObservableEventType.NEXT, controllerId: this.MAIN_ID, enabled: false },
     ],
   };
 
@@ -29,7 +29,7 @@ export class StartWithComponent extends BaseOperatorComponent {
   };
 
   public constructor(titleService: Title, metaService: Meta) {
-    super(titleService, metaService, 'startWith');
+    super(titleService, metaService, 'takeWhile');
   }
 
   protected moveElement(e: ElementInConveyor): void {
@@ -67,13 +67,11 @@ export class StartWithComponent extends BaseOperatorComponent {
   }
 
   protected onOperatorDeliverCompleteEvent(): void {
-    setTimeout(() => {
-      this.elementsInConveyor.push({
-        conveyorId: this.MAIN_ID,
-        type: ObservableEventType.COMPLETE,
-        value: this.controllerButtons[this.MAIN_ID][1].value,
-        x: 350,
-      } as ElementInConveyor);
-    }, 1000 / this.demo.speed);
+    this.elementsInConveyor.push({
+      conveyorId: this.MAIN_ID,
+      type: ObservableEventType.COMPLETE,
+      value: this.controllerButtons[this.MAIN_ID][1].value,
+      x: 350,
+    } as ElementInConveyor);
   }
 }

@@ -1,117 +1,134 @@
-import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Component } from '@angular/core';
 import { Meta, Title } from '@angular/platform-browser';
-import { BehaviorSubject, interval, Subject, Subscription, tap } from 'rxjs';
+import { BehaviorSubject, interval, sampleTime, Subscription, tap } from 'rxjs';
+import { BaseOperatorComponent } from '../shared/base-operator.component';
 import { ButtonController } from '../shared/components/conveyor-controller/button-controller';
-import { DemoContainerComponent } from '../shared/components/demo-container/demo-container.component';
 import { ElementInConveyor } from '../shared/element-in-conveyor';
 import { ObservableEventType } from '../shared/observable-event-type';
-import { SpeechBubble } from '../shared/speech-bubble';
 
 @Component({
   selector: 'app-sample-time',
   templateUrl: './sample-time.component.html',
   styleUrls: ['./sample-time.component.scss'],
 })
-export class SampleTimeComponent implements OnInit, AfterViewInit, OnDestroy {
-  private readonly ID = '0';
-
-  @ViewChild(DemoContainerComponent)
-  public demo: DemoContainerComponent;
-
-  public controllerButtons: ButtonController[] = [
-    { value: '🧲', type: ObservableEventType.ERROR, controllerId: this.ID, enabled: false },
-    { value: '🖐️', type: ObservableEventType.COMPLETE, controllerId: this.ID, enabled: false },
-    { value: '🍎', type: ObservableEventType.NEXT, controllerId: this.ID, enabled: false },
-    { value: '🍌', type: ObservableEventType.NEXT, controllerId: this.ID, enabled: false },
-    { value: '🍇', type: ObservableEventType.NEXT, controllerId: this.ID, enabled: false },
-  ];
-  public conveyorWorking$ = new BehaviorSubject<boolean>(false);
-
+export class SampleTimeComponent extends BaseOperatorComponent {
+  private errorOrCompleteEmitted = false;
+  public elementInStandBy = '';
+  public counterSubscription: Subscription;
   public counter = 3;
-  private counterSubscription: Subscription;
+  protected operator = sampleTime(3000);
 
-  public elementsInConveyor: ElementInConveyor[] = [];
-  public elementInStandBy: string;
+  public controllerButtons: { [key: string]: ButtonController[] } = {
+    [this.MAIN_ID]: [
+      { value: '🧲', type: ObservableEventType.ERROR, controllerId: this.MAIN_ID, enabled: false },
+      { value: '🖐️', type: ObservableEventType.COMPLETE, controllerId: this.MAIN_ID, enabled: false },
+      { value: '🍎', type: ObservableEventType.NEXT, controllerId: this.MAIN_ID, enabled: false },
+      { value: '🍌', type: ObservableEventType.NEXT, controllerId: this.MAIN_ID, enabled: false },
+      { value: '🍇', type: ObservableEventType.NEXT, controllerId: this.MAIN_ID, enabled: false },
+    ],
+  };
 
-  public speechBubble$ = new Subject<SpeechBubble>();
+  public conveyorsWorking: { [key: string]: BehaviorSubject<boolean> } = {
+    [this.MAIN_ID]: new BehaviorSubject<boolean>(false),
+  };
 
-  public constructor(private readonly titleService: Title, private readonly metaService: Meta) {}
-
-  public ngOnInit() {
-    this.titleService.setTitle('SampleTime rxjs');
-    this.metaService.updateTag({ name: 'description', content: 'Explicación del operador rxjs sampleTime' });
+  public constructor(titleService: Title, metaService: Meta) {
+    super(titleService, metaService, 'sampleTime');
   }
 
-  public ngAfterViewInit(): void {
-    interval(this.demo.fps).subscribe(() => {
-      this.elementsInConveyor.forEach((e) => {
-        e.x += this.demo.speed;
-
-        if (e.x >= 300 && e.x < 320 && e.type === ObservableEventType.NEXT) {
-          this.elementsInConveyor.splice(this.elementsInConveyor.indexOf(e), 1);
-          this.elementInStandBy = e.value;
-        } else if (e.x >= 450) {
-          this.elementsInConveyor.splice(this.elementsInConveyor.indexOf(e), 1);
-          if (e.type === ObservableEventType.ERROR || e.type === ObservableEventType.COMPLETE) {
-            this.onSubscribe(false);
-          }
-          this.speechBubble$.next({
-            type: e.type,
-            message: e.value,
-          });
-        }
-      });
-    });
+  protected moveElement(e: ElementInConveyor): void {
+    e.x += this.demo.speed;
   }
 
-  public onSubscribe(isSubscribed: boolean) {
-    this.conveyorWorking$.next(isSubscribed);
-    this.controllerButtons.forEach((b) => (b.enabled = isSubscribed));
-    this.elementsInConveyor.length = 0;
+  protected isElementDeliveredToOperator(e: ElementInConveyor): boolean {
+    return e.x >= 300 && e.x <= 320;
+  }
+
+  protected isElementDeliveredToSubscriber(e: ElementInConveyor): boolean {
+    return e.x >= 450;
+  }
+
+  public override elementReachesOperatorNextHook(e: ElementInConveyor) {
+    if (!this.errorOrCompleteEmitted) {
+      this.elementInStandBy = e.value;
+    }
+  }
+
+  public override elementReachesOperatorErrorHook(e: ElementInConveyor) {
+    this.errorOrCompleteEmitted = true;
+    this.stopCounter();
+    this.elementInStandBy = '';
+  }
+
+  public override elementReachesOperatorCompleteHook(e: ElementInConveyor) {
+    this.errorOrCompleteEmitted = true;
+    this.stopCounter();
+    this.elementInStandBy = '';
+  }
+
+  protected addElementToBeginningOfConveyor(conveyorId: string, type: ObservableEventType, value: string) {
+    this.elementsInConveyor.push({ conveyorId, type, value, x: 220 } as ElementInConveyor);
+  }
+
+  public override onSubscribeHook(isSubscription: boolean) {
+    this.errorOrCompleteEmitted = false;
     this.elementInStandBy = '';
     this.counter = 3;
 
-    if (isSubscribed) {
+    if (isSubscription) {
       this.counterSubscription = interval(100)
         .pipe(
           tap(() => {
-            if (this.counter <= 0) {
-              this.counter = 3;
-
-              if (this.elementInStandBy !== '') {
-                this.elementsInConveyor.push({
-                  type: ObservableEventType.NEXT,
-                  value: this.elementInStandBy,
-                  x: 350,
-                  conveyorId: this.ID,
-                } as ElementInConveyor);
-                this.elementInStandBy = '';
-              }
-            }
+            this.counter = parseFloat((this.counter - 0.1).toFixed(2));
+            this.counter = this.counter <= 0 ? 3 : this.counter;
           })
         )
-        .subscribe(() => (this.counter = parseFloat((this.counter - 0.1).toFixed(2))));
+        .subscribe();
     } else {
-      this.counterSubscription.unsubscribe();
+      this.stopCounter();
     }
   }
 
-  public onControllerButtonClick(button: ButtonController) {
-    if (button.type === ObservableEventType.ERROR || button.type === ObservableEventType.COMPLETE) {
-      this.controllerButtons.forEach((b) => (b.enabled = false));
-      this.elementsInConveyor = this.elementsInConveyor.filter((e) => e.x >= 350);
-      this.elementInStandBy = '';
-    }
-
+  protected onOperatorDeliverNextEvent(value: string): void {
+    this.elementInStandBy = '';
+    this.counter = 3;
     this.elementsInConveyor.push({
-      type: button.type,
-      value: button.value,
-      x: 220,
-      conveyorId: button.controllerId,
+      conveyorId: this.MAIN_ID,
+      type: ObservableEventType.NEXT,
+      value,
+      x: 350,
     } as ElementInConveyor);
   }
 
-  public ngOnDestroy(): void {
-    this.metaService.removeTag('name="description"');
+  protected onOperatorDeliverErrorEvent(value: string): void {
+    this.elementsInConveyor.push({
+      conveyorId: this.MAIN_ID,
+      type: ObservableEventType.ERROR,
+      value,
+      x: 350,
+    } as ElementInConveyor);
+  }
+
+  protected onOperatorDeliverCompleteEvent(): void {
+    setTimeout(
+      () =>
+        this.elementsInConveyor.push({
+          conveyorId: this.MAIN_ID,
+          type: ObservableEventType.COMPLETE,
+          value: this.controllerButtons[this.MAIN_ID][1].value,
+          x: 350,
+        } as ElementInConveyor),
+      1000 / this.demo.speed
+    );
+  }
+
+  public getCounterValue(): string {
+    return this.counter == parseInt(this.counter + '') ? this.counter + '.0' : this.counter + '';
+  }
+
+  private stopCounter() {
+    if (this.counterSubscription != null) {
+      this.counterSubscription.unsubscribe();
+    }
   }
 }

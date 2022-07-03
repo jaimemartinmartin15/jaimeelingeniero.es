@@ -1,159 +1,128 @@
-import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Component } from '@angular/core';
 import { Meta, Title } from '@angular/platform-browser';
-import { BehaviorSubject, interval, Subject, Subscription } from 'rxjs';
+import { BehaviorSubject, debounceTime, interval, tap, Subscription } from 'rxjs';
+import { BaseOperatorComponent } from '../shared/base-operator.component';
 import { ButtonController } from '../shared/components/conveyor-controller/button-controller';
-import { DemoContainerComponent } from '../shared/components/demo-container/demo-container.component';
 import { ElementInConveyor } from '../shared/element-in-conveyor';
 import { ObservableEventType } from '../shared/observable-event-type';
-import { SpeechBubble } from '../shared/speech-bubble';
 
 @Component({
   selector: 'app-debounce-time',
   templateUrl: './debounce-time.component.html',
   styleUrls: ['./debounce-time.component.scss'],
 })
-export class DebounceTimeComponent implements OnInit, AfterViewInit, OnDestroy {
-  private readonly ID = '0';
-
-  @ViewChild(DemoContainerComponent)
-  public demo: DemoContainerComponent;
-
-  public controllerButtons: ButtonController[] = [
-    { value: '🧲', type: ObservableEventType.ERROR, controllerId: this.ID, enabled: false },
-    { value: '🖐️', type: ObservableEventType.COMPLETE, controllerId: this.ID, enabled: false },
-    { value: '🍎', type: ObservableEventType.NEXT, controllerId: this.ID, enabled: false },
-    { value: '🍌', type: ObservableEventType.NEXT, controllerId: this.ID, enabled: false },
-    { value: '🍇', type: ObservableEventType.NEXT, controllerId: this.ID, enabled: false },
-  ];
-
-  public counter = 3;
-
-  public conveyorWorking$ = new BehaviorSubject<boolean>(false);
-
-  private previousTimeout: ReturnType<typeof setTimeout>;
-  private completedTimeout: ReturnType<typeof setTimeout>;
+export class DebounceTimeComponent extends BaseOperatorComponent {
+  private errorOrCompleteEmitted = false;
   private counterSubscription: Subscription;
+  public elementInStandBy = '';
+  public counter = 3;
+  protected operator = debounceTime(3000);
 
-  public elementsInConveyor: ElementInConveyor[] = [];
-  public elementInStandBy: string;
+  public controllerButtons: { [key: string]: ButtonController[] } = {
+    [this.MAIN_ID]: [
+      { value: '🧲', type: ObservableEventType.ERROR, controllerId: this.MAIN_ID, enabled: false },
+      { value: '🖐️', type: ObservableEventType.COMPLETE, controllerId: this.MAIN_ID, enabled: false },
+      { value: '🍎', type: ObservableEventType.NEXT, controllerId: this.MAIN_ID, enabled: false },
+      { value: '🍌', type: ObservableEventType.NEXT, controllerId: this.MAIN_ID, enabled: false },
+      { value: '🍇', type: ObservableEventType.NEXT, controllerId: this.MAIN_ID, enabled: false },
+    ],
+  };
 
-  public speechBubble$ = new Subject<SpeechBubble>();
+  public conveyorsWorking: { [key: string]: BehaviorSubject<boolean> } = {
+    [this.MAIN_ID]: new BehaviorSubject<boolean>(false),
+  };
 
-  public constructor(private readonly titleService: Title, private readonly metaService: Meta) {}
-
-  public ngOnInit() {
-    this.titleService.setTitle('DebounceTime rxjs');
-    this.metaService.updateTag({ name: 'description', content: 'Explicación del operador rxjs debounceTime' });
+  public constructor(titleService: Title, metaService: Meta) {
+    super(titleService, metaService, 'debounceTime');
   }
 
-  public ngAfterViewInit(): void {
-    interval(this.demo.fps).subscribe(() => {
-      this.elementsInConveyor.forEach((e) => {
-        e.x += this.demo.speed;
-        if (e.x >= 300 && e.x < 320 && e.type === ObservableEventType.NEXT) {
-          this.elementsInConveyor.splice(this.elementsInConveyor.indexOf(e), 1);
-          this.elementInStandBy = e.value;
-
-          if (this.previousTimeout != null) {
-            clearTimeout(this.previousTimeout);
-          }
-
-          if (this.counterSubscription != null) {
-            this.counterSubscription.unsubscribe();
-          }
-
-          this.counter = 3;
-          this.counterSubscription = interval(100).subscribe(() => (this.counter = parseFloat((this.counter - 0.1).toFixed(2))));
-          this.previousTimeout = setTimeout(() => {
-            this.elementsInConveyor.push({
-              type: e.type,
-              value: e.value,
-              x: 350,
-              conveyorId: e.conveyorId,
-            } as ElementInConveyor);
-            this.elementInStandBy = '';
-
-            this.counter = 3;
-            this.counterSubscription.unsubscribe();
-
-            // was completed but the event was not pushed to the conveyor
-            if (this.controllerButtons[0].enabled == false) {
-              this.completedTimeout = setTimeout(() => {
-                this.elementsInConveyor.push({
-                  type: ObservableEventType.COMPLETE,
-                  value: this.controllerButtons[1].value,
-                  x: 220,
-                  conveyorId: this.ID,
-                } as ElementInConveyor);
-              }, 1000 / this.demo.speed);
-            }
-          }, 3000);
-        } else if (e.x >= 450) {
-          this.elementsInConveyor.splice(this.elementsInConveyor.indexOf(e), 1);
-          if (e.type === ObservableEventType.ERROR || e.type === ObservableEventType.COMPLETE) {
-            this.onSubscribe(false);
-          }
-          this.speechBubble$.next({
-            type: e.type,
-            message: e.value,
-          });
-        }
-      });
-    });
+  protected moveElement(e: ElementInConveyor): void {
+    e.x += this.demo.speed;
   }
 
-  public onSubscribe(isSubscribed: boolean) {
-    this.conveyorWorking$.next(isSubscribed);
-    this.controllerButtons.forEach((b) => (b.enabled = isSubscribed));
-    this.elementsInConveyor.length = 0;
+  protected isElementDeliveredToOperator(e: ElementInConveyor): boolean {
+    return e.x >= 300 && e.x <= 320;
+  }
+
+  protected isElementDeliveredToSubscriber(e: ElementInConveyor): boolean {
+    return e.x >= 450;
+  }
+
+  public override elementReachesOperatorNextHook(e: ElementInConveyor) {
+    if (!this.errorOrCompleteEmitted) {
+      if (this.elementInStandBy == '') {
+        this.counterSubscription = interval(100)
+          .pipe(tap(() => (this.counter = parseFloat((this.counter - 0.1).toFixed(2)))))
+          .subscribe();
+      } else {
+        this.counter = 3;
+      }
+      this.elementInStandBy = e.value;
+    }
+  }
+
+  public override elementReachesOperatorErrorHook(e: ElementInConveyor) {
+    this.errorOrCompleteEmitted = true;
+  }
+
+  public override elementReachesOperatorCompleteHook(e: ElementInConveyor) {
+    this.errorOrCompleteEmitted = true;
+  }
+
+  protected addElementToBeginningOfConveyor(conveyorId: string, type: ObservableEventType, value: string) {
+    this.elementsInConveyor.push({ conveyorId, type, value, x: 220 } as ElementInConveyor);
+  }
+
+  public override onSubscribeHook() {
+    this.errorOrCompleteEmitted = false;
     this.elementInStandBy = '';
     this.counter = 3;
-
-    if (!isSubscribed) {
-      if (this.counterSubscription != null) {
-        this.counterSubscription.unsubscribe();
-      }
-
-      if (this.previousTimeout != null) {
-        clearTimeout(this.previousTimeout);
-      }
-
-      if (this.completedTimeout != null) {
-        clearTimeout(this.completedTimeout);
-      }
-    }
+    this.stopCounter();
   }
 
-  public onControllerButtonClick(button: ButtonController) {
-    let emitComplete = false;
-    if (button.type === ObservableEventType.ERROR || button.type === ObservableEventType.COMPLETE) {
-      this.controllerButtons.forEach((b) => (b.enabled = false));
-
-      if (button.type === ObservableEventType.ERROR) {
-        this.elementsInConveyor = this.elementsInConveyor.filter((e) => e.x > 350);
-        this.elementInStandBy = '';
-        if (this.previousTimeout != null) {
-          clearTimeout(this.previousTimeout);
-        }
-        if (this.counterSubscription != null) {
-          this.counterSubscription.unsubscribe();
-        }
-      } else if (this.elementInStandBy == '' && this.elementsInConveyor.every((e) => e.x > 320)) {
-        emitComplete = true;
-      }
-    }
-
-    if (button.type !== ObservableEventType.COMPLETE || emitComplete) {
-      this.elementsInConveyor.push({
-        type: button.type,
-        value: button.value,
-        x: 220,
-        conveyorId: button.controllerId,
-      } as ElementInConveyor);
-    }
+  protected onOperatorDeliverNextEvent(value: string): void {
+    this.elementInStandBy = '';
+    this.stopCounter();
+    this.counter = 3;
+    this.elementsInConveyor.push({
+      conveyorId: this.MAIN_ID,
+      type: ObservableEventType.NEXT,
+      value,
+      x: 350,
+    } as ElementInConveyor);
   }
 
-  public ngOnDestroy(): void {
-    this.metaService.removeTag('name="description"');
+  protected onOperatorDeliverErrorEvent(value: string): void {
+    this.elementInStandBy = '';
+    this.stopCounter();
+    this.elementsInConveyor.push({
+      conveyorId: this.MAIN_ID,
+      type: ObservableEventType.ERROR,
+      value,
+      x: 350,
+    } as ElementInConveyor);
+  }
+
+  protected onOperatorDeliverCompleteEvent(): void {
+    setTimeout(
+      () =>
+        this.elementsInConveyor.push({
+          conveyorId: this.MAIN_ID,
+          type: ObservableEventType.COMPLETE,
+          value: this.controllerButtons[this.MAIN_ID][1].value,
+          x: 350,
+        } as ElementInConveyor),
+      1000 / this.demo.speed
+    );
+  }
+
+  public getCounterValue(): string {
+    return this.counter == parseInt(this.counter + '') ? this.counter + '.0' : this.counter + '';
+  }
+
+  private stopCounter() {
+    if (this.counterSubscription != null) {
+      this.counterSubscription.unsubscribe();
+    }
   }
 }

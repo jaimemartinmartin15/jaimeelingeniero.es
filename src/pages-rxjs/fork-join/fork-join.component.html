@@ -58,7 +58,8 @@ forkJoin([observable1, observable2]).subscribe({
 </p>
 
 <svg appDemoContainer viewBox="0 0 850 500">
-  <g transform="translate(55, 350)" appConveyorHorizontal [length]="600.6" [conveyorWorking$]="conveyorsWorking[MAIN]">
+  <g transform="translate(55, 350)" appConveyorHorizontal [length]="600.6"
+    [conveyorWorking$]="conveyorsWorking[MAIN_ID]">
   </g>
 
   <g appSubscriber transform="translate(682,280)" [showSpeechBubble$]="speechBubble$"

@@ -1,11 +1,10 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Meta, Title } from '@angular/platform-browser';
-import { Router } from '@angular/router';
 import { intervalArray } from 'src/utils/arrays';
 
 import { rotateProfilePicture } from './home.animations';
 
-const CHANGE_PICTURE_TIME = 10000; // 10 seconds
+const CHANGE_PICTURE_TIME = 15000; // 15 seconds
 const ANIMATION_WAVE_TIME = 2000; // 2 seconds like in scss
 
 // svg wave animation
@@ -51,9 +50,9 @@ export class HomeComponent implements OnInit, OnDestroy {
   public waveViewBox = `0 0 ${this.viewBoxWidth} ${this.viewBoxHeight}`;
   public wavePath = '';
 
-  public constructor(private readonly _router: Router, private readonly titleService: Title, private readonly metaService: Meta) {}
+  public constructor(private readonly titleService: Title, private readonly metaService: Meta) {}
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
     this.years = this.calculateAge(new Date(1996, 10, 15));
 
     this.titleService.setTitle('Presentación');
@@ -61,8 +60,8 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.metaService.updateTag({ name: 'keywords', content: 'Jaime, ingeniero informático' });
 
     this.calculateWavePath();
-    this.startWaveAnimation(0);
-    this.startProfilePictureAnimation();
+    this.scheduleWaveAnimation(0);
+    this.scheduleProfilePictureAnimation();
     window.matchMedia('(min-width: 768px)').addEventListener('change', (e) => {
       this.isMobileViewPort = !e.matches;
       if (this.isMobileViewPort) {
@@ -78,17 +77,17 @@ export class HomeComponent implements OnInit, OnDestroy {
     });
   }
 
-  startProfilePictureAnimation() {
+  private scheduleProfilePictureAnimation() {
     this.profilePictureAnimationSubscription = setTimeout(this.changeProfilePicture.bind(this), CHANGE_PICTURE_TIME);
   }
 
-  changeProfilePicture() {
+  public changeProfilePicture() {
     if (this.allowRotateProfilePicture) {
       this.allowRotateProfilePicture = false;
 
       // resets the timeout
       clearTimeout(this.profilePictureAnimationSubscription);
-      this.startProfilePictureAnimation();
+      this.scheduleProfilePictureAnimation();
 
       this.stateRotateProfilePicture = this.stateRotateProfilePicture === 'showLogo' ? 'showPhoto' : 'showLogo';
       setTimeout(() => {
@@ -101,11 +100,11 @@ export class HomeComponent implements OnInit, OnDestroy {
     }
   }
 
-  startWaveAnimation(timeout: number) {
+  private scheduleWaveAnimation(timeout: number) {
     setTimeout(this.calculateWavePath.bind(this), timeout);
   }
 
-  calculateWavePath(): void {
+  private calculateWavePath(): void {
     const waveSegmentWidth = this.viewBoxWidth / this.numberOfWaves;
 
     // 5 different height values
@@ -138,10 +137,10 @@ export class HomeComponent implements OnInit, OnDestroy {
     }
     this.wavePath += ` ${this.viewBoxWidth},${heightValues[Math.trunc(Math.random() * heightValues.length)]}L${this.viewBoxWidth},0z`;
 
-    this.startWaveAnimation(ANIMATION_WAVE_TIME);
+    this.scheduleWaveAnimation(ANIMATION_WAVE_TIME);
   }
 
-  calculateAge(birthDate: Date): number {
+  private calculateAge(birthDate: Date): number {
     const today = new Date();
     let age = today.getFullYear() - birthDate.getFullYear();
     const month = today.getMonth() - birthDate.getMonth();
@@ -149,10 +148,6 @@ export class HomeComponent implements OnInit, OnDestroy {
       age--;
     }
     return age;
-  }
-
-  public goToMyTrayectory() {
-    this._router.navigate(['mi-trayectoria']);
   }
 
   public ngOnDestroy(): void {

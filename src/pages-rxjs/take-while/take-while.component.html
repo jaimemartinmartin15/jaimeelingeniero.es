@@ -1,21 +1,24 @@
 <div class="page-header">
-  <h1 class="title">EndWith</h1>
-  <a class="link-rxjs" href="https://rxjs.dev/api/operators/endWith" target="_blank">rxjs endWith ➡️</a>
+  <h1 class="title">TakeWhile</h1>
+  <a class="link-rxjs" href="https://rxjs.dev/api/operators/takeWhile" target="_blank">rxjs takeWhile ➡️</a>
 </div>
 
 <p>
-  Este operador emite inmediatamente un nuevo elemento en el pipe del Observable justo antes de que complete.
+  Este operador deja pasar los elementos del Observable fuente mientras cumplan una condición. En el momento que uno
+  de los elementos no cumple la condición el Observable completa.
 </p>
 
+
 <textarea highlight-js [lang]="'typescript'">
-import { Observable, endWith } from 'rxjs';
+import { Observable, takeWhile } from 'rxjs';
 
 new Observable<string>((subscriber) => {
-  subscriber.next('🍌');
   subscriber.next('🍎');
-  subscriber.complete();
+  subscriber.next('🍅');
+  subscriber.next('🍌');
+  subscriber.next('🍓');
 })
-.pipe(endWith('🍇'))
+.pipe(takeWhile(fruit => fruit === '🍎' || fruit === '🍅'))
 .subscribe({
   next: (value) => console.log(`The next value is: ${value}`),
   error: (error) => console.error(`There is an error: ${error}`),
@@ -24,23 +27,19 @@ new Observable<string>((subscriber) => {
 
 // Output
 // ======
-// The next value is: 🍌
 // The next value is: 🍎
-// The next value is: 🍇
+// The next value is: 🍅
 // Completed
 </textarea>
 
 <p>
-  El ejemplo es muy sencillo de explicar. Primero se emite el 🍌, luego la 🍎 y por último completa. Pero antes de
-  emitir el evento de complete, justo antes, el operador emite las 🍇 y luego entonces ya si se emite el evento de
-  complete.
+  Vamos a explicar el ejemplo. La idea es dejar pasar las frutas mientras sean de color 🔴. Entonces lo primero que
+  se emite es la 🍎 y luego el 🍅. Como son de color rojo, se entregan al suscriptor. Lo siguiente que hay en el
+  Observable fuente es un 🍌. Como ya no es de color rojo, no pasa y el Observable completa. También se emite una 🍓,
+  pero como el Observable ha completado, no se entrega al subscriptor.
 </p>
 
-<p>
-  Si lo que se emite es un error, el operador no emite su evento.
-</p>
-
-<p>Pruébalo en esta demo donde se emitirá una 🍐 antes de completar:</p>
+<p>Pruébalo en esta demo, donde se emiten elementos mientras sean de color 🟢:</p>
 
 <svg appDemoContainer viewBox="0 0 640 240">
   <g transform="translate(30, 80)" appConveyorController [button1]="controllerButtons[MAIN_ID][0]"

@@ -53,9 +53,10 @@
                 text-decoration: none;
                 color: black;
                 transition: 0.5s;
+                line-height: 25px;
 
                 &:hover {
-                    font-size: 1.1em;
+                    font-size: 1.15em;
 
                     &::after {
                         content: "➡️";

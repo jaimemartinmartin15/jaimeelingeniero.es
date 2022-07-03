@@ -1,26 +1,26 @@
 import { Component } from '@angular/core';
 import { Meta, Title } from '@angular/platform-browser';
-import { BehaviorSubject, startWith } from 'rxjs';
-import { BaseOperatorComponent } from '../shared/base-operator.component';
+import { BehaviorSubject, distinct } from 'rxjs';
 import { ButtonController } from '../shared/components/conveyor-controller/button-controller';
 import { ElementInConveyor } from '../shared/element-in-conveyor';
 import { ObservableEventType } from '../shared/observable-event-type';
+import { BaseOperatorComponent } from '../shared/base-operator.component';
 
 @Component({
-  selector: 'app-start-with',
-  templateUrl: './start-with.component.html',
-  styleUrls: ['./start-with.component.scss'],
+  selector: 'app-distinct',
+  templateUrl: './distinct.component.html',
+  styleUrls: ['./distinct.component.scss'],
 })
-export class StartWithComponent extends BaseOperatorComponent {
-  protected operator = startWith('🍐');
+export class DistinctComponent extends BaseOperatorComponent {
+  protected operator = distinct();
 
   public controllerButtons: { [key: string]: ButtonController[] } = {
     [this.MAIN_ID]: [
-      { value: '🧲', type: ObservableEventType.ERROR, controllerId: this.MAIN_ID, enabled: false },
+      { value: '🎻', type: ObservableEventType.ERROR, controllerId: this.MAIN_ID, enabled: false },
       { value: '🖐️', type: ObservableEventType.COMPLETE, controllerId: this.MAIN_ID, enabled: false },
-      { value: '🍎', type: ObservableEventType.NEXT, controllerId: this.MAIN_ID, enabled: false },
-      { value: '🍌', type: ObservableEventType.NEXT, controllerId: this.MAIN_ID, enabled: false },
-      { value: '🍇', type: ObservableEventType.NEXT, controllerId: this.MAIN_ID, enabled: false },
+      { value: '🥦', type: ObservableEventType.NEXT, controllerId: this.MAIN_ID, enabled: false },
+      { value: '🍐', type: ObservableEventType.NEXT, controllerId: this.MAIN_ID, enabled: false },
+      { value: '🍋', type: ObservableEventType.NEXT, controllerId: this.MAIN_ID, enabled: false },
     ],
   };
 
@@ -28,8 +28,10 @@ export class StartWithComponent extends BaseOperatorComponent {
     [this.MAIN_ID]: new BehaviorSubject<boolean>(false),
   };
 
+  public elementsEmmited: string[] = [];
+
   public constructor(titleService: Title, metaService: Meta) {
-    super(titleService, metaService, 'startWith');
+    super(titleService, metaService, 'distinct');
   }
 
   protected moveElement(e: ElementInConveyor): void {
@@ -48,7 +50,12 @@ export class StartWithComponent extends BaseOperatorComponent {
     this.elementsInConveyor.push({ conveyorId, type, value, x: 220 } as ElementInConveyor);
   }
 
+  public override onSubscribeHook() {
+    this.elementsEmmited.length = 0;
+  }
+
   protected onOperatorDeliverNextEvent(value: string): void {
+    this.elementsEmmited.push(value);
     this.elementsInConveyor.push({
       conveyorId: this.MAIN_ID,
       type: ObservableEventType.NEXT,
@@ -67,13 +74,11 @@ export class StartWithComponent extends BaseOperatorComponent {
   }
 
   protected onOperatorDeliverCompleteEvent(): void {
-    setTimeout(() => {
-      this.elementsInConveyor.push({
-        conveyorId: this.MAIN_ID,
-        type: ObservableEventType.COMPLETE,
-        value: this.controllerButtons[this.MAIN_ID][1].value,
-        x: 350,
-      } as ElementInConveyor);
-    }, 1000 / this.demo.speed);
+    this.elementsInConveyor.push({
+      conveyorId: this.MAIN_ID,
+      type: ObservableEventType.COMPLETE,
+      value: this.controllerButtons[this.MAIN_ID][1].value,
+      x: 350,
+    } as ElementInConveyor);
   }
 }
