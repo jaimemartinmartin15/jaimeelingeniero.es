@@ -72,8 +72,8 @@ $figure-size: 200px;
         align-items: center;
         gap: 30px;
         max-width: 850px;
-        margin: 0 auto;
         font-size: 1.15em;
+        margin: 0 50px 0;
 
         .my-trayectory-link {
             border: none;
@@ -118,6 +118,13 @@ $figure-size: 200px;
             .title {
                 text-align: center;
             }
+        }
+    }
+
+    .about-me {
+        .presentation {
+            max-width: 510px;
+            flex-direction: column;
         }
     }
 }
