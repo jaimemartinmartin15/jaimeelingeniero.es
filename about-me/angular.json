@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "jaimeelingeniero": {
+    "about-me": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -20,7 +20,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/jaimeelingeniero",
+            "outputPath": "dist/about-me",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -72,10 +72,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "jaimeelingeniero:build:production"
+              "browserTarget": "about-me:build:production"
             },
             "development": {
-              "browserTarget": "jaimeelingeniero:build:development"
+              "browserTarget": "about-me:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -83,7 +83,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "jaimeelingeniero:build"
+            "browserTarget": "about-me:build"
           }
         },
         "test": {
@@ -116,5 +116,5 @@
   "cli": {
     "defaultCollection": "./app-schematics"
   },
-  "defaultProject": "jaimeelingeniero"
+  "defaultProject": "about-me"
 }
