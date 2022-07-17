@@ -27,7 +27,7 @@ export function rxjsPage({ name }: Schema): Rule {
     rxjsRoutingModule = `${rxjsRoutingModule.slice(0, indexToInsert)}
       {
         path: '${name}',
-        loadChildren: () => import('./${dasherize(name)}/${dasherize(name)}.module').then((m) => m.${classify(name)}Module),
+        loadChildren: () => import('../operators/${dasherize(name)}/${dasherize(name)}.module').then((m) => m.${classify(name)}Module),
       },${rxjsRoutingModule.slice(indexToInsert)}`;
     tree.overwrite(RXJS_ROUTING_MODULE_PATH, rxjsRoutingModule);
 
