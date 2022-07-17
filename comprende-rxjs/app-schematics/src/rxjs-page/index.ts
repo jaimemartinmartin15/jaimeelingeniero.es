@@ -5,9 +5,9 @@ import { strings } from '@angular-devkit/core';
 import { Schema } from './schema';
 import { classify, dasherize } from '@angular-devkit/core/src/utils/strings';
 
-const RXJS_ROUTING_MODULE_PATH = 'src/pages-rxjs/pages-rxjs-routing.module.ts';
-const RXJS_MAIN_PAGE_HTML_PATH = 'src/pages-rxjs/pages-rxjs.component.html';
-const RXJS_MAIN_PAGE_SCSS_PATH = 'src/pages-rxjs/pages-rxjs.component.scss';
+const RXJS_ROUTING_MODULE_PATH = 'src/app/rxjs-page/rxjs-page-routing.module.ts';
+const RXJS_MAIN_PAGE_HTML_PATH = 'src/app/rxjs-page/rxjs-page.component.html';
+const RXJS_MAIN_PAGE_SCSS_PATH = 'src/app/rxjs-page/rxjs-page.component.scss';
 
 export function rxjsPage({ name }: Schema): Rule {
   return (tree: Tree, _context: SchematicContext) => {
@@ -18,7 +18,7 @@ export function rxjsPage({ name }: Schema): Rule {
         name,
         ...strings,
       }),
-      move('src/pages-rxjs'),
+      move('src/app/operators'),
     ]);
 
     // add new path to the component in the routing module
@@ -27,7 +27,7 @@ export function rxjsPage({ name }: Schema): Rule {
     rxjsRoutingModule = `${rxjsRoutingModule.slice(0, indexToInsert)}
       {
         path: '${name}',
-        loadChildren: () => import('./${dasherize(name)}/${dasherize(name)}.module').then((m) => m.${classify(name)}Module),
+        loadChildren: () => import('../operators/${dasherize(name)}/${dasherize(name)}.module').then((m) => m.${classify(name)}Module),
       },${rxjsRoutingModule.slice(indexToInsert)}`;
     tree.overwrite(RXJS_ROUTING_MODULE_PATH, rxjsRoutingModule);
 
@@ -37,7 +37,7 @@ export function rxjsPage({ name }: Schema): Rule {
     rxjsMainPageHtml = `${rxjsMainPageHtml.slice(
       0,
       indexToInsert
-    )}  <a [routerLink]="['/comprende-rxjs/${name}']" routerLinkActive="menu-section-active">${name}</a>
+    )}  <a [routerLink]="['/${name}']" routerLinkActive="menu-section-active">${name}</a>
   ${rxjsMainPageHtml.slice(indexToInsert)}`;
     tree.overwrite(RXJS_MAIN_PAGE_HTML_PATH, rxjsMainPageHtml);
 
