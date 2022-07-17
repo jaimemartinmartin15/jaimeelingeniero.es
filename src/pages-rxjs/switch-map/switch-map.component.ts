@@ -65,12 +65,14 @@ export class SwitchMapComponent extends BaseOperatorComponent {
       this.switchMap$[e.conveyorId].error(e.value);
       this.controllerButtons[e.conveyorId].forEach((button) => (button.enabled = false));
       this.conveyorsWorking[e.conveyorId].next(false);
+      this.elementsInConveyor = this.elementsInConveyor.filter((e2) => e2.conveyorId != e.conveyorId);
     } else if (e.type === ObservableEventType.COMPLETE) {
       this.switchMap$[e.conveyorId].complete();
       delete this.switchMap$[e.conveyorId];
       delete this.controllerButtons[e.conveyorId];
       delete this.conveyorsWorking[e.conveyorId];
       this.SWITCHMAP.splice(this.SWITCHMAP.indexOf(e.conveyorId), 1);
+      this.elementsInConveyor = this.elementsInConveyor.filter((e2) => e2.conveyorId != e.conveyorId);
     }
   }
 
