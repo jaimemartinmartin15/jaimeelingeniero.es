@@ -20,6 +20,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
+            "baseHref": "/about-me/",
             "outputPath": "dist/about-me",
             "index": "src/index.html",
             "main": "src/main.ts",
