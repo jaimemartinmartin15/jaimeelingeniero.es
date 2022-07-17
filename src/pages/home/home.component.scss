@@ -1,0 +1,313 @@
+:host {
+    display: block;
+}
+
+.intro {
+    min-height: 98vh;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+
+    .figure-and-title {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-grow: 1;
+        gap: 50px;
+        background-color: #3333ff;
+        padding: 50px;
+
+        .figure__picture {
+            $figure-size: 200px;
+
+            cursor: pointer;
+            width: $figure-size;
+            height: $figure-size;
+            user-select: none;
+            border-radius: 50%;
+            border: 5px solid #d17515;
+            background-color: #fcfcfc;
+            box-shadow: 0 0 20px #fcfcfc;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            &__img {
+                border-radius: 50%;
+                width: $figure-size + 1px;
+                height: $figure-size + 1px;
+            }
+        }
+
+        .title {
+            color: #fcfcfc;
+            font-size: 3.8em;
+        }
+    }
+
+    .waves {
+        position: relative;
+        top: -1px; // avoids small border line flashing
+        z-index: -1;
+        background-color: #fcfcfc;
+        fill: #3333ff;
+        display: block;
+
+        path {
+            transition: 2s linear;
+        }
+    }
+}
+
+.about-me {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    min-height: 100vh;
+    background-color: #fcfcfc;
+    padding: 50px;
+
+    .title {
+        text-align: center;
+        font-size: 4em;
+    }
+
+    .presentation {
+        display: flex;
+        align-items: center;
+        gap: 30px;
+        max-width: 850px;
+        font-size: 1.15em;
+
+        .my-trayectory-link {
+            border: none;
+            background-color: #d17515;
+            color: #fbf2e2;
+            padding: 9px;
+            border-radius: 4px;
+            font-size: 1.5rem;
+            box-shadow: 3px 3px 5px #cec9c1;
+            flex-shrink: 0;
+            text-decoration: none;
+
+            &:active {
+                transform: translateX(1px) translateY(2px);
+                box-shadow: 2px 1px 5px #cec9c1;
+            }
+        }
+    }
+}
+
+.technologies {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 50px;
+
+    .title {
+        text-align: center;
+        font-size: 4em;
+    }
+
+    .tech-list {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 50px;
+        max-width: 1200px;
+
+        .tech {
+            $tech-size: 150px;
+
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: $tech-size;
+            height: $tech-size;
+
+            svg {
+                user-select: none;
+                width: $tech-size;
+                padding: 10px 0 10px;
+            }
+        }
+    }
+}
+
+.learning {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    min-height: 100vh;
+    background-color: #fcfcfc;
+    padding: 50px;
+
+    .title {
+        text-align: center;
+        font-size: 4em;
+    }
+
+    .tiles-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 20px;
+
+        .tile {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            border: 2.5px solid #d17515;
+            border-radius: 5px;
+            width: 300px;
+            height: 100px;
+            transition: box-shadow 0.2s;
+            text-decoration: none;
+            color: black;
+            background-color: #fefefe;
+            box-shadow: 0 0 5px #c2c2c2;
+
+            &:hover:not(:last-child) {
+                box-shadow: 0 0 7px #d17515;
+                cursor: pointer;
+            }
+        }
+    }
+}
+
+.contact {
+    background-color: rgb(126, 126, 126);
+    padding: 50px;
+    display: flex;
+    justify-content: center;
+
+    .contact-list {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr 6fr);
+        grid-gap: 10px;
+        max-width: 720px;
+
+        address {
+            align-self: center;
+        }
+
+        svg {
+            width: 50px;
+            align-self: center;
+        }
+
+        .email,
+        .linked-in,
+        .github {
+            color: #fefefe;
+            text-decoration: none;
+            align-self: center;
+        }
+    }
+}
+
+@media (max-width: 1200px) {
+    .intro {
+        .figure-and-title {
+            gap: 20px;
+
+            .title {
+                font-size: 3em;
+            }
+        }
+    }
+}
+
+@media (max-width: 991px) {
+    .intro {
+        .figure-and-title {
+            flex-direction: column;
+
+            .figure__picture {
+                cursor: default;
+            }
+
+            .title {
+                text-align: center;
+            }
+        }
+    }
+
+    .about-me {
+        .presentation {
+            max-width: 510px;
+            flex-direction: column;
+        }
+    }
+}
+
+@media (max-width: 768px) {
+    .contact {
+        padding: 20px;
+
+        .contact-list {
+            grid-template-columns: 1fr 6fr;
+            grid-gap: 20px;
+        }
+    }
+}
+
+@media (max-width: 575px) {
+    $title-size: 3em;
+
+    .about-me {
+        padding: 20px;
+
+        .title {
+            font-size: $title-size;
+        }
+    }
+
+    .technologies {
+        padding: 20px;
+
+        .title {
+            font-size: $title-size;
+        }
+
+        .tech-list {
+            gap: 25px;
+
+            .tech {
+                $tech-size: 130px;
+
+                width: $tech-size;
+                height: $tech-size;
+
+                svg {
+                    width: $tech-size;
+                }
+            }
+        }
+    }
+
+    .learning {
+        padding: 20px;
+
+        .title {
+            font-size: $title-size;
+        }
+
+        .tiles-container {
+            width: 100%;
+
+            .tile {
+                width: 90%;
+                max-width: 320px;
+                height: 80px;
+            }
+        }
+    }
+}
