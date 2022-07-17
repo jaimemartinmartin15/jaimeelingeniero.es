@@ -108,5 +108,8 @@
       }
     }
   },
+  "cli": {
+    "defaultCollection": "./app-schematics"
+  },
   "defaultProject": "comprende-rxjs"
 }
