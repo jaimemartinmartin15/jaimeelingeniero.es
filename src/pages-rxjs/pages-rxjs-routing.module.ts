@@ -4,10 +4,10 @@ import { PagesRxjsComponent } from './pages-rxjs.component';
 
 const routes: Routes = [
   {
-    path: 'inicio',
+    path: '',
     loadChildren: () => import('./home/home.module').then((m) => m.HomeModule),
+    pathMatch: 'full',
   },
-  { path: '', redirectTo: 'inicio', pathMatch: 'full' },
   {
     path: '',
     component: PagesRxjsComponent,
@@ -100,7 +100,7 @@ const routes: Routes = [
   },
   {
     path: '**',
-    redirectTo: 'inicio',
+    redirectTo: '',
     pathMatch: 'full',
   },
 ];
