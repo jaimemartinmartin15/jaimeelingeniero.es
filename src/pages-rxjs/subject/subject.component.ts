@@ -87,7 +87,7 @@ export class SubjectComponent implements OnInit, AfterViewInit {
     this.elementsInConveyor.push({
       type: button.type,
       value: button.value,
-      x: 470,
+      x: 370,
       y: 170,
       conveyorId: button.controllerId,
     });
