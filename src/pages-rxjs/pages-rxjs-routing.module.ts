@@ -13,6 +13,10 @@ const routes: Routes = [
     component: PagesRxjsComponent,
     children: [
       {
+        path: 'subject',
+        loadChildren: () => import('./subject/subject.module').then((m) => m.SubjectModule),
+      },
+      {
         path: 'distinct',
         loadChildren: () => import('./distinct/distinct.module').then((m) => m.DistinctModule),
       },

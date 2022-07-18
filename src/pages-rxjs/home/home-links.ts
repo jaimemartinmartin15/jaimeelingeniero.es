@@ -8,7 +8,10 @@ export interface HomeLink {
 
 export const HOME_LINKS_TO_START: HomeLink = {
   subtitle: 'Para empezar',
-  links: [{ display: 'Observable', url: '/comprende-rxjs/observable' }],
+  links: [
+    { display: 'Observable', url: '/comprende-rxjs/observable' },
+    { display: 'Subject', url: '/comprende-rxjs/subject' },
+  ],
 };
 
 export const HOME_LINKS_OTHERS: HomeLink[] = [
