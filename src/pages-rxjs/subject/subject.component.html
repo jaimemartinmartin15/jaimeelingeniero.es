@@ -97,3 +97,31 @@ mySubject.complete();
   constructor se habría ejecutado exactamente igual para ambos emitiendo los mismos elementos, pero con un Subject, solo
   se observan los eventos desde el momento en el que se suscribe.
 </p>
+
+<p>Prueba esta demo donde pueden suscribirse multiples observadores:</p>
+
+<svg appDemoContainer viewBox="0 0 900 680">
+  <g transform="translate(400, 40)" appConveyorController [button1]="controllerButtons[0]"
+    [button2]="controllerButtons[1]" [button3]="controllerButtons[2]" [button4]="controllerButtons[3]"
+    [button5]="controllerButtons[4]" (onButtonClick)="onControllerButtonClick($event)">
+  </g>
+
+  <g transform="translate(450, 170)" appConveyorVertical [conveyorWorking$]="conveyorWorking$" [length]="250.8">
+  </g>
+
+  <g transform="translate(240, 450)" appSubscriber [showSpeechBubble$]="speechBubble$[S1]"
+    (onSubscribe$)="onSubscribe(S1, $event)">
+  </g>
+
+  <g transform="translate(440, 450)" appSubscriber [showSpeechBubble$]="speechBubble$[S2]"
+    (onSubscribe$)="onSubscribe(S2, $event)">
+  </g>
+
+  <g transform="translate(640, 450)" appSubscriber [showSpeechBubble$]="speechBubble$[S3]"
+    (onSubscribe$)="onSubscribe(S3, $event)">
+  </g>
+
+  <g>
+    <text *ngFor="let element of elementsInConveyor" [attr.x]="element.x" [attr.y]="element.y">{{element.value}}</text>
+  </g>
+</svg>
