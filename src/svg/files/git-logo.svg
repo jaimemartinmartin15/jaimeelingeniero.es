@@ -1,8 +1,6 @@
-<svg>
-    <rect fill="#f03c2e" x="35" y="-35" width="70" height="70" rx="5" ry="5" transform='rotate(45)' />
-    <circle fill="#FFF" cx="50" cy="29" r="8" />
-    <circle fill="#FFF" cx="50" cy="71" r="8" />
-    <circle fill="#FFF" cx="71" cy="50" r="8" />
-    <polygon fill="#FFF" points="35,10 71,46 67,50 32,14" />
-    <polygon fill="#FFF" points="47,33 47,67 52,67 52,33" />
-</svg>
+<svg:rect fill="#f03c2e" x="35" y="-35" width="70" height="70" rx="5" ry="5" transform='rotate(45)' />
+<svg:circle fill="#FFF" cx="50" cy="29" r="8" />
+<svg:circle fill="#FFF" cx="50" cy="71" r="8" />
+<svg:circle fill="#FFF" cx="71" cy="50" r="8" />
+<svg:polygon fill="#FFF" points="35,10 71,46 67,50 32,14" />
+<svg:polygon fill="#FFF" points="47,33 47,67 52,67 52,33" />

@@ -1,9 +1,7 @@
-<svg>
-    <line x1="13" y1="81" x2="13" y2="19" stroke-width="24" stroke="#4081ec" stroke-linecap="round" />
-    <circle cx="13" cy="19" r="12" fill="#bf211d" />
-    <polygon fill="red" points="25,13 50,35 75,13 75,45 50,66 25,45" />
-    <polygon fill="#bf211d" points="25,13 25,45 1,25 1,18 20,9.5" />
-    <line x1="87" y1="81" x2="87" y2="19" stroke-width="24" stroke="#32b750" stroke-linecap="round" />
-    <polygon fill="#f3b604" points="75,13 75,45 99,25 99,18 80,9.5" />
-    <circle cx="87" cy="19" r="12" fill="#f3b604" />
-</svg>
+<svg:line x1="13" y1="81" x2="13" y2="19" stroke-width="24" stroke="#4081ec" stroke-linecap="round" />
+<svg:circle cx="13" cy="19" r="12" fill="#bf211d" />
+<svg:polygon fill="red" points="25,13 50,35 75,13 75,45 50,66 25,45" />
+<svg:polygon fill="#bf211d" points="25,13 25,45 1,25 1,18 20,9.5" />
+<svg:line x1="87" y1="81" x2="87" y2="19" stroke-width="24" stroke="#32b750" stroke-linecap="round" />
+<svg:polygon fill="#f3b604" points="75,13 75,45 99,25 99,18 80,9.5" />
+<svg:circle cx="87" cy="19" r="12" fill="#f3b604" />
