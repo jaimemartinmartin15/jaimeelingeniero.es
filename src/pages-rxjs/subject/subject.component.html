@@ -1,6 +1,99 @@
 <div class="page-header">
-    <h1 class="title">Subject</h1>
-    <a class="link-rxjs" href="https://rxjs.dev/api/index/class/Subject" target="_blank" rel="noopener">
-        rxjs subject ➡️
-    </a>
+  <h1 class="title">Subject</h1>
+  <a class="link-rxjs" href="https://rxjs.dev/api/index/class/Subject" target="_blank" rel="noopener">
+    rxjs subject ➡️
+  </a>
 </div>
+
+<p>
+  Un Subject es un tipo de Observable que a su vez es observador. Sí, los elementos que emite los recibe él mismo.
+  Vamos a ver un ejemplo para entenderlo y explicarlo mejor:
+</p>
+
+<textarea highlight-js [lang]="'typescript'">
+import { Subject } from 'rxjs';
+
+const myFirstSubject = new Subject<string>();
+
+// We subscribe as if it were an Observable
+myFirstSubject.subscribe({
+  next: (value) => console.log(`The next value is: ${value}`),
+  error: (error) => console.log(`Error: ${error}`),
+  complete: () => console.log('The observable has completed'),
+});
+
+// We emit elements as if it were an observer
+myFirstSubject.next('🍎');
+myFirstSubject.next('🥝');
+myFirstSubject.complete();
+
+// Output
+// ======
+// The next value is: 🍎
+// The next value is: 🥝
+// The observable has completed
+</textarea>
+
+<p>
+  La primera diferencia que vemos con el Observable es que para crear un Subject no tenemos que pasar en el
+  constructor una función que emita elementos hacia el observador. Simplemente indicamos que tipo de elementos va a
+  generar, en nuestro caso strings.
+</p>
+
+<p>
+  Además de permitirnos suscribir como si fuera un Observable, un objeto de tipo Subject proporciona los métodos que
+  tendría un observador: <span class="next">next</span>, <span class="error">error</span> y
+  <span class="complete">complete</span>. Al llamar estos métodos se invocan las funciones callback que le pasamos en
+  el subscribe.
+</p>
+
+<p>
+  Un Subject permite subscribirse varias veces sin tener que ejecutar una función (la que le tendríamos que pasar al
+  Observable en el constructor). En el momento que alguien se subscribe, comienza a recibir eventos:
+</p>
+
+<textarea highlight-js [lang]="'typescript'">
+import { Subject } from 'rxjs';
+
+const mySubject = new Subject<string>();
+
+// First subscriber
+mySubject.subscribe({
+  next: (value) => console.log(`[1] The next value is: ${value}`),
+  error: (error) => console.log(`[1] Error: ${error}`),
+  complete: () => console.log('[1] The observable has completed'),
+});
+
+mySubject.next('🍎');
+
+// Second subscriber comes a bit later
+mySubject.subscribe({
+  next: (value) => console.log(`[2] The next value is: ${value}`),
+  error: (error) => console.log(`[2] Error: ${error}`),
+  complete: () => console.log('[2] The observable has completed'),
+});
+
+mySubject.next('🥝');
+mySubject.complete();
+
+// Output
+// ======
+// [1] The next value is: 🍎
+// [1] The next value is: 🥝
+// [2] The next value is: 🥝
+// [1]The observable has completed
+// [2]The observable has completed
+</textarea>
+
+<p>
+  En este ejemplo primero se crea un objeto de tipo Subject. Después nos subscribimos por primera vez y se emite una 🍎.
+  El único observador que hay ejecuta su función <span class="next">next</span> de callback e imprime la 🍎 por la
+  consola. Después nos suscribimos por segunda vez, y se emite un 🥝. Como tenemos dos observadores, los dos imprimen en
+  la consola el 🥝. Por último los dos completan.
+</p>
+
+<p>
+  Hay que fijarse que el segundo observador se ha perdido el primer evento de la 🍎. Con un Observable la función del
+  constructor se habría ejecutado exactamente igual para ambos emitiendo los mismos elementos, pero con un Subject, solo
+  se observan los eventos desde el momento en el que se suscribe.
+</p>
