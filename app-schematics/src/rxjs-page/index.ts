@@ -5,9 +5,7 @@ import { strings } from '@angular-devkit/core';
 import { Schema } from './schema';
 import { classify, dasherize } from '@angular-devkit/core/src/utils/strings';
 
-const RXJS_ROUTING_MODULE_PATH = 'src/pages-rxjs/pages-rxjs-routing.module.ts';
-const RXJS_MAIN_PAGE_HTML_PATH = 'src/pages-rxjs/pages-rxjs.component.html';
-const RXJS_MAIN_PAGE_SCSS_PATH = 'src/pages-rxjs/pages-rxjs.component.scss';
+const RXJS_ROUTING_MODULE_PATH = 'src/pages-rxjs/routable-lateral-menu/routable-lateral-menu-routing.module.ts';
 
 export function rxjsPage({ name }: Schema): Rule {
   return (tree: Tree, _context: SchematicContext) => {
@@ -27,31 +25,15 @@ export function rxjsPage({ name }: Schema): Rule {
     rxjsRoutingModule = `${rxjsRoutingModule.slice(0, indexToInsert)}
       {
         path: '${name}',
-        loadChildren: () => import('./${dasherize(name)}/${dasherize(name)}.module').then((m) => m.${classify(name)}Module),
+        loadChildren: () => import('../${dasherize(name)}/${dasherize(name)}.module').then((m) => m.${classify(name)}Module),
       },${rxjsRoutingModule.slice(indexToInsert)}`;
     tree.overwrite(RXJS_ROUTING_MODULE_PATH, rxjsRoutingModule);
 
-    // add link in the menu
-    let rxjsMainPageHtml: string = tree.read(RXJS_MAIN_PAGE_HTML_PATH)!.toString();
-    indexToInsert = rxjsMainPageHtml.indexOf('</nav>');
-    rxjsMainPageHtml = `${rxjsMainPageHtml.slice(
-      0,
-      indexToInsert
-    )}  <a [routerLink]="['/comprende-rxjs/${name}']" routerLinkActive="menu-section-active">${name}</a>
-  ${rxjsMainPageHtml.slice(indexToInsert)}`;
-    tree.overwrite(RXJS_MAIN_PAGE_HTML_PATH, rxjsMainPageHtml);
-
-    // updates the max-height in the scss
-    let rxjsMainPageScss: string = tree.read(RXJS_MAIN_PAGE_SCSS_PATH)!.toString();
-    indexToInsert = rxjsMainPageScss.indexOf('px; // updated by schematic');
-    let numberLength = 0;
-    let i = indexToInsert - 1;
-    while (rxjsMainPageScss.charAt(i - numberLength) != ' ') {
-      numberLength++;
-    }
-    const newMaxHeight = parseInt(rxjsMainPageScss.substring(indexToInsert - numberLength, indexToInsert)) + 55;
-    rxjsMainPageScss = `${rxjsMainPageScss.slice(0, indexToInsert - numberLength)}${newMaxHeight}${rxjsMainPageScss.slice(indexToInsert)}`;
-    tree.overwrite(RXJS_MAIN_PAGE_SCSS_PATH, rxjsMainPageScss);
+    // update the sitemap.txt
+    const PATH_SITEMAP = '/sitemap.txt';
+    let sitemapFile: string = tree.read(PATH_SITEMAP)!.toString();
+    sitemapFile += `\nhttps://www.jaimeelingeniero.es/comprende-rxjs/${name}`;
+    tree.overwrite(PATH_SITEMAP, sitemapFile);
 
     return mergeWith(sourceParametrizedTemplates);
   };

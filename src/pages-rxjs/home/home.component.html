@@ -14,9 +14,9 @@
 
 <div class="group-of-groups" *ngIf="showHomeLinksToStart">
     <div class="operators-group">
-        <h2 class="subtitle">{{HOME_LINKS_TO_START.subtitle}}</h2>
+        <h2 class="subtitle">{{LINKS_TO_START.subtitle}}</h2>
         <ul class="operators-list">
-            <li class="operator-link" *ngFor="let link of HOME_LINKS_TO_START.links">
+            <li class="operator-link" *ngFor="let link of LINKS_TO_START.links">
                 <a [routerLink]="link.url">{{link.display}}</a>
             </li>
         </ul>
@@ -24,7 +24,7 @@
 </div>
 
 <div class="group-of-groups">
-    <div class="operators-group" *ngFor="let group of filtered_home_links">
+    <div class="operators-group" *ngFor="let group of LINKS_GROUPS_OPERATORS">
         <h2 class="subtitle">{{group.subtitle}}</h2>
         <ul class="operators-list">
             <li class="operator-link" *ngFor="let link of group.links">

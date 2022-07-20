@@ -1,15 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { SubjectComponent } from './subject.component';
 
 const routes: Routes = [
   {
     path: '',
-    loadChildren: () => import('./home/home.module').then((m) => m.HomeModule),
-    pathMatch: 'full',
-  },
-  {
-    path: '',
-    loadChildren: () => import('./routable-lateral-menu/routable-lateral-menu.module').then((m) => m.RoutableLateralMenuModule),
+    component: SubjectComponent,
   },
   {
     path: '**',
@@ -22,4 +18,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class PagesRxjsRoutingModule {}
+export class SubjectRoutingModule {}

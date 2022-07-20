@@ -1,6 +1,4 @@
-<svg>
-    <polygon fill="#dd0031" points="50,0 51,50 50,100 8,77 0 17" />
-    <polygon fill="#c3002f" points="50,0 100,17 92,77 50,100" />
-    <path fill="#ffffff" d="M50,15 20,75 30,75 50,33 70,75 80,75" />
-    <path fill="#ffffff" d="M37,51 63,51 65,60 35,60" />
-</svg>
+<svg:polygon fill="#dd0031" points="50,0 51,50 50,100 8,77 0 17" />
+<svg:polygon fill="#c3002f" points="50,0 100,17 92,77 50,100" />
+<svg:path fill="#ffffff" d="M50,15 20,75 30,75 50,33 70,75 80,75" />
+<svg:path fill="#ffffff" d="M37,51 63,51 65,60 35,60" />

@@ -1,12 +1,10 @@
-<svg>
-    <rect fill="#2395ec" x="46" y="12" width="9" height="9" rx="3" ry="3" />
-    <rect fill="#2395ec" x="21" y="24" width="9" height="9" rx="3" ry="3" />
-    <rect fill="#2395ec" x="33" y="24" width="9" height="9" rx="3" ry="3" />
-    <rect fill="#2395ec" x="46" y="24" width="9" height="9" rx="3" ry="3" />
-    <rect fill="#2395ec" x="9" y="36" width="9" height="9" rx="3" ry="3" />
-    <rect fill="#2395ec" x="21" y="36" width="9" height="9" rx="3" ry="3" />
-    <rect fill="#2395ec" x="33" y="36" width="9" height="9" rx="3" ry="3" />
-    <rect fill="#2395ec" x="46" y="36" width="9" height="9" rx="3" ry="3" />
-    <rect fill="#2395ec" x="59" y="36" width="9" height="9" rx="3" ry="3" />
-    <path fill="#2395ec" d="M0,50H71C75,48 75,48 76,47C71,41 75,32 78,30C83,31 85,36 86,40C91,39 97,40 100,43C97,50 91,53 84,52C62,106 -5,93 0,50" />
-</svg>
+<svg:rect fill="#2395ec" x="46" y="12" width="9" height="9" rx="3" ry="3" />
+<svg:rect fill="#2395ec" x="21" y="24" width="9" height="9" rx="3" ry="3" />
+<svg:rect fill="#2395ec" x="33" y="24" width="9" height="9" rx="3" ry="3" />
+<svg:rect fill="#2395ec" x="46" y="24" width="9" height="9" rx="3" ry="3" />
+<svg:rect fill="#2395ec" x="9" y="36" width="9" height="9" rx="3" ry="3" />
+<svg:rect fill="#2395ec" x="21" y="36" width="9" height="9" rx="3" ry="3" />
+<svg:rect fill="#2395ec" x="33" y="36" width="9" height="9" rx="3" ry="3" />
+<svg:rect fill="#2395ec" x="46" y="36" width="9" height="9" rx="3" ry="3" />
+<svg:rect fill="#2395ec" x="59" y="36" width="9" height="9" rx="3" ry="3" />
+<svg:path fill="#2395ec" d="M0,50H71C75,48 75,48 76,47C71,41 75,32 78,30C83,31 85,36 86,40C91,39 97,40 100,43C97,50 91,53 84,52C62,106 -5,93 0,50" />
