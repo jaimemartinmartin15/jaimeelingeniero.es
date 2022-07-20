@@ -7,15 +7,27 @@
 }
 
 .left-menu {
-    margin: 30px 20px 20px 20px;
     min-width: 250px;
+    margin-top: 50px;
+    max-height: calc(100vh - 115px);
+    position: sticky;
+    top: 50px;
+    overflow-y: scroll;
 
-    .links {
+    .subtitle {
+        font-size: 1.3em;
+
+        &:not(:first-of-type) {
+            margin-top: 50px;
+        }
+    }
+
+    .links-group {
         display: flex;
         flex-direction: column;
 
         a {
-            margin: 30px 0 0 0;
+            margin: 15px 0 0 5px;
             text-decoration: none;
             color: black;
             transition: 0.5s;
@@ -40,6 +52,7 @@
 
 .pages {
     flex-grow: 1;
+    margin: 0 20px;
 }
 
 @media (max-width: 1200px) {
@@ -48,24 +61,11 @@
     }
 
     .left-menu {
-        .collapsable-link {
+        .content-link {
             cursor: pointer;
             text-decoration: underline;
+            color: black;
+            padding: 50px 20px;
         }
-
-        .links {
-            margin-left: 10px;
-            max-height: 1155px; // updated by schematic (do not remove this comment)
-            transition: 0.6s;
-            overflow-y: hidden;
-
-            &--collapsed {
-                max-height: 0;
-            }
-        }
-    }
-
-    .pages {
-        padding: 0 20px;
     }
 }

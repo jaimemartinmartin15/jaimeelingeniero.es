@@ -1,0 +1,17 @@
+<nav class="left-menu">
+  <ng-container *ngIf="!isSmallerThanDesktop">
+    <ng-container *ngFor="let group of GROUPS_OF_LINKS">
+      <h3 class="subtitle">{{group.subtitle}}</h3>
+      <div class="links-group">
+        <a *ngFor="let lesson of group.links" [routerLink]="[lesson.url]"
+          routerLinkActive="menu-section-active">{{lesson.display}}</a>
+      </div>
+    </ng-container>
+  </ng-container>
+
+  <a routerLink="['/comprende-rxjs/']" class="content-link" *ngIf="isSmallerThanDesktop">Contenido</a>
+</nav>
+
+<div class="pages">
+  <router-outlet></router-outlet>
+</div>

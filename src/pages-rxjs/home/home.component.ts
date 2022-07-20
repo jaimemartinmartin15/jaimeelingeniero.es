@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Meta, Title } from '@angular/platform-browser';
-import { HOME_LINKS_OTHERS, HOME_LINKS_TO_START } from './home-links';
+import { LINKS_GROUPS_OPERATORS, LINKS_TO_START } from './menu-links';
 
 @Component({
   selector: 'app-rxjs-home',
@@ -11,8 +11,8 @@ import { HOME_LINKS_OTHERS, HOME_LINKS_TO_START } from './home-links';
 export class HomeComponent implements OnInit, OnDestroy {
   public showHomeLinksToStart = true;
 
-  public filtered_home_links = HOME_LINKS_OTHERS;
-  public HOME_LINKS_TO_START = HOME_LINKS_TO_START;
+  public LINKS_GROUPS_OPERATORS = LINKS_GROUPS_OPERATORS;
+  public LINKS_TO_START = LINKS_TO_START;
 
   public searchControl = new FormControl('');
 
@@ -25,9 +25,9 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.searchControl.valueChanges.subscribe((searchCriteria: string) => {
       searchCriteria = searchCriteria.toLocaleLowerCase();
 
-      this.showHomeLinksToStart = HOME_LINKS_TO_START.links.some((operator) => operator.display.toLocaleLowerCase().includes(searchCriteria));
+      this.showHomeLinksToStart = LINKS_TO_START.links.some((operator) => operator.display.toLocaleLowerCase().includes(searchCriteria));
 
-      this.filtered_home_links = HOME_LINKS_OTHERS.filter((group) =>
+      this.LINKS_GROUPS_OPERATORS = LINKS_GROUPS_OPERATORS.filter((group) =>
         group.links.some((operator) => operator.display.toLocaleLowerCase().includes(searchCriteria))
       ).map((group) => {
         const groupFiltered = {
