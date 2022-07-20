@@ -29,6 +29,12 @@ export function rxjsPage({ name }: Schema): Rule {
       },${rxjsRoutingModule.slice(indexToInsert)}`;
     tree.overwrite(RXJS_ROUTING_MODULE_PATH, rxjsRoutingModule);
 
+    // update the sitemap.txt
+    const PATH_SITEMAP = '/sitemap.txt';
+    let sitemapFile: string = tree.read(PATH_SITEMAP)!.toString();
+    sitemapFile += `\nhttps://www.jaimeelingeniero.es/comprende-rxjs/${name}`;
+    tree.overwrite(PATH_SITEMAP, sitemapFile);
+
     return mergeWith(sourceParametrizedTemplates);
   };
 }
