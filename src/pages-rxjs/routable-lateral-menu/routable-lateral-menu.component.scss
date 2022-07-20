@@ -61,6 +61,9 @@
     }
 
     .left-menu {
+        position: static;
+        overflow: hidden;
+
         .content-link {
             cursor: pointer;
             text-decoration: underline;
