@@ -8,7 +8,7 @@ const routes: Routes = [
   },
   {
     path: 'comprende-rxjs',
-    loadChildren: () => import('../pages-rxjs/routable-lateral-menu/routable-lateral-menu.module').then((m) => m.RoutableLateralMenuModule),
+    loadChildren: () => import('../pages-rxjs/pages-rxjs.module').then((m) => m.PagesRxjsModule),
   },
   {
     path: '',

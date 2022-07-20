@@ -5,11 +5,6 @@ import { RoutableLateralMenuComponent } from './routable-lateral-menu.component'
 const routes: Routes = [
   {
     path: '',
-    loadChildren: () => import('../home/home.module').then((m) => m.HomeModule),
-    pathMatch: 'full',
-  },
-  {
-    path: '',
     component: RoutableLateralMenuComponent,
     children: [
       {
@@ -97,11 +92,6 @@ const routes: Routes = [
         loadChildren: () => import('../start-with/start-with.module').then((m) => m.StartWithModule),
       },
     ],
-  },
-  {
-    path: '**',
-    redirectTo: '',
-    pathMatch: 'full',
   },
 ];
 
