@@ -1,13 +1,13 @@
 import { Inject, NgModule } from '@angular/core';
 import { CommonModule, DOCUMENT } from '@angular/common';
-import { PagesRxjsComponent } from './pages-rxjs.component';
-import { PagesRxjsRoutingModule } from './pages-rxjs-routing.module';
+import { RoutableLateralMenuComponent } from './routable-lateral-menu.component';
+import { RoutableLateralMenuRoutingModule } from './routable-lateral-menu-routing.module';
 
 @NgModule({
-  imports: [CommonModule, PagesRxjsRoutingModule],
-  declarations: [PagesRxjsComponent],
+  imports: [CommonModule, RoutableLateralMenuRoutingModule],
+  declarations: [RoutableLateralMenuComponent],
 })
-export class PagesRxjsModule {
+export class RoutableLateralMenuModule {
   public constructor(@Inject(DOCUMENT) private document: Document) {
     const head = this.document.getElementsByTagName('head')[0];
 

@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { HomeLink, LINKS_GROUPS_OPERATORS, LINKS_TO_START } from './home/menu-links';
+import { HomeLink, LINKS_GROUPS_OPERATORS, LINKS_TO_START } from '../home/menu-links';
 
 @Component({
-  selector: 'app-pages-rxjs',
-  templateUrl: './pages-rxjs.component.html',
-  styleUrls: ['./pages-rxjs.component.scss'],
+  selector: 'app-routable-lateral-menu',
+  templateUrl: './routable-lateral-menu.component.html',
+  styleUrls: ['./routable-lateral-menu.component.scss'],
 })
-export class PagesRxjsComponent implements OnInit {
+export class RoutableLateralMenuComponent implements OnInit {
   public GROUPS_OF_LINKS: HomeLink[];
 
   public isSmallerThanDesktop: boolean = window.matchMedia('(max-width: 1200px)').matches;
