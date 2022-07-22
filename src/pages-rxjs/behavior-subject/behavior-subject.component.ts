@@ -108,6 +108,7 @@ export class BehaviorSubjectComponent implements OnInit, AfterViewInit {
   public resetDemo() {
     this.behaviorSubjectDemo$ = new BehaviorSubject('🥝');
     this.conveyorWorking$.next(true);
+    this.elementsInConveyor.length = 0;
     Object.values(this.demoSubscriptions).forEach((subscription) => (subscription as Subscription).unsubscribe());
     Object.values(this.controllerButtons).forEach((button) => (button.enabled = true));
     Object.values(this.speechBubble$).forEach((speechBubble) =>
