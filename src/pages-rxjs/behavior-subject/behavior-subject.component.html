@@ -60,6 +60,11 @@ myFirstBehaviorSubject.complete();
 </p>
 
 <svg appDemoContainer viewBox="0 0 800 610">
+  <g (click)="resetDemo()" class="reset-button">
+    <rect x="720" y="15" rx="5" ry="5" width="65" height="45"></rect>
+    <text x="752" y="39" class="reset-text">reset</text>
+  </g>
+
   <g transform="translate(300, 40)" appConveyorController [button1]="controllerButtons[0]"
     [button2]="controllerButtons[1]" [button3]="controllerButtons[2]" [button4]="controllerButtons[3]"
     [button5]="controllerButtons[4]" (onButtonClick)="onControllerButtonClick($event)">

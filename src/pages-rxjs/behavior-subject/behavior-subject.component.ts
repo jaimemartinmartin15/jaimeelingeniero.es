@@ -1,6 +1,6 @@
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { Meta, Title } from '@angular/platform-browser';
-import { BehaviorSubject, interval, Subject } from 'rxjs';
+import { BehaviorSubject, interval, Subject, Subscription } from 'rxjs';
 import { ButtonController } from '../shared/components/conveyor-controller/button-controller';
 import { DemoContainerComponent } from '../shared/components/demo-container/demo-container.component';
 import { ElementInConveyor } from '../shared/element-in-conveyor';
@@ -58,13 +58,13 @@ export class BehaviorSubjectComponent implements OnInit, AfterViewInit {
             this.behaviorSubjectDemo$.next(e.value);
           } else {
             if (e.type === ObservableEventType.ERROR) {
-              this.conveyorWorking$.next(false);
+              this.behaviorSubjectDemo$.error(e.value);
             } else if (e.type === ObservableEventType.COMPLETE) {
-              this.conveyorWorking$.next(false);
+              this.behaviorSubjectDemo$.complete();
             }
+            this.conveyorWorking$.next(false);
             Object.values(this.controllerButtons).forEach((button) => (button.enabled = false));
             this.elementsInConveyor.length = 0;
-            this.behaviorSubjectDemo$.complete();
           }
         }
       });
@@ -103,6 +103,19 @@ export class BehaviorSubjectComponent implements OnInit, AfterViewInit {
       y: 170,
       conveyorId: button.controllerId,
     });
+  }
+
+  public resetDemo() {
+    this.behaviorSubjectDemo$ = new BehaviorSubject('🥝');
+    this.conveyorWorking$.next(true);
+    Object.values(this.demoSubscriptions).forEach((subscription) => (subscription as Subscription).unsubscribe());
+    Object.values(this.controllerButtons).forEach((button) => (button.enabled = true));
+    Object.values(this.speechBubble$).forEach((speechBubble) =>
+      speechBubble.next({
+        message: '',
+        type: ObservableEventType.NONE,
+      })
+    );
   }
 
   public ngOnDestroy(): void {
