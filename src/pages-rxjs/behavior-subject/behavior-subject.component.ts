@@ -30,14 +30,10 @@ export class BehaviorSubjectComponent implements OnInit, AfterViewInit {
 
   public conveyorWorking$ = new BehaviorSubject<boolean>(true);
 
-  public elementInStandBy = '🥝';
-  public elementsInConveyor: ElementInConveyor[] = [];
+  public behaviorSubjectDemo$ = new BehaviorSubject<string>('🥝');
+  public demoSubscriptions: any = {};
 
-  public subscriptionsStatus = {
-    [this.S1]: false,
-    [this.S2]: false,
-    [this.S3]: false,
-  };
+  public elementsInConveyor: ElementInConveyor[] = [];
 
   public speechBubble$ = {
     [this.S1]: new Subject<SpeechBubble>(),
@@ -48,8 +44,8 @@ export class BehaviorSubjectComponent implements OnInit, AfterViewInit {
   public constructor(private readonly titleService: Title, private readonly metaService: Meta) {}
 
   public ngOnInit() {
-    this.titleService.setTitle('Subject rxjs');
-    this.metaService.updateTag({ name: 'description', content: 'Explicación de un Subject' });
+    this.titleService.setTitle('BehaviorSubject rxjs');
+    this.metaService.updateTag({ name: 'description', content: 'Explicación de un BehaviorSubject' });
   }
 
   public ngAfterViewInit(): void {
@@ -57,24 +53,18 @@ export class BehaviorSubjectComponent implements OnInit, AfterViewInit {
       this.elementsInConveyor.forEach((e) => {
         e.y += this.demo.speed;
         if (e.y >= 440) {
-          if (e.type === ObservableEventType.NEXT) {
-            this.elementInStandBy = e.value;
-          }
           this.elementsInConveyor.splice(this.elementsInConveyor.indexOf(e), 1);
-          Object.values(this.speechBubble$).forEach((speechBubble, index) => {
-            // S1, S2 or S3
-            if (this.subscriptionsStatus[`${index}`]) {
-              speechBubble.next({
-                type: e.type,
-                message: e.value,
-              });
+          if (e.type === ObservableEventType.NEXT) {
+            this.behaviorSubjectDemo$.next(e.value);
+          } else {
+            if (e.type === ObservableEventType.ERROR) {
+              this.conveyorWorking$.next(false);
+            } else if (e.type === ObservableEventType.COMPLETE) {
+              this.conveyorWorking$.next(false);
             }
-          });
-          if (e.type === ObservableEventType.ERROR || e.type === ObservableEventType.COMPLETE) {
-            this.controllerButtons.forEach((button) => (button.enabled = false));
-            this.conveyorWorking$.next(false);
+            Object.values(this.controllerButtons).forEach((button) => (button.enabled = false));
             this.elementsInConveyor.length = 0;
-            Object.keys(this.subscriptionsStatus).forEach((key) => (this.subscriptionsStatus[key] = false));
+            this.behaviorSubjectDemo$.complete();
           }
         }
       });
@@ -82,18 +72,26 @@ export class BehaviorSubjectComponent implements OnInit, AfterViewInit {
   }
 
   public onSubscribe(subscriberId: string, isSubscribed: boolean) {
-    if (!this.conveyorWorking$.getValue()) {
-      this.elementInStandBy = '🥝';
-    }
-    this.subscriptionsStatus[subscriberId] = isSubscribed;
-    this.conveyorWorking$.next(true);
-    this.controllerButtons.forEach((button) => (button.enabled = true));
-
     if (isSubscribed) {
-      this.speechBubble$[subscriberId].next({
-        message: this.elementInStandBy,
-        type: ObservableEventType.NEXT,
+      this.demoSubscriptions[subscriberId] = this.behaviorSubjectDemo$.subscribe({
+        next: (value) =>
+          this.speechBubble$[subscriberId].next({
+            message: value,
+            type: ObservableEventType.NEXT,
+          }),
+        error: (value) =>
+          this.speechBubble$[subscriberId].next({
+            message: value,
+            type: ObservableEventType.ERROR,
+          }),
+        complete: () =>
+          this.speechBubble$[subscriberId].next({
+            message: this.controllerButtons[1].value,
+            type: ObservableEventType.COMPLETE,
+          }),
       });
+    } else {
+      this.demoSubscriptions[subscriberId].unsubscribe();
     }
   }
 
