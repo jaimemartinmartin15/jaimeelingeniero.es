@@ -15,3 +15,18 @@
 .complete {
     color: #b2a366;
 }
+
+.reset-button {
+    stroke: #fbf2e2;
+    stroke-width: 2;
+    fill: #d17515;
+    cursor: pointer;
+
+    .reset-text {
+        text-anchor: middle;
+        dominant-baseline: middle;
+        stroke: none;
+        fill: #fbf2e2;
+        font-size: 1.1em;
+    }
+}

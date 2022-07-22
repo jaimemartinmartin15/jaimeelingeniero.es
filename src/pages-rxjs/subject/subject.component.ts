@@ -1,6 +1,6 @@
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { Meta, Title } from '@angular/platform-browser';
-import { BehaviorSubject, interval, Subject } from 'rxjs';
+import { BehaviorSubject, interval, Subject, Subscription } from 'rxjs';
 import { ButtonController } from '../shared/components/conveyor-controller/button-controller';
 import { DemoContainerComponent } from '../shared/components/demo-container/demo-container.component';
 import { ElementInConveyor } from '../shared/element-in-conveyor';
@@ -30,13 +30,10 @@ export class SubjectComponent implements OnInit, AfterViewInit {
 
   public conveyorWorking$ = new BehaviorSubject<boolean>(true);
 
-  public elementsInConveyor: ElementInConveyor[] = [];
+  public subjectDemo$ = new Subject<string>();
+  public demoSubscriptions: any = {};
 
-  public subscriptionsStatus = {
-    [this.S1]: false,
-    [this.S2]: false,
-    [this.S3]: false,
-  };
+  public elementsInConveyor: ElementInConveyor[] = [];
 
   public speechBubble$ = {
     [this.S1]: new Subject<SpeechBubble>(),
@@ -55,22 +52,19 @@ export class SubjectComponent implements OnInit, AfterViewInit {
     interval(this.demo.fps).subscribe(() => {
       this.elementsInConveyor.forEach((e) => {
         e.y += this.demo.speed;
-        if (e.y >= 430) {
+        if (e.y >= 355) {
           this.elementsInConveyor.splice(this.elementsInConveyor.indexOf(e), 1);
-          Object.values(this.speechBubble$).forEach((speechBubble, index) => {
-            // S1, S2 or S3
-            if (this.subscriptionsStatus[`${index}`]) {
-              speechBubble.next({
-                type: e.type,
-                message: e.value,
-              });
+          if (e.type === ObservableEventType.NEXT) {
+            this.subjectDemo$.next(e.value);
+          } else {
+            if (e.type === ObservableEventType.ERROR) {
+              this.subjectDemo$.error(e.value);
+            } else if (e.type === ObservableEventType.COMPLETE) {
+              this.subjectDemo$.complete();
             }
-          });
-          if (e.type === ObservableEventType.ERROR || e.type === ObservableEventType.COMPLETE) {
-            this.controllerButtons.forEach((button) => (button.enabled = false));
             this.conveyorWorking$.next(false);
+            Object.values(this.controllerButtons).forEach((button) => (button.enabled = false));
             this.elementsInConveyor.length = 0;
-            Object.keys(this.subscriptionsStatus).forEach((key) => (this.subscriptionsStatus[key] = false));
           }
         }
       });
@@ -78,9 +72,27 @@ export class SubjectComponent implements OnInit, AfterViewInit {
   }
 
   public onSubscribe(subscriberId: string, isSubscribed: boolean) {
-    this.subscriptionsStatus[subscriberId] = isSubscribed;
-    this.conveyorWorking$.next(true);
-    this.controllerButtons.forEach((button) => (button.enabled = true));
+    if (isSubscribed) {
+      this.demoSubscriptions[subscriberId] = this.subjectDemo$.subscribe({
+        next: (value) =>
+          this.speechBubble$[subscriberId].next({
+            message: value,
+            type: ObservableEventType.NEXT,
+          }),
+        error: (value) =>
+          this.speechBubble$[subscriberId].next({
+            message: value,
+            type: ObservableEventType.ERROR,
+          }),
+        complete: () =>
+          this.speechBubble$[subscriberId].next({
+            message: this.controllerButtons[1].value,
+            type: ObservableEventType.COMPLETE,
+          }),
+      });
+    } else {
+      this.demoSubscriptions[subscriberId].unsubscribe();
+    }
   }
 
   public onControllerButtonClick(button: ButtonController) {
@@ -91,6 +103,20 @@ export class SubjectComponent implements OnInit, AfterViewInit {
       y: 170,
       conveyorId: button.controllerId,
     });
+  }
+
+  public resetDemo() {
+    this.subjectDemo$ = new Subject();
+    this.conveyorWorking$.next(true);
+    this.elementsInConveyor.length = 0;
+    Object.values(this.demoSubscriptions).forEach((subscription) => (subscription as Subscription).unsubscribe());
+    Object.values(this.controllerButtons).forEach((button) => (button.enabled = true));
+    Object.values(this.speechBubble$).forEach((speechBubble) =>
+      speechBubble.next({
+        message: '',
+        type: ObservableEventType.NONE,
+      })
+    );
   }
 
   public ngOnDestroy(): void {
