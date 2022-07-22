@@ -48,7 +48,7 @@ export class SubjectComponent implements OnInit, AfterViewInit {
 
   public ngOnInit() {
     this.titleService.setTitle('Subject rxjs');
-    this.metaService.updateTag({ name: 'description', content: 'Explicación un Subject' });
+    this.metaService.updateTag({ name: 'description', content: 'Explicación de un Subject' });
   }
 
   public ngAfterViewInit(): void {

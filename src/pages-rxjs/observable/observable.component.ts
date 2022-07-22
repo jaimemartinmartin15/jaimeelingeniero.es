@@ -36,7 +36,7 @@ export class ObservableComponent implements OnInit, AfterViewInit, OnDestroy {
 
   public ngOnInit() {
     this.titleService.setTitle('Observable rxjs');
-    this.metaService.updateTag({ name: 'description', content: 'Explicación un Observable' });
+    this.metaService.updateTag({ name: 'description', content: 'Explicación de un Observable' });
   }
 
   public ngAfterViewInit(): void {
