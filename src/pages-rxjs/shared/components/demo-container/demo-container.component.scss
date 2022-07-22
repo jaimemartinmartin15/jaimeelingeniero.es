@@ -1,22 +1,9 @@
+@import "../../styles/rxjs-shared-styles";
+
 :host {
     display: block;
     border-radius: 5px;
     background-color: #fbfbff;
     box-shadow: 0 0 5px #d17515;
     user-select: none;
-}
-
-.speed-control {
-    stroke: #fbf2e2;
-    stroke-width: 2;
-    fill: #d17515;
-    cursor: pointer;
-
-    .speed-number {
-        text-anchor: middle;
-        dominant-baseline: middle;
-        stroke: none;
-        fill: #fbf2e2;
-        font-size: 1.1em;
-    }
 }
