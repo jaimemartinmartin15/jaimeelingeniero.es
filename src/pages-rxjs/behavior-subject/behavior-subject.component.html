@@ -1,4 +1,60 @@
 <div class="page-header">
-    <h1 class="title">BehaviorSubject</h1>
-    <a class="link-rxjs" href="https://rxjs.dev/api/index/class/BehaviorSubject" target="_blank" rel="noopener">rxjs behaviorSubject ➡️</a>
+  <h1 class="title">BehaviorSubject</h1>
+  <a class="link-rxjs" href="https://rxjs.dev/api/index/class/BehaviorSubject" target="_blank" rel="noopener">rxjs
+    behaviorSubject ➡️</a>
 </div>
+
+<p>
+  Un BehaviorSubject es igual que un Subject, pero guarda el último elemento emitido y lo emite a los nuevos
+  suscriptores cuando se suscriben. En su constructor recibe el elemento inicial que se emitirá hasta que se emita
+  otro elemento a los nuevos suscriptores.
+</p>
+
+<textarea highlight-js [lang]="'typescript'">
+import { BehaviorSubject } from 'rxjs';
+
+const myFirstBehaviorSubject = new BehaviorSubject<string>('🍌');
+
+myFirstBehaviorSubject.subscribe({
+  next: (value) => console.log(`[1] The next value is: ${value}`),
+  error: (error) => console.log(`[1] Error: ${error}`),
+  complete: () => console.log('[1] The observable has completed'),
+});
+
+myFirstBehaviorSubject.next('🍎');
+
+myFirstBehaviorSubject.subscribe({
+  next: (value) => console.log(`[2] The next value is: ${value}`),
+  error: (error) => console.log(`[2] Error: ${error}`),
+  complete: () => console.log('[2] The observable has completed'),
+});
+
+myFirstBehaviorSubject.next('🥝');
+myFirstBehaviorSubject.complete();
+
+// Output
+// ======
+[1] The next value is: 🍌
+[1] The next value is: 🍎
+[2] The next value is: 🍎
+[1] The next value is: 🥝
+[2] The next value is: 🥝
+[1] The observable has completed
+[2] The observable has completed
+</textarea>
+
+<p>
+  Para entenderlo mejor, vamos a explicar el ejemplo.
+</p>
+
+<p>
+  Primero creamos un BehaviorSubject al que le pasamos en su constructor un 🍌. Después llega el primer suscriptor.
+  Nada más suscribirse al BehaviorSubject, éste le emite el 🍌 que le pasamos en el constructor. A continuación el
+  BehaviorSubject emite una 🍎 y ésta se entrega al primer suscriptor. Llega entonces el segundo suscriptor. Nada más
+  suscribirse, el BehaviorSubject le emite el último valor emitido, que fue la 🍎. Luego ya después se emite el 🥝,
+  que se entrega a los dos suscriptores (por orden de suscripción) y por último completa el BehaviorSubject.
+</p>
+
+<p>
+  Pruéba el funcionamiento tú mismo en esta demo:
+</p>
