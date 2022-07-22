@@ -59,29 +59,29 @@ myFirstBehaviorSubject.complete();
   Pruéba el funcionamiento tú mismo en esta demo:
 </p>
 
-<svg appDemoContainer viewBox="0 0 800 680">
+<svg appDemoContainer viewBox="0 0 800 610">
   <g transform="translate(300, 40)" appConveyorController [button1]="controllerButtons[0]"
     [button2]="controllerButtons[1]" [button3]="controllerButtons[2]" [button4]="controllerButtons[3]"
     [button5]="controllerButtons[4]" (onButtonClick)="onControllerButtonClick($event)">
   </g>
 
-  <g transform="translate(350, 170)" appConveyorVertical [conveyorWorking$]="conveyorWorking$" [length]="250.8">
+  <g transform="translate(350, 170)" appConveyorVertical [conveyorWorking$]="conveyorWorking$" [length]="180.8">
   </g>
 
-  <g transform="translate(140, 450)" appSubscriber [showSpeechBubble$]="speechBubble$[S1]"
+  <g transform="translate(140, 380)" appSubscriber [showSpeechBubble$]="speechBubble$[S1]"
     (onSubscribe$)="onSubscribe(S1, $event)">
   </g>
 
-  <g transform="translate(340, 450)" appSubscriber [showSpeechBubble$]="speechBubble$[S2]"
+  <g transform="translate(340, 380)" appSubscriber [showSpeechBubble$]="speechBubble$[S2]"
     (onSubscribe$)="onSubscribe(S2, $event)">
   </g>
 
-  <g transform="translate(540, 450)" appSubscriber [showSpeechBubble$]="speechBubble$[S3]"
+  <g transform="translate(540, 380)" appSubscriber [showSpeechBubble$]="speechBubble$[S3]"
     (onSubscribe$)="onSubscribe(S3, $event)">
   </g>
 
   <g>
-    <text x="370" y="440">
+    <text x="370" y="370">
       {{!behaviorSubjectDemo$.hasError ? behaviorSubjectDemo$.getValue() : controllerButtons[0].value}}
     </text>
     <text *ngFor="let element of elementsInConveyor" [attr.x]="element.x" [attr.y]="element.y">{{element.value}}</text>

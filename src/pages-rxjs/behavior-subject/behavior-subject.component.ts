@@ -52,7 +52,7 @@ export class BehaviorSubjectComponent implements OnInit, AfterViewInit {
     interval(this.demo.fps).subscribe(() => {
       this.elementsInConveyor.forEach((e) => {
         e.y += this.demo.speed;
-        if (e.y >= 440) {
+        if (e.y >= 370) {
           this.elementsInConveyor.splice(this.elementsInConveyor.indexOf(e), 1);
           if (e.type === ObservableEventType.NEXT) {
             this.behaviorSubjectDemo$.next(e.value);
