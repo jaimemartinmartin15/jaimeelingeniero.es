@@ -2,6 +2,7 @@ https://www.jaimeelingeniero.es
 https://www.jaimeelingeniero.es/mi-trayectoria
 https://www.jaimeelingeniero.es/comprende-rxjs
 https://www.jaimeelingeniero.es/comprende-rxjs/auditTime
+https://www.jaimeelingeniero.es/comprende-rxjs/behaviorSubject
 https://www.jaimeelingeniero.es/comprende-rxjs/combineLatestWith
 https://www.jaimeelingeniero.es/comprende-rxjs/concatMap
 https://www.jaimeelingeniero.es/comprende-rxjs/debounceTime
