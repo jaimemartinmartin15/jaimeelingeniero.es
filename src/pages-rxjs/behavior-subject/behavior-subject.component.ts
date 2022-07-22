@@ -8,11 +8,11 @@ import { ObservableEventType } from '../shared/observable-event-type';
 import { SpeechBubble } from '../shared/speech-bubble';
 
 @Component({
-  selector: 'app-subject',
-  templateUrl: './subject.component.html',
-  styleUrls: ['./subject.component.scss'],
+  selector: 'app-behavior-subject',
+  templateUrl: './behavior-subject.component.html',
+  styleUrls: ['./behavior-subject.component.scss'],
 })
-export class SubjectComponent implements OnInit, AfterViewInit {
+export class BehaviorSubjectComponent implements OnInit, AfterViewInit {
   public S1 = '0';
   public S2 = '1';
   public S3 = '2';
@@ -30,7 +30,7 @@ export class SubjectComponent implements OnInit, AfterViewInit {
 
   public conveyorWorking$ = new BehaviorSubject<boolean>(true);
 
-  public subjectDemo$ = new Subject<string>();
+  public behaviorSubjectDemo$ = new BehaviorSubject<string>('🥝');
   public demoSubscriptions: any = {};
 
   public elementsInConveyor: ElementInConveyor[] = [];
@@ -44,23 +44,23 @@ export class SubjectComponent implements OnInit, AfterViewInit {
   public constructor(private readonly titleService: Title, private readonly metaService: Meta) {}
 
   public ngOnInit() {
-    this.titleService.setTitle('Subject rxjs');
-    this.metaService.updateTag({ name: 'description', content: 'Explicación de un Subject' });
+    this.titleService.setTitle('BehaviorSubject rxjs');
+    this.metaService.updateTag({ name: 'description', content: 'Explicación de un BehaviorSubject' });
   }
 
   public ngAfterViewInit(): void {
     interval(this.demo.fps).subscribe(() => {
       this.elementsInConveyor.forEach((e) => {
         e.y += this.demo.speed;
-        if (e.y >= 355) {
+        if (e.y >= 370) {
           this.elementsInConveyor.splice(this.elementsInConveyor.indexOf(e), 1);
           if (e.type === ObservableEventType.NEXT) {
-            this.subjectDemo$.next(e.value);
+            this.behaviorSubjectDemo$.next(e.value);
           } else {
             if (e.type === ObservableEventType.ERROR) {
-              this.subjectDemo$.error(e.value);
+              this.behaviorSubjectDemo$.error(e.value);
             } else if (e.type === ObservableEventType.COMPLETE) {
-              this.subjectDemo$.complete();
+              this.behaviorSubjectDemo$.complete();
             }
             this.conveyorWorking$.next(false);
             Object.values(this.controllerButtons).forEach((button) => (button.enabled = false));
@@ -73,7 +73,7 @@ export class SubjectComponent implements OnInit, AfterViewInit {
 
   public onSubscribe(subscriberId: string, isSubscribed: boolean) {
     if (isSubscribed) {
-      this.demoSubscriptions[subscriberId] = this.subjectDemo$.subscribe({
+      this.demoSubscriptions[subscriberId] = this.behaviorSubjectDemo$.subscribe({
         next: (value) =>
           this.speechBubble$[subscriberId].next({
             message: value,
@@ -106,7 +106,7 @@ export class SubjectComponent implements OnInit, AfterViewInit {
   }
 
   public resetDemo() {
-    this.subjectDemo$ = new Subject();
+    this.behaviorSubjectDemo$ = new BehaviorSubject('🥝');
     this.conveyorWorking$.next(true);
     this.elementsInConveyor.length = 0;
     Object.values(this.demoSubscriptions).forEach((subscription) => (subscription as Subscription).unsubscribe());
