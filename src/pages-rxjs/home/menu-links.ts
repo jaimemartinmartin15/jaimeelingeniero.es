@@ -11,6 +11,7 @@ export const LINKS_TO_START: HomeLink = {
   links: [
     { display: 'Observable', url: '/comprende-rxjs/observable' },
     { display: 'Subject', url: '/comprende-rxjs/subject' },
+    { display: 'BehaviorSubject', url: '/comprende-rxjs/behaviorSubject' },
   ],
 };
 
