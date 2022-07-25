@@ -8,6 +8,10 @@ const routes: Routes = [
     component: RoutableLateralMenuComponent,
     children: [
       {
+        path: 'of',
+        loadChildren: () => import('../of/of.module').then((m) => m.OfModule),
+      },
+      {
         path: 'behaviorSubject',
         loadChildren: () => import('../behavior-subject/behavior-subject.module').then((m) => m.BehaviorSubjectModule),
       },

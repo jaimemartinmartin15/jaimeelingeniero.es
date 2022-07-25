@@ -55,4 +55,10 @@ export const LINKS_GROUPS_OPERATORS: HomeLink[] = [
       { display: 'distinct', url: '/comprende-rxjs/distinct' },
     ],
   },
+  {
+    subtitle: 'Creación',
+    links: [
+      { display: 'of', url: '/comprende-rxjs/of' },
+    ],
+  },
 ];

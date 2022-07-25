@@ -15,6 +15,7 @@ https://www.jaimeelingeniero.es/comprende-rxjs/first
 https://www.jaimeelingeniero.es/comprende-rxjs/forkJoin
 https://www.jaimeelingeniero.es/comprende-rxjs/mergeMap
 https://www.jaimeelingeniero.es/comprende-rxjs/observable
+https://www.jaimeelingeniero.es/comprende-rxjs/of
 https://www.jaimeelingeniero.es/comprende-rxjs/sampleTime
 https://www.jaimeelingeniero.es/comprende-rxjs/skip
 https://www.jaimeelingeniero.es/comprende-rxjs/startWith
