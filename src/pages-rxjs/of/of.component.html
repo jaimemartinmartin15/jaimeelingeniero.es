@@ -2,3 +2,32 @@
     <h1 class="title">Of</h1>
     <a class="link-rxjs" href="https://rxjs.dev/api/index/function/of" target="_blank" rel="noopener">rxjs of ➡️</a>
 </div>
+
+<p>
+    Esta función nos devuelve un Observable que emite los elementos que le pasamos como argumento. Cuando los ha emitido
+    todos, completa.
+</p>
+
+<textarea highlight-js [lang]="'typescript'">
+import { of } from 'rxjs';
+
+const myOfObservable = of('🍎', ['🍌', '🍋'], '🥦');
+
+myOfObservable.subscribe({
+  next: (value) => console.log(`The next value is: ${value}`),
+  error: (error) => console.log(`Error: ${error}`),
+  complete: () => console.log('The observable has completed'),
+});
+
+// Output
+// ======
+// The next value is: 🍎
+// The next value is: ['🍌', '🍋']
+// The next value is: 🥦
+// The observable has completed
+</textarea>
+
+<p>
+    En este ejemplo se emiten tres elementos. Primero una 🍎, luego un array ['🍌', '🍋'] y finalmente un 🥦. Cuando se
+    han emitido todos los elementos vemos que se completa el Observable.
+</p>
