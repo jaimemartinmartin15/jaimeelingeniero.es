@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Meta, Title } from '@angular/platform-browser';
-import { BehaviorSubject, Subject, of } from 'rxjs';
+import { BehaviorSubject, of, switchMap } from 'rxjs';
 import { ElementInConveyor } from '../shared/element-in-conveyor';
 import { ObservableEventType } from '../shared/observable-event-type';
 import { ButtonController } from '../shared/components/conveyor-controller/button-controller';
@@ -12,7 +12,9 @@ import { BaseOperatorComponent } from '../shared/base-operator.component';
   styleUrls: ['./of.component.scss'],
 })
 export class OfComponent extends BaseOperatorComponent {
-  protected operator = of();
+  private numberOfEmissions = 0;
+  private subscriptions: ReturnType<typeof setTimeout>[] = [];
+  protected operator = switchMap(() => of('🥥', '🌽', '🌶️'));
 
   public readonly controllerButtons: { [key: string]: ButtonController[] } = {
     [this.MAIN_ID]: [
@@ -21,7 +23,7 @@ export class OfComponent extends BaseOperatorComponent {
       { value: '🍎', type: ObservableEventType.NEXT, controllerId: this.MAIN_ID, enabled: false },
       { value: '🍌', type: ObservableEventType.NEXT, controllerId: this.MAIN_ID, enabled: false },
       { value: '🥝', type: ObservableEventType.NEXT, controllerId: this.MAIN_ID, enabled: false },
-    ]
+    ],
   };
 
   public readonly conveyorsWorking: { [key: string]: BehaviorSubject<boolean> } = {
@@ -33,52 +35,57 @@ export class OfComponent extends BaseOperatorComponent {
   }
 
   protected moveElement(e: ElementInConveyor): void {
-    // TODO
+    e.x += this.demo.speed;
   }
 
   protected isElementDeliveredToOperator(e: ElementInConveyor): boolean {
-    // TODO
     return false;
   }
 
   protected isElementDeliveredToSubscriber(e: ElementInConveyor): boolean {
-    // TODO
-    return false;
+    return e.x >= 310;
   }
 
-  protected addElementToBeginningOfConveyor(conveyorId: string, type: ObservableEventType, value: string) {
-    // TODO
-  }
-
-  public override elementReachesOperatorNextHook(e: ElementInConveyor) {
-    // TODO
-  }
-
-  public override elementReachesOperatorErrorHook(e: ElementInConveyor) {
-    // TODO
-  }
-
-  public override elementReachesOperatorCompleteHook(e: ElementInConveyor) {
-    // TODO
-  }
-
-  public override onOperatorConveyorDeliverElement(e: ElementInConveyor) {
-    // TODO
-  }
+  protected addElementToBeginningOfConveyor() {}
 
   public override onSubscribeHook() {
-    // TODO
+    this.numberOfEmissions = 0;
+    this.subscriptions.forEach((s) => clearTimeout(s));
+    this.subscriptions.length = 0;
+    this.operator = switchMap(() => of('🥥', '🌽', '🌶️'));
+
+    // makes subscription to of after Subject is created
+    setTimeout(() => this.elementReachesOperator$.next(''));
   }
 
   protected onOperatorDeliverNextEvent(value: string): void {
-   // TODO
+    let timeout = setTimeout(() => {
+      this.elementsInConveyor.push({
+        conveyorId: this.MAIN_ID,
+        type: ObservableEventType.NEXT,
+        value,
+        x: 80,
+      } as ElementInConveyor);
+    }, (1000 / this.demo.speed) * this.numberOfEmissions * 1);
+    this.subscriptions.push(timeout);
+
+    this.numberOfEmissions++;
+    if (this.numberOfEmissions === 3) {
+      timeout = setTimeout(() => {
+        this.elementReachesOperator$.complete();
+      }, (1000 / this.demo.speed) * this.numberOfEmissions);
+      this.subscriptions.push(timeout);
+    }
   }
 
-  protected onOperatorDeliverErrorEvent(value: string): void {
-    // TODO
-  }
+  protected onOperatorDeliverErrorEvent(): void {}
 
   protected onOperatorDeliverCompleteEvent(): void {
-    // TODO
+    this.elementsInConveyor.push({
+      conveyorId: this.MAIN_ID,
+      type: ObservableEventType.COMPLETE,
+      value: this.controllerButtons[this.MAIN_ID][1].value,
+      x: 80,
+    } as ElementInConveyor);
   }
 }
