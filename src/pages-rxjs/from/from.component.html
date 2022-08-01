@@ -1,0 +1,106 @@
+<div class="page-header">
+  <h1 class="title">From</h1>
+  <a class="link-rxjs" href="https://rxjs.dev/api/index/function/from" target="_blank" rel="noopener">rxjs from ➡️</a>
+</div>
+
+<p>
+  Esta función devuelve un Observable que emite los elementos de un array, o los caracteres de un string, o el
+  resultado de una promesa. Vamos a ver unos ejemplos.
+</p>
+
+<textarea highlight-js [lang]="'typescript'">
+import { from } from 'rxjs';
+
+const myFromObservable = from(['🍎', ['🍌', '🍋'], '🥦']);
+
+myFromObservable.subscribe({
+  next: (value) => console.log(`The next value is: ${value}`),
+  error: (error) => console.log(`Error: ${error}`),
+  complete: () => console.log('The observable has completed'),
+});
+
+// Output
+// ======
+// The next value is: 🍎
+// The next value is: ['🍌', '🍋']
+// The next value is: 🥦
+// The observable has completed
+</textarea>
+
+<p>
+  En este primer ejemplo pasamos un array de elementos. La función from nos emitirá cada uno de los elementos en el
+  array. El primer elemento es una 🍎. El segundo es un array completo <span class="no-break">['🍌', '🍋']</span>.
+  El tercer elemento es un 🥦. Por último el Observable completa.
+</p>
+
+<p>Veamos un segundo ejemplo:</p>
+
+<textarea highlight-js [lang]="'typescript'">
+import { from } from 'rxjs';
+
+const myFromObservable = from('abcd');
+
+myFromObservable.subscribe({
+  next: (value) => console.log(`The next value is: ${value}`),
+  error: (error) => console.log(`Error: ${error}`),
+  complete: () => console.log('The observable has completed'),
+});
+
+// Output
+// ======
+// The next value is: a
+// The next value is: b
+// The next value is: c
+// The next value is: d
+// The observable has completed
+</textarea>
+
+<p>
+  En este ejemplo tenemos el string 'abcd'. La función from nos devuelve un Observable que nos emite cada carácter en un
+  event <span class="next">next</span>, y luego finalmente completa.
+  <br>
+  <strong>Nota:</strong> los emojis ocupan dos caracteres y emite dos eventos por cada uno.
+</p>
+
+<p>
+  Un tercer ejemplo que también puede ser útil es convertir una promesa a Observable. Lo podemos hacer de la siguiente
+  manera:
+</p>
+
+<textarea highlight-js [lang]="'typescript'">
+import { from } from 'rxjs';
+
+const myPromiseObservable1 = from(new Promise((resolve) => resolve('🍎')));
+
+myPromiseObservable1.subscribe({
+  next: (value) => console.log(`The next value is: ${value}`),
+  error: (error) => console.log(`Error: ${error}`),
+  complete: () => console.log('The observable has completed'),
+});
+
+// Output
+// ======
+// The next value is: 🍎
+// The observable has completed
+
+const myPromiseObservable2 = from(new Promise((_, reject) => reject('⚽')));
+
+myPromiseObservable2.subscribe({
+  next: (value) => console.log(`The next value is: ${value}`),
+  error: (error) => console.log(`Error: ${error}`),
+  complete: () => console.log('The observable has completed'),
+});
+
+// Output
+// ======
+// Error: ⚽
+</textarea>
+
+<p>
+  La primera promesa resuelve exitosamente. Entonces se emite un evento <span class="next">next</span> con una 🍎 y
+  después el Observable completa.
+  <br>
+  La segunda promesa se rechaza y el Observable nos emite un evento <span class="error">error</span> con el ⚽.
+</p>
+
+<p>Esta vez no hago demo, porque es igual que la del operador of.</p>
