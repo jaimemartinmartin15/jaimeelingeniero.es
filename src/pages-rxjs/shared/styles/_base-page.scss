@@ -1,3 +1,7 @@
+:host {
+    display: block;
+}
+
 .page-header {
     display: flex;
     margin-top: 20px;
@@ -24,20 +28,5 @@
         .title {
             margin-bottom: 5px;
         }
-    }
-}
-
-.demo-button {
-    stroke: #fbf2e2;
-    stroke-width: 2;
-    fill: #d17515;
-    cursor: pointer;
-
-    .text {
-        text-anchor: middle;
-        dominant-baseline: middle;
-        stroke: none;
-        fill: #fbf2e2;
-        font-size: 1.1em;
     }
 }

@@ -1,9 +1,2 @@
-@import "../shared/styles/rxjs-shared-styles";
-
-:host {
-    display: block;
-}
-
-.smooth-tranform-animation {
-    transition: transform 1s;
-}
+@import "../shared/styles/base-page";
+@import "../shared/styles/utils";
