@@ -1,17 +1,6 @@
 @import "../shared/styles/rxjs-shared-styles";
+@import "../shared/styles/colors";
 
 :host {
     display: block;
-}
-
-.next {
-    color: #0a0;
-}
-
-.error {
-    color: #ce4545;
-}
-
-.complete {
-    color: #b2a366;
 }
