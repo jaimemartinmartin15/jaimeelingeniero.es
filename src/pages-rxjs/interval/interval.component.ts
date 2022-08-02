@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Meta, Title } from '@angular/platform-browser';
-import { BehaviorSubject, Subject, interval } from 'rxjs';
+import { BehaviorSubject, interval, map, pipe, switchMap } from 'rxjs';
 import { ElementInConveyor } from '../shared/element-in-conveyor';
 import { ObservableEventType } from '../shared/observable-event-type';
 import { ButtonController } from '../shared/components/conveyor-controller/button-controller';
@@ -12,17 +12,12 @@ import { BaseOperatorComponent } from '../shared/base-operator.component';
   styleUrls: ['./interval.component.scss'],
 })
 export class IntervalComponent extends BaseOperatorComponent {
-  protected operator = interval();
+  protected operator = pipe(
+    switchMap(() => interval(2000)),
+    map((n) => this.convertToEmojis(n))
+  );
 
-  public readonly controllerButtons: { [key: string]: ButtonController[] } = {
-    [this.MAIN_ID]: [
-      { value: '🏠', type: ObservableEventType.ERROR, controllerId: this.MAIN_ID, enabled: false },
-      { value: '🖐️', type: ObservableEventType.COMPLETE, controllerId: this.MAIN_ID, enabled: false },
-      { value: '🍎', type: ObservableEventType.NEXT, controllerId: this.MAIN_ID, enabled: false },
-      { value: '🍌', type: ObservableEventType.NEXT, controllerId: this.MAIN_ID, enabled: false },
-      { value: '🥝', type: ObservableEventType.NEXT, controllerId: this.MAIN_ID, enabled: false },
-    ]
-  };
+  public readonly controllerButtons: { [key: string]: ButtonController[] } = {};
 
   public readonly conveyorsWorking: { [key: string]: BehaviorSubject<boolean> } = {
     [this.MAIN_ID]: new BehaviorSubject<boolean>(false),
@@ -33,52 +28,45 @@ export class IntervalComponent extends BaseOperatorComponent {
   }
 
   protected moveElement(e: ElementInConveyor): void {
-    // TODO
+    e.x += this.demo.speed;
   }
 
   protected isElementDeliveredToOperator(e: ElementInConveyor): boolean {
-    // TODO
     return false;
   }
 
   protected isElementDeliveredToSubscriber(e: ElementInConveyor): boolean {
-    // TODO
-    return false;
+    return e.x >= 310;
   }
 
-  protected addElementToBeginningOfConveyor(conveyorId: string, type: ObservableEventType, value: string) {
-    // TODO
-  }
-
-  public override elementReachesOperatorNextHook(e: ElementInConveyor) {
-    // TODO
-  }
-
-  public override elementReachesOperatorErrorHook(e: ElementInConveyor) {
-    // TODO
-  }
-
-  public override elementReachesOperatorCompleteHook(e: ElementInConveyor) {
-    // TODO
-  }
-
-  public override onOperatorConveyorDeliverElement(e: ElementInConveyor) {
-    // TODO
-  }
+  protected addElementToBeginningOfConveyor() {}
 
   public override onSubscribeHook() {
-    // TODO
+    this.operator = pipe(
+      switchMap(() => interval(2000)),
+      map((n) => this.convertToEmojis(n))
+    );
+
+    // makes subscription to interval after Subject is created
+    setTimeout(() => this.elementReachesOperator$.next(''));
+  }
+
+  private convertToEmojis(n: number): string {
+    const stringified = `${n}`;
+    const emojis = ['0️⃣', '1️⃣', '2️⃣', '3️⃣', '4️⃣', '5️⃣', '6️⃣', '7️⃣', '8️⃣', '9️⃣'];
+
+    return [...stringified].map((c) => emojis[+c]).join('');
   }
 
   protected onOperatorDeliverNextEvent(value: string): void {
-   // TODO
+    this.elementsInConveyor.push({
+      conveyorId: this.MAIN_ID,
+      type: ObservableEventType.NEXT,
+      value,
+      x: 80,
+    } as ElementInConveyor);
   }
 
-  protected onOperatorDeliverErrorEvent(value: string): void {
-    // TODO
-  }
-
-  protected onOperatorDeliverCompleteEvent(): void {
-    // TODO
-  }
+  protected onOperatorDeliverErrorEvent(): void {}
+  protected onOperatorDeliverCompleteEvent(): void {}
 }

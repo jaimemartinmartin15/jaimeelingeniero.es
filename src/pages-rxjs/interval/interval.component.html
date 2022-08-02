@@ -34,4 +34,20 @@ interval(500).subscribe({
     que es lo que le hemos indicado.
 </p>
 
-<p>Prueba esta demo que emite infinitos números:</p>
+<p>Prueba esta demo que emite infinitos números cada 2️⃣ segundos:</p>
+
+<svg appDemoContainer viewBox="0 0 520 240">
+    <g appOperator transform="translate(60, 45)"></g>
+
+    <g transform="translate(80, 80)" appConveyorHorizontal [conveyorWorking$]="conveyorsWorking[MAIN_ID]"
+        [length]="250.8">
+    </g>
+
+    <g transform="translate(370, 20)" appSubscriber [showSpeechBubble$]="speechBubble$"
+        (onSubscribe$)="onSubscribe($event)">
+    </g>
+
+    <g>
+        <text *ngFor="let element of elementsInConveyor" [attr.x]="element.x" y="136">{{element.value}}</text>
+    </g>
+</svg>
