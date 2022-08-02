@@ -1,0 +1,53 @@
+<div class="page-header">
+    <h1 class="title">Interval</h1>
+    <a class="link-rxjs" href="https://rxjs.dev/api/index/function/interval" target="_blank" rel="noopener">
+        rxjs interval ➡️
+    </a>
+</div>
+
+<p>
+    Esta función devuelve un Observable que cada intervalo de tiempo que nosotros indiquemos devuelve un número en
+    secuencia ascendente.
+</p>
+
+<textarea highlight-js [lang]="'typescript'">
+import { interval } from 'rxjs';
+
+interval(500).subscribe({
+  next: (value) => console.log(`The next value is: ${value}`),
+  error: (error) => console.log(`Error: ${error}`),
+  complete: () => console.log('The observable has completed'),
+});
+
+// Output
+// ======
+// The next value is: 0
+// The next value is: 1
+// The next value is: 2
+// The next value is: 3
+// ...
+</textarea>
+
+<p>
+    Pues como ves es bien sencillo. Al suscribirnos no emite inmediatamente, pero al pasar medio segundo se emite el
+    primer número: 0. Pasado otro medio segundo se emite el siguiente número: 1. Y así sucesivamente cada medio segundo
+    que es lo que le hemos indicado.
+</p>
+
+<p>Prueba esta demo que emite infinitos números cada 2️⃣ segundos:</p>
+
+<svg appDemoContainer viewBox="0 0 520 240">
+    <g appOperator transform="translate(60, 45)"></g>
+
+    <g transform="translate(80, 80)" appConveyorHorizontal [conveyorWorking$]="conveyorsWorking[MAIN_ID]"
+        [length]="250.8">
+    </g>
+
+    <g transform="translate(370, 20)" appSubscriber [showSpeechBubble$]="speechBubble$"
+        (onSubscribe$)="onSubscribe($event)">
+    </g>
+
+    <g>
+        <text *ngFor="let element of elementsInConveyor" [attr.x]="element.x" y="136">{{element.value}}</text>
+    </g>
+</svg>
