@@ -1,9 +1,2 @@
-@import "../shared/styles/rxjs-shared-styles";
-
-:host {
-    display: block;
-}
-
-.no-break {
-    white-space: nowrap;
-}
+@import "../shared/styles/base-page";
+@import "../shared/styles/utils";

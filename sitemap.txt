@@ -13,6 +13,8 @@ https://www.jaimeelingeniero.es/comprende-rxjs/exhaustMap
 https://www.jaimeelingeniero.es/comprende-rxjs/filter
 https://www.jaimeelingeniero.es/comprende-rxjs/first
 https://www.jaimeelingeniero.es/comprende-rxjs/forkJoin
+https://www.jaimeelingeniero.es/comprende-rxjs/from
+https://www.jaimeelingeniero.es/comprende-rxjs/interval
 https://www.jaimeelingeniero.es/comprende-rxjs/mergeMap
 https://www.jaimeelingeniero.es/comprende-rxjs/observable
 https://www.jaimeelingeniero.es/comprende-rxjs/of

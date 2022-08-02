@@ -8,6 +8,14 @@ const routes: Routes = [
     component: RoutableLateralMenuComponent,
     children: [
       {
+        path: 'interval',
+        loadChildren: () => import('../interval/interval.module').then((m) => m.IntervalModule),
+      },
+      {
+        path: 'from',
+        loadChildren: () => import('../from/from.module').then((m) => m.FromModule),
+      },
+      {
         path: 'of',
         loadChildren: () => import('../of/of.module').then((m) => m.OfModule),
       },
