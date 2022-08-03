@@ -75,3 +75,23 @@ timer(0, 2000).subscribe({
     El código de arriba nos emite números enteros en orden ascendente cada dos segundos. La diferencia con interval es
     que el primer número se emite inmediatamente nada más suscribirse.
 </p>
+
+<p>
+    A continuación te dejo una demo con un timer que emite a los 2️⃣ segundos.
+</p>
+
+<svg appDemoContainer viewBox="0 0 520 240">
+    <g appOperator transform="translate(60, 45)"></g>
+
+    <g transform="translate(80, 80)" appConveyorHorizontal [conveyorWorking$]="conveyorsWorking[MAIN_ID]"
+        [length]="250.8">
+    </g>
+
+    <g transform="translate(370, 20)" appSubscriber [showSpeechBubble$]="speechBubble$"
+        (onSubscribe$)="onSubscribe($event)">
+    </g>
+
+    <g>
+        <text *ngFor="let element of elementsInConveyor" [attr.x]="element.x" y="136">{{element.value}}</text>
+    </g>
+</svg>
