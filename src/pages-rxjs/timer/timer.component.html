@@ -1,0 +1,97 @@
+<div class="page-header">
+    <h1 class="title">Timer</h1>
+    <a class="link-rxjs" href="https://rxjs.dev/api/index/function/timer" target="_blank" rel="noopener">
+        rxjs timer ➡️
+    </a>
+</div>
+
+<p>
+    Esta función nos devuelve un Observable que emite el número 0️⃣ pasado el tiempo que le digamos o en una fecha
+    concreta.
+</p>
+
+<textarea highlight-js [lang]="'typescript'">
+import { timer } from 'rxjs';
+
+timer(1500).subscribe({
+  next: (value) => console.log(`The next value is: ${value}`),
+  error: (error) => console.error(`There is an error: ${error}`),
+  complete: () => console.log('Completed'),
+});
+
+// Output
+// ======
+// The next value is: 0
+// Completed
+</textarea>
+
+<p>
+    En el ejemplo de arriba pasado un segundo y medio se emite el número 0️⃣.
+</p>
+
+<textarea highlight-js [lang]="'typescript'">
+import { timer } from 'rxjs';
+
+timer(new Date({{today.getFullYear()}}, {{today.getMonth()}}, {{today.getDay()+1}})).subscribe({
+  next: (value) => console.log(`The next value is: ${value}`),
+  error: (error) => console.error(`There is an error: ${error}`),
+  complete: () => console.log('Completed'),
+});
+
+// Output
+// ======
+// The next value is: 0
+// Completed
+</textarea>
+
+<p>
+    En este otro ejemplo el evento se emitirá a las doce de la noche de mañana. Recueda que en javascript el índice del
+    mes no es el mismo que en nuestro calendario, es uno menos.
+</p>
+
+<p>
+    Otro ejemplo de uso puede ser similar al de interval:
+</p>
+
+<textarea highlight-js [lang]="'typescript'">
+import { timer } from 'rxjs';
+
+timer(0, 2000).subscribe({
+  next: (value) => console.log(`The next value is: ${value}`),
+  error: (error) => console.error(`There is an error: ${error}`),
+  complete: () => console.log('Completed'),
+});
+
+// Output
+// ======
+// The next value is: 0
+// The next value is: 1
+// The next value is: 2
+// The next value is: 3
+// ...
+</textarea>
+
+<p>
+    El código de arriba nos emite números enteros en orden ascendente cada dos segundos. La diferencia con interval es
+    que el primer número se emite inmediatamente nada más suscribirse.
+</p>
+
+<p>
+    A continuación te dejo una demo con un timer que emite a los 2️⃣ segundos.
+</p>
+
+<svg appDemoContainer viewBox="0 0 520 240">
+    <g appOperator transform="translate(60, 45)"></g>
+
+    <g transform="translate(80, 80)" appConveyorHorizontal [conveyorWorking$]="conveyorsWorking[MAIN_ID]"
+        [length]="250.8">
+    </g>
+
+    <g transform="translate(370, 20)" appSubscriber [showSpeechBubble$]="speechBubble$"
+        (onSubscribe$)="onSubscribe($event)">
+    </g>
+
+    <g>
+        <text *ngFor="let element of elementsInConveyor" [attr.x]="element.x" y="136">{{element.value}}</text>
+    </g>
+</svg>
