@@ -48,3 +48,30 @@ timer(new Date({{today.getFullYear()}}, {{today.getMonth()}}, {{today.getDay()+1
     En este otro ejemplo el evento se emitirá a las doce de la noche de mañana. Recueda que en javascript el índice del
     mes no es el mismo que en nuestro calendario, es uno menos.
 </p>
+
+<p>
+    Otro ejemplo de uso puede ser similar al de interval:
+</p>
+
+<textarea highlight-js [lang]="'typescript'">
+import { timer } from 'rxjs';
+
+timer(0, 2000).subscribe({
+  next: (value) => console.log(`The next value is: ${value}`),
+  error: (error) => console.error(`There is an error: ${error}`),
+  complete: () => console.log('Completed'),
+});
+
+// Output
+// ======
+// The next value is: 0
+// The next value is: 1
+// The next value is: 2
+// The next value is: 3
+// ...
+</textarea>
+
+<p>
+    El código de arriba nos emite números enteros en orden ascendente cada dos segundos. La diferencia con interval es
+    que el primer número se emite inmediatamente nada más suscribirse.
+</p>
