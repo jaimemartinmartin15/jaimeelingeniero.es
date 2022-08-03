@@ -61,6 +61,7 @@ export const LINKS_GROUPS_OPERATORS: HomeLink[] = [
       { display: 'of', url: '/comprende-rxjs/of' },
       { display: 'from', url: '/comprende-rxjs/from' },
       { display: 'interval', url: '/comprende-rxjs/interval' },
+      { display: 'timer', url: '/comprende-rxjs/timer' },
     ],
   },
 ];
