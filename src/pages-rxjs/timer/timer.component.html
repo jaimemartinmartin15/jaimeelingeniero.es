@@ -5,3 +5,46 @@
     </a>
 </div>
 
+<p>
+    Esta función nos devuelve un Observable que emite el número 0️⃣ pasado el tiempo que le digamos o en una fecha
+    concreta.
+</p>
+
+<textarea highlight-js [lang]="'typescript'">
+import { timer } from 'rxjs';
+
+timer(1500).subscribe({
+  next: (value) => console.log(`The next value is: ${value}`),
+  error: (error) => console.error(`There is an error: ${error}`),
+  complete: () => console.log('Completed'),
+});
+
+// Output
+// ======
+// The next value is: 0
+// Completed
+</textarea>
+
+<p>
+    En el ejemplo de arriba pasado un segundo y medio se emite el número 0️⃣.
+</p>
+
+<textarea highlight-js [lang]="'typescript'">
+import { timer } from 'rxjs';
+
+timer(new Date({{today.getFullYear()}}, {{today.getMonth()}}, {{today.getDay()+1}})).subscribe({
+  next: (value) => console.log(`The next value is: ${value}`),
+  error: (error) => console.error(`There is an error: ${error}`),
+  complete: () => console.log('Completed'),
+});
+
+// Output
+// ======
+// The next value is: 0
+// Completed
+</textarea>
+
+<p>
+    En este otro ejemplo el evento se emitirá a las doce de la noche de mañana. Recueda que en javascript el índice del
+    mes no es el mismo que en nuestro calendario, es uno menos.
+</p>

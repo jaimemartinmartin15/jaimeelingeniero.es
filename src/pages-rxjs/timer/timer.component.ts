@@ -12,6 +12,8 @@ import { BaseOperatorComponent } from '../shared/base-operator.component';
   styleUrls: ['./timer.component.scss'],
 })
 export class TimerComponent extends BaseOperatorComponent {
+  public readonly today = new Date();
+
   protected operator = timer(200);
 
   public readonly controllerButtons: { [key: string]: ButtonController[] } = {};
