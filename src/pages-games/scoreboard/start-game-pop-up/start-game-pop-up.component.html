@@ -1,0 +1,17 @@
+<form class="content">
+  <label class="number-of-players">
+    Número de jugadores
+    <br>
+    <input type="number" name="number-of-players" [(ngModel)]="numberOfPlayers">
+  </label>
+
+  <br>
+
+  <label class="number-of-rounds">
+    Número de rondas
+    <br>
+    <input type="number" name="number-of-rounds" [(ngModel)]="numberOfRounds">
+  </label>
+
+  <button type="submit" class="confirm-button" (click)="onConfirm()">Confirmar</button>
+</form>
