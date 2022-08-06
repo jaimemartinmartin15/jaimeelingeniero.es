@@ -11,6 +11,10 @@ const routes: Routes = [
     loadChildren: () => import('../pages-rxjs/pages-rxjs.module').then((m) => m.PagesRxjsModule),
   },
   {
+    path: 'tabla-de-puntuaciones',
+    loadChildren: () => import('../pages-games/scoreboard/scoreboard.module').then((m) => m.ScoreboardModule),
+  },
+  {
     path: '',
     loadChildren: () => import('../pages/home/home.module').then((m) => m.HomeModule),
   },
