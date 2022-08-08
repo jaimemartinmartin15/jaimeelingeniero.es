@@ -2,10 +2,16 @@
   <label class="number-of-players">
     Número de jugadores
     <br>
-    <input type="number" name="number-of-players" [(ngModel)]="numberOfPlayers">
+    <input type="number" name="number-of-players" [ngModel]="4" (ngModelChange)="onNumberOfPlayersChange($event)">
   </label>
 
-  <br>
+  <div class="players-container">
+    <label class="player-name" *ngFor="let player of players; let i = index; trackBy: trackByPlayerInputs">
+      Jugador {{i+1}}
+      <br>
+      <input type="text" name="player{{i}}" [(ngModel)]="players[i]">
+    </label>
+  </div>
 
   <label class="number-of-rounds">
     Número de rondas
