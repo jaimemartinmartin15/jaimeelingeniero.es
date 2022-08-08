@@ -1,4 +1,4 @@
-<form class="content">
+<form class="content" (submit)="onConfirm()">
   <label class="number-of-players">
     Número de jugadores
     <br>
@@ -19,5 +19,5 @@
     <input type="number" name="number-of-rounds" [(ngModel)]="numberOfRounds">
   </label>
 
-  <button type="submit" class="confirm-button" (click)="onConfirm()">Confirmar</button>
+  <button type="submit" class="confirm-button">Confirmar</button>
 </form>
