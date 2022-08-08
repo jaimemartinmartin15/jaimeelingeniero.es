@@ -24,6 +24,10 @@ export class StartGamePopUpComponent {
     return index;
   }
 
+  public playersAreEntered(): boolean {
+    return this.players.every((p) => p != '');
+  }
+
   public onConfirm() {
     this.confirm.emit({
       players: this.players,
