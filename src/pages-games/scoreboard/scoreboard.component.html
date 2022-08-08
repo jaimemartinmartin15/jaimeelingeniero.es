@@ -1,3 +1,25 @@
-<p>
-  scoreboard works!
-</p>
+<table class="scoreboard">
+  <thead>
+    <tr>
+      <th class="highlight-cell">Ronda</th>
+      <th class="highlight-cell" *ngFor="let player of players">{{player}}</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr *ngFor="let round of rounds; let i = index">
+      <th class="highlight-cell">{{i+1}}</th>
+      <td *ngFor="let score of round; let j = index" (focus)="setFocus(i, j, $event)" (blur)="removeFocus($event)"
+        tabindex="0">{{score}}</td>
+    </tr>
+  </tbody>
+
+  <tfoot class="totals-row">
+    <tr>
+      <th class="highlight-cell">Total</th>
+      <th class="highlight-cell" *ngFor="let player of players; let i = index">{{getTotalScore(i)}}</th>
+    </tr>
+  </tfoot>
+</table>
+
+<app-start-game-pop-up (confirm)="prepareTable($event)" *ngIf="showStartGamePopUp"></app-start-game-pop-up>

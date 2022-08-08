@@ -1,0 +1,29 @@
+:host {
+    display: block;
+    padding: 10px;
+    overflow: auto;
+}
+
+table,
+th,
+td {
+    box-sizing: border-box;
+    border: 1px solid black;
+    border-spacing: 0px;
+    text-align: center;
+    outline: none;
+}
+
+th,
+td {
+    padding: 7px 15px;
+    white-space: nowrap;
+}
+
+.scoreboard {
+    table-layout: fixed;
+
+    .highlight-cell {
+        background-color: azure;
+    }
+}
