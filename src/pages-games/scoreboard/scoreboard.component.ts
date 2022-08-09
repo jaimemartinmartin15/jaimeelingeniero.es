@@ -10,8 +10,10 @@ export class ScoreboardComponent {
   public showStartGamePopUp = true;
   public showNewRoundPopUp = false;
 
+  public nextNewRoundNumber: number = 0;
+
   public players: string[] = [];
-  public rounds: string[][] = [];
+  public rounds: number[][] = [];
 
   public getTotalScore(player: number): number {
     return this.rounds.reduce((score, round) => score + +round[player], 0);
@@ -34,5 +36,11 @@ export class ScoreboardComponent {
 
   public enterNewRound() {
     this.showNewRoundPopUp = true;
+    this.nextNewRoundNumber++;
+  }
+
+  public onResultNewRound(values: number[]) {
+    this.showNewRoundPopUp = false;
+    this.rounds[this.nextNewRoundNumber - 1] = values;
   }
 }

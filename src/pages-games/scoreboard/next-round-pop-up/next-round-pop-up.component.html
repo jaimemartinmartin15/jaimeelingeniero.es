@@ -1,1 +1,18 @@
-<!-- TODO -->
+<div class="content">
+    <h1>Ronda {{roundNumber}}</h1>
+
+    <div class="players-container">
+        <ng-container *ngFor="let player of players; let i = index">
+            <div *ngIf="i === nextPlayer" @transitionNextPlayer>
+                <label>
+                    Puntuación para <strong>{{players[nextPlayer]}}</strong>
+                    <br>
+                    <input type="number" name="score-input" [(ngModel)]="score">
+                </label>
+            </div>
+        </ng-container>
+    </div>
+
+    <button (click)="goNextPlayer()" *ngIf="players.length-1 > nextPlayer">Siguiente</button>
+    <button (click)="confirmRound()" *ngIf="players.length-1 <= nextPlayer">Confirmar</button>
+</div>

@@ -23,6 +23,7 @@
 </table>
 
 <button cdkDrag class="new-round-button" (click)="enterNewRound()">+</button>
-<app-next-round-pop-up *ngIf="showNewRoundPopUp"></app-next-round-pop-up>
+<app-next-round-pop-up *ngIf="showNewRoundPopUp" [roundNumber]="nextNewRoundNumber" [players]="players"
+  (roundValues)="onResultNewRound($event)"></app-next-round-pop-up>
 
 <app-start-game-pop-up (confirm)="prepareTable($event)" *ngIf="showStartGamePopUp"></app-start-game-pop-up>
