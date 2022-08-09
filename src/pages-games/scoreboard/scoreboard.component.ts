@@ -8,6 +8,7 @@ import { StartGamePopUpOutput } from './start-game-pop-up/start-game-pop-up.cont
 })
 export class ScoreboardComponent {
   public showStartGamePopUp = true;
+  public showNewRoundPopUp = false;
 
   public players: string[] = [];
   public rounds: string[][] = [];
@@ -29,5 +30,9 @@ export class ScoreboardComponent {
 
     this.players = players;
     this.rounds = new Array(numberOfRounds).fill(new Array(this.players.length).fill(''));
+  }
+
+  public enterNewRound() {
+    this.showNewRoundPopUp = true;
   }
 }
