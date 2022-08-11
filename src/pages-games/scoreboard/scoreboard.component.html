@@ -1,22 +1,22 @@
-<table class="scoreboard">
-  <thead>
+<table>
+  <thead class="sticky-header">
     <tr>
-      <th class="highlight-cell">Ronda</th>
+      <th class="highlight-cell sticky-round-number">Ronda</th>
       <th class="highlight-cell" *ngFor="let player of players">{{player}}</th>
     </tr>
   </thead>
 
   <tbody>
     <tr *ngFor="let round of rounds; let i = index">
-      <th class="highlight-cell">{{i+1}}</th>
+      <th class="highlight-cell sticky-round-number">{{i+1}}</th>
       <td *ngFor="let score of round; let j = index" (focus)="setFocus(i, j, $event)" (blur)="removeFocus($event)"
         tabindex="0">{{score}}</td>
     </tr>
   </tbody>
 
-  <tfoot class="totals-row">
+  <tfoot class="sticky-footer">
     <tr>
-      <th class="highlight-cell">Total</th>
+      <th class="highlight-cell sticky-round-number">Total</th>
       <th class="highlight-cell" *ngFor="let player of players; let i = index">{{getTotalScore(i)}}</th>
     </tr>
   </tfoot>
