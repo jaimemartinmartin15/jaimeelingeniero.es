@@ -19,6 +19,7 @@ export class NextRoundPopUpComponent implements OnInit {
 
   public scores: number[];
   public nextPlayer = 0;
+  public sign: '+' | '-' = '+';
 
   public ngOnInit(): void {
     this.scores = new Array(this.players.length).fill(0);
@@ -28,35 +29,39 @@ export class NextRoundPopUpComponent implements OnInit {
     if (Number.isNaN(+(event.target as HTMLElement).textContent!)) {
       switch ((event.target as HTMLElement).textContent) {
         case '↩':
-          console.log(`${this.scores[this.nextPlayer]}`.slice(0, -1));
           this.scores[this.nextPlayer] = +`${this.scores[this.nextPlayer]}`.slice(0, -1);
           if (Number.isNaN(this.scores[this.nextPlayer])) {
             // in case only the '-' is in the string, replace with 0
             this.scores[this.nextPlayer] = 0;
+            this.sign = '+';
           }
           break;
         case '-':
         case '+':
+          const key = (event.target as HTMLElement).textContent!;
+          this.sign = key === '+' ? '+' : '-';
           this.scores[this.nextPlayer] = -this.scores[this.nextPlayer];
           break;
       }
     } else {
-      const key = +(event.target as HTMLElement).textContent!;
-      this.scores[this.nextPlayer] = +`${this.scores[this.nextPlayer]}${key}`;
+      const key = Math.abs(+(event.target as HTMLElement).textContent!);
+      this.scores[this.nextPlayer] = +`${this.sign}${Math.abs(this.scores[this.nextPlayer])}${key}`;
     }
   }
 
   public goNextPlayer() {
-    this.nextPlayer++;
-
-    if (this.nextPlayer == this.players.length) {
+    if (++this.nextPlayer == this.players.length) {
       this.roundValues.next(this.scores);
+      return;
     }
+
+    this.sign = this.scores[this.nextPlayer] >= 0 ? '+' : '-';
   }
 
   public goPreviousPlayer() {
     if (this.nextPlayer > 0) {
       this.nextPlayer--;
+      this.sign = this.scores[this.nextPlayer] >= 0 ? '+' : '-';
     }
   }
 }
