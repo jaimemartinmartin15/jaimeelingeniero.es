@@ -1,4 +1,4 @@
-import { Component, ElementRef, EventEmitter, Input, Output, QueryList, ViewChildren } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { transitionNextPlayer } from './next-round-pop-up.animation';
 
 @Component({
@@ -7,9 +7,7 @@ import { transitionNextPlayer } from './next-round-pop-up.animation';
   styleUrls: ['./next-round-pop-up.component.scss'],
   animations: [transitionNextPlayer],
 })
-export class NextRoundPopUpComponent {
-  @ViewChildren('scoreInput') private scoreInput: QueryList<ElementRef>;
-
+export class NextRoundPopUpComponent implements OnInit {
   @Input()
   public roundNumber: number;
 
@@ -19,26 +17,46 @@ export class NextRoundPopUpComponent {
   @Output()
   public roundValues = new EventEmitter<number[]>();
 
-  public score?: number;
-  public scores: number[] = [];
+  public scores: number[];
   public nextPlayer = 0;
 
-  public goNextPlayer() {
-    this.scores[this.nextPlayer] = this.score!;
-    this.nextPlayer++;
-    this.score = undefined;
+  public ngOnInit(): void {
+    this.scores = new Array(this.players.length).fill(0);
   }
 
-  public confirmRound() {
-    this.goNextPlayer();
-    this.roundValues.next(this.scores);
-  }
-
-  public ngAfterViewInit() {
-    this.scoreInput.changes.subscribe((input: QueryList<ElementRef>) => {
-      if (input.length > 0) {
-        input.first.nativeElement.focus();
+  public onClickKeyBoard(event: Event) {
+    if (Number.isNaN(+(event.target as HTMLElement).textContent!)) {
+      switch ((event.target as HTMLElement).textContent) {
+        case '↩':
+          console.log(`${this.scores[this.nextPlayer]}`.slice(0, -1));
+          this.scores[this.nextPlayer] = +`${this.scores[this.nextPlayer]}`.slice(0, -1);
+          if (Number.isNaN(this.scores[this.nextPlayer])) {
+            // in case only the '-' is in the string, replace with 0
+            this.scores[this.nextPlayer] = 0;
+          }
+          break;
+        case '-':
+        case '+':
+          this.scores[this.nextPlayer] = -this.scores[this.nextPlayer];
+          break;
       }
-    });
+    } else {
+      const key = +(event.target as HTMLElement).textContent!;
+      this.scores[this.nextPlayer] = +`${this.scores[this.nextPlayer]}${key}`;
+    }
+  }
+
+  public goNextPlayer() {
+    this.nextPlayer++;
+
+    if (this.nextPlayer == this.players.length) {
+      this.roundValues.next(this.scores);
+    }
+  }
+
+  public goPreviousPlayer() {
+    if (this.nextPlayer > 0) {
+      this.nextPlayer--;
+    }
   }
 }

@@ -5,14 +5,38 @@
         <ng-container *ngFor="let player of players; let i = index">
             <div *ngIf="i === nextPlayer" @transitionNextPlayer>
                 <label>
-                    Puntuación para <strong>{{players[nextPlayer]}}</strong>
+                    Puntuación para <br> <strong class="player-name">{{players[nextPlayer]}}</strong>
                     <br>
-                    <input #scoreInput type="tel" name="score-input" [(ngModel)]="score">
+                    <span class="score-display">{{scores[i]}}</span>
                 </label>
             </div>
         </ng-container>
     </div>
 
-    <button (click)="goNextPlayer()" *ngIf="players.length-1 > nextPlayer">Siguiente</button>
-    <button (click)="confirmRound()" *ngIf="players.length-1 <= nextPlayer">Confirmar</button>
+    <div class="keyboard" (click)="onClickKeyBoard($event)">
+        <span class="previous-player" (click)="goPreviousPlayer()">&larr;</span>
+        <span class="next-player" (click)="goNextPlayer()">
+            <ng-container *ngIf="this.nextPlayer < this.players.length - 1">&rarr;</ng-container>
+            <ng-container *ngIf="this.nextPlayer === this.players.length - 1">✔️</ng-container>
+        </span>
+
+        <span>1</span>
+        <span>2</span>
+        <span>3</span>
+
+        <span>4</span>
+        <span>5</span>
+        <span>6</span>
+
+        <span>7</span>
+        <span>8</span>
+        <span>9</span>
+
+        <span>
+            <ng-container *ngIf="this.scores[nextPlayer] >= 0">-</ng-container>
+            <ng-container *ngIf="this.scores[nextPlayer] < 0">+</ng-container>
+        </span>
+        <span>0</span>
+        <span>↩</span>
+    </div>
 </div>
