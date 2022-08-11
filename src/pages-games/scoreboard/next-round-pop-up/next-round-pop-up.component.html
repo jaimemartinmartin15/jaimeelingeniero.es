@@ -7,7 +7,7 @@
                 <label>
                     Puntuación para <strong>{{players[nextPlayer]}}</strong>
                     <br>
-                    <input type="number" name="score-input" [(ngModel)]="score">
+                    <input #scoreInput type="tel" name="score-input" [(ngModel)]="score">
                 </label>
             </div>
         </ng-container>

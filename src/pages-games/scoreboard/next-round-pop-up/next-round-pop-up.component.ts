@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, Output, QueryList, ViewChildren } from '@angular/core';
 import { transitionNextPlayer } from './next-round-pop-up.animation';
 
 @Component({
@@ -8,6 +8,8 @@ import { transitionNextPlayer } from './next-round-pop-up.animation';
   animations: [transitionNextPlayer],
 })
 export class NextRoundPopUpComponent {
+  @ViewChildren('scoreInput') private scoreInput: QueryList<ElementRef>;
+
   @Input()
   public roundNumber: number;
 
@@ -30,5 +32,13 @@ export class NextRoundPopUpComponent {
   public confirmRound() {
     this.goNextPlayer();
     this.roundValues.next(this.scores);
+  }
+
+  public ngAfterViewInit() {
+    this.scoreInput.changes.subscribe((input: QueryList<ElementRef>) => {
+      if (input.length > 0) {
+        input.first.nativeElement.focus();
+      }
+    });
   }
 }
