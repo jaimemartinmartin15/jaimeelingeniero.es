@@ -9,7 +9,7 @@
   <tbody>
     <tr *ngFor="let round of rounds; let i = index">
       <th class="highlight-cell sticky-round-number" (click)="enterRound(i)">{{i+1}}</th>
-      <td *ngFor="let score of round; let j = index">{{score}}</td>
+      <td *ngFor="let score of round; let j = index" (click)="enterPunctuationForRoundAndPlayer(i, j)">{{score}}</td>
     </tr>
   </tbody>
 

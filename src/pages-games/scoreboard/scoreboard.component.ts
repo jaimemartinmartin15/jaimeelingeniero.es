@@ -42,6 +42,14 @@ export class ScoreboardComponent {
     };
   }
 
+  public enterPunctuationForRoundAndPlayer(round: number, player: number) {
+    this.showNewRoundPopUp = true;
+    this.nextRoundPopUpInput = {
+      round: round + 1,
+      players: [{ ...this.players[player], punctuation: this.rounds[round][player] }],
+    };
+  }
+
   public onResultNewRound(output: NextRoundPopUpOutput) {
     this.showNewRoundPopUp = false;
     const round = output.round - 1;
