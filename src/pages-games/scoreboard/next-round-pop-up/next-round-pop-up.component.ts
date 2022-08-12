@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { transitionNextPlayer } from './next-round-pop-up.animation';
 import { NextRoundPopUpInput, NextRoundPopUpOutput } from './next-round-pop-up.contract';
 
@@ -8,7 +8,7 @@ import { NextRoundPopUpInput, NextRoundPopUpOutput } from './next-round-pop-up.c
   styleUrls: ['./next-round-pop-up.component.scss'],
   animations: [transitionNextPlayer],
 })
-export class NextRoundPopUpComponent {
+export class NextRoundPopUpComponent implements OnInit {
   @Input()
   public nextRoundPopUpInput: NextRoundPopUpInput;
 
@@ -17,6 +17,10 @@ export class NextRoundPopUpComponent {
 
   public currentPlayer = 0;
   public sign: '+' | '-' = '+';
+
+  public ngOnInit(): void {
+    this.sign = this.puntuationCurrentPlayer >= 0 ? '+' : '-';
+  }
 
   public onClickKeyBoard(event: Event) {
     if (Number.isNaN(+(event.target as HTMLElement).textContent!)) {
