@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { NextRoundPopUpInput, NextRoundPopUpOutput } from './next-round-pop-up/next-round-pop-up.contract';
+import { Player } from './player';
 import { StartGamePopUpOutput } from './start-game-pop-up/start-game-pop-up.contract';
 
 @Component({
@@ -10,37 +12,42 @@ export class ScoreboardComponent {
   public showStartGamePopUp = true;
   public showNewRoundPopUp = false;
 
-  public nextNewRoundNumber: number = 0;
+  public nextRoundPopUpInput: NextRoundPopUpInput;
 
-  public players: string[] = [];
+  public players: Player[];
   public rounds: number[][] = [];
 
   public getTotalScore(player: number): number {
-    return this.rounds.reduce((score, round) => score + +round[player], 0);
-  }
-
-  public setFocus(round: number, player: number, e: Event) {
-    (e.target as HTMLElement).style.border = '2px solid blue';
-  }
-
-  public removeFocus(e: Event) {
-    (e.target as HTMLElement).style.border = '1px solid black';
+    return this.rounds.reduce((score, round) => score + round[player], 0);
   }
 
   public prepareTable(players: StartGamePopUpOutput) {
     this.showStartGamePopUp = false;
-
-    this.players = players;
-    this.rounds = [new Array(this.players.length).fill('')];
+    this.players = players.map((name, id) => ({ name, id }));
   }
 
   public enterNewRound() {
     this.showNewRoundPopUp = true;
-    this.nextNewRoundNumber++;
+    this.nextRoundPopUpInput = {
+      round: this.rounds.length + 1,
+      players: this.players.map((p) => ({ ...p, punctuation: 0 })),
+    };
   }
 
-  public onResultNewRound(values: number[]) {
+  public enterRound(round: number) {
+    this.showNewRoundPopUp = true;
+    this.nextRoundPopUpInput = {
+      round: round + 1,
+      players: this.players.map((p, i) => ({ ...p, punctuation: this.rounds[round][i] })),
+    };
+  }
+
+  public onResultNewRound(output: NextRoundPopUpOutput) {
     this.showNewRoundPopUp = false;
-    this.rounds[this.nextNewRoundNumber - 1] = values;
+    const round = output.round - 1;
+    if (this.rounds[round] == undefined) {
+      this.rounds[round] = new Array(this.players.length);
+    }
+    output.players.forEach((player) => (this.rounds[round][player.id] = player.punctuation));
   }
 }

@@ -2,15 +2,14 @@
   <thead class="sticky-header">
     <tr>
       <th class="highlight-cell sticky-round-number">Ronda</th>
-      <th class="highlight-cell" *ngFor="let player of players">{{player}}</th>
+      <th class="highlight-cell" *ngFor="let player of players">{{player.name}}</th>
     </tr>
   </thead>
 
   <tbody>
     <tr *ngFor="let round of rounds; let i = index">
-      <th class="highlight-cell sticky-round-number">{{i+1}}</th>
-      <td *ngFor="let score of round; let j = index" (focus)="setFocus(i, j, $event)" (blur)="removeFocus($event)"
-        tabindex="0">{{score}}</td>
+      <th class="highlight-cell sticky-round-number" (click)="enterRound(i)">{{i+1}}</th>
+      <td *ngFor="let score of round; let j = index">{{score}}</td>
     </tr>
   </tbody>
 
@@ -23,7 +22,7 @@
 </table>
 
 <button cdkDrag class="new-round-button" (click)="enterNewRound()">+</button>
-<app-next-round-pop-up *ngIf="showNewRoundPopUp" [roundNumber]="nextNewRoundNumber" [players]="players"
-  (roundValues)="onResultNewRound($event)"></app-next-round-pop-up>
+<app-next-round-pop-up *ngIf="showNewRoundPopUp" [nextRoundPopUpInput]="nextRoundPopUpInput"
+  (nextRoundPopUpOutput)="onResultNewRound($event)"></app-next-round-pop-up>
 
 <app-start-game-pop-up (confirm)="prepareTable($event)" *ngIf="showStartGamePopUp"></app-start-game-pop-up>

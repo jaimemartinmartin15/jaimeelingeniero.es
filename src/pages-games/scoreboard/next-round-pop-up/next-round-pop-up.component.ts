@@ -1,5 +1,6 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { transitionNextPlayer } from './next-round-pop-up.animation';
+import { NextRoundPopUpInput, NextRoundPopUpOutput } from './next-round-pop-up.contract';
 
 @Component({
   selector: 'app-next-round-pop-up',
@@ -7,61 +8,63 @@ import { transitionNextPlayer } from './next-round-pop-up.animation';
   styleUrls: ['./next-round-pop-up.component.scss'],
   animations: [transitionNextPlayer],
 })
-export class NextRoundPopUpComponent implements OnInit {
+export class NextRoundPopUpComponent {
   @Input()
-  public roundNumber: number;
-
-  @Input()
-  public players: string[];
+  public nextRoundPopUpInput: NextRoundPopUpInput;
 
   @Output()
-  public roundValues = new EventEmitter<number[]>();
+  public nextRoundPopUpOutput = new EventEmitter<NextRoundPopUpOutput>();
 
-  public scores: number[];
-  public nextPlayer = 0;
+  public currentPlayer = 0;
   public sign: '+' | '-' = '+';
-
-  public ngOnInit(): void {
-    this.scores = new Array(this.players.length).fill(0);
-  }
 
   public onClickKeyBoard(event: Event) {
     if (Number.isNaN(+(event.target as HTMLElement).textContent!)) {
       switch ((event.target as HTMLElement).textContent) {
         case '↩':
-          this.scores[this.nextPlayer] = +`${this.scores[this.nextPlayer]}`.slice(0, -1);
-          if (Number.isNaN(this.scores[this.nextPlayer])) {
+          this.puntuationCurrentPlayer = +`${this.puntuationCurrentPlayer}`.slice(0, -1);
+          if (Number.isNaN(this.puntuationCurrentPlayer)) {
             // in case only the '-' is in the string, replace with 0
-            this.scores[this.nextPlayer] = 0;
+            this.puntuationCurrentPlayer = 0;
             this.sign = '+';
           }
           break;
         case '-':
-        case '+':
-          const key = (event.target as HTMLElement).textContent!;
-          this.sign = key === '+' ? '+' : '-';
-          this.scores[this.nextPlayer] = -this.scores[this.nextPlayer];
+          this.sign = this.sign === '-' ? '+' : '-';
+          this.puntuationCurrentPlayer = -this.puntuationCurrentPlayer;
           break;
       }
     } else {
-      const key = Math.abs(+(event.target as HTMLElement).textContent!);
-      this.scores[this.nextPlayer] = +`${this.sign}${Math.abs(this.scores[this.nextPlayer])}${key}`;
+      // user pressed number key
+      const key = +(event.target as HTMLElement).textContent!;
+      this.puntuationCurrentPlayer = +`${this.sign}${Math.abs(this.puntuationCurrentPlayer)}${key}`;
     }
   }
 
   public goNextPlayer() {
-    if (++this.nextPlayer == this.players.length) {
-      this.roundValues.next(this.scores);
+    if (++this.currentPlayer == this.nextRoundPopUpInput.players.length) {
+      this.nextRoundPopUpOutput.emit({
+        round: this.nextRoundPopUpInput.round,
+        players: this.nextRoundPopUpInput.players,
+      });
       return;
     }
 
-    this.sign = this.scores[this.nextPlayer] >= 0 ? '+' : '-';
+    this.sign = this.puntuationCurrentPlayer >= 0 ? '+' : '-';
   }
 
   public goPreviousPlayer() {
-    if (this.nextPlayer > 0) {
-      this.nextPlayer--;
-      this.sign = this.scores[this.nextPlayer] >= 0 ? '+' : '-';
+    if (this.currentPlayer > 0) {
+      this.currentPlayer--;
+      this.sign = this.puntuationCurrentPlayer >= 0 ? '+' : '-';
     }
+  }
+
+  public get puntuationCurrentPlayer() {
+    return this.nextRoundPopUpInput.players[this.currentPlayer].punctuation;
+  }
+
+  public set puntuationCurrentPlayer(puntuation: number) {
+    this.nextRoundPopUpInput.players[this.currentPlayer].punctuation = puntuation;
   }
 }
