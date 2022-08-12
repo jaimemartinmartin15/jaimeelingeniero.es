@@ -11,16 +11,18 @@ export class StartGamePopUpComponent {
   public confirm = new EventEmitter<StartGamePopUpOutput>();
 
   public players: string[] = ['', '', '', ''];
-  public numberOfRounds = 23;
 
-  public onNumberOfPlayersChange(numberOfPlayers: number) {
-    if (numberOfPlayers != null) {
-      this.players.length = numberOfPlayers;
-      this.numberOfRounds = Math.ceil(40 / numberOfPlayers) * 2 + numberOfPlayers - 1;
-    }
+  public addPlayer() {
+    this.players.push('');
   }
 
-  public trackByPlayerInputs(index: number) {
+  public deletePlayer(index: number, e: Event) {
+    e.stopPropagation();
+    e.preventDefault();
+    this.players.splice(index, 1);
+  }
+
+  public trackByPlayerIndex(index: number) {
     return index;
   }
 
@@ -29,9 +31,6 @@ export class StartGamePopUpComponent {
   }
 
   public onConfirm() {
-    this.confirm.emit({
-      players: this.players,
-      numberOfRounds: this.numberOfRounds,
-    });
+    this.confirm.emit(this.players);
   }
 }

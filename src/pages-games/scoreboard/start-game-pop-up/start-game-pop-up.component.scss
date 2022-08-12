@@ -3,8 +3,8 @@ $external-margin: 15px;
 :host {
     display: flex;
     flex-direction: column;
-    position: fixed;
     background-color: #3333ffdb;
+    position: fixed;
     top: 0;
     right: 0;
     bottom: 0;
@@ -18,81 +18,101 @@ $external-margin: 15px;
     right: $external-margin;
     bottom: $external-margin;
     left: $external-margin;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    text-align: center;
     border: 3px solid #d17515;
     border-radius: 5px;
     background-color: white;
-    padding: 15px;
+    padding: 50px;
     overflow: auto;
 
-    .number-of-rounds,
-    .number-of-players {
-        margin-top: 30px;
-        font-size: 1.5em;
+    .player-box {
+        position: relative;
+        display: inline-block;
+        font-size: 0.95em;
+        color: #d17515;
+        width: 100%;
+
+        &:not(:first-child) {
+            margin-top: 20px;
+        }
 
         input {
-            display: inline-block;
-            border: none;
-            border-bottom: 2px solid black;
             outline: none;
-            font-size: 1em;
-            margin-top: 15px;
-            width: 20%;
-            text-align: center;
+            border: none;
+            border-bottom: 2px solid #d17515;
+            font-size: 1.1em;
+            margin-top: 8px;
+            width: calc(100% - 30px);
+            padding: 0;
+            padding-right: 30px;
 
             &:focus {
-                border-bottom: 3px solid black;
+                border-bottom: 3px solid #d17515;
             }
+        }
+
+        .delete-icon {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: absolute;
+            top: 50%;
+            right: 0;
+            width: 20px;
+            height: 20px;
+            clip-path: polygon(
+                20% 0%,
+                0% 20%,
+                30% 50%,
+                0% 80%,
+                20% 100%,
+                50% 70%,
+                80% 100%,
+                100% 80%,
+                70% 50%,
+                100% 20%,
+                80% 0%,
+                50% 30%
+            );
+            color: #fbf2e2;
+            background-color: #d17515;
+            border-radius: 50px;
         }
     }
 
-    .players-container {
-        margin-top: 30px;
-        display: flex;
-        flex-direction: column;
-        gap: 15px;
-        text-align: left;
-
-        .player-name {
-            font-size: 0.9em;
-            color: #414141;
-            margin: 0 auto;
-
-            input {
-                outline: none;
-                border: none;
-                border-bottom: 2px solid black;
-                font-size: 1em;
-
-                &:focus {
-                    border-bottom: 3px solid black;
-                }
-            }
-        }
-    }
-
-    .confirm-button {
+    .new-player-button {
+        margin-top: 25px;
+        width: 100%;
+        border-radius: 5px;
         border: none;
-        background-color: #d17515;
+        padding: 7px;
         color: #fbf2e2;
-        padding: 9px;
-        border-radius: 4px;
-        border: 3px solid transparent;
-        font-size: 1.5rem;
-        box-shadow: 3px 3px 5px #cec9c1;
-        margin-top: 60px;
+        background-color: #d17515;
+        font-size: 1em;
+    }
 
-        &:active {
-            transform: translateX(1px) translateY(2px);
-            box-shadow: 2px 1px 5px #cec9c1;
-        }
+    .confirm-button-wrapper {
+        text-align: center;
 
-        &:disabled {
-            background-color: #aeaeae;
-            border: 3px solid #c7ac90;
+        .confirm-button {
+            border: none;
+            background-color: #d17515;
+            color: #fbf2e2;
+            padding: 9px;
+            border-radius: 4px;
+            border: 3px solid transparent;
+            font-size: 1.5rem;
+            box-shadow: 3px 3px 5px #cec9c1;
+            margin-top: 60px;
+
+            &:active {
+                transform: translateX(1px) translateY(2px);
+                box-shadow: 2px 1px 5px #cec9c1;
+            }
+
+            &:disabled {
+                background-color: #aeaeae;
+                border: 3px solid #c7ac90;
+            }
         }
     }
 }

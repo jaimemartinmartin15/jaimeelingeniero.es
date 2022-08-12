@@ -27,11 +27,11 @@ export class ScoreboardComponent {
     (e.target as HTMLElement).style.border = '1px solid black';
   }
 
-  public prepareTable({ players, numberOfRounds }: StartGamePopUpOutput) {
+  public prepareTable(players: StartGamePopUpOutput) {
     this.showStartGamePopUp = false;
 
     this.players = players;
-    this.rounds = new Array(numberOfRounds).fill(new Array(this.players.length).fill(''));
+    this.rounds = [new Array(this.players.length).fill('')];
   }
 
   public enterNewRound() {

@@ -1,23 +1,21 @@
 <form class="content" (submit)="onConfirm()">
-  <label class="number-of-players">
-    Número de jugadores
-    <br>
-    <input type="number" name="number-of-players" [ngModel]="4" (ngModelChange)="onNumberOfPlayersChange($event)">
-  </label>
+  <ng-container *ngFor="let player of players; let i = index; trackBy: trackByPlayerIndex">
+    <label class="player-box">
+      <strong>Jugador {{i+1}}</strong>
 
-  <div class="players-container">
-    <label class="player-name" *ngFor="let player of players; let i = index; trackBy: trackByPlayerInputs">
-      Jugador {{i+1}}
       <br>
+
       <input type="text" name="player{{i}}" [(ngModel)]="players[i]">
+
+      <div class="delete-icon" (click)="deletePlayer(i, $event)" *ngIf="this.players.length > 1"></div>
     </label>
-  </div>
 
-  <label class="number-of-rounds">
-    Número de rondas
     <br>
-    <input type="number" name="number-of-rounds" [(ngModel)]="numberOfRounds">
-  </label>
+  </ng-container>
 
-  <button type="submit" class="confirm-button" [disabled]="!playersAreEntered()">Confirmar</button>
+  <button type="button" class="new-player-button" (click)="addPlayer()">Nuevo jugador</button>
+
+  <div class="confirm-button-wrapper">
+    <button type="submit" class="confirm-button" [disabled]="!playersAreEntered()">Confirmar</button>
+  </div>
 </form>

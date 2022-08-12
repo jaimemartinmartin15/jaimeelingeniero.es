@@ -1,4 +1,1 @@
-export interface StartGamePopUpOutput {
-  players: string[];
-  numberOfRounds: number;
-}
+export type StartGamePopUpOutput = string[];
