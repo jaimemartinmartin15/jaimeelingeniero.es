@@ -16,7 +16,14 @@
   <tfoot class="sticky-footer">
     <tr>
       <th class="highlight-cell sticky-round-number">Total</th>
-      <th class="highlight-cell" *ngFor="let player of players; let i = index">{{getTotalScore(i)}}</th>
+      <th class="highlight-cell" *ngFor="let player of players">
+        {{getTotalScore(player.id)}}
+        <ng-container [ngSwitch]="getPosition(player.id)">
+          <ng-container *ngSwitchCase="1">🥇</ng-container>
+          <ng-container *ngSwitchCase="2">🥈</ng-container>
+          <ng-container *ngSwitchCase="3">🥉</ng-container>
+        </ng-container>
+      </th>
     </tr>
   </tfoot>
 </table>

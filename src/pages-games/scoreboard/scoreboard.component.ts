@@ -58,4 +58,10 @@ export class ScoreboardComponent {
     }
     output.players.forEach((player) => (this.rounds[round][player.id] = player.punctuation));
   }
+
+  public getPosition(playerId: number): number {
+    const scores = this.rounds.reduce((prev, current) => prev.map((p, i) => p + current[i]), new Array(this.players.length).fill(0));
+    const sortScores = [...scores].sort((a, b) => a - b);
+    return sortScores.reverse().indexOf(scores[playerId]) + 1;
+  }
 }
