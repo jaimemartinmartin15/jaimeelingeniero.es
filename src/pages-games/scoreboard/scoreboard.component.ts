@@ -59,6 +59,7 @@ export class ScoreboardComponent implements OnInit {
 
   public onResultNewRound(output: NextRoundPopUpOutput) {
     this.showNewRoundPopUp = false;
+    this.showReloadGamePopUp = false;
     const round = output.round - 1;
     if (this.rounds[round] == undefined) {
       this.rounds[round] = new Array(this.players.length);
