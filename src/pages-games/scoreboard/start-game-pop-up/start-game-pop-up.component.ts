@@ -1,4 +1,6 @@
-import { Component, Output, EventEmitter } from '@angular/core';
+import { Component, Output, EventEmitter, OnInit } from '@angular/core';
+import { PREVIOUS_GAME_KEY } from '../local-storage-keys';
+import { Player } from '../player';
 import { StartGamePopUpOutput } from './start-game-pop-up.contract';
 
 @Component({
@@ -6,11 +8,19 @@ import { StartGamePopUpOutput } from './start-game-pop-up.contract';
   templateUrl: './start-game-pop-up.component.html',
   styleUrls: ['./start-game-pop-up.component.scss'],
 })
-export class StartGamePopUpComponent {
+export class StartGamePopUpComponent implements OnInit {
   @Output()
   public confirm = new EventEmitter<StartGamePopUpOutput>();
 
   public players: string[] = ['', '', '', ''];
+
+  public ngOnInit(): void {
+    const previousGame = localStorage.getItem(PREVIOUS_GAME_KEY);
+    if (previousGame != null) {
+      const { players }: { players: Player[] } = JSON.parse(previousGame);
+      this.players = players.map((p) => p.name);
+    }
+  }
 
   public addPlayer() {
     this.players.push('');
