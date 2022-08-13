@@ -37,6 +37,18 @@ table {
     }
 }
 
+.reload-game-button {
+    position: fixed;
+    right: 35px;
+    bottom: 90px;
+    width: 50px;
+    height: 50px;
+    background-color: transparent;
+    border: none;
+    color: #fbf2e2;
+    font-size: 2em;
+}
+
 .new-round-button {
     display: flex;
     justify-content: center;

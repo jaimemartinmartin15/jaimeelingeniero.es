@@ -32,4 +32,6 @@
 <app-next-round-pop-up *ngIf="showNewRoundPopUp" [nextRoundPopUpInput]="nextRoundPopUpInput"
   (nextRoundPopUpOutput)="onResultNewRound($event)"></app-next-round-pop-up>
 
+<button cdkDrag class="reload-game-button" *ngIf="showReloadGamePopUp" (click)="reloadGame()">🔄</button>
+
 <app-start-game-pop-up (confirm)="prepareTable($event)" *ngIf="showStartGamePopUp"></app-start-game-pop-up>
