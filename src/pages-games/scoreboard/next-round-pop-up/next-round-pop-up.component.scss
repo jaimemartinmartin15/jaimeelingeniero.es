@@ -1,0 +1,91 @@
+$external-margin: 15px;
+
+:host {
+    display: block;
+    position: fixed;
+    background-color: #3333ffdb;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 9;
+}
+
+.content {
+    position: fixed;
+    top: $external-margin;
+    right: $external-margin;
+    bottom: $external-margin;
+    left: $external-margin;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    border: 3px solid #d17515;
+    border-radius: 5px;
+    background-color: white;
+    padding: 15px;
+    overflow: auto;
+
+    .players-container {
+        display: flex;
+        text-align: center;
+
+        label {
+            white-space: nowrap;
+
+            .player-name {
+                font-size: 1.4em;
+            }
+
+            .score-display {
+                display: inline-block;
+                border: none;
+                border-bottom: 2px solid black;
+                font-size: 1em;
+                margin-top: 15px;
+                padding: 0 10px;
+            }
+        }
+    }
+
+    .keyboard {
+        display: grid;
+        grid-template-rows: repeat(5, 1fr);
+        grid-template-columns: repeat(6, 1fr);
+        grid-gap: 10px;
+        position: absolute;
+        bottom: 5%;
+        width: 85%;
+
+        .previous-player {
+            grid-row: 1;
+            grid-column: span 3;
+        }
+
+        .next-player {
+            grid-row: 1;
+            grid-column: span 3;
+        }
+
+        span {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            grid-column: span 2;
+            min-width: 45px;
+            min-height: 35px;
+            border: 3px solid #d17515;
+            border-radius: 5px;
+            background-color: #fbf2e2;
+            padding: 8px;
+            font-size: 1.7em;
+            font-weight: 600;
+
+            &:active {
+                color: #d17515;
+                transform: scale(1.08);
+            }
+        }
+    }
+}

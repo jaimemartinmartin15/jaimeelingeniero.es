@@ -8,6 +8,10 @@ const routes: Routes = [
     component: RoutableLateralMenuComponent,
     children: [
       {
+        path: 'timer',
+        loadChildren: () => import('../timer/timer.module').then((m) => m.TimerModule),
+      },
+      {
         path: 'interval',
         loadChildren: () => import('../interval/interval.module').then((m) => m.IntervalModule),
       },
