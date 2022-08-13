@@ -81,6 +81,11 @@ $external-margin: 15px;
             padding: 8px;
             font-size: 1.7em;
             font-weight: 600;
+
+            &:active {
+                color: #d17515;
+                transform: scale(1.08);
+            }
         }
     }
 }
