@@ -46,6 +46,7 @@ export class SubjectComponent implements OnInit, AfterViewInit {
   public ngOnInit() {
     this.titleService.setTitle('Subject rxjs');
     this.metaService.updateTag({ name: 'description', content: 'Explicación de un Subject' });
+    this.metaService.updateTag({ name: 'keywords', content: `subject, demo, rxjs` });
   }
 
   public ngAfterViewInit(): void {
@@ -121,5 +122,6 @@ export class SubjectComponent implements OnInit, AfterViewInit {
 
   public ngOnDestroy(): void {
     this.metaService.removeTag('name="description"');
+    this.metaService.removeTag('name="keywords"');
   }
 }

@@ -46,6 +46,7 @@ export class BehaviorSubjectComponent implements OnInit, AfterViewInit {
   public ngOnInit() {
     this.titleService.setTitle('BehaviorSubject rxjs');
     this.metaService.updateTag({ name: 'description', content: 'Explicación de un BehaviorSubject' });
+    this.metaService.updateTag({ name: 'keywords', content: `behaviorsubject, demo, rxjs` });
   }
 
   public ngAfterViewInit(): void {
@@ -121,5 +122,6 @@ export class BehaviorSubjectComponent implements OnInit, AfterViewInit {
 
   public ngOnDestroy(): void {
     this.metaService.removeTag('name="description"');
+    this.metaService.removeTag('name="keywords"');
   }
 }

@@ -21,6 +21,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   public ngOnInit(): void {
     this.titleService.setTitle('Índice operadores rxjs');
     this.metaService.updateTag({ name: 'description', content: 'Accede a la lista de operadores rxjs' });
+    this.metaService.updateTag({ name: 'keywords', content: 'operadores rxjs, lista' });
 
     this.searchControl.valueChanges.subscribe((searchCriteria: string) => {
       searchCriteria = searchCriteria.toLocaleLowerCase();
@@ -42,5 +43,6 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   public ngOnDestroy(): void {
     this.metaService.removeTag('name="description"');
+    this.metaService.removeTag('name="keywords"');
   }
 }

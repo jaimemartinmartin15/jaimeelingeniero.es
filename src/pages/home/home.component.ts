@@ -57,7 +57,7 @@ export class HomeComponent implements OnInit, OnDestroy {
 
     this.titleService.setTitle('Presentación');
     this.metaService.updateTag({ name: 'description', content: `Me llamo Jaime, tengo ${this.years} años y soy ingeniero informático` });
-    this.metaService.updateTag({ name: 'keywords', content: 'Jaime, ingeniero informático' });
+    this.metaService.updateTag({ name: 'keywords', content: 'jaime martin martin, ingeniero informático' });
 
     this.calculateWavePath();
     this.scheduleWaveAnimation(0);
