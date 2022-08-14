@@ -37,6 +37,7 @@ export class ObservableComponent implements OnInit, AfterViewInit, OnDestroy {
   public ngOnInit() {
     this.titleService.setTitle('Observable rxjs');
     this.metaService.updateTag({ name: 'description', content: 'Explicación de un Observable' });
+    this.metaService.updateTag({ name: 'keywords', content: `observable, demo, rxjs` });
   }
 
   public ngAfterViewInit(): void {
@@ -79,5 +80,6 @@ export class ObservableComponent implements OnInit, AfterViewInit, OnDestroy {
 
   public ngOnDestroy(): void {
     this.metaService.removeTag('name="description"');
+    this.metaService.removeTag('name="keywords"');
   }
 }
