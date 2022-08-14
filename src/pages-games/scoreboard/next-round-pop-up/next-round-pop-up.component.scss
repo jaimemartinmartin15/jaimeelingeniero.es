@@ -27,24 +27,28 @@ $external-margin: 15px;
     padding: 15px;
     overflow: auto;
 
-    .players-container {
-        display: flex;
-        text-align: center;
+    .round-container {
+        overflow: hidden;
 
-        label {
-            white-space: nowrap;
+        .players-container {
+            display: flex;
+            text-align: center;
 
-            .player-name {
-                font-size: 1.4em;
-            }
+            label {
+                white-space: nowrap;
 
-            .score-display {
-                display: inline-block;
-                border: none;
-                border-bottom: 2px solid black;
-                font-size: 1em;
-                margin-top: 15px;
-                padding: 0 10px;
+                .player-name {
+                    font-size: 1.4em;
+                }
+
+                .score-display {
+                    display: inline-block;
+                    border: none;
+                    border-bottom: 2px solid black;
+                    font-size: 1em;
+                    margin-top: 15px;
+                    padding: 0 10px;
+                }
             }
         }
     }
@@ -81,10 +85,30 @@ $external-margin: 15px;
             padding: 8px;
             font-size: 1.7em;
             font-weight: 600;
+            cursor: pointer;
 
             &:active {
                 color: #d17515;
                 transform: scale(1.08);
+            }
+        }
+    }
+}
+
+@media (min-width: 576px) and (max-width: 767px) {
+    .content {
+        flex-direction: row;
+        justify-content: center;
+        gap: 100px;
+
+        .keyboard {
+            position: static;
+            width: 45%;
+            gap: 3px;
+
+            span {
+                padding: 0px;
+                font-size: 1em;
             }
         }
     }

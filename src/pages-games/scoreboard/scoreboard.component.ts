@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Meta, Title } from '@angular/platform-browser';
 import { PREVIOUS_GAME_KEY } from './local-storage-keys';
 import { NextRoundPopUpInput, NextRoundPopUpOutput } from './next-round-pop-up/next-round-pop-up.contract';
 import { Player } from './player';
@@ -19,9 +20,15 @@ export class ScoreboardComponent implements OnInit {
   public players: Player[];
   public rounds: number[][] = [];
 
+  public constructor(private readonly titleService: Title, private readonly metaService: Meta) {}
+
   public ngOnInit(): void {
     this.showReloadGamePopUp = localStorage.getItem(PREVIOUS_GAME_KEY) != null;
     setTimeout(() => (this.showReloadGamePopUp = false), 30e3);
+
+    this.titleService.setTitle('Tabla de puntuaciones');
+    this.metaService.updateTag({ name: 'description', content: 'Tabla de puntuaciones online para apuntar los puntos de cada jugador' });
+    this.metaService.updateTag({ name: 'keywords', content: 'tabla de puntuaciones, online, ranking, clasificacion' });
   }
 
   public getTotalScore(player: number): number {
@@ -81,5 +88,10 @@ export class ScoreboardComponent implements OnInit {
     const scores = this.rounds.reduce((prev, current) => prev.map((p, i) => p + current[i]), new Array(this.players.length).fill(0));
     const sortScores = [...scores].sort((a, b) => a - b);
     return sortScores.reverse().indexOf(scores[playerId]) + 1;
+  }
+
+  public ngOnDestroy(): void {
+    this.metaService.removeTag('name="description"');
+    this.metaService.removeTag('name="keywords"');
   }
 }

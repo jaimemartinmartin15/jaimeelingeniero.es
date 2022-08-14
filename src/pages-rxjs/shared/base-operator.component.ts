@@ -46,6 +46,7 @@ export abstract class BaseOperatorComponent implements OnInit, AfterViewInit, On
   public ngOnInit() {
     this.titleService.setTitle(`${capitalizeFirstLetter(this.operatorName)} rxjs`);
     this.metaService.updateTag({ name: 'description', content: `Explicación del operador rxjs ${this.operatorName}` });
+    this.metaService.updateTag({ name: 'keywords', content: `${this.operatorName.toLowerCase()}, demo, rxjs` });
   }
 
   public ngAfterViewInit() {
@@ -136,5 +137,6 @@ export abstract class BaseOperatorComponent implements OnInit, AfterViewInit, On
 
   public ngOnDestroy(): void {
     this.metaService.removeTag('name="description"');
+    this.metaService.removeTag('name="keywords"');
   }
 }
