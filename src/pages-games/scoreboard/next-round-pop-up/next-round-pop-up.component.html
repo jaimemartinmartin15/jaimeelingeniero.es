@@ -2,16 +2,12 @@
     <div class="round-container">
         <h1>Ronda {{nextRoundPopUpInput.round}}</h1>
 
-        <div class="players-container">
-            <ng-container *ngFor="let player of nextRoundPopUpInput.players; let i = index">
-                <div *ngIf="i === currentPlayer" @transitionNextPlayer>
-                    <label>
-                        Puntuación para <br> <strong class="player-name">{{player.name}}</strong>
-                        <br>
-                        <span class="score-display">{{player.punctuation}}</span>
-                    </label>
-                </div>
-            </ng-container>
+        <div class="players-container" #playersContainer>
+            <label *ngFor="let player of nextRoundPopUpInput.players; let i = index">
+                Puntuación para <br> <strong class="player-name">{{player.name}}</strong>
+                <br>
+                <span class="score-display">{{player.punctuation}}</span>
+            </label>
         </div>
     </div>
 
