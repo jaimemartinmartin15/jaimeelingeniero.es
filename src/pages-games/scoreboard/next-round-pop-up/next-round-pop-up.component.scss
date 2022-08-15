@@ -19,22 +19,24 @@ $external-margin: 15px;
     left: $external-margin;
     display: flex;
     flex-direction: column;
-    justify-content: flex-start;
+    justify-content: space-evenly;
     align-items: center;
     border: 3px solid #d17515;
     border-radius: 5px;
     background-color: white;
     padding: 15px;
-    overflow: auto;
 
     .round-container {
+        width: 100%;
+        text-align: center;
         overflow: hidden;
 
         .players-container {
             display: flex;
-            text-align: center;
 
             label {
+                display: inline-block;
+                min-width: 100%;
                 white-space: nowrap;
 
                 .player-name {
@@ -58,8 +60,6 @@ $external-margin: 15px;
         grid-template-rows: repeat(5, 1fr);
         grid-template-columns: repeat(6, 1fr);
         grid-gap: 10px;
-        position: absolute;
-        bottom: 5%;
         width: 85%;
 
         .previous-player {
@@ -98,12 +98,11 @@ $external-margin: 15px;
 @media (min-width: 576px) and (max-width: 767px) {
     .content {
         flex-direction: row;
-        justify-content: center;
-        gap: 100px;
 
         .keyboard {
             position: static;
-            width: 45%;
+            min-width: 45%;
+            margin-right: 5%;
             gap: 3px;
 
             span {

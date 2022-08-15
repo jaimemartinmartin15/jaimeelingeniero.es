@@ -84,6 +84,21 @@ export class ScoreboardComponent implements OnInit {
     }
   }
 
+  public getBackgroundColor(score: number): string {
+    const maxScore = Math.max(...this.rounds.flatMap((r) => r));
+    const minScore = Math.min(...this.rounds.flatMap((r) => r));
+
+    if (score >= 0) {
+      const scorePercentile = score / maxScore;
+      const threshold = 255 - 180 * scorePercentile;
+      return `background-color: rgb(${threshold}, 255, ${threshold})`;
+    } else {
+      const scorePercentile = Math.abs(score) / Math.abs(minScore);
+      const threshold = 255 - 180 * scorePercentile;
+      return `background-color: rgb(255,${threshold}, ${threshold})`;
+    }
+  }
+
   public getPosition(playerId: number): number {
     const scores = this.rounds.reduce((prev, current) => prev.map((p, i) => p + current[i]), new Array(this.players.length).fill(0));
     const sortScores = [...scores].sort((a, b) => a - b);

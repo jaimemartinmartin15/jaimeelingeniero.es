@@ -1,14 +1,16 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { transitionNextPlayer } from './next-round-pop-up.animation';
+import { AnimationBuilder } from '@angular/animations';
+import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { playPlayerTransitionAnimation } from './next-round-pop-up.animation';
 import { NextRoundPopUpInput, NextRoundPopUpOutput } from './next-round-pop-up.contract';
 
 @Component({
   selector: 'app-next-round-pop-up',
   templateUrl: './next-round-pop-up.component.html',
   styleUrls: ['./next-round-pop-up.component.scss'],
-  animations: [transitionNextPlayer],
 })
 export class NextRoundPopUpComponent implements OnInit {
+  @ViewChild('playersContainer') playersContainerElement: ElementRef;
+
   @Input()
   public nextRoundPopUpInput: NextRoundPopUpInput;
 
@@ -17,6 +19,8 @@ export class NextRoundPopUpComponent implements OnInit {
 
   public currentPlayer = 0;
   public sign: '+' | '-' = '+';
+
+  public constructor(private readonly animationBuilder: AnimationBuilder) {}
 
   public ngOnInit(): void {
     this.sign = this.puntuationCurrentPlayer >= 0 ? '+' : '-';
@@ -54,6 +58,7 @@ export class NextRoundPopUpComponent implements OnInit {
       return;
     }
 
+    playPlayerTransitionAnimation(this.animationBuilder, this.currentPlayer, this.playersContainerElement);
     this.sign = this.puntuationCurrentPlayer >= 0 ? '+' : '-';
   }
 
@@ -61,6 +66,7 @@ export class NextRoundPopUpComponent implements OnInit {
     if (this.currentPlayer > 0) {
       this.currentPlayer--;
       this.sign = this.puntuationCurrentPlayer >= 0 ? '+' : '-';
+      playPlayerTransitionAnimation(this.animationBuilder, this.currentPlayer, this.playersContainerElement);
     }
   }
 

@@ -1,6 +1,7 @@
-import { animate, style, transition, trigger } from '@angular/animations';
+import { animate, AnimationBuilder, style } from '@angular/animations';
+import { ElementRef } from '@angular/core';
 
-export const transitionNextPlayer = trigger('transitionNextPlayer', [
-  transition(':enter', [style({ transform: 'translateX(200%)' }), animate('400ms', style({ transform: 'translateX(0)' }))]),
-  transition(':leave', [animate('400ms', style({ transform: 'translateX(-200%)' }))]),
-]);
+export const playPlayerTransitionAnimation = (animationBuilder: AnimationBuilder, currentPlayer: number, playersContainerElement: ElementRef) => {
+  let animationFactory = animationBuilder.build([style('*'), animate('300ms', style({ transform: `translateX(-${currentPlayer}00%)` }))]);
+  animationFactory.create(playersContainerElement.nativeElement).play();
+};
