@@ -7,9 +7,10 @@ import { FormsModule } from '@angular/forms';
 import { StartGamePopUpComponent } from './start-game-pop-up/start-game-pop-up.component';
 import { NextRoundPopUpComponent } from './next-round-pop-up/next-round-pop-up.component';
 import { RankingComponent } from './ranking/ranking.component';
+import { RestartGamePopUpComponent } from './restart-game-pop-up/restart-game-pop-up.component';
 
 @NgModule({
   imports: [FormsModule, CommonModule, ScoreRoutingModule, DragDropModule],
-  declarations: [ScoreboardComponent, StartGamePopUpComponent, NextRoundPopUpComponent, RankingComponent],
+  declarations: [ScoreboardComponent, StartGamePopUpComponent, NextRoundPopUpComponent, RankingComponent, RestartGamePopUpComponent],
 })
 export class ScoreModule {}
