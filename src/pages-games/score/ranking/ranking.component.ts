@@ -45,7 +45,11 @@ export class RankingComponent implements OnInit {
       return;
     }
 
-    // TODO restart game
+    const previousGame = localStorage.getItem(PREVIOUS_GAME_KEY);
+    if (previousGame != null) {
+      const { players } = JSON.parse(previousGame);
+      this.rankingPlayers = players;
+    }
   }
 
   public prepareRanking(players: StartGamePopUpOutput) {
