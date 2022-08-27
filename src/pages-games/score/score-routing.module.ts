@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { ScoreboardComponent } from './scoreboard.component';
+import { RankingComponent } from './ranking/ranking.component';
 
 const routes: Routes = [
   {
     path: '',
-    component: ScoreboardComponent,
+    component: RankingComponent,
   },
   {
     path: '**',
@@ -18,4 +18,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class ScoreboardRoutingModule {}
+export class ScoreRoutingModule {}

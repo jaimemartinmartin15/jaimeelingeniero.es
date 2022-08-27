@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Meta, Title } from '@angular/platform-browser';
-import { PREVIOUS_GAME_KEY } from './local-storage-keys';
-import { NextRoundPopUpInput, NextRoundPopUpOutput } from './next-round-pop-up/next-round-pop-up.contract';
-import { Player } from './player';
-import { StartGamePopUpOutput } from './start-game-pop-up/start-game-pop-up.contract';
+import { PREVIOUS_GAME_KEY } from '../local-storage-keys';
+import { NextRoundPopUpInput, NextRoundPopUpOutput } from '../next-round-pop-up/next-round-pop-up.contract';
+import { Player } from '../player';
+import { StartGamePopUpOutput } from '../start-game-pop-up/start-game-pop-up.contract';
 
 @Component({
   selector: 'app-scoreboard',
