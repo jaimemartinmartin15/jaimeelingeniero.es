@@ -3,13 +3,16 @@
 
 <app-start-game-pop-up (confirm)="prepareRanking($event)" *ngIf="showStartGamePopUp"></app-start-game-pop-up>
 
+<app-next-round-pop-up *ngIf="showNewRoundPopUp" [nextRoundPopUpInput]="nextRoundPopUpInput"
+  (nextRoundPopUpOutput)="onResultNewRound($event)"></app-next-round-pop-up>
+
 <div class="ranking">
     <app-player-display *ngFor="let player of rankingPlayers" [player]="player"></app-player-display>
 </div>
 
 <div class="menu">
-    <button (click)="enterNewRound()">🆕</button>
+    <button>🆕</button>
     <button>📊</button>
     <button>🈚</button>
-    <button>➕</button>
+    <button (click)="enterNewRound()">➕</button>
 </div>
