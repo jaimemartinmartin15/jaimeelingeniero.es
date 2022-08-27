@@ -8,9 +8,17 @@ import { StartGamePopUpComponent } from './start-game-pop-up/start-game-pop-up.c
 import { NextRoundPopUpComponent } from './next-round-pop-up/next-round-pop-up.component';
 import { RankingComponent } from './ranking/ranking.component';
 import { RestartGamePopUpComponent } from './restart-game-pop-up/restart-game-pop-up.component';
+import { PlayerDisplayComponent } from './ranking/player-display/player-display.component';
 
 @NgModule({
   imports: [FormsModule, CommonModule, ScoreRoutingModule, DragDropModule],
-  declarations: [ScoreboardComponent, StartGamePopUpComponent, NextRoundPopUpComponent, RankingComponent, RestartGamePopUpComponent],
+  declarations: [
+    ScoreboardComponent,
+    StartGamePopUpComponent,
+    NextRoundPopUpComponent,
+    RankingComponent,
+    RestartGamePopUpComponent,
+    PlayerDisplayComponent,
+  ],
 })
 export class ScoreModule {}
