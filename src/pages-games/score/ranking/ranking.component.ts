@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { PREVIOUS_GAME_DATE_KEY } from '../local-storage-keys';
+import { StartGamePopUpOutput } from '../start-game-pop-up/start-game-pop-up.contract';
 
 @Component({
   selector: 'app-ranking',
@@ -8,6 +9,7 @@ import { PREVIOUS_GAME_DATE_KEY } from '../local-storage-keys';
 })
 export class RankingComponent implements OnInit {
   public showRestartGamePopUp = false;
+  public showStartGamePopUp = false;
 
   public ngOnInit(): void {
     this.checkRestartGame();
@@ -24,6 +26,15 @@ export class RankingComponent implements OnInit {
   public onConfirmRestartGame(restartGame: boolean) {
     this.showRestartGamePopUp = false;
 
+    if (!restartGame) {
+      this.showStartGamePopUp = true;
+      return;
+    }
+
+    // TODO restart game
+  }
+
+  public prepareRanking(players: StartGamePopUpOutput) {
     // TODO
   }
 }
