@@ -6,3 +6,10 @@
 <div class="ranking">
     <app-player-display *ngFor="let player of rankingPlayers" [player]="player"></app-player-display>
 </div>
+
+<div class="menu">
+    <button (click)="enterNewRound()">🆕</button>
+    <button>📊</button>
+    <button>🈚</button>
+    <button>➕</button>
+</div>

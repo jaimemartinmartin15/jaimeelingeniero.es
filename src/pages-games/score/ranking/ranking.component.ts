@@ -48,4 +48,8 @@ export class RankingComponent implements OnInit {
     this.showStartGamePopUp = false;
     this.rankingPlayers = players.map((name, id) => ({ id, name, position: 1, scores: [], totalScore: 0 }));
   }
+
+  public enterNewRound() {
+    // TODO
+  }
 }
