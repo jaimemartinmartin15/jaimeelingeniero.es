@@ -2,3 +2,7 @@
 </app-restart-game-pop-up>
 
 <app-start-game-pop-up (confirm)="prepareRanking($event)" *ngIf="showStartGamePopUp"></app-start-game-pop-up>
+
+<div class="ranking">
+    <app-player-display *ngFor="let player of rankingPlayers" [player]="player"></app-player-display>
+</div>
