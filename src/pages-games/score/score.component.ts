@@ -73,12 +73,28 @@ export class ScoreComponent implements OnInit, OnDestroy {
     };
   }
 
+  public enterRound(round: number) {
+    this.showNewRoundPopUp = true;
+    this.nextRoundPopUpInput = {
+      round: round + 1,
+      players: this.players.map((p) => ({ ...p, punctuation: p.scores[round] })).sort((p1, p2) => p1.id - p2.id),
+    };
+  }
+
+  public enterPunctuationForRoundAndPlayer({ round, player }: { round: number; player: number }) {
+    this.showNewRoundPopUp = true;
+    this.nextRoundPopUpInput = {
+      round: round + 1,
+      players: [this.players[player]].map((p) => ({ ...p, punctuation: p.scores[round] })),
+    };
+  }
+
   public onResultNewRound(output: NextRoundPopUpOutput) {
     this.showNewRoundPopUp = false;
     output.players.forEach((p1) => {
       const p2 = this.players.find((p2) => p1.id === p2.id)!;
-      p2.scores.push(p1.punctuation);
-      p2.totalScore += p1.punctuation;
+      p2.scores[output.round - 1] = p1.punctuation;
+      p2.totalScore = p2.scores.reduce((prev, current) => prev + current, 0);
     });
 
     this.players.sort((p1, p2) => p2.totalScore - p1.totalScore);

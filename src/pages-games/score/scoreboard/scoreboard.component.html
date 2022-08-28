@@ -8,9 +8,10 @@
 
   <tbody>
     <tr *ngFor="let round of getRoundsNumberAsArray()">
-      <th class="highlight-cell sticky-round-number" (click)="enterRound(round-1)">{{round}}</th>
+      <th class="highlight-cell sticky-round-number" (click)="enterRound.emit(round-1)">{{round}}</th>
       <td *ngFor="let score of getRoundScores(round-1); let j = index"
-        (click)="enterPunctuationForRoundAndPlayer(round-1, j)" [attr.style]="getBackgroundColor(score)">{{score}}</td>
+        (click)="enterPunctuationForRoundAndPlayer.emit({round: round-1, player: j})"
+        [attr.style]="getBackgroundColor(score)">{{score}}</td>
     </tr>
   </tbody>
 

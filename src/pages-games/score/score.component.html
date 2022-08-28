@@ -10,14 +10,15 @@
     (nextRoundPopUpOutput)="onResultNewRound($event)"></app-next-round-pop-up>
 
 <!-- Ranking view -->
-<app-ranking *ngIf="showScoreboardRankingToggle" [players]="players"></app-ranking>
+<app-ranking class="screen-view" *ngIf="showScoreboardRankingToggle" [players]="players"></app-ranking>
 
 <!-- Table view -->
-<app-scoreboard *ngIf="!showScoreboardRankingToggle" [players]="players"></app-scoreboard>
+<app-scoreboard class="screen-view" *ngIf="!showScoreboardRankingToggle" [players]="players" (enterRound)="enterRound($event)"
+    (enterPunctuationForRoundAndPlayer)="enterPunctuationForRoundAndPlayer($event)"></app-scoreboard>
 
 <!-- Bottom menu -->
 <div class="menu">
-    <button>Nuevo juego</button>
+    <button>Juego nuevo</button>
     <button>Estadísticas</button>
     <button (click)="showScoreboardRankingToggle = !showScoreboardRankingToggle">
         <ng-container *ngIf="showScoreboardRankingToggle">Ver tabla</ng-container>

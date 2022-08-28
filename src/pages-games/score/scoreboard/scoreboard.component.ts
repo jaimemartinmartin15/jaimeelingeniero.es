@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { intervalArray } from 'src/utils/arrays';
 import { RankingPlayer } from '../ranking/player-display/ranking-player';
 
@@ -11,20 +11,18 @@ export class ScoreboardComponent {
   @Input()
   public players: RankingPlayer[];
 
+  @Output()
+  public enterRound = new EventEmitter<number>();
+
+  @Output()
+  public enterPunctuationForRoundAndPlayer = new EventEmitter<{ round: number; player: number }>();
+
   public getRoundsNumberAsArray() {
     return intervalArray(this.players[0].scores.length);
   }
 
   public getRoundScores(round: number) {
     return this.players.map((p) => p.scores[round]);
-  }
-
-  public enterRound(round: number) {
-    // TODO
-  }
-
-  public enterPunctuationForRoundAndPlayer(round: number, player: number) {
-    // TODO
   }
 
   public getBackgroundColor(score: number): string {
