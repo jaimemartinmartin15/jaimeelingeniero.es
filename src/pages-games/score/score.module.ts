@@ -9,10 +9,12 @@ import { NextRoundPopUpComponent } from './next-round-pop-up/next-round-pop-up.c
 import { RankingComponent } from './ranking/ranking.component';
 import { RestartGamePopUpComponent } from './restart-game-pop-up/restart-game-pop-up.component';
 import { PlayerDisplayComponent } from './ranking/player-display/player-display.component';
+import { ScoreComponent } from './score.component';
 
 @NgModule({
   imports: [FormsModule, CommonModule, ScoreRoutingModule, DragDropModule],
   declarations: [
+    ScoreComponent,
     ScoreboardComponent,
     StartGamePopUpComponent,
     NextRoundPopUpComponent,

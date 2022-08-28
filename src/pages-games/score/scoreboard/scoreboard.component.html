@@ -7,32 +7,17 @@
   </thead>
 
   <tbody>
-    <tr *ngFor="let round of rounds; let i = index">
-      <th class="highlight-cell sticky-round-number" (click)="enterRound(i)">{{i+1}}</th>
-      <td *ngFor="let score of round; let j = index" (click)="enterPunctuationForRoundAndPlayer(i, j)"
-        [attr.style]="getBackgroundColor(score)">{{score}}</td>
+    <tr *ngFor="let round of getRoundsNumberAsArray()">
+      <th class="highlight-cell sticky-round-number" (click)="enterRound(round-1)">{{round}}</th>
+      <td *ngFor="let score of getRoundScores(round-1); let j = index"
+        (click)="enterPunctuationForRoundAndPlayer(round-1, j)" [attr.style]="getBackgroundColor(score)">{{score}}</td>
     </tr>
   </tbody>
 
   <tfoot class="sticky-footer">
     <tr>
       <th class="highlight-cell sticky-round-number">Total</th>
-      <th class="highlight-cell" *ngFor="let player of players">
-        {{getTotalScore(player.id)}}
-        <ng-container [ngSwitch]="getPosition(player.id)">
-          <ng-container *ngSwitchCase="1">🥇</ng-container>
-          <ng-container *ngSwitchCase="2">🥈</ng-container>
-          <ng-container *ngSwitchCase="3">🥉</ng-container>
-        </ng-container>
-      </th>
+      <th class="highlight-cell" *ngFor="let player of players">{{player.totalScore}}</th>
     </tr>
   </tfoot>
 </table>
-
-<button cdkDrag class="new-round-button" (click)="enterNewRound()">+</button>
-<app-next-round-pop-up *ngIf="showNewRoundPopUp" [nextRoundPopUpInput]="nextRoundPopUpInput"
-  (nextRoundPopUpOutput)="onResultNewRound($event)"></app-next-round-pop-up>
-
-<button cdkDrag class="reload-game-button" *ngIf="showReloadGamePopUp" (click)="reloadGame()">🔄</button>
-
-<app-start-game-pop-up (confirm)="prepareTable($event)" *ngIf="showStartGamePopUp"></app-start-game-pop-up>

@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { RankingComponent } from './ranking/ranking.component';
+import { ScoreComponent } from './score.component';
 
 const routes: Routes = [
   {
     path: '',
-    component: RankingComponent,
+    component: ScoreComponent,
   },
   {
     path: '**',
