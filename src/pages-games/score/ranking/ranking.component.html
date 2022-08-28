@@ -7,12 +7,15 @@
   (nextRoundPopUpOutput)="onResultNewRound($event)"></app-next-round-pop-up>
 
 <div class="ranking">
-    <app-player-display *ngFor="let player of rankingPlayers" [player]="player"></app-player-display>
+  <app-player-display *ngFor="let player of rankingPlayers" [player]="player"></app-player-display>
 </div>
 
 <div class="menu">
-    <button>🆕</button>
-    <button>📊</button>
-    <button>🈚</button>
-    <button (click)="enterNewRound()">➕</button>
+  <button>Nuevo juego</button>
+  <button>Estadísticas</button>
+  <button (click)="showScoreboardRankingToggle = !showScoreboardRankingToggle">
+    <ng-container *ngIf="showScoreboardRankingToggle">Ver tabla</ng-container>
+    <ng-container *ngIf="!showScoreboardRankingToggle">Ver ranking</ng-container>
+  </button>
+  <button (click)="enterNewRound()">Nueva ronda</button>
 </div>

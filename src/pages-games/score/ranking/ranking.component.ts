@@ -13,6 +13,7 @@ export class RankingComponent implements OnInit {
   public showRestartGamePopUp = false;
   public showStartGamePopUp = false;
   public showNewRoundPopUp = false;
+  public showScoreboardRankingToggle = true;
 
   public rankingPlayers: RankingPlayer[];
 
