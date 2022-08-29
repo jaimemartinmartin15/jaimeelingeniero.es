@@ -9,8 +9,8 @@
     <div class="name-score-container"><span>{{player.name}}</span> <span>{{player.totalScore}}</span></div>
     <div class="last-rounds">
         <div>Últimas rondas</div>
-        <div>
-            <span class="score" *ngFor="let score of player.scores"> {{score}} </span>
+        <div class="round-numbers">
+            <span class="score" *ngFor="let score of player.scores | slice:-4"> {{score}} </span>
         </div>
     </div>
 </div>

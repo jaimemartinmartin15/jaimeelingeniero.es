@@ -38,11 +38,16 @@
     .last-rounds {
         margin-top: 10px;
         font-size: 0.5em;
-    }
-}
 
-.score {
-    margin-right: 15px;
+        .round-numbers {
+            display: inline-flex;
+            flex-direction: row-reverse;
+
+            .score {
+                width: 5ch;
+            }
+        }
+    }
 }
 
 /****************** POSITION STYLES ******************/
