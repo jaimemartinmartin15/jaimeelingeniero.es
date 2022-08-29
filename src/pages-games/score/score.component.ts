@@ -37,7 +37,7 @@ export class ScoreComponent implements OnInit, OnDestroy {
   private checkRestartGame(): boolean {
     const lastSavedGameDate = localStorage.getItem(PREVIOUS_GAME_DATE_KEY);
     const twoHoursAgo = Date.now() - 2 * 60 * 60 * 1000;
-    if (lastSavedGameDate != null && Date.now() - +lastSavedGameDate < twoHoursAgo) {
+    if (lastSavedGameDate != null && +lastSavedGameDate > twoHoursAgo) {
       this.showRestartGamePopUp = true;
       return true;
     }
