@@ -15,7 +15,7 @@ export class ScoreComponent implements OnInit, OnDestroy {
   public showStartGamePopUp = false;
   public showNewRoundPopUp = false;
   public showLoadNewGamePopUp = false;
-  public showView: 'table' | 'ranking' = 'ranking';
+  public showView: 'table' | 'ranking' | 'statistics' = 'ranking';
 
   public players: RankingPlayer[];
 
@@ -115,6 +115,11 @@ export class ScoreComponent implements OnInit, OnDestroy {
   public showRankingView(): void {
     this.showView = 'ranking';
     this.calculatePlayersPosition();
+  }
+
+  public showStatisticsView(): void {
+    this.showView = 'statistics';
+    this.players.sort((p1, p2) => p1.id - p2.id);
   }
 
   private calculatePlayersPosition() {

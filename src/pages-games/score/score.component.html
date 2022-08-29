@@ -20,13 +20,16 @@
 <app-scoreboard class="screen-view" *ngIf="showView === 'table'" [players]="players" (enterRound)="enterRound($event)"
     (enterPunctuationForRoundAndPlayer)="enterPunctuationForRoundAndPlayer($event)"></app-scoreboard>
 
+<!-- Statistics view -->
+<app-statistics class="screen-view" *ngIf="showView === 'statistics'"></app-statistics>
+
 <!-- Bottom menu -->
 <div class="menu">
     <button (click)="showLoadNewGamePopUp = true">Juego nuevo</button>
-    <button>Estadísticas</button>
     <button>
-        <span (click)="showRankingView()" *ngIf="showView === 'table'">Ver ranking</span>
+        <span (click)="showStatisticsView()" *ngIf="showView === 'table'">Estadísticas</span>
         <span (click)="showTableView()" *ngIf="showView === 'ranking'">Ver tabla</span>
+        <span (click)="showRankingView()" *ngIf="showView === 'statistics'">Ver ranking</span>
     </button>
     <button (click)="enterNewRound()">Nueva ronda</button>
 </div>

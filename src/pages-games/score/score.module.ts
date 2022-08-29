@@ -11,6 +11,7 @@ import { RestartGamePopUpComponent } from './restart-game-pop-up/restart-game-po
 import { PlayerDisplayComponent } from './ranking/player-display/player-display.component';
 import { ScoreComponent } from './score.component';
 import { LoadNewGamePopUpComponent } from './load-new-game-pop-up/load-new-game-pop-up.component';
+import { StatisticsComponent } from './statistics/statistics.component';
 
 @NgModule({
   imports: [FormsModule, CommonModule, ScoreRoutingModule, DragDropModule],
@@ -23,6 +24,7 @@ import { LoadNewGamePopUpComponent } from './load-new-game-pop-up/load-new-game-
     RankingComponent,
     RestartGamePopUpComponent,
     PlayerDisplayComponent,
+    StatisticsComponent,
   ],
 })
 export class ScoreModule {}
