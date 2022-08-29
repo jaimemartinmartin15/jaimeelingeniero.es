@@ -14,7 +14,7 @@ export class ScoreComponent implements OnInit, OnDestroy {
   public showRestartGamePopUp = false;
   public showStartGamePopUp = false;
   public showNewRoundPopUp = false;
-  public showScoreboardRankingToggle = true;
+  public showView: 'table' | 'ranking' = 'ranking';
 
   public players: RankingPlayer[];
 
@@ -57,6 +57,7 @@ export class ScoreComponent implements OnInit, OnDestroy {
     if (previousGame != null) {
       const { players } = JSON.parse(previousGame);
       this.players = players;
+      this.calculatePlayersPosition();
     }
   }
 
@@ -97,14 +98,30 @@ export class ScoreComponent implements OnInit, OnDestroy {
       p2.totalScore = p2.scores.reduce((prev, current) => prev + current, 0);
     });
 
+    if (this.showView === 'ranking') {
+      this.calculatePlayersPosition();
+    }
+
+    localStorage.setItem(PREVIOUS_GAME_KEY, JSON.stringify({ players: this.players }));
+    localStorage.setItem(PREVIOUS_GAME_DATE_KEY, JSON.stringify(Date.now()));
+  }
+
+  public showTableView(): void {
+    this.showView = 'table';
+    this.players.sort((p1, p2) => p1.id - p2.id);
+  }
+
+  public showRankingView(): void {
+    this.showView = 'ranking';
+    this.calculatePlayersPosition();
+  }
+
+  private calculatePlayersPosition() {
     this.players.sort((p1, p2) => p2.totalScore - p1.totalScore);
     const scores = this.players.map((p) => p.totalScore);
     this.players.forEach((player) => {
       player.position = scores.indexOf(player.totalScore) + 1;
     });
-
-    localStorage.setItem(PREVIOUS_GAME_KEY, JSON.stringify({ players: this.players }));
-    localStorage.setItem(PREVIOUS_GAME_DATE_KEY, JSON.stringify(Date.now()));
   }
 
   public ngOnDestroy(): void {
