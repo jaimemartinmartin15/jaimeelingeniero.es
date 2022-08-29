@@ -14,6 +14,7 @@ export class ScoreComponent implements OnInit, OnDestroy {
   public showRestartGamePopUp = false;
   public showStartGamePopUp = false;
   public showNewRoundPopUp = false;
+  public showLoadNewGamePopUp = false;
   public showView: 'table' | 'ranking' = 'ranking';
 
   public players: RankingPlayer[];
@@ -122,6 +123,11 @@ export class ScoreComponent implements OnInit, OnDestroy {
     this.players.forEach((player) => {
       player.position = scores.indexOf(player.totalScore) + 1;
     });
+  }
+
+  public loadNewGame(confirmNewGame: boolean) {
+    this.showLoadNewGamePopUp = false;
+    this.showStartGamePopUp = confirmNewGame;
   }
 
   public ngOnDestroy(): void {

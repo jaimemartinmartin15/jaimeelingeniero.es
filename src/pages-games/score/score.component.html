@@ -9,6 +9,10 @@
 <app-next-round-pop-up *ngIf="showNewRoundPopUp" [nextRoundPopUpInput]="nextRoundPopUpInput"
     (nextRoundPopUpOutput)="onResultNewRound($event)"></app-next-round-pop-up>
 
+<!-- Load new game pop up -->
+<app-load-new-game-pop-up *ngIf="showLoadNewGamePopUp" (confirmation)="loadNewGame($event)">
+</app-load-new-game-pop-up>
+
 <!-- Ranking view -->
 <app-ranking class="screen-view" *ngIf="showView === 'ranking'" [players]="players"></app-ranking>
 
@@ -18,7 +22,7 @@
 
 <!-- Bottom menu -->
 <div class="menu">
-    <button>Juego nuevo</button>
+    <button (click)="showLoadNewGamePopUp = true">Juego nuevo</button>
     <button>Estadísticas</button>
     <button>
         <span (click)="showRankingView()" *ngIf="showView === 'table'">Ver ranking</span>
