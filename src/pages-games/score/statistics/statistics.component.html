@@ -8,3 +8,10 @@
   <!-- player score lines  -->
   <path class="line" *ngFor="let player of players" [attr.d]="buildPath(player)" [attr.stroke]="colors[player.id]" />
 </svg>
+
+<div class="legend">
+  <div *ngFor="let player of players">
+    <span class="dot" [attr.style]="'background-color: ' + colors[player.id]"></span>
+    <span>{{player.name}}</span>
+  </div>
+</div>
