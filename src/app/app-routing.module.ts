@@ -12,7 +12,7 @@ const routes: Routes = [
   },
   {
     path: 'tabla-de-puntuaciones',
-    loadChildren: () => import('../pages-games/scoreboard/scoreboard.module').then((m) => m.ScoreboardModule),
+    loadChildren: () => import('../pages-games/score/score.module').then((m) => m.ScoreModule),
   },
   {
     path: '',
