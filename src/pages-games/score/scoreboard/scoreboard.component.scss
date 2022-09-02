@@ -1,0 +1,36 @@
+:host {
+    display: block;
+    overflow-x: auto;
+}
+
+table {
+    border-spacing: 0;
+
+    th,
+    td {
+        border: 1px solid black;
+        padding: 3px 20px;
+        text-align: center;
+        white-space: nowrap;
+    }
+
+    .sticky-header {
+        position: sticky;
+        top: 0;
+        z-index: 5;
+    }
+
+    .sticky-round-number {
+        position: sticky;
+        left: 0;
+    }
+
+    .sticky-footer {
+        position: sticky;
+        bottom: 0;
+    }
+
+    .highlight-cell {
+        background-color: azure;
+    }
+}

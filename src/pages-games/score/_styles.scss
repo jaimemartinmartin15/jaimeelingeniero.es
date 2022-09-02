@@ -1,0 +1,41 @@
+@mixin popup {
+    $external-margin: 15px;
+
+    :host {
+        display: block;
+        position: fixed;
+        background-color: #3333ffdb;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        z-index: 9;
+    }
+
+    .content {
+        position: fixed;
+        top: $external-margin;
+        right: $external-margin;
+        bottom: $external-margin;
+        left: $external-margin;
+        border: 3px solid #d17515;
+        border-radius: 5px;
+        background-color: white;
+        padding: 15px;
+    }
+}
+
+.button {
+    border: none;
+    background-color: #d17515;
+    color: #fbf2e2;
+    padding: 9px;
+    border-radius: 4px;
+    font-size: 1.5rem;
+    box-shadow: 3px 3px 5px #cec9c1;
+
+    &:active {
+        transform: translateX(1px) translateY(2px);
+        box-shadow: 2px 1px 5px #cec9c1;
+    }
+}
