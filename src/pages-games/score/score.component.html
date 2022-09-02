@@ -21,7 +21,7 @@
     (enterPunctuationForRoundAndPlayer)="enterPunctuationForRoundAndPlayer($event)"></app-scoreboard>
 
 <!-- Statistics view -->
-<app-statistics class="screen-view" *ngIf="showView === 'statistics'"></app-statistics>
+<app-statistics class="screen-view" *ngIf="showView === 'statistics'" [players]="players"></app-statistics>
 
 <!-- Bottom menu -->
 <div class="menu">

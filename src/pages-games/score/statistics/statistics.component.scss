@@ -1,0 +1,18 @@
+:host {
+    display: block;
+}
+
+.graph {
+    width: 100%;
+    transform: scale(1, -1);
+
+    .axis {
+        stroke-width: 3;
+        stroke: black;
+    }
+
+    .line {
+        fill: none;
+        stroke-width: 2;
+    }
+}
