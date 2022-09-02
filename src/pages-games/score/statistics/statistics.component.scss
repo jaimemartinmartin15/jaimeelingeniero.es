@@ -33,3 +33,15 @@
         margin-right: 5px;
     }
 }
+
+.round-scoring,
+.ranking {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 35px;
+
+    .box {
+        text-align: center;
+        width: 50%;
+    }
+}
