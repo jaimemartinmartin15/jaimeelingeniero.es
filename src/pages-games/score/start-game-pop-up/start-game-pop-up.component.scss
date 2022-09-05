@@ -35,47 +35,46 @@ $external-margin: 15px;
             margin-top: 20px;
         }
 
-        input {
-            outline: none;
-            border: none;
+        .player-controls {
+            display: flex;
             border-bottom: 2px solid #d17515;
-            font-size: 1.1em;
-            margin-top: 8px;
-            width: calc(100% - 30px);
-            padding: 0;
-            padding-right: 30px;
+            align-items: center;
+            padding-top: 8px;
 
-            &:focus {
+            &:focus-within {
                 border-bottom: 3px solid #d17515;
             }
-        }
 
-        .delete-icon {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            position: absolute;
-            top: 50%;
-            right: 0;
-            width: 20px;
-            height: 20px;
-            clip-path: polygon(
-                20% 0%,
-                0% 20%,
-                30% 50%,
-                0% 80%,
-                20% 100%,
-                50% 70%,
-                80% 100%,
-                100% 80%,
-                70% 50%,
-                100% 20%,
-                80% 0%,
-                50% 30%
-            );
-            color: #fbf2e2;
-            background-color: #d17515;
-            border-radius: 50px;
+            input {
+                outline: none;
+                border: none;
+                font-size: 1.1em;
+                width: calc(100% - 40px);
+                padding: 0;
+            }
+
+            .delete-icon {
+                width: 20px;
+                height: 20px;
+                margin: 0 0 4px 20px;
+                clip-path: polygon(
+                    20% 0%,
+                    0% 20%,
+                    30% 50%,
+                    0% 80%,
+                    20% 100%,
+                    50% 70%,
+                    80% 100%,
+                    100% 80%,
+                    70% 50%,
+                    100% 20%,
+                    80% 0%,
+                    50% 30%
+                );
+                color: #fbf2e2;
+                background-color: #d17515;
+                border-radius: 50px;
+            }
         }
     }
 

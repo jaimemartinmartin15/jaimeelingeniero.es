@@ -1,14 +1,16 @@
 <form class="content" (submit)="onConfirm()">
   <ng-container *ngFor="let player of players; let i = index; trackBy: trackByPlayerIndex">
-    <label class="player-box">
-      <strong>Jugador {{i+1}}</strong>
+    <div class="player-box">
+      <label><strong>Jugador {{i+1}}</strong></label>
 
       <br>
 
-      <input type="text" name="player{{i}}" [(ngModel)]="players[i]">
+      <div class="player-controls">
+        <input type="text" name="player{{i}}" [(ngModel)]="players[i]">
 
-      <div class="delete-icon" (click)="deletePlayer(i, $event)" *ngIf="this.players.length > 1"></div>
-    </label>
+        <div class="delete-icon" (click)="deletePlayer(i, $event)" *ngIf="this.players.length > 1"></div>
+      </div>
+    </div>
 
     <br>
   </ng-container>
