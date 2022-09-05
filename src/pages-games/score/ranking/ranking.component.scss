@@ -1,5 +1,9 @@
+@import "../styles";
+
 :host {
     display: flex;
     flex-direction: column;
     gap: 5px;
 }
+
+@include empty-state;

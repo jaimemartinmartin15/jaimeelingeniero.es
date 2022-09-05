@@ -1,4 +1,8 @@
-<table>
+<ng-container *ngIf="players != null && players[0].scores.length === 0">
+  Introduce al menos una ronda para mostrar la tabla de puntuaciones
+</ng-container>
+
+<table *ngIf="players != null && players[0].scores.length > 0">
   <thead class="sticky-header">
     <tr>
       <th class="highlight-cell sticky-round-number">Ronda</th>

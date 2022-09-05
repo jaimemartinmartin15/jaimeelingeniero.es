@@ -1,27 +1,35 @@
-<svg class="graph" [attr.viewBox]="viewBox.x + ' ' + viewBox.y + ' ' + viewBox.width + ' ' + viewBox.height">
-  <!-- y axis -->
-  <line class="axis" x1="2" [attr.y1]="viewBox.y" x2="2" [attr.y2]="viewBox.height" />
+<ng-container *ngIf="players != null && players[0].scores.length === 0">
+  Introduce al menos una ronda para mostrar las estadísticas
+</ng-container>
 
-  <!-- x axis -->
-  <line class="axis" x1="0" [attr.y1]="0" [attr.x2]="viewBox.width" [attr.y2]="0" />
+<ng-container *ngIf="players != null && players[0].scores.length > 0">
+  <svg class="graph" [attr.viewBox]="viewBox.x + ' ' + viewBox.y + ' ' + viewBox.width + ' ' + viewBox.height">
+    <!-- y axis -->
+    <line class="axis" x1="2" [attr.y1]="viewBox.y" x2="2" [attr.y2]="viewBox.height" />
 
-  <!-- player score lines  -->
-  <path class="line" *ngFor="let player of players" [attr.d]="buildPath(player)" [attr.stroke]="colors[player.id]" />
-</svg>
+    <!-- x axis -->
+    <line class="axis" x1="0" [attr.y1]="0" [attr.x2]="viewBox.width" [attr.y2]="0" />
 
-<div class="legend">
-  <div *ngFor="let player of players">
-    <span class="dot" [attr.style]="'background-color: ' + colors[player.id]"></span>
-    <span>{{player.name}}</span>
+    <!-- player score lines  -->
+    <path class="line" *ngFor="let player of players" [attr.d]="buildPath(player)" [attr.stroke]="colors[player.id]" />
+  </svg>
+
+  <div class="legend">
+    <div *ngFor="let player of players">
+      <span class="dot" [attr.style]="'background-color: ' + colors[player.id]"></span>
+      <span>{{player.name}}</span>
+    </div>
   </div>
-</div>
 
-<div class="ranking">
-  <div class="box">Primera posición: <br> <strong>{{firstPlayers}}</strong></div>
-  <div class="box">Última posición: <br> <strong>{{lastPlayers}}</strong></div>
-</div>
+  <div class="ranking">
+    <div class="box">Primera posición: <br> <strong>{{firstPlayers}}</strong></div>
+    <div class="box">Última posición: <br> <strong>{{lastPlayers}}</strong></div>
+  </div>
 
-<div class="round-scoring">
-  <div class="box">Ronda máxima puntuación: <br> <strong>{{playersMaxScoreInRound}} ({{maxScoreInRound}})</strong></div>
-  <div class="box">Ronda mínima puntuación: <br> <strong>{{playersMinScoreInRound}} ({{minScoreInRound}})</strong></div>
-</div>
+  <div class="round-scoring">
+    <div class="box">Ronda máxima puntuación: <br> <strong>{{playersMaxScoreInRound}} ({{maxScoreInRound}})</strong>
+    </div>
+    <div class="box">Ronda mínima puntuación: <br> <strong>{{playersMinScoreInRound}} ({{minScoreInRound}})</strong>
+    </div>
+  </div>
+</ng-container>

@@ -1,4 +1,4 @@
-import { Component, ElementRef, Input, OnInit } from '@angular/core';
+import { Component, ElementRef, HostBinding, Input, OnInit } from '@angular/core';
 import { intervalArray } from 'src/utils/arrays';
 import { RankingPlayer } from '../ranking/player-display/ranking-player';
 
@@ -21,6 +21,11 @@ export class StatisticsComponent implements OnInit {
         ...intervalArray(this.players.length - this.colors.length).map((_) => `#${Math.floor(Math.random() * 16777215).toString(16)}`)
       );
     }
+  }
+
+  @HostBinding('class.empty-state')
+  public get isEmptyState(): boolean {
+    return this.players != null && this.players[0].scores.length === 0;
   }
 
   public get viewBox(): any {

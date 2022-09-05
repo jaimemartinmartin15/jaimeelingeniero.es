@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, HostBinding, Input, Output } from '@angular/core';
 import { intervalArray } from 'src/utils/arrays';
 import { RankingPlayer } from '../ranking/player-display/ranking-player';
 
@@ -16,6 +16,11 @@ export class ScoreboardComponent {
 
   @Output()
   public enterPunctuationForRoundAndPlayer = new EventEmitter<{ round: number; player: number }>();
+
+  @HostBinding('class.empty-state')
+  public get isEmptyState(): boolean {
+    return this.players != null && this.players[0].scores.length === 0;
+  }
 
   public getRoundsNumberAsArray() {
     return intervalArray(this.players[0].scores.length);

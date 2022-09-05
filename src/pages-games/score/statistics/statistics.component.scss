@@ -1,6 +1,10 @@
+@import "../styles";
+
 :host {
     display: block;
 }
+
+@include empty-state;
 
 .graph {
     width: 100%;
