@@ -1,7 +1,10 @@
 <form class="content" (submit)="onConfirm()">
   <div cdkDropList (cdkDropListDropped)="onReorderingPlayer($event)" class="players-list">
-    <div cdkDrag class="player-item" *ngFor="let player of players; let i = index; trackBy: trackByPlayerIndex">
-      <label><strong>Jugador {{i+1}}</strong></label>
+    <div cdkDrag cdkDragPreviewContainer="parent" class="player-item"
+      *ngFor="let player of players; let i = index; trackBy: trackByPlayerIndex">
+      <div *cdkDragPlaceholder></div>
+
+      <label cdkDragHandle><strong>Jugador {{i+1}}</strong></label>
 
       <br>
 
