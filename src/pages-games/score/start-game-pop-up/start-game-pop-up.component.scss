@@ -24,56 +24,54 @@ $external-margin: 15px;
     padding: 50px;
     overflow: auto;
 
-    .player-box {
-        position: relative;
-        display: inline-block;
-        font-size: 0.95em;
-        color: #d17515;
-        width: 100%;
+    .players-list {
+        .player-item {
+            font-size: 0.95em;
+            color: #d17515;
 
-        &:not(:first-child) {
-            margin-top: 20px;
-        }
-
-        .player-controls {
-            display: flex;
-            border-bottom: 2px solid #d17515;
-            align-items: center;
-            padding-top: 8px;
-
-            &:focus-within {
-                border-bottom: 3px solid #d17515;
+            &:not(:first-child) {
+                margin-top: 20px;
             }
 
-            input {
-                outline: none;
-                border: none;
-                font-size: 1.1em;
-                width: calc(100% - 40px);
-                padding: 0;
-            }
+            .player-controls {
+                display: flex;
+                border-bottom: 2px solid #d17515;
+                padding-top: 8px;
 
-            .delete-icon {
-                width: 20px;
-                height: 20px;
-                margin: 0 0 4px 20px;
-                clip-path: polygon(
-                    20% 0%,
-                    0% 20%,
-                    30% 50%,
-                    0% 80%,
-                    20% 100%,
-                    50% 70%,
-                    80% 100%,
-                    100% 80%,
-                    70% 50%,
-                    100% 20%,
-                    80% 0%,
-                    50% 30%
-                );
-                color: #fbf2e2;
-                background-color: #d17515;
-                border-radius: 50px;
+                &:focus-within {
+                    border-bottom: 3px solid #d17515;
+                }
+
+                input {
+                    outline: none;
+                    border: none;
+                    font-size: 1.1em;
+                    width: calc(100% - 40px);
+                    padding: 0;
+                }
+
+                .delete-icon {
+                    width: 20px;
+                    height: 20px;
+                    margin: 0 0 4px 20px;
+                    clip-path: polygon(
+                        20% 0%,
+                        0% 20%,
+                        30% 50%,
+                        0% 80%,
+                        20% 100%,
+                        50% 70%,
+                        80% 100%,
+                        100% 80%,
+                        70% 50%,
+                        100% 20%,
+                        80% 0%,
+                        50% 30%
+                    );
+                    color: #fbf2e2;
+                    background-color: #d17515;
+                    border-radius: 50px;
+                }
             }
         }
     }

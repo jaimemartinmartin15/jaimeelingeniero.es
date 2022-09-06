@@ -1,3 +1,4 @@
+import { CdkDragDrop } from '@angular/cdk/drag-drop';
 import { Component, Output, EventEmitter, OnInit } from '@angular/core';
 import { PREVIOUS_GAME_KEY } from '../local-storage-keys';
 import { Player } from '../player';
@@ -34,6 +35,12 @@ export class StartGamePopUpComponent implements OnInit {
 
   public trackByPlayerIndex(index: number) {
     return index;
+  }
+
+  public onReorderingPlayer(event: CdkDragDrop<any, any>) {
+    const player = this.players[event.previousIndex];
+    this.players.splice(event.previousIndex, 1);
+    this.players.splice(event.currentIndex, 0, player);
   }
 
   public playersAreEntered(): boolean {

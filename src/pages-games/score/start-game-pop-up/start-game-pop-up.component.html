@@ -1,6 +1,6 @@
 <form class="content" (submit)="onConfirm()">
-  <ng-container *ngFor="let player of players; let i = index; trackBy: trackByPlayerIndex">
-    <div class="player-box">
+  <div cdkDropList (cdkDropListDropped)="onReorderingPlayer($event)" class="players-list">
+    <div cdkDrag class="player-item" *ngFor="let player of players; let i = index; trackBy: trackByPlayerIndex">
       <label><strong>Jugador {{i+1}}</strong></label>
 
       <br>
@@ -11,9 +11,7 @@
         <div class="delete-icon" (click)="deletePlayer(i, $event)" *ngIf="this.players.length > 1"></div>
       </div>
     </div>
-
-    <br>
-  </ng-container>
+  </div>
 
   <button type="button" class="new-player-button" (click)="addPlayer()">Nuevo jugador</button>
 
