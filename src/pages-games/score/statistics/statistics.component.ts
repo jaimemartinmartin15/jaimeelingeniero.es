@@ -8,7 +8,7 @@ import { RankingPlayer } from '../ranking/player-display/ranking-player';
   styleUrls: ['./statistics.component.scss'],
 })
 export class StatisticsComponent implements OnInit {
-  public colors: string[] = ['red', 'blue', 'green', 'aqua', 'silver', 'lime', 'fuchsia', 'yellow'];
+  public colors: string[] = ['#ff0000', '#0000ff', '#008000', '#00ffff', '#c0c0c0', '#00ff00', '#ff00ff', '#ffff00'];
 
   @Input()
   public players: RankingPlayer[];
@@ -17,10 +17,19 @@ export class StatisticsComponent implements OnInit {
 
   public ngOnInit(): void {
     if (this.players.length > this.colors.length) {
-      this.colors.push(
-        ...intervalArray(this.players.length - this.colors.length).map((_) => `#${Math.floor(Math.random() * 16777215).toString(16)}`)
-      );
+      const chars = '0123456789ABCDEF';
+      const numberOfPlayersToCreate = this.players.length - this.colors.length;
+      for (let i = 0; i < numberOfPlayersToCreate; i++) {
+        let color = '#';
+        for (let j = 0; j < 6; j++) {
+          color += chars[Math.floor(Math.random() * chars.length)];
+        }
+        this.colors.push(color);
+      }
     }
+
+    // adds transparency
+    this.colors = this.colors.map((c) => c + 'CC');
   }
 
   @HostBinding('class.empty-state')
