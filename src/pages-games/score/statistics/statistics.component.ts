@@ -57,9 +57,13 @@ export class StatisticsComponent implements OnInit {
     };
   }
 
+  public get roundSvgMarkers(): number[] {
+    return intervalArray(this.players[0].scores.length / 5);
+  }
+
   public buildPath(player: RankingPlayer): string {
     return player.scores.reduce((prev, _, round, scores) => {
-      return `${prev} ${(round + 1) * (this.viewBox.width / player.scores.length)},${scores
+      return `${prev} ${5 + (round + 1) * ((this.viewBox.width - 10) / player.scores.length)},${scores
         .slice(0, round + 1)
         .reduce((prev, current) => prev + current, 0)}`;
     }, 'M 0,0');

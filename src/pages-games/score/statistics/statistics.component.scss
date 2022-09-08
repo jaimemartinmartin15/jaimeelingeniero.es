@@ -19,6 +19,20 @@
         fill: none;
         stroke-width: 2;
     }
+
+    .round-markers {
+        font-size: 0.7em;
+        stroke: #dcdcdccc;
+
+        text {
+            transform: scale(1, -1);
+        }
+
+        line {
+            stroke-width: 2;
+            stroke-dasharray: 5, 5;
+        }
+    }
 }
 
 .legend {
