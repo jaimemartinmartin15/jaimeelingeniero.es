@@ -8,7 +8,7 @@
     <!-- round markers -->
     <g class="round-markers">
       <ng-container *ngFor="let roundMark of roundSvgMarkers">
-        <text [attr.x]="7+((viewBox.width-10)/players[0].scores.length)*roundMark*5" y="-5">{{roundMark*5}}</text>
+        <text [attr.x]="((viewBox.width-10)/players[0].scores.length)*roundMark*5" y="-5">{{roundMark*5}}</text>
         <line [attr.x1]="5+((viewBox.width-10)/players[0].scores.length)*roundMark*5" [attr.y1]="viewBox.y"
           [attr.x2]="5+((viewBox.width-10)/players[0].scores.length)*roundMark*5" [attr.y2]="viewBox.height-10"></line>
       </ng-container>
