@@ -125,8 +125,10 @@ $external-margin: 15px;
         }
 
         &:disabled {
-            background-color: #aeaeae;
-            border: 3px solid #c7ac90;
+            background-color: #d3b18e;
+            border: 3px solid #8f5416;
+            color: #8f5416;
+            box-shadow: none;
         }
     }
 }
