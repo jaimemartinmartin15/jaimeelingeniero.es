@@ -53,7 +53,7 @@ export class StatisticsComponent implements OnInit {
       return `${prev} ${(round + 1) * (this.viewBox.width / player.scores.length)},${scores
         .slice(0, round + 1)
         .reduce((prev, current) => prev + current, 0)}`;
-    }, 'M 2,0');
+    }, 'M 0,0');
   }
 
   public get firstPlayers(): string {

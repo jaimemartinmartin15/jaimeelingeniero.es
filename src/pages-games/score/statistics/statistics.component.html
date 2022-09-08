@@ -3,9 +3,10 @@
 </ng-container>
 
 <ng-container *ngIf="players != null && players[0].scores.length > 0">
-  <svg class="graph" [attr.viewBox]="viewBox.x + ' ' + viewBox.y + ' ' + viewBox.width + ' ' + viewBox.height">
+  <svg class="graph"
+    [attr.viewBox]="(viewBox.x-5) + ' ' + (viewBox.y-5) + ' ' + (viewBox.width+10) + ' ' + (viewBox.height+10)">
     <!-- y axis -->
-    <line class="axis" x1="2" [attr.y1]="viewBox.y" x2="2" [attr.y2]="viewBox.height" />
+    <line class="axis" x1="0" [attr.y1]="viewBox.y" x2="0" [attr.y2]="viewBox.height-10" />
 
     <!-- x axis -->
     <line class="axis" x1="0" [attr.y1]="0" [attr.x2]="viewBox.width" [attr.y2]="0" />
