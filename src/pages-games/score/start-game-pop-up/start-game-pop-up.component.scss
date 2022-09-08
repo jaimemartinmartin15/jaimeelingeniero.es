@@ -46,6 +46,13 @@ $external-margin: 15px;
         padding-bottom: 4px;
         min-height: 80px;
 
+        .cdk-drag-preview {
+            box-shadow: 3px 3px 5px #cec9c1, -3px -3px 5px #cec9c1;
+            background-color: white;
+            padding: 5px !important;
+            height: auto !important;
+        }
+
         .player-item {
             font-size: 0.95em;
             color: #d17515;
@@ -66,6 +73,7 @@ $external-margin: 15px;
                 input {
                     outline: none;
                     border: none;
+                    background-color: transparent;
                     font-size: 1.1em;
                     width: calc(100% - 40px);
                     padding: 0;
