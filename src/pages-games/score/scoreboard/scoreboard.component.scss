@@ -1,7 +1,11 @@
+@import "../styles";
+
 :host {
     display: block;
     overflow-x: auto;
 }
+
+@include empty-state;
 
 table {
     border-spacing: 0;

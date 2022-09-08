@@ -1,27 +1,45 @@
-<svg class="graph" [attr.viewBox]="viewBox.x + ' ' + viewBox.y + ' ' + viewBox.width + ' ' + viewBox.height">
-  <!-- y axis -->
-  <line class="axis" x1="2" [attr.y1]="viewBox.y" x2="2" [attr.y2]="viewBox.height" />
+<ng-container *ngIf="players != null && players[0].scores.length === 0">
+  Introduce al menos una ronda para mostrar las estadísticas
+</ng-container>
 
-  <!-- x axis -->
-  <line class="axis" x1="0" [attr.y1]="0" [attr.x2]="viewBox.width" [attr.y2]="0" />
+<ng-container *ngIf="players != null && players[0].scores.length > 0">
+  <svg class="graph"
+    [attr.viewBox]="(viewBox.x-5) + ' ' + (viewBox.y-5) + ' ' + (viewBox.width+10) + ' ' + (viewBox.height+10)">
+    <!-- round markers -->
+    <g class="round-markers">
+      <ng-container *ngFor="let roundMark of roundSvgMarkers">
+        <text [attr.x]="((viewBox.width-10)/players[0].scores.length)*roundMark*5" y="-5">{{roundMark*5}}</text>
+        <line [attr.x1]="5+((viewBox.width-10)/players[0].scores.length)*roundMark*5" [attr.y1]="viewBox.y"
+          [attr.x2]="5+((viewBox.width-10)/players[0].scores.length)*roundMark*5" [attr.y2]="viewBox.height-10"></line>
+      </ng-container>
+    </g>
 
-  <!-- player score lines  -->
-  <path class="line" *ngFor="let player of players" [attr.d]="buildPath(player)" [attr.stroke]="colors[player.id]" />
-</svg>
+    <!-- y axis -->
+    <line class="axis" x1="0" [attr.y1]="viewBox.y" x2="0" [attr.y2]="viewBox.height-10" />
 
-<div class="legend">
-  <div *ngFor="let player of players">
-    <span class="dot" [attr.style]="'background-color: ' + colors[player.id]"></span>
-    <span>{{player.name}}</span>
+    <!-- x axis -->
+    <line class="axis" x1="0" [attr.y1]="0" [attr.x2]="viewBox.width" [attr.y2]="0" />
+
+    <!-- player score lines  -->
+    <path class="line" *ngFor="let player of players" [attr.d]="buildPath(player)" [attr.stroke]="colors[player.id]" />
+  </svg>
+
+  <div class="legend">
+    <div *ngFor="let player of players">
+      <span class="dot" [attr.style]="'background-color: ' + colors[player.id]"></span>
+      <span>{{player.name}}</span>
+    </div>
   </div>
-</div>
 
-<div class="ranking">
-  <div class="box">Primera posición: <br> <strong>{{firstPlayers}}</strong></div>
-  <div class="box">Última posición: <br> <strong>{{lastPlayers}}</strong></div>
-</div>
+  <div class="ranking">
+    <div class="box">Puntuación total actual más alta: <br> <strong>{{firstPlayers}}</strong></div>
+    <div class="box">Puntuación total actual más baja: <br> <strong>{{lastPlayers}}</strong></div>
+  </div>
 
-<div class="round-scoring">
-  <div class="box">Ronda máxima puntuación: <br> <strong>{{playersMaxScoreInRound}} ({{maxScoreInRound}})</strong></div>
-  <div class="box">Ronda mínima puntuación: <br> <strong>{{playersMinScoreInRound}} ({{minScoreInRound}})</strong></div>
-</div>
+  <div class="round-scoring">
+    <div class="box">Ronda máxima puntuación: <br> <strong>{{playersMaxScoreInRound}} ({{maxScoreInRound}})</strong>
+    </div>
+    <div class="box">Ronda mínima puntuación: <br> <strong>{{playersMinScoreInRound}} ({{minScoreInRound}})</strong>
+    </div>
+  </div>
+</ng-container>

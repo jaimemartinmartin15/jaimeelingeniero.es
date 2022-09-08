@@ -1,6 +1,10 @@
+@import "../styles";
+
 :host {
     display: block;
 }
+
+@include empty-state;
 
 .graph {
     width: 100%;
@@ -14,6 +18,21 @@
     .line {
         fill: none;
         stroke-width: 2;
+    }
+
+    .round-markers {
+        font-size: 0.7em;
+        stroke: #dcdcdccc;
+
+        text {
+            transform: scale(1, -1);
+            text-anchor: end;
+        }
+
+        line {
+            stroke-width: 2;
+            stroke-dasharray: 5, 5;
+        }
     }
 }
 

@@ -1,4 +1,5 @@
-import { Component, Output, EventEmitter, OnInit } from '@angular/core';
+import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
+import { Component, Output, EventEmitter, OnInit, ViewChildren, ElementRef, QueryList, ChangeDetectorRef } from '@angular/core';
 import { PREVIOUS_GAME_KEY } from '../local-storage-keys';
 import { Player } from '../player';
 import { StartGamePopUpOutput } from './start-game-pop-up.contract';
@@ -9,10 +10,15 @@ import { StartGamePopUpOutput } from './start-game-pop-up.contract';
   styleUrls: ['./start-game-pop-up.component.scss'],
 })
 export class StartGamePopUpComponent implements OnInit {
+  @ViewChildren('input')
+  private inputs: QueryList<ElementRef>;
+
   @Output()
   public confirm = new EventEmitter<StartGamePopUpOutput>();
 
   public players: string[] = ['', '', '', ''];
+
+  public constructor(private readonly changeDetectorRef: ChangeDetectorRef) {}
 
   public ngOnInit(): void {
     const previousGame = localStorage.getItem(PREVIOUS_GAME_KEY);
@@ -24,6 +30,8 @@ export class StartGamePopUpComponent implements OnInit {
 
   public addPlayer() {
     this.players.push('');
+    this.changeDetectorRef.detectChanges();
+    this.inputs.last.nativeElement.focus();
   }
 
   public deletePlayer(index: number, e: Event) {
@@ -34,6 +42,10 @@ export class StartGamePopUpComponent implements OnInit {
 
   public trackByPlayerIndex(index: number) {
     return index;
+  }
+
+  public onReorderingPlayer(event: CdkDragDrop<string[]>) {
+    moveItemInArray(this.players, event.previousIndex, event.currentIndex);
   }
 
   public playersAreEntered(): boolean {
