@@ -25,6 +25,17 @@
     }
 }
 
+@mixin empty-state {
+    :host(.empty-state) {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        width: 50%;
+        margin: 0 auto;
+    }
+}
+
 .button {
     border: none;
     background-color: #d17515;
