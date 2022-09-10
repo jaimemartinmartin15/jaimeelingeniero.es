@@ -28,25 +28,18 @@ export class ScoreComponent implements OnInit, OnDestroy {
     this.metaService.updateTag({ name: 'description', content: 'Tabla de puntuaciones online para apuntar los puntos de cada jugador' });
     this.metaService.updateTag({ name: 'keywords', content: 'tabla de puntuaciones, online, ranking, clasificacion' });
 
-    if (this.checkRestartGame()) {
-      return;
-    }
-
-    this.showStartGamePopUp = true;
+    const restartGame = this.checkIfRestartGame();
+    this.showRestartGamePopUp = restartGame;
+    this.showStartGamePopUp = !restartGame;
   }
 
-  private checkRestartGame(): boolean {
+  private checkIfRestartGame(): boolean {
     const lastSavedGameDate = localStorage.getItem(PREVIOUS_GAME_DATE_KEY);
     const twoHoursAgo = Date.now() - 2 * 60 * 60 * 1000;
-    if (lastSavedGameDate != null && +lastSavedGameDate > twoHoursAgo) {
-      this.showRestartGamePopUp = true;
-      return true;
-    }
-
-    return false;
+    return lastSavedGameDate != null && +lastSavedGameDate > twoHoursAgo;
   }
 
-  public onConfirmRestartGame(restartGame: boolean) {
+  public onConfirmIfRestartGame(restartGame: boolean) {
     this.showRestartGamePopUp = false;
 
     if (!restartGame) {
@@ -62,9 +55,9 @@ export class ScoreComponent implements OnInit, OnDestroy {
     }
   }
 
-  public prepareRanking(players: StartGamePopUpOutput) {
+  public onConfirmStartGame(names: StartGamePopUpOutput) {
     this.showStartGamePopUp = false;
-    this.players = players.map((name, id) => ({ id, name, position: 1, scores: [], totalScore: 0, punctuation: 0 }));
+    this.players = names.map((name, id) => ({ id, name, position: 1, scores: [], totalScore: 0, punctuation: 0 }));
   }
 
   public enterNewRound() {
