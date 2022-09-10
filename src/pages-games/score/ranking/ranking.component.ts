@@ -1,5 +1,5 @@
 import { Component, HostBinding, Input } from '@angular/core';
-import { RankingPlayer } from './player-display/ranking-player';
+import { Player } from '../player/player';
 
 @Component({
   selector: 'app-ranking',
@@ -8,7 +8,7 @@ import { RankingPlayer } from './player-display/ranking-player';
 })
 export class RankingComponent {
   @Input()
-  public players: RankingPlayer[];
+  public players: Player[];
 
   @HostBinding('class.empty-state')
   public get isEmptyState(): boolean {

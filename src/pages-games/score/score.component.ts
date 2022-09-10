@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Meta, Title } from '@angular/platform-browser';
 import { PREVIOUS_GAME_DATE_KEY, PREVIOUS_GAME_KEY } from './local-storage-keys';
 import { NextRoundPopUpInput, NextRoundPopUpOutput } from './next-round-pop-up/next-round-pop-up.contract';
-import { RankingPlayer } from './ranking/player-display/ranking-player';
+import { Player } from './player/player';
 import { StartGamePopUpOutput } from './start-game-pop-up/start-game-pop-up.contract';
 
 @Component({
@@ -17,7 +17,7 @@ export class ScoreComponent implements OnInit, OnDestroy {
   public showLoadNewGamePopUp = false;
   public showView: 'table' | 'ranking' | 'statistics' = 'ranking';
 
-  public players: RankingPlayer[];
+  public players: Player[];
 
   public nextRoundPopUpInput: NextRoundPopUpInput;
 
@@ -64,7 +64,7 @@ export class ScoreComponent implements OnInit, OnDestroy {
 
   public prepareRanking(players: StartGamePopUpOutput) {
     this.showStartGamePopUp = false;
-    this.players = players.map((name, id) => ({ id, name, position: 1, scores: [], totalScore: 0 }));
+    this.players = players.map((name, id) => ({ id, name, position: 1, scores: [], totalScore: 0, punctuation: 0 }));
   }
 
   public enterNewRound() {

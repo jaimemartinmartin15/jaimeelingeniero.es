@@ -1,6 +1,6 @@
 import { Component, ElementRef, HostBinding, Input, OnInit } from '@angular/core';
 import { intervalArray } from 'src/utils/arrays';
-import { RankingPlayer } from '../ranking/player-display/ranking-player';
+import { Player } from '../player/player';
 
 @Component({
   selector: 'app-statistics',
@@ -11,7 +11,7 @@ export class StatisticsComponent implements OnInit {
   public colors: string[] = ['#ff0000', '#0000ff', '#008000', '#00ffff', '#c0c0c0', '#00ff00', '#ff00ff', '#ffff00'];
 
   @Input()
-  public players: RankingPlayer[];
+  public players: Player[];
 
   public constructor(public readonly element: ElementRef) {}
 
@@ -61,7 +61,7 @@ export class StatisticsComponent implements OnInit {
     return intervalArray(this.players[0].scores.length / 5);
   }
 
-  public buildPath(player: RankingPlayer): string {
+  public buildPath(player: Player): string {
     return player.scores.reduce((prev, _, round, scores) => {
       return `${prev} ${5 + (round + 1) * ((this.viewBox.width - 10) / player.scores.length)},${scores
         .slice(0, round + 1)

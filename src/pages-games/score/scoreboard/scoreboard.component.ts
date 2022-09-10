@@ -1,6 +1,6 @@
 import { Component, EventEmitter, HostBinding, Input, Output } from '@angular/core';
 import { intervalArray } from 'src/utils/arrays';
-import { RankingPlayer } from '../ranking/player-display/ranking-player';
+import { Player } from '../player/player';
 
 @Component({
   selector: 'app-scoreboard',
@@ -9,7 +9,7 @@ import { RankingPlayer } from '../ranking/player-display/ranking-player';
 })
 export class ScoreboardComponent {
   @Input()
-  public players: RankingPlayer[];
+  public players: Player[];
 
   @Output()
   public enterRound = new EventEmitter<number>();
