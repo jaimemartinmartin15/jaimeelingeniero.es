@@ -1,12 +1,12 @@
-<ng-container *ngIf="players != null && players[0].scores.length === 0">
+<ng-container *ngIf="playersService.players == null || playersService.nextRoundNumber === 1">
   Introduce al menos una ronda para mostrar la tabla de puntuaciones
 </ng-container>
 
-<table *ngIf="players != null && players[0].scores.length > 0">
+<table *ngIf="playersService.players != null && playersService.nextRoundNumber > 1">
   <thead class="sticky-header">
     <tr>
       <th class="highlight-cell sticky-round-number">Ronda</th>
-      <th class="highlight-cell" *ngFor="let player of players">{{player.name}}</th>
+      <th class="highlight-cell" *ngFor="let player of playersService.playersSortedBy('id')">{{player.name}}</th>
     </tr>
   </thead>
 
@@ -22,7 +22,7 @@
   <tfoot class="sticky-footer">
     <tr>
       <th class="highlight-cell sticky-round-number">Total</th>
-      <th class="highlight-cell" *ngFor="let player of players">{{player.totalScore}}</th>
+      <th class="highlight-cell" *ngFor="let player of playersService.playersSortedBy('id')">{{player.totalScore}}</th>
     </tr>
   </tfoot>
 </table>

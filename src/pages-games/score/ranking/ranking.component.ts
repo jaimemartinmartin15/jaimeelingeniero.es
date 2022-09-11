@@ -1,5 +1,5 @@
-import { Component, HostBinding, Input } from '@angular/core';
-import { Player } from '../player/player';
+import { Component, HostBinding } from '@angular/core';
+import { PlayersService } from '../player/players.service';
 
 @Component({
   selector: 'app-ranking',
@@ -7,11 +7,10 @@ import { Player } from '../player/player';
   styleUrls: ['./ranking.component.scss'],
 })
 export class RankingComponent {
-  @Input()
-  public players: Player[];
+  public constructor(public readonly playersService: PlayersService) {}
 
   @HostBinding('class.empty-state')
   public get isEmptyState(): boolean {
-    return this.players != null && this.players[0].scores.length === 0;
+    return this.playersService.players == null || this.playersService.nextRoundNumber === 1;
   }
 }

@@ -29,6 +29,14 @@ export class Player implements IPlayer {
     return Math.min(...this.accumulatedScores);
   }
 
+  public get maximumScoreInOneRound(): number {
+    return Math.max(...this.scores);
+  }
+
+  public get minimumScoreInOneRound(): number {
+    return Math.min(...this.scores);
+  }
+
   public setRoundValue(score: number, round: number = this.scores.length) {
     this.scores[round] = score;
     this.accumulatedScores = this.calculateAccumulatedScores();

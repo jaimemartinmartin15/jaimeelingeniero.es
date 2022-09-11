@@ -1,7 +1,8 @@
-<ng-container *ngIf="players != null && players[0].scores.length === 0">
+<ng-container *ngIf="playersService.players == null || playersService.nextRoundNumber === 1">
     Introduce al menos una ronda para mostrar el ranking
 </ng-container>
 
-<ng-container *ngIf="players != null && players[0].scores.length > 0">
-    <app-player-display *ngFor="let player of players" [player]="player"></app-player-display>
+<ng-container *ngIf="playersService.players != null && playersService.nextRoundNumber > 1">
+    <app-player-display *ngFor="let player of playersService.playersSortedBy('position')" [player]="player">
+    </app-player-display>
 </ng-container>

@@ -1,8 +1,9 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Meta, Title } from '@angular/platform-browser';
-import { PREVIOUS_GAME_DATE_KEY, PREVIOUS_GAME_KEY } from './local-storage-keys';
+import { PREVIOUS_GAME_DATE_KEY } from './local-storage-keys';
 import { NextRoundPopUpInput, NextRoundPopUpOutput } from './next-round-pop-up/next-round-pop-up.contract';
-import { IPlayer, Player } from './player/player';
+import { Player } from './player/player';
+import { PlayersService } from './player/players.service';
 import { StartGamePopUpOutput } from './start-game-pop-up/start-game-pop-up.contract';
 
 @Component({
@@ -17,11 +18,9 @@ export class ScoreComponent implements OnInit, OnDestroy {
   public showLoadNewGamePopUp = false;
   public showView: 'table' | 'ranking' | 'statistics' = 'ranking';
 
-  public players: Player[];
-
   public nextRoundPopUpInput: NextRoundPopUpInput;
 
-  public constructor(private readonly titleService: Title, private readonly metaService: Meta) {}
+  public constructor(private readonly titleService: Title, private readonly metaService: Meta, private readonly playersService: PlayersService) {}
 
   public ngOnInit(): void {
     this.titleService.setTitle('Tabla de puntuaciones');
@@ -47,29 +46,22 @@ export class ScoreComponent implements OnInit, OnDestroy {
       return;
     }
 
-    const previousGame = localStorage.getItem(PREVIOUS_GAME_KEY);
-    if (previousGame != null) {
-      const { players } = JSON.parse(previousGame);
-      this.players = players.map((p: IPlayer) => new Player(p.id, p.name, p.scores, p.accumulatedScores, p.position));
-      this.calculatePlayersPosition();
-    }
+    this.playersService.loadPlayersFromLocalStorage();
   }
 
   public onConfirmStartGame(names: StartGamePopUpOutput) {
     this.showStartGamePopUp = false;
-    this.players = names.map((name, id) => new Player(id, name));
+    this.playersService.players = names.map((name, id) => new Player(id, name));
   }
 
   public enterNewRound() {
     this.showNewRoundPopUp = true;
     this.nextRoundPopUpInput = {
-      round: this.players[0].scores.length + 1,
-      players: this.players
-        .map((p) => {
-          p.punctuation = 0;
-          return p;
-        })
-        .sort((p1, p2) => p1.id - p2.id),
+      round: this.playersService.nextRoundNumber,
+      players: this.playersService.playersSortedBy('id').map((p) => {
+        p.punctuation = 0;
+        return p;
+      }),
     };
   }
 
@@ -77,12 +69,10 @@ export class ScoreComponent implements OnInit, OnDestroy {
     this.showNewRoundPopUp = true;
     this.nextRoundPopUpInput = {
       round: round + 1,
-      players: this.players
-        .map((p) => {
-          p.punctuation = p.scores[round];
-          return p;
-        })
-        .sort((p1, p2) => p1.id - p2.id),
+      players: this.playersService.playersSortedBy('id').map((p) => {
+        p.punctuation = p.scores[round];
+        return p;
+      }),
     };
   }
 
@@ -90,7 +80,7 @@ export class ScoreComponent implements OnInit, OnDestroy {
     this.showNewRoundPopUp = true;
     this.nextRoundPopUpInput = {
       round: round + 1,
-      players: [this.players[player]].map((p) => {
+      players: [this.playersService.getPlayerWithId(player)].map((p) => {
         p.punctuation = p.scores[round];
         return p;
       }),
@@ -99,40 +89,21 @@ export class ScoreComponent implements OnInit, OnDestroy {
 
   public onResultNewRound(output: NextRoundPopUpOutput) {
     this.showNewRoundPopUp = false;
-    output.players.forEach((p1) => {
-      const p2 = this.players.find((p2) => p1.id === p2.id)!;
-      p2.setRoundValue(p1.punctuation, output.round - 1);
-    });
-
-    if (this.showView === 'ranking') {
-      this.calculatePlayersPosition();
-    }
-
-    localStorage.setItem(PREVIOUS_GAME_KEY, JSON.stringify({ players: this.players }));
-    localStorage.setItem(PREVIOUS_GAME_DATE_KEY, JSON.stringify(Date.now()));
+    output.players.forEach((p1) => this.playersService.getPlayerWithId(p1.id).setRoundValue(p1.punctuation, output.round - 1));
+    this.playersService.calculatePlayerPositions();
+    this.playersService.savePlayersToLocalStorage();
   }
 
   public showTableView(): void {
     this.showView = 'table';
-    this.players.sort((p1, p2) => p1.id - p2.id);
   }
 
   public showRankingView(): void {
     this.showView = 'ranking';
-    this.calculatePlayersPosition();
   }
 
   public showStatisticsView(): void {
     this.showView = 'statistics';
-    this.players.sort((p1, p2) => p1.id - p2.id);
-  }
-
-  private calculatePlayersPosition() {
-    this.players.sort((p1, p2) => p2.totalScore - p1.totalScore);
-    const scores = this.players.map((p) => p.totalScore);
-    this.players.forEach((player) => {
-      player.position = scores.indexOf(player.totalScore) + 1;
-    });
   }
 
   public loadNewGame(confirmNewGame: boolean) {

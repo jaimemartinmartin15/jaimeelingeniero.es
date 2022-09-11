@@ -1,6 +1,7 @@
 import { Component, EventEmitter, HostBinding, Input, Output } from '@angular/core';
 import { intervalArray } from 'src/utils/arrays';
 import { Player } from '../player/player';
+import { PlayersService } from '../player/players.service';
 
 @Component({
   selector: 'app-scoreboard',
@@ -8,9 +9,6 @@ import { Player } from '../player/player';
   styleUrls: ['./scoreboard.component.scss'],
 })
 export class ScoreboardComponent {
-  @Input()
-  public players: Player[];
-
   @Output()
   public enterRound = new EventEmitter<number>();
 
@@ -19,27 +17,26 @@ export class ScoreboardComponent {
 
   @HostBinding('class.empty-state')
   public get isEmptyState(): boolean {
-    return this.players != null && this.players[0].scores.length === 0;
+    return this.playersService.players == null || this.playersService.nextRoundNumber === 1;
   }
 
+  public constructor(public readonly playersService: PlayersService) {}
+
   public getRoundsNumberAsArray() {
-    return intervalArray(this.players[0].scores.length);
+    return intervalArray(this.playersService.nextRoundNumber - 1);
   }
 
   public getRoundScores(round: number) {
-    return this.players.map((p) => p.scores[round]);
+    return this.playersService.playersSortedBy('id').map((p) => p.scores[round]);
   }
 
   public getBackgroundColor(score: number): string {
-    const maxScore = Math.max(...this.players.map((p) => p.scores).flatMap((r) => r));
-    const minScore = Math.min(...this.players.map((p) => p.scores).flatMap((r) => r));
-
     if (score >= 0) {
-      const scorePercentile = score / maxScore;
+      const scorePercentile = score / this.playersService.maximumScoreInOneRound;
       const threshold = 255 - 180 * scorePercentile;
       return `background-color: rgb(${threshold}, 255, ${threshold})`;
     } else {
-      const scorePercentile = Math.abs(score) / Math.abs(minScore);
+      const scorePercentile = Math.abs(score) / Math.abs(this.playersService.minimumScoreInOneRound);
       const threshold = 255 - 180 * scorePercentile;
       return `background-color: rgb(255,${threshold}, ${threshold})`;
     }
