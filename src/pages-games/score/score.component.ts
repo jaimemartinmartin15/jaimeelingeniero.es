@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Meta, Title } from '@angular/platform-browser';
 import { PREVIOUS_GAME_DATE_KEY, PREVIOUS_GAME_KEY } from './local-storage-keys';
 import { NextRoundPopUpInput, NextRoundPopUpOutput } from './next-round-pop-up/next-round-pop-up.contract';
-import { Player } from './player/player';
+import { IPlayer, Player } from './player/player';
 import { StartGamePopUpOutput } from './start-game-pop-up/start-game-pop-up.contract';
 
 @Component({
@@ -50,21 +50,26 @@ export class ScoreComponent implements OnInit, OnDestroy {
     const previousGame = localStorage.getItem(PREVIOUS_GAME_KEY);
     if (previousGame != null) {
       const { players } = JSON.parse(previousGame);
-      this.players = players;
+      this.players = players.map((p: IPlayer) => new Player(p.id, p.name, p.scores, p.accumulatedScores, p.position));
       this.calculatePlayersPosition();
     }
   }
 
   public onConfirmStartGame(names: StartGamePopUpOutput) {
     this.showStartGamePopUp = false;
-    this.players = names.map((name, id) => ({ id, name, position: 1, scores: [], totalScore: 0, punctuation: 0 }));
+    this.players = names.map((name, id) => new Player(id, name));
   }
 
   public enterNewRound() {
     this.showNewRoundPopUp = true;
     this.nextRoundPopUpInput = {
       round: this.players[0].scores.length + 1,
-      players: this.players.map((p) => ({ ...p, punctuation: 0 })).sort((p1, p2) => p1.id - p2.id),
+      players: this.players
+        .map((p) => {
+          p.punctuation = 0;
+          return p;
+        })
+        .sort((p1, p2) => p1.id - p2.id),
     };
   }
 
@@ -72,7 +77,12 @@ export class ScoreComponent implements OnInit, OnDestroy {
     this.showNewRoundPopUp = true;
     this.nextRoundPopUpInput = {
       round: round + 1,
-      players: this.players.map((p) => ({ ...p, punctuation: p.scores[round] })).sort((p1, p2) => p1.id - p2.id),
+      players: this.players
+        .map((p) => {
+          p.punctuation = p.scores[round];
+          return p;
+        })
+        .sort((p1, p2) => p1.id - p2.id),
     };
   }
 
@@ -80,7 +90,10 @@ export class ScoreComponent implements OnInit, OnDestroy {
     this.showNewRoundPopUp = true;
     this.nextRoundPopUpInput = {
       round: round + 1,
-      players: [this.players[player]].map((p) => ({ ...p, punctuation: p.scores[round] })),
+      players: [this.players[player]].map((p) => {
+        p.punctuation = p.scores[round];
+        return p;
+      }),
     };
   }
 
@@ -88,8 +101,7 @@ export class ScoreComponent implements OnInit, OnDestroy {
     this.showNewRoundPopUp = false;
     output.players.forEach((p1) => {
       const p2 = this.players.find((p2) => p1.id === p2.id)!;
-      p2.scores[output.round - 1] = p1.punctuation;
-      p2.totalScore = p2.scores.reduce((prev, current) => prev + current, 0);
+      p2.setRoundValue(p1.punctuation, output.round - 1);
     });
 
     if (this.showView === 'ranking') {
