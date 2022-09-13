@@ -1,4 +1,5 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, HostBinding, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, HostBinding, OnDestroy, OnInit } from '@angular/core';
+import { Subject, takeUntil } from 'rxjs';
 import { Player } from '../player/player';
 import { PlayersService } from '../player/players.service';
 
@@ -8,7 +9,9 @@ import { PlayersService } from '../player/players.service';
   styleUrls: ['./ranking.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class RankingComponent implements OnInit {
+export class RankingComponent implements OnInit, OnDestroy {
+  private finishSubscriptions$ = new Subject<void>();
+
   public players: Player[];
 
   @HostBinding('class.empty-state')
@@ -19,14 +22,19 @@ export class RankingComponent implements OnInit {
   public constructor(public readonly playersService: PlayersService, public readonly changeDetectorRef: ChangeDetectorRef) {}
 
   public ngOnInit(): void {
-    this.playersService.playersLoaded$.subscribe(() => {
+    this.playersService.playersLoaded$.pipe(takeUntil(this.finishSubscriptions$)).subscribe(() => {
       this.players = this.playersService.playersByPosition;
       this.changeDetectorRef.detectChanges();
     });
 
-    this.playersService.scoreChanged$.subscribe(() => {
+    this.playersService.scoreChanged$.pipe(takeUntil(this.finishSubscriptions$)).subscribe(() => {
       this.players = this.playersService.playersByPosition;
       this.changeDetectorRef.detectChanges();
     });
+  }
+
+  public ngOnDestroy(): void {
+    this.finishSubscriptions$.next();
+    this.finishSubscriptions$.complete();
   }
 }

@@ -1,4 +1,5 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, HostBinding, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, HostBinding, OnDestroy, OnInit } from '@angular/core';
+import { Subject, takeUntil } from 'rxjs';
 import { intervalArray } from 'src/utils/arrays';
 import { Player } from '../player/player';
 import { PlayersService } from '../player/players.service';
@@ -9,7 +10,9 @@ import { PlayersService } from '../player/players.service';
   styleUrls: ['./statistics.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class StatisticsComponent implements OnInit {
+export class StatisticsComponent implements OnInit, OnDestroy {
+  private finishSubscriptions$ = new Subject<void>();
+
   public players: Player[];
   public colors: string[] = ['#ff0000', '#0000ff', '#008000', '#00ffff', '#c0c0c0', '#00ff00', '#ff00ff', '#ffff00'];
 
@@ -25,13 +28,13 @@ export class StatisticsComponent implements OnInit {
   ) {}
 
   public ngOnInit(): void {
-    this.playersService.playersLoaded$.subscribe(() => {
+    this.playersService.playersLoaded$.pipe(takeUntil(this.finishSubscriptions$)).subscribe(() => {
       this.players = this.playersService.playersById;
       this.createColorsForPlayers();
       this.changeDetectorRef.detectChanges();
     });
 
-    this.playersService.scoreChanged$.subscribe(() => {
+    this.playersService.scoreChanged$.pipe(takeUntil(this.finishSubscriptions$)).subscribe(() => {
       this.players = this.playersService.playersById;
       this.changeDetectorRef.detectChanges();
     });
@@ -103,5 +106,10 @@ export class StatisticsComponent implements OnInit {
       .filter((p) => p.scores.indexOf(this.playersService.minimumScoreInOneRound) !== -1)
       .map((p) => p.name)
       .join(', ');
+  }
+
+  public ngOnDestroy(): void {
+    this.finishSubscriptions$.next();
+    this.finishSubscriptions$.complete();
   }
 }
