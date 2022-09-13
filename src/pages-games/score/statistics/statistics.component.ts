@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, ElementRef, HostBinding, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, HostBinding, OnInit } from '@angular/core';
 import { intervalArray } from 'src/utils/arrays';
 import { Player } from '../player/player';
 import { PlayersService } from '../player/players.service';
@@ -18,18 +18,22 @@ export class StatisticsComponent implements OnInit {
     return this.players == null || this.playersService.playedRounds === 0;
   }
 
-  public constructor(public readonly element: ElementRef, public readonly playersService: PlayersService) {}
+  public constructor(
+    public readonly element: ElementRef,
+    public readonly playersService: PlayersService,
+    public readonly changeDetectorRef: ChangeDetectorRef
+  ) {}
 
   public ngOnInit(): void {
     this.playersService.playersLoaded$.subscribe(() => {
       this.players = this.playersService.playersById;
       this.createColorsForPlayers();
-      // todo check change detector
+      this.changeDetectorRef.detectChanges();
     });
 
     this.playersService.scoreChanged$.subscribe(() => {
       this.players = this.playersService.playersById;
-      // todo check change detector
+      this.changeDetectorRef.detectChanges();
     });
   }
 
