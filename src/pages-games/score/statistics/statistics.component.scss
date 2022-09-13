@@ -27,6 +27,8 @@
         text {
             transform: scale(1, -1);
             text-anchor: end;
+            stroke: none;
+            fill: #dcdcdccc;
         }
 
         line {

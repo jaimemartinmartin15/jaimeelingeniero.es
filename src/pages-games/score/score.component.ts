@@ -1,8 +1,7 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
 import { Meta, Title } from '@angular/platform-browser';
 import { PREVIOUS_GAME_DATE_KEY } from './local-storage-keys';
 import { NextRoundPopUpInput, NextRoundPopUpOutput } from './next-round-pop-up/next-round-pop-up.contract';
-import { Player } from './player/player';
 import { PlayersService } from './player/players.service';
 import { StartGamePopUpOutput } from './start-game-pop-up/start-game-pop-up.contract';
 
@@ -10,6 +9,7 @@ import { StartGamePopUpOutput } from './start-game-pop-up/start-game-pop-up.cont
   selector: 'app-score',
   templateUrl: './score.component.html',
   styleUrls: ['./score.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ScoreComponent implements OnInit, OnDestroy {
   public showRestartGamePopUp = false;
@@ -47,18 +47,20 @@ export class ScoreComponent implements OnInit, OnDestroy {
     }
 
     this.playersService.loadPlayersFromLocalStorage();
+    this.playersService.playersLoaded$.next();
   }
 
   public onConfirmStartGame(names: StartGamePopUpOutput) {
     this.showStartGamePopUp = false;
-    this.playersService.players = names.map((name, id) => new Player(id, name));
+    this.playersService.createPlayersWithNames(names);
+    this.playersService.playersLoaded$.next();
   }
 
   public enterNewRound() {
     this.showNewRoundPopUp = true;
     this.nextRoundPopUpInput = {
       round: this.playersService.nextRoundNumber,
-      players: this.playersService.playersSortedBy('id').map((p) => {
+      players: this.playersService.playersById.map((p) => {
         p.punctuation = 0;
         return p;
       }),
@@ -69,7 +71,7 @@ export class ScoreComponent implements OnInit, OnDestroy {
     this.showNewRoundPopUp = true;
     this.nextRoundPopUpInput = {
       round: round + 1,
-      players: this.playersService.playersSortedBy('id').map((p) => {
+      players: this.playersService.playersById.map((p) => {
         p.punctuation = p.scores[round];
         return p;
       }),
@@ -80,33 +82,22 @@ export class ScoreComponent implements OnInit, OnDestroy {
     this.showNewRoundPopUp = true;
     this.nextRoundPopUpInput = {
       round: round + 1,
-      players: [this.playersService.getPlayerWithId(player)].map((p) => {
+      players: [this.playersService.playerWithId(player)].map((p) => {
         p.punctuation = p.scores[round];
         return p;
       }),
     };
   }
 
-  public onResultNewRound(output: NextRoundPopUpOutput) {
+  public onResultNewRound({ players, round }: NextRoundPopUpOutput) {
     this.showNewRoundPopUp = false;
-    output.players.forEach((p1) => this.playersService.getPlayerWithId(p1.id).setRoundValue(p1.punctuation, output.round - 1));
+    players.forEach((p1) => this.playersService.playerWithId(p1.id).setRoundValue(p1.punctuation, round - 1));
     this.playersService.calculatePlayerPositions();
     this.playersService.savePlayersToLocalStorage();
+    this.playersService.scoreChanged$.next();
   }
 
-  public showTableView(): void {
-    this.showView = 'table';
-  }
-
-  public showRankingView(): void {
-    this.showView = 'ranking';
-  }
-
-  public showStatisticsView(): void {
-    this.showView = 'statistics';
-  }
-
-  public loadNewGame(confirmNewGame: boolean) {
+  public onConfirmIfLoadNewGame(confirmNewGame: boolean) {
     this.showLoadNewGamePopUp = false;
     this.showStartGamePopUp = confirmNewGame;
   }

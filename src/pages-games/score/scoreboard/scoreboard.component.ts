@@ -1,4 +1,4 @@
-import { Component, EventEmitter, HostBinding, Input, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, HostBinding, OnInit, Output } from '@angular/core';
 import { intervalArray } from 'src/utils/arrays';
 import { Player } from '../player/player';
 import { PlayersService } from '../player/players.service';
@@ -7,8 +7,11 @@ import { PlayersService } from '../player/players.service';
   selector: 'app-scoreboard',
   templateUrl: './scoreboard.component.html',
   styleUrls: ['./scoreboard.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ScoreboardComponent {
+export class ScoreboardComponent implements OnInit {
+  public players: Player[];
+
   @Output()
   public enterRound = new EventEmitter<number>();
 
@@ -17,17 +20,29 @@ export class ScoreboardComponent {
 
   @HostBinding('class.empty-state')
   public get isEmptyState(): boolean {
-    return this.playersService.players == null || this.playersService.nextRoundNumber === 1;
+    return this.players == null || this.playersService.playedRounds === 0;
   }
 
   public constructor(public readonly playersService: PlayersService) {}
 
-  public getRoundsNumberAsArray() {
+  public ngOnInit(): void {
+    this.playersService.playersLoaded$.subscribe(() => {
+      this.players = this.playersService.playersById;
+      // todo check change detector
+    });
+
+    this.playersService.scoreChanged$.subscribe(() => {
+      this.players = this.playersService.playersById;
+      // todo check change detector
+    });
+  }
+
+  public getRoundNumbersAsArray() {
     return intervalArray(this.playersService.nextRoundNumber - 1);
   }
 
   public getRoundScores(round: number) {
-    return this.playersService.playersSortedBy('id').map((p) => p.scores[round]);
+    return this.players.map((p) => p.scores[round]);
   }
 
   public getBackgroundColor(score: number): string {

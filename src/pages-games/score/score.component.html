@@ -1,16 +1,16 @@
 <!-- Restart game pop up -->
-<app-restart-game-pop-up (confirmation)="onConfirmIfRestartGame($event)" *ngIf="showRestartGamePopUp">
+<app-restart-game-pop-up *ngIf="showRestartGamePopUp" (confirmation)="onConfirmIfRestartGame($event)">
 </app-restart-game-pop-up>
 
 <!-- Start game pop up -->
-<app-start-game-pop-up (confirm)="onConfirmStartGame($event)" *ngIf="showStartGamePopUp"></app-start-game-pop-up>
+<app-start-game-pop-up *ngIf="showStartGamePopUp" (confirm)="onConfirmStartGame($event)"></app-start-game-pop-up>
 
 <!-- Enter round pop up -->
 <app-next-round-pop-up *ngIf="showNewRoundPopUp" [nextRoundPopUpInput]="nextRoundPopUpInput"
     (nextRoundPopUpOutput)="onResultNewRound($event)"></app-next-round-pop-up>
 
 <!-- Load new game pop up -->
-<app-load-new-game-pop-up *ngIf="showLoadNewGamePopUp" (confirmation)="loadNewGame($event)">
+<app-load-new-game-pop-up *ngIf="showLoadNewGamePopUp" (confirmation)="onConfirmIfLoadNewGame($event)">
 </app-load-new-game-pop-up>
 
 
@@ -31,9 +31,9 @@
 <div class="menu">
     <button (click)="showLoadNewGamePopUp = true">Juego nuevo</button>
     <button>
-        <span (click)="showStatisticsView()" *ngIf="showView === 'table'">Estadísticas</span>
-        <span (click)="showTableView()" *ngIf="showView === 'ranking'">Ver tabla</span>
-        <span (click)="showRankingView()" *ngIf="showView === 'statistics'">Ver ranking</span>
+        <span (click)="showView = 'statistics'" *ngIf="showView === 'table'">Estadísticas</span>
+        <span (click)="showView = 'table'" *ngIf="showView === 'ranking'">Ver tabla</span>
+        <span (click)="showView = 'ranking'" *ngIf="showView === 'statistics'">Ver ranking</span>
     </button>
     <button (click)="enterNewRound()">Nueva ronda</button>
 </div>

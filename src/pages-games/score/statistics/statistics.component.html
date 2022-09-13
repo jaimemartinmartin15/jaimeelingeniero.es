@@ -1,8 +1,8 @@
-<ng-container *ngIf="playersService.players == null || playersService.nextRoundNumber === 1">
+<ng-container *ngIf="isEmptyState">
   Introduce al menos una ronda para mostrar las estadísticas
 </ng-container>
 
-<ng-container *ngIf="playersService.players != null && playersService.nextRoundNumber > 1">
+<ng-container *ngIf="!isEmptyState">
   <svg class="graph"
     [attr.viewBox]="(viewBox.x-5) + ' ' + (viewBox.y-5) + ' ' + (viewBox.width+10) + ' ' + (viewBox.height+10)">
     <!-- round markers -->
@@ -23,20 +23,19 @@
     <line class="axis" x1="0" [attr.y1]="0" [attr.x2]="viewBox.width" [attr.y2]="0" />
 
     <!-- player score lines  -->
-    <path class="line" *ngFor="let player of playersService.playersSortedBy('id')" [attr.d]="buildPath(player)"
-      [attr.stroke]="colors[player.id]" />
+    <path class="line" *ngFor="let player of players" [attr.d]="buildPath(player)" [attr.stroke]="colors[player.id]" />
   </svg>
 
   <div class="legend">
-    <div *ngFor="let player of playersService.playersSortedBy('id')">
+    <div *ngFor="let player of players">
       <span class="dot" [attr.style]="'background-color: ' + colors[player.id]"></span>
       <span>{{player.name}}</span>
     </div>
   </div>
 
   <div class="ranking">
-    <div class="box">Puntuación total actual más alta: <br> <strong>{{firstPlayers}}</strong></div>
-    <div class="box">Puntuación total actual más baja: <br> <strong>{{lastPlayers}}</strong></div>
+    <div class="box">Puntuación total actual más alta: <br> <strong>{{playersWithMaxCurrentScore}}</strong></div>
+    <div class="box">Puntuación total actual más baja: <br> <strong>{{playersWithMinCurrentScore}}</strong></div>
   </div>
 
   <div class="round-scoring">

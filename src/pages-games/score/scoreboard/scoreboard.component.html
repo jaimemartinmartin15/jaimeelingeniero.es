@@ -1,29 +1,28 @@
-<ng-container *ngIf="playersService.players == null || playersService.nextRoundNumber === 1">
+<ng-container *ngIf="isEmptyState">
   Introduce al menos una ronda para mostrar la tabla de puntuaciones
 </ng-container>
 
-<table *ngIf="playersService.players != null && playersService.nextRoundNumber > 1">
+<table *ngIf="!isEmptyState">
   <thead class="sticky-header">
     <tr>
       <th class="highlight-cell sticky-round-number">Ronda</th>
-      <th class="highlight-cell" *ngFor="let player of playersService.playersSortedBy('id')">{{player.name}}</th>
+      <th class="highlight-cell" *ngFor="let player of players">{{player.name}}</th>
     </tr>
   </thead>
 
   <tbody>
-    <tr *ngFor="let round of getRoundsNumberAsArray()">
+    <tr *ngFor="let round of getRoundNumbersAsArray()">
       <th class="highlight-cell sticky-round-number" (click)="enterRound.emit(round-1)">{{round}}</th>
-      <td *ngFor="let score of getRoundScores(round-1); let j = index"
-        (click)="enterPunctuationForRoundAndPlayer.emit({round: round-1, player: j})"
+      <td *ngFor="let score of getRoundScores(round-1); let playerId = index"
+        (click)="enterPunctuationForRoundAndPlayer.emit({round: round-1, player: playerId})"
         [attr.style]="getBackgroundColor(score)">
         <div class="score">
           <span style="visibility: hidden" class="accumulated-score">
-            ({{playersService.playersSortedBy('id')[j].accumulatedScores[round]}})
+            ({{players[playerId].accumulatedScores[round]}})
           </span>
           {{score}}
           <span class="accumulated-score">
-            ({{playersService.playersSortedBy('id')[j].accumulatedScores[round]}})
-  
+            ({{players[playerId].accumulatedScores[round]}})
           </span>
         </div>
       </td>
@@ -33,7 +32,7 @@
   <tfoot class="sticky-footer">
     <tr>
       <th class="highlight-cell sticky-round-number">Total</th>
-      <th class="highlight-cell" *ngFor="let player of playersService.playersSortedBy('id')">{{player.totalScore}}</th>
+      <th class="highlight-cell" *ngFor="let player of players">{{player.totalScore}}</th>
     </tr>
   </tfoot>
 </table>
