@@ -1,4 +1,5 @@
-import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
+import { DOCUMENT } from '@angular/common';
+import { ChangeDetectionStrategy, Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { Meta, Title } from '@angular/platform-browser';
 import { PREVIOUS_GAME_DATE_KEY } from './local-storage-keys';
 import { NextRoundPopUpInput, NextRoundPopUpOutput } from './next-round-pop-up/next-round-pop-up.contract';
@@ -20,16 +21,32 @@ export class ScoreComponent implements OnInit, OnDestroy {
 
   public nextRoundPopUpInput: NextRoundPopUpInput;
 
-  public constructor(private readonly titleService: Title, private readonly metaService: Meta, private readonly playersService: PlayersService) {}
+  public constructor(
+    private readonly titleService: Title,
+    private readonly metaService: Meta,
+    @Inject(DOCUMENT) private document: Document,
+    private readonly playersService: PlayersService
+  ) {}
 
   public ngOnInit(): void {
-    this.titleService.setTitle('Tabla de puntuaciones');
-    this.metaService.updateTag({ name: 'description', content: 'Tabla de puntuaciones online para apuntar los puntos de cada jugador' });
-    this.metaService.updateTag({ name: 'keywords', content: 'tabla de puntuaciones, online, ranking, clasificacion' });
+    this.setTitleAndTags();
 
     const restartGame = this.checkIfRestartGame();
     this.showRestartGamePopUp = restartGame;
     this.showStartGamePopUp = !restartGame;
+  }
+
+  public setTitleAndTags() {
+    this.titleService.setTitle('Tabla de puntuaciones');
+    this.metaService.updateTag({ name: 'description', content: 'Tabla de puntuaciones online para apuntar los puntos de cada jugador' });
+    this.metaService.updateTag({ name: 'keywords', content: 'tabla de puntuaciones, online, ranking, clasificacion' });
+
+    const linkElementsFavIcon = this.document.getElementsByClassName('favIcon');
+    for (let i = 0; i < linkElementsFavIcon.length; i++) {
+      let linkElement = linkElementsFavIcon.item(i) as HTMLLinkElement;
+      const size = linkElement.sizes.value.split('x')[0];
+      linkElement.href = `assets/favicons/tabla-de-puntuaciones/favicon-${size}x${size}.png`;
+    }
   }
 
   private checkIfRestartGame(): boolean {
@@ -105,5 +122,13 @@ export class ScoreComponent implements OnInit, OnDestroy {
   public ngOnDestroy(): void {
     this.metaService.removeTag('name="description"');
     this.metaService.removeTag('name="keywords"');
+
+    // set default favicons again
+    const linkElementsFavIcon = this.document.getElementsByClassName('favIcon');
+    for (let i = 0; i < linkElementsFavIcon.length; i++) {
+      let linkElement = linkElementsFavIcon.item(i) as HTMLLinkElement;
+      const size = linkElement.sizes.value.split('x')[0];
+      linkElement.href = `assets/favicons/default/favicon-${size}x${size}.png`;
+    }
   }
 }
