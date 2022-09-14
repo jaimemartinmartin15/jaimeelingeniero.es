@@ -57,7 +57,7 @@ export class PlayersService {
   }
 
   public createPlayersWithNames(names: string[]) {
-    this._players = names.map((name, id) => new Player(id, name));
+    this._players = names.map((name, id) => new Player(id, name.trim()));
   }
 
   public loadPlayersFromLocalStorage() {
