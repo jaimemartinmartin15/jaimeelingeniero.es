@@ -13,6 +13,10 @@ import { PlayersService } from '../player/players.service';
 export class StatisticsComponent implements OnInit, OnDestroy {
   private finishSubscriptions$ = new Subject<void>();
 
+  public showPlayersPanelInfo = false;
+  public playersPanelInfoRound: number;
+  public playersPanelInfoPositionMovements: number[];
+  public playersPanelInfoSorted: Player[];
   public players: Player[];
   public colors: string[] = ['#ff0000', '#0000ff', '#008000', '#00ffff', '#c0c0c0', '#00ff00', '#ff00ff', '#ffff00'];
 
@@ -106,6 +110,34 @@ export class StatisticsComponent implements OnInit, OnDestroy {
       .filter((p) => p.scores.indexOf(this.playersService.minimumScoreInOneRound) !== -1)
       .map((p) => p.name)
       .join(', ');
+  }
+
+  public showInfo(event: MouseEvent) {
+    // detect round
+    const width = this.element.nativeElement.offsetWidth + -10;
+    const clickX = event.offsetX + 5;
+    const roundWidth = width / this.playersService.playedRounds;
+    this.playersPanelInfoRound = Math.round(clickX / roundWidth);
+
+    // calculate how many positions scalated
+    if (this.playersPanelInfoRound > 0) {
+      this.playersPanelInfoPositionMovements = [];
+      const rankingRoundBefore = [...this.players].sort(
+        (p1, p2) => p1.accumulatedScores[this.playersPanelInfoRound - 1] - p2.accumulatedScores[this.playersPanelInfoRound - 1]
+      );
+      this.playersPanelInfoSorted = [...this.players].sort(
+        (p1, p2) => p1.accumulatedScores[this.playersPanelInfoRound] - p2.accumulatedScores[this.playersPanelInfoRound]
+      );
+
+      rankingRoundBefore.forEach((playerBefore, position) => {
+        const currentPlayer = this.playersPanelInfoSorted.find((p) => p.id === playerBefore.id)!;
+        this.playersPanelInfoPositionMovements[playerBefore.id] = this.playersPanelInfoSorted.indexOf(currentPlayer) - position;
+      });
+
+      this.playersPanelInfoSorted.reverse();
+    }
+
+    this.showPlayersPanelInfo = this.playersPanelInfoRound > 0;
   }
 
   public ngOnDestroy(): void {

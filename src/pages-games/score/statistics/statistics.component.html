@@ -3,7 +3,7 @@
 </ng-container>
 
 <ng-container *ngIf="!isEmptyState">
-  <svg class="graph"
+  <svg class="graph" (mousedown)="showInfo($event)"
     [attr.viewBox]="(viewBox.x-5) + ' ' + (viewBox.y-5) + ' ' + (viewBox.width+10) + ' ' + (viewBox.height+10)">
     <!-- round markers -->
     <g class="round-markers">
@@ -15,6 +15,11 @@
           [attr.y2]="viewBox.height-10"></line>
       </ng-container>
     </g>
+
+    <line class="round-indicator" *ngIf="showPlayersPanelInfo"
+      [attr.x1]="5+((viewBox.width-10)/(playersService.playedRounds))*playersPanelInfoRound" [attr.y1]="viewBox.y"
+      [attr.x2]="5+((viewBox.width-10)/(playersService.playedRounds))*playersPanelInfoRound"
+      [attr.y2]="viewBox.height-10" />
 
     <!-- y axis -->
     <line class="axis" x1="0" [attr.y1]="viewBox.y" x2="0" [attr.y2]="viewBox.height-10" />
@@ -28,8 +33,23 @@
 
   <div class="legend">
     <div *ngFor="let player of players">
-      <span class="dot" [attr.style]="'background-color: ' + colors[player.id]"></span>
+      <span class="dot-player" [attr.style]="'background-color: ' + colors[player.id]"></span>
       <span>{{player.name}}</span>
+    </div>
+  </div>
+
+  <div class="round-info" *ngIf="showPlayersPanelInfo">
+    <div class="round-number"><strong>Ronda {{playersPanelInfoRound}}</strong></div>
+    <div class="player-display" *ngFor="let player of playersPanelInfoSorted">
+      <span class="dot-player" [attr.style]="'background-color: ' + colors[player.id]"></span>
+      <span class="name">{{player.name}}</span>
+      <span class="accumulated-score">{{player.accumulatedScores[playersPanelInfoRound]}}</span>
+      <span *ngIf="playersPanelInfoRound > 0">
+        <ng-container *ngIf="playersPanelInfoPositionMovements[player.id] > 0">
+          ⬆️{{playersPanelInfoPositionMovements[player.id] | toEmoji}}</ng-container>
+        <ng-container *ngIf="playersPanelInfoPositionMovements[player.id] < 0">
+          ⬇️{{playersPanelInfoPositionMovements[player.id] | toEmoji}}</ng-container>
+      </span>
     </div>
   </div>
 
