@@ -28,8 +28,17 @@
     font-size: 0.6em;
 
     button {
-        font-size: 1.2em;
         border: none;
-        background-color: transparent;
+        background-color: #d17515;
+        color: #fbf2e2;
+        border-radius: 4px;
+        padding: 5px 9px;
+        font-size: 1.2em;
+        box-shadow: 3px 3px 5px #cec9c1;
+
+        &:active {
+            transform: translateX(1px) translateY(2px);
+            box-shadow: 2px 1px 5px #cec9c1;
+        }
     }
 }

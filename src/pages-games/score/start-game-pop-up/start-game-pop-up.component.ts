@@ -1,7 +1,7 @@
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { Component, Output, EventEmitter, OnInit, ViewChildren, ElementRef, QueryList, ChangeDetectorRef } from '@angular/core';
 import { PREVIOUS_GAME_KEY } from '../local-storage-keys';
-import { Player } from '../player';
+import { Player } from '../player/player';
 import { StartGamePopUpOutput } from './start-game-pop-up.contract';
 
 @Component({

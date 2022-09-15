@@ -1,8 +1,8 @@
-import { RoundPlayer } from './round-player';
+import { Player } from '../player/player';
 
 export interface NextRoundPopUpInput {
   round: number;
-  players: RoundPlayer[];
+  players: Pick<Player, 'id' | 'name' | 'punctuation'>[];
 }
 
 export type NextRoundPopUpOutput = NextRoundPopUpInput;

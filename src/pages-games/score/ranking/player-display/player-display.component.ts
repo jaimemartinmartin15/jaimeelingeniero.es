@@ -1,5 +1,5 @@
 import { Component, HostBinding, Input } from '@angular/core';
-import { RankingPlayer } from './ranking-player';
+import { Player } from '../../player/player';
 
 @Component({
   selector: 'app-player-display',
@@ -8,7 +8,7 @@ import { RankingPlayer } from './ranking-player';
 })
 export class PlayerDisplayComponent {
   @Input()
-  public player: RankingPlayer;
+  public player: Player;
 
   @HostBinding('class.position-1')
   public get firstPosition() {
