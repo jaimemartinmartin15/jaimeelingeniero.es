@@ -13,9 +13,23 @@ table {
     th,
     td {
         border: 1px solid black;
-        padding: 3px 20px;
-        text-align: center;
         white-space: nowrap;
+    }
+
+    th {
+        padding: 3px 20px;
+    }
+
+    .score {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
+        gap: 5px;
+        padding: 3px;
+
+        .accumulated-score {
+            font-size: 0.58em;
+        }
     }
 
     .sticky-header {

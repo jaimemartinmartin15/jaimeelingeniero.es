@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { ScoreboardComponent } from './scoreboard/scoreboard.component';
 import { ScoreRoutingModule } from './score-routing.module';
 import { FormsModule } from '@angular/forms';
+import { PipesModule } from 'src/shared/pipes/pipes.module';
 import { StartGamePopUpComponent } from './start-game-pop-up/start-game-pop-up.component';
 import { NextRoundPopUpComponent } from './next-round-pop-up/next-round-pop-up.component';
 import { RankingComponent } from './ranking/ranking.component';
@@ -14,7 +15,7 @@ import { LoadNewGamePopUpComponent } from './load-new-game-pop-up/load-new-game-
 import { StatisticsComponent } from './statistics/statistics.component';
 
 @NgModule({
-  imports: [FormsModule, CommonModule, ScoreRoutingModule, DragDropModule],
+  imports: [FormsModule, CommonModule, ScoreRoutingModule, DragDropModule, PipesModule],
   declarations: [
     ScoreComponent,
     ScoreboardComponent,
