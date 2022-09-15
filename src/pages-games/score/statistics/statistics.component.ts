@@ -13,6 +13,7 @@ import { PlayersService } from '../player/players.service';
 export class StatisticsComponent implements OnInit, OnDestroy {
   private finishSubscriptions$ = new Subject<void>();
 
+  public showPlayerGraphLines: boolean[];
   public showPlayersPanelInfo = false;
   public playersPanelInfoRound: number;
   public playersPanelInfoPositionMovements: number[];
@@ -35,6 +36,7 @@ export class StatisticsComponent implements OnInit, OnDestroy {
     this.playersService.playersLoaded$.pipe(takeUntil(this.finishSubscriptions$)).subscribe(() => {
       this.players = this.playersService.playersById;
       this.createColorsForPlayers();
+      this.showPlayerGraphLines = new Array(this.players.length).fill(true);
       this.changeDetectorRef.detectChanges();
     });
 

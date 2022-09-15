@@ -37,7 +37,7 @@
         }
     }
 
-    .round-indicator {
+    .round-panel-info-line {
         stroke: #d17515;
         stroke-width: 1;
     }
@@ -52,7 +52,7 @@
     font-size: 0.8em;
 }
 
-.round-info {
+.round-panel-info {
     display: flex;
     flex-direction: column;
     gap: 15px;

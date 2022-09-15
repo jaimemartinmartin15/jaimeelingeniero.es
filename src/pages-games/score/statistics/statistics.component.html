@@ -16,7 +16,8 @@
       </ng-container>
     </g>
 
-    <line class="round-indicator" *ngIf="showPlayersPanelInfo"
+    <!-- round panel info line -->
+    <line class="round-panel-info-line" *ngIf="showPlayersPanelInfo"
       [attr.x1]="5+((viewBox.width-10)/(playersService.playedRounds))*playersPanelInfoRound" [attr.y1]="viewBox.y"
       [attr.x2]="5+((viewBox.width-10)/(playersService.playedRounds))*playersPanelInfoRound"
       [attr.y2]="viewBox.height-10" />
@@ -28,21 +29,26 @@
     <line class="axis" x1="0" [attr.y1]="0" [attr.x2]="viewBox.width" [attr.y2]="0" />
 
     <!-- player score lines  -->
-    <path class="line" *ngFor="let player of players" [attr.d]="buildPath(player)" [attr.stroke]="colors[player.id]" />
+    <ng-container *ngFor="let player of players">
+      <path class="line" *ngIf="showPlayerGraphLines[player.id]" [attr.d]="buildPath(player)"
+        [attr.stroke]="colors[player.id]" />
+    </ng-container>
   </svg>
 
   <div class="legend">
-    <div *ngFor="let player of players">
+    <div *ngFor="let player of players" (click)="showPlayerGraphLines[player.id] = !showPlayerGraphLines[player.id]">
       <span class="dot-player" [attr.style]="'background-color: ' + colors[player.id]"></span>
       <span>{{player.name}}</span>
     </div>
   </div>
 
-  <div class="round-info" *ngIf="showPlayersPanelInfo">
+  <div class="round-panel-info" *ngIf="showPlayersPanelInfo">
     <div class="round-number"><strong>Ronda {{playersPanelInfoRound}}</strong></div>
     <div class="player-display" *ngFor="let player of playersPanelInfoSorted">
       <span class="dot-player" [attr.style]="'background-color: ' + colors[player.id]"></span>
-      <span class="name">{{player.name}}</span>
+      <span class="name" (click)="showPlayerGraphLines[player.id] = !showPlayerGraphLines[player.id]">
+        {{player.name}}
+      </span>
       <span class="accumulated-score">{{player.accumulatedScores[playersPanelInfoRound]}}</span>
       <span *ngIf="playersPanelInfoRound > 0">
         <ng-container *ngIf="playersPanelInfoPositionMovements[player.id] > 0">
