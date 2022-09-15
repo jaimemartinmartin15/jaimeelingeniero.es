@@ -112,7 +112,7 @@ export class StatisticsComponent implements OnInit, OnDestroy {
       .join(', ');
   }
 
-  public showInfo(event: MouseEvent) {
+  public onClickToShowPlayersPanelInfo(event: MouseEvent) {
     // detect round
     const width = this.element.nativeElement.offsetWidth + -10;
     const clickX = event.offsetX + 5;

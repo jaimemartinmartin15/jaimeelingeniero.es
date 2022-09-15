@@ -3,7 +3,7 @@
 </ng-container>
 
 <ng-container *ngIf="!isEmptyState">
-  <svg class="graph" (mousedown)="showInfo($event)"
+  <svg class="graph" (mousedown)="onClickToShowPlayersPanelInfo($event)"
     [attr.viewBox]="(viewBox.x-5) + ' ' + (viewBox.y-5) + ' ' + (viewBox.width+10) + ' ' + (viewBox.height+10)">
     <!-- round markers -->
     <g class="round-markers">
