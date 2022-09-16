@@ -7,10 +7,8 @@
 
 <div class="data">
     <div class="name-score-container"><span>{{player.name}}</span> <span>{{player.totalScore}}</span></div>
-    <div class="last-rounds">
-        <div>Últimas rondas</div>
-        <div class="round-numbers">
-            <span class="score" *ngFor="let score of player.scores | slice:-4"> {{score}} </span>
-        </div>
+    <div class="player-rounds-info">
+        <div>Última ronda: {{player.scores[player.scores.length - 1]}}</div>
+        <div>Máximo alcanzado: {{player.maximumAccumulatedScore}}</div>
     </div>
 </div>
