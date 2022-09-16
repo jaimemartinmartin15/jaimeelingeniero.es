@@ -35,18 +35,12 @@
         flex-grow: 1;
     }
 
-    .last-rounds {
-        margin-top: 10px;
+    .player-rounds-info {
+        margin-top: 5px;
         font-size: 0.5em;
-
-        .round-numbers {
-            display: inline-flex;
-            flex-direction: row-reverse;
-
-            .score {
-                width: 5ch;
-            }
-        }
+        display: flex;
+        flex-direction: column;
+        gap: 3px;
     }
 }
 
