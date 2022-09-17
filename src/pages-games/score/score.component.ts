@@ -6,6 +6,8 @@ import { NextRoundPopUpInput, NextRoundPopUpOutput } from './next-round-pop-up/n
 import { PlayersService } from './player/players.service';
 import { StartGamePopUpOutput } from './start-game-pop-up/start-game-pop-up.contract';
 
+type View = 'table' | 'ranking' | 'statistics';
+
 @Component({
   selector: 'app-score',
   templateUrl: './score.component.html',
@@ -17,7 +19,7 @@ export class ScoreComponent implements OnInit, OnDestroy {
   public showStartGamePopUp = false;
   public showNewRoundPopUp = false;
   public showLoadNewGamePopUp = false;
-  public showView: 'table' | 'ranking' | 'statistics' = 'ranking';
+  public showView: View = 'ranking';
 
   public nextRoundPopUpInput: NextRoundPopUpInput;
 
@@ -117,6 +119,15 @@ export class ScoreComponent implements OnInit, OnDestroy {
   public onConfirmIfLoadNewGame(confirmNewGame: boolean) {
     this.showLoadNewGamePopUp = false;
     this.showStartGamePopUp = confirmNewGame;
+  }
+
+  public changeView() {
+    const nextViews: { [key: string]: View } = {
+      ranking: 'table',
+      table: 'statistics',
+      statistics: 'ranking',
+    };
+    this.showView = nextViews[this.showView];
   }
 
   public ngOnDestroy(): void {
