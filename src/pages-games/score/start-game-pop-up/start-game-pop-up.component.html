@@ -11,7 +11,9 @@
       <div class="player-controls">
         <input #input type="text" name="player{{i}}" [(ngModel)]="players[i]">
 
-        <div class="delete-icon" (click)="deletePlayer(i, $event)" *ngIf="this.players.length > 1"></div>
+        <div class="delete-icon" (click)="deletePlayer(i, $event)" *ngIf="this.players.length > 1">
+          <div class="cross"></div>
+        </div>
       </div>
     </div>
   </div>
