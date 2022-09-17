@@ -7,7 +7,8 @@
 
 <!-- Enter round pop up -->
 <app-next-round-pop-up *ngIf="showNewRoundPopUp" [nextRoundPopUpInput]="nextRoundPopUpInput"
-    (nextRoundPopUpOutput)="onResultNewRound($event)"></app-next-round-pop-up>
+    (nextRoundPopUpOutput)="onResultNewRound($event)" (closePopUp)="showNewRoundPopUp = false">
+</app-next-round-pop-up>
 
 <!-- Load new game pop up -->
 <app-load-new-game-pop-up *ngIf="showLoadNewGamePopUp" (confirmation)="onConfirmIfLoadNewGame($event)">

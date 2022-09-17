@@ -17,6 +17,9 @@ export class NextRoundPopUpComponent implements OnInit {
   @Output()
   public nextRoundPopUpOutput = new EventEmitter<NextRoundPopUpOutput>();
 
+  @Output()
+  public closePopUp = new EventEmitter<void>();
+
   public currentPlayer = 0;
   public sign: '+' | '-' = '+';
 
