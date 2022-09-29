@@ -5,4 +5,6 @@ import { Component } from '@angular/core';
   templateUrl: './dns.component.html',
   styleUrls: ['./dns.component.scss'],
 })
-export class DnsComponent {}
+export class DnsComponent {
+  public dnsResolvingDomainStep = 0;
+}

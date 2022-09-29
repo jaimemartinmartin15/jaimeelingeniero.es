@@ -88,3 +88,114 @@
     </dd>
   </dl>
 </section>
+
+<section>
+  <h2>Funcionamiento</h2>
+
+  <p>
+    El sistema de nombres de dominio tiene muchas funciones, no solo traducir nombres a direcciones IP. Aunque es la más
+    común, también puede hacer la resolución inversa, resolver servidores de correo, y en principio guardar cualquier
+    dato en forma de objecto (llamado también registro de recurso, RR), de forma que podemos consultarle y nos devolverá
+    lo que le pidamos.
+  </p>
+
+  <p>
+    El DNS es una gran base de datos distribuida (repartida por varios lugares) y que tiene una estructura jeráquica (en
+    forma de árbol con ramas). Data de 1984 y está definido en las RFC-1034 y RFC-1035 por Paul Mockapetris.
+  </p>
+
+  <div class="dns-scheme">
+    <img src="pages-network/dns/assets/dns-scheme.png" alt="Esquema dns">
+  </div>
+
+  <p>
+    Para que nuestro ordenador pueda acceder al DNS debemos configurar nuestra máquina con las direcciones IP de
+    servidores de nombres. Entonces cuando nuestro ordenador quiere resolver una IP lo primero que hace es comprobar un
+    fichero que hay en el propio ordenador que puede tener ya la resolución. En este caso no hace falta consultar a
+    ningún servidor. Si no la tiene en local entonces pregunta a alguno de los servidores que tiene configurados y el
+    servidor ya se encargará de encontrar cual es la IP, quizá preguntado a otros servidores.
+  </p>
+
+  <p>
+    Los servidores de nombres son aplicaciones corriendo en servidores y que escuchan por el puerto 53. Normalmente las
+    comunicaciones se hacen a través de UDP. Cada servidor DNS conoce al menos un servidor DNS raíz y a todos los
+    servidores de dominios de nivel inferior. Los servidores raíz conocen las direcciones IP de todos los servidores de
+    dominios de primer nivel.
+  </p>
+
+  <p>
+    Vamos a ver un ejemplo paso a paso para entender que es lo que sucede cuando nuestro ordenador quiere averiguar la
+    IP de un dominio:
+  </p>
+
+  <div class="dns-resolving-domain">
+    <div class="controls">
+      <button (click)="dnsResolvingDomainStep = 0">0</button>
+      <button (click)="dnsResolvingDomainStep = 1">1</button>
+      <button (click)="dnsResolvingDomainStep = 2">2</button>
+      <button (click)="dnsResolvingDomainStep = 3">3</button>
+      <button (click)="dnsResolvingDomainStep = 4">4</button>
+      <button (click)="dnsResolvingDomainStep = 5">5</button>
+      <button (click)="dnsResolvingDomainStep = 6">6</button>
+      <button (click)="dnsResolvingDomainStep = 7">7</button>
+      <button (click)="dnsResolvingDomainStep = 8">8</button>
+    </div>
+
+    <div class="explanation" *ngIf="dnsResolvingDomainStep !== 0">
+      <div *ngIf="dnsResolvingDomainStep === 1">
+        Paso 1:
+        <br>
+        Primero nuestro ordenador le pregunta al servidor DNS que tiene configurado por la IP de www.jaimeelingeniero.es
+      </div>
+      <div *ngIf="dnsResolvingDomainStep === 2">
+        Paso 2:
+        <br>
+        El servidor DNS no sabe la IP, porque no es responsable del dominio y no la tiene cacheada, así que pregunta al
+        servidor raíz
+      </div>
+      <div *ngIf="dnsResolvingDomainStep === 3">
+        Paso 3:
+        <br>
+        El servidor raíz tampoco tiene la IP de www.jaimeelingeniero.es, sin embargo, sí que conoce a alguien que
+        podría saberla, el servidor DNS .es, y le devuelve su IP para que le contacte
+      </div>
+      <div *ngIf="dnsResolvingDomainStep === 4">
+        Paso 4:
+        <br>
+        Ahora el servidor DNS pregunta a .es por la IP de www.jaimeelingeniero.es
+      </div>
+      <div *ngIf="dnsResolvingDomainStep === 5">
+        Paso 5:
+        <br>
+        El servidor DNS .es tampoco tiene la IP que buscamos. Pero sí conoce a otro que podría saberla, el servidor
+        jaimeelingeniero.es, y le devuelve su IP para que le contacte
+      </div>
+      <div *ngIf="dnsResolvingDomainStep === 6">
+        Paso 6:
+        <br>
+        Entonces el servidor DNS ahora pregunta al servidor DNS jaimeelingeniero.es
+      </div>
+      <div *ngIf="dnsResolvingDomainStep === 7">
+        Paso 7:
+        <br>
+        Ahora resulta que es el responsable del dominio, por lo que le devuelve la IP que nuestro ordenador buscaba
+      </div>
+      <div *ngIf="dnsResolvingDomainStep === 8">
+        Paso 8:
+        <br>
+        Finalmente el servidor DNS devuelve la IP de www.jaimeelingeniero.es a nuestro ordenador
+      </div>
+    </div>
+
+    <img [src]="'pages-network/dns/assets/dns-resolving-domain-'+dnsResolvingDomainStep+'.gif'"
+      alt="Resolviendo el dominio">
+  </div>
+
+  <p>
+    Las consultas de los pasos 2, 4 y 6 se llaman <strong>consultas iterativas</strong>. Estas son las consultas que se
+    hacen entre servidores para obtener las direcciones de otros servidores de dominios de nivel inferior.
+    <br>
+    Las consulta del paso 1 se llama <strong>consulta recursiva</strong>. Son las consultas que hacen los clientes a los
+    servidores.
+  </p>
+</section>
