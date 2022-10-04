@@ -4,9 +4,8 @@
   <h2>Introducción</h2>
 
   <p>
-    Quizá hayas oído hablar de él o quizá no, pero en este artículo voy a explicar lo más detallado posible en que
-    consite el DNS (del inglés Domain Name System, que en español significa <strong>Sistema de Nombres de
-      Dominio</strong>). Es un servicio en internet que se utiliza constantemente sin que te des cuenta.
+    DNS son las siglas de <strong>Sistema de Nombres de Dominio</strong> (del inglés Domain Name System). Es un servicio
+    en internet que se utiliza constantemente sin que te des cuenta.
   </p>
 
   <p>
@@ -43,15 +42,16 @@
   <dl>
     <dt>Host name:</dt>
     <dd>
-      Es el nombre de una máquina o dispositivo dentro de una red. El nombre que le das a tu móvil u ordenador, por
+      Es el nombre de un dispositivo dentro de una red. El nombre que le das a tu móvil u ordenador, por
       ejemplo. El más común en la web es www.
+      <!-- TODO add screenshots showing examples? Mobile android and desktop -->
     </dd>
 
     <dt>
       Domain name:
     </dt>
     <dd>
-      Los nombres de dominio identifican la red donde se conectan los dispositivos. Por ejemplo el nombre de dominio
+      Los nombres de dominio se asocian a una dirección IP. Identifican una red. Por ejemplo el nombre de dominio
       jaimeelingeniero.es tiene conectado un "ordenador" con nombre www que sirve esta página.
     </dd>
 
@@ -90,13 +90,12 @@
 </section>
 
 <section>
-  <h2>Funcionamiento</h2>
+  <h2>El sistema de nombres de dominio</h2>
 
   <p>
-    El sistema de nombres de dominio tiene muchas funciones, no solo traducir nombres a direcciones IP. Aunque es la más
-    común, también puede hacer la resolución inversa, resolver servidores de correo, y en principio guardar cualquier
-    dato en forma de objecto (llamado también registro de recurso, RR), de forma que podemos consultarle y nos devolverá
-    lo que le pidamos.
+    Este sistema nace de la necesidad de podernos referir a cada dispositivo con un nombre. ¿Tú te imaginas tenerte que
+    acordar de las personas por su número de DNI? ¿O de su número de teléfono? Al principio había pocos dispositivos
+    conectados a internet, pero con el auge que pegó se hizo necesario inventar este sistema.
   </p>
 
   <p>
@@ -104,28 +103,21 @@
     forma de árbol con ramas). Data de 1984 y está definido en las RFC-1034 y RFC-1035 por Paul Mockapetris.
   </p>
 
-  <div class="dns-scheme">
-    <img src="pages-network/dns/assets/dns-scheme.png" alt="Esquema dns">
-  </div>
+  <!-- TODO put an scheme that represents a tree of domains -->
 
   <p>
-    Para que nuestro ordenador pueda acceder al DNS debemos configurar nuestra máquina con las direcciones IP de
-    servidores de nombres. Entonces cuando nuestro ordenador quiere resolver una IP lo primero que hace es comprobar un
-    fichero que hay en el propio ordenador que puede tener ya la resolución. En este caso no hace falta consultar a
-    ningún servidor. Si no la tiene en local entonces pregunta a alguno de los servidores que tiene configurados y el
-    servidor ya se encargará de encontrar cual es la IP, quizá preguntado a otros servidores.
+    Actualmene no solamente se usa para resolver nombres de dominio, sino que también se usa para resoluciones inversas
+    (dada la IP obtener el nombre de dominio), listar información de la máquina, resolver servidores de correo
+    electrónico y más.
   </p>
+</section>
+
+<section>
+  <h2>Funcionamiento</h2>
 
   <p>
-    Los servidores de nombres son aplicaciones corriendo en servidores y que escuchan por el puerto 53. Normalmente las
-    comunicaciones se hacen a través de UDP. Cada servidor DNS conoce al menos un servidor DNS raíz y a todos los
-    servidores de dominios de nivel inferior. Los servidores raíz conocen las direcciones IP de todos los servidores de
-    dominios de primer nivel.
-  </p>
-
-  <p>
-    Vamos a ver un ejemplo paso a paso para entender que es lo que sucede cuando nuestro ordenador quiere averiguar la
-    IP de un dominio:
+    Vamos a ver un simple ejemplo de cómo funciona de forma general el sistema, que pasos y que llamadas se realizan. En
+    este caso la máquina intentará obtener la IP de www.jaimeelingeniero.es. Usa los botones para obtener los detalles.
   </p>
 
   <div class="dns-resolving-domain">
@@ -141,34 +133,42 @@
       <button (click)="dnsResolvingDomainStep = 8">8</button>
     </div>
 
-    <div class="explanation" *ngIf="dnsResolvingDomainStep !== 0">
+    <div class="explanation">
+      <div *ngIf="dnsResolvingDomainStep === 0">
+        Paso 0:
+        <br>
+        Primero nuestro ordenador consulta un fichero local (llamado hosts) en el que puede que la resolución ya esté
+        realizada. En este caso no se contactaría ningún servidor y el proceso terminaría.
+      </div>
       <div *ngIf="dnsResolvingDomainStep === 1">
         Paso 1:
         <br>
-        Primero nuestro ordenador le pregunta al servidor DNS que tiene configurado por la IP de www.jaimeelingeniero.es
+        Si no existe la IP en el fichero hosts se pregunta al servidor DNS. Las IP de los servidores DNS las tenemos que
+        configurar nosotros en nuestro ordenador, aunque normalmente se configuran solas a través del router cuando nos
+        conectamos a una red.
       </div>
       <div *ngIf="dnsResolvingDomainStep === 2">
         Paso 2:
         <br>
         El servidor DNS no sabe la IP, porque no es responsable del dominio y no la tiene cacheada, así que pregunta al
-        servidor raíz
+        servidor raíz.
       </div>
       <div *ngIf="dnsResolvingDomainStep === 3">
         Paso 3:
         <br>
         El servidor raíz tampoco tiene la IP de www.jaimeelingeniero.es, sin embargo, sí que conoce a alguien que
-        podría saberla, el servidor DNS .es, y le devuelve su IP para que le contacte
+        podría saberla, el servidor DNS .es, y le devuelve su IP para que le contacte.
       </div>
       <div *ngIf="dnsResolvingDomainStep === 4">
         Paso 4:
         <br>
-        Ahora el servidor DNS pregunta a .es por la IP de www.jaimeelingeniero.es
+        Ahora el servidor DNS pregunta al DNS .es por la IP de www.jaimeelingeniero.es
       </div>
       <div *ngIf="dnsResolvingDomainStep === 5">
         Paso 5:
         <br>
-        El servidor DNS .es tampoco tiene la IP que buscamos. Pero sí conoce a otro que podría saberla, el servidor
-        jaimeelingeniero.es, y le devuelve su IP para que le contacte
+        El servidor DNS .es tampoco tiene la IP que buscamos, pero sí conoce a otro que podría saberla, el servidor
+        jaimeelingeniero.es, y le devuelve su IP para que le contacte.
       </div>
       <div *ngIf="dnsResolvingDomainStep === 6">
         Paso 6:
@@ -178,12 +178,12 @@
       <div *ngIf="dnsResolvingDomainStep === 7">
         Paso 7:
         <br>
-        Ahora resulta que es el responsable del dominio, por lo que le devuelve la IP que nuestro ordenador buscaba
+        Ahora resulta que es el responsable del dominio, por lo que le devuelve la IP que nuestro ordenador buscaba.
       </div>
       <div *ngIf="dnsResolvingDomainStep === 8">
         Paso 8:
         <br>
-        Finalmente el servidor DNS devuelve la IP de www.jaimeelingeniero.es a nuestro ordenador
+        Finalmente el servidor DNS devuelve la IP de www.jaimeelingeniero.es a nuestro ordenador.
       </div>
     </div>
 
@@ -201,12 +201,22 @@
 </section>
 
 <section>
-  <h2>Tipos de servidores:</h2>
+  <h2>Servidores de nombres</h2>
 
   <p>
-    Los servidores pueden tener la información recibida directamente por un humano (<strong>servidor primario</strong>),
-    pueden ser una copia para hacer el sistema más escalable (<strong>servidor secundario</strong>) o pueden tener los
-    datos cacheados de alguna consulta anterior (<strong>servidor cache</strong>).
+    Los servidores de nombres son aplicaciones corriendo en ordenadores muy potentes y que escuchan por el puerto 53.
+    Normalmente las comunicaciones se hacen a través de UDP, aunque si la respuesta es muy larga se usa TCP. Cada
+    servidor DNS conoce al menos un servidor DNS raíz y a todos los servidores de dominios de nivel inferior. Los
+    servidores raíz conocen las direcciones IP de todos los servidores de dominios de primer nivel.
+  </p>
+
+  <h3>Tipos de servidores:</h3>
+
+  <p>
+    Los servidores pueden tener la información original recibida directamente por un humano (<strong>servidor
+      primario</strong>), pueden ser una copia para hacer el sistema más escalable (<strong>servidor
+      secundario</strong>) o pueden tener los datos cacheados de alguna consulta anterior (<strong>servidor
+      cache</strong>).
   </p>
 
   <p>
@@ -214,4 +224,8 @@
     viene de un servidor primario o secundario (tienen la información original), o pueden ser <strong>sin
       autoridad</strong> en caso de venir de la caché.
   </p>
+
+  <h3>Servidores raíz</h3>
+
+  <!-- TODO explain more here -->
 </section>
