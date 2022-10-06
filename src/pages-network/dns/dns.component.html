@@ -227,5 +227,19 @@
 
   <h3>Servidores raíz</h3>
 
-  <!-- TODO explain more here -->
+  <p>
+    Los servidores raíz son servidores de nombres que tienen la información inicial de la estructura jeráquica de la
+    base de datos del sistema. Conocen a todos los servidores de nombres de nivel superior.
+  </p>
+
+  <p>
+    De forma lógica existen un total de <a href="https://root-servers.org/" target="_blank">13 servidores raíz</a>
+    distribuidos por el mundo, que son mantenidos de forma voluntaria por diversas organizaciones. Digo que existen de
+    forma lógica porque en realidad exiten más de mil máquinas sirviendo los nombres de nivel superior. Estos 13
+    servidores se identifican con las letras del abecedario, desde la A hasta la M. Cada servidor lógico tiene una
+    dirección IP única, pero dependiendo del lugar del mundo en el que te encuentres, la consulta irá a una instancia o
+    a otra, ya que se usa anycast para ello. Esto significa que te servirá el servidor más óptimo para tí (dependerá de
+    la distancia, del tráfico que tenga y otras cosas). Puedes ver los mapas en
+    <a href="https://atlas.ripe.net/results/maps/" target="_blank">atlas.ripe.net</a>.
+  </p>
 </section>
