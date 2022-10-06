@@ -1,0 +1,28 @@
+<p>
+  Indica el nombre de una máquina que provee el servicio de nombres para un dominio en particular. El formato es el
+  siguiente:
+</p>
+
+<pre>&lt;domain&gt;   [&lt;ttl&gt;] [&lt;class&gt;]   NS   &lt;server&gt;</pre>
+
+<dl>
+  <dt>domain</dt>
+  <dd>El nombre de este registro se corresponde al nombre de dominio que nos referimos.</dd>
+
+  <dt>server</dt>
+  <dd>
+    El dato que este registro provee es simplemente el nombre de una máquina que provee el dominio especificado en el
+    nombre del registro.
+  </dd>
+</dl>
+
+<p>
+  Ten en cuenta que las máquinas que brindan servicio de nombres no tienen que estar en el dominio nombrado. Debería
+  haber un registro NS para cada servidor de un dominio. Los registros NS para un dominio existen tanto en la zona que
+  delega el dominio, y en el dominio mismo.
+</p>
+
+<p>
+  En el ejemplo paso por paso que vimos al principio, el servidor DNS .es le indicaba al DNS quién servía
+  jaimeelingeniero.es. DNS .es lo sabía porque tenía este registro en su configuración.
+</p>
