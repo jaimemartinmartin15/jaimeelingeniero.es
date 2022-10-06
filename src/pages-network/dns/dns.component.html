@@ -243,3 +243,87 @@
     <a href="https://atlas.ripe.net/results/maps/" target="_blank">atlas.ripe.net</a>.
   </p>
 </section>
+
+<section>
+  <h2>Los registros de recursos</h2>
+
+  <p>
+    La base de datos del sistema de dominios esta compuesta por registros de recursos (en inglés Resource Records, RR).
+    Son la unidad básica de consulta. Su formato viene especificado en el RFC-1033:
+  </p>
+
+  <div class="rr-format">
+    <div>&lt;NOMBRE&gt;</div>
+    <div>[&lt;TTL&gt;]</div>
+    <div>[&lt;CLASE&gt;]</div>
+    <div>&lt;TIPO&gt;</div>
+    <div>&lt;DATOS&gt;</div>
+  </div>
+
+  <p>El registro se compone de varios campos que se separan con espacios.</p>
+
+  <dl>
+    <dt>NOMBRE</dt>
+    <dd>
+      Define a que nombre de dominio corresponde el registro. En algunos casos se puede omitir y entonces se tomaría
+      el nombre del registro anterior.
+    </dd>
+
+    <dt>TTL</dt>
+    <dd>
+      Se refiere al Time to Live (tiempo de vida). Indica por cuanto tiempo se puede guardar este valor en cache por un
+      servidor antes de volver a preguntar por el registro. Si se omite, se toma el tiempo mínimo especificado en el
+      registro de tipo SOA.
+    </dd>
+
+    <dt>CLASE</dt>
+    <dd>
+      Especifica el grupo de protocolo. Si se omite, se toma la clase del registro anterior. En internet este campo es
+      siempre <strong>IN</strong>.
+    </dd>
+
+    <dt>TIPO</dt>
+    <dd>
+      Especifica el tipo de registro. Indica que formato tendrá el campo de datos.
+    </dd>
+
+    <dt>DATOS</dt>
+    <dd>
+      Cada clase y tipo de registro guarda información diferente, así que dependiendo de esos campos este otro tendrá
+      diferentes valores y formatos.
+    </dd>
+  </dl>
+
+  <p>
+    Además de ese formato se puede además añadir lo siguiente:
+  </p>
+
+  <ul>
+    <li>Paréntesis <strong>()</strong> para agrupar datos en varias lineas.</li>
+    <li>Un punto y coma <strong>;</strong> para poner un comentario. El resto de la linea es ignorado.</li>
+    <li>Asteriscos <strong>*</strong> como comodines.</li>
+    <li>Una arroba <strong>@</strong> denota el nombre de dominio por defecto.</li>
+  </ul>
+
+  <h3>Tipos de RR</h3>
+
+  <p>
+    Expliquemos que es cada tipo de registro. Pulsa los diferentes RR para ver los detalles.
+  </p>
+
+  <div>
+    <div class="tabs">
+      <span [ngClass]="{selected: tab === 'SOA'}" (click)="tab = 'SOA'">SOA</span>
+      <span [ngClass]="{selected: tab === 'NS'}" (click)="tab = 'NS'">NS</span>
+      <span [ngClass]="{selected: tab === 'A'}" (click)="tab = 'A'">A</span>
+      <span [ngClass]="{selected: tab === 'AAAA'}" (click)="tab = 'AAAA'">AAAA</span>
+      <span [ngClass]="{selected: tab === 'MX'}" (click)="tab = 'MX'">MX</span>
+      <span [ngClass]="{selected: tab === 'CNAME'}" (click)="tab = 'CNAME'">CNAME</span>
+      <span [ngClass]="{selected: tab === 'PTR'}" (click)="tab = 'PTR'">PTR</span>
+      <span [ngClass]="{selected: tab === 'WKS'}" (click)="tab = 'WKS'">WKS</span>
+      <span [ngClass]="{selected: tab === 'HINFO'}" (click)="tab = 'HINFO'">HINFO</span>
+      <span [ngClass]="{selected: tab === 'TXT'}" (click)="tab = 'TXT'">TXT</span>
+    </div>
+
+  </div>
+</section>

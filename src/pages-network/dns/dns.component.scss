@@ -61,3 +61,38 @@
         font-size: 1rem;
     }
 }
+
+.rr-format {
+    display: flex;
+    justify-content: center;
+    gap: 25px;
+
+    div {
+        background-color: rgb(211, 251, 251);
+        padding: 0 5px;
+    }
+}
+
+.tabs {
+    display: flex;
+    justify-content: stretch;
+    gap: 15px;
+    border-bottom: 2px solid #3333ff;
+
+    span {
+        min-width: 8%;
+        text-align: center;
+        flex-grow: 1;
+        cursor: pointer;
+        border-top-left-radius: 5px;
+        border-top-right-radius: 5px;
+
+        &.selected {
+            background-color: #cec9c1;
+        }
+
+        &:hover:not(.selected) {
+            background-color: gainsboro;
+        }
+    }
+}

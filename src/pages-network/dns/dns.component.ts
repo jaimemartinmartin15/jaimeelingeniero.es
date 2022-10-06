@@ -6,5 +6,6 @@ import { Component } from '@angular/core';
   styleUrls: ['./dns.component.scss'],
 })
 export class DnsComponent {
+  public tab = 'SOA';
   public dnsResolvingDomainStep = 0;
 }
