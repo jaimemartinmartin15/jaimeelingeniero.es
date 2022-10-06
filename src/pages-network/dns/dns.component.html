@@ -325,5 +325,6 @@
       <span [ngClass]="{selected: tab === 'TXT'}" (click)="tab = 'TXT'">TXT</span>
     </div>
 
+    <app-soa *ngIf="tab === 'SOA'"></app-soa>
   </div>
 </section>
