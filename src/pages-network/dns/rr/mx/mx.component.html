@@ -1,0 +1,29 @@
+<p>
+  Los datos de este registro continen el nombre de dominio de una máquina que permite recibir correo electrónico.
+</p>
+
+<pre>
+  &lt;dominio&gt;  [&lt;ttl&gt;]  [&lt;class&gt;]  MX  &lt;preferencia&gt;  &lt;servidor&gt;
+</pre>
+
+<dl>
+  <dt>dominio</dt>
+  <dd>Nombre de dominio del correo electrónio. Si por ejemplo vamos a enviar un correo a jaimemartinmartin15@gmail.com
+    el valor sería gmail.com</dd>
+
+  <dt>preferencia</dt>
+  <dd>
+    En caso de tener varias máquinas con servidores de correo activas, podemos especificar cual tiene preferencia.
+    Cuanto más bajo sea el número, más preferencia tiene.
+  </dd>
+
+  <dt>servidor</dt>
+  <dd>
+    Es el nombre de dominio de la máquina que ejecuta el servidor de correo.
+  </dd>
+</dl>
+
+<p>
+  Se permite tener multiples registros de este tipo con la misma preferencia. En tal caso ambos tienen la misma
+  prioridad.
+</p>
