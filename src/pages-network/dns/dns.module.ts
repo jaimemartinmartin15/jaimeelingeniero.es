@@ -7,9 +7,10 @@ import { NsComponent } from './rr/ns/ns.component';
 import { AComponent } from './rr/a/a.component';
 import { AAAAComponent } from './rr/aaaa/aaaa.component';
 import { MxComponent } from './rr/mx/mx.component';
+import { CnameComponent } from './rr/cname/cname.component';
 
 @NgModule({
   imports: [CommonModule, DnsRoutingModule],
-  declarations: [DnsComponent, SoaComponent, NsComponent, AComponent, AAAAComponent, MxComponent],
+  declarations: [DnsComponent, SoaComponent, NsComponent, AComponent, AAAAComponent, MxComponent, CnameComponent],
 })
 export class DnsModule {}
