@@ -11,6 +11,7 @@ import { CnameComponent } from './rr/cname/cname.component';
 import { PtrComponent } from './rr/ptr/ptr.component';
 import { WksComponent } from './rr/wks/wks.component';
 import { HinfoComponent } from './rr/hinfo/hinfo.component';
+import { TxtComponent } from './rr/txt/txt.component';
 
 @NgModule({
   imports: [CommonModule, DnsRoutingModule],
@@ -25,6 +26,7 @@ import { HinfoComponent } from './rr/hinfo/hinfo.component';
     PtrComponent,
     WksComponent,
     HinfoComponent,
+    TxtComponent,
   ],
 })
 export class DnsModule {}
