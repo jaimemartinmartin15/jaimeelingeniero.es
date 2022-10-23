@@ -1,0 +1,36 @@
+<p>
+  El registro WKS significa Well Known Services (servicios bien conocidos). Permite enumerar los servicios
+  conocidos que proporciona una máquina.
+  El formato de los datos es el siguiente:
+</p>
+
+<pre>
+  &lt;máquina&gt;  [&lt;ttl&gt;]  [&lt;class&gt;]  WKS  &lt;dirección&gt;  &lt;protocolo&gt;  &lt;servicios&gt;
+</pre>
+
+<dl>
+  <dt>máquina</dt>
+  <dd>Es el nombre de la máquina que proporciona los servicios.</dd>
+
+  <dt>dirección</dt>
+  <dd>Es la dirección IP de la máquina que proporciona los servicios.</dd>
+
+  <dt>protocolo</dt>
+  <dd>
+    Es un <a href="https://www.iana.org/assignments/protocol-numbers/protocol-numbers.xhtml" target="_blank"
+      rel="noopener">número de protocolo IP</a>.
+    Por ejemplo 6 para TCP o 17 para UDP.
+  </dd>
+
+  <dt>servicios</dt>
+  <dd>
+    Son los servicios que están activos. Es un campo de bits de longitud variable. Si el bit es 1, el servicio esta
+    activo. Si el bit es 0 o no está, el servicio no está activo. La posición del bit identifica el puerto. Por ejemplo,
+    si el protocolo es TCP, el bit 26 identifica el puerto 25 (SMTP).
+  </dd>
+</dl>
+
+<p>
+  Actualmente por motivos de seguridad está desaconsejado usar este registro, y para comprobar si una máquina
+  proporciona un servicio lo mejor es tratar de conectarse a él directamente.
+</p>
