@@ -338,3 +338,44 @@
     <app-txt *ngIf="tab === 'TXT'"></app-txt>
   </div>
 </section>
+
+<section>
+  <h2>Zonas</h2>
+
+  <p>
+    Una zona no es más que una parte del árbol (sistema jeráquico) del sistema de nombres de dominio. Las zonas se
+    definen en los ficheros de zona y contienen la información autoritativa de un dominio. Una zona es administrada por
+    una organización. Esta organización puede delegar responsabilidades de zona para subdominios creando así otra
+    sub-zona.
+  </p>
+
+  <img class="zone-scheme-img" src="pages-network/dns/assets/zones-scheme.png" alt="Esquema de zonas">
+
+  <p>
+    Los ficheros de zona son entregados a un servidor DNS primario. Los servidores secundarios copian estos archivos
+    para poder servir también los dominios. Además cada cierto tiempo comprueban si hay cambios para volver a copiarlos.
+  </p>
+
+  <h3>Gestión</h3>
+
+  <p>
+    La organización encargada de gestionar los nombres de dominio es la <a href="https://www.icann.org/es"
+      target="_blank" rel="noopener">ICANN</a> (Internet Corporation for Assigned Names and Numbers ➡️ Corporación de
+    Internet para la Asignación de Nombres y Números). Esta gestiona los nombres de dominio de primer nivel y el sistema
+    de servidores DNS raíz.
+  </p>
+
+  <p>
+    Los dominios de primer nivel de países son delegados a diferentes organizaciones. Estas mantienen los registros y
+    publican las zonas a los servidores correspondientes. Por otro lado, tenemos los agentes registradores. Cualquier
+    persona puede hablar con ellas (o desde su web) para pedir su propio dominio. El agente registrador pedirá modificar
+    los registros de la zona para incluir el nuevo dominio. Cuando se aprueba el cambio, se realizan y se pasan de nuevo
+    al servidor primario, que actualizará también a los secundarios.
+  </p>
+
+  <p>
+    En España la organización responsable de la zona .es es <a
+      href="https://www.dominios.es/index.php/es/sobre-dominios/sobre-nosotros">Red.es</a>. A su vez tiene
+    multiples agentes registradores con los que puedes registrar tu dominio.
+  </p>
+</section>
