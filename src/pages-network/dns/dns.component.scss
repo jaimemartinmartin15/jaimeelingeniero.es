@@ -6,17 +6,39 @@
     line-height: 30px;
 }
 
+.ip {
+    font-style: italic;
+    color: #272727;
+}
+
 .title {
     text-align: center;
     margin: 10px;
 }
 
-.dns-scheme {
-    text-align: center;
+.host-name-example-img {
+    margin-top: 15px;
+    width: 90%;
+}
 
-    img {
-        width: 80%;
+.definitions {
+    dt {
+        color: #d17515;
+
+        &:not(:first-child) {
+            margin-top: 15px;
+        }
     }
+
+    ul {
+        margin: 0;
+    }
+}
+
+.dns-scheme-img {
+    display: block;
+    width: 70%;
+    margin: 15px auto;
 }
 
 .dns-resolving-domain {

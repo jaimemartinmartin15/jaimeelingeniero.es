@@ -9,32 +9,37 @@
   </p>
 
   <p>
-    Entonces, <strong>¿qué es un nombre de dominio?</strong> Seguramente te suene google.com, o amazon.com o
-    jaimeelingeniero.es. Esto son nombres de dominio. Cuidado, no son páginas web. Las páginas web son recursos bajo
-    estos dominios. Un nombre de dominio es una forma fácil de acordarte de algo. ¿Pero de qué?
+    Entonces, <strong>¿qué es un nombre de dominio?</strong> Seguramente te suene <i>google.com</i>, o <i>amazon.com</i>
+    o <i>jaimeelingeniero.es</i>. Esto son nombres de dominio. Cuidado, no son páginas web como tal. Las páginas web son
+    recursos en servidores identificados por estos dominios. Un nombre de dominio es una forma fácil de acordarte de
+    algo. ¿Pero de qué?
   </p>
 
   <p>
     Todos los dispositivos que están conectados a internet tienen una <strong>dirección IP</strong>. Una dirección IP es
-    un número que tiene esta forma 123.256.123.256 o esta otra 2001:05dh:ab52:0000:0000:ef48:0240:ffff, y haciendo una
-    similitud es como la dirección exacta de una casa, pero en este caso del dispositivo.
+    un número que tiene esta forma <span class="ip">123.256.123.256</span> o esta otra <span
+      class="ip">2001:05dh:ab52:0000:0000:ef48:0240:ffff</span>, y haciendo una similitud es como la dirección
+    exacta de una casa, pero en este caso del dispositivo. Es un identificador único para cada dispositivo conectado a
+    la red de internet.
   </p>
 
   <p>
     El servicio DNS se encarga de <strong>traducir</strong> el nombre de domino en una IP. Recordar un nombre de dominio
-    es mucho más fácil que recordar la IP. ¿A que para tí es más facil quedar con alguien en la puerta del colegio
-    que en la calle Palma, número 4, 08504? Pues 'el colegio' sería el nombre de dominio, y 'calle Palma, número 4,
-    08504' sería la IP.
+    es mucho más fácil que recordar la IP. ¿A que para tí es más facil quedar con alguien en la puerta <i>del
+      colegio</i> que en la calle <i>Palma, número 4, 08504</i>? Pues <i>el colegio</i> sería el nombre de dominio, y
+    <i>calle Palma, número 4, 08504</i> sería la IP. También puedes verlo como una agenda de contactos de número de
+    teléfono o como el nombre que tenemos las personas en vez de llamarnos por nuestro número de DNI.
   </p>
 
   <p>
-    Una vez nuestro dispositivo consulta al servidor DNS la IP del dominio que pedimos, ya podemos ir allí y pedir lo
-    que estamos buscando. En el caso de la página web, pues habría que conectarse al puerto 80, que haciendo otra
-    similitud, sería como llamar a una puerta específica de un edificio en la que nos puedan atender para lo que vamos.
+    Una vez nuestro dispositivo consulta al servidor DNS la IP del dominio que pedimos, ya podemos pedir al servidor con
+    esa IP por lo que sea que estemos buscando. En el caso de la página web, pues habría que conectarse al puerto 80,
+    que haciendo otra similitud, sería como llamar a una puerta específica de un edificio en la que nos puedan atender
+    para lo que vamos.
   </p>
 </section>
 
-<section>
+<section class="definitions">
   <h2>Definiciones</h2>
 
   <p>Antes de empezar a entrar en detalles, vamos a definir algunas cosas.</p>
@@ -42,25 +47,28 @@
   <dl>
     <dt>Host name:</dt>
     <dd>
-      Es el nombre de un dispositivo dentro de una red. El nombre que le das a tu móvil u ordenador, por
-      ejemplo. El más común en la web es www.
-      <!-- TODO add screenshots showing examples? Mobile android and desktop -->
+      Es el nombre de un dispositivo dentro de una red. Consiste de una "palabra" compuesta por letras, números y
+      guiones. El más común en la web es <i>www</i> para el servidor que sirve las páginas web.
+      <br>
+      <img class="host-name-example-img" src="pages-network/dns/assets/host-name-example.png"
+        alt="Ejemplo de nombres de equipo">
     </dd>
 
     <dt>
       Domain name:
     </dt>
     <dd>
-      Los nombres de dominio se asocian a una dirección IP. Identifican una red. Por ejemplo el nombre de dominio
-      jaimeelingeniero.es tiene conectado un "ordenador" con nombre www que sirve esta página.
+      Los nombres de dominio son secuencias de "palabras" separadas por puntos. Tienen asociados datos. Uno de los datos
+      es la dirección IP de un servidor que nos proporciona el servicio que necesitamos. Por ejemplo, el dominio
+      <i>jaimeelingeniero.es</i> tiene un servidor llamado <i>www</i> que sirve esta página web.
     </dd>
 
     <dt>
       Fully qualified host name (FQHN):
     </dt>
     <dd>
-      Es el nombre de la máquina completo, incluyendo la red donde está. Es decir, es el nombre de la máquina más el
-      nombre del dominio. Por ejemplo: www.jaimeelingeniero.es
+      Es el nombre de la máquina completo, incluyendo el dominio en el que está. Es decir, es el nombre de la máquina
+      más el nombre del dominio. Por ejemplo: <i>www.jaimeelingeniero.es</i>
     </dd>
 
     <dt>
@@ -82,9 +90,8 @@
       Second level domain:
     </dt>
     <dd>
-      Los dominios de nivel secundario son los que tú eliges para tu página web, por ejemplo. Son cada una de las
-      palabras (podrían ser más de una separadas por puntos) entre el nombre de la máquina y el nombre de nivel
-      superior. En mi caso sería simplemente jaimeelingeniero.
+      Los dominios de nivel secundario son las palabras que están entre el nombre de la máquina y el nombre de nivel
+      superior. Son los que tú eliges para tu página web, por ejemplo. En mi caso sería simplemente jaimeelingeniero.
     </dd>
   </dl>
 </section>
@@ -99,14 +106,17 @@
   </p>
 
   <p>
-    El DNS es una gran base de datos distribuida (repartida por varios lugares) y que tiene una estructura jeráquica (en
-    forma de árbol con ramas). Data de 1984 y está definido en las RFC-1034 y RFC-1035 por Paul Mockapetris.
+    El DNS es una gran <strong>base de datos distribuida</strong> (repartida por varios lugares) y que tiene una
+    <strong>estructura jeráquica</strong> (en forma de árbol con ramas). Data de 1984 y está definido en las <a
+      href="https://www.rfc-editor.org/rfc/rfc1034.html" target="_blank" rel="noopener">RFC-1034</a> y
+    <a href="https://www.rfc-editor.org/rfc/rfc1035.html" target="_blank" rel="noopener">RFC-1035</a> por Paul
+    Mockapetris.
   </p>
 
-  <!-- TODO put an scheme that represents a tree of domains -->
+  <img class="dns-scheme-img" src="pages-network/dns/assets/dns-scheme.png" alt="Esquema del DNS">
 
   <p>
-    Actualmene no solamente se usa para resolver nombres de dominio, sino que también se usa para resoluciones inversas
+    Actualmente no solamente se usa para resolver nombres de dominio, sino que también se usa para resoluciones inversas
     (dada la IP obtener el nombre de dominio), listar información de la máquina, resolver servidores de correo
     electrónico y más.
   </p>
@@ -122,68 +132,72 @@
 
   <div class="dns-resolving-domain">
     <div class="controls">
-      <button (click)="dnsResolvingDomainStep = 0">0</button>
-      <button (click)="dnsResolvingDomainStep = 1">1</button>
-      <button (click)="dnsResolvingDomainStep = 2">2</button>
-      <button (click)="dnsResolvingDomainStep = 3">3</button>
-      <button (click)="dnsResolvingDomainStep = 4">4</button>
-      <button (click)="dnsResolvingDomainStep = 5">5</button>
-      <button (click)="dnsResolvingDomainStep = 6">6</button>
-      <button (click)="dnsResolvingDomainStep = 7">7</button>
-      <button (click)="dnsResolvingDomainStep = 8">8</button>
+      <button (click)="dnsResolvingDomainStep = 0">1</button>
+      <button (click)="dnsResolvingDomainStep = 1">2</button>
+      <button (click)="dnsResolvingDomainStep = 2">3</button>
+      <button (click)="dnsResolvingDomainStep = 3">4</button>
+      <button (click)="dnsResolvingDomainStep = 4">5</button>
+      <button (click)="dnsResolvingDomainStep = 5">6</button>
+      <button (click)="dnsResolvingDomainStep = 6">7</button>
+      <button (click)="dnsResolvingDomainStep = 7">8</button>
+      <button (click)="dnsResolvingDomainStep = 8">9</button>
     </div>
 
     <div class="explanation">
       <div *ngIf="dnsResolvingDomainStep === 0">
-        Paso 0:
+        Paso 1:
         <br>
-        Primero nuestro ordenador consulta un fichero local (llamado hosts) en el que puede que la resolución ya esté
-        realizada. En este caso no se contactaría ningún servidor y el proceso terminaría.
+        Primero nuestro ordenador consulta un <a href="https://es.wikipedia.org/wiki/Archivo_hosts" target="_blank"
+          rel="noopener">fichero local</a> (llamado hosts) en el que puede que la resolución ya esté realizada. En este
+        caso no se contactaría ningún servidor y el proceso terminaría.
       </div>
       <div *ngIf="dnsResolvingDomainStep === 1">
-        Paso 1:
+        Paso 2:
         <br>
         Si no existe la IP en el fichero hosts se pregunta al servidor DNS. Las IP de los servidores DNS las tenemos que
         configurar nosotros en nuestro ordenador, aunque normalmente se configuran solas a través del router cuando nos
         conectamos a una red.
       </div>
       <div *ngIf="dnsResolvingDomainStep === 2">
-        Paso 2:
+        Paso 3:
         <br>
-        El servidor DNS no sabe la IP, porque no es responsable del dominio y no la tiene cacheada, así que pregunta al
-        servidor raíz.
+        El servidor DNS comprueba si tiene la IP de www.jaimeelingeniero.es en su caché (igual alguien más preguntó
+        recientemente por ella). Si la tuviera, la devolvería y el proceso terminaría.
+        <br>
+        Suponiendo que no la tiene cacheada, como tampoco es responsable del dominio, pregunta al servidor raíz.
       </div>
       <div *ngIf="dnsResolvingDomainStep === 3">
-        Paso 3:
+        Paso 4:
         <br>
         El servidor raíz tampoco tiene la IP de www.jaimeelingeniero.es, sin embargo, sí que conoce a alguien que
         podría saberla, el servidor DNS .es, y le devuelve su IP para que le contacte.
       </div>
       <div *ngIf="dnsResolvingDomainStep === 4">
-        Paso 4:
+        Paso 5:
         <br>
         Ahora el servidor DNS pregunta al DNS .es por la IP de www.jaimeelingeniero.es
       </div>
       <div *ngIf="dnsResolvingDomainStep === 5">
-        Paso 5:
+        Paso 6:
         <br>
         El servidor DNS .es tampoco tiene la IP que buscamos, pero sí conoce a otro que podría saberla, el servidor
         jaimeelingeniero.es, y le devuelve su IP para que le contacte.
       </div>
       <div *ngIf="dnsResolvingDomainStep === 6">
-        Paso 6:
+        Paso 7:
         <br>
         Entonces el servidor DNS ahora pregunta al servidor DNS jaimeelingeniero.es
       </div>
       <div *ngIf="dnsResolvingDomainStep === 7">
-        Paso 7:
+        Paso 8:
         <br>
         Ahora resulta que es el responsable del dominio, por lo que le devuelve la IP que nuestro ordenador buscaba.
       </div>
       <div *ngIf="dnsResolvingDomainStep === 8">
-        Paso 8:
+        Paso 9:
         <br>
-        Finalmente el servidor DNS devuelve la IP de www.jaimeelingeniero.es a nuestro ordenador.
+        Finalmente el servidor DNS guarda en su caché la dirección y devuelve la IP de www.jaimeelingeniero.es a nuestro
+        ordenador.
       </div>
     </div>
 
@@ -192,10 +206,10 @@
   </div>
 
   <p>
-    Las consultas de los pasos 2, 4 y 6 se llaman <strong>consultas iterativas</strong>. Estas son las consultas que se
+    Las consultas de los pasos 3, 5 y 7 se llaman <strong>consultas iterativas</strong>. Estas son las consultas que se
     hacen entre servidores para obtener las direcciones de otros servidores de dominios de nivel inferior.
     <br>
-    Las consulta del paso 1 se llama <strong>consulta recursiva</strong>. Son las consultas que hacen los clientes a los
+    La consulta del paso 2 se llama <strong>consulta recursiva</strong>. Son las consultas que hacen los clientes a los
     servidores.
   </p>
 </section>
@@ -233,14 +247,14 @@
   </p>
 
   <p>
-    De forma lógica existen un total de <a href="https://root-servers.org/" target="_blank">13 servidores raíz</a>
-    distribuidos por el mundo, que son mantenidos de forma voluntaria por diversas organizaciones. Digo que existen de
-    forma lógica porque en realidad exiten más de mil máquinas sirviendo los nombres de nivel superior. Estos 13
-    servidores se identifican con las letras del abecedario, desde la A hasta la M. Cada servidor lógico tiene una
+    De forma lógica existen un total de <a href="https://root-servers.org/" target="_blank" rel="noopener">13 servidores
+      raíz</a> distribuidos por el mundo, que son mantenidos de forma voluntaria por diversas organizaciones. Digo que
+    existen de forma lógica porque en realidad exiten más de mil máquinas sirviendo los nombres de nivel superior. Estos
+    13 servidores se identifican con las letras del abecedario, desde la A hasta la M. Cada servidor lógico tiene una
     dirección IP única, pero dependiendo del lugar del mundo en el que te encuentres, la consulta irá a una instancia o
     a otra, ya que se usa anycast para ello. Esto significa que te servirá el servidor más óptimo para tí (dependerá de
     la distancia, del tráfico que tenga y otras cosas). Puedes ver los mapas en
-    <a href="https://atlas.ripe.net/results/maps/" target="_blank">atlas.ripe.net</a>.
+    <a href="https://atlas.ripe.net/results/maps/" target="_blank" rel="noopener">atlas.ripe.net</a>.
   </p>
 </section>
 
@@ -355,8 +369,10 @@
     Los ficheros de zona son entregados a un servidor DNS primario. Los servidores secundarios copian estos archivos
     para poder servir también los dominios. Además cada cierto tiempo comprueban si hay cambios para volver a copiarlos.
   </p>
+</section>
 
-  <h3>Gestión</h3>
+<section>
+  <h2>Organización y gestión</h2>
 
   <p>
     La organización encargada de gestionar los nombres de dominio es la <a href="https://www.icann.org/es"
@@ -375,7 +391,7 @@
 
   <p>
     En España la organización responsable de la zona .es es <a
-      href="https://www.dominios.es/index.php/es/sobre-dominios/sobre-nosotros">Red.es</a>. A su vez tiene
-    multiples agentes registradores con los que puedes registrar tu dominio.
+      href="https://www.dominios.es/index.php/es/sobre-dominios/sobre-nosotros" target="_blank"
+      rel="noopener">Red.es</a>. A su vez tiene multiples agentes registradores con los que puedes registrar tu dominio.
   </p>
 </section>
