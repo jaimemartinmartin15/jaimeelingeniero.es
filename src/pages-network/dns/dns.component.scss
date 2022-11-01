@@ -88,8 +88,8 @@
     }
 }
 
-.anycast-img,
-.nslookup-img {
+.nslookup-img,
+.anycast-img {
     display: block;
     width: 80%;
     margin: 0 auto 40px auto;
@@ -134,4 +134,10 @@
     display: block;
     width: 70%;
     margin: 30px auto;
+}
+
+.organization-dns-img {
+    display: block;
+    width: 80%;
+    margin: 0 auto;
 }

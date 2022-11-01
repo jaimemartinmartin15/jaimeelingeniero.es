@@ -375,7 +375,8 @@
 
   <p>
     Los ficheros de zona son entregados a un servidor DNS primario. Los servidores secundarios copian estos archivos
-    para poder servir también los dominios. Además cada cierto tiempo comprueban si hay cambios para volver a copiarlos.
+    para poder servir también los dominios. Además cada cierto tiempo comprueban si hay cambios para volver a copiarlos
+    (zone transfer).
   </p>
 </section>
 
@@ -383,7 +384,7 @@
   <h2>Organización y gestión</h2>
 
   <p>
-    La organización encargada de gestionar los nombres de dominio es la <a href="https://www.icann.org/es"
+    La organización última encargada de gestionar los nombres de dominio es la <a href="https://www.icann.org/es"
       target="_blank" rel="noopener">ICANN</a> (Internet Corporation for Assigned Names and Numbers ➡️ Corporación de
     Internet para la Asignación de Nombres y Números). Esta gestiona los nombres de dominio de primer nivel y el sistema
     de servidores DNS raíz.
@@ -392,15 +393,20 @@
   <p>
     Los dominios de primer nivel de países son delegados a diferentes organizaciones (NIC o <strong>registry</strong>).
     Estas mantienen los registros y publican las zonas a los servidores correspondientes. Por otro lado, tenemos los
-    <strong>agentes registradores</strong> (registrar). Cualquier persona (<strong>registrant</strong>) puede hablar con
+    agentes registradores (<strong>registrar</strong>). Cualquier persona (<strong>registrant</strong>) puede hablar con
     ellas (o desde su web) para pedir su propio dominio. El agente registrador pedirá modificar los registros de la zona
     para incluir el nuevo dominio. Cuando se aprueba el cambio, se realizan y se pasan de nuevo al servidor primario,
     que actualizará también a los secundarios.
   </p>
 
+  <img class="organization-dns-img" src="pages-network/dns/assets/organization-dns.png" alt="Organización del sistema de nombres de dominio">
+
   <p>
-    En España la organización responsable de la zona .es es <a
-      href="https://www.dominios.es/index.php/es/sobre-dominios/sobre-nosotros" target="_blank"
-      rel="noopener">Red.es</a>. A su vez tiene multiples agentes registradores con los que puedes registrar tu dominio.
+    En España la organización responsable de la zona .es es
+    <a href="https://www.dominios.es/index.php/es/sobre-dominios/sobre-nosotros" target="_blank"
+      rel="noopener">Red.es</a>.
+    A su vez tiene multiples
+    <a href="https://www.dominios.es/es/agentes-registradores/nuestros-agentes-registradores#block-views-block-agentes-registradores"
+      target="_blank" rel="noopener">agentes registradores</a> con los que puedes registrar tu dominio.
   </p>
 </section>
