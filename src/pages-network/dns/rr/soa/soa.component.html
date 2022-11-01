@@ -1,49 +1,49 @@
 <p>
-  Significa Start Of Authority. Designa el comienzo de una zona y/o el final de la anterior. Debería haber un solo
-  registro SOA por zona. El formato de datos es el siguiente:
+  El registro SOA significa Start Of Authority y designa el <strong>comienzo de una zona</strong> y/o el final de la
+  anterior. Debería haber un solo registro SOA por zona. El formato del registro es el siguiente:
 </p>
 
 <pre>
-  &lt;name&gt;  [&lt;ttl&gt;]  [&lt;class&gt;]  SOA  &lt;origin&gt;  &lt;person&gt;  (
-                 &lt;serial&gt;
-                 &lt;refresh&gt;
-                 &lt;retry&gt;
-                 &lt;expire&gt;
-                 &lt;minimum&gt; )
+  &lt;nombre&gt;  [&lt;ttl&gt;]  [&lt;clase&gt;]  SOA  &lt;origen&gt;  &lt;persona&gt;  (
+                 &lt;serie&gt;
+                 &lt;refresco&gt;
+                 &lt;reintento&gt;
+                 &lt;expira&gt;
+                 &lt;mínimo&gt; )
 </pre>
 
 <dl>
-  <dt>name</dt>
+  <dt>nombre</dt>
   <dd>Es el nombre de la zona.</dd>
 
-  <dt>origin</dt>
+  <dt>origen</dt>
   <dd>Es el nombre del hosts en el que reside el fichero maestro de la zona (el fichero original).</dd>
 
-  <dt>person</dt>
+  <dt>persona</dt>
   <dd>Es el correo electrónico de la persona responsable de la zona. La @ se remplaza por un punto.</dd>
 
-  <dt>serial</dt>
+  <dt>serie</dt>
   <dd>Es el número de versión del fichero de zona. Se incrementa cada vez que se hace un cambio en el fichero.</dd>
 
-  <dt>refresh</dt>
+  <dt>refresco</dt>
   <dd>
     Es el tiempo en segundos que un servidor secundario tarda en preguntar al servidor primario si ha habido algún
     cambio para actualizarse. Un buen valor aquí sería cada hora.
   </dd>
 
-  <dt>retry</dt>
+  <dt>reintento</dt>
   <dd>
     Si para un servidor secundario el refresh falla, este valor indica cuanto tiempo en segundos tiene que pasar hasta
     que se compruebe otra vez. Un buen valor son 10 minutos.
   </dd>
 
-  <dt>expire</dt>
+  <dt>expira</dt>
   <dd>
     Es el tiempo máximo que un servidor secundario puede usar los datos que tiene en caso de no poder hacer nunca un
     refresh. Un buen valor aquí serían 42 días.
   </dd>
 
-  <dt>minimun</dt>
+  <dt>mínimo</dt>
   <dd>
     Es el número mínimo de segundos que se utilizará para los valores TTL en un RR. Un mínimo de al menos 1 día es un
     buen valor aquí.

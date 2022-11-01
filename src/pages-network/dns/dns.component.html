@@ -108,9 +108,9 @@
   <p>
     El DNS es una gran <strong>base de datos distribuida</strong> (repartida por varios lugares) y que tiene una
     <strong>estructura jeráquica</strong> (en forma de árbol con ramas). Data de 1984 y está definido en las <a
-      href="https://www.rfc-editor.org/rfc/rfc1034.html" target="_blank" rel="noopener">RFC-1034</a> y
-    <a href="https://www.rfc-editor.org/rfc/rfc1035.html" target="_blank" rel="noopener">RFC-1035</a> por Paul
-    Mockapetris.
+      class="rfc" href="https://www.rfc-editor.org/rfc/rfc1034.html" target="_blank" rel="noopener">RFC-1034</a> y
+    <a class="rfc" href="https://www.rfc-editor.org/rfc/rfc1035.html" target="_blank" rel="noopener">RFC-1035</a> por
+    Paul Mockapetris.
   </p>
 
   <img class="dns-scheme-img" src="pages-network/dns/assets/dns-scheme.png" alt="Esquema del DNS">
@@ -230,7 +230,7 @@
     Los servidores pueden tener la información original recibida directamente por un humano (<strong>servidor
       primario</strong>), pueden ser una copia para hacer el sistema más escalable (<strong>servidor
       secundario</strong>) o pueden tener los datos cacheados de alguna consulta anterior (<strong>servidor
-      cache</strong>).
+      caché</strong>).
   </p>
 
   <p>
@@ -239,11 +239,15 @@
       autoridad</strong> en caso de venir de la caché.
   </p>
 
+  <img class="nslookup-img" src="pages-network/dns/assets/no-authoritative-response.png" alt="nslookup screenshot">
+
   <h3>Servidores raíz</h3>
 
   <p>
-    Los servidores raíz son servidores de nombres que tienen la información inicial de la estructura jeráquica de la
-    base de datos del sistema. Conocen a todos los servidores de nombres de nivel superior.
+    Los <a href="https://www.iana.org/domains/root/servers" target="_blank" rel="noopener">servidores raíz</a> son
+    servidores de nombres que tienen la <a href="https://www.iana.org/domains/root/files" target="_blank"
+      rel="noopener">información inicial</a> de la estructura jeráquica de la base de datos del sistema. Conocen a todos
+    los servidores de nombres de nivel superior.
   </p>
 
   <p>
@@ -263,7 +267,8 @@
 
   <p>
     La base de datos del sistema de dominios esta compuesta por registros de recursos (en inglés Resource Records, RR).
-    Son la unidad básica de consulta. Su formato viene especificado en el RFC-1033:
+    Son la <strong>unidad básica de consulta</strong>. Su formato viene especificado en el <a class="rfc"
+      href="https://www.rfc-editor.org/rfc/rfc1033.html" target="_blank" rel="noopener">RFC-1033</a>:
   </p>
 
   <div class="rr-format">
@@ -285,7 +290,7 @@
 
     <dt>TTL</dt>
     <dd>
-      Se refiere al Time to Live (tiempo de vida). Indica por cuanto tiempo se puede guardar este valor en cache por un
+      Se refiere al Time to Live (tiempo de vida). Indica por cuánto tiempo se puede guardar este valor en caché por un
       servidor antes de volver a preguntar por el registro. Si se omite, se toma el tiempo mínimo especificado en el
       registro de tipo SOA.
     </dd>
@@ -322,8 +327,9 @@
   <h3>Tipos de RR</h3>
 
   <p>
-    Existen muchos tipos de recursos pero vamos a explicar solo algunos de ellos. Pulsa los diferentes RR para ver los
-    detalles.
+    Existen muchos <a href="https://es.wikipedia.org/wiki/Anexo:Tipos_de_registros_DNS" target="_blank"
+      rel="noopener">tipos de recursos</a> pero vamos a explicar solo algunos de ellos. Pulsa los diferentes RR para ver
+    los detalles.
   </p>
 
   <div>
@@ -358,9 +364,9 @@
 
   <p>
     Una zona no es más que una parte del árbol (sistema jeráquico) del sistema de nombres de dominio. Las zonas se
-    definen en los ficheros de zona y contienen la información autoritativa de un dominio. Una zona es administrada por
-    una organización. Esta organización puede delegar responsabilidades de zona para subdominios creando así otra
-    sub-zona.
+    definen en los ficheros de zona y contienen la <strong>información autoritativa</strong> de un dominio. Una zona es
+    administrada por una organización. Esta organización puede delegar responsabilidades de zona para subdominios
+    creando así otra sub-zona.
   </p>
 
   <img class="zone-scheme-img" src="pages-network/dns/assets/zones-scheme.png" alt="Esquema de zonas">
@@ -382,11 +388,12 @@
   </p>
 
   <p>
-    Los dominios de primer nivel de países son delegados a diferentes organizaciones. Estas mantienen los registros y
-    publican las zonas a los servidores correspondientes. Por otro lado, tenemos los agentes registradores. Cualquier
-    persona puede hablar con ellas (o desde su web) para pedir su propio dominio. El agente registrador pedirá modificar
-    los registros de la zona para incluir el nuevo dominio. Cuando se aprueba el cambio, se realizan y se pasan de nuevo
-    al servidor primario, que actualizará también a los secundarios.
+    Los dominios de primer nivel de países son delegados a diferentes organizaciones (NIC o <strong>registry</strong>).
+    Estas mantienen los registros y publican las zonas a los servidores correspondientes. Por otro lado, tenemos los
+    <strong>agentes registradores</strong> (registrar). Cualquier persona (<strong>registrant</strong>) puede hablar con
+    ellas (o desde su web) para pedir su propio dominio. El agente registrador pedirá modificar los registros de la zona
+    para incluir el nuevo dominio. Cuando se aprueba el cambio, se realizan y se pasan de nuevo al servidor primario,
+    que actualizará también a los secundarios.
   </p>
 
   <p>

@@ -1,9 +1,9 @@
 <p>
-  El registro CNAME es un alias para un nombre de dominio. El formato del registro es el que sigue:
+  El registro CNAME es un <strong>alias</strong> para un nombre de dominio. El formato del registro es el siguiente:
 </p>
 
 <pre>
-  &lt;alias&gt;  [&lt;ttl&gt;]  [&lt;class&gt;]  CNAME  &lt;host&gt;
+  &lt;alias&gt;  [&lt;ttl&gt;]  [&lt;clase&gt;]  CNAME  &lt;máquina&gt;
 </pre>
 
 <dl>
@@ -12,7 +12,7 @@
     Es el nuevo nombre que queremos poner a la máquina.
   </dd>
 
-  <dt>host</dt>
+  <dt>máquina</dt>
   <dd>
     Es el nombre que realmente tiene la máquina, el oficial. No puede ser directamente una IP.
   </dd>
@@ -20,13 +20,13 @@
 
 <p>
   Un ejemplo de uso de este registro sería si cambiamos el nombre de una máquina. En este caso podemos crear un registro
-  de este tipo donde el alias sea el nombre viejo y el host el nombre nuevo. De esta forma los que sigan accediendo
+  de este tipo donde el alias sea el nombre viejo y la máquina el nombre nuevo. De esta forma los que sigan accediendo
   mediante el nombre antiguo son enviados al nuevo nombre.
 </p>
 
 <p>
   Otro caso de uso sería para múltiples servicios corriendo en la misma máquina en diferentes dominios (que apuntan a la
-  misma IP). Por ejemplo ftp.example.com y www.example.com. Si ambos servicios están en la misma máquina podemos crear
-  registros CNAME que apunten al dominio base example.com, y en caso de cambiar la IP, solo tendremos que cambiar el
-  registro A del dominio base.
+  misma IP). Por ejemplo <i>ftp.example.com</i> y <i>www.example.com</i>. Si ambos servicios están en la misma máquina
+  podemos crear registros CNAME que apunten al dominio base <i>example.com</i>, y en caso de cambiar la IP, solo
+  tendremos que cambiar el registro A del dominio base.
 </p>
