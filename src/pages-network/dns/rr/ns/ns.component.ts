@@ -3,6 +3,6 @@ import { Component } from '@angular/core';
 @Component({
   selector: 'app-ns',
   templateUrl: './ns.component.html',
-  styles: [':host{display:block}'],
+  styleUrls: ['../rr-styles.scss'],
 })
 export class NsComponent {}

@@ -6,14 +6,18 @@
     line-height: 30px;
 }
 
+.title {
+    text-align: center;
+    margin: 10px;
+}
+
 .ip {
     font-style: italic;
     color: #272727;
 }
 
-.title {
-    text-align: center;
-    margin: 10px;
+a {
+    color: #d17515;
 }
 
 .rfc {
@@ -25,7 +29,8 @@
     width: 90%;
 }
 
-.definitions {
+.definitions,
+.rr-section {
     dt {
         color: #d17515;
 
@@ -140,4 +145,38 @@
     display: block;
     width: 80%;
     margin: 0 auto;
+}
+
+@media (max-width: 575px) {
+    .dns-scheme-img,
+    .host-name-example-img,
+    .nslookup-img,
+    .anycast-img,
+    .zone-scheme-img,
+    .organization-dns-img {
+        width: 100%;
+    }
+
+    .dns-resolving-domain img {
+        margin-top: 20px;
+        width: 100%;
+    }
+
+    .rr-format {
+        flex-wrap: wrap;
+        justify-content: flex-start;
+    }
+
+    .tabs {
+        flex-wrap: wrap;
+        border: none;
+
+        span {
+            border-bottom: 2px solid #3333ff;
+        }
+    }
+
+    dd {
+        margin: 0;
+    }
 }

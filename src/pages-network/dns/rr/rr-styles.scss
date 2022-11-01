@@ -1,0 +1,21 @@
+:host {
+    display: block;
+}
+
+pre {
+    overflow-y: scroll;
+}
+
+dt {
+    color: #d17515;
+
+    &:not(:first-child) {
+        margin-top: 15px;
+    }
+}
+
+@media (max-width: 575px) {
+    dd {
+        margin: 0;
+    }
+}
