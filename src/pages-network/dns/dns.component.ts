@@ -9,6 +9,10 @@ import { Meta, Title } from '@angular/platform-browser';
 export class DnsComponent implements OnInit {
   public tab = 'SOA';
   public dnsResolvingDomainStep = 0;
+  public headerPrintData = {
+    author: 'Jaime Martín Martín',
+    date: '3 de noviembre de 2022',
+  };
 
   public constructor(private readonly titleService: Title, private readonly metaService: Meta) {}
 

@@ -1,5 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+
+import { HeaderPrintModule } from 'src/components/header-print/header-print.module';
+
 import { DnsComponent } from './dns.component';
 import { DnsRoutingModule } from './dns-routing.module';
 import { SoaComponent } from './rr/soa/soa.component';
@@ -14,7 +17,7 @@ import { HinfoComponent } from './rr/hinfo/hinfo.component';
 import { TxtComponent } from './rr/txt/txt.component';
 
 @NgModule({
-  imports: [CommonModule, DnsRoutingModule],
+  imports: [CommonModule, DnsRoutingModule, HeaderPrintModule],
   declarations: [
     DnsComponent,
     SoaComponent,
