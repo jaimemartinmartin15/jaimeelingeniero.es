@@ -15,6 +15,10 @@ const routes: Routes = [
     loadChildren: () => import('../pages-games/score/score.module').then((m) => m.ScoreModule),
   },
   {
+    path: 'redes',
+    loadChildren: () => import('../pages-network/network.module').then((m) => m.NetworkModule),
+  },
+  {
     path: '',
     loadChildren: () => import('../pages/home/home.module').then((m) => m.HomeModule),
   },

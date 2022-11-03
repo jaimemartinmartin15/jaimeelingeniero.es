@@ -1,0 +1,51 @@
+<p>
+  El registro SOA significa Start Of Authority y designa el <strong>comienzo de una zona</strong> y/o el final de la
+  anterior. Debería haber un solo registro SOA por zona. El formato del registro es el siguiente:
+</p>
+
+<pre>
+  &lt;nombre&gt;  [&lt;ttl&gt;]  [&lt;clase&gt;]  SOA  &lt;origen&gt;  &lt;persona&gt;  (  
+                 &lt;serie&gt;
+                 &lt;refresco&gt;
+                 &lt;reintento&gt;
+                 &lt;expira&gt;
+                 &lt;mínimo&gt; )
+</pre>
+
+<dl>
+  <dt>nombre</dt>
+  <dd>Es el nombre de la zona.</dd>
+
+  <dt>origen</dt>
+  <dd>Es el nombre del hosts en el que reside el fichero maestro de la zona (el fichero original).</dd>
+
+  <dt>persona</dt>
+  <dd>Es el correo electrónico de la persona responsable de la zona. La @ se remplaza por un punto.</dd>
+
+  <dt>serie</dt>
+  <dd>Es el número de versión del fichero de zona. Se incrementa cada vez que se hace un cambio en el fichero.</dd>
+
+  <dt>refresco</dt>
+  <dd>
+    Es el tiempo en segundos que un servidor secundario tarda en preguntar al servidor primario si ha habido algún
+    cambio para actualizarse. Un buen valor aquí sería cada hora.
+  </dd>
+
+  <dt>reintento</dt>
+  <dd>
+    Si para un servidor secundario el refresh falla, este valor indica cuanto tiempo en segundos tiene que pasar hasta
+    que se compruebe otra vez. Un buen valor son 10 minutos.
+  </dd>
+
+  <dt>expira</dt>
+  <dd>
+    Es el tiempo máximo que un servidor secundario puede usar los datos que tiene en caso de no poder hacer nunca un
+    refresh. Un buen valor aquí serían 42 días.
+  </dd>
+
+  <dt>mínimo</dt>
+  <dd>
+    Es el número mínimo de segundos que se utilizará para los valores TTL en un RR. Un mínimo de al menos 1 día es un
+    buen valor aquí.
+  </dd>
+</dl>

@@ -1,0 +1,27 @@
+<p>
+  El registro PTR es usado para <strong>resoluciones inversas</strong>. Dado una ip devuelve el nombre de dominio. El
+  formato del registro es el siguiente:
+</p>
+
+<pre>
+  &lt;nombre-especial&gt;  [&lt;ttl&gt;]  [&lt;clase&gt;]  PTR  &lt;nombre&gt;  
+</pre>
+
+<dl>
+  <dt>nombre-especial</dt>
+  <dd>
+    Realmente cuando otra máquina quiere saber el dominio asociado a una IP, no envía la IP como tal, sino que la
+    convierte a un dominio especial llamado <strong>in-addr.arpa</strong>. Este dominio consiste en dar la vuelta a los
+    números de la IP y concatenarle in-addr.arpa. Por ejemplo la IP <i>198.162.1.50</i> acabaría en
+    <strong>50.1.162.198.in-addr.arpa</strong>.
+  </dd>
+
+  <dt>nombre</dt>
+  <dd>
+    Es el nombre asociado a la IP por la que se pregunta. Debe ser un nombre oficial.
+  </dd>
+</dl>
+
+<p>
+  Pueden existir múltiples registros para direrentes IP y que devuelvan el mismo dominio.
+</p>

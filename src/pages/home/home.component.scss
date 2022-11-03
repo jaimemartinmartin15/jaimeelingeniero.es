@@ -161,8 +161,10 @@
 
         .tile {
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
+            gap: 5px;
             text-align: center;
             border: 2.5px solid #d17515;
             border-radius: 5px;
