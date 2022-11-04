@@ -12,6 +12,8 @@ import { BaseOperatorComponent } from '../shared/base-operator.component';
   styleUrls: ['./of.component.scss'],
 })
 export class OfComponent extends BaseOperatorComponent {
+  public headerPrintData = { author: 'Jaime Martín Martín', date: '29 de julio de 2022' };
+
   private numberOfEmissions = 0;
   private subscriptions: ReturnType<typeof setTimeout>[] = [];
   protected operator = switchMap(() => of('🥥', '🌽', '🌶️'));

@@ -12,6 +12,8 @@ import { ObservableEventType } from '../shared/observable-event-type';
   styleUrls: ['./combine-latest-with.component.scss'],
 })
 export class CombineLatestWithComponent extends BaseOperatorComponent {
+  public headerPrintData = { author: 'Jaime Martín Martín', date: '13 de mayo de 2022' };
+  
   public readonly COMBINELATESTWITH = [
     '1', // Combine latest with left
     '2', // Combine latest with right

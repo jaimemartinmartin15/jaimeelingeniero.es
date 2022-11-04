@@ -9,6 +9,8 @@ import { ButtonController } from '../shared/components/conveyor-controller/butto
   styleUrls: ['./from.component.scss'],
 })
 export class FromComponent implements OnInit, OnDestroy {
+  public headerPrintData = { author: 'Jaime Martín Martín', date: '1 de agosto de 2022' };
+
   protected operator = from(['🥚', '🥕', '🥩']);
 
   public readonly controllerButtons: { [key: string]: ButtonController[] } = {};
