@@ -12,6 +12,8 @@ import { BaseOperatorComponent } from '../shared/base-operator.component';
   styleUrls: ['./<%= dasherize(name) %>.component.scss'],
 })
 export class <%= classify(name) %>Component extends BaseOperatorComponent {
+  public headerPrintData = { author: 'Jaime Martín Martín', date: '<%= date %>' };
+
   protected operator = <%= name %>();
 
   public readonly controllerButtons: { [key: string]: ButtonController[] } = {

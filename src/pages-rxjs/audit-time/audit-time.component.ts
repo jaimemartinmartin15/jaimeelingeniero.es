@@ -12,6 +12,8 @@ import { ObservableEventType } from '../shared/observable-event-type';
   styleUrls: ['./audit-time.component.scss'],
 })
 export class AuditTimeComponent extends BaseOperatorComponent {
+  public headerPrintData = { author: 'Jaime Martín Martín', date: '10 de junio de 2022' };
+  
   private errorOrCompleteEmitted = false;
   private counterSubscription: Subscription;
   public elementInStandBy = '';

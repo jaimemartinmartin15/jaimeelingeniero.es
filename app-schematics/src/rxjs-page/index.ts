@@ -14,6 +14,7 @@ export function rxjsPage({ name }: Schema): Rule {
     const sourceParametrizedTemplates = apply(sourceTemplates, [
       template({
         name,
+        date: `${new Date().getDate()} de ${new Date().toLocaleDateString('es-ES', { month: 'long' })} de ${new Date().getFullYear()}`,
         ...strings,
       }),
       move('src/pages-rxjs'),

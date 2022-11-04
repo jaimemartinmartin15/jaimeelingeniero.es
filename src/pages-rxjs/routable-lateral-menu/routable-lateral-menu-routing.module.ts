@@ -1,11 +1,13 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { RoutableLateralMenuComponent } from './routable-lateral-menu.component';
+import { RoutableLateralMenuResolver } from './routable-lateral-menu.resolver';
 
 const routes: Routes = [
   {
     path: '',
     component: RoutableLateralMenuComponent,
+    resolve: [RoutableLateralMenuResolver],
     children: [
       {
         path: 'timer',

@@ -1,74 +1,77 @@
 :host {
-    display: flex;
+    display: block;
     max-width: 1200px;
     margin: auto;
-    height: 100%;
     padding-bottom: 65px;
 }
 
-.left-menu {
-    min-width: 250px;
-    margin-top: 50px;
-    max-height: calc(100vh - 115px);
-    position: sticky;
-    top: 50px;
-    overflow-y: scroll;
+.content {
+    display: flex;
 
-    .subtitle {
-        font-size: 1.3em;
+    .left-menu {
+        min-width: 250px;
+        margin-top: 30px;
+        max-height: calc(100vh - 100px);
+        position: sticky;
+        top: 50px;
+        overflow-y: scroll;
 
-        &:not(:first-of-type) {
-            margin-top: 50px;
-        }
-    }
+        .subtitle {
+            font-size: 1.3em;
 
-    .links-group {
-        display: flex;
-        flex-direction: column;
-
-        a {
-            margin: 15px 0 0 5px;
-            text-decoration: none;
-            color: black;
-            transition: 0.5s;
-            line-height: 25px;
-
-            &:hover:not(.menu-section-active) {
-                font-size: 1.15em;
-
-                &::after {
-                    content: "➡️";
-                    margin-left: 5px;
-                }
+            &:not(:first-of-type) {
+                margin-top: 50px;
             }
         }
 
-        .menu-section-active {
-            color: #d17515;
-            font-size: 1.3em;
+        .links-group {
+            display: flex;
+            flex-direction: column;
+
+            a {
+                margin: 15px 0 0 5px;
+                text-decoration: none;
+                color: black;
+                transition: 0.5s;
+                line-height: 25px;
+
+                &:hover:not(.menu-section-active) {
+                    font-size: 1.15em;
+
+                    &::after {
+                        content: "➡️";
+                        margin-left: 5px;
+                    }
+                }
+            }
+
+            .menu-section-active {
+                color: #d17515;
+                font-size: 1.3em;
+            }
         }
     }
-}
 
-.pages {
-    flex-grow: 1;
-    margin: 0 20px;
+    .pages {
+        flex-grow: 1;
+        margin: 0 20px;
+    }
 }
 
 @media (max-width: 1200px) {
-    :host {
+    .content {
         display: block;
-    }
 
-    .left-menu {
-        position: static;
-        overflow: hidden;
+        .left-menu {
+            position: static;
+            overflow: hidden;
 
-        .content-link {
-            cursor: pointer;
-            text-decoration: underline;
-            color: black;
-            padding: 50px 20px;
+            .content-link {
+                cursor: pointer;
+                text-decoration: underline;
+                color: black;
+                padding: 50px 20px;
+            }
         }
     }
 }

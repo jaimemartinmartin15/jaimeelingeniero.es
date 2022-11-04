@@ -12,6 +12,8 @@ import { BaseOperatorComponent } from '../shared/base-operator.component';
   styleUrls: ['./interval.component.scss'],
 })
 export class IntervalComponent extends BaseOperatorComponent {
+  public headerPrintData = { author: 'Jaime Martín Martín', date: '2 de agosto de 2022' };
+
   protected operator = pipe(
     switchMap(() => interval(2000)),
     map((n) => this.convertToEmojis(n))

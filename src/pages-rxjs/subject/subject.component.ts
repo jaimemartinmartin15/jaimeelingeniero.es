@@ -13,6 +13,8 @@ import { SpeechBubble } from '../shared/speech-bubble';
   styleUrls: ['./subject.component.scss'],
 })
 export class SubjectComponent implements OnInit, AfterViewInit {
+  public headerPrintData = { author: 'Jaime Martín Martín', date: '18 de julio de 2022' };
+
   public S1 = '0';
   public S2 = '1';
   public S3 = '2';

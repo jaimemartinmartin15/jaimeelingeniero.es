@@ -12,6 +12,8 @@ import { BaseOperatorComponent } from '../shared/base-operator.component';
   styleUrls: ['./distinct.component.scss'],
 })
 export class DistinctComponent extends BaseOperatorComponent {
+  public headerPrintData = { author: 'Jaime Martín Martín', date: '21 de junio de 2022' };
+
   protected operator = distinct();
 
   public controllerButtons: { [key: string]: ButtonController[] } = {
