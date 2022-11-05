@@ -4,7 +4,7 @@ import { RouterModule, Routes } from '@angular/router';
 const routes: Routes = [
   {
     path: 'mi-trayectoria',
-    loadChildren: () => import('../pages/my-trayectory/my-trayectory.module').then((m) => m.MyTrayectoryModule),
+    loadChildren: () => import('../pages-presentation/my-trayectory/my-trayectory.module').then((m) => m.MyTrayectoryModule),
   },
   {
     path: 'comprende-rxjs',
@@ -20,7 +20,7 @@ const routes: Routes = [
   },
   {
     path: '',
-    loadChildren: () => import('../pages/home/home.module').then((m) => m.HomeModule),
+    loadChildren: () => import('../pages-presentation/home/home.module').then((m) => m.HomeModule),
   },
   {
     path: '**',
