@@ -13,6 +13,7 @@ import { PlayerDisplayComponent } from './ranking/player-display/player-display.
 import { ScoreComponent } from './score.component';
 import { LoadNewGamePopUpComponent } from './load-new-game-pop-up/load-new-game-pop-up.component';
 import { StatisticsComponent } from './statistics/statistics.component';
+import { PlayersService } from './player/players.service';
 
 @NgModule({
   imports: [FormsModule, CommonModule, ScoreRoutingModule, DragDropModule, PipesModule],
@@ -27,5 +28,6 @@ import { StatisticsComponent } from './statistics/statistics.component';
     PlayerDisplayComponent,
     StatisticsComponent,
   ],
+  providers: [PlayersService],
 })
 export class ScoreModule {}

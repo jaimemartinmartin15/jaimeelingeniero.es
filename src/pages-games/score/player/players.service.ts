@@ -3,9 +3,7 @@ import { ReplaySubject } from 'rxjs';
 import { PREVIOUS_GAME_DATE_KEY, PREVIOUS_GAME_KEY } from '../local-storage-keys';
 import { IPlayer, Player } from './player';
 
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable()
 export class PlayersService {
   private _players: Player[];
 
