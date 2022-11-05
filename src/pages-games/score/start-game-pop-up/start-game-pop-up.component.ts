@@ -24,7 +24,7 @@ export class StartGamePopUpComponent implements OnInit {
     const previousGame = localStorage.getItem(PREVIOUS_GAME_KEY);
     if (previousGame != null) {
       const { players }: { players: Player[] } = JSON.parse(previousGame);
-      this.players = players.map((p) => p.name);
+      this.players = players.sort((p1, p2) => p1.id - p2.id).map((p) => p.name);
     }
   }
 
