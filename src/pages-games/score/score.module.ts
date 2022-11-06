@@ -14,6 +14,7 @@ import { ScoreComponent } from './score.component';
 import { LoadNewGamePopUpComponent } from './load-new-game-pop-up/load-new-game-pop-up.component';
 import { StatisticsComponent } from './statistics/statistics.component';
 import { PlayersService } from './player/players.service';
+import { GameConfigService } from './game/game-config.service';
 
 @NgModule({
   imports: [FormsModule, CommonModule, ScoreRoutingModule, DragDropModule, PipesModule],
@@ -28,6 +29,6 @@ import { PlayersService } from './player/players.service';
     PlayerDisplayComponent,
     StatisticsComponent,
   ],
-  providers: [PlayersService],
+  providers: [PlayersService, GameConfigService],
 })
 export class ScoreModule {}
