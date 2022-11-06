@@ -1,10 +1,11 @@
-import { Player } from '../player/player';
+import { Player } from '../../player/player';
+import { allowedQueryParams } from '../allowed-query-params';
 
 export interface GameConfig {
   /**
    * Name of the game
    */
-  name: string;
+  [allowedQueryParams.GAME_NAME.paramConfig]: string;
 
   /**
    * Returns how the list of players should be shown in the ranking
@@ -14,7 +15,5 @@ export interface GameConfig {
   /**
    * When a player reaches this limit, rejoins or is eliminated...
    */
-  limitScore?: number;
+  [allowedQueryParams.LIMIT.paramConfig]?: number;
 }
-
-export type GameConfigTranslatableKeys = keyof Pick<GameConfig, 'name' | 'limitScore'>;

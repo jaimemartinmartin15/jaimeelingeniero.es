@@ -1,36 +1,44 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { AllowedQueryParams, AllowedQueryParamsNames, mapNamesQueryParams } from './allowed-query-params';
 
+import { allowedQueryParams } from './allowed-query-params';
 import { chinchonConfig } from './game-configs/chinchon-config';
-import { defaultConfig } from './game-configs/default-config';
 import { pochaConfig } from './game-configs/pocha-config';
-import { GameConfig, GameConfigTranslatableKeys } from './game-config';
+import { GameConfig } from './game-configs/game-config';
+import { defaultConfig } from './game-configs/default-config';
+import { unoConfig } from './game-configs/uno-config';
 
 @Injectable()
 export class GameConfigService {
-  private readonly availableConfigs: GameConfig[] = [pochaConfig, chinchonConfig];
+  private readonly knownConfigs: GameConfig[] = [pochaConfig, chinchonConfig, unoConfig];
   private config: GameConfig;
 
   constructor(private readonly activatedRoute: ActivatedRoute) {
     const queryParams = this.activatedRoute.snapshot.queryParams;
 
-    // sets default config and overrides properties based on selected game
-    this.config = { ...defaultConfig, ...this.availableConfigs.find((c) => c.name === queryParams[AllowedQueryParams.GAME_NAME]) };
+    const gameName = queryParams[allowedQueryParams.GAME_NAME.paramName] ?? defaultConfig.name;
+    const selectedConfig = this.knownConfigs.find((c) => c.name === gameName);
 
-    // overrides other possible configs of the selected game
-    Object.keys(queryParams).forEach((queryParamName) => {
-      if (!mapNamesQueryParams.hasOwnProperty(queryParamName)) {
-        alert(`El parámetro '${queryParamName}' no es admitido como configuración`);
+    if (selectedConfig == null) {
+      alert(`El juego '${gameName}' no es conocido por la aplicación. Se usará la configuración del juego por defecto: ${defaultConfig.name}`);
+      this.config = defaultConfig;
+    } else {
+      this.config = selectedConfig;
+    }
+
+    const otherParamNames = Object.keys(queryParams).filter((k) => k != allowedQueryParams.GAME_NAME.paramName);
+    otherParamNames.forEach((queryParamName) => {
+      const translatedQueryParam = Object.values(allowedQueryParams).find((v) => v.paramName === queryParamName)?.paramConfig;
+      if (translatedQueryParam == undefined || !Object.keys(this.config).includes(translatedQueryParam)) {
+        alert(`El parámetro '${queryParamName}' no es soportado para el juego '${this.config.name}'`);
         return;
       }
 
-      const translatedQueryParamName = mapNamesQueryParams[queryParamName as AllowedQueryParamsNames] as GameConfigTranslatableKeys;
-      if (translatedQueryParamName === mapNamesQueryParams[AllowedQueryParams.GAME_NAME]) {
-        (this.config[translatedQueryParamName] as GameConfig['name']) = queryParams[queryParamName] as string;
-      }
-      if (translatedQueryParamName === mapNamesQueryParams[AllowedQueryParams.LIMIT_SCORE]) {
-        (this.config[translatedQueryParamName] as GameConfig['limitScore']) = +queryParams[queryParamName];
+      // checks the param to convert to corresponding type
+      if (translatedQueryParam === allowedQueryParams.GAME_NAME.paramConfig) {
+        this.config[translatedQueryParam] = queryParams[queryParamName];
+      } else if (translatedQueryParam === allowedQueryParams.LIMIT.paramConfig) {
+        this.config[translatedQueryParam] = +queryParams[queryParamName];
       }
     });
   }
