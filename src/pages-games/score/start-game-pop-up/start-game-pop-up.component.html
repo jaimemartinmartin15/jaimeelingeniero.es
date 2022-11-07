@@ -4,7 +4,11 @@
       *ngFor="let player of players; let i = index; trackBy: trackByPlayerIndex">
       <div *cdkDragPlaceholder></div>
 
-      <label cdkDragHandle><strong>Jugador {{i+1}}</strong></label>
+      <label cdkDragHandle class="label">
+        <strong>Jugador {{i+1}}</strong>
+        <svg appDealCardsSvg viewBox="0 0 1000 1000" (click)="startsDealing = i" class="deal-cards-icon"
+          [ngClass]="{'deal-cards-icon--active': startsDealing === i}"></svg>
+      </label>
 
       <br>
 
