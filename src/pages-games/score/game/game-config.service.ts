@@ -11,7 +11,7 @@ import { unoConfig } from './game-configs/uno-config';
 @Injectable()
 export class GameConfigService {
   private readonly knownConfigs: GameConfig[] = [pochaConfig, chinchonConfig, unoConfig];
-  private config: GameConfig;
+  private _config: GameConfig;
 
   constructor(private readonly activatedRoute: ActivatedRoute) {
     const queryParams = this.activatedRoute.snapshot.queryParams;
@@ -21,25 +21,31 @@ export class GameConfigService {
 
     if (selectedConfig == null) {
       alert(`El juego '${gameName}' no es conocido por la aplicación. Se usará la configuración del juego por defecto: ${defaultConfig.name}`);
-      this.config = defaultConfig;
+      this._config = defaultConfig;
     } else {
-      this.config = selectedConfig;
+      this._config = selectedConfig;
     }
 
     const otherParamNames = Object.keys(queryParams).filter((k) => k != allowedQueryParams.GAME_NAME.paramName);
     otherParamNames.forEach((queryParamName) => {
       const translatedQueryParam = Object.values(allowedQueryParams).find((v) => v.paramName === queryParamName)?.paramConfig;
-      if (translatedQueryParam == undefined || !Object.keys(this.config).includes(translatedQueryParam)) {
-        alert(`El parámetro '${queryParamName}' no es soportado para el juego '${this.config.name}'`);
+      if (translatedQueryParam == undefined || !Object.keys(this._config).includes(translatedQueryParam)) {
+        alert(`El parámetro '${queryParamName}' no es soportado para el juego '${this._config.name}'`);
         return;
       }
 
       // checks the param to convert to corresponding type
       if (translatedQueryParam === allowedQueryParams.GAME_NAME.paramConfig) {
-        this.config[translatedQueryParam] = queryParams[queryParamName];
+        this._config[translatedQueryParam] = queryParams[queryParamName];
       } else if (translatedQueryParam === allowedQueryParams.LIMIT.paramConfig) {
-        this.config[translatedQueryParam] = +queryParams[queryParamName];
+        this._config[translatedQueryParam] = +queryParams[queryParamName];
+      } else if (translatedQueryParam === allowedQueryParams.CARDS_NUMBER.paramConfig) {
+        this._config[translatedQueryParam] = +queryParams[queryParamName];
       }
     });
+  }
+
+  public get config(): GameConfig {
+    return this._config;
   }
 }

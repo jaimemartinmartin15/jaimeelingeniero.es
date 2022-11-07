@@ -7,4 +7,8 @@ export const allowedQueryParams = {
     paramName: 'limite',
     paramConfig: 'limitScore',
   },
+  CARDS_NUMBER: {
+    paramName: 'cartas',
+    paramConfig: 'cardsNumber',
+  },
 } as const;

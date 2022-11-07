@@ -16,4 +16,9 @@ export interface GameConfig {
    * When a player reaches this limit, rejoins or is eliminated...
    */
   [allowedQueryParams.LIMIT.paramConfig]?: number;
+
+  /**
+   * Number of cards used in the game
+   */
+  [allowedQueryParams.CARDS_NUMBER.paramConfig]?: number;
 }

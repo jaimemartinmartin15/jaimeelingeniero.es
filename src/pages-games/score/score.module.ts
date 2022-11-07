@@ -15,9 +15,10 @@ import { LoadNewGamePopUpComponent } from './load-new-game-pop-up/load-new-game-
 import { StatisticsComponent } from './statistics/statistics.component';
 import { PlayersService } from './player/players.service';
 import { GameConfigService } from './game/game-config.service';
+import { GamePagesSvgModule } from 'src/svg/generated/game-pages-svg.module';
 
 @NgModule({
-  imports: [FormsModule, CommonModule, ScoreRoutingModule, DragDropModule, PipesModule],
+  imports: [FormsModule, CommonModule, ScoreRoutingModule, DragDropModule, PipesModule, GamePagesSvgModule],
   declarations: [
     ScoreComponent,
     ScoreboardComponent,
