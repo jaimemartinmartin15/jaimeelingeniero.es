@@ -69,10 +69,11 @@ export class ScoreComponent implements OnInit, OnDestroy {
     this.playersService.playersLoaded$.next();
   }
 
-  public onConfirmStartGame(names: StartGamePopUpOutput) {
+  public onConfirmStartGame(output: StartGamePopUpOutput) {
     this.showStartGamePopUp = false;
-    this.playersService.createPlayersWithNames(names);
+    this.playersService.createPlayersWithNames(output.names);
     this.playersService.playersLoaded$.next();
+    this.playersService.startsDealing = output.startsDealing;
   }
 
   public enterNewRound() {

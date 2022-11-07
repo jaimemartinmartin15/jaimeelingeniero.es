@@ -1,5 +1,7 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, HostBinding, OnDestroy, OnInit } from '@angular/core';
 import { Subject, takeUntil } from 'rxjs';
+import { GameConfigService } from '../game/game-config.service';
+import { pochaConfig } from '../game/game-configs/pocha-config';
 import { Player } from '../player/player';
 import { PlayersService } from '../player/players.service';
 
@@ -10,6 +12,7 @@ import { PlayersService } from '../player/players.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class RankingComponent implements OnInit, OnDestroy {
+  public pochaConfig = pochaConfig;
   private finishSubscriptions$ = new Subject<void>();
 
   public players: Player[];
@@ -19,7 +22,11 @@ export class RankingComponent implements OnInit, OnDestroy {
     return this.players == null || this.playersService.playedRounds === 0;
   }
 
-  public constructor(public readonly playersService: PlayersService, public readonly changeDetectorRef: ChangeDetectorRef) {}
+  public constructor(
+    public readonly playersService: PlayersService,
+    public readonly changeDetectorRef: ChangeDetectorRef,
+    public readonly gameConfigService: GameConfigService
+  ) {}
 
   public ngOnInit(): void {
     this.playersService.playersLoaded$.pipe(takeUntil(this.finishSubscriptions$)).subscribe(() => {
