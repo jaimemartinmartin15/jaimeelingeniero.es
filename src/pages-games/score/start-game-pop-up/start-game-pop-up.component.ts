@@ -1,5 +1,5 @@
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
-import { Component, Output, EventEmitter, OnInit, ViewChildren, ElementRef, QueryList, ChangeDetectorRef } from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, EventEmitter, OnInit, Output, QueryList, ViewChildren } from '@angular/core';
 import { PREVIOUS_GAME_KEY } from '../local-storage-keys';
 import { Player } from '../player/player';
 import { StartGamePopUpOutput } from './start-game-pop-up.contract';
@@ -10,6 +10,8 @@ import { StartGamePopUpOutput } from './start-game-pop-up.contract';
   styleUrls: ['./start-game-pop-up.component.scss'],
 })
 export class StartGamePopUpComponent implements OnInit {
+  public startsDealing: number = 0;
+
   @ViewChildren('input')
   private inputs: QueryList<ElementRef>;
 
@@ -24,7 +26,7 @@ export class StartGamePopUpComponent implements OnInit {
     const previousGame = localStorage.getItem(PREVIOUS_GAME_KEY);
     if (previousGame != null) {
       const { players }: { players: Player[] } = JSON.parse(previousGame);
-      this.players = players.map((p) => p.name);
+      this.players = players.sort((p1, p2) => p1.id - p2.id).map((p) => p.name);
     }
   }
 
@@ -45,7 +47,9 @@ export class StartGamePopUpComponent implements OnInit {
   }
 
   public onReorderingPlayer(event: CdkDragDrop<string[]>) {
+    const playerNameDealing = this.players[this.startsDealing];
     moveItemInArray(this.players, event.previousIndex, event.currentIndex);
+    this.startsDealing = this.players.indexOf(playerNameDealing);
   }
 
   public playersAreEntered(): boolean {
@@ -53,6 +57,6 @@ export class StartGamePopUpComponent implements OnInit {
   }
 
   public onConfirm() {
-    this.confirm.emit(this.players);
+    this.confirm.emit({ names: this.players, startsDealing: this.startsDealing });
   }
 }

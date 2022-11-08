@@ -13,9 +13,13 @@ import { PlayerDisplayComponent } from './ranking/player-display/player-display.
 import { ScoreComponent } from './score.component';
 import { LoadNewGamePopUpComponent } from './load-new-game-pop-up/load-new-game-pop-up.component';
 import { StatisticsComponent } from './statistics/statistics.component';
+import { PlayersService } from './player/players.service';
+import { GameConfigService } from './game/game-config.service';
+import { GamePagesSvgModule } from 'src/svg/generated/game-pages-svg.module';
+import { RoundInfoComponent } from './ranking/round-info/round-info.component';
 
 @NgModule({
-  imports: [FormsModule, CommonModule, ScoreRoutingModule, DragDropModule, PipesModule],
+  imports: [FormsModule, CommonModule, ScoreRoutingModule, DragDropModule, PipesModule, GamePagesSvgModule],
   declarations: [
     ScoreComponent,
     ScoreboardComponent,
@@ -25,7 +29,9 @@ import { StatisticsComponent } from './statistics/statistics.component';
     RankingComponent,
     RestartGamePopUpComponent,
     PlayerDisplayComponent,
+    RoundInfoComponent,
     StatisticsComponent,
   ],
+  providers: [PlayersService, GameConfigService],
 })
 export class ScoreModule {}

@@ -61,6 +61,20 @@ $external-margin: 15px;
                 padding-top: 20px;
             }
 
+            .label {
+                display: inline-flex;
+                gap: 20px;
+
+                .deal-cards-icon {
+                    width: 20px;
+                    filter: grayscale(3) opacity(0.3);
+
+                    &--active {
+                        filter: none;
+                    }
+                }
+            }
+
             .player-controls {
                 display: flex;
                 border-bottom: 2px solid #d17515;

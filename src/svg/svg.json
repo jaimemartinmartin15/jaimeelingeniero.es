@@ -24,6 +24,10 @@
                 "github-logo",
                 "linked-in-logo"
             ]
+        },
+        {
+            "name": "GamePagesSvg",
+            "files": ["deal-cards"]
         }
     ]
 }

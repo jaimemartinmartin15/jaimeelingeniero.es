@@ -19,7 +19,7 @@ export class StatisticsComponent implements OnInit, OnDestroy {
   public playersPanelInfoPositionMovements: number[];
   public playersPanelInfoSorted: Player[];
   public players: Player[];
-  public colors: string[] = ['#ff0000', '#0000ff', '#008000', '#00ffff', '#c0c0c0', '#00ff00', '#ff00ff', '#ffff00'];
+  public colors: string[] = ['#ff0000', '#0000ff', '#008000', '#4cd3d3', '#804000', '#9d9d9d', '#c32aed', '#e0e000'];
 
   @HostBinding('class.empty-state')
   public get isEmptyState(): boolean {

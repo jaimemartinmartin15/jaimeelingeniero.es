@@ -1,4 +1,6 @@
 import { Component, HostBinding, Input } from '@angular/core';
+import { GameConfigService } from '../../game/game-config.service';
+import { pochaConfig } from '../../game/game-configs/pocha-config';
 import { Player } from '../../player/player';
 
 @Component({
@@ -7,8 +9,12 @@ import { Player } from '../../player/player';
   styleUrls: ['./player-display.component.scss'],
 })
 export class PlayerDisplayComponent {
+  public pochaConfig = pochaConfig;
+
   @Input()
   public player: Player;
+
+  public constructor(public readonly gameConfigService: GameConfigService) {}
 
   @HostBinding('class.position-1')
   public get firstPosition() {
