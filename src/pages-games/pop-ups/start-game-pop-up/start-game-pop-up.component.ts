@@ -39,7 +39,10 @@ export class StartGamePopUpComponent implements OnInit {
   public deletePlayer(index: number, e: Event) {
     e.stopPropagation();
     e.preventDefault();
+    const playerNameDealing = this.players[this.startsDealing];
     this.players.splice(index, 1);
+    const playerNameDealingIndex = this.players.indexOf(playerNameDealing);
+    this.startsDealing = playerNameDealingIndex !== -1 ? playerNameDealingIndex : this.startsDealing - 1 !== -1 ? this.startsDealing - 1 : 0;
   }
 
   public trackByPlayerIndex(index: number) {
