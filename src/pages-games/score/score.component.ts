@@ -47,7 +47,7 @@ export class ScoreComponent implements OnInit, OnDestroy {
     for (let i = 0; i < linkElementsFavIcon.length; i++) {
       let linkElement = linkElementsFavIcon.item(i) as HTMLLinkElement;
       const size = linkElement.sizes.value.split('x')[0];
-      linkElement.href = `assets/favicons/tabla-de-puntuaciones/favicon-${size}x${size}.png`;
+      linkElement.href = `assets/favicons/puntuaciones/favicon-${size}x${size}.png`;
     }
   }
 
