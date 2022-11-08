@@ -16,6 +16,7 @@ import { StatisticsComponent } from './statistics/statistics.component';
 import { PlayersService } from './player/players.service';
 import { GameConfigService } from './game/game-config.service';
 import { GamePagesSvgModule } from 'src/svg/generated/game-pages-svg.module';
+import { RoundInfoComponent } from './ranking/round-info/round-info.component';
 
 @NgModule({
   imports: [FormsModule, CommonModule, ScoreRoutingModule, DragDropModule, PipesModule, GamePagesSvgModule],
@@ -28,6 +29,7 @@ import { GamePagesSvgModule } from 'src/svg/generated/game-pages-svg.module';
     RankingComponent,
     RestartGamePopUpComponent,
     PlayerDisplayComponent,
+    RoundInfoComponent,
     StatisticsComponent,
   ],
   providers: [PlayersService, GameConfigService],

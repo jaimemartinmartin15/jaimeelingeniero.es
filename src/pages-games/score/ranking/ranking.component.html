@@ -3,21 +3,7 @@
 </ng-container>
 
 <ng-container *ngIf="!isEmptyState">
-    <div class="head-banner" *ngIf="gameConfigService.config.name === pochaConfig.name">
-        <ng-container *ngIf="playersService.cardsToDealNextRound >= 0">
-            <span class="no-break">Ronda: <strong>{{playersService.nextRoundNumber}}</strong></span>
-            &nbsp;&nbsp;
-            <span class="no-break">Reparte: <strong>{{playersService.playerNameDealsNextRound}}</strong></span>
-            &nbsp;&nbsp;
-            <span class="no-break">
-                Cartas: <strong>{{playersService.cardsToDealNextRound || 1 + ' (vista)'}}</strong>
-            </span>
-        </ng-container>
-
-        <ng-container *ngIf="playersService.cardsToDealNextRound < 0">
-            Fin de la partida
-        </ng-container>
-    </div>
+    <app-round-info></app-round-info>
 
     <app-player-display *ngFor="let player of players" [player]="player"></app-player-display>
 </ng-container>
