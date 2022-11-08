@@ -1,9 +1,9 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { PagesGamesComponent } from './pages-games.component';
-import { RankingComponent } from './score/ranking/ranking.component';
-import { ScoreboardComponent } from './score/scoreboard/scoreboard.component';
-import { StatisticsComponent } from './score/statistics/statistics.component';
+import { RankingComponent } from './ranking/ranking.component';
+import { ScoreboardComponent } from './scoreboard/scoreboard.component';
+import { StatisticsComponent } from './statistics/statistics.component';
 
 const noMoreChildren = [
   {

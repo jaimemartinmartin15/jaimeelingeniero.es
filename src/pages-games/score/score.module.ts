@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { CommonModule } from '@angular/common';
-import { ScoreboardComponent } from './scoreboard/scoreboard.component';
+import { ScoreboardComponent } from '../scoreboard/scoreboard.component';
 import { ScoreRoutingModule } from './score-routing.module';
 import { FormsModule } from '@angular/forms';
 import { PipesModule } from 'src/shared/pipes/pipes.module';
@@ -12,7 +12,7 @@ import { RestartGamePopUpComponent } from './restart-game-pop-up/restart-game-po
 import { PlayerDisplayComponent } from './ranking/player-display/player-display.component';
 import { ScoreComponent } from './score.component';
 import { LoadNewGamePopUpComponent } from './load-new-game-pop-up/load-new-game-pop-up.component';
-import { StatisticsComponent } from './statistics/statistics.component';
+import { StatisticsComponent } from '../statistics/statistics.component';
 import { PlayersService } from './player/players.service';
 import { GameConfigService } from './game/game-config.service';
 import { GamePagesSvgModule } from 'src/svg/generated/game-pages-svg.module';

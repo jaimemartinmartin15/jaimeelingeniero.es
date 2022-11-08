@@ -10,13 +10,13 @@ import { GameConfigService } from './score/game/game-config.service';
 import { LoadNewGamePopUpComponent } from './score/load-new-game-pop-up/load-new-game-pop-up.component';
 import { NextRoundPopUpComponent } from './score/next-round-pop-up/next-round-pop-up.component';
 import { PlayersService } from './score/player/players.service';
-import { PlayerDisplayComponent } from './score/ranking/player-display/player-display.component';
-import { RankingComponent } from './score/ranking/ranking.component';
-import { RoundInfoComponent } from './score/ranking/round-info/round-info.component';
+import { PlayerDisplayComponent } from './ranking/player-display/player-display.component';
+import { RankingComponent } from './ranking/ranking.component';
+import { RoundInfoComponent } from './ranking/round-info/round-info.component';
 import { RestartGamePopUpComponent } from './score/restart-game-pop-up/restart-game-pop-up.component';
-import { ScoreboardComponent } from './score/scoreboard/scoreboard.component';
+import { ScoreboardComponent } from './scoreboard/scoreboard.component';
 import { StartGamePopUpComponent } from './score/start-game-pop-up/start-game-pop-up.component';
-import { StatisticsComponent } from './score/statistics/statistics.component';
+import { StatisticsComponent } from './statistics/statistics.component';
 
 @NgModule({
   imports: [CommonModule, PagesGamesRoutingModule, FormsModule, DragDropModule, PipesModule, PagesGamesSvgModule],

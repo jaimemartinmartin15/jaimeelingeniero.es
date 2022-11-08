@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
-import { GameConfigService } from '../../game/game-config.service';
-import { pochaConfig } from '../../game/game-configs/pocha-config';
-import { PlayersService } from '../../player/players.service';
+import { GameConfigService } from '../../score/game/game-config.service';
+import { pochaConfig } from '../../score/game/game-configs/pocha-config';
+import { PlayersService } from '../../score/player/players.service';
 
 @Component({
   selector: 'app-round-info',
