@@ -47,20 +47,20 @@
 /****************** POSITION STYLES ******************/
 
 :host-context(.position-1) {
-    background-image: linear-gradient(to right, rgb(255, 228, 24), rgb(251, 240, 160));
-    border-color: yellow;
+    background-image: linear-gradient(to right, #ffe418, #fbf0a0);
+    border-color: #ffff00;
 
     .position .number {
-        background-color: rgb(251, 240, 160);
+        background-color: #fbf0a0;
     }
 }
 
 :host-context(.position-2) {
-    background-image: linear-gradient(to right, rgb(171, 171, 171), lightgrey);
-    border-color: gray;
+    background-image: linear-gradient(to right, #ababab, #d3d3d3);
+    border-color: #808080;
 
     .position .number {
-        background-color: lightgrey;
+        background-color: #d3d3d3;
     }
 }
 
