@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { PagesGamesComponent } from './pages-games.component';
+import { PATHS } from './paths';
 import { RankingComponent } from './ranking/ranking.component';
 import { ScoreboardComponent } from './scoreboard/scoreboard.component';
 import { StatisticsComponent } from './statistics/statistics.component';
@@ -21,29 +22,29 @@ const routes: Routes = [
     component: PagesGamesComponent,
     children: [
       {
-        path: 'ranking',
+        path: PATHS.RANKING,
         component: RankingComponent,
         children: noMoreChildren,
       },
       {
-        path: 'tabla',
+        path: PATHS.SCOREBOARD,
         component: ScoreboardComponent,
         children: noMoreChildren,
       },
       {
-        path: 'estadisticas',
+        path: PATHS.STATISTICS,
         component: StatisticsComponent,
         children: noMoreChildren,
       },
       {
         path: '**',
-        redirectTo: 'ranking',
+        redirectTo: PATHS.RANKING,
       },
     ],
   },
   {
     path: '**',
-    redirectTo: 'ranking',
+    redirectTo: PATHS.RANKING,
   },
 ];
 

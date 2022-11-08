@@ -17,12 +17,14 @@ import { RestartGamePopUpComponent } from './pop-ups/restart-game-pop-up/restart
 import { ScoreboardComponent } from './scoreboard/scoreboard.component';
 import { StartGamePopUpComponent } from './pop-ups/start-game-pop-up/start-game-pop-up.component';
 import { StatisticsComponent } from './statistics/statistics.component';
+import { BottomControlsComponent } from './bottom-controls/bottom-controls.component';
 
 @NgModule({
   imports: [CommonModule, PagesGamesRoutingModule, FormsModule, DragDropModule, PipesModule, PagesGamesSvgModule],
   declarations: [
     // parent component
     PagesGamesComponent,
+    BottomControlsComponent,
 
     // view ranking
     RankingComponent,
