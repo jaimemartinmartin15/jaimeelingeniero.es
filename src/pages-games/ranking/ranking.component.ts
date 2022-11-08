@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, HostBinding, OnDestroy, OnInit } from '@angular/core';
 import { Subject, takeUntil } from 'rxjs';
-import { Player } from '../score/player/player';
-import { PlayersService } from '../score/player/players.service';
+import { Player } from '../services/player/player';
+import { PlayersService } from '../services/player/players.service';
 
 @Component({
   selector: 'app-ranking',

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { ReplaySubject } from 'rxjs';
 import { GameConfigService } from '../game/game-config.service';
-import { PREVIOUS_GAME_DATE_KEY, PREVIOUS_GAME_KEY } from '../local-storage-keys';
+import { PREVIOUS_GAME_DATE_KEY, PREVIOUS_GAME_KEY } from '../../local-storage-keys';
 import { IPlayer, Player } from './player';
 
 @Injectable()

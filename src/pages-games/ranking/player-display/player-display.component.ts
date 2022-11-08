@@ -1,7 +1,7 @@
 import { Component, HostBinding, Input } from '@angular/core';
-import { GameConfigService } from '../../score/game/game-config.service';
-import { pochaConfig } from '../../score/game/game-configs/pocha-config';
-import { Player } from '../../score/player/player';
+import { GameConfigService } from '../../services/game/game-config.service';
+import { pochaConfig } from '../../services/game/game-configs/pocha-config';
+import { Player } from '../../services/player/player';
 
 @Component({
   selector: 'app-player-display',

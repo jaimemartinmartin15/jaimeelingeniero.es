@@ -1,4 +1,4 @@
-import { Player } from '../../score/player/player';
+import { Player } from '../../services/player/player';
 
 export interface NextRoundPopUpInput {
   round: number;

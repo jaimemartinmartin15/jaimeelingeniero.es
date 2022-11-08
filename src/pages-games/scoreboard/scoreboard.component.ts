@@ -1,8 +1,8 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, HostBinding, OnDestroy, OnInit, Output } from '@angular/core';
 import { Subject, takeUntil } from 'rxjs';
 import { intervalArray } from 'src/utils/arrays';
-import { Player } from '../score/player/player';
-import { PlayersService } from '../score/player/players.service';
+import { Player } from '../services/player/player';
+import { PlayersService } from '../services/player/players.service';
 
 @Component({
   selector: 'app-scoreboard',

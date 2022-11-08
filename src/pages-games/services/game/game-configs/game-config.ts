@@ -1,4 +1,4 @@
-import { Player } from '../../player/player';
+import { Player } from '../../../services/player/player';
 import { allowedQueryParams } from '../allowed-query-params';
 
 export interface GameConfig {
