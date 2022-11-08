@@ -7,15 +7,15 @@ import { PagesGamesSvgModule } from 'src/svg/generated/pages-games-svg.module';
 import { PagesGamesRoutingModule } from './pages-games-routing.module';
 import { PagesGamesComponent } from './pages-games.component';
 import { GameConfigService } from './score/game/game-config.service';
-import { LoadNewGamePopUpComponent } from './score/load-new-game-pop-up/load-new-game-pop-up.component';
-import { NextRoundPopUpComponent } from './score/next-round-pop-up/next-round-pop-up.component';
+import { LoadNewGamePopUpComponent } from './pop-ups/load-new-game-pop-up/load-new-game-pop-up.component';
+import { NextRoundPopUpComponent } from './pop-ups/next-round-pop-up/next-round-pop-up.component';
 import { PlayersService } from './score/player/players.service';
 import { PlayerDisplayComponent } from './ranking/player-display/player-display.component';
 import { RankingComponent } from './ranking/ranking.component';
 import { RoundInfoComponent } from './ranking/round-info/round-info.component';
-import { RestartGamePopUpComponent } from './score/restart-game-pop-up/restart-game-pop-up.component';
+import { RestartGamePopUpComponent } from './pop-ups/restart-game-pop-up/restart-game-pop-up.component';
 import { ScoreboardComponent } from './scoreboard/scoreboard.component';
-import { StartGamePopUpComponent } from './score/start-game-pop-up/start-game-pop-up.component';
+import { StartGamePopUpComponent } from './pop-ups/start-game-pop-up/start-game-pop-up.component';
 import { StatisticsComponent } from './statistics/statistics.component';
 
 @NgModule({

@@ -2,9 +2,9 @@ import { DOCUMENT } from '@angular/common';
 import { ChangeDetectionStrategy, Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { Meta, Title } from '@angular/platform-browser';
 import { PREVIOUS_GAME_DATE_KEY } from './local-storage-keys';
-import { NextRoundPopUpInput, NextRoundPopUpOutput } from './next-round-pop-up/next-round-pop-up.contract';
+import { NextRoundPopUpInput, NextRoundPopUpOutput } from '../pop-ups/next-round-pop-up/next-round-pop-up.contract';
 import { PlayersService } from './player/players.service';
-import { StartGamePopUpOutput } from './start-game-pop-up/start-game-pop-up.contract';
+import { StartGamePopUpOutput } from '../pop-ups/start-game-pop-up/start-game-pop-up.contract';
 
 type View = 'table' | 'ranking' | 'statistics';
 
