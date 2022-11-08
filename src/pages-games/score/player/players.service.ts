@@ -101,7 +101,7 @@ export class PlayersService {
   }
 
   public calculatePlayerPositions() {
-    const scores = this._players.sort((p1, p2) => p2.totalScore - p1.totalScore).map((p) => p.totalScore);
+    const scores = this._players.sort(this.gameConfigService.config.sortPlayers).map((p) => p.totalScore);
     this._players.forEach((p) => (p.position = scores.indexOf(p.totalScore) + 1));
   }
 }
