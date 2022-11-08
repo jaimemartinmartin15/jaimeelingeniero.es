@@ -30,12 +30,12 @@ export class RankingComponent implements OnInit, OnDestroy {
 
   public ngOnInit(): void {
     this.playersService.playersLoaded$.pipe(takeUntil(this.finishSubscriptions$)).subscribe(() => {
-      this.players = this.playersService.playersByPosition;
+      this.players = this.playersService.playersRankingView;
       this.changeDetectorRef.detectChanges();
     });
 
     this.playersService.scoreChanged$.pipe(takeUntil(this.finishSubscriptions$)).subscribe(() => {
-      this.players = this.playersService.playersByPosition;
+      this.players = this.playersService.playersRankingView;
       this.changeDetectorRef.detectChanges();
     });
   }

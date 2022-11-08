@@ -6,6 +6,6 @@ export const pochaConfig: GameConfig = {
   [allowedQueryParams.CARDS_NUMBER.paramConfig]: 40,
 
   sortPlayers: (p1, p2) => {
-    return p1.totalScore - p2.totalScore || p1.maximumAccumulatedScore - p2.maximumAccumulatedScore;
+    return p2.totalScore - p1.totalScore || p2.maximumAccumulatedScore - p1.maximumAccumulatedScore;
   },
 };

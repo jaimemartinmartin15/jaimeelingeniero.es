@@ -6,6 +6,6 @@ export const unoConfig: GameConfig = {
   [allowedQueryParams.LIMIT.paramConfig]: 200,
 
   sortPlayers: (p1, p2) => {
-    return p2.totalScore - p1.totalScore;
+    return p1.totalScore - p2.totalScore;
   },
 };

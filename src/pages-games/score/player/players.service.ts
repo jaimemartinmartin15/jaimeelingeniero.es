@@ -30,7 +30,7 @@ export class PlayersService {
     return this._players.sort((p1, p2) => p2.totalScore - p1.totalScore);
   }
 
-  public get playersByGameConfig(): Player[] {
+  public get playersRankingView(): Player[] {
     return this._players.sort(this.gameConfigService.config.sortPlayers);
   }
 
