@@ -1,7 +1,27 @@
-<!-- TODO show pop ups here -->
+<!-- Restart game pop up -->
+<app-restart-game-pop-up *ngIf="showRestartGamePopUp" (confirmation)="onConfirmIfRestartGame($event)">
+</app-restart-game-pop-up>
+
+<!-- Start game pop up -->
+<app-start-game-pop-up *ngIf="showStartGamePopUp" (confirm)="onConfirmStartGame($event)"></app-start-game-pop-up>
+
+<!-- Enter round pop up -->
+<app-next-round-pop-up *ngIf="showNewRoundPopUp" [nextRoundPopUpInput]="nextRoundPopUpInput"
+  (nextRoundPopUpOutput)="onResultNewRound($event)" (closePopUp)="showNewRoundPopUp = false">
+</app-next-round-pop-up>
+
+<!-- Load new game pop up -->
+<app-load-new-game-pop-up *ngIf="showLoadNewGamePopUp" (confirmation)="onConfirmIfLoadNewGame($event)">
+</app-load-new-game-pop-up>
+
+
 
 <div class="view-page">
   <router-outlet></router-outlet>
 </div>
 
-<app-bottom-controls class="bottom-controls"></app-bottom-controls>
+
+
+<app-bottom-controls class="bottom-controls" (startNewGame)="showLoadNewGamePopUp = true"
+  (enterNewRound)="enterNewRound()">
+</app-bottom-controls>

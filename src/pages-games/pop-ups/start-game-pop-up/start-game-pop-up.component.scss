@@ -1,16 +1,6 @@
-$external-margin: 15px;
+@import "../../styles";
 
-:host {
-    display: flex;
-    flex-direction: column;
-    background-color: #3333ffdb;
-    position: fixed;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    z-index: 9;
-}
+@include popup;
 
 /* Animate items as they're being sorted. */
 .cdk-drop-list-dragging .cdk-drag {
@@ -27,14 +17,6 @@ $external-margin: 15px;
 }
 
 .content {
-    position: fixed;
-    top: $external-margin;
-    right: $external-margin;
-    bottom: $external-margin;
-    left: $external-margin;
-    border: 3px solid #d17515;
-    border-radius: 5px;
-    background-color: white;
     padding: 50px;
     overflow: scroll;
     display: flex;
@@ -124,35 +106,13 @@ $external-margin: 15px;
     .new-player-button {
         margin-top: 25px;
         width: 100%;
-        border-radius: 5px;
-        border: none;
         padding: 7px;
-        color: #fbf2e2;
-        background-color: #d17515;
-        font-size: 1em;
+        font-size: 1.2rem;
     }
 
     .confirm-button {
-        border: none;
-        background-color: #d17515;
-        color: #fbf2e2;
         padding: 9px;
-        border-radius: 4px;
-        border: 3px solid transparent;
         font-size: 1.5rem;
-        box-shadow: 3px 3px 5px #cec9c1;
         margin-top: 40px;
-
-        &:active {
-            transform: translateX(1px) translateY(2px);
-            box-shadow: 2px 1px 5px #cec9c1;
-        }
-
-        &:disabled {
-            background-color: #d3b18e;
-            border: 3px solid #8f5416;
-            color: #8f5416;
-            box-shadow: none;
-        }
     }
 }

@@ -18,4 +18,10 @@ body {
         transform: translateX(1px) translateY(2px);
         box-shadow: 2px 1px 5px #cec9c1;
     }
+
+    &:disabled {
+        background-color: #d3b18e;
+        color: #8f5416;
+        box-shadow: none;
+    }
 }
