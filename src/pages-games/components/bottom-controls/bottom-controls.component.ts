@@ -24,6 +24,6 @@ export class BottomControlsComponent {
       this.currentViewIndex = 0;
     }
 
-    this.router.navigate(['./', this.views[this.currentViewIndex]], { relativeTo: this.activatedRoute });
+    this.router.navigate(['./', this.views[this.currentViewIndex]], { relativeTo: this.activatedRoute, queryParamsHandling: 'merge' });
   }
 }
