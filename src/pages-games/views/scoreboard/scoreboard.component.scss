@@ -28,6 +28,12 @@ table {
         gap: 5px;
         padding: 3px;
 
+        &--rejoin {
+            justify-content: center;
+            background-color: #6262ff;
+            color: white;
+        }
+
         .accumulated-score {
             font-size: 0.58em;
         }

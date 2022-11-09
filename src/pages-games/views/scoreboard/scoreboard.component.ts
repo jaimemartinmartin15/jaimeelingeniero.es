@@ -59,6 +59,15 @@ export class ScoreboardComponent implements OnInit, OnDestroy {
     }
   }
 
+  public showRejoinRowAfterRound(round: number): boolean {
+    return this.players.some((p) => p.rejoins.some((r) => r.afterRound === round));
+  }
+
+  public getRejoinScores(round: number): number[] {
+    const rejoinsRound = this.players.map((p) => p.rejoins.filter((r) => r.afterRound === round));
+    return rejoinsRound.map((r) => (r.length === 0 ? 0 : r[0].substractScore));
+  }
+
   public ngOnDestroy(): void {
     this.finishSubscriptions$.next();
     this.finishSubscriptions$.complete();
