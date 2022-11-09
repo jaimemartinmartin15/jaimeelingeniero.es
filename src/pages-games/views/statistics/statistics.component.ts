@@ -85,17 +85,17 @@ export class StatisticsComponent implements OnInit, OnDestroy {
   }
 
   public get playersWithMaxCurrentScore(): string {
-    const maxTotalScore = Math.max(...this.players.map((p) => p.totalScore));
+    const maxTotalScore = Math.max(...this.players.map((p) => p.totalScore.afterRejoin));
     return this.players
-      .filter((p) => p.totalScore === maxTotalScore)
+      .filter((p) => p.totalScore.afterRejoin === maxTotalScore)
       .map((p) => p.name)
       .join(', ');
   }
 
   public get playersWithMinCurrentScore(): string {
-    const minTotalScore = Math.min(...this.players.map((p) => p.totalScore));
+    const minTotalScore = Math.min(...this.players.map((p) => p.totalScore.afterRejoin));
     return this.players
-      .filter((p) => p.totalScore === minTotalScore)
+      .filter((p) => p.totalScore.afterRejoin === minTotalScore)
       .map((p) => p.name)
       .join(', ');
   }
@@ -125,10 +125,11 @@ export class StatisticsComponent implements OnInit, OnDestroy {
     if (this.playersPanelInfoRound > 0) {
       this.playersPanelInfoPositionMovements = [];
       const rankingRoundBefore = [...this.players].sort(
-        (p1, p2) => p1.accumulatedScores[this.playersPanelInfoRound - 1] - p2.accumulatedScores[this.playersPanelInfoRound - 1]
+        (p1, p2) =>
+          p1.accumulatedScores[this.playersPanelInfoRound - 1].afterRejoin - p2.accumulatedScores[this.playersPanelInfoRound - 1].afterRejoin
       );
       this.playersPanelInfoSorted = [...this.players].sort(
-        (p1, p2) => p1.accumulatedScores[this.playersPanelInfoRound] - p2.accumulatedScores[this.playersPanelInfoRound]
+        (p1, p2) => p1.accumulatedScores[this.playersPanelInfoRound].afterRejoin - p2.accumulatedScores[this.playersPanelInfoRound].afterRejoin
       );
 
       rankingRoundBefore.forEach((playerBefore, position) => {

@@ -4,6 +4,7 @@ import { Meta, Title } from '@angular/platform-browser';
 import { PREVIOUS_GAME_DATE_KEY } from './local-storage-keys';
 import { NextRoundPopUpInput, NextRoundPopUpOutput } from './pop-ups/next-round-pop-up/next-round-pop-up.contract';
 import { StartGamePopUpOutput } from './pop-ups/start-game-pop-up/start-game-pop-up.contract';
+import { GameConfigService } from './services/game/game-config.service';
 import { PlayersService } from './services/player/players.service';
 import { PopUpsService } from './services/pop-ups.service';
 
@@ -26,6 +27,7 @@ export class PagesGamesComponent implements OnInit, OnDestroy {
     private readonly metaService: Meta,
     @Inject(DOCUMENT) private document: Document,
     private readonly playersService: PlayersService,
+    private readonly gameConfigService: GameConfigService,
     public readonly popUpsService: PopUpsService
   ) {}
 
@@ -76,6 +78,7 @@ export class PagesGamesComponent implements OnInit, OnDestroy {
     }
 
     this.playersService.loadPlayersFromLocalStorage();
+    this.gameConfigService.loadConfigFromLocalStorage();
     this.playersService.playersLoaded$.next();
   }
 
@@ -121,9 +124,12 @@ export class PagesGamesComponent implements OnInit, OnDestroy {
 
   public onResultNewRound({ players, round }: NextRoundPopUpOutput) {
     this.showNewRoundPopUp = false;
-    players.forEach((p1) => this.playersService.playerWithId(p1.id).setRoundValue(p1.punctuation, round - 1));
+    this.playersService.setScores(players, round - 1);
+    this.playersService.calculateAccumulatedScores();
+    this.playersService.calculateRejoins();
     this.playersService.calculatePlayerPositions();
     this.playersService.savePlayersToLocalStorage();
+    this.gameConfigService.saveConfigToLocalStorage();
     this.playersService.scoreChanged$.next();
   }
 

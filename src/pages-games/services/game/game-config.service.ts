@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
+import { PREVIOUS_GAME_CONFIG_KEY } from 'src/pages-games/local-storage-keys';
 import { allowedQueryParams } from './allowed-query-params';
 import { chinchonConfig } from './game-configs/chinchon-config';
-import { pochaConfig } from './game-configs/pocha-config';
-import { GameConfig } from './game-configs/game-config';
 import { defaultConfig } from './game-configs/default-config';
+import { GameConfig } from './game-configs/game-config';
+import { pochaConfig } from './game-configs/pocha-config';
 import { unoConfig } from './game-configs/uno-config';
 
 @Injectable()
@@ -47,5 +48,18 @@ export class GameConfigService {
 
   public get config(): GameConfig {
     return this._config;
+  }
+
+  public loadConfigFromLocalStorage() {
+    const previousGameConfig = localStorage.getItem(PREVIOUS_GAME_CONFIG_KEY);
+    if (previousGameConfig != null) {
+      const config = JSON.parse(previousGameConfig).config;
+      const knownConfig = this.knownConfigs.find((c) => c.name === config);
+      this._config = { ...knownConfig, ...config };
+    }
+  }
+
+  public saveConfigToLocalStorage() {
+    localStorage.setItem(PREVIOUS_GAME_CONFIG_KEY, JSON.stringify({ config: this._config }));
   }
 }

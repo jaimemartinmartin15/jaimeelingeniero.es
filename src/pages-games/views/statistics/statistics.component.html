@@ -50,7 +50,7 @@
       <span class="name" (click)="showPlayerGraphLines[player.id] = !showPlayerGraphLines[player.id]">
         {{player.name}}
       </span>
-      <span class="accumulated-score">{{player.accumulatedScores[playersPanelInfoRound]}}</span>
+      <span class="accumulated-score">{{player.accumulatedScores[playersPanelInfoRound].afterRejoin}}</span>
       <span *ngIf="playersPanelInfoRound > 0">
         <ng-container *ngIf="playersPanelInfoPositionMovements[player.id] > 0">
           ⬆️{{playersPanelInfoPositionMovements[player.id] | toEmoji}}</ng-container>

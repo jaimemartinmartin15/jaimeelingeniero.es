@@ -22,14 +22,6 @@ export class PlayersService {
     return this._players.sort((p1, p2) => p1.id - p2.id);
   }
 
-  public get playersByPosition(): Player[] {
-    return this._players.sort((p1, p2) => p1.position - p2.position);
-  }
-
-  public get playersByTotalScore(): Player[] {
-    return this._players.sort((p1, p2) => p2.totalScore - p1.totalScore);
-  }
-
   public get playersRankingView(): Player[] {
     return this._players.sort(this.gameConfigService.config.sortPlayers);
   }
@@ -91,7 +83,7 @@ export class PlayersService {
     const previousGame = localStorage.getItem(PREVIOUS_GAME_KEY);
     if (previousGame != null) {
       const { players } = JSON.parse(previousGame);
-      this._players = players.map((p: IPlayer) => new Player(p.id, p.name, p.scores, p.accumulatedScores, p.position));
+      this._players = players.map((p: IPlayer) => new Player(p.id, p.name, p.scores, p.accumulatedScores, p.position, p.rejoins));
     }
   }
 
@@ -100,8 +92,31 @@ export class PlayersService {
     localStorage.setItem(PREVIOUS_GAME_DATE_KEY, JSON.stringify(Date.now()));
   }
 
+  public setScores(players: Pick<Player, 'id' | 'punctuation'>[], round: number) {
+    players.forEach((p1) => this.playerWithId(p1.id).setRoundValue(p1.punctuation, round));
+  }
+
+  public calculateAccumulatedScores() {
+    for (let round = 0; round < this.playedRounds; round++) {
+      const limitScore = this.gameConfigService.config.limitScore ?? Infinity;
+      const scoreReset = Math.max(
+        ...this._players
+          .filter((p) => p.accumulatedScores[round].afterRejoin + p.scores[round] < limitScore)
+          .map((p) => p.accumulatedScores[round].afterRejoin + p.scores[round])
+      );
+      this._players.forEach((p) => p.calculateAccumulatedScores(round, limitScore, scoreReset));
+    }
+  }
+
+  public calculateRejoins() {
+    const limitScore = this.gameConfigService.config.limitScore;
+    if (limitScore != undefined) {
+      this._players.forEach((p) => p.calculateRejoins());
+    }
+  }
+
   public calculatePlayerPositions() {
-    const scores = this._players.sort(this.gameConfigService.config.sortPlayers).map((p) => p.totalScore);
-    this._players.forEach((p) => (p.position = scores.indexOf(p.totalScore) + 1));
+    const scores = this._players.sort(this.gameConfigService.config.sortPlayers).map((p) => p.totalScore.afterRejoin);
+    this._players.forEach((p) => (p.position = scores.indexOf(p.totalScore.afterRejoin) + 1));
   }
 }
