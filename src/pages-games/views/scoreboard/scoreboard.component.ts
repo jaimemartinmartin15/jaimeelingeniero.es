@@ -1,9 +1,9 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, HostBinding, OnDestroy, OnInit } from '@angular/core';
 import { Subject, takeUntil } from 'rxjs';
 import { intervalArray } from 'src/utils/arrays';
-import { Player } from '../services/player/player';
-import { PlayersService } from '../services/player/players.service';
-import { PopUpsService } from '../services/pop-ups.service';
+import { Player } from '../../services/player/player';
+import { PlayersService } from '../../services/player/players.service';
+import { PopUpsService } from '../../services/pop-ups.service';
 
 @Component({
   selector: 'app-scoreboard',

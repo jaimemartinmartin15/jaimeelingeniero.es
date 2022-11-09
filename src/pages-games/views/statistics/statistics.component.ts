@@ -1,8 +1,8 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, HostBinding, OnDestroy, OnInit } from '@angular/core';
 import { Subject, takeUntil } from 'rxjs';
 import { intervalArray } from 'src/utils/arrays';
-import { Player } from '../services/player/player';
-import { PlayersService } from '../services/player/players.service';
+import { Player } from '../../services/player/player';
+import { PlayersService } from '../../services/player/players.service';
 
 @Component({
   selector: 'app-statistics',
