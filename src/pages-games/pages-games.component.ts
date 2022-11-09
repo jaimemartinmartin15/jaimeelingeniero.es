@@ -5,6 +5,7 @@ import { PREVIOUS_GAME_DATE_KEY } from './local-storage-keys';
 import { NextRoundPopUpInput, NextRoundPopUpOutput } from './pop-ups/next-round-pop-up/next-round-pop-up.contract';
 import { StartGamePopUpOutput } from './pop-ups/start-game-pop-up/start-game-pop-up.contract';
 import { PlayersService } from './services/player/players.service';
+import { PopUpsService } from './services/pop-ups.service';
 
 @Component({
   selector: 'app-pages-games',
@@ -24,7 +25,8 @@ export class PagesGamesComponent implements OnInit, OnDestroy {
     private readonly titleService: Title,
     private readonly metaService: Meta,
     @Inject(DOCUMENT) private document: Document,
-    private readonly playersService: PlayersService
+    private readonly playersService: PlayersService,
+    public readonly popUpsService: PopUpsService
   ) {}
 
   public ngOnInit(): void {
@@ -33,6 +35,11 @@ export class PagesGamesComponent implements OnInit, OnDestroy {
     const restartGame = this.checkIfRestartGame();
     this.showRestartGamePopUp = restartGame;
     this.showStartGamePopUp = !restartGame;
+
+    this.popUpsService.openStartNewGamePopUp$.subscribe(() => (this.showStartGamePopUp = true));
+    this.popUpsService.enterNewRound$.subscribe(() => this.enterNewRound());
+    this.popUpsService.enterRound$.subscribe((round: number) => this.enterRound(round));
+    this.popUpsService.enterPunctuationForRoundAndPlayer$.subscribe((roundAndPlayer) => this.enterPunctuationForRoundAndPlayer(roundAndPlayer));
   }
 
   public setTitleAndTags() {
@@ -79,7 +86,7 @@ export class PagesGamesComponent implements OnInit, OnDestroy {
     this.playersService.startsDealing = output.startsDealing;
   }
 
-  public enterNewRound() {
+  private enterNewRound() {
     this.showNewRoundPopUp = true;
     this.nextRoundPopUpInput = {
       round: this.playersService.nextRoundNumber,
@@ -90,7 +97,7 @@ export class PagesGamesComponent implements OnInit, OnDestroy {
     };
   }
 
-  public enterRound(round: number) {
+  private enterRound(round: number) {
     this.showNewRoundPopUp = true;
     this.nextRoundPopUpInput = {
       round: round + 1,
@@ -101,7 +108,7 @@ export class PagesGamesComponent implements OnInit, OnDestroy {
     };
   }
 
-  public enterPunctuationForRoundAndPlayer({ round, player }: { round: number; player: number }) {
+  private enterPunctuationForRoundAndPlayer({ round, player }: { round: number; player: number }) {
     this.showNewRoundPopUp = true;
     this.nextRoundPopUpInput = {
       round: round + 1,

@@ -12,9 +12,11 @@
 
   <tbody>
     <tr *ngFor="let round of getRoundNumbersAsArray()">
-      <th class="highlight-cell sticky-round-number" (click)="enterRound.emit(round-1)">{{round}}</th>
+      <th class="highlight-cell sticky-round-number" (click)="popUpsService.enterRound$.next(round-1)">
+        {{round}}
+      </th>
       <td *ngFor="let score of getRoundScores(round-1); let playerId = index"
-        (click)="enterPunctuationForRoundAndPlayer.emit({round: round-1, player: playerId})"
+        (click)="popUpsService.enterPunctuationForRoundAndPlayer$.next({round: round-1, player: playerId})"
         [attr.style]="getBackgroundColor(score)">
         <div class="score">
           <span style="visibility: hidden" class="accumulated-score">

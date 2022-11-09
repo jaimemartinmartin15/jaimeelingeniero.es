@@ -1,8 +1,9 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, HostBinding, OnDestroy, OnInit, Output } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, HostBinding, OnDestroy, OnInit } from '@angular/core';
 import { Subject, takeUntil } from 'rxjs';
 import { intervalArray } from 'src/utils/arrays';
 import { Player } from '../services/player/player';
 import { PlayersService } from '../services/player/players.service';
+import { PopUpsService } from '../services/pop-ups.service';
 
 @Component({
   selector: 'app-scoreboard',
@@ -15,18 +16,16 @@ export class ScoreboardComponent implements OnInit, OnDestroy {
 
   public players: Player[];
 
-  @Output()
-  public enterRound = new EventEmitter<number>();
-
-  @Output()
-  public enterPunctuationForRoundAndPlayer = new EventEmitter<{ round: number; player: number }>();
-
   @HostBinding('class.empty-state')
   public get isEmptyState(): boolean {
     return this.players == null || this.playersService.playedRounds === 0;
   }
 
-  public constructor(public readonly playersService: PlayersService, public readonly changeDetectorRef: ChangeDetectorRef) {}
+  public constructor(
+    public readonly playersService: PlayersService,
+    public readonly changeDetectorRef: ChangeDetectorRef,
+    public readonly popUpsService: PopUpsService
+  ) {}
 
   public ngOnInit(): void {
     this.playersService.playersLoaded$.pipe(takeUntil(this.finishSubscriptions$)).subscribe(() => {

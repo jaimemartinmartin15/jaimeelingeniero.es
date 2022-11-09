@@ -1,6 +1,7 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PATHS } from '../paths';
+import { PopUpsService } from '../services/pop-ups.service';
 
 @Component({
   selector: 'app-bottom-controls',
@@ -11,13 +12,11 @@ export class BottomControlsComponent {
   private views = [...Object.values(PATHS)];
   private currentViewIndex = 0;
 
-  @Output()
-  public startNewGame = new EventEmitter<void>();
-
-  @Output()
-  public enterNewRound = new EventEmitter<void>();
-
-  public constructor(private readonly router: Router, private readonly activatedRoute: ActivatedRoute) {}
+  public constructor(
+    private readonly router: Router,
+    private readonly activatedRoute: ActivatedRoute,
+    public readonly popUpsService: PopUpsService
+  ) {}
 
   public changeView() {
     this.currentViewIndex++;

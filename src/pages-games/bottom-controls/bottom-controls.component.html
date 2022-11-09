@@ -1,3 +1,3 @@
-<button class="app-button" (click)="startNewGame.emit()">Juego nuevo</button>
+<button class="app-button" (click)="popUpsService.openStartNewGamePopUp$.next()">Juego nuevo</button>
 <button class="app-button" (click)="changeView()">Cambiar vista</button>
-<button class="app-button" (click)="enterNewRound.emit()">Nueva ronda</button>
+<button class="app-button" (click)="popUpsService.enterNewRound$.next()">Nueva ronda</button>
