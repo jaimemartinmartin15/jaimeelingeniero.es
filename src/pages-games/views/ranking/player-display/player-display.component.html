@@ -13,5 +13,9 @@
         <div *ngIf="gameConfigService.config.name === pochaConfig.name">
             Máximo alcanzado: {{player.maximumAccumulatedScore}}
         </div>
+
+        <div *ngIf="player.rejoins.length !== 0">
+            Reenganches: {{player.rejoins.length}}
+        </div>
     </div>
 </div>
