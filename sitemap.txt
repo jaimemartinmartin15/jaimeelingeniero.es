@@ -27,5 +27,5 @@ https://www.jaimeelingeniero.es/comprende-rxjs/take
 https://www.jaimeelingeniero.es/comprende-rxjs/takeUntil
 https://www.jaimeelingeniero.es/comprende-rxjs/takeWhile
 https://www.jaimeelingeniero.es/comprende-rxjs/timer
-https://www.jaimeelingeniero.es/tabla-de-puntuaciones
+https://www.jaimeelingeniero.es/puntuaciones
 https://www.jaimeelingeniero.es/redes/dns

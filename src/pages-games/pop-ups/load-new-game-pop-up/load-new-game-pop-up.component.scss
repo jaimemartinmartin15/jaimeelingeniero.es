@@ -1,0 +1,23 @@
+@import "../../styles";
+
+@include popup;
+
+.content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    gap: 20px;
+
+    .button-group {
+        display: inline-flex;
+        gap: 15px;
+
+        .app-button {
+            min-width: 100px;
+            font-size: 1.5rem;
+            padding: 9px;
+        }
+    }
+}

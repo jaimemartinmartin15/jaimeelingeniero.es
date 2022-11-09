@@ -1,0 +1,40 @@
+<ng-container *ngIf="isEmptyState">
+  Introduce al menos una ronda para mostrar la tabla de puntuaciones
+</ng-container>
+
+<table *ngIf="!isEmptyState">
+  <thead class="sticky-header">
+    <tr>
+      <th class="highlight-cell sticky-round-number">Ronda</th>
+      <th class="highlight-cell" *ngFor="let player of players">{{player.name}}</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr *ngFor="let round of getRoundNumbersAsArray()">
+      <th class="highlight-cell sticky-round-number" (click)="popUpsService.enterRound$.next(round-1)">
+        {{round}}
+      </th>
+      <td *ngFor="let score of getRoundScores(round-1); let playerId = index"
+        (click)="popUpsService.enterPunctuationForRoundAndPlayer$.next({round: round-1, player: playerId})"
+        [attr.style]="getBackgroundColor(score)">
+        <div class="score">
+          <span style="visibility: hidden" class="accumulated-score">
+            ({{players[playerId].accumulatedScores[round]}})
+          </span>
+          {{score}}
+          <span class="accumulated-score">
+            ({{players[playerId].accumulatedScores[round]}})
+          </span>
+        </div>
+      </td>
+    </tr>
+  </tbody>
+
+  <tfoot class="sticky-footer">
+    <tr>
+      <th class="highlight-cell sticky-round-number">Total</th>
+      <th class="highlight-cell" *ngFor="let player of players">{{player.totalScore}}</th>
+    </tr>
+  </tfoot>
+</table>
