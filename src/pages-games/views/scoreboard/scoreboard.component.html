@@ -33,9 +33,17 @@
 
       <tr *ngIf="showRejoinRowAfterRound(round-1)">
         <th class="highlight-cell sticky-round-number">-</th>
-        <td *ngFor="let substractScore of getRejoinScores(round -1)" class="score--rejoin">
-          <div class="score score--rejoin">
-            {{substractScore || ''}}
+        <td *ngFor="let substractScore of getRejoinScores(round -1); let playerId = index" class="score--rejoin">
+          <div class="score">
+            <span style="visibility: hidden" class="accumulated-score">
+              ({{players[playerId].accumulatedScores[round].afterRejoin}})
+            </span>
+            <div class="score score--rejoin">
+              {{substractScore || ''}}
+            </div>
+            <span class="accumulated-score" *ngIf="substractScore !== 0">
+              ({{players[playerId].accumulatedScores[round].afterRejoin}})
+            </span>
           </div>
         </td>
       </tr>

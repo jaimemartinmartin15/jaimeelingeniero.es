@@ -66,7 +66,7 @@ export class Player implements IPlayer {
     this.accumulatedScores.forEach((score, round) => {
       if (score.beforeRejoin != score.afterRejoin) {
         this.rejoins.push({
-          afterRound: round,
+          afterRound: round - 1,
           substractScore: score.afterRejoin - score.beforeRejoin,
         });
       }
