@@ -22,14 +22,6 @@ export class PlayersService {
     return this._players.sort((p1, p2) => p1.id - p2.id);
   }
 
-  public get playersByPosition(): Player[] {
-    return this._players.sort((p1, p2) => p1.position - p2.position);
-  }
-
-  public get playersByTotalScore(): Player[] {
-    return this._players.sort((p1, p2) => p2.totalScore - p1.totalScore);
-  }
-
   public get playersRankingView(): Player[] {
     return this._players.sort(this.gameConfigService.config.sortPlayers);
   }
