@@ -122,6 +122,7 @@ export class PagesGamesComponent implements OnInit, OnDestroy {
   public onResultNewRound({ players, round }: NextRoundPopUpOutput) {
     this.showNewRoundPopUp = false;
     players.forEach((p1) => this.playersService.playerWithId(p1.id).setRoundValue(p1.punctuation, round - 1));
+    this.playersService.calculateRejoins();
     this.playersService.calculatePlayerPositions();
     this.playersService.savePlayersToLocalStorage();
     this.playersService.scoreChanged$.next();

@@ -4,6 +4,7 @@ export interface IPlayer {
   scores: number[];
   accumulatedScores: number[];
   position: number;
+  rejoins: { afterRound: number; withScore: number }[];
 }
 
 export class Player implements IPlayer {
@@ -14,7 +15,8 @@ export class Player implements IPlayer {
     public readonly name: string,
     public readonly scores: number[] = [],
     public accumulatedScores: number[] = [0],
-    public position = 1
+    public position: number = 1,
+    public readonly rejoins: { afterRound: number; withScore: number }[] = []
   ) {}
 
   public get totalScore(): number {

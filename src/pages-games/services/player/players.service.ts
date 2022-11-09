@@ -91,13 +91,31 @@ export class PlayersService {
     const previousGame = localStorage.getItem(PREVIOUS_GAME_KEY);
     if (previousGame != null) {
       const { players } = JSON.parse(previousGame);
-      this._players = players.map((p: IPlayer) => new Player(p.id, p.name, p.scores, p.accumulatedScores, p.position));
+      this._players = players.map((p: IPlayer) => new Player(p.id, p.name, p.scores, p.accumulatedScores, p.position, p.rejoins));
     }
   }
 
   public savePlayersToLocalStorage() {
     localStorage.setItem(PREVIOUS_GAME_KEY, JSON.stringify({ players: this._players }));
     localStorage.setItem(PREVIOUS_GAME_DATE_KEY, JSON.stringify(Date.now()));
+  }
+
+  public calculateRejoins() {
+    const limitScore = this.gameConfigService.config.limitScore;
+    if (limitScore != undefined) {
+      const playersOutOfScore = this._players.filter((p) => p.totalScore > limitScore);
+      const playerWithMoreScore = this._players.reduce(
+        (prev, player) => (player.totalScore < limitScore && player.totalScore > prev.totalScore ? player : prev),
+        this._players.find((p) => p.totalScore < limitScore)!
+      );
+
+      playersOutOfScore.forEach((p) =>
+        p.rejoins.push({
+          afterRound: this.playedRounds,
+          withScore: playerWithMoreScore.totalScore,
+        })
+      );
+    }
   }
 
   public calculatePlayerPositions() {
