@@ -3,6 +3,7 @@
 :host {
     display: block;
     overflow-x: auto;
+    height: 100%;
 }
 
 @include empty-state;
