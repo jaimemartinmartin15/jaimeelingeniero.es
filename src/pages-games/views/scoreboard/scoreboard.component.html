@@ -21,11 +21,11 @@
           [attr.style]="getBackgroundColor(score)">
           <div class="score">
             <span style="visibility: hidden" class="accumulated-score">
-              ({{players[playerId].accumulatedScores[round]}})
+              ({{players[playerId].accumulatedScores[round].beforeRejoin}})
             </span>
             {{score}}
             <span class="accumulated-score">
-              ({{players[playerId].accumulatedScores[round]}})
+              ({{players[playerId].accumulatedScores[round].beforeRejoin}})
             </span>
           </div>
         </td>
@@ -45,7 +45,7 @@
   <tfoot class="sticky-footer">
     <tr>
       <th class="highlight-cell sticky-round-number">Total</th>
-      <th class="highlight-cell" *ngFor="let player of players">{{player.totalScore}}</th>
+      <th class="highlight-cell" *ngFor="let player of players">{{player.totalScore.afterRejoin}}</th>
     </tr>
   </tfoot>
 </table>
