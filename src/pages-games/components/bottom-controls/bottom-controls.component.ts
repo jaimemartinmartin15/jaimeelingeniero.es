@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { PATHS } from '../paths';
-import { PopUpsService } from '../services/pop-ups.service';
+import { PATHS } from '../../paths';
+import { PopUpsService } from '../../services/pop-ups.service';
 
 @Component({
   selector: 'app-bottom-controls',
