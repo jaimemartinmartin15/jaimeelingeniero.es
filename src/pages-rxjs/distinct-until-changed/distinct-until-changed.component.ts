@@ -12,6 +12,8 @@ import { ObservableEventType } from '../shared/observable-event-type';
   styleUrls: ['./distinct-until-changed.component.scss'],
 })
 export class DistinctUntilChangedComponent extends BaseOperatorComponent {
+  public headerPrintData = { author: 'Jaime Martín Martín', date: '10 de junio de 2022' };
+
   public lastEmittedElement = '';
   public checkCrossIndicator = '';
   private errorOrCompleteEmitted = false;

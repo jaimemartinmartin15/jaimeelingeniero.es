@@ -1,0 +1,10 @@
+:host {
+    display: flex;
+    justify-content: space-evenly;
+    padding: 15px 10px;
+
+    // global style
+    .app-button {
+        padding: 5px 9px;
+    }
+}

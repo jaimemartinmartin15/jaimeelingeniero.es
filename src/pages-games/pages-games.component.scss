@@ -1,0 +1,18 @@
+:host {
+    display: block;
+    height: 100vh;
+}
+
+.view-page {
+    height: calc(100% - 115px); // substract height of the bottom-controls (56px) and navigator bar
+    padding: 15px;
+    overflow: auto;
+    box-sizing: border-box;
+}
+
+.bottom-controls {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    left: 0;
+}

@@ -4,15 +4,15 @@ import { RouterModule, Routes } from '@angular/router';
 const routes: Routes = [
   {
     path: 'mi-trayectoria',
-    loadChildren: () => import('../pages/my-trayectory/my-trayectory.module').then((m) => m.MyTrayectoryModule),
+    loadChildren: () => import('../pages-presentation/my-trayectory/my-trayectory.module').then((m) => m.MyTrayectoryModule),
   },
   {
     path: 'comprende-rxjs',
     loadChildren: () => import('../pages-rxjs/pages-rxjs.module').then((m) => m.PagesRxjsModule),
   },
   {
-    path: 'tabla-de-puntuaciones',
-    loadChildren: () => import('../pages-games/score/score.module').then((m) => m.ScoreModule),
+    path: 'puntuaciones',
+    loadChildren: () => import('../pages-games/pages-games.module').then((m) => m.PagesGamesModule),
   },
   {
     path: 'redes',
@@ -20,7 +20,7 @@ const routes: Routes = [
   },
   {
     path: '',
-    loadChildren: () => import('../pages/home/home.module').then((m) => m.HomeModule),
+    loadChildren: () => import('../pages-presentation/home/home.module').then((m) => m.HomeModule),
   },
   {
     path: '**',

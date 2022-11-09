@@ -1,0 +1,21 @@
+<div class="position">
+    <div class="number">{{player.position}}</div>
+    <div *ngIf="player.position === 1">🥇</div>
+    <div *ngIf="player.position === 2">🥈</div>
+    <div *ngIf="player.position === 3">🥉</div>
+</div>
+
+<div class="data">
+    <div class="name-score-container"><span>{{player.name}}</span> <span>{{player.totalScore.afterRejoin}}</span></div>
+    <div class="player-rounds-info">
+        <div>Última ronda: {{player.scores[player.scores.length - 1]}}</div>
+
+        <div *ngIf="gameConfigService.config.name === pochaConfig.name">
+            Máximo alcanzado: {{player.maximumAccumulatedScore}}
+        </div>
+
+        <div *ngIf="player.rejoins.length !== 0">
+            Reenganches: {{player.rejoins.length}}
+        </div>
+    </div>
+</div>

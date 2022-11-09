@@ -1,0 +1,61 @@
+@import "../../styles";
+
+:host {
+    display: block;
+    overflow-x: auto;
+    height: 100%;
+}
+
+@include empty-state;
+
+table {
+    border-spacing: 0;
+
+    th,
+    td {
+        border: 1px solid black;
+        white-space: nowrap;
+    }
+
+    th {
+        padding: 3px 20px;
+    }
+
+    .score {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
+        gap: 5px;
+        padding: 3px;
+
+        &--rejoin {
+            justify-content: center;
+            background-color: #6262ff;
+            color: white;
+        }
+
+        .accumulated-score {
+            font-size: 0.58em;
+        }
+    }
+
+    .sticky-header {
+        position: sticky;
+        top: 0;
+        z-index: 5;
+    }
+
+    .sticky-round-number {
+        position: sticky;
+        left: 0;
+    }
+
+    .sticky-footer {
+        position: sticky;
+        bottom: 0;
+    }
+
+    .highlight-cell {
+        background-color: azure;
+    }
+}

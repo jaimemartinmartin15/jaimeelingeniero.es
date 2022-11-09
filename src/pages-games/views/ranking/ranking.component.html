@@ -1,0 +1,9 @@
+<ng-container *ngIf="isEmptyState">
+    Introduce al menos una ronda para mostrar el ranking
+</ng-container>
+
+<ng-container *ngIf="!isEmptyState">
+    <app-round-info></app-round-info>
+
+    <app-player-display *ngFor="let player of players" [player]="player"></app-player-display>
+</ng-container>

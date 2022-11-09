@@ -12,6 +12,8 @@ import { ObservableEventType } from '../shared/observable-event-type';
   styleUrls: ['./debounce-time.component.scss'],
 })
 export class DebounceTimeComponent extends BaseOperatorComponent {
+  public headerPrintData = { author: 'Jaime Martín Martín', date: '30 de mayo de 2022' };
+
   private errorOrCompleteEmitted = false;
   private counterSubscription: Subscription;
   public elementInStandBy = '';
