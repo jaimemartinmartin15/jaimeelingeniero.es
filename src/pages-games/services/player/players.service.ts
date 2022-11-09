@@ -100,21 +100,26 @@ export class PlayersService {
     localStorage.setItem(PREVIOUS_GAME_DATE_KEY, JSON.stringify(Date.now()));
   }
 
+  public setScores(players: Pick<Player, 'id' | 'punctuation'>[], round: number) {
+    players.forEach((p1) => this.playerWithId(p1.id).setRoundValue(p1.punctuation, round));
+  }
+
+  public calculateAccumulatedScores() {
+    for (let round = 0; round < this.playedRounds; round++) {
+      const limitScore = this.gameConfigService.config.limitScore ?? Infinity;
+      const scoreReset = Math.max(
+        ...this._players
+          .filter((p) => p.accumulatedScores[round].afterRejoin + p.scores[round] < limitScore)
+          .map((p) => p.accumulatedScores[round].afterRejoin + p.scores[round])
+      );
+      this._players.forEach((p) => p.calculateAccumulatedScores(round, limitScore, scoreReset));
+    }
+  }
+
   public calculateRejoins() {
     const limitScore = this.gameConfigService.config.limitScore;
     if (limitScore != undefined) {
-      const playersOutOfScore = this._players.filter((p) => p.totalScore > limitScore);
-      const playerWithMoreScore = this._players.reduce(
-        (prev, player) => (player.totalScore < limitScore && player.totalScore > prev.totalScore ? player : prev),
-        this._players.find((p) => p.totalScore < limitScore)!
-      );
-
-      playersOutOfScore.forEach((p) =>
-        p.rejoins.push({
-          afterRound: this.playedRounds,
-          withScore: playerWithMoreScore.totalScore,
-        })
-      );
+      this._players.forEach((p) => p.calculateRejoins());
     }
   }
 
