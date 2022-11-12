@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Meta, Title } from '@angular/platform-browser';
-import { LINKS_GROUPS_OPERATORS, LINKS_TO_START } from './menu-links';
+import { LINKS_GROUPS_OPERATORS, LINKS_TO_START, HomeLink } from './menu-links';
 
 @Component({
   selector: 'app-rxjs-home',
@@ -11,8 +11,8 @@ import { LINKS_GROUPS_OPERATORS, LINKS_TO_START } from './menu-links';
 export class HomeComponent implements OnInit, OnDestroy {
   public showHomeLinksToStart = true;
 
-  public LINKS_GROUPS_OPERATORS = LINKS_GROUPS_OPERATORS;
-  public LINKS_TO_START = LINKS_TO_START;
+  public readonly LINKS_GROUPS_OPERATORS = LINKS_GROUPS_OPERATORS;
+  public readonly LINKS_TO_START = LINKS_TO_START;
 
   public searchControl = new FormControl<string>('', { nonNullable: true });
 
@@ -23,22 +23,15 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.metaService.updateTag({ name: 'description', content: 'Accede a la lista de operadores rxjs' });
     this.metaService.updateTag({ name: 'keywords', content: 'operadores rxjs, lista' });
 
-    this.searchControl.valueChanges.subscribe((searchCriteria: string) => {
-      searchCriteria = searchCriteria.toLocaleLowerCase();
+    this.searchControl.valueChanges.subscribe((searchCriteria: string) => (searchCriteria = searchCriteria.toLocaleLowerCase()));
+  }
 
-      this.showHomeLinksToStart = LINKS_TO_START.links.some((operator) => operator.display.toLocaleLowerCase().includes(searchCriteria));
+  public hasToShowGroup(homeLink: HomeLink): boolean {
+    return homeLink.links.some((l) => l.display.toLowerCase().includes(this.searchControl.value.toLowerCase()));
+  }
 
-      this.LINKS_GROUPS_OPERATORS = LINKS_GROUPS_OPERATORS.filter((group) =>
-        group.links.some((operator) => operator.display.toLocaleLowerCase().includes(searchCriteria))
-      ).map((group) => {
-        const groupFiltered = {
-          subtitle: group.subtitle,
-          links: group.links.filter((operator) => operator.display.toLocaleLowerCase().includes(searchCriteria)),
-        };
-
-        return groupFiltered;
-      });
-    });
+  public hasToShowLink(link: HomeLink['links'][number]): boolean {
+    return link.display.toLowerCase().includes(this.searchControl.value.toLowerCase());
   }
 
   public ngOnDestroy(): void {
