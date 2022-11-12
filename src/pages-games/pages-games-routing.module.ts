@@ -9,6 +9,7 @@ import { StatisticsComponent } from './views/statistics/statistics.component';
 const noMoreChildren = [
   {
     path: '',
+    children: [],
   },
   {
     path: '**',
