@@ -14,7 +14,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   public LINKS_GROUPS_OPERATORS = LINKS_GROUPS_OPERATORS;
   public LINKS_TO_START = LINKS_TO_START;
 
-  public searchControl = new FormControl('');
+  public searchControl = new FormControl<string>('', { nonNullable: true });
 
   public constructor(private readonly titleService: Title, private readonly metaService: Meta) {}
 
