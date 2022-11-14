@@ -11,10 +11,10 @@ export class RoutableLateralMenuResolver implements Resolve<unknown[]> {
     const filesToLoad = [];
 
     // loads style for syntax highlight
-    filesToLoad.push(this.loadStyle('https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.7.2/styles/default.min.css'));
+    filesToLoad.push(this.loadStyle('https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/styles/default.min.css'));
 
     // loads script for syntax highlight
-    filesToLoad.push(this.loadScript('https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.7.2/highlight.min.js'));
+    filesToLoad.push(this.loadScript('https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/highlight.min.js'));
 
     return Promise.all(filesToLoad);
   }
