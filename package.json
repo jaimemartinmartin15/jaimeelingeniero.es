@@ -4,6 +4,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve -o --host localhost --port 4200",
+    "start:public": "ng serve -o --host 0.0.0.0 --port 4200",
     "start:prod": "(cd dist/jaimeelingeniero && live-server --port=80 --entry-file=index.html) || echo Error: No production build found. Run 'npm run build' first",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
