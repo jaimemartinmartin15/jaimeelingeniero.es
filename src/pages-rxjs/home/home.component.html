@@ -12,24 +12,30 @@
     </span>
 </div>
 
-<div class="group-of-groups" *ngIf="showHomeLinksToStart">
+<div class="group-of-groups" *ngIf="hasToShowGroup(LINKS_TO_START)">
     <div class="operators-group">
         <h2 class="subtitle">{{LINKS_TO_START.subtitle}}</h2>
         <ul class="operators-list">
-            <li class="operator-link" *ngFor="let link of LINKS_TO_START.links">
-                <a [routerLink]="link.url">{{link.display}}</a>
-            </li>
+            <ng-container *ngFor="let link of LINKS_TO_START.links">
+                <li class="operator-link" *ngIf="hasToShowLink(link)">
+                    <a [routerLink]="link.url">{{link.display}}</a>
+                </li>
+            </ng-container>
         </ul>
     </div>
 </div>
 
 <div class="group-of-groups">
-    <div class="operators-group" *ngFor="let group of LINKS_GROUPS_OPERATORS">
-        <h2 class="subtitle">{{group.subtitle}}</h2>
-        <ul class="operators-list">
-            <li class="operator-link" *ngFor="let link of group.links">
-                <a [routerLink]="link.url">{{link.display}}</a>
-            </li>
-        </ul>
-    </div>
+    <ng-container *ngFor="let group of LINKS_GROUPS_OPERATORS">
+        <div class="operators-group" *ngIf="hasToShowGroup(group)">
+            <h2 class="subtitle">{{group.subtitle}}</h2>
+            <ul class="operators-list">
+                <ng-container *ngFor="let link of group.links">
+                    <li class="operator-link" *ngIf="hasToShowLink(link)">
+                        <a [routerLink]="link.url">{{link.display}}</a>
+                    </li>
+                </ng-container>
+            </ul>
+        </div>
+    </ng-container>
 </div>
