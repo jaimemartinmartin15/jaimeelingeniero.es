@@ -16,7 +16,7 @@
 
 
 
-<div class="view-page">
+<div class="view-page" [ngClass]="{'fix-address-bar-height': addressBarHidden}">
   <router-outlet></router-outlet>
 </div>
 

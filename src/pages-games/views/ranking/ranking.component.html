@@ -5,5 +5,7 @@
 <ng-container *ngIf="!isEmptyState">
     <app-round-info></app-round-info>
 
-    <app-player-display *ngFor="let player of players" [player]="player"></app-player-display>
+    <div class="players-list">
+        <app-player-display *ngFor="let player of players" [player]="player"></app-player-display>
+    </div>
 </ng-container>

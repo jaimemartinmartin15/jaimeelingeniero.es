@@ -54,7 +54,7 @@ export class GameConfigService {
     const previousGameConfig = localStorage.getItem(PREVIOUS_GAME_CONFIG_KEY);
     if (previousGameConfig != null) {
       const config = JSON.parse(previousGameConfig).config;
-      const knownConfig = this.knownConfigs.find((c) => c.name === config);
+      const knownConfig = this.knownConfigs.find((c) => c.name === config.name);
       this._config = { ...knownConfig, ...config };
     }
   }
