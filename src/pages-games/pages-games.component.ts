@@ -1,6 +1,7 @@
 import { DOCUMENT } from '@angular/common';
 import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { Meta, Title } from '@angular/platform-browser';
+import { distinctUntilChanged, filter, fromEvent, map, pairwise, startWith, tap } from 'rxjs';
 import { PREVIOUS_GAME_DATE_KEY } from './local-storage-keys';
 import { NextRoundPopUpInput, NextRoundPopUpOutput } from './pop-ups/next-round-pop-up/next-round-pop-up.contract';
 import { StartGamePopUpOutput } from './pop-ups/start-game-pop-up/start-game-pop-up.contract';
@@ -14,6 +15,8 @@ import { PopUpsService } from './services/pop-ups.service';
   styleUrls: ['./pages-games.component.scss'],
 })
 export class PagesGamesComponent implements OnInit, OnDestroy {
+  public addressBarHidden = false;
+
   // show pop-ups views
   public showRestartGamePopUp = false;
   public showStartGamePopUp = false;
@@ -42,6 +45,21 @@ export class PagesGamesComponent implements OnInit, OnDestroy {
     this.popUpsService.enterNewRound$.subscribe(() => this.enterNewRound());
     this.popUpsService.enterRound$.subscribe((round: number) => this.enterRound(round));
     this.popUpsService.enterPunctuationForRoundAndPlayer$.subscribe((roundAndPlayer) => this.enterPunctuationForRoundAndPlayer(roundAndPlayer));
+
+    // check when the address bar in mobile is hidden
+    if (window.matchMedia('(max-width: 991px)').matches) {
+      fromEvent(window, 'resize')
+        .pipe(
+          startWith(''),
+          map(() => Math.max(this.document.documentElement.clientHeight, window.innerHeight || 0)),
+          pairwise(),
+          filter(([prevHeight, currentHeight]) => prevHeight !== currentHeight),
+          map(([prevHeight, currentHeight]) => prevHeight < currentHeight),
+          distinctUntilChanged(),
+          tap((addressBarHidden) => (this.addressBarHidden = addressBarHidden))
+        )
+        .subscribe();
+    }
   }
 
   public setTitleAndTags() {
