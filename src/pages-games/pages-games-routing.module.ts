@@ -2,6 +2,7 @@ import { NgModule, Type } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { PagesGamesComponent } from './pages-games.component';
 import { PATHS } from './paths';
+import { GameConfigComponent } from './views/game-config/game-config.component';
 import { RankingComponent } from './views/ranking/ranking.component';
 import { ScoreboardComponent } from './views/scoreboard/scoreboard.component';
 import { StatisticsComponent } from './views/statistics/statistics.component';
@@ -25,6 +26,10 @@ const routes: Routes = [
     component: PagesGamesComponent,
     children: [
       {
+        path: PATHS.GAME_CONFIG,
+        children: pathWithoutChildrens(GameConfigComponent),
+      },
+      {
         path: PATHS.RANKING,
         children: pathWithoutChildrens(RankingComponent),
       },
@@ -38,13 +43,13 @@ const routes: Routes = [
       },
       {
         path: '**',
-        redirectTo: PATHS.RANKING,
+        redirectTo: PATHS.GAME_CONFIG,
       },
     ],
   },
   {
     path: '**',
-    redirectTo: PATHS.RANKING,
+    redirectTo: PATHS.GAME_CONFIG,
   },
 ];
 
