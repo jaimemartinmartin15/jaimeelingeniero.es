@@ -1,10 +1,11 @@
 import { DOCUMENT } from '@angular/common';
 import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { Meta, Title } from '@angular/platform-browser';
+import { ActivatedRoute, Router } from '@angular/router';
 import { distinctUntilChanged, filter, fromEvent, map, pairwise, startWith, tap } from 'rxjs';
 import { PREVIOUS_GAME_DATE_KEY } from './local-storage-keys';
+import { PATHS } from './paths';
 import { NextRoundPopUpInput, NextRoundPopUpOutput } from './pop-ups/next-round-pop-up/next-round-pop-up.contract';
-import { StartGamePopUpOutput } from './pop-ups/start-game-pop-up/start-game-pop-up.contract';
 import { GameConfigService } from './services/game/game-config.service';
 import { PlayersService } from './services/player/players.service';
 import { PopUpsService } from './services/pop-ups.service';
@@ -17,11 +18,8 @@ import { PopUpsService } from './services/pop-ups.service';
 export class PagesGamesComponent implements OnInit, OnDestroy {
   public addressBarHidden = false;
 
-  // show pop-ups views
-  public showRestartGamePopUp = false;
-  public showStartGamePopUp = false;
+  public showContinueGameInProgressPopUp = false;
   public showNewRoundPopUp = false;
-  public showLoadNewGamePopUp = false;
 
   public nextRoundPopUpInput: NextRoundPopUpInput;
 
@@ -31,22 +29,35 @@ export class PagesGamesComponent implements OnInit, OnDestroy {
     @Inject(DOCUMENT) private document: Document,
     private readonly playersService: PlayersService,
     private readonly gameConfigService: GameConfigService,
-    public readonly popUpsService: PopUpsService
+    public readonly popUpsService: PopUpsService,
+    public readonly router: Router,
+    private readonly activatedRoute: ActivatedRoute
   ) {}
 
   public ngOnInit(): void {
     this.setTitleAndTags();
 
-    const restartGame = this.checkIfRestartGame();
-    this.showRestartGamePopUp = restartGame;
-    this.showStartGamePopUp = !restartGame;
+    this.listenOpenEnterRoundPopUp();
+    this.listenAddressBarMobile();
 
-    this.popUpsService.openStartNewGamePopUp$.subscribe(() => (this.showStartGamePopUp = true));
+    if (!this.checkIfThereIsGameInProgress()) {
+      this.router.navigate(['./', PATHS.GAME_CONFIG], { relativeTo: this.activatedRoute, queryParamsHandling: 'merge' });
+      return;
+    }
+
+    this.showContinueGameInProgressPopUp = true;
+  }
+
+  private listenOpenEnterRoundPopUp() {
     this.popUpsService.enterNewRound$.subscribe(() => this.enterNewRound());
     this.popUpsService.enterRound$.subscribe((round: number) => this.enterRound(round));
     this.popUpsService.enterPunctuationForRoundAndPlayer$.subscribe((roundAndPlayer) => this.enterPunctuationForRoundAndPlayer(roundAndPlayer));
+  }
 
-    // check when the address bar in mobile is hidden
+  /**
+   * Checks when the address bar in mobile is shown or hidden to fix the height of the router-outlet container
+   */
+  private listenAddressBarMobile() {
     if (window.matchMedia('(max-width: 991px)').matches) {
       fromEvent(window, 'resize')
         .pipe(
@@ -81,30 +92,24 @@ export class PagesGamesComponent implements OnInit, OnDestroy {
     }
   }
 
-  private checkIfRestartGame(): boolean {
+  private checkIfThereIsGameInProgress(): boolean {
     const lastSavedGameDate = localStorage.getItem(PREVIOUS_GAME_DATE_KEY);
     const twoHoursAgo = Date.now() - 2 * 60 * 60 * 1000;
     return lastSavedGameDate != null && +lastSavedGameDate > twoHoursAgo;
   }
 
-  public onConfirmIfRestartGame(restartGame: boolean) {
-    this.showRestartGamePopUp = false;
+  public onConfirmIfContinueGameInProgress(continueGame: boolean) {
+    this.showContinueGameInProgressPopUp = false;
 
-    if (!restartGame) {
-      this.showStartGamePopUp = true;
+    if (!continueGame) {
+      this.router.navigate(['./', PATHS.GAME_CONFIG], { relativeTo: this.activatedRoute });
       return;
     }
 
     this.playersService.loadPlayersFromLocalStorage();
     this.gameConfigService.loadConfigFromLocalStorage();
     this.playersService.playersLoaded$.next();
-  }
-
-  public onConfirmStartGame(output: StartGamePopUpOutput) {
-    this.showStartGamePopUp = false;
-    this.playersService.createPlayersWithNames(output.names);
-    this.playersService.playersLoaded$.next();
-    this.playersService.startsDealing = output.startsDealing;
+    this.router.navigate(['./', PATHS.RANKING], { relativeTo: this.activatedRoute });
   }
 
   private enterNewRound() {
@@ -149,11 +154,6 @@ export class PagesGamesComponent implements OnInit, OnDestroy {
     this.playersService.savePlayersToLocalStorage();
     this.gameConfigService.saveConfigToLocalStorage();
     this.playersService.scoreChanged$.next();
-  }
-
-  public onConfirmIfLoadNewGame(confirmNewGame: boolean) {
-    this.showLoadNewGamePopUp = false;
-    this.showStartGamePopUp = confirmNewGame;
   }
 
   public ngOnDestroy(): void {

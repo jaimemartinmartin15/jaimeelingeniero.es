@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
+import { filter, map } from 'rxjs';
 import { PATHS } from '../../paths';
 import { PopUpsService } from '../../services/pop-ups.service';
 
@@ -8,9 +9,8 @@ import { PopUpsService } from '../../services/pop-ups.service';
   templateUrl: './bottom-controls.component.html',
   styleUrls: ['./bottom-controls.component.scss'],
 })
-export class BottomControlsComponent {
-  private views = [...Object.values(PATHS)];
-  private currentViewIndex = 0;
+export class BottomControlsComponent implements OnInit {
+  public state: 'game-config' | 'game-started';
 
   public constructor(
     private readonly router: Router,
@@ -18,12 +18,38 @@ export class BottomControlsComponent {
     public readonly popUpsService: PopUpsService
   ) {}
 
-  public changeView() {
-    this.currentViewIndex++;
-    if (this.currentViewIndex >= this.views.length) {
-      this.currentViewIndex = 0;
-    }
+  public ngOnInit(): void {
+    this.state = this.router.url.includes(`${PATHS.GAME_CONFIG}`) ? 'game-config' : 'game-started';
+    this.router.events
+      .pipe(
+        filter((event): event is NavigationEnd => event instanceof NavigationEnd),
+        map((e: NavigationEnd) => e.url)
+      )
+      .subscribe((url: string) => {
+        this.state = url.includes(`${PATHS.GAME_CONFIG}`) ? 'game-config' : 'game-started';
+      });
+  }
 
-    this.router.navigate(['./', this.views[this.currentViewIndex]], { relativeTo: this.activatedRoute, queryParamsHandling: 'merge' });
+  public changeView() {
+    // TODO show pop up with possible options to navigate
+    //   💹 estadísticas
+    //   🏅 ranking
+    //   ⬜ table
+  }
+
+  /**
+   * Called when clicking on start new game
+   */
+  public goToGameConfigView() {
+    this.router.navigate(['./', PATHS.GAME_CONFIG], { relativeTo: this.activatedRoute, queryParamsHandling: 'merge' });
+  }
+
+  /**
+   * Called when config is entered in the screen
+   */
+  public startGame() {
+    // TODO collect players and configuration
+
+    this.router.navigate(['./', PATHS.RANKING], { relativeTo: this.activatedRoute, queryParamsHandling: 'merge' });
   }
 }

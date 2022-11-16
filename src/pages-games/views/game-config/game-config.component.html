@@ -1,3 +1,45 @@
-<p>
-  Use this page to configure a new game
-</p>
+<form>
+  <div class="game-name">
+    <label>
+      Juego
+      <br>
+      <select>
+        <option value="pocha">Pocha</option>
+        <option value="chinchon">Chinchón</option>
+        <option value="uno">Uno</option>
+      </select>
+    </label>
+  </div>
+
+  <div class="number-of-cards">
+    <label>
+      Cartas
+      <br>
+      <input type="number">
+    </label>
+  </div>
+
+  <div class="players">
+    <span>Jugadores</span>
+    <br>
+    <!-- ngfor player -->
+    <input type="text" name="" id="">
+    <input type="text" name="" id="">
+    <input type="text" name="" id="">
+  </div>
+
+  <div class="winner">
+    <span>Ganador</span>
+    <br>
+    <label><input type="radio" name="winner" value="fewer-points"> Quien menos puntos tiene</label><br>
+    <label> <input type="radio" name="winner" value="more-points">Quien más puntos tiene</label><br>
+  </div>
+
+  <div class="limit-score">
+    <label>
+      Límite
+      <br>
+      <input type="number">
+    </label>
+  </div>
+</form>
