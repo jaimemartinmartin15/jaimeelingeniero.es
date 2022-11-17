@@ -6,9 +6,19 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./game-config.component.scss'],
 })
 export class GameConfigComponent implements OnInit {
+  // select game name question
+  public selectGameNameDropDownOpen = false;
+  public selectedGameName = 'pocha';
+  public gameNames = ['pocha', 'chinchon', 'uno'];
+
   public constructor() {}
 
   public ngOnInit() {}
+
+  public onSelectGameName(gameName: string) {
+    this.selectedGameName = gameName;
+    this.selectGameNameDropDownOpen = false;
+  }
 
   // public onConfirmStartGame(output: StartGamePopUpOutput) {
   //   // TODO replace or move to confirmation of game-config

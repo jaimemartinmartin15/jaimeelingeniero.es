@@ -1,14 +1,13 @@
-<form>
+<div class="form">
   <div class="game-name">
-    <label>
-      Juego
-      <br>
-      <select>
-        <option value="pocha">Pocha</option>
-        <option value="chinchon">Chinchón</option>
-        <option value="uno">Uno</option>
-      </select>
-    </label>
+    <span>Juego</span>
+    <div class="select" [ngClass]="{open: selectGameNameDropDownOpen}"
+      (click)="selectGameNameDropDownOpen = !selectGameNameDropDownOpen">
+      {{selectedGameName | titlecase}}
+    </div>
+    <div class="options" *ngIf="selectGameNameDropDownOpen">
+      <div *ngFor="let game of gameNames" (click)="onSelectGameName(game)">{{game | titlecase}}</div>
+    </div>
   </div>
 
   <div class="number-of-cards">
@@ -42,4 +41,4 @@
       <input type="number">
     </label>
   </div>
-</form>
+</div>

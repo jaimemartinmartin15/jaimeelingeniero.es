@@ -19,6 +19,7 @@ import { StartGamePopUpComponent } from './pop-ups/start-game-pop-up/start-game-
 import { StatisticsComponent } from './views/statistics/statistics.component';
 import { BottomControlsComponent } from './components/bottom-controls/bottom-controls.component';
 import { PopUpsService } from './services/pop-ups.service';
+import { GameConfigComponent } from './views/game-config/game-config.component';
 
 @NgModule({
   imports: [CommonModule, PagesGamesRoutingModule, FormsModule, DragDropModule, PipesModule, PagesGamesSvgModule],
@@ -26,6 +27,9 @@ import { PopUpsService } from './services/pop-ups.service';
     // parent component
     PagesGamesComponent,
     BottomControlsComponent,
+
+    // view game config
+    GameConfigComponent,
 
     // view ranking
     RankingComponent,
