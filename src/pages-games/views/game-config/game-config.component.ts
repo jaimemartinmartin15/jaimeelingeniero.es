@@ -1,9 +1,21 @@
-import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
+import {
+  AfterViewInit,
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  ElementRef,
+  OnInit,
+  QueryList,
+  ViewChild,
+  ViewChildren,
+} from '@angular/core';
 
 @Component({
   selector: 'app-game-config',
   templateUrl: './game-config.component.html',
   styleUrls: ['./game-config.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class GameConfigComponent implements OnInit, AfterViewInit {
   // game name
@@ -17,7 +29,13 @@ export class GameConfigComponent implements OnInit, AfterViewInit {
   @ViewChild('numberOfCards')
   public numberOfCardsContainer: ElementRef<HTMLDivElement>;
 
-  public constructor() {}
+  // players
+  @ViewChildren('playerInput')
+  private playerInputs: QueryList<ElementRef>;
+  public playerNames: string[] = ['', '', '', ''];
+  public playerStartsDealing: number = 0;
+
+  public constructor(private readonly changeDetectorRef: ChangeDetectorRef) {}
 
   public ngOnInit() {}
 
@@ -39,6 +57,30 @@ export class GameConfigComponent implements OnInit, AfterViewInit {
       this.selectedNumberOfCards++;
       scrollContainer.scroll(50, 0);
     }
+  }
+
+  public trackByPlayerIndex(index: number) {
+    return index;
+  }
+
+  public addPlayer() {
+    this.playerNames.push('');
+    this.changeDetectorRef.detectChanges();
+    this.playerInputs.last.nativeElement.focus();
+  }
+
+  public deletePlayer(index: number) {
+    const playerNameDealing = this.playerNames[this.playerStartsDealing];
+    this.playerNames.splice(index, 1);
+    const playerNameDealingIndex = this.playerNames.indexOf(playerNameDealing);
+    const playerBefore = this.playerStartsDealing - 1;
+    this.playerStartsDealing = playerNameDealingIndex !== -1 ? playerNameDealingIndex : playerBefore !== -1 ? playerBefore : 0;
+  }
+
+  public onReorderingPlayer(event: CdkDragDrop<string[]>) {
+    const playerNameDealing = this.playerNames[this.playerStartsDealing];
+    moveItemInArray(this.playerNames, event.previousIndex, event.currentIndex);
+    this.playerStartsDealing = this.playerNames.indexOf(playerNameDealing);
   }
 
   // public onConfirmStartGame(output: StartGamePopUpOutput) {
