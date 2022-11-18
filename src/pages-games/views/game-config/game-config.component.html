@@ -11,11 +11,15 @@
   </div>
 
   <div class="number-of-cards">
-    <label>
-      Cartas
-      <br>
-      <input type="number">
-    </label>
+    <span>Cartas</span>
+    <br>
+    <div #numberOfCards class="input-number" (scroll)="calculateNumberOfSelectedCards()">
+      <span (click)="selectedNumberOfCards = selectedNumberOfCards - 2">{{selectedNumberOfCards - 2}}</span>
+      <span (click)="selectedNumberOfCards = selectedNumberOfCards - 1">{{selectedNumberOfCards - 1}}</span>
+      <span class="selected">{{selectedNumberOfCards}}</span>
+      <span (click)="selectedNumberOfCards = selectedNumberOfCards + 1">{{selectedNumberOfCards + 1}}</span>
+      <span (click)="selectedNumberOfCards = selectedNumberOfCards + 2">{{selectedNumberOfCards + 2}}</span>
+    </div>
   </div>
 
   <div class="players">
