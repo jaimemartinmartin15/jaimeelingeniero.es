@@ -1,15 +1,9 @@
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
-import {
-  AfterViewInit,
-  ChangeDetectionStrategy,
-  ChangeDetectorRef,
-  Component,
-  ElementRef,
-  OnInit,
-  QueryList,
-  ViewChild,
-  ViewChildren,
-} from '@angular/core';
+import { AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, QueryList, ViewChild, ViewChildren } from '@angular/core';
+import { chinchonConfig } from 'src/pages-games/services/game/game-configs/chinchon-config';
+import { GameConfig } from 'src/pages-games/services/game/game-configs/game-config';
+import { pochaConfig } from 'src/pages-games/services/game/game-configs/pocha-config';
+import { unoConfig } from 'src/pages-games/services/game/game-configs/uno-config';
 
 @Component({
   selector: 'app-game-config',
@@ -17,11 +11,13 @@ import {
   styleUrls: ['./game-config.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class GameConfigComponent implements OnInit, AfterViewInit {
+export class GameConfigComponent implements AfterViewInit {
+  private readonly availableConfigs = [pochaConfig, chinchonConfig, unoConfig];
+  public selectedConfigGame: GameConfig = pochaConfig;
+
   // game name
   public selectGameNameDropDownOpen = false;
-  public selectedGameName = 'pocha';
-  public gameNames = ['pocha', 'chinchon', 'uno'];
+  public gameNames = this.availableConfigs.map((c) => c.name);
 
   // number of cards
   public selectedNumberOfCards = 40;
@@ -44,16 +40,20 @@ export class GameConfigComponent implements OnInit, AfterViewInit {
 
   public constructor(private readonly changeDetectorRef: ChangeDetectorRef) {}
 
-  public ngOnInit() {}
-
   public onSelectGameName(gameName: string) {
-    this.selectedGameName = gameName;
     this.selectGameNameDropDownOpen = false;
+    this.selectedConfigGame = this.availableConfigs.find((c) => c.name == gameName)!;
+    this.changeDetectorRef.detectChanges();
+    this.numberOfCardsContainer?.nativeElement.scroll(50, 0);
+    this.selectedNumberOfCards = this.selectedConfigGame.cardsNumber ?? 40;
+    this.limitScoreContainer?.nativeElement.scroll(50, 0);
+    this.selectedLimitScore = this.selectedConfigGame.limitScore ?? 100;
+    this.changeDetectorRef.detectChanges();
   }
 
   public ngAfterViewInit(): void {
-    this.numberOfCardsContainer.nativeElement.scroll(50, 0);
-    this.limitScoreContainer.nativeElement.scroll(50, 0);
+    this.numberOfCardsContainer?.nativeElement.scroll(50, 0);
+    this.limitScoreContainer?.nativeElement.scroll(50, 0);
   }
 
   public calculateNumberOfSelectedCards() {

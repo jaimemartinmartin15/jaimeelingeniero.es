@@ -3,14 +3,14 @@
     <span>Juego</span>
     <div class="select" [ngClass]="{open: selectGameNameDropDownOpen}"
       (click)="selectGameNameDropDownOpen = !selectGameNameDropDownOpen">
-      {{selectedGameName | titlecase}}
+      {{selectedConfigGame.name | titlecase}}
     </div>
     <div class="options" *ngIf="selectGameNameDropDownOpen">
       <div *ngFor="let game of gameNames" (click)="onSelectGameName(game)">{{game | titlecase}}</div>
     </div>
   </div>
 
-  <div class="number-of-cards">
+  <div class="number-of-cards" *ngIf="selectedConfigGame.cardsNumber != undefined">
     <span>Cartas</span>
     <br>
     <div #numberOfCards class="input-number" (scroll)="calculateNumberOfSelectedCards()">
@@ -19,6 +19,32 @@
       <span class="selected">{{selectedNumberOfCards}}</span>
       <span (click)="selectedNumberOfCards = selectedNumberOfCards + 1">{{selectedNumberOfCards + 1}}</span>
       <span (click)="selectedNumberOfCards = selectedNumberOfCards + 2">{{selectedNumberOfCards + 2}}</span>
+    </div>
+  </div>
+
+  <div class="winner" *ngIf="selectedConfigGame.sortPlayers == undefined">
+    <span>Ganador</span>
+
+    <div class="radio-element" (click)="winner = 'highestScore'">
+      <span class="radio-button" [ngClass]="{selected: winner === 'highestScore'}"></span>
+      Quien más puntos tiene
+    </div>
+
+    <div class="radio-element" (click)="winner = 'lowestScore'">
+      <span class="radio-button" [ngClass]="{selected: winner === 'lowestScore'}"></span>
+      Quien menos puntos tiene
+    </div>
+  </div>
+
+  <div class="limit-score" *ngIf="selectedConfigGame.limitScore != undefined">
+    <span>Límite</span>
+    <br>
+    <div #limitScore class="input-number" (scroll)="calculateSelectedLimitScore()">
+      <span (click)="selectedLimitScore = selectedLimitScore - 2">{{selectedLimitScore - 2}}</span>
+      <span (click)="selectedLimitScore = selectedLimitScore - 1">{{selectedLimitScore - 1}}</span>
+      <span class="selected">{{selectedLimitScore}}</span>
+      <span (click)="selectedLimitScore = selectedLimitScore + 1">{{selectedLimitScore + 1}}</span>
+      <span (click)="selectedLimitScore = selectedLimitScore + 2">{{selectedLimitScore + 2}}</span>
     </div>
   </div>
 
@@ -41,31 +67,5 @@
         <span class="delete-icon" (click)="deletePlayer(i)" *ngIf="this.playerNames.length > 1"></span>
       </li>
     </ul>
-  </div>
-
-  <div class="winner">
-    <span>Ganador</span>
-
-    <div class="radio-element" (click)="winner = 'highestScore'">
-      <span class="radio-button" [ngClass]="{selected: winner === 'highestScore'}"></span>
-      Quien más puntos tiene
-    </div>
-
-    <div class="radio-element" (click)="winner = 'lowestScore'">
-      <span class="radio-button" [ngClass]="{selected: winner === 'lowestScore'}"></span>
-      Quien menos puntos tiene
-    </div>
-  </div>
-
-  <div class="limit-score">
-    <span>Límite</span>
-    <br>
-    <div #limitScore class="input-number" (scroll)="calculateSelectedLimitScore()">
-      <span (click)="selectedLimitScore = selectedLimitScore - 2">{{selectedLimitScore - 2}}</span>
-      <span (click)="selectedLimitScore = selectedLimitScore - 1">{{selectedLimitScore - 1}}</span>
-      <span class="selected">{{selectedLimitScore}}</span>
-      <span (click)="selectedLimitScore = selectedLimitScore + 1">{{selectedLimitScore + 1}}</span>
-      <span (click)="selectedLimitScore = selectedLimitScore + 2">{{selectedLimitScore + 2}}</span>
-    </div>
   </div>
 </div>
