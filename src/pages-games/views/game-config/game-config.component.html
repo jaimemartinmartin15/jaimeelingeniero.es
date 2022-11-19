@@ -45,9 +45,16 @@
 
   <div class="winner">
     <span>Ganador</span>
-    <br>
-    <label><input type="radio" name="winner" value="fewer-points"> Quien menos puntos tiene</label><br>
-    <label> <input type="radio" name="winner" value="more-points">Quien más puntos tiene</label><br>
+
+    <div class="radio-element" (click)="winner = 'highestScore'">
+      <span class="radio-button" [ngClass]="{selected: winner === 'highestScore'}"></span>
+      Quien más puntos tiene
+    </div>
+
+    <div class="radio-element" (click)="winner = 'lowestScore'">
+      <span class="radio-button" [ngClass]="{selected: winner === 'lowestScore'}"></span>
+      Quien menos puntos tiene
+    </div>
   </div>
 
   <div class="limit-score">

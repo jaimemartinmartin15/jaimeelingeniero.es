@@ -35,6 +35,9 @@ export class GameConfigComponent implements OnInit, AfterViewInit {
   public playerNames: string[] = ['', '', '', ''];
   public playerStartsDealing: number = 0;
 
+  // winner
+  public winner: 'highestScore' | 'lowestScore' = 'highestScore';
+
   public constructor(private readonly changeDetectorRef: ChangeDetectorRef) {}
 
   public ngOnInit() {}

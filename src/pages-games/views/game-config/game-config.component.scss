@@ -218,7 +218,34 @@
     }
 
     .winner {
-        // TODO
+        .radio-element {
+            color: black;
+            margin-top: 5px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+
+            .radio-button {
+                position: relative;
+                height: 20px;
+                width: 20px;
+                border: 2px solid #d17515;
+                border-radius: 50%;
+            }
+
+            .radio-button.selected {
+                &::after {
+                    content: "";
+                    position: absolute;
+                    top: 5px;
+                    left: 5px;
+                    width: 10px;
+                    height: 10px;
+                    border-radius: 50%;
+                    background-color: #d17515;
+                }
+            }
+        }
     }
 
     .limit-score {
