@@ -58,10 +58,14 @@
   </div>
 
   <div class="limit-score">
-    <label>
-      Límite
-      <br>
-      <input type="number">
-    </label>
+    <span>Límite</span>
+    <br>
+    <div #limitScore class="input-number" (scroll)="calculateSelectedLimitScore()">
+      <span (click)="selectedLimitScore = selectedLimitScore - 2">{{selectedLimitScore - 2}}</span>
+      <span (click)="selectedLimitScore = selectedLimitScore - 1">{{selectedLimitScore - 1}}</span>
+      <span class="selected">{{selectedLimitScore}}</span>
+      <span (click)="selectedLimitScore = selectedLimitScore + 1">{{selectedLimitScore + 1}}</span>
+      <span (click)="selectedLimitScore = selectedLimitScore + 2">{{selectedLimitScore + 2}}</span>
+    </div>
   </div>
 </div>

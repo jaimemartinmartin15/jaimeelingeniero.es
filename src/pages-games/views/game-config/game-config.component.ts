@@ -25,7 +25,6 @@ export class GameConfigComponent implements OnInit, AfterViewInit {
 
   // number of cards
   public selectedNumberOfCards = 40;
-  public lastScrollPosition = 0;
   @ViewChild('numberOfCards')
   public numberOfCardsContainer: ElementRef<HTMLDivElement>;
 
@@ -38,6 +37,11 @@ export class GameConfigComponent implements OnInit, AfterViewInit {
   // winner
   public winner: 'highestScore' | 'lowestScore' = 'highestScore';
 
+  // limit score
+  public selectedLimitScore = 100;
+  @ViewChild('limitScore')
+  public limitScoreContainer: ElementRef<HTMLDivElement>;
+
   public constructor(private readonly changeDetectorRef: ChangeDetectorRef) {}
 
   public ngOnInit() {}
@@ -49,6 +53,7 @@ export class GameConfigComponent implements OnInit, AfterViewInit {
 
   public ngAfterViewInit(): void {
     this.numberOfCardsContainer.nativeElement.scroll(50, 0);
+    this.limitScoreContainer.nativeElement.scroll(50, 0);
   }
 
   public calculateNumberOfSelectedCards() {
@@ -84,6 +89,17 @@ export class GameConfigComponent implements OnInit, AfterViewInit {
     const playerNameDealing = this.playerNames[this.playerStartsDealing];
     moveItemInArray(this.playerNames, event.previousIndex, event.currentIndex);
     this.playerStartsDealing = this.playerNames.indexOf(playerNameDealing);
+  }
+
+  public calculateSelectedLimitScore() {
+    const scrollContainer = this.limitScoreContainer.nativeElement;
+    if (scrollContainer.scrollLeft === 0) {
+      this.selectedLimitScore--;
+      scrollContainer.scroll(50, 0);
+    } else if (scrollContainer.scrollLeft === 100) {
+      this.selectedLimitScore++;
+      scrollContainer.scroll(50, 0);
+    }
   }
 
   // public onConfirmStartGame(output: StartGamePopUpOutput) {

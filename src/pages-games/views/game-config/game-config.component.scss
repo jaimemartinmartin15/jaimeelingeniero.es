@@ -84,6 +84,7 @@
         }
     }
 
+    .limit-score,
     .number-of-cards {
         .input-number {
             display: inline-flex;
@@ -246,9 +247,5 @@
                 }
             }
         }
-    }
-
-    .limit-score {
-        // TODO
     }
 }
