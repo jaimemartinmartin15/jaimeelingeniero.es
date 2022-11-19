@@ -4,4 +4,7 @@
     <button class="app-button" (click)="popUpsService.enterNewRound$.next()">Nueva ronda</button>
 </ng-container>
 
-<button *ngIf="state === 'game-config'" class="app-button" (click)="startGame()">Empezar</button>
+<button *ngIf="state === 'game-config'" class="app-button" [disabled]="!startButtonEnabled"
+    (click)="bottomControlsService.onClickStartGameButton$.next()">
+    Empezar
+</button>

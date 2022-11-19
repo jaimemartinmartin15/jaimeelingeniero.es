@@ -50,6 +50,10 @@ export class GameConfigService {
     return this._config;
   }
 
+  public set config(config: GameConfig) {
+    this._config = config;
+  }
+
   public loadConfigFromLocalStorage() {
     const previousGameConfig = localStorage.getItem(PREVIOUS_GAME_CONFIG_KEY);
     if (previousGameConfig != null) {

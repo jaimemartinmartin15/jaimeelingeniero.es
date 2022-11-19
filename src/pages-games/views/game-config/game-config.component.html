@@ -59,7 +59,7 @@
 
         <span class="player-id" cdkDragHandle>{{i + 1}}. </span>
 
-        <input class="input" #playerInput type="text" [(ngModel)]="playerNames[i]">
+        <input class="input" #playerInput type="text" [(ngModel)]="playerNames[i]" (ngModelChange)="updateStatusStartGameButton()">
 
         <svg appDealCardsSvg viewBox="0 0 1000 1000" (click)="playerStartsDealing = i" class="deal-cards-icon"
           [ngClass]="{'deal-cards-icon--active': playerStartsDealing === i}"></svg>

@@ -20,6 +20,7 @@ import { StatisticsComponent } from './views/statistics/statistics.component';
 import { BottomControlsComponent } from './components/bottom-controls/bottom-controls.component';
 import { PopUpsService } from './services/pop-ups.service';
 import { GameConfigComponent } from './views/game-config/game-config.component';
+import { BottomControlsService } from './components/bottom-controls/bottom-controls.service';
 
 @NgModule({
   imports: [CommonModule, PagesGamesRoutingModule, FormsModule, DragDropModule, PipesModule, PagesGamesSvgModule],
@@ -48,6 +49,6 @@ import { GameConfigComponent } from './views/game-config/game-config.component';
     LoadNewGamePopUpComponent,
     RestartGamePopUpComponent,
   ],
-  providers: [PlayersService, GameConfigService, PopUpsService],
+  providers: [PlayersService, GameConfigService, PopUpsService, BottomControlsService],
 })
 export class PagesGamesModule {}

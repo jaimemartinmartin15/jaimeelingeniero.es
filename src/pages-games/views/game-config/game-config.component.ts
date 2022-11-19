@@ -1,9 +1,26 @@
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
-import { AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, QueryList, ViewChild, ViewChildren } from '@angular/core';
+import {
+  AfterViewInit,
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  ElementRef,
+  OnInit,
+  QueryList,
+  ViewChild,
+  ViewChildren,
+} from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { BottomControlsService } from 'src/pages-games/components/bottom-controls/bottom-controls.service';
+import { PREVIOUS_GAME_KEY } from 'src/pages-games/local-storage-keys';
+import { PATHS } from 'src/pages-games/paths';
+import { GameConfigService } from 'src/pages-games/services/game/game-config.service';
 import { chinchonConfig } from 'src/pages-games/services/game/game-configs/chinchon-config';
 import { GameConfig } from 'src/pages-games/services/game/game-configs/game-config';
 import { pochaConfig } from 'src/pages-games/services/game/game-configs/pocha-config';
 import { unoConfig } from 'src/pages-games/services/game/game-configs/uno-config';
+import { Player } from 'src/pages-games/services/player/player';
+import { PlayersService } from 'src/pages-games/services/player/players.service';
 
 @Component({
   selector: 'app-game-config',
@@ -11,7 +28,7 @@ import { unoConfig } from 'src/pages-games/services/game/game-configs/uno-config
   styleUrls: ['./game-config.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class GameConfigComponent implements AfterViewInit {
+export class GameConfigComponent implements OnInit, AfterViewInit {
   private readonly availableConfigs = [pochaConfig, chinchonConfig, unoConfig];
   public selectedConfigGame: GameConfig = pochaConfig;
 
@@ -38,7 +55,28 @@ export class GameConfigComponent implements AfterViewInit {
   @ViewChild('limitScore')
   public limitScoreContainer: ElementRef<HTMLDivElement>;
 
-  public constructor(private readonly changeDetectorRef: ChangeDetectorRef) {}
+  public constructor(
+    private readonly router: Router,
+    private readonly activatedRoute: ActivatedRoute,
+    private readonly changeDetectorRef: ChangeDetectorRef,
+    private readonly bottomControlsService: BottomControlsService,
+    private readonly playersService: PlayersService,
+    private readonly gameConfigService: GameConfigService
+  ) {}
+
+  public ngOnInit(): void {
+    this.loadPlayerNamesFromLocalStorage();
+    this.bottomControlsService.onClickStartGameButton$.subscribe(() => this.onConfirmStartGame());
+  }
+
+  private loadPlayerNamesFromLocalStorage() {
+    const previousGame = localStorage.getItem(PREVIOUS_GAME_KEY);
+    if (previousGame != null) {
+      const { players }: { players: Player[] } = JSON.parse(previousGame);
+      this.playerNames = players.sort((p1, p2) => p1.id - p2.id).map((p) => p.name);
+      this.bottomControlsService.enableStartGameButton$.next(true);
+    }
+  }
 
   public onSelectGameName(gameName: string) {
     this.selectGameNameDropDownOpen = false;
@@ -75,6 +113,7 @@ export class GameConfigComponent implements AfterViewInit {
     this.playerNames.push('');
     this.changeDetectorRef.detectChanges();
     this.playerInputs.last.nativeElement.focus();
+    this.bottomControlsService.enableStartGameButton$.next(false);
   }
 
   public deletePlayer(index: number) {
@@ -83,6 +122,7 @@ export class GameConfigComponent implements AfterViewInit {
     const playerNameDealingIndex = this.playerNames.indexOf(playerNameDealing);
     const playerBefore = this.playerStartsDealing - 1;
     this.playerStartsDealing = playerNameDealingIndex !== -1 ? playerNameDealingIndex : playerBefore !== -1 ? playerBefore : 0;
+    this.updateStatusStartGameButton();
   }
 
   public onReorderingPlayer(event: CdkDragDrop<string[]>) {
@@ -102,10 +142,16 @@ export class GameConfigComponent implements AfterViewInit {
     }
   }
 
-  // public onConfirmStartGame(output: StartGamePopUpOutput) {
-  //   // TODO replace or move to confirmation of game-config
-  //   this.playersService.createPlayersWithNames(output.names);
-  //   this.playersService.playersLoaded$.next();
-  //   this.playersService.startsDealing = output.startsDealing;
-  // }
+  public updateStatusStartGameButton() {
+    this.bottomControlsService.enableStartGameButton$.next(this.playerNames.every((n) => n.trim() != ''));
+  }
+
+  public onConfirmStartGame() {
+    this.playersService.createPlayersWithNames(this.playerNames);
+    this.playersService.playersLoaded$.next();
+    this.playersService.startsDealing = this.playerStartsDealing;
+    this.gameConfigService.config = this.selectedConfigGame;
+
+    this.router.navigate(['../', PATHS.RANKING], { relativeTo: this.activatedRoute });
+  }
 }

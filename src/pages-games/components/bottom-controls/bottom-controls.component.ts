@@ -3,6 +3,7 @@ import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { filter, map } from 'rxjs';
 import { PATHS } from '../../paths';
 import { PopUpsService } from '../../services/pop-ups.service';
+import { BottomControlsService } from './bottom-controls.service';
 
 @Component({
   selector: 'app-bottom-controls',
@@ -11,11 +12,13 @@ import { PopUpsService } from '../../services/pop-ups.service';
 })
 export class BottomControlsComponent implements OnInit {
   public state: 'game-config' | 'game-started';
+  public startButtonEnabled: boolean = false;
 
   public constructor(
     private readonly router: Router,
     private readonly activatedRoute: ActivatedRoute,
-    public readonly popUpsService: PopUpsService
+    public readonly popUpsService: PopUpsService,
+    public readonly bottomControlsService: BottomControlsService
   ) {}
 
   public ngOnInit(): void {
@@ -28,6 +31,8 @@ export class BottomControlsComponent implements OnInit {
       .subscribe((url: string) => {
         this.state = url.includes(`${PATHS.GAME_CONFIG}`) ? 'game-config' : 'game-started';
       });
+
+    this.bottomControlsService.enableStartGameButton$.subscribe((enabled) => (this.startButtonEnabled = enabled));
   }
 
   public changeView() {
@@ -42,14 +47,5 @@ export class BottomControlsComponent implements OnInit {
    */
   public goToGameConfigView() {
     this.router.navigate(['./', PATHS.GAME_CONFIG], { relativeTo: this.activatedRoute, queryParamsHandling: 'merge' });
-  }
-
-  /**
-   * Called when config is entered in the screen
-   */
-  public startGame() {
-    // TODO collect players and configuration
-
-    this.router.navigate(['./', PATHS.RANKING], { relativeTo: this.activatedRoute, queryParamsHandling: 'merge' });
   }
 }
