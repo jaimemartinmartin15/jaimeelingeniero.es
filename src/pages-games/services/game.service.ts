@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { ReplaySubject } from 'rxjs';
-import { PREVIOUS_GAME_CONFIG_KEY, PREVIOUS_GAME_DATE_KEY, PREVIOUS_GAME_KEY } from '../local-storage-keys';
+import { CONFIG_KEY, DATE_KEY, PLAYERS_KEY, STARTS_DEALING_KEY } from '../local-storage-keys';
 import { IPlayer, Player } from '../interfaces/player';
 import { GameConfig } from 'src/pages-games/game-configs/game-config';
 import { ALL_CONFIGS } from 'src/pages-games/game-configs/all-configs';
@@ -88,7 +88,7 @@ export class GameService {
   }
 
   public loadPlayersFromLocalStorage() {
-    const previousGame = localStorage.getItem(PREVIOUS_GAME_KEY);
+    const previousGame = localStorage.getItem(PLAYERS_KEY);
     if (previousGame != null) {
       const { players } = JSON.parse(previousGame);
       this._players = players.map((p: IPlayer) => new Player(p.id, p.name, p.scores, p.accumulatedScores, p.position, p.rejoins));
@@ -96,12 +96,12 @@ export class GameService {
   }
 
   public savePlayersToLocalStorage() {
-    localStorage.setItem(PREVIOUS_GAME_KEY, JSON.stringify({ players: this._players }));
-    localStorage.setItem(PREVIOUS_GAME_DATE_KEY, JSON.stringify(Date.now()));
+    localStorage.setItem(PLAYERS_KEY, JSON.stringify({ players: this._players }));
+    localStorage.setItem(DATE_KEY, JSON.stringify(Date.now()));
   }
 
   public loadConfigFromLocalStorage() {
-    const previousGameConfig = localStorage.getItem(PREVIOUS_GAME_CONFIG_KEY);
+    const previousGameConfig = localStorage.getItem(CONFIG_KEY);
     if (previousGameConfig != null) {
       const config = JSON.parse(previousGameConfig).config;
       const knownConfig = ALL_CONFIGS.find((c) => c.name === config.name);
@@ -110,7 +110,18 @@ export class GameService {
   }
 
   public saveConfigToLocalStorage() {
-    localStorage.setItem(PREVIOUS_GAME_CONFIG_KEY, JSON.stringify({ config: this._selectedGameConfig }));
+    localStorage.setItem(CONFIG_KEY, JSON.stringify({ config: this._selectedGameConfig }));
+  }
+
+  public loadWhoStartsDealingFromLocalStorage() {
+    const startsDealingStorage = localStorage.getItem(STARTS_DEALING_KEY);
+    if (startsDealingStorage != null) {
+      this._startsDealing = +startsDealingStorage;
+    }
+  }
+
+  public saveWhoStartsDealingFromLocalStorage() {
+    localStorage.setItem(STARTS_DEALING_KEY, `${this._startsDealing}`);
   }
 
   public setScores(players: Pick<Player, 'id' | 'punctuation'>[], round: number) {

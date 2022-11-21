@@ -1,6 +1,7 @@
-<strong>{{gameService.config.name | titlecase}}</strong>
-
-<br>
+<ng-container *ngIf="gameService.config.name != 'otro'">
+  <strong>{{gameService.config.name | titlecase}}</strong>
+  <br>
+</ng-container>
 
 <!-- Pocha config -->
 <ng-container *ngIf="gameService.config.name === pochaConfig.name">

@@ -1,3 +1,4 @@
-export const PREVIOUS_GAME_KEY = 'previousGame';
-export const PREVIOUS_GAME_DATE_KEY = 'previousGameDate';
-export const PREVIOUS_GAME_CONFIG_KEY = 'previousGameConfig';
+export const PLAYERS_KEY = 'pagesGames-players';
+export const DATE_KEY = 'pagesGames-date';
+export const CONFIG_KEY = 'pagesGames-config';
+export const STARTS_DEALING_KEY = 'pagesGames-startsDealing';

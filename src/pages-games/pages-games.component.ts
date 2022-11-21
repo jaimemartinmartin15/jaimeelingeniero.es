@@ -4,7 +4,7 @@ import { Meta, Title } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import { distinctUntilChanged, filter, fromEvent, map, pairwise, startWith, tap } from 'rxjs';
 import { BottomControlsService } from './components/bottom-controls/bottom-controls.service';
-import { PREVIOUS_GAME_DATE_KEY } from './local-storage-keys';
+import { DATE_KEY } from './local-storage-keys';
 import { PATHS } from './paths';
 import { EnterPunctuationPopUpInput, EnterPunctuationPopUpOutput } from './pop-ups/enter-punctuation-pop-up/enter-punctuation-pop-up.contract';
 import { GameService } from './services/game.service';
@@ -93,7 +93,7 @@ export class PagesGamesComponent implements OnInit, OnDestroy {
   }
 
   private thereIsGameInProgress(): boolean {
-    const lastSavedGameDate = localStorage.getItem(PREVIOUS_GAME_DATE_KEY);
+    const lastSavedGameDate = localStorage.getItem(DATE_KEY);
     const twoHoursAgo = Date.now() - 2 * 60 * 60 * 1000;
     return lastSavedGameDate != null && +lastSavedGameDate > twoHoursAgo;
   }
@@ -108,6 +108,7 @@ export class PagesGamesComponent implements OnInit, OnDestroy {
 
     this.gameService.loadPlayersFromLocalStorage();
     this.gameService.loadConfigFromLocalStorage();
+    this.gameService.loadWhoStartsDealingFromLocalStorage();
     this.gameService.playersLoaded$.next();
     this.router.navigate(['./', PATHS.RANKING], { relativeTo: this.activatedRoute });
   }
@@ -153,6 +154,7 @@ export class PagesGamesComponent implements OnInit, OnDestroy {
     this.gameService.calculatePlayerPositions();
     this.gameService.savePlayersToLocalStorage();
     this.gameService.saveConfigToLocalStorage();
+    this.gameService.saveWhoStartsDealingFromLocalStorage();
     this.gameService.scoreChanged$.next();
   }
 

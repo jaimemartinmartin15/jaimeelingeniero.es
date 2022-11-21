@@ -12,7 +12,7 @@ import {
 } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BottomControlsService } from 'src/pages-games/components/bottom-controls/bottom-controls.service';
-import { PREVIOUS_GAME_KEY } from 'src/pages-games/local-storage-keys';
+import { PLAYERS_KEY } from 'src/pages-games/local-storage-keys';
 import { PATHS } from 'src/pages-games/paths';
 import { chinchonConfig } from 'src/pages-games/game-configs/chinchon-config';
 import { GameConfig } from 'src/pages-games/game-configs/game-config';
@@ -69,7 +69,7 @@ export class GameConfigComponent implements OnInit, AfterViewInit {
   }
 
   private loadPlayerNamesFromLocalStorage() {
-    const previousGame = localStorage.getItem(PREVIOUS_GAME_KEY);
+    const previousGame = localStorage.getItem(PLAYERS_KEY);
     if (previousGame != null) {
       const { players }: { players: Player[] } = JSON.parse(previousGame);
       this.playerNames = players.sort((p1, p2) => p1.id - p2.id).map((p) => p.name);
