@@ -17,6 +17,7 @@ import { PATHS } from 'src/pages-games/paths';
 import { GameConfigService } from 'src/pages-games/services/game/game-config.service';
 import { chinchonConfig } from 'src/pages-games/services/game/game-configs/chinchon-config';
 import { GameConfig } from 'src/pages-games/services/game/game-configs/game-config';
+import { otherConfig } from 'src/pages-games/services/game/game-configs/other-config';
 import { pochaConfig } from 'src/pages-games/services/game/game-configs/pocha-config';
 import { unoConfig } from 'src/pages-games/services/game/game-configs/uno-config';
 import { Player } from 'src/pages-games/services/player/player';
@@ -29,7 +30,7 @@ import { PlayersService } from 'src/pages-games/services/player/players.service'
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class GameConfigComponent implements OnInit, AfterViewInit {
-  private readonly availableConfigs = [pochaConfig, chinchonConfig, unoConfig];
+  private readonly availableConfigs = [pochaConfig, chinchonConfig, unoConfig, otherConfig];
   public selectedConfigGame: GameConfig = pochaConfig;
 
   // game name
@@ -103,6 +104,16 @@ export class GameConfigComponent implements OnInit, AfterViewInit {
       this.selectedNumberOfCards++;
       scrollContainer.scroll(50, 0);
     }
+  }
+
+  public setWinnerConfigHighestScore() {
+    this.winner = 'highestScore';
+    this.selectedConfigGame.sortPlayers = (p1, p2) => p2.totalScore.afterRejoin - p1.totalScore.afterRejoin;
+  }
+
+  public setWinnerConfigLowestScore() {
+    this.winner = 'lowestScore';
+    this.selectedConfigGame.sortPlayers = (p1, p2) => p1.totalScore.afterRejoin - p2.totalScore.afterRejoin;
   }
 
   public trackByPlayerIndex(index: number) {

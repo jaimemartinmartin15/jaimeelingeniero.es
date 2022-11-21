@@ -22,15 +22,15 @@
     </div>
   </div>
 
-  <div class="winner" *ngIf="selectedConfigGame.sortPlayers == undefined">
+  <div class="winner" *ngIf="selectedConfigGame.name === 'otro'">
     <span>Ganador</span>
 
-    <div class="radio-element" (click)="winner = 'highestScore'">
+    <div class="radio-element" (click)="setWinnerConfigHighestScore()">
       <span class="radio-button" [ngClass]="{selected: winner === 'highestScore'}"></span>
       Quien más puntos tiene
     </div>
 
-    <div class="radio-element" (click)="winner = 'lowestScore'">
+    <div class="radio-element" (click)="setWinnerConfigLowestScore()">
       <span class="radio-button" [ngClass]="{selected: winner === 'lowestScore'}"></span>
       Quien menos puntos tiene
     </div>
@@ -59,7 +59,8 @@
 
         <span class="player-id" cdkDragHandle>{{i + 1}}. </span>
 
-        <input class="input" #playerInput type="text" [(ngModel)]="playerNames[i]" (ngModelChange)="updateStatusStartGameButton()">
+        <input class="input" #playerInput type="text" [(ngModel)]="playerNames[i]"
+          (ngModelChange)="updateStatusStartGameButton()">
 
         <svg appDealCardsSvg viewBox="0 0 1000 1000" (click)="playerStartsDealing = i" class="deal-cards-icon"
           [ngClass]="{'deal-cards-icon--active': playerStartsDealing === i}"></svg>
