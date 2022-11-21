@@ -10,6 +10,7 @@ import { BottomControlsService } from './bottom-controls.service';
   styleUrls: ['./bottom-controls.component.scss'],
 })
 export class BottomControlsComponent implements OnInit {
+  public showViewNavigation: boolean = false;
   public state: 'game-config' | 'game-started';
   public startButtonEnabled: boolean = false;
 
@@ -31,13 +32,6 @@ export class BottomControlsComponent implements OnInit {
       });
 
     this.bottomControlsService.enableStartGameButton$.subscribe((enabled) => (this.startButtonEnabled = enabled));
-  }
-
-  public changeView() {
-    // TODO show pop up with possible options to navigate
-    //   💹 estadísticas
-    //   🏅 ranking
-    //   ⬜ table
   }
 
   public goToGameConfigView() {
