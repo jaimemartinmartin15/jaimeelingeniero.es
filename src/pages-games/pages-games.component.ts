@@ -3,11 +3,12 @@ import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { Meta, Title } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import { distinctUntilChanged, filter, fromEvent, map, pairwise, startWith, tap } from 'rxjs';
+import { BottomControlsService } from './components/bottom-controls/bottom-controls.service';
 import { PREVIOUS_GAME_DATE_KEY } from './local-storage-keys';
 import { PATHS } from './paths';
 import { EnterPunctuationPopUpInput, EnterPunctuationPopUpOutput } from './pop-ups/enter-punctuation-pop-up/enter-punctuation-pop-up.contract';
 import { GameService } from './services/game.service';
-import { PopUpsService } from './services/pop-ups.service';
+import { ScoreboardService } from './views/scoreboard/scoreboard.service';
 
 @Component({
   selector: 'app-pages-games',
@@ -27,7 +28,8 @@ export class PagesGamesComponent implements OnInit, OnDestroy {
     private readonly metaService: Meta,
     @Inject(DOCUMENT) private document: Document,
     private readonly gameService: GameService,
-    public readonly popUpsService: PopUpsService,
+    public readonly scoreboardService: ScoreboardService,
+    public readonly bottomControlsService: BottomControlsService,
     public readonly router: Router,
     private readonly activatedRoute: ActivatedRoute
   ) {}
@@ -35,10 +37,10 @@ export class PagesGamesComponent implements OnInit, OnDestroy {
   public ngOnInit(): void {
     this.setTitleAndTags();
 
-    this.listenOpenEnterRoundPopUp();
+    this.listenOpenEnterPunctuationPopUp();
     this.listenAddressBarMobile();
 
-    if (!this.checkIfThereIsGameInProgress()) {
+    if (!this.thereIsGameInProgress()) {
       this.router.navigate(['./', PATHS.GAME_CONFIG], { relativeTo: this.activatedRoute, queryParamsHandling: 'merge' });
       return;
     }
@@ -46,10 +48,10 @@ export class PagesGamesComponent implements OnInit, OnDestroy {
     this.showContinueGameInProgressPopUp = true;
   }
 
-  private listenOpenEnterRoundPopUp() {
-    this.popUpsService.enterNewRound$.subscribe(() => this.enterNewRound());
-    this.popUpsService.enterRound$.subscribe((round: number) => this.enterRound(round));
-    this.popUpsService.enterPunctuationForRoundAndPlayer$.subscribe((roundAndPlayer) => this.enterPunctuationForRoundAndPlayer(roundAndPlayer));
+  private listenOpenEnterPunctuationPopUp() {
+    this.bottomControlsService.onClickEnterNewRound$.subscribe(() => this.enterNewRound());
+    this.scoreboardService.enterRound$.subscribe((round: number) => this.enterRound(round));
+    this.scoreboardService.enterPunctuationForRoundAndPlayer$.subscribe((roundAndPlayer) => this.enterPunctuationForRoundAndPlayer(roundAndPlayer));
   }
 
   /**
@@ -90,7 +92,7 @@ export class PagesGamesComponent implements OnInit, OnDestroy {
     }
   }
 
-  private checkIfThereIsGameInProgress(): boolean {
+  private thereIsGameInProgress(): boolean {
     const lastSavedGameDate = localStorage.getItem(PREVIOUS_GAME_DATE_KEY);
     const twoHoursAgo = Date.now() - 2 * 60 * 60 * 1000;
     return lastSavedGameDate != null && +lastSavedGameDate > twoHoursAgo;

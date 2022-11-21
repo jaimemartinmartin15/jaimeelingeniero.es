@@ -3,7 +3,7 @@ import { Subject, takeUntil } from 'rxjs';
 import { intervalArray } from 'src/utils/arrays';
 import { Player } from '../../interfaces/player';
 import { GameService } from '../../services/game.service';
-import { PopUpsService } from '../../services/pop-ups.service';
+import { ScoreboardService } from './scoreboard.service';
 
 @Component({
   selector: 'app-scoreboard',
@@ -24,7 +24,7 @@ export class ScoreboardComponent implements OnInit, OnDestroy {
   public constructor(
     public readonly gameService: GameService,
     public readonly changeDetectorRef: ChangeDetectorRef,
-    public readonly popUpsService: PopUpsService
+    public readonly scoreboardService: ScoreboardService
   ) {}
 
   public ngOnInit(): void {

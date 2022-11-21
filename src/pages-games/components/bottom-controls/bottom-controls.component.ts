@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { filter, map } from 'rxjs';
 import { PATHS } from '../../paths';
-import { PopUpsService } from '../../services/pop-ups.service';
 import { BottomControlsService } from './bottom-controls.service';
 
 @Component({
@@ -17,7 +16,6 @@ export class BottomControlsComponent implements OnInit {
   public constructor(
     private readonly router: Router,
     private readonly activatedRoute: ActivatedRoute,
-    public readonly popUpsService: PopUpsService,
     public readonly bottomControlsService: BottomControlsService
   ) {}
 

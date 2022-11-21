@@ -5,4 +5,5 @@ import { Subject } from 'rxjs';
 export class BottomControlsService {
   public readonly onClickStartGameButton$ = new Subject<void>();
   public readonly enableStartGameButton$ = new Subject<boolean>();
+  public readonly onClickEnterNewRound$ = new Subject<void>();
 }

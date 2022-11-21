@@ -15,7 +15,7 @@ import { ContinueGameInProgressPopUpComponent } from './pop-ups/continue-game-in
 import { ScoreboardComponent } from './views/scoreboard/scoreboard.component';
 import { StatisticsComponent } from './views/statistics/statistics.component';
 import { BottomControlsComponent } from './components/bottom-controls/bottom-controls.component';
-import { PopUpsService } from './services/pop-ups.service';
+import { ScoreboardService } from './views/scoreboard/scoreboard.service';
 import { GameConfigComponent } from './views/game-config/game-config.component';
 import { BottomControlsService } from './components/bottom-controls/bottom-controls.service';
 
@@ -44,6 +44,6 @@ import { BottomControlsService } from './components/bottom-controls/bottom-contr
     EnterPunctuationPopUpComponent,
     ContinueGameInProgressPopUpComponent,
   ],
-  providers: [GameService, PopUpsService, BottomControlsService],
+  providers: [GameService, ScoreboardService, BottomControlsService],
 })
 export class PagesGamesModule {}
