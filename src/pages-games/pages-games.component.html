@@ -1,9 +1,10 @@
-<app-restart-game-pop-up *ngIf="showContinueGameInProgressPopUp" (confirmation)="onConfirmIfContinueGameInProgress($event)">
-</app-restart-game-pop-up>
+<app-continue-game-in-progress-pop-up *ngIf="showContinueGameInProgressPopUp"
+  (confirmation)="onConfirmIfContinueGameInProgress($event)">
+</app-continue-game-in-progress-pop-up>
 
-<app-next-round-pop-up *ngIf="showNewRoundPopUp" [nextRoundPopUpInput]="nextRoundPopUpInput"
-  (nextRoundPopUpOutput)="onResultNewRound($event)" (closePopUp)="showNewRoundPopUp = false">
-</app-next-round-pop-up>
+<app-enter-punctuation-pop-up *ngIf="showEnterPunctuationPopUp" [enterPunctuationPopUpInput]="enterPunctuationPopUpInput"
+  (enterPunctuationPopUpOutput)="onResultEnterPunctuation($event)" (closePopUp)="showEnterPunctuationPopUp = false">
+</app-enter-punctuation-pop-up>
 
 <div class="view-page" [ngClass]="{'fix-address-bar-height': addressBarHidden}">
   <router-outlet></router-outlet>

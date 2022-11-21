@@ -1,8 +1,8 @@
 import { Player } from '../../services/player/player';
 
-export interface NextRoundPopUpInput {
+export interface EnterPunctuationPopUpInput {
   round: number;
   players: Pick<Player, 'id' | 'name' | 'punctuation'>[];
 }
 
-export type NextRoundPopUpOutput = NextRoundPopUpInput;
+export type EnterPunctuationPopUpOutput = EnterPunctuationPopUpInput;

@@ -5,7 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { distinctUntilChanged, filter, fromEvent, map, pairwise, startWith, tap } from 'rxjs';
 import { PREVIOUS_GAME_DATE_KEY } from './local-storage-keys';
 import { PATHS } from './paths';
-import { NextRoundPopUpInput, NextRoundPopUpOutput } from './pop-ups/next-round-pop-up/next-round-pop-up.contract';
+import { EnterPunctuationPopUpInput, EnterPunctuationPopUpOutput } from './pop-ups/enter-punctuation-pop-up/enter-punctuation-pop-up.contract';
 import { GameConfigService } from './services/game/game-config.service';
 import { PlayersService } from './services/player/players.service';
 import { PopUpsService } from './services/pop-ups.service';
@@ -19,9 +19,9 @@ export class PagesGamesComponent implements OnInit, OnDestroy {
   public addressBarHidden = false;
 
   public showContinueGameInProgressPopUp = false;
-  public showNewRoundPopUp = false;
+  public showEnterPunctuationPopUp = false;
 
-  public nextRoundPopUpInput: NextRoundPopUpInput;
+  public enterPunctuationPopUpInput: EnterPunctuationPopUpInput;
 
   public constructor(
     private readonly titleService: Title,
@@ -113,8 +113,8 @@ export class PagesGamesComponent implements OnInit, OnDestroy {
   }
 
   private enterNewRound() {
-    this.showNewRoundPopUp = true;
-    this.nextRoundPopUpInput = {
+    this.showEnterPunctuationPopUp = true;
+    this.enterPunctuationPopUpInput = {
       round: this.playersService.nextRoundNumber,
       players: this.playersService.playersById.map((p) => {
         p.punctuation = 0;
@@ -124,8 +124,8 @@ export class PagesGamesComponent implements OnInit, OnDestroy {
   }
 
   private enterRound(round: number) {
-    this.showNewRoundPopUp = true;
-    this.nextRoundPopUpInput = {
+    this.showEnterPunctuationPopUp = true;
+    this.enterPunctuationPopUpInput = {
       round: round + 1,
       players: this.playersService.playersById.map((p) => {
         p.punctuation = p.scores[round];
@@ -135,8 +135,8 @@ export class PagesGamesComponent implements OnInit, OnDestroy {
   }
 
   private enterPunctuationForRoundAndPlayer({ round, player }: { round: number; player: number }) {
-    this.showNewRoundPopUp = true;
-    this.nextRoundPopUpInput = {
+    this.showEnterPunctuationPopUp = true;
+    this.enterPunctuationPopUpInput = {
       round: round + 1,
       players: [this.playersService.playerWithId(player)].map((p) => {
         p.punctuation = p.scores[round];
@@ -145,8 +145,8 @@ export class PagesGamesComponent implements OnInit, OnDestroy {
     };
   }
 
-  public onResultNewRound({ players, round }: NextRoundPopUpOutput) {
-    this.showNewRoundPopUp = false;
+  public onResultEnterPunctuation({ players, round }: EnterPunctuationPopUpOutput) {
+    this.showEnterPunctuationPopUp = false;
     this.playersService.setScores(players, round - 1);
     this.playersService.calculateAccumulatedScores();
     this.playersService.calculateRejoins();

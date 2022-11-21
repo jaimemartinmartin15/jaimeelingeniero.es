@@ -1,21 +1,21 @@
 import { AnimationBuilder } from '@angular/animations';
 import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
-import { playPlayerTransitionAnimation } from './next-round-pop-up.animation';
-import { NextRoundPopUpInput, NextRoundPopUpOutput } from './next-round-pop-up.contract';
+import { playPlayerTransitionAnimation } from './enter-punctuation-pop-up.animation';
+import { EnterPunctuationPopUpInput, EnterPunctuationPopUpOutput } from './enter-punctuation-pop-up.contract';
 
 @Component({
-  selector: 'app-next-round-pop-up',
-  templateUrl: './next-round-pop-up.component.html',
-  styleUrls: ['./next-round-pop-up.component.scss'],
+  selector: 'app-enter-punctuation-pop-up',
+  templateUrl: './enter-punctuation-pop-up.component.html',
+  styleUrls: ['./enter-punctuation-pop-up.component.scss'],
 })
-export class NextRoundPopUpComponent implements OnInit {
+export class EnterPunctuationPopUpComponent implements OnInit {
   @ViewChild('playersContainer') playersContainerElement: ElementRef;
 
   @Input()
-  public nextRoundPopUpInput: NextRoundPopUpInput;
+  public enterPunctuationPopUpInput: EnterPunctuationPopUpInput;
 
   @Output()
-  public nextRoundPopUpOutput = new EventEmitter<NextRoundPopUpOutput>();
+  public enterPunctuationPopUpOutput = new EventEmitter<EnterPunctuationPopUpOutput>();
 
   @Output()
   public closePopUp = new EventEmitter<void>();
@@ -53,10 +53,10 @@ export class NextRoundPopUpComponent implements OnInit {
   }
 
   public goNextPlayer() {
-    if (++this.currentPlayer == this.nextRoundPopUpInput.players.length) {
-      this.nextRoundPopUpOutput.emit({
-        round: this.nextRoundPopUpInput.round,
-        players: this.nextRoundPopUpInput.players,
+    if (++this.currentPlayer == this.enterPunctuationPopUpInput.players.length) {
+      this.enterPunctuationPopUpOutput.emit({
+        round: this.enterPunctuationPopUpInput.round,
+        players: this.enterPunctuationPopUpInput.players,
       });
       return;
     }
@@ -74,10 +74,10 @@ export class NextRoundPopUpComponent implements OnInit {
   }
 
   public get puntuationCurrentPlayer() {
-    return this.nextRoundPopUpInput.players[this.currentPlayer].punctuation;
+    return this.enterPunctuationPopUpInput.players[this.currentPlayer].punctuation;
   }
 
   public set puntuationCurrentPlayer(puntuation: number) {
-    this.nextRoundPopUpInput.players[this.currentPlayer].punctuation = puntuation;
+    this.enterPunctuationPopUpInput.players[this.currentPlayer].punctuation = puntuation;
   }
 }
