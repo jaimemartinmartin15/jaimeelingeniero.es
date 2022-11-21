@@ -1,4 +1,4 @@
-import { Player } from '../../services/player/player';
+import { Player } from '../../interfaces/player';
 
 export interface EnterPunctuationPopUpInput {
   round: number;

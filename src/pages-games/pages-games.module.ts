@@ -6,9 +6,8 @@ import { PipesModule } from 'src/shared/pipes/pipes.module';
 import { PagesGamesSvgModule } from 'src/svg/generated/pages-games-svg.module';
 import { PagesGamesRoutingModule } from './pages-games-routing.module';
 import { PagesGamesComponent } from './pages-games.component';
-import { GameConfigService } from './services/game/game-config.service';
 import { EnterPunctuationPopUpComponent } from './pop-ups/enter-punctuation-pop-up/enter-punctuation-pop-up.component';
-import { PlayersService } from './services/player/players.service';
+import { GameService } from './services/game.service';
 import { PlayerDisplayComponent } from './views/ranking/player-display/player-display.component';
 import { RankingComponent } from './views/ranking/ranking.component';
 import { RoundInfoComponent } from './views/ranking/round-info/round-info.component';
@@ -45,6 +44,6 @@ import { BottomControlsService } from './components/bottom-controls/bottom-contr
     EnterPunctuationPopUpComponent,
     ContinueGameInProgressPopUpComponent,
   ],
-  providers: [PlayersService, GameConfigService, PopUpsService, BottomControlsService],
+  providers: [GameService, PopUpsService, BottomControlsService],
 })
 export class PagesGamesModule {}

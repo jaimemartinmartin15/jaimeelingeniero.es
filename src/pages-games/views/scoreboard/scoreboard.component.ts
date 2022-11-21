@@ -1,8 +1,8 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, HostBinding, OnDestroy, OnInit } from '@angular/core';
 import { Subject, takeUntil } from 'rxjs';
 import { intervalArray } from 'src/utils/arrays';
-import { Player } from '../../services/player/player';
-import { PlayersService } from '../../services/player/players.service';
+import { Player } from '../../interfaces/player';
+import { GameService } from '../../services/game.service';
 import { PopUpsService } from '../../services/pop-ups.service';
 
 @Component({
@@ -18,29 +18,29 @@ export class ScoreboardComponent implements OnInit, OnDestroy {
 
   @HostBinding('class.empty-state')
   public get isEmptyState(): boolean {
-    return this.players == null || this.playersService.playedRounds === 0;
+    return this.players == null || this.gameService.playedRounds === 0;
   }
 
   public constructor(
-    public readonly playersService: PlayersService,
+    public readonly gameService: GameService,
     public readonly changeDetectorRef: ChangeDetectorRef,
     public readonly popUpsService: PopUpsService
   ) {}
 
   public ngOnInit(): void {
-    this.playersService.playersLoaded$.pipe(takeUntil(this.finishSubscriptions$)).subscribe(() => {
-      this.players = this.playersService.playersById;
+    this.gameService.playersLoaded$.pipe(takeUntil(this.finishSubscriptions$)).subscribe(() => {
+      this.players = this.gameService.playersById;
       this.changeDetectorRef.detectChanges();
     });
 
-    this.playersService.scoreChanged$.pipe(takeUntil(this.finishSubscriptions$)).subscribe(() => {
-      this.players = this.playersService.playersById;
+    this.gameService.scoreChanged$.pipe(takeUntil(this.finishSubscriptions$)).subscribe(() => {
+      this.players = this.gameService.playersById;
       this.changeDetectorRef.detectChanges();
     });
   }
 
   public getRoundNumbersAsArray() {
-    return intervalArray(this.playersService.nextRoundNumber - 1);
+    return intervalArray(this.gameService.nextRoundNumber - 1);
   }
 
   public getRoundScores(round: number) {
@@ -49,11 +49,11 @@ export class ScoreboardComponent implements OnInit, OnDestroy {
 
   public getBackgroundColor(score: number): string {
     if (score >= 0) {
-      const scorePercentile = score / this.playersService.maximumScoreInOneRound;
+      const scorePercentile = score / this.gameService.maximumScoreInOneRound;
       const threshold = 255 - 180 * scorePercentile;
       return `background-color: rgb(${threshold}, 255, ${threshold})`;
     } else {
-      const scorePercentile = Math.abs(score) / Math.abs(this.playersService.minimumScoreInOneRound);
+      const scorePercentile = Math.abs(score) / Math.abs(this.gameService.minimumScoreInOneRound);
       const threshold = 255 - 180 * scorePercentile;
       return `background-color: rgb(255,${threshold}, ${threshold})`;
     }

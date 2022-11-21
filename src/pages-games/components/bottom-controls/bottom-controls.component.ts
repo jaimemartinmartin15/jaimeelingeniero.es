@@ -42,9 +42,6 @@ export class BottomControlsComponent implements OnInit {
     //   ⬜ table
   }
 
-  /**
-   * Called when clicking on start new game
-   */
   public goToGameConfigView() {
     this.router.navigate(['./', PATHS.GAME_CONFIG], { relativeTo: this.activatedRoute, queryParamsHandling: 'merge' });
   }

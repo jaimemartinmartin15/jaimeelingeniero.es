@@ -1,18 +1,18 @@
 import { Injectable } from '@angular/core';
 import { ReplaySubject } from 'rxjs';
-import { GameConfigService } from '../game/game-config.service';
-import { PREVIOUS_GAME_DATE_KEY, PREVIOUS_GAME_KEY } from '../../local-storage-keys';
-import { IPlayer, Player } from './player';
+import { PREVIOUS_GAME_CONFIG_KEY, PREVIOUS_GAME_DATE_KEY, PREVIOUS_GAME_KEY } from '../local-storage-keys';
+import { IPlayer, Player } from '../interfaces/player';
+import { GameConfig } from 'src/pages-games/game-configs/game-config';
+import { ALL_CONFIGS } from 'src/pages-games/game-configs/all-configs';
 
 @Injectable()
-export class PlayersService {
+export class GameService {
   private _players: Player[];
   private _startsDealing = 0;
+  private _selectedGameConfig: GameConfig;
 
   public readonly playersLoaded$ = new ReplaySubject<void>(1);
   public readonly scoreChanged$ = new ReplaySubject<void>(1);
-
-  public constructor(private readonly gameConfigService: GameConfigService) {}
 
   public set players(value: Player[]) {
     this._players = value;
@@ -23,7 +23,7 @@ export class PlayersService {
   }
 
   public get playersRankingView(): Player[] {
-    return this._players.sort(this.gameConfigService.config.sortPlayers);
+    return this._players.sort(this.config.sortPlayers);
   }
 
   public get playedRounds(): number {
@@ -59,7 +59,7 @@ export class PlayersService {
   }
 
   public get cardsToDealNextRound(): number {
-    const cardsNumber = this.gameConfigService.config.cardsNumber!;
+    const cardsNumber = this.config.cardsNumber!;
     const playersNumber = this._players.length;
 
     if (this.nextRoundNumber <= cardsNumber / playersNumber) {
@@ -69,6 +69,14 @@ export class PlayersService {
     } else {
       return Math.floor(cardsNumber / playersNumber - (this.nextRoundNumber - cardsNumber / playersNumber - playersNumber) - 1);
     }
+  }
+
+  public get config(): GameConfig {
+    return this._selectedGameConfig;
+  }
+
+  public set config(config: GameConfig) {
+    this._selectedGameConfig = config;
   }
 
   public playerWithId(id: number): Player {
@@ -92,13 +100,26 @@ export class PlayersService {
     localStorage.setItem(PREVIOUS_GAME_DATE_KEY, JSON.stringify(Date.now()));
   }
 
+  public loadConfigFromLocalStorage() {
+    const previousGameConfig = localStorage.getItem(PREVIOUS_GAME_CONFIG_KEY);
+    if (previousGameConfig != null) {
+      const config = JSON.parse(previousGameConfig).config;
+      const knownConfig = ALL_CONFIGS.find((c) => c.name === config.name);
+      this._selectedGameConfig = { ...knownConfig, ...config };
+    }
+  }
+
+  public saveConfigToLocalStorage() {
+    localStorage.setItem(PREVIOUS_GAME_CONFIG_KEY, JSON.stringify({ config: this._selectedGameConfig }));
+  }
+
   public setScores(players: Pick<Player, 'id' | 'punctuation'>[], round: number) {
     players.forEach((p1) => this.playerWithId(p1.id).setRoundValue(p1.punctuation, round));
   }
 
   public calculateAccumulatedScores() {
     for (let round = 0; round < this.playedRounds; round++) {
-      const limitScore = this.gameConfigService.config.limitScore ?? Infinity;
+      const limitScore = this.config.limitScore ?? Infinity;
       const scoreReset = Math.max(
         ...this._players
           .filter((p) => p.accumulatedScores[round].afterRejoin + p.scores[round] < limitScore)
@@ -109,14 +130,14 @@ export class PlayersService {
   }
 
   public calculateRejoins() {
-    const limitScore = this.gameConfigService.config.limitScore;
+    const limitScore = this.config.limitScore;
     if (limitScore != undefined) {
       this._players.forEach((p) => p.calculateRejoins());
     }
   }
 
   public calculatePlayerPositions() {
-    const scores = this._players.sort(this.gameConfigService.config.sortPlayers).map((p) => p.totalScore.afterRejoin);
+    const scores = this._players.sort(this.config.sortPlayers).map((p) => p.totalScore.afterRejoin);
     this._players.forEach((p) => (p.position = scores.indexOf(p.totalScore.afterRejoin) + 1));
   }
 }

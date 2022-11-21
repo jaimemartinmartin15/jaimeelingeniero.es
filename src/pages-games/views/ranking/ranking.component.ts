@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, HostBinding, OnDestroy, OnInit } from '@angular/core';
 import { Subject, takeUntil } from 'rxjs';
-import { Player } from '../../services/player/player';
-import { PlayersService } from '../../services/player/players.service';
+import { Player } from '../../interfaces/player';
+import { GameService } from '../../services/game.service';
 
 @Component({
   selector: 'app-ranking',
@@ -16,19 +16,19 @@ export class RankingComponent implements OnInit, OnDestroy {
 
   @HostBinding('class.empty-state')
   public get isEmptyState(): boolean {
-    return this.players == null || this.playersService.playedRounds === 0;
+    return this.players == null || this.gameService.playedRounds === 0;
   }
 
-  public constructor(public readonly playersService: PlayersService, public readonly changeDetectorRef: ChangeDetectorRef) {}
+  public constructor(public readonly gameService: GameService, public readonly changeDetectorRef: ChangeDetectorRef) {}
 
   public ngOnInit(): void {
-    this.playersService.playersLoaded$.pipe(takeUntil(this.finishSubscriptions$)).subscribe(() => {
-      this.players = this.playersService.playersRankingView;
+    this.gameService.playersLoaded$.pipe(takeUntil(this.finishSubscriptions$)).subscribe(() => {
+      this.players = this.gameService.playersRankingView;
       this.changeDetectorRef.detectChanges();
     });
 
-    this.playersService.scoreChanged$.pipe(takeUntil(this.finishSubscriptions$)).subscribe(() => {
-      this.players = this.playersService.playersRankingView;
+    this.gameService.scoreChanged$.pipe(takeUntil(this.finishSubscriptions$)).subscribe(() => {
+      this.players = this.gameService.playersRankingView;
       this.changeDetectorRef.detectChanges();
     });
   }

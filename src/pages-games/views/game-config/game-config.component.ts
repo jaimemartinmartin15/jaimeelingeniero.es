@@ -14,14 +14,13 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { BottomControlsService } from 'src/pages-games/components/bottom-controls/bottom-controls.service';
 import { PREVIOUS_GAME_KEY } from 'src/pages-games/local-storage-keys';
 import { PATHS } from 'src/pages-games/paths';
-import { GameConfigService } from 'src/pages-games/services/game/game-config.service';
-import { chinchonConfig } from 'src/pages-games/services/game/game-configs/chinchon-config';
-import { GameConfig } from 'src/pages-games/services/game/game-configs/game-config';
-import { otherConfig } from 'src/pages-games/services/game/game-configs/other-config';
-import { pochaConfig } from 'src/pages-games/services/game/game-configs/pocha-config';
-import { unoConfig } from 'src/pages-games/services/game/game-configs/uno-config';
-import { Player } from 'src/pages-games/services/player/player';
-import { PlayersService } from 'src/pages-games/services/player/players.service';
+import { chinchonConfig } from 'src/pages-games/game-configs/chinchon-config';
+import { GameConfig } from 'src/pages-games/game-configs/game-config';
+import { otherConfig } from 'src/pages-games/game-configs/other-config';
+import { pochaConfig } from 'src/pages-games/game-configs/pocha-config';
+import { unoConfig } from 'src/pages-games/game-configs/uno-config';
+import { Player } from 'src/pages-games/interfaces/player';
+import { GameService } from 'src/pages-games/services/game.service';
 
 @Component({
   selector: 'app-game-config',
@@ -61,8 +60,7 @@ export class GameConfigComponent implements OnInit, AfterViewInit {
     private readonly activatedRoute: ActivatedRoute,
     private readonly changeDetectorRef: ChangeDetectorRef,
     private readonly bottomControlsService: BottomControlsService,
-    private readonly playersService: PlayersService,
-    private readonly gameConfigService: GameConfigService
+    private readonly gameService: GameService
   ) {}
 
   public ngOnInit(): void {
@@ -158,10 +156,10 @@ export class GameConfigComponent implements OnInit, AfterViewInit {
   }
 
   public onConfirmStartGame() {
-    this.playersService.createPlayersWithNames(this.playerNames);
-    this.playersService.playersLoaded$.next();
-    this.playersService.startsDealing = this.playerStartsDealing;
-    this.gameConfigService.config = this.selectedConfigGame;
+    this.gameService.createPlayersWithNames(this.playerNames);
+    this.gameService.playersLoaded$.next();
+    this.gameService.startsDealing = this.playerStartsDealing;
+    this.gameService.config = this.selectedConfigGame;
 
     this.router.navigate(['../', PATHS.RANKING], { relativeTo: this.activatedRoute });
   }

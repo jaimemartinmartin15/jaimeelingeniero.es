@@ -6,8 +6,7 @@ import { distinctUntilChanged, filter, fromEvent, map, pairwise, startWith, tap 
 import { PREVIOUS_GAME_DATE_KEY } from './local-storage-keys';
 import { PATHS } from './paths';
 import { EnterPunctuationPopUpInput, EnterPunctuationPopUpOutput } from './pop-ups/enter-punctuation-pop-up/enter-punctuation-pop-up.contract';
-import { GameConfigService } from './services/game/game-config.service';
-import { PlayersService } from './services/player/players.service';
+import { GameService } from './services/game.service';
 import { PopUpsService } from './services/pop-ups.service';
 
 @Component({
@@ -27,8 +26,7 @@ export class PagesGamesComponent implements OnInit, OnDestroy {
     private readonly titleService: Title,
     private readonly metaService: Meta,
     @Inject(DOCUMENT) private document: Document,
-    private readonly playersService: PlayersService,
-    private readonly gameConfigService: GameConfigService,
+    private readonly gameService: GameService,
     public readonly popUpsService: PopUpsService,
     public readonly router: Router,
     private readonly activatedRoute: ActivatedRoute
@@ -106,17 +104,17 @@ export class PagesGamesComponent implements OnInit, OnDestroy {
       return;
     }
 
-    this.playersService.loadPlayersFromLocalStorage();
-    this.gameConfigService.loadConfigFromLocalStorage();
-    this.playersService.playersLoaded$.next();
+    this.gameService.loadPlayersFromLocalStorage();
+    this.gameService.loadConfigFromLocalStorage();
+    this.gameService.playersLoaded$.next();
     this.router.navigate(['./', PATHS.RANKING], { relativeTo: this.activatedRoute });
   }
 
   private enterNewRound() {
     this.showEnterPunctuationPopUp = true;
     this.enterPunctuationPopUpInput = {
-      round: this.playersService.nextRoundNumber,
-      players: this.playersService.playersById.map((p) => {
+      round: this.gameService.nextRoundNumber,
+      players: this.gameService.playersById.map((p) => {
         p.punctuation = 0;
         return p;
       }),
@@ -127,7 +125,7 @@ export class PagesGamesComponent implements OnInit, OnDestroy {
     this.showEnterPunctuationPopUp = true;
     this.enterPunctuationPopUpInput = {
       round: round + 1,
-      players: this.playersService.playersById.map((p) => {
+      players: this.gameService.playersById.map((p) => {
         p.punctuation = p.scores[round];
         return p;
       }),
@@ -138,7 +136,7 @@ export class PagesGamesComponent implements OnInit, OnDestroy {
     this.showEnterPunctuationPopUp = true;
     this.enterPunctuationPopUpInput = {
       round: round + 1,
-      players: [this.playersService.playerWithId(player)].map((p) => {
+      players: [this.gameService.playerWithId(player)].map((p) => {
         p.punctuation = p.scores[round];
         return p;
       }),
@@ -147,13 +145,13 @@ export class PagesGamesComponent implements OnInit, OnDestroy {
 
   public onResultEnterPunctuation({ players, round }: EnterPunctuationPopUpOutput) {
     this.showEnterPunctuationPopUp = false;
-    this.playersService.setScores(players, round - 1);
-    this.playersService.calculateAccumulatedScores();
-    this.playersService.calculateRejoins();
-    this.playersService.calculatePlayerPositions();
-    this.playersService.savePlayersToLocalStorage();
-    this.gameConfigService.saveConfigToLocalStorage();
-    this.playersService.scoreChanged$.next();
+    this.gameService.setScores(players, round - 1);
+    this.gameService.calculateAccumulatedScores();
+    this.gameService.calculateRejoins();
+    this.gameService.calculatePlayerPositions();
+    this.gameService.savePlayersToLocalStorage();
+    this.gameService.saveConfigToLocalStorage();
+    this.gameService.scoreChanged$.next();
   }
 
   public ngOnDestroy(): void {
