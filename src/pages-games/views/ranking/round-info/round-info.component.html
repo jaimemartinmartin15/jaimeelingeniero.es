@@ -1,3 +1,7 @@
+<strong>{{gameService.config.name | titlecase}}</strong>
+
+<br>
+
 <!-- Pocha config -->
 <ng-container *ngIf="gameService.config.name === pochaConfig.name">
   <ng-container *ngIf="gameService.cardsToDealNextRound >= 0">
@@ -20,4 +24,8 @@
   <span class="no-break">Ronda: <strong>{{gameService.nextRoundNumber}}</strong></span>
   &nbsp;&nbsp;
   <span class="no-break">Reparte: <strong>{{gameService.playerNameDealsNextRound}}</strong></span>
+  <ng-container *ngIf="gameService.config.limitScore != undefined">
+    &nbsp;&nbsp;
+    <span class="no-break">Límite: <strong>{{gameService.config.limitScore}}</strong></span>
+  </ng-container>
 </ng-container>
