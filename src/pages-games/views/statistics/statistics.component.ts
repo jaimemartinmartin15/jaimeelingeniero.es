@@ -1,8 +1,8 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, HostBinding, OnDestroy, OnInit } from '@angular/core';
 import { Subject, takeUntil } from 'rxjs';
 import { intervalArray } from 'src/utils/arrays';
-import { Player } from '../../services/player/player';
-import { PlayersService } from '../../services/player/players.service';
+import { Player } from '../../interfaces/player';
+import { GameService } from '../../services/game.service';
 
 @Component({
   selector: 'app-statistics',
@@ -19,29 +19,29 @@ export class StatisticsComponent implements OnInit, OnDestroy {
   public playersPanelInfoPositionMovements: number[];
   public playersPanelInfoSorted: Player[];
   public players: Player[];
-  public colors: string[] = ['#ff0000', '#0000ff', '#008000', '#4cd3d3', '#804000', '#9d9d9d', '#c32aed', '#e0e000'];
+  public colors: string[] = ['#ff0000', '#0000ff', '#008000', '#804000', '#4cd3d3', '#9d9d9d', '#c32aed', '#e0e000'];
 
   @HostBinding('class.empty-state')
   public get isEmptyState(): boolean {
-    return this.players == null || this.playersService.playedRounds === 0;
+    return this.players == null || this.gameService.playedRounds === 0;
   }
 
   public constructor(
     public readonly element: ElementRef,
-    public readonly playersService: PlayersService,
+    public readonly gameService: GameService,
     public readonly changeDetectorRef: ChangeDetectorRef
   ) {}
 
   public ngOnInit(): void {
-    this.playersService.playersLoaded$.pipe(takeUntil(this.finishSubscriptions$)).subscribe(() => {
-      this.players = this.playersService.playersById;
+    this.gameService.playersLoaded$.pipe(takeUntil(this.finishSubscriptions$)).subscribe(() => {
+      this.players = this.gameService.playersById;
       this.createColorsForPlayers();
       this.showPlayerGraphLines = new Array(this.players.length).fill(true);
       this.changeDetectorRef.detectChanges();
     });
 
-    this.playersService.scoreChanged$.pipe(takeUntil(this.finishSubscriptions$)).subscribe(() => {
-      this.players = this.playersService.playersById;
+    this.gameService.scoreChanged$.pipe(takeUntil(this.finishSubscriptions$)).subscribe(() => {
+      this.players = this.gameService.playersById;
       this.changeDetectorRef.detectChanges();
     });
   }
@@ -74,14 +74,14 @@ export class StatisticsComponent implements OnInit, OnDestroy {
   public get viewBox(): any {
     return {
       x: 0,
-      y: this.playersService.minimumAccumulatedScore,
+      y: this.gameService.minimumAccumulatedScore,
       width: this.element.nativeElement.offsetWidth,
-      height: this.playersService.maximumAccumulatedScore - this.playersService.minimumAccumulatedScore,
+      height: this.gameService.maximumAccumulatedScore - this.gameService.minimumAccumulatedScore,
     };
   }
 
   public get roundSvgMarkers(): number[] {
-    return intervalArray(this.playersService.playedRounds / 5);
+    return intervalArray(this.gameService.playedRounds / 5);
   }
 
   public get playersWithMaxCurrentScore(): string {
@@ -102,14 +102,14 @@ export class StatisticsComponent implements OnInit, OnDestroy {
 
   public get playersMaxScoreInRound(): string {
     return this.players
-      .filter((p) => p.scores.indexOf(this.playersService.maximumScoreInOneRound) !== -1)
+      .filter((p) => p.scores.indexOf(this.gameService.maximumScoreInOneRound) !== -1)
       .map((p) => p.name)
       .join(', ');
   }
 
   public get playersMinScoreInRound(): string {
     return this.players
-      .filter((p) => p.scores.indexOf(this.playersService.minimumScoreInOneRound) !== -1)
+      .filter((p) => p.scores.indexOf(this.gameService.minimumScoreInOneRound) !== -1)
       .map((p) => p.name)
       .join(', ');
   }
@@ -118,7 +118,7 @@ export class StatisticsComponent implements OnInit, OnDestroy {
     // detect round
     const width = this.element.nativeElement.offsetWidth + -10;
     const clickX = event.offsetX + 5;
-    const roundWidth = width / this.playersService.playedRounds;
+    const roundWidth = width / this.gameService.playedRounds;
     this.playersPanelInfoRound = Math.round(clickX / roundWidth);
 
     // calculate how many positions scalated

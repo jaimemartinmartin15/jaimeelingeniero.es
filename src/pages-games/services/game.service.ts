@@ -1,18 +1,19 @@
 import { Injectable } from '@angular/core';
 import { ReplaySubject } from 'rxjs';
-import { GameConfigService } from '../game/game-config.service';
-import { PREVIOUS_GAME_DATE_KEY, PREVIOUS_GAME_KEY } from '../../local-storage-keys';
-import { IPlayer, Player } from './player';
+import { CONFIG_KEY, CONFIG_SORT_KEY, DATE_KEY, PLAYERS_KEY, STARTS_DEALING_KEY } from '../local-storage-keys';
+import { IPlayer, Player } from '../interfaces/player';
+import { GameConfig } from 'src/pages-games/game-configs/game-config';
+import { ALL_CONFIGS } from 'src/pages-games/game-configs/all-configs';
+import { otherConfig, highestScoreSorter, lowestScoreSorter } from '../game-configs/other-config';
 
 @Injectable()
-export class PlayersService {
+export class GameService {
   private _players: Player[];
   private _startsDealing = 0;
+  private _selectedGameConfig: GameConfig;
 
   public readonly playersLoaded$ = new ReplaySubject<void>(1);
   public readonly scoreChanged$ = new ReplaySubject<void>(1);
-
-  public constructor(private readonly gameConfigService: GameConfigService) {}
 
   public set players(value: Player[]) {
     this._players = value;
@@ -23,7 +24,7 @@ export class PlayersService {
   }
 
   public get playersRankingView(): Player[] {
-    return this._players.sort(this.gameConfigService.config.sortPlayers);
+    return this._players.sort(this.config.sortPlayers);
   }
 
   public get playedRounds(): number {
@@ -59,7 +60,7 @@ export class PlayersService {
   }
 
   public get cardsToDealNextRound(): number {
-    const cardsNumber = this.gameConfigService.config.cardsNumber!;
+    const cardsNumber = this.config.cardsNumber!;
     const playersNumber = this._players.length;
 
     if (this.nextRoundNumber <= cardsNumber / playersNumber) {
@@ -71,6 +72,14 @@ export class PlayersService {
     }
   }
 
+  public get config(): GameConfig {
+    return this._selectedGameConfig;
+  }
+
+  public set config(config: GameConfig) {
+    this._selectedGameConfig = config;
+  }
+
   public playerWithId(id: number): Player {
     return this._players.find((p) => p.id === id)!;
   }
@@ -80,7 +89,7 @@ export class PlayersService {
   }
 
   public loadPlayersFromLocalStorage() {
-    const previousGame = localStorage.getItem(PREVIOUS_GAME_KEY);
+    const previousGame = localStorage.getItem(PLAYERS_KEY);
     if (previousGame != null) {
       const { players } = JSON.parse(previousGame);
       this._players = players.map((p: IPlayer) => new Player(p.id, p.name, p.scores, p.accumulatedScores, p.position, p.rejoins));
@@ -88,8 +97,41 @@ export class PlayersService {
   }
 
   public savePlayersToLocalStorage() {
-    localStorage.setItem(PREVIOUS_GAME_KEY, JSON.stringify({ players: this._players }));
-    localStorage.setItem(PREVIOUS_GAME_DATE_KEY, JSON.stringify(Date.now()));
+    localStorage.setItem(PLAYERS_KEY, JSON.stringify({ players: this._players }));
+    localStorage.setItem(DATE_KEY, JSON.stringify(Date.now()));
+  }
+
+  public loadConfigFromLocalStorage() {
+    const previousGameConfig = localStorage.getItem(CONFIG_KEY);
+    if (previousGameConfig != null) {
+      const config = JSON.parse(previousGameConfig).config;
+      const knownConfig = ALL_CONFIGS.find((c) => c.name === config.name);
+      this._selectedGameConfig = { ...knownConfig, ...config };
+      if (this._selectedGameConfig.name === otherConfig.name) {
+        const winnerSorting = localStorage.getItem(CONFIG_SORT_KEY);
+        if (winnerSorting != null) {
+          this._selectedGameConfig.sortPlayers = winnerSorting === 'highest' ? highestScoreSorter : lowestScoreSorter;
+        }
+      }
+    }
+  }
+
+  public saveConfigToLocalStorage() {
+    localStorage.setItem(CONFIG_KEY, JSON.stringify({ config: this._selectedGameConfig }));
+    if (this._selectedGameConfig.name === otherConfig.name) {
+      localStorage.setItem(CONFIG_SORT_KEY, this._selectedGameConfig.sortPlayers === highestScoreSorter ? 'highest' : 'lowest');
+    }
+  }
+
+  public loadWhoStartsDealingFromLocalStorage() {
+    const startsDealingStorage = localStorage.getItem(STARTS_DEALING_KEY);
+    if (startsDealingStorage != null) {
+      this._startsDealing = +startsDealingStorage;
+    }
+  }
+
+  public saveWhoStartsDealingFromLocalStorage() {
+    localStorage.setItem(STARTS_DEALING_KEY, `${this._startsDealing}`);
   }
 
   public setScores(players: Pick<Player, 'id' | 'punctuation'>[], round: number) {
@@ -98,7 +140,7 @@ export class PlayersService {
 
   public calculateAccumulatedScores() {
     for (let round = 0; round < this.playedRounds; round++) {
-      const limitScore = this.gameConfigService.config.limitScore ?? Infinity;
+      const limitScore = this.config.limitScore ?? Infinity;
       const scoreReset = Math.max(
         ...this._players
           .filter((p) => p.accumulatedScores[round].afterRejoin + p.scores[round] < limitScore)
@@ -109,14 +151,14 @@ export class PlayersService {
   }
 
   public calculateRejoins() {
-    const limitScore = this.gameConfigService.config.limitScore;
+    const limitScore = this.config.limitScore;
     if (limitScore != undefined) {
       this._players.forEach((p) => p.calculateRejoins());
     }
   }
 
   public calculatePlayerPositions() {
-    const scores = this._players.sort(this.gameConfigService.config.sortPlayers).map((p) => p.totalScore.afterRejoin);
+    const scores = this._players.sort(this.config.sortPlayers).map((p) => p.totalScore.afterRejoin);
     this._players.forEach((p) => (p.position = scores.indexOf(p.totalScore.afterRejoin) + 1));
   }
 }

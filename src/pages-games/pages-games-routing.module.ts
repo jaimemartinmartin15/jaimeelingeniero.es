@@ -1,20 +1,24 @@
-import { NgModule } from '@angular/core';
+import { NgModule, Type } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { PagesGamesComponent } from './pages-games.component';
 import { PATHS } from './paths';
+import { GameConfigComponent } from './views/game-config/game-config.component';
 import { RankingComponent } from './views/ranking/ranking.component';
 import { ScoreboardComponent } from './views/scoreboard/scoreboard.component';
 import { StatisticsComponent } from './views/statistics/statistics.component';
 
-const noMoreChildren = [
-  {
-    path: '',
-  },
-  {
-    path: '**',
-    redirectTo: '',
-  },
-];
+const pathWithoutChildrens = (component: Type<any>): Routes => {
+  return [
+    {
+      path: '',
+      component,
+    },
+    {
+      path: '**',
+      redirectTo: '',
+    },
+  ];
+};
 
 const routes: Routes = [
   {
@@ -22,29 +26,30 @@ const routes: Routes = [
     component: PagesGamesComponent,
     children: [
       {
+        path: PATHS.GAME_CONFIG,
+        children: pathWithoutChildrens(GameConfigComponent),
+      },
+      {
         path: PATHS.RANKING,
-        component: RankingComponent,
-        children: noMoreChildren,
+        children: pathWithoutChildrens(RankingComponent),
       },
       {
         path: PATHS.SCOREBOARD,
-        component: ScoreboardComponent,
-        children: noMoreChildren,
+        children: pathWithoutChildrens(ScoreboardComponent),
       },
       {
         path: PATHS.STATISTICS,
-        component: StatisticsComponent,
-        children: noMoreChildren,
+        children: pathWithoutChildrens(StatisticsComponent),
       },
       {
         path: '**',
-        redirectTo: PATHS.RANKING,
+        redirectTo: PATHS.GAME_CONFIG,
       },
     ],
   },
   {
     path: '**',
-    redirectTo: PATHS.RANKING,
+    redirectTo: PATHS.GAME_CONFIG,
   },
 ];
 

@@ -10,7 +10,7 @@
     <div class="player-rounds-info">
         <div>Última ronda: {{player.scores[player.scores.length - 1]}}</div>
 
-        <div *ngIf="gameConfigService.config.name === pochaConfig.name">
+        <div *ngIf="gameService.config.name === pochaConfig.name">
             Máximo alcanzado: {{player.maximumAccumulatedScore}}
         </div>
 

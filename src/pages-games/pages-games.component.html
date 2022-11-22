@@ -1,25 +1,13 @@
-<!-- Restart game pop up -->
-<app-restart-game-pop-up *ngIf="showRestartGamePopUp" (confirmation)="onConfirmIfRestartGame($event)">
-</app-restart-game-pop-up>
+<app-continue-game-in-progress-pop-up *ngIf="showContinueGameInProgressPopUp"
+  (confirmation)="onConfirmIfContinueGameInProgress($event)">
+</app-continue-game-in-progress-pop-up>
 
-<!-- Start game pop up -->
-<app-start-game-pop-up *ngIf="showStartGamePopUp" (confirm)="onConfirmStartGame($event)"></app-start-game-pop-up>
+<app-enter-punctuation-pop-up *ngIf="showEnterPunctuationPopUp" [enterPunctuationPopUpInput]="enterPunctuationPopUpInput"
+  (enterPunctuationPopUpOutput)="onResultEnterPunctuation($event)" (closePopUp)="showEnterPunctuationPopUp = false">
+</app-enter-punctuation-pop-up>
 
-<!-- Enter round pop up -->
-<app-next-round-pop-up *ngIf="showNewRoundPopUp" [nextRoundPopUpInput]="nextRoundPopUpInput"
-  (nextRoundPopUpOutput)="onResultNewRound($event)" (closePopUp)="showNewRoundPopUp = false">
-</app-next-round-pop-up>
-
-<!-- Load new game pop up -->
-<app-load-new-game-pop-up *ngIf="showLoadNewGamePopUp" (confirmation)="onConfirmIfLoadNewGame($event)">
-</app-load-new-game-pop-up>
-
-
-
-<div class="view-page">
+<div class="view-page" [ngClass]="{'fix-address-bar-height': addressBarHidden}">
   <router-outlet></router-outlet>
 </div>
-
-
 
 <app-bottom-controls class="bottom-controls"></app-bottom-controls>
