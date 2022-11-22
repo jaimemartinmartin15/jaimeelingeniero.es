@@ -65,6 +65,7 @@ export class PagesGamesComponent implements OnInit, OnDestroy {
           map(() => Math.max(this.document.documentElement.clientHeight, window.innerHeight || 0)),
           pairwise(),
           filter(([prevHeight, currentHeight]) => prevHeight !== currentHeight),
+          filter(([prevHeight, currentHeight]) => Math.abs(prevHeight - currentHeight) < 100), // avoid this event when keyboard shows
           map(([prevHeight, currentHeight]) => prevHeight < currentHeight),
           distinctUntilChanged(),
           tap((addressBarHidden) => (this.addressBarHidden = addressBarHidden))
