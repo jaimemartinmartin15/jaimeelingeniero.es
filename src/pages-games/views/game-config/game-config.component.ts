@@ -22,6 +22,15 @@ import { unoConfig } from 'src/pages-games/game-configs/uno-config';
 import { Player } from 'src/pages-games/interfaces/player';
 import { GameService } from 'src/pages-games/services/game.service';
 
+/**
+ * This component screen allows to choose:
+ *  - the game name
+ *  - the number of cards used to play
+ *  - the limit score
+ *  - the winner of the game (highest or lowest score)
+ * 
+ *  - allows to enter the player names and who starts dealing
+ */
 @Component({
   selector: 'app-game-config',
   templateUrl: './game-config.component.html',
@@ -160,6 +169,14 @@ export class GameConfigComponent implements OnInit, AfterViewInit {
     this.gameService.playersLoaded$.next();
     this.gameService.startsDealing = this.playerStartsDealing;
     this.gameService.config = this.selectedConfigGame;
+
+    // overrides some values from default configuration
+    if (this.selectedConfigGame.cardsNumber != undefined) {
+      this.gameService.config.cardsNumber = this.selectedNumberOfCards;
+    }
+    if (this.selectedConfigGame.limitScore != null) {
+      this.gameService.config.limitScore = this.selectedLimitScore;
+    }
 
     this.router.navigate(['../', PATHS.RANKING], { relativeTo: this.activatedRoute });
   }
