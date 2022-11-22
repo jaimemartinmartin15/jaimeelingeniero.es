@@ -108,7 +108,7 @@ export class GameService {
       const knownConfig = ALL_CONFIGS.find((c) => c.name === config.name);
       this._selectedGameConfig = { ...knownConfig, ...config };
       if (this._selectedGameConfig.name === otherConfig.name) {
-        const winnerSorting = localStorage.getItem(CONFIG_KEY);
+        const winnerSorting = localStorage.getItem(CONFIG_SORT_KEY);
         if (winnerSorting != null) {
           this._selectedGameConfig.sortPlayers = winnerSorting === 'highest' ? highestScoreSorter : lowestScoreSorter;
         }
