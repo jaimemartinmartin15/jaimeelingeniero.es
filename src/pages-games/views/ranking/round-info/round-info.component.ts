@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
-import { GameConfigService } from '../../../services/game/game-config.service';
-import { pochaConfig } from '../../../services/game/game-configs/pocha-config';
-import { PlayersService } from '../../../services/player/players.service';
+import { pochaConfig } from '../../../game-configs/pocha-config';
+import { GameService } from '../../../services/game.service';
 
 @Component({
   selector: 'app-round-info',
@@ -10,5 +9,5 @@ import { PlayersService } from '../../../services/player/players.service';
 })
 export class RoundInfoComponent {
   public pochaConfig = pochaConfig;
-  public constructor(public readonly gameConfigService: GameConfigService, public readonly playersService: PlayersService) {}
+  public constructor(public readonly gameService: GameService) {}
 }

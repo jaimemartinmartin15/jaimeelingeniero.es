@@ -4,10 +4,10 @@
     </div>
 
     <div class="round-container">
-        <h1>Ronda {{nextRoundPopUpInput.round}}</h1>
+        <h1>Ronda {{enterPunctuationPopUpInput.round}}</h1>
 
         <div class="players-container" #playersContainer>
-            <label *ngFor="let player of nextRoundPopUpInput.players; let i = index">
+            <label *ngFor="let player of enterPunctuationPopUpInput.players; let i = index">
                 Puntuación para <br> <strong class="player-name">{{player.name}}</strong>
                 <br>
                 <span class="score-display">{{player.punctuation}}</span>
@@ -18,8 +18,8 @@
     <div class="keyboard" (click)="onClickKeyBoard($event)">
         <span class="previous-player" (click)="goPreviousPlayer()">&larr;</span>
         <span class="next-player" (click)="goNextPlayer()">
-            <ng-container *ngIf="currentPlayer < nextRoundPopUpInput.players.length - 1">&rarr;</ng-container>
-            <ng-container *ngIf="currentPlayer === nextRoundPopUpInput.players.length - 1">✔️</ng-container>
+            <ng-container *ngIf="currentPlayer < enterPunctuationPopUpInput.players.length - 1">&rarr;</ng-container>
+            <ng-container *ngIf="currentPlayer === enterPunctuationPopUpInput.players.length - 1">✔️</ng-container>
         </span>
 
         <span>1</span>

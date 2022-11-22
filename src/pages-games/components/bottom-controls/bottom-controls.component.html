@@ -1,3 +1,16 @@
-<button class="app-button" (click)="popUpsService.openStartNewGamePopUp$.next()">Juego nuevo</button>
-<button class="app-button" (click)="changeView()">Cambiar vista</button>
-<button class="app-button" (click)="popUpsService.enterNewRound$.next()">Nueva ronda</button>
+<ng-container *ngIf="state === 'game-started'">
+    <button class="app-button" (click)="goToGameConfigView()">Juego nuevo</button>
+    <button class="app-button" (click)="showViewNavigation = !showViewNavigation">Cambiar vista</button>
+    <button class="app-button" (click)="bottomControlsService.onClickEnterNewRound$.next()">Nueva ronda</button>
+
+    <div class="view-list" *ngIf="showViewNavigation" (click)="showViewNavigation = false">
+        <a [routerLink]="['ranking']">🥇 Ranking</a>
+        <a [routerLink]="['tabla']">📋 Tabla</a>
+        <a [routerLink]="['estadisticas']">📊 Estadísticas</a>
+    </div>
+</ng-container>
+
+<button *ngIf="state === 'game-config'" class="app-button" [disabled]="!startButtonEnabled"
+    (click)="bottomControlsService.onClickStartGameButton$.next()">
+    Empezar
+</button>

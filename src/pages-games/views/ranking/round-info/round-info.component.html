@@ -1,23 +1,32 @@
+<ng-container *ngIf="gameService.config.name != 'otro'">
+  <strong>{{gameService.config.name | titlecase}}</strong>
+  <br>
+</ng-container>
+
 <!-- Pocha config -->
-<ng-container *ngIf="gameConfigService.config.name === pochaConfig.name">
-  <ng-container *ngIf="playersService.cardsToDealNextRound >= 0">
-    <span class="no-break">Ronda: <strong>{{playersService.nextRoundNumber}}</strong></span>
+<ng-container *ngIf="gameService.config.name === pochaConfig.name">
+  <ng-container *ngIf="gameService.cardsToDealNextRound >= 0">
+    <span class="no-break">Ronda: <strong>{{gameService.nextRoundNumber}}</strong></span>
     &nbsp;&nbsp;
-    <span class="no-break">Reparte: <strong>{{playersService.playerNameDealsNextRound}}</strong></span>
+    <span class="no-break">Reparte: <strong>{{gameService.playerNameDealsNextRound}}</strong></span>
     &nbsp;&nbsp;
     <span class="no-break">
-      Cartas: <strong>{{playersService.cardsToDealNextRound || 1 + ' (vista)'}}</strong>
+      Cartas: <strong>{{gameService.cardsToDealNextRound || 1 + ' (vista)'}}</strong>
     </span>
   </ng-container>
 
-  <ng-container *ngIf="playersService.cardsToDealNextRound < 0">
+  <ng-container *ngIf="gameService.cardsToDealNextRound < 0">
     Fin de la partida
   </ng-container>
 </ng-container>
 
 <!-- Other games -->
-<ng-container *ngIf="gameConfigService.config.name !== pochaConfig.name">
-  <span class="no-break">Ronda: <strong>{{playersService.nextRoundNumber}}</strong></span>
+<ng-container *ngIf="gameService.config.name !== pochaConfig.name">
+  <span class="no-break">Ronda: <strong>{{gameService.nextRoundNumber}}</strong></span>
   &nbsp;&nbsp;
-  <span class="no-break">Reparte: <strong>{{playersService.playerNameDealsNextRound}}</strong></span>
+  <span class="no-break">Reparte: <strong>{{gameService.playerNameDealsNextRound}}</strong></span>
+  <ng-container *ngIf="gameService.config.limitScore != undefined">
+    &nbsp;&nbsp;
+    <span class="no-break">Límite: <strong>{{gameService.config.limitScore}}</strong></span>
+  </ng-container>
 </ng-container>
