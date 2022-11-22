@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
 import { ReplaySubject } from 'rxjs';
-import { CONFIG_KEY, DATE_KEY, PLAYERS_KEY, STARTS_DEALING_KEY } from '../local-storage-keys';
+import { CONFIG_KEY, CONFIG_SORT_KEY, DATE_KEY, PLAYERS_KEY, STARTS_DEALING_KEY } from '../local-storage-keys';
 import { IPlayer, Player } from '../interfaces/player';
 import { GameConfig } from 'src/pages-games/game-configs/game-config';
 import { ALL_CONFIGS } from 'src/pages-games/game-configs/all-configs';
+import { otherConfig, highestScoreSorter, lowestScoreSorter } from '../game-configs/other-config';
 
 @Injectable()
 export class GameService {
@@ -106,11 +107,20 @@ export class GameService {
       const config = JSON.parse(previousGameConfig).config;
       const knownConfig = ALL_CONFIGS.find((c) => c.name === config.name);
       this._selectedGameConfig = { ...knownConfig, ...config };
+      if (this._selectedGameConfig.name === otherConfig.name) {
+        const winnerSorting = localStorage.getItem(CONFIG_KEY);
+        if (winnerSorting != null) {
+          this._selectedGameConfig.sortPlayers = winnerSorting === 'highest' ? highestScoreSorter : lowestScoreSorter;
+        }
+      }
     }
   }
 
   public saveConfigToLocalStorage() {
     localStorage.setItem(CONFIG_KEY, JSON.stringify({ config: this._selectedGameConfig }));
+    if (this._selectedGameConfig.name === otherConfig.name) {
+      localStorage.setItem(CONFIG_SORT_KEY, this._selectedGameConfig.sortPlayers === highestScoreSorter ? 'highest' : 'lowest');
+    }
   }
 
   public loadWhoStartsDealingFromLocalStorage() {

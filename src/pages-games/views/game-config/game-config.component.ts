@@ -16,7 +16,7 @@ import { PLAYERS_KEY } from 'src/pages-games/local-storage-keys';
 import { PATHS } from 'src/pages-games/paths';
 import { chinchonConfig } from 'src/pages-games/game-configs/chinchon-config';
 import { GameConfig } from 'src/pages-games/game-configs/game-config';
-import { otherConfig } from 'src/pages-games/game-configs/other-config';
+import { otherConfig, highestScoreSorter, lowestScoreSorter } from 'src/pages-games/game-configs/other-config';
 import { pochaConfig } from 'src/pages-games/game-configs/pocha-config';
 import { unoConfig } from 'src/pages-games/game-configs/uno-config';
 import { Player } from 'src/pages-games/interfaces/player';
@@ -28,7 +28,7 @@ import { GameService } from 'src/pages-games/services/game.service';
  *  - the number of cards used to play
  *  - the limit score
  *  - the winner of the game (highest or lowest score)
- * 
+ *
  *  - allows to enter the player names and who starts dealing
  */
 @Component({
@@ -95,6 +95,9 @@ export class GameConfigComponent implements OnInit, AfterViewInit {
     this.limitScoreContainer?.nativeElement.scroll(50, 0);
     this.selectedLimitScore = this.selectedConfigGame.limitScore ?? 100;
     this.changeDetectorRef.detectChanges();
+    if (this.selectedConfigGame.name === otherConfig.name) {
+      this.selectedConfigGame.sortPlayers = this.winner === 'highestScore' ? highestScoreSorter : lowestScoreSorter;
+    }
   }
 
   public ngAfterViewInit(): void {
@@ -115,12 +118,12 @@ export class GameConfigComponent implements OnInit, AfterViewInit {
 
   public setWinnerConfigHighestScore() {
     this.winner = 'highestScore';
-    this.selectedConfigGame.sortPlayers = (p1, p2) => p2.totalScore.afterRejoin - p1.totalScore.afterRejoin;
+    this.selectedConfigGame.sortPlayers = highestScoreSorter;
   }
 
   public setWinnerConfigLowestScore() {
     this.winner = 'lowestScore';
-    this.selectedConfigGame.sortPlayers = (p1, p2) => p1.totalScore.afterRejoin - p2.totalScore.afterRejoin;
+    this.selectedConfigGame.sortPlayers = lowestScoreSorter;
   }
 
   public trackByPlayerIndex(index: number) {
