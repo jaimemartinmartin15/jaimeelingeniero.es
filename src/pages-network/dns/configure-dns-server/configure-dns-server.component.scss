@@ -1,0 +1,13 @@
+$page-width: 830px;
+
+:host {
+    display: block;
+    max-width: $page-width;
+    margin: auto;
+    padding: 0 20px 50px 20px;
+    line-height: 30px;
+}
+
+.title {
+    text-align: center;
+}

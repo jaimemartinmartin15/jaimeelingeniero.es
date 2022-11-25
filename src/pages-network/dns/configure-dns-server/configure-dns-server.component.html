@@ -1,3 +1,26 @@
-<p>
-  configure-bind9 works!
-</p>
+<app-header-print [data]="headerPrintData"></app-header-print>
+
+<main>
+  <h1 class="title">Configuración de un servidor DNS</h1>
+
+  <section>
+    <h2>Introducción</h2>
+
+    <p>
+      En este artículo voy a explicar como configurar un servidor DNS. Y quizá te preguntes: ¿para qué necesito yo
+      configurar un servidor DNS si ya existen cientos de servidores por todo el mundo que me permiten navegar por
+      internet?
+    </p>
+
+    <p>
+      Quizá tengas razón y no lo necesites, pero si eres desarrolador o te dedicas a este mundo te puede resultar útil
+      para crear tus dominios o zonas locales a los que solo tú tienes acceso en tu red. Sería una intranet privada.
+      Podrías poner nombres a todos tus dispositivos y estos no serían visibles en internet.
+    </p>
+
+    <p>
+      También te permitiría navegar más rápido, pues el DNS puede cachear dominios reales y resolverlos en tu propia
+      red, sin tener que acceder a internet para ello.
+    </p>
+  </section>
+</main>
