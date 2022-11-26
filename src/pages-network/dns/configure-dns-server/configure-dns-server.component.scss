@@ -15,3 +15,16 @@ $page-width: 830px;
 a {
     color: #d17515;
 }
+
+code {
+    display: block;
+    background-color: black;
+    color: #25fa2d;
+    padding: 10px;
+    border-radius: 5px;
+    font-size: 1rem;
+
+    pre {
+        margin: 0;
+    }
+}

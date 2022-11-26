@@ -45,4 +45,33 @@
       Vamos manos a la obra 👷‍♂️🔨
     </p>
   </section>
+
+  <section>
+    <h2>Instalación</h2>
+
+    <p>
+      Podríamos empezar a usar bind9 fácilmente usando su <a
+        href="https://hub.docker.com/r/internetsystemsconsortium/bind9" target="_blank" rel="noopener">imagen de
+        docker</a>, pero yo lo voy a instalar desde cero en una máquina virtual.
+    </p>
+
+    <p>
+      Para ello ejecutamos lo siguiente:
+    </p>
+
+    <code><pre>apt update
+apt install bind9</pre></code>
+
+    <p>
+      Una vez instalado pues ya está. Instalado y corriendo. Lo podemos comprobar ejecutando el siguiente comando:
+    </p>
+
+    <code>
+      systemctl is-active named
+    </code>
+
+    <p>
+      El comando debería sacar por pantalla que el servicio esta <i>active</i>
+    </p>
+  </section>
 </main>
