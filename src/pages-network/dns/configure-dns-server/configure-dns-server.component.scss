@@ -16,6 +16,19 @@ a {
     color: #d17515;
 }
 
+.file-name {
+    display: inline;
+    font-weight: normal;
+    background-color: gainsboro;
+    font-size: 1rem;
+    padding: 5px;
+    border-radius: 5px;
+}
+
+h3 + p {
+    margin-top: 5px;
+}
+
 code {
     display: block;
     background-color: black;
@@ -23,8 +36,19 @@ code {
     padding: 10px;
     border-radius: 5px;
     font-size: 1rem;
+    margin-bottom: 18px;
 
-    pre {
-        margin: 0;
+    .output {
+        color: white;
     }
+}
+
+.root-hint div {
+    display: grid;
+    grid-template-columns: 25% 15% 10% 50%;
+}
+
+.zone-file div {
+    display: grid;
+    grid-template-columns: 10% 12% 13% 65%;
 }

@@ -59,8 +59,11 @@
       Para ello ejecutamos lo siguiente:
     </p>
 
-    <code><pre>apt update
-apt install bind9</pre></code>
+    <code>
+      apt update
+      <br>
+      apt install bind9
+    </code>
 
     <p>
       Una vez instalado pues ya está. Instalado y corriendo. Lo podemos comprobar ejecutando el siguiente comando:
@@ -68,10 +71,207 @@ apt install bind9</pre></code>
 
     <code>
       systemctl is-active named
+      <br>
+      <span class="output">active</span>
     </code>
 
     <p>
-      El comando debería sacar por pantalla que el servicio esta <i>active</i>
+      El comando debería sacar por pantalla que el servicio esta <i>active</i>.
+    </p>
+  </section>
+
+  <section>
+    <h2>Configuración por defecto</h2>
+
+    <p>
+      Al instalar bind se han creado una serie de ficheros de configuración por defecto. Vamos a echarles un vistazo.
+    </p>
+
+    <h3 class="file-name">/etc/bind/named.conf</h3>
+
+    <p>
+      Este es el fichero de configuración de bind. Toda la configuración se encuentra aquí. Pero como podemos ver hay
+      referencias a otros ficheros que también forman parte de la configuración. Esto permite separar cierta
+      configuración y la configuración por zonas en diferentes ficheros, de forma que resulta más fácil gestionarla.
+    </p>
+
+    <code>
+      cat /etc/bind/named.conf
+      <br>
+      <div class="output">
+        include "/etc/bind/named.conf.options"
+        <br>
+        include "/etc/bind/named.conf.local"
+        <br>
+        include "/etc/bind/named.conf.default-zones"
+      </div>
+    </code>
+
+    <h3 class="file-name">/etc/bind/named.conf.options</h3>
+
+    <p>
+      Este fichero contiene configuración general para el servidor. Tiene un mogollón de opciones. Por defecto el
+      fichero creado al instalar bind9 se ve así:
+    </p>
+
+    <code>
+      cat /etc/bind/named.conf.options
+      <br>
+      <div class="output">
+        options &#123;
+        <br>
+        &nbsp; &nbsp; directory "/var/cache/bind";
+        <br>
+        &nbsp; &nbsp; dnssec-validation auto;
+        <br>
+        &nbsp; &nbsp; listen-on-v6 &#123; any; &#125;;
+        <br>
+        &#125;;
+      </div>
+    </code>
+
+    <p>
+      Por describir un poco lo que hay, <i>directory</i> indica el directorio de trabajo del servidor. Las rutas
+      relativas que pongamos en los ficheros de configuración serán relativas a este directorio.
+      <i>dnssec-validation</i> habilita DNSSEC, que son unas extensiones de seguridad. <i>listen-on-v6</i> especifica la
+      dirección IPv6 en la que el servidor escuchará peticiones DNS.
+    </p>
+
+    <p>
+      Si tienes curiosidad, puedes ver <a
+        href="https://bind9.readthedocs.io/en/v9_18_7/reference.html#options-block-definition-and-usage" target="_blank"
+        rel="noopener">todas las opciones</a> y que hace cada una.
+    </p>
+
+    <h3 class="file-name">/etc/bind/named.conf.local</h3>
+
+    <p>
+      Este fichero es el que nos permite definir nuestra configuración local. Normalmente incluiremos otros ficheros con
+      nuestros propios dominios.
+    </p>
+
+    <code>
+      cat /etc/bind/named.conf.local
+      <br>
+      <span class="output">// Do any local configuration here</span>
+    </code>
+
+    <h3 class="file-name">/etc/bind/named.conf.default-zones</h3>
+
+    <p>
+      Este fichero incluye configuración de las zonas predeterminadas como la de loopback, broadcast y los servidores
+      raíces.
+    </p>
+
+    <code>
+      cat /etc/bind/named.conf.default-zones
+      <br>
+      <div class="output">
+        zone "." &#123;
+        <br>
+        &nbsp; &nbsp; type hint;
+        <br>
+        &nbsp; &nbsp; file "/usr/share/dns/root.hints"
+        <br>
+        &#125;
+
+        <br> <br>
+
+        zone "localhost" &#123;
+        <br>
+        &nbsp; &nbsp; type master;
+        <br>
+        &nbsp; &nbsp; file "/etc/bind/db.local"
+        <br>
+        &#125;
+
+        <br> <br>
+
+        zone "127.in-addr.arpa" &#123;
+        <br>
+        &nbsp; &nbsp; type master;
+        <br>
+        &nbsp; &nbsp; file "/etc/bind/db.127"
+        <br>
+        &#125;
+
+        <br> <br>
+
+        zone "0.in-addr.arpa" &#123;
+        <br>
+        &nbsp; &nbsp; type master;
+        <br>
+        &nbsp; &nbsp; file "/etc/bind/db.0"
+        <br>
+        &#125;
+
+        <br> <br>
+
+        zone "255.in-addr.arpa" &#123;
+        <br>
+        &nbsp; &nbsp; type master;
+        <br>
+        &nbsp; &nbsp; file "/etc/bind/db.255"
+        <br>
+        &#125;
+      </div>
+    </code>
+
+    <p>
+      Los servidores de nombres deben conocer las direcciones IP de los servidores DNS raíz. Eso lo podemos encontrar en
+      el fichero referenciado <span class="file-name">/usr/share/dns/root.hints</span>:
+    </p>
+
+    <code>
+      cat /usr/share/dns/root.hints
+      <br>
+      <div class="output root-hint">
+        <div><span>.</span><span>3600000</span><span>NS</span><span>A.ROOT-SERVERS.NET.</span></div>
+        <div><span>A.ROOT-SERVERS.NET.</span><span>3600000</span><span>A</span><span>198.41.0.4</span></div>
+        <div><span>A.ROOT-SERVERS.NET.</span><span>3600000</span><span>AAAA</span><span>2001:503:ba3e::2:30</span></div>
+        <div><span>.</span><span>3600000</span><span>NS</span><span>B.ROOT-SERVERS.NET.</span></div>
+        <div><span>B.ROOT-SERVERS.NET.</span><span>3600000</span><span>A</span><span>199.9.14.201</span></div>
+        <div><span>B.ROOT-SERVERS.NET.</span><span>3600000</span><span>AAAA</span><span>2001:500:200::b</span></div>
+        ...
+      </div>
+    </code>
+
+    <h3 class="file-name">/etc/bind/db.*</h3>
+
+    <p>
+      Estos ficheros son los ficheros de zona con los mapas de dominio. Nosotros también crearemos los nuestros.
+    </p>
+
+    <code>
+      cat /etc/bind/db.local
+      <br>
+      <div class="output zone-file">
+        <div><span>$TTL</span><span>604800</span></div>
+        <div><span>@</span><span>IN</span><span>SOA</span><span>localhost. root.localhost. (</span></div>
+        <div><span></span><span></span><span></span><span>2</span></div>
+        <div><span></span><span></span><span></span><span>604800</span></div>
+        <div><span></span><span></span><span></span><span>86400</span></div>
+        <div><span></span><span></span><span></span><span>2419200</span></div>
+        <div><span></span><span></span><span></span><span>604800 )</span></div>
+        <div><span>@</span><span>IN</span><span>NS</span><span>localhost.</span></div>
+        <div><span>@</span><span>IN</span><span>A</span><span>127.0.0.1</span></div>
+        <div><span>@</span><span>IN</span><span>AAAA</span><span>::1</span></div>
+      </div>
+    </code>
+
+    <p>
+      En este ejemplo tenemos un total de cuatro RR. Para saber qué significan y cual es el formato puedes visitar el
+      <a [routerLink]="['../']" fragment="rr-section">artículo anterior</a>.
+    </p>
+
+    <p>
+      El <strong>$TTL</strong> del inicio indica el tiempo de validez que tendrán por defecto los RR en las cachés.
+    </p>
+
+    <p>
+      El <strong>@</strong> es el nombre de la zona. Para este caso, viene especificado en el fichero <span
+        class="file-name">named.conf.default-zones</span> donde se declara la zona. En otro caso, sería el nombre del
+      fichero sin el <i>db.</i>
     </p>
   </section>
 </main>
