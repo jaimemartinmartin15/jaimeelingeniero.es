@@ -52,3 +52,16 @@ code {
     display: grid;
     grid-template-columns: 10% 12% 13% 65%;
 }
+
+.block-sintax,
+.comment-sintax {
+    background-color: #dedede;
+    white-space: nowrap;
+    padding: 3px;
+    margin: 3px;
+    border-radius: 3px;
+    display: inline-block;
+    vertical-align: bottom;
+    max-width: 100%;
+    overflow-x: auto;
+}

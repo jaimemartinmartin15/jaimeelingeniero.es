@@ -25,11 +25,11 @@
   </section>
 
   <section>
-    <h2>Bind</h2>
+    <h2>BIND</h2>
 
     <p>
       El programa por excelencia que actúa como servidor de nombres es <a href="https://www.isc.org/bind/"
-        target="_blank" rel="noopener"><strong>Bind</strong></a>. Significa <i>Berkeley Internet Name Domain</i> y es el
+        target="_blank" rel="noopener"><strong>BIND</strong></a>. Significa <i>Berkeley Internet Name Domain</i> y es el
       programa que usan la mayoría de servidores DNS reales en todo el mundo.
     </p>
 
@@ -37,7 +37,7 @@
       La organización <a href="https://www.isc.org/" target="_blank" rel="noopener">Internet Systems Consortium</a> es
       la encargada de su desarrollo, mantenimiento y actualizaciones. Es de <a
         href="https://github.com/isc-projects/bind9" target="_blank" rel="noopener">código abierto</a> y su versión
-      actual es la nueve, por lo que también se le conoce como bind9. El nombre del proceso que lo implementa es
+      actual es la nueve, por lo que también se le conoce como BIND9. El nombre del proceso que lo implementa es
       <strong>named</strong>.
     </p>
 
@@ -50,7 +50,7 @@
     <h2>Instalación</h2>
 
     <p>
-      Podríamos empezar a usar bind9 fácilmente usando su <a
+      Podríamos empezar a usar BIND9 fácilmente usando su <a
         href="https://hub.docker.com/r/internetsystemsconsortium/bind9" target="_blank" rel="noopener">imagen de
         docker</a>, pero yo lo voy a instalar desde cero en una máquina virtual.
     </p>
@@ -84,13 +84,13 @@
     <h2>Configuración por defecto</h2>
 
     <p>
-      Al instalar bind se han creado una serie de ficheros de configuración por defecto. Vamos a echarles un vistazo.
+      Al instalar BIND se han creado una serie de ficheros de configuración por defecto. Vamos a echarles un vistazo.
     </p>
 
     <h3 class="file-name">/etc/bind/named.conf</h3>
 
     <p>
-      Este es el fichero de configuración de bind. Toda la configuración se encuentra aquí. Pero como podemos ver hay
+      Este es el fichero de configuración de BIND. Toda la configuración se encuentra aquí. Pero como podemos ver hay
       referencias a otros ficheros que también forman parte de la configuración. Esto permite separar cierta
       configuración y la configuración por zonas en diferentes ficheros, de forma que resulta más fácil gestionarla.
     </p>
@@ -111,7 +111,7 @@
 
     <p>
       Este fichero contiene configuración general para el servidor. Tiene un mogollón de opciones. Por defecto el
-      fichero creado al instalar bind9 se ve así:
+      fichero creado al instalar BIND9 se ve así:
     </p>
 
     <code>
@@ -272,6 +272,38 @@
       El <strong>@</strong> es el nombre de la zona. Para este caso, viene especificado en el fichero <span
         class="file-name">named.conf.default-zones</span> donde se declara la zona. En otro caso, sería el nombre del
       fichero sin el <i>db.</i>
+    </p>
+  </section>
+
+  <section>
+    <h2>Sintaxis de los ficheros de configuración</h2>
+
+    <p>
+      Hay tres tipos de entidades que podemos usar en los ficheros de configuración (no en los ficheros de zona):
+    </p>
+
+    <p>
+      Los <strong>comentarios</strong> son simples anotaciones que podemos poner para hacer aclaraciones. Son ignorados
+      por el programa y su única utilidad es dar información a otras personas que puedan leer o modificar la
+      configuración posteriormente. Hay tres tipos de comentarios:
+      <span class="comment-sintax"><strong>/*</strong> comentario de varias lineas <strong>*/</strong></span>
+      <span class="comment-sintax"><strong>//</strong> comentario de una linea</span>
+      <span class="comment-sintax"><strong>#</strong> comentario de una línea</span>
+    </p>
+
+    <p>
+      Los <strong>bloques</strong> son contenedores que pueden incluir otros bloques o declaraciones. Algunos bloques no
+      se pueden anidar, como el bloque <i>options</i> que hemos visto, y hay otros bloques que se pueden repetir, como
+      el bloque <i>zone</i>, en cuyo caso hay que ponerles un nombre. El formato es el siguiente:
+      <span class="block-sintax">
+        nombreDelBloque parametro1 parametro2 ... &#123; declaración1: valor; declaración2: argumento valor; ...&#125;
+      </span>
+    </p>
+
+    <p>
+      Las <strong>declaraciones</strong> definen y controlan el comportamiento de BIND. Pueden tener un simple valor o
+      múltiples en forma de nombre de parámetro y valor. Algunas se pueden usar solo en unos bloques y otras se puden
+      utilizar en varios bloques, perdiendo la declaración que tiene ámbito más global.
     </p>
   </section>
 </main>
