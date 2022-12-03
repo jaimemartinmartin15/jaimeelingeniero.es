@@ -8,6 +8,6 @@ import { Component } from '@angular/core';
 export class ConfigureDnsServerComponent {
   public headerPrintData = {
     author: 'Jaime Martín Martín',
-    date: '25 de noviembre de 2022',
+    date: '3 de diciembre de 2022',
   };
 }
