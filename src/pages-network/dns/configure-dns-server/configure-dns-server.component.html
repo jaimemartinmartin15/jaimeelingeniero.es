@@ -413,7 +413,71 @@
     </p>
 
     <p>
-      Ya estaría, ahora nuestras máquinas consultarán al servidor que hemos preparado. Vamos a probar que funciona.
+      Ya estaría, ahora nuestras máquinas consultarán al servidor que hemos preparado.
     </p>
   </section>
+
+  <section>
+    <h2>Órdenes de diagnóstico</h2>
+
+    <p>
+      Vamos a probar ahora que lo que hemos configurado es correcto. Para ello necesitamos de unas herramientas que nos
+      ayuden a verificarlo.
+    </p>
+
+    <h3>El comando dig</h3>
+
+    <p>
+      Vamos a probar este comando en la propia máquina donde está instalado el servidor. La sintaxis es esta de abajo.
+      Los parámetros entre corchetes son opcionales. El servidor al que preguntamos se precede con @.
+    </p>
+
+    <code>
+      dig [@&lt;ip_o_dominio_servidor_dns&gt;] &lt;nombre_de_dominio_a_resolver&gt; [&lt;tipo_de_registro&gt;]
+    </code>
+
+    Vamos probarlo de verdad:
+
+    <code>
+      dig sobremesajaime.micasa | grep -v ';'
+      <br>
+      <span class="output">sobremesajaime.micasa. 604800 IN A 192.168.1.55</span>
+    </code>
+
+    <p>
+      Bien! Funciona! Vemos que en la respuesta nos devuelve el registro A con la IP que configuramos en el archivo de
+      zona. En este caso no hemos tenido que usar el parámetro del servidor dns porque habíamos configurado la máquina
+      con la IP del servidor DNS en la sección anterior.
+    </p>
+
+    <h3>El comando nslookup</h3>
+
+    <p>
+      Para probar la configuración en windows vamos a usar el comando nslookup:
+    </p>
+
+    <code>
+      nslookup sobremesajaime.micasa
+      <br>
+      <div class="output">
+        Servidor:  UnKnown
+        <br>
+        Address:  192.168.1.51
+        <br>
+        Nombre:  sobremesajaime.micasa
+        <br>
+        Address:  192.168.1.55
+      </div>
+    </code>
+
+    <p>
+      También funciona! Genial. El servidor que nos responde es unknown porque no hemos configurado la resolución
+      inversa de su IP y por lo tanto no puede resolver <i>51.1.168.192.in-addr.arpa</i>.
+    </p>
+  </section>
+
+  <p>
+    Y esto es todo. Ahora ya puedes hacer virguerías con la configuración y lo que necesites para configurar tu red con
+    nombres de dominio 🖐️
+  </p>
 </main>
