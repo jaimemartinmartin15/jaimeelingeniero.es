@@ -286,8 +286,8 @@
       Los <strong>comentarios</strong> son simples anotaciones que podemos poner para hacer aclaraciones. Son ignorados
       por el programa y su única utilidad es dar información a otras personas que puedan leer o modificar la
       configuración posteriormente. Hay tres tipos de comentarios:
-      <span class="comment-sintax"><strong>/*</strong> comentario de varias lineas <strong>*/</strong></span>
-      <span class="comment-sintax"><strong>//</strong> comentario de una linea</span>
+      <span class="comment-sintax"><strong>/*</strong> comentario de varias líneas <strong>*/</strong></span>
+      <span class="comment-sintax"><strong>//</strong> comentario de una línea</span>
       <span class="comment-sintax"><strong>#</strong> comentario de una línea</span>
     </p>
 
@@ -368,5 +368,52 @@
     <code>
       service named reload
     </code>
+  </section>
+
+  <section>
+    <h2>Configurando el cliente</h2>
+
+    <p>
+      Para usar el servidor DNS que hemos configurado, debemos editar las direcciones IP de los servidores DNS en las
+      máquinas que queremos que usen nuestro servidor.
+    </p>
+
+    <p>
+      Por ejemplo, en la propia máquina donde he instalado el servidor sería así:
+    </p>
+
+    <img class="configure-dns-ubuntu-img" src="pages-network/dns/assets/configure-dns-ubuntu.png"
+      alt="Configuración DNS ubuntu">
+
+    <p>
+      También podríamos editar el fichero <span class="file-name">/etc/resolv.conf</span>, pero al reiniciar la máquina
+      la configuración se borraría:
+    </p>
+
+    <code>
+      cat /etc/resolv.conf
+      <br>
+      <div class="output">
+        nameserver &lt;ip_de_la_máquina_donde_has_instalado_bind&gt;
+        <br>
+        # resto de líneas
+      </div>
+    </code>
+
+    <p>
+      Para editarlo en windows, es un poco más complejo:
+    </p>
+
+    <img class="configure-dns-windows-img" src="pages-network/dns/assets/configure-dns-windows.png"
+      alt="Configuración DNS ubuntu">
+
+    <p>
+      A la izquierda tenemos la configuración de windows, y a la derecha la máquina virtual donde está instalado el
+      servidor DNS.
+    </p>
+
+    <p>
+      Ya estaría, ahora nuestras máquinas consultarán al servidor que hemos preparado. Vamos a probar que funciona.
+    </p>
   </section>
 </main>
