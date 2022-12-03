@@ -171,7 +171,7 @@
         <br>
         &nbsp; &nbsp; type hint;
         <br>
-        &nbsp; &nbsp; file "/usr/share/dns/root.hints"
+        &nbsp; &nbsp; file "/usr/share/dns/root.hints";
         <br>
         &#125;
 
@@ -181,7 +181,7 @@
         <br>
         &nbsp; &nbsp; type master;
         <br>
-        &nbsp; &nbsp; file "/etc/bind/db.local"
+        &nbsp; &nbsp; file "/etc/bind/db.local";
         <br>
         &#125;
 
@@ -191,7 +191,7 @@
         <br>
         &nbsp; &nbsp; type master;
         <br>
-        &nbsp; &nbsp; file "/etc/bind/db.127"
+        &nbsp; &nbsp; file "/etc/bind/db.127";
         <br>
         &#125;
 
@@ -201,7 +201,7 @@
         <br>
         &nbsp; &nbsp; type master;
         <br>
-        &nbsp; &nbsp; file "/etc/bind/db.0"
+        &nbsp; &nbsp; file "/etc/bind/db.0";
         <br>
         &#125;
 
@@ -211,7 +211,7 @@
         <br>
         &nbsp; &nbsp; type master;
         <br>
-        &nbsp; &nbsp; file "/etc/bind/db.255"
+        &nbsp; &nbsp; file "/etc/bind/db.255";
         <br>
         &#125;
       </div>
@@ -305,5 +305,68 @@
       múltiples en forma de nombre de parámetro y valor. Algunas se pueden usar solo en unos bloques y otras se puden
       utilizar en varios bloques, perdiendo la declaración que tiene ámbito más global.
     </p>
+  </section>
+
+  <section>
+    <h2>Configurando una zona</h2>
+
+    <p>
+      Ahora vamos a crear un dominio para nuestra red, para los dispositivos de nuestra casa.
+    </p>
+
+    <p>
+      En primer lugar copiaremos el fichero <span class="file-name">/etc/bind/db.local</span> y lo llamaremos <span
+        class="file-name">/etc/bind/db.micasa</span>. Puede que tengas que usar la orden sudo. Tras editar el nuevo
+      fichero se verá así:
+    </p>
+
+    <code>
+      cp /etc/bind/db.local /etc/bind/db.micasa
+      <br>
+      pico /etc/bind/db.micasa
+      <br>
+      cat /etc/bind/db.micasa
+      <br>
+      <div class="output zone-file">
+        <div><span>$TTL</span><span>604800</span></div>
+        <div><span>@</span><span>IN</span><span>SOA</span><span>localhost. mi-correo.gmail.com. (</span></div>
+        <div><span></span><span></span><span></span><span>2</span></div>
+        <div><span></span><span></span><span></span><span>604800</span></div>
+        <div><span></span><span></span><span></span><span>86400</span></div>
+        <div><span></span><span></span><span></span><span>2419200</span></div>
+        <div><span></span><span></span><span></span><span>604800 )</span></div>
+        <div><span>@</span><span>IN</span><span>NS</span><span>localhost.</span></div>
+        <div><span>sobremesajaime</span><span>IN</span><span>A</span><span>192.168.1.55</span></div>
+        <div><span>moviljaime</span><span>IN</span><span>A</span><span>192.168.1.54</span></div>
+        <div><span>impresora</span><span>IN</span><span>A</span><span>192.168.1.42</span></div>
+      </div>
+    </code>
+
+    <p>
+      Para que BIND pueda ver este nuevo fichero, lo tenemos que poner en la configuración. El fichero que tenemos que
+      editar es <span class="file-name">/etc/bind/named.conf.local</span>. Así se ve:
+    </p>
+
+    <code>
+      cat /etc/bind/named.conf.local
+      <br>
+      <div class="output">
+        zone "micasa" &#123;
+        <br>
+        &nbsp; &nbsp; type master;
+        <br>
+        &nbsp; &nbsp; file "/etc/bind/db.micasa";
+        <br>
+        &#125;;
+      </div>
+    </code>
+
+    <p>
+      Por último lo que tenemos que hacer es recargar la cofiguración de BIND:
+    </p>
+
+    <code>
+      service named reload
+    </code>
   </section>
 </main>
