@@ -60,9 +60,11 @@
     </p>
 
     <code>
-      apt update
-      <br>
-      apt install bind9
+      <div>
+        <span class="command">apt update</span>
+        <br>
+        <span class="output">apt install bind9</span>
+      </div>
     </code>
 
     <p>
@@ -70,9 +72,11 @@
     </p>
 
     <code>
-      systemctl is-active named
-      <br>
-      <span class="output">active</span>
+      <div>
+        <span class="command">systemctl is-active named</span>
+        <br>
+        <span class="output">active</span>
+      </div>
     </code>
 
     <p>
@@ -96,14 +100,16 @@
     </p>
 
     <code>
-      cat /etc/bind/named.conf
-      <br>
-      <div class="output">
-        include "/etc/bind/named.conf.options"
+      <div>
+        <span class="command">cat /etc/bind/named.conf</span>
         <br>
-        include "/etc/bind/named.conf.local"
-        <br>
-        include "/etc/bind/named.conf.default-zones"
+        <div class="output">
+          include "/etc/bind/named.conf.options"
+          <br>
+          include "/etc/bind/named.conf.local"
+          <br>
+          include "/etc/bind/named.conf.default-zones"
+        </div>
       </div>
     </code>
 
@@ -115,18 +121,20 @@
     </p>
 
     <code>
-      cat /etc/bind/named.conf.options
-      <br>
-      <div class="output">
-        options &#123;
+      <div>
+        <span class="command">cat /etc/bind/named.conf.options</span>
         <br>
-        &nbsp; &nbsp; directory "/var/cache/bind";
-        <br>
-        &nbsp; &nbsp; dnssec-validation auto;
-        <br>
-        &nbsp; &nbsp; listen-on-v6 &#123; any; &#125;;
-        <br>
-        &#125;;
+        <div class="output">
+          options &#123;
+          <br>
+          &nbsp; &nbsp; directory "/var/cache/bind";
+          <br>
+          &nbsp; &nbsp; dnssec-validation auto;
+          <br>
+          &nbsp; &nbsp; listen-on-v6 &#123; any; &#125;;
+          <br>
+          &#125;;
+        </div>
       </div>
     </code>
 
@@ -151,9 +159,11 @@
     </p>
 
     <code>
-      cat /etc/bind/named.conf.local
-      <br>
-      <span class="output">// Do any local configuration here</span>
+      <div>
+        <span class="command">cat /etc/bind/named.conf.local</span>
+        <br>
+        <span class="output">// Do any local configuration here</span>
+      </div>
     </code>
 
     <h3 class="file-name">/etc/bind/named.conf.default-zones</h3>
@@ -164,56 +174,50 @@
     </p>
 
     <code>
-      cat /etc/bind/named.conf.default-zones
-      <br>
-      <div class="output">
-        zone "." &#123;
+      <div>
+        <span class="command">cat /etc/bind/named.conf.default-zones</span>
         <br>
-        &nbsp; &nbsp; type hint;
-        <br>
-        &nbsp; &nbsp; file "/usr/share/dns/root.hints";
-        <br>
-        &#125;
-
-        <br> <br>
-
-        zone "localhost" &#123;
-        <br>
-        &nbsp; &nbsp; type master;
-        <br>
-        &nbsp; &nbsp; file "/etc/bind/db.local";
-        <br>
-        &#125;
-
-        <br> <br>
-
-        zone "127.in-addr.arpa" &#123;
-        <br>
-        &nbsp; &nbsp; type master;
-        <br>
-        &nbsp; &nbsp; file "/etc/bind/db.127";
-        <br>
-        &#125;
-
-        <br> <br>
-
-        zone "0.in-addr.arpa" &#123;
-        <br>
-        &nbsp; &nbsp; type master;
-        <br>
-        &nbsp; &nbsp; file "/etc/bind/db.0";
-        <br>
-        &#125;
-
-        <br> <br>
-
-        zone "255.in-addr.arpa" &#123;
-        <br>
-        &nbsp; &nbsp; type master;
-        <br>
-        &nbsp; &nbsp; file "/etc/bind/db.255";
-        <br>
-        &#125;
+        <div class="output">
+          zone "." &#123;
+          <br>
+          &nbsp; &nbsp; type hint;
+          <br>
+          &nbsp; &nbsp; file "/usr/share/dns/root.hints";
+          <br>
+          &#125;
+          <br> <br>
+          zone "localhost" &#123;
+          <br>
+          &nbsp; &nbsp; type master;
+          <br>
+          &nbsp; &nbsp; file "/etc/bind/db.local";
+          <br>
+          &#125;
+          <br> <br>
+          zone "127.in-addr.arpa" &#123;
+          <br>
+          &nbsp; &nbsp; type master;
+          <br>
+          &nbsp; &nbsp; file "/etc/bind/db.127";
+          <br>
+          &#125;
+          <br> <br>
+          zone "0.in-addr.arpa" &#123;
+          <br>
+          &nbsp; &nbsp; type master;
+          <br>
+          &nbsp; &nbsp; file "/etc/bind/db.0";
+          <br>
+          &#125;
+          <br> <br>
+          zone "255.in-addr.arpa" &#123;
+          <br>
+          &nbsp; &nbsp; type master;
+          <br>
+          &nbsp; &nbsp; file "/etc/bind/db.255";
+          <br>
+          &#125;
+        </div>
       </div>
     </code>
 
@@ -223,16 +227,18 @@
     </p>
 
     <code>
-      cat /usr/share/dns/root.hints
-      <br>
-      <div class="output root-hint">
-        <div><span>.</span><span>3600000</span><span>NS</span><span>A.ROOT-SERVERS.NET.</span></div>
-        <div><span>A.ROOT-SERVERS.NET.</span><span>3600000</span><span>A</span><span>198.41.0.4</span></div>
-        <div><span>A.ROOT-SERVERS.NET.</span><span>3600000</span><span>AAAA</span><span>2001:503:ba3e::2:30</span></div>
-        <div><span>.</span><span>3600000</span><span>NS</span><span>B.ROOT-SERVERS.NET.</span></div>
-        <div><span>B.ROOT-SERVERS.NET.</span><span>3600000</span><span>A</span><span>199.9.14.201</span></div>
-        <div><span>B.ROOT-SERVERS.NET.</span><span>3600000</span><span>AAAA</span><span>2001:500:200::b</span></div>
-        ...
+      <div>
+        <span class="command">cat /usr/share/dns/root.hints</span>
+        <br>
+<pre class="output">
+.                     3600000   NS     A.ROOT-SERVERS.NET.
+A.ROOT-SERVERS.NET.   3600000   A      198.41.0.4
+A.ROOT-SERVERS.NET.   3600000   AAAA   2001:503:ba3e::2:30
+.                     3600000   NS     B.ROOT-SERVERS.NET.
+B.ROOT-SERVERS.NET.   3600000   A      199.9.14.201
+B.ROOT-SERVERS.NET.   3600000   AAAA   2001:500:200::b
+...
+</pre>
       </div>
     </code>
 
@@ -243,19 +249,21 @@
     </p>
 
     <code>
-      cat /etc/bind/db.local
-      <br>
-      <div class="output zone-file">
-        <div><span>$TTL</span><span>604800</span></div>
-        <div><span>@</span><span>IN</span><span>SOA</span><span>localhost. root.localhost. (</span></div>
-        <div><span></span><span></span><span></span><span>2</span></div>
-        <div><span></span><span></span><span></span><span>604800</span></div>
-        <div><span></span><span></span><span></span><span>86400</span></div>
-        <div><span></span><span></span><span></span><span>2419200</span></div>
-        <div><span></span><span></span><span></span><span>604800 )</span></div>
-        <div><span>@</span><span>IN</span><span>NS</span><span>localhost.</span></div>
-        <div><span>@</span><span>IN</span><span>A</span><span>127.0.0.1</span></div>
-        <div><span>@</span><span>IN</span><span>AAAA</span><span>::1</span></div>
+      <div>
+        <span class="command">cat /etc/bind/db.local</span>
+        <br>
+<pre class="output">
+$TTL   604800
+@   IN   SOA   localhost. root.localhost. (
+                2
+                604800
+                86400
+                2419200
+                604800 )
+@   IN   NS     localhost.
+@   IN   A      127.0.0.1
+@   IN   AAAA   ::1
+</pre>
       </div>
     </code>
 
@@ -321,24 +329,26 @@
     </p>
 
     <code>
-      cp /etc/bind/db.local /etc/bind/db.micasa
-      <br>
-      pico /etc/bind/db.micasa
-      <br>
-      cat /etc/bind/db.micasa
-      <br>
-      <div class="output zone-file">
-        <div><span>$TTL</span><span>604800</span></div>
-        <div><span>@</span><span>IN</span><span>SOA</span><span>localhost. mi-correo.gmail.com. (</span></div>
-        <div><span></span><span></span><span></span><span>2</span></div>
-        <div><span></span><span></span><span></span><span>604800</span></div>
-        <div><span></span><span></span><span></span><span>86400</span></div>
-        <div><span></span><span></span><span></span><span>2419200</span></div>
-        <div><span></span><span></span><span></span><span>604800 )</span></div>
-        <div><span>@</span><span>IN</span><span>NS</span><span>localhost.</span></div>
-        <div><span>sobremesajaime</span><span>IN</span><span>A</span><span>192.168.1.55</span></div>
-        <div><span>moviljaime</span><span>IN</span><span>A</span><span>192.168.1.54</span></div>
-        <div><span>impresora</span><span>IN</span><span>A</span><span>192.168.1.42</span></div>
+      <div>
+        <span class="command">cp /etc/bind/db.local /etc/bind/db.micasa</span>
+        <br>
+        <span class="command">pico /etc/bind/db.micasa</span>
+        <br>
+        <span class="command">cat /etc/bind/db.micasa</span>
+        <br>
+<pre class="output">
+ $TTL    604800
+ @   IN   SOA   localhost. mi-correo.gmail.com. (
+                              2
+                              604800
+                              86400
+                              2419200
+                              604800 )
+ @                IN    NS    localhost.
+ sobremesajaime   IN    A     192.168.1.55
+ moviljaime       IN    A     192.168.1.54
+ impresora        IN    A     192.168.1.42
+</pre>
       </div>
     </code>
 
@@ -348,16 +358,18 @@
     </p>
 
     <code>
-      cat /etc/bind/named.conf.local
-      <br>
-      <div class="output">
-        zone "micasa" &#123;
+      <div>
+        <span class="command">cat /etc/bind/named.conf.local</span>
         <br>
-        &nbsp; &nbsp; type master;
-        <br>
-        &nbsp; &nbsp; file "/etc/bind/db.micasa";
-        <br>
-        &#125;;
+        <div class="output">
+          zone "micasa" &#123;
+          <br>
+          &nbsp; &nbsp; type master;
+          <br>
+          &nbsp; &nbsp; file "/etc/bind/db.micasa";
+          <br>
+          &#125;;
+        </div>
       </div>
     </code>
 
@@ -366,7 +378,9 @@
     </p>
 
     <code>
-      service named reload
+      <div>
+        <span class="command">service named reload</span>
+      </div>
     </code>
   </section>
 
@@ -391,12 +405,14 @@
     </p>
 
     <code>
-      cat /etc/resolv.conf
-      <br>
-      <div class="output">
-        nameserver &lt;ip_de_la_máquina_donde_has_instalado_bind&gt;
+      <div>
+        <span class="command">cat /etc/resolv.conf</span>
         <br>
-        # resto de líneas
+        <div class="output">
+          nameserver &lt;ip_de_la_máquina_donde_has_instalado_bind&gt;
+          <br>
+          # resto de líneas
+        </div>
       </div>
     </code>
 
@@ -433,15 +449,19 @@
     </p>
 
     <code>
-      dig [@&lt;ip_o_dominio_servidor_dns&gt;] &lt;nombre_de_dominio_a_resolver&gt; [&lt;tipo_de_registro&gt;]
+      <div>
+        <span class="command">dig [@&lt;ip_o_dominio_servidor_dns&gt;] &lt;nombre_de_dominio_a_resolver&gt; [&lt;tipo_de_registro&gt;]</span>
+      </div>
     </code>
 
     Vamos probarlo de verdad:
 
     <code>
-      dig sobremesajaime.micasa | grep -v ';'
-      <br>
-      <span class="output">sobremesajaime.micasa. 604800 IN A 192.168.1.55</span>
+      <div>
+        <span class="command">dig sobremesajaime.micasa | grep -v ';'</span>
+        <br>
+        <span class="output">sobremesajaime.micasa. 604800 IN A 192.168.1.55</span>
+      </div>
     </code>
 
     <p>
@@ -457,16 +477,18 @@
     </p>
 
     <code>
-      nslookup sobremesajaime.micasa
-      <br>
-      <div class="output">
-        Servidor:  UnKnown
+      <div>
+        <span class="command">nslookup sobremesajaime.micasa</span>
         <br>
-        Address:  192.168.1.51
-        <br>
-        Nombre:  sobremesajaime.micasa
-        <br>
-        Address:  192.168.1.55
+        <div class="output">
+          Servidor:  UnKnown
+          <br>
+          Address:  192.168.1.51
+          <br>
+          Nombre:  sobremesajaime.micasa
+          <br>
+          Address:  192.168.1.55
+        </div>
       </div>
     </code>
 

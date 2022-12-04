@@ -32,25 +32,30 @@ h3 + p {
 code {
     display: block;
     background-color: black;
-    color: #25fa2d;
     padding: 10px;
     border-radius: 5px;
     font-size: 1rem;
     margin-bottom: 18px;
 
-    .output {
-        color: white;
+    :first-child {
+        overflow-x: auto;
+
+        :not(pre) {
+            white-space: nowrap;
+        }
+
+        pre {
+            margin: 0;
+        }
+
+        .command {
+            color: #25fa2d;
+        }
+
+        .output {
+            color: white;
+        }
     }
-}
-
-.root-hint div {
-    display: grid;
-    grid-template-columns: 25% 15% 10% 50%;
-}
-
-.zone-file div {
-    display: grid;
-    grid-template-columns: 20% 12% 13% 55%;
 }
 
 .block-sintax,
@@ -74,4 +79,18 @@ code {
 
 .configure-dns-windows-img {
     width: 100%;
+}
+
+@media (max-width: 575px) {
+    :host {
+        padding: 0;
+
+        & > :not(app-header-print) {
+            padding: 20px;
+        }
+    }
+
+    .configure-dns-ubuntu-img {
+        width: 100%;
+    }
 }
