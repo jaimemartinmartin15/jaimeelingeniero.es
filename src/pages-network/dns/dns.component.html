@@ -268,7 +268,7 @@
     <img class="anycast-img" src="pages-network/dns/assets/anycast-example.png" alt="Ejemplo anycast">
   </section>
 
-  <section class="rr-section">
+  <section id="rr-section">
     <h2>Los registros de recursos</h2>
 
     <p>
@@ -327,7 +327,10 @@
       <li>Paréntesis <strong>()</strong> para agrupar datos en varias lineas.</li>
       <li>Un punto y coma <strong>;</strong> para poner un comentario. El resto de la linea es ignorado.</li>
       <li>Asteriscos <strong>*</strong> como comodines.</li>
-      <li>Una arroba <strong>@</strong> denota el nombre de dominio por defecto.</li>
+      <li>
+        Una arroba <strong>@</strong> denota el nombre de dominio por defecto. Puede estar definido en el fichero de
+        configuración o ser parte del nombre del fichero.
+      </li>
     </ul>
 
     <h3>Tipos de RR</h3>
@@ -442,3 +445,10 @@
     </p>
   </section>
 </main>
+
+<footer>
+  <p>
+    En el <a routerLink="./configurar-un-servidor">siguiente artículo</a> ➡️ puedes aprender a configurar tu propio
+    servidor DNS casero.
+  </p>
+</footer>

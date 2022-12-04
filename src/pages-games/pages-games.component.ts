@@ -155,7 +155,7 @@ export class PagesGamesComponent implements OnInit, OnDestroy {
     this.gameService.calculatePlayerPositions();
     this.gameService.savePlayersToLocalStorage();
     this.gameService.saveConfigToLocalStorage();
-    this.gameService.saveWhoStartsDealingFromLocalStorage();
+    this.gameService.saveWhoStartsDealingToLocalStorage();
     this.gameService.scoreChanged$.next();
   }
 

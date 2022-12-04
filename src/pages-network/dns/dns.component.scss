@@ -13,6 +13,7 @@ $page-width: 830px;
         padding: 0 0 35px 0;
     }
 
+    footer,
     main {
         padding: 0 20px 0 20px;
     }
@@ -42,7 +43,7 @@ a {
 }
 
 .definitions,
-.rr-section {
+#rr-section {
     dt {
         color: #d17515;
 
@@ -157,6 +158,10 @@ a {
     display: block;
     width: 80%;
     margin: 0 auto;
+}
+
+footer {
+    margin-top: 50px;
 }
 
 @media (max-width: 575px) {

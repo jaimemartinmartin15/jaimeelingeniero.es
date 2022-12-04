@@ -1,0 +1,96 @@
+$page-width: 830px;
+
+:host {
+    display: block;
+    max-width: $page-width;
+    margin: auto;
+    padding: 0 20px 50px 20px;
+    line-height: 30px;
+}
+
+.title {
+    text-align: center;
+}
+
+a {
+    color: #d17515;
+}
+
+.file-name {
+    display: inline;
+    font-weight: normal;
+    background-color: gainsboro;
+    font-size: 1rem;
+    padding: 5px;
+    border-radius: 5px;
+}
+
+h3 + p {
+    margin-top: 5px;
+}
+
+code {
+    display: block;
+    background-color: black;
+    padding: 10px;
+    border-radius: 5px;
+    font-size: 1rem;
+    margin-bottom: 18px;
+
+    :first-child {
+        overflow-x: auto;
+
+        :not(pre) {
+            white-space: nowrap;
+        }
+
+        pre {
+            margin: 0;
+        }
+
+        .command {
+            color: #25fa2d;
+        }
+
+        .output {
+            color: white;
+        }
+    }
+}
+
+.block-sintax,
+.comment-sintax {
+    background-color: #dedede;
+    white-space: nowrap;
+    padding: 3px;
+    margin: 3px;
+    border-radius: 3px;
+    display: inline-block;
+    vertical-align: bottom;
+    max-width: 100%;
+    overflow-x: auto;
+}
+
+.configure-dns-ubuntu-img {
+    display: block;
+    width: 90%;
+    margin: 0 auto;
+}
+
+.configure-dns-windows-img {
+    width: 100%;
+}
+
+@media (max-width: 575px) {
+    :host {
+        padding: 0;
+
+        & > :not(app-header-print) {
+            padding: 20px;
+        }
+    }
+
+    .configure-dns-ubuntu-img {
+        width: 100%;
+    }
+}

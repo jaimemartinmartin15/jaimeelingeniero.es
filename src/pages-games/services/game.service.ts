@@ -130,7 +130,7 @@ export class GameService {
     }
   }
 
-  public saveWhoStartsDealingFromLocalStorage() {
+  public saveWhoStartsDealingToLocalStorage() {
     localStorage.setItem(STARTS_DEALING_KEY, `${this._startsDealing}`);
   }
 
