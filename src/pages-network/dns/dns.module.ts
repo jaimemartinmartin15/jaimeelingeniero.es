@@ -15,11 +15,13 @@ import { PtrComponent } from './rr/ptr/ptr.component';
 import { WksComponent } from './rr/wks/wks.component';
 import { HinfoComponent } from './rr/hinfo/hinfo.component';
 import { TxtComponent } from './rr/txt/txt.component';
+import { ConfigureDnsServerComponent } from './configure-dns-server/configure-dns-server.component';
 
 @NgModule({
   imports: [CommonModule, DnsRoutingModule, HeaderPrintModule],
   declarations: [
     DnsComponent,
+    ConfigureDnsServerComponent,
     SoaComponent,
     NsComponent,
     AComponent,
