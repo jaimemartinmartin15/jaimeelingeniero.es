@@ -111,10 +111,5 @@
         }
       }
     }
-  },
-  "cli": {
-    "schematicCollections": [
-      "./app-schematics"
-    ]
   }
 }
