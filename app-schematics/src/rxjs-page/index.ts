@@ -1,9 +1,8 @@
 import { apply, mergeWith, Rule, SchematicContext, Tree, url, template, move } from '@angular-devkit/schematics';
-
 import { strings } from '@angular-devkit/core';
+import { classify, dasherize } from '@angular-devkit/core/src/utils/strings';
 
 import { Schema } from './schema';
-import { classify, dasherize } from '@angular-devkit/core/src/utils/strings';
 
 const RXJS_ROUTING_MODULE_PATH = 'src/pages-rxjs/routable-lateral-menu/routable-lateral-menu-routing.module.ts';
 

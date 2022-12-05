@@ -114,6 +114,7 @@
   },
   "cli": {
     "schematicCollections": [
+      "@schematics/angular",
       "./app-schematics"
     ]
   }
