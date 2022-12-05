@@ -279,7 +279,8 @@ $TTL   604800
     <p>
       El <strong>@</strong> es el nombre de la zona. Para este caso, viene especificado en el fichero <span
         class="file-name">named.conf.default-zones</span> donde se declara la zona. En otro caso, sería el nombre del
-      fichero sin el <i>db.</i>
+      fichero sin el <i>db.</i> También se podría indicar con la directiva <strong>$ORIGIN</strong> al igual que el
+      $TTL.
     </p>
   </section>
 
@@ -311,7 +312,8 @@ $TTL   604800
     <p>
       Las <strong>declaraciones</strong> definen y controlan el comportamiento de BIND. Pueden tener un simple valor o
       múltiples en forma de nombre de parámetro y valor. Algunas se pueden usar solo en unos bloques y otras se puden
-      utilizar en varios bloques, perdiendo la declaración que tiene ámbito más global.
+      utilizar en varios bloques, perdiendo la declaración que tiene ámbito más global. Las declaraciones acaban en
+      punto y coma <strong>;</strong>
     </p>
   </section>
 
