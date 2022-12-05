@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Meta, Title } from '@angular/platform-browser';
+import { Meta } from '@angular/platform-browser';
 import { BehaviorSubject, combineLatestWith, Subject } from 'rxjs';
 import { BaseOperatorComponent } from '../shared/base-operator.component';
 import { ButtonController } from '../shared/components/conveyor-controller/button-controller';
@@ -63,8 +63,8 @@ export class CombineLatestWithComponent extends BaseOperatorComponent {
     {} as any as ElementInConveyor,
   ];
 
-  public constructor(titleService: Title, metaService: Meta) {
-    super(titleService, metaService, 'combineLatestWith');
+  public constructor(metaService: Meta) {
+    super(metaService, 'combineLatestWith');
   }
 
   protected moveElement(e: ElementInConveyor): void {

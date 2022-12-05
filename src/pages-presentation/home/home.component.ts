@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Meta, Title } from '@angular/platform-browser';
+import { Meta } from '@angular/platform-browser';
 import { intervalArray } from 'src/utils/arrays';
 
 import { rotateProfilePicture } from './home.animations';
@@ -50,12 +50,11 @@ export class HomeComponent implements OnInit, OnDestroy {
   public waveViewBox = `0 0 ${this.viewBoxWidth} ${this.viewBoxHeight}`;
   public wavePath = '';
 
-  public constructor(private readonly titleService: Title, private readonly metaService: Meta) {}
+  public constructor(private readonly metaService: Meta) {}
 
   public ngOnInit(): void {
     this.years = this.calculateAge(new Date(1996, 10, 15));
 
-    this.titleService.setTitle('Presentación');
     this.metaService.updateTag({ name: 'description', content: `Me llamo Jaime, tengo ${this.years} años y soy ingeniero informático` });
     this.metaService.updateTag({ name: 'keywords', content: 'jaime martin martin, ingeniero informático' });
 

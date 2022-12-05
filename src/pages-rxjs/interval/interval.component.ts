@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
-import { Meta, Title } from '@angular/platform-browser';
+import { Meta } from '@angular/platform-browser';
 import { BehaviorSubject, interval, map, pipe, switchMap } from 'rxjs';
+import { BaseOperatorComponent } from '../shared/base-operator.component';
+import { ButtonController } from '../shared/components/conveyor-controller/button-controller';
 import { ElementInConveyor } from '../shared/element-in-conveyor';
 import { ObservableEventType } from '../shared/observable-event-type';
-import { ButtonController } from '../shared/components/conveyor-controller/button-controller';
-import { BaseOperatorComponent } from '../shared/base-operator.component';
 
 @Component({
   selector: 'app-interval',
@@ -25,8 +25,8 @@ export class IntervalComponent extends BaseOperatorComponent {
     [this.MAIN_ID]: new BehaviorSubject<boolean>(false),
   };
 
-  public constructor(titleService: Title, metaService: Meta) {
-    super(titleService, metaService, 'interval');
+  public constructor(metaService: Meta) {
+    super(metaService, 'interval');
   }
 
   protected moveElement(e: ElementInConveyor): void {

@@ -5,6 +5,7 @@ import { SampleTimeComponent } from './sample-time.component';
 const routes: Routes = [
   {
     path: '',
+    title: 'SampleTime rxjs',
     component: SampleTimeComponent,
   },
   {

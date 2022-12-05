@@ -5,6 +5,7 @@ import { CombineLatestWithComponent } from './combine-latest-with.component';
 const routes: Routes = [
   {
     path: '',
+    title: 'CombineLatestWith rxjs',
     component: CombineLatestWithComponent,
   },
   {

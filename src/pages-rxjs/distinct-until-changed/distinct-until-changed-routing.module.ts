@@ -5,6 +5,7 @@ import { DistinctUntilChangedComponent } from './distinct-until-changed.componen
 const routes: Routes = [
   {
     path: '',
+    title: 'DistinctUntil rxjs',
     component: DistinctUntilChangedComponent,
   },
   {

@@ -1,5 +1,5 @@
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
-import { Meta, Title } from '@angular/platform-browser';
+import { Meta } from '@angular/platform-browser';
 import { BehaviorSubject, interval, Subject, Subscription } from 'rxjs';
 import { ButtonController } from '../shared/components/conveyor-controller/button-controller';
 import { DemoContainerComponent } from '../shared/components/demo-container/demo-container.component';
@@ -43,10 +43,9 @@ export class BehaviorSubjectComponent implements OnInit, AfterViewInit {
     [this.S3]: new Subject<SpeechBubble>(),
   };
 
-  public constructor(private readonly titleService: Title, private readonly metaService: Meta) {}
+  public constructor(private readonly metaService: Meta) {}
 
   public ngOnInit() {
-    this.titleService.setTitle('BehaviorSubject rxjs');
     this.metaService.updateTag({ name: 'description', content: 'Explicación de un BehaviorSubject' });
     this.metaService.updateTag({ name: 'keywords', content: `behaviorsubject, demo, rxjs` });
   }

@@ -5,6 +5,7 @@ import { TimerComponent } from './timer.component';
 const routes: Routes = [
   {
     path: '',
+    title: 'Timer rxjs',
     component: TimerComponent,
   },
   {

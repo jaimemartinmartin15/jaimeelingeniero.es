@@ -5,6 +5,7 @@ import { SwitchMapComponent } from './switch-map.component';
 const routes: Routes = [
   {
     path: '',
+    title: 'SwitchMap rxjs',
     component: SwitchMapComponent,
   },
   {

@@ -5,6 +5,7 @@ import { MergeMapComponent } from './merge-map.component';
 const routes: Routes = [
   {
     path: '',
+    title: 'MergeMap rxjs',
     component: MergeMapComponent,
   },
   {

@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
-import { Meta, Title } from '@angular/platform-browser';
+import { Meta } from '@angular/platform-browser';
 import { BehaviorSubject, of, switchMap } from 'rxjs';
+import { BaseOperatorComponent } from '../shared/base-operator.component';
+import { ButtonController } from '../shared/components/conveyor-controller/button-controller';
 import { ElementInConveyor } from '../shared/element-in-conveyor';
 import { ObservableEventType } from '../shared/observable-event-type';
-import { ButtonController } from '../shared/components/conveyor-controller/button-controller';
-import { BaseOperatorComponent } from '../shared/base-operator.component';
 
 @Component({
   selector: 'app-of',
@@ -32,8 +32,8 @@ export class OfComponent extends BaseOperatorComponent {
     [this.MAIN_ID]: new BehaviorSubject<boolean>(false),
   };
 
-  public constructor(titleService: Title, metaService: Meta) {
-    super(titleService, metaService, 'of');
+  public constructor(metaService: Meta) {
+    super(metaService, 'of');
   }
 
   protected moveElement(e: ElementInConveyor): void {

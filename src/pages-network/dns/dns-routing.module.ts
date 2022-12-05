@@ -6,12 +6,13 @@ import { DnsComponent } from './dns.component';
 const routes: Routes = [
   {
     path: 'configurar-un-servidor',
-    title: 'Configurar un servidor dns',
+    title: 'Configurar un servidor DNS - Redes',
     component: ConfigureDnsServerComponent,
     children: [{ path: '**', redirectTo: '' }],
   },
   {
     path: '',
+    title: 'El servicio DNS - Redes',
     component: DnsComponent,
   },
   {

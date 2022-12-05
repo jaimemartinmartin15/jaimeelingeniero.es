@@ -5,6 +5,7 @@ import { TakeWhileComponent } from './take-while.component';
 const routes: Routes = [
   {
     path: '',
+    title: 'TakeWhile rxjs',
     component: TakeWhileComponent,
   },
   {

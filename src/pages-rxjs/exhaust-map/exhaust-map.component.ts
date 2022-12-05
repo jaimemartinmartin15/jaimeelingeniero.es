@@ -36,8 +36,8 @@ export class ExhaustMapComponent extends BaseOperatorComponent {
 
   private exhaustMap$: { [key: string]: Subject<string> } = {};
 
-  public constructor(titleService: Title, metaService: Meta) {
-    super(titleService, metaService, 'exhaustMap');
+  public constructor(metaService: Meta) {
+    super(metaService, 'exhaustMap');
   }
 
   protected moveElement(e: ElementInConveyor): void {

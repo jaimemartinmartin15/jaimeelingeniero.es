@@ -5,6 +5,7 @@ import { FirstComponent } from './first.component';
 const routes: Routes = [
   {
     path: '',
+    title: 'First rxjs',
     component: FirstComponent,
   },
   {

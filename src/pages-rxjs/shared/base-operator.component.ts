@@ -1,7 +1,6 @@
 import { AfterViewInit, Component, Inject, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { Meta, Title } from '@angular/platform-browser';
+import { Meta } from '@angular/platform-browser';
 import { BehaviorSubject, interval, Subject, Subscription } from 'rxjs';
-import { capitalizeFirstLetter } from 'src/utils/strings';
 import { ButtonController } from './components/conveyor-controller/button-controller';
 import { DemoContainerComponent } from './components/demo-container/demo-container.component';
 import { ElementInConveyor } from './element-in-conveyor';
@@ -37,14 +36,9 @@ export abstract class BaseOperatorComponent implements OnInit, AfterViewInit, On
 
   public elementsInConveyor: ElementInConveyor[] = [];
 
-  public constructor(
-    protected readonly titleService: Title,
-    protected readonly metaService: Meta,
-    @Inject(String) private readonly operatorName: string
-  ) {}
+  public constructor(protected readonly metaService: Meta, @Inject(String) private readonly operatorName: string) {}
 
   public ngOnInit() {
-    this.titleService.setTitle(`${capitalizeFirstLetter(this.operatorName)} rxjs`);
     this.metaService.updateTag({ name: 'description', content: `Explicación del operador rxjs ${this.operatorName}` });
     this.metaService.updateTag({ name: 'keywords', content: `${this.operatorName.toLowerCase()}, demo, rxjs` });
   }

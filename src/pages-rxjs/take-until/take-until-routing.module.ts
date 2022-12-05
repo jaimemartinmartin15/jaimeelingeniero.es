@@ -5,6 +5,7 @@ import { TakeUntilComponent } from './take-until.component';
 const routes: Routes = [
   {
     path: '',
+    title: 'TakeUntil rxjs',
     component: TakeUntilComponent,
   },
   {

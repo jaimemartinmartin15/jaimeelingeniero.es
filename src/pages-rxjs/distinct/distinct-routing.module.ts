@@ -5,6 +5,7 @@ import { DistinctComponent } from './distinct.component';
 const routes: Routes = [
   {
     path: '',
+    title: 'Distinct rxjs',
     component: DistinctComponent,
   },
   {

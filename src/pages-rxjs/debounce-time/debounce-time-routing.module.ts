@@ -5,6 +5,7 @@ import { DebounceTimeComponent } from './debounce-time.component';
 const routes: Routes = [
   {
     path: '',
+    title: 'DebounceTime rxjs',
     component: DebounceTimeComponent,
   },
   {

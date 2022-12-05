@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Meta, Title } from '@angular/platform-browser';
+import { Meta } from '@angular/platform-browser';
 import { BehaviorSubject, from } from 'rxjs';
 import { ButtonController } from '../shared/components/conveyor-controller/button-controller';
 
@@ -17,10 +17,9 @@ export class FromComponent implements OnInit, OnDestroy {
 
   public readonly conveyorsWorking: { [key: string]: BehaviorSubject<boolean> } = {};
 
-  public constructor(private readonly titleService: Title, private readonly metaService: Meta) {}
+  public constructor(private readonly metaService: Meta) {}
 
   public ngOnInit() {
-    this.titleService.setTitle('From rxjs');
     this.metaService.updateTag({ name: 'description', content: 'Explicación del operador rxjs from' });
   }
 

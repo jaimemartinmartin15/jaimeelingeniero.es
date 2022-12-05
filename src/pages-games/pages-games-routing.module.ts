@@ -23,6 +23,7 @@ const pathWithoutChildrens = (component: Type<any>): Routes => {
 const routes: Routes = [
   {
     path: '',
+    title: 'Puntuaciones',
     component: PagesGamesComponent,
     children: [
       {

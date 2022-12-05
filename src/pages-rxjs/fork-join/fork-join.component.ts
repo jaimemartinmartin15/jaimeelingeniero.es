@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Meta, Title } from '@angular/platform-browser';
+import { Meta } from '@angular/platform-browser';
 import { BehaviorSubject, forkJoin, Subject, switchMap } from 'rxjs';
 import { BaseOperatorComponent } from '../shared/base-operator.component';
 import { ButtonController } from '../shared/components/conveyor-controller/button-controller';
@@ -60,8 +60,8 @@ export class ForkJoinComponent extends BaseOperatorComponent {
     {} as any as ElementInConveyor,
   ];
 
-  public constructor(titleService: Title, metaService: Meta) {
-    super(titleService, metaService, 'jorkJoin');
+  public constructor(metaService: Meta) {
+    super(metaService, 'jorkJoin');
   }
 
   protected moveElement(e: ElementInConveyor): void {

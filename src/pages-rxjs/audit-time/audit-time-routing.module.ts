@@ -5,6 +5,7 @@ import { AuditTimeComponent } from './audit-time.component';
 const routes: Routes = [
   {
     path: '',
+    title: 'AuditTime rxjs',
     component: AuditTimeComponent,
   },
   {

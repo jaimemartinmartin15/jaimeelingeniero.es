@@ -5,6 +5,7 @@ import { ExhaustMapComponent } from './exhaust-map.component';
 const routes: Routes = [
   {
     path: '',
+    title: 'ExhaustMap rxjs',
     component: ExhaustMapComponent,
   },
   {

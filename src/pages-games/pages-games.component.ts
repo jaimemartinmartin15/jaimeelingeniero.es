@@ -1,6 +1,6 @@
 import { DOCUMENT } from '@angular/common';
 import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
-import { Meta, Title } from '@angular/platform-browser';
+import { Meta } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import { distinctUntilChanged, filter, fromEvent, map, pairwise, startWith, tap } from 'rxjs';
 import { BottomControlsService } from './components/bottom-controls/bottom-controls.service';
@@ -24,7 +24,6 @@ export class PagesGamesComponent implements OnInit, OnDestroy {
   public enterPunctuationPopUpInput: EnterPunctuationPopUpInput;
 
   public constructor(
-    private readonly titleService: Title,
     private readonly metaService: Meta,
     @Inject(DOCUMENT) private document: Document,
     private readonly gameService: GameService,
@@ -75,7 +74,6 @@ export class PagesGamesComponent implements OnInit, OnDestroy {
   }
 
   public setTitleAndTags() {
-    this.titleService.setTitle('Puntuaciones');
     this.metaService.updateTag({
       name: 'description',
       content: `
