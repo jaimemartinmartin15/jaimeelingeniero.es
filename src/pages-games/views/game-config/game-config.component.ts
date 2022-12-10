@@ -1,4 +1,5 @@
-import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, Inject, OnInit, ViewChild } from '@angular/core';
+import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
+import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, Inject, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
 import { GameHolderService } from 'src/pages-games/game-services/game-holder.service';
 import { GameService } from 'src/pages-games/game-services/game.service';
 import { GAME_SERVICES } from 'src/pages-games/pages-games.module';
@@ -16,6 +17,11 @@ export class GameConfigComponent implements OnInit, AfterViewInit {
 
   @ViewChild('limitScore')
   public limitScoreContainer: ElementRef<HTMLDivElement>;
+
+  @ViewChildren('playerInput')
+  private playerInputs: QueryList<ElementRef>;
+  public playerNames: string[] = ['', '', '', ''];
+  public playerStartsDealing: number = 0;
 
   public constructor(
     private readonly changeDetectorRef: ChangeDetectorRef,
@@ -85,5 +91,29 @@ export class GameConfigComponent implements OnInit, AfterViewInit {
 
   public setWinnerConfigLowestScore() {
     this.gameHolderService.service.winner = 'lowestScore';
+  }
+
+  public trackByPlayerIndex(index: number) {
+    return index;
+  }
+
+  public addPlayer() {
+    this.playerNames.push('');
+    this.changeDetectorRef.detectChanges();
+    this.playerInputs.last.nativeElement.focus();
+  }
+
+  public onReorderingPlayer(event: CdkDragDrop<string[]>) {
+    const playerNameDealing = this.playerNames[this.playerStartsDealing];
+    moveItemInArray(this.playerNames, event.previousIndex, event.currentIndex);
+    this.playerStartsDealing = this.playerNames.indexOf(playerNameDealing);
+  }
+
+  public deletePlayer(index: number) {
+    const playerNameDealing = this.playerNames[this.playerStartsDealing];
+    this.playerNames.splice(index, 1);
+    const playerNameDealingIndex = this.playerNames.indexOf(playerNameDealing);
+    const playerBefore = this.playerStartsDealing - 1;
+    this.playerStartsDealing = playerNameDealingIndex !== -1 ? playerNameDealingIndex : playerBefore !== -1 ? playerBefore : 0;
   }
 }
