@@ -12,3 +12,15 @@
     </div>
   </div>
 </div>
+
+<div class="number-of-cards" *ngIf="gameHolderService.service.showNumberOfCardsConfig">
+  <label class="label">Cartas</label>
+
+  <div #numberOfCards class="input-number" (scroll)="calculateNumberOfSelectedCards()">
+    <span (click)="setNumberOfCards = getNumberOfCards - 2">{{getNumberOfCards - 2}}</span>
+    <span (click)="setNumberOfCards = getNumberOfCards - 1">{{getNumberOfCards - 1}}</span>
+    <span class="selected">{{getNumberOfCards}}</span>
+    <span (click)="setNumberOfCards = getNumberOfCards + 1">{{getNumberOfCards + 1}}</span>
+    <span (click)="setNumberOfCards = getNumberOfCards + 2">{{getNumberOfCards + 2}}</span>
+  </div>
+</div>

@@ -11,6 +11,10 @@ export const GAME_SERVICES = new InjectionToken<GameService[]>('GAME_SERVICES to
 @NgModule({
   imports: [CommonModule, PagesGamesRoutingModule],
   declarations: [ResumeGameComponent, GameConfigComponent],
-  providers: [GameHolderService, { provide: GAME_SERVICES, useValue: { gameName: 'Pocha' }, multi: true }], // TODO provide real game services
+  providers: [
+    GameHolderService,
+    // TODO provide real game services
+    { provide: GAME_SERVICES, useValue: { gameName: 'Pocha', showNumberOfCardsConfig: true, numberOfCards: 40 }, multi: true },
+  ],
 })
 export class PagesGamesModule {}

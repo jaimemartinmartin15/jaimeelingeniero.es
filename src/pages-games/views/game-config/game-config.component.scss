@@ -60,3 +60,26 @@
         }
     }
 }
+
+.number-of-cards {
+    .input-number {
+        display: flex;
+        border: 2px solid #d17515;
+        border-radius: 5px;
+        margin-top: 5px;
+        max-width: 150px;
+        overflow: auto;
+
+        span {
+            padding: 10px 0;
+            min-width: 50px;
+            text-align: center;
+            box-sizing: border-box;
+            border-right: 2px solid #d17515;
+
+            &.selected {
+                background-color: #d1751555;
+            }
+        }
+    }
+}
