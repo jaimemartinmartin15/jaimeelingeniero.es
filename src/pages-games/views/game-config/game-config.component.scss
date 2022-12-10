@@ -1,0 +1,62 @@
+:host {
+    position: fixed;
+    inset: 0;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.label {
+    color: #d17515;
+    margin-bottom: 5px;
+    display: inline-block;
+}
+
+.game-name {
+    .select {
+        border: 2px solid #d17515;
+        border-radius: 5px;
+        padding: 10px;
+        font-size: 1.2rem;
+        position: relative;
+
+        &::after {
+            content: "";
+            width: 15px;
+            height: 15px;
+            background-color: black;
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-25%);
+            transform-origin: 50% 25%;
+            clip-path: polygon(20% 0%, 0% 20%, 50% 70%, 100% 20%, 80% 0%, 50% 30%);
+            transition: transform 0.5s;
+        }
+
+        &.open::after {
+            transform: rotate(180deg);
+        }
+    }
+
+    .options {
+        margin-top: 5px;
+        background-color: #fbfbff;
+        border: 2px solid black;
+        border-radius: 5px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        div {
+            padding: 15px;
+            width: 100%;
+            box-sizing: border-box;
+
+            &:not(:last-child) {
+                border-bottom: 1px solid black;
+            }
+        }
+    }
+}

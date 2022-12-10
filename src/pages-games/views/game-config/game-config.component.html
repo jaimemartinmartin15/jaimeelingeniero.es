@@ -1,0 +1,14 @@
+<div class="game-name">
+  <label class="label">Juego</label>
+
+  <div class="select" [ngClass]="{open: selectGameNameDropDownOpen}"
+    (click)="selectGameNameDropDownOpen = !selectGameNameDropDownOpen">
+    {{gameHolderService.service.gameName}}
+  </div>
+
+  <div class="options" *ngIf="selectGameNameDropDownOpen">
+    <div *ngFor="let gameService of gameServices" (click)="onSelectGameName(gameService)">
+      {{gameService.gameName}}
+    </div>
+  </div>
+</div>
