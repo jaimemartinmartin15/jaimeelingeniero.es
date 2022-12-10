@@ -2,7 +2,9 @@ import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, Inject, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
 import { GameHolderService } from 'src/pages-games/game-services/game-holder.service';
 import { GameService } from 'src/pages-games/game-services/game.service';
+import { LOCAL_STORE_KEYS } from 'src/pages-games/local-storage-keys';
 import { GAME_SERVICES } from 'src/pages-games/pages-games.module';
+import { Player } from 'src/pages-games/player';
 
 @Component({
   selector: 'app-game-config',
@@ -30,7 +32,12 @@ export class GameConfigComponent implements OnInit, AfterViewInit {
   ) {}
 
   public ngOnInit() {
-    // TODO load possible player names from previous game
+    // load player names from previous game if available
+    const previousPlayers = localStorage.getItem(LOCAL_STORE_KEYS.PLAYERS);
+    if (previousPlayers != null) {
+      const players: Player[] = JSON.parse(previousPlayers);
+      this.playerNames = players.sort((p1, p2) => p1.id - p2.id).map((p) => p.name);
+    }
   }
 
   public ngAfterViewInit(): void {
