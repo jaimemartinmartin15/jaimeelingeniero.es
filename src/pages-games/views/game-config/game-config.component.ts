@@ -1,10 +1,12 @@
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, Inject, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { GameHolderService } from 'src/pages-games/game-services/game-holder.service';
 import { GameService } from 'src/pages-games/game-services/game.service';
 import { LOCAL_STORE_KEYS } from 'src/pages-games/local-storage-keys';
 import { GAME_SERVICES } from 'src/pages-games/pages-games.module';
 import { Player } from 'src/pages-games/player';
+import { ROUTING_PATHS } from 'src/pages-games/routing-paths';
 
 @Component({
   selector: 'app-game-config',
@@ -28,7 +30,9 @@ export class GameConfigComponent implements OnInit, AfterViewInit {
   public constructor(
     private readonly changeDetectorRef: ChangeDetectorRef,
     @Inject(GAME_SERVICES) public gameServices: GameService[],
-    public readonly gameHolderService: GameHolderService
+    public readonly gameHolderService: GameHolderService,
+    private readonly router: Router,
+    private readonly activatedRoute: ActivatedRoute
   ) {}
 
   public ngOnInit() {
@@ -122,5 +126,16 @@ export class GameConfigComponent implements OnInit, AfterViewInit {
     const playerNameDealingIndex = this.playerNames.indexOf(playerNameDealing);
     const playerBefore = this.playerStartsDealing - 1;
     this.playerStartsDealing = playerNameDealingIndex !== -1 ? playerNameDealingIndex : playerBefore !== -1 ? playerBefore : 0;
+  }
+
+  public get startButtonDisabled(): boolean {
+    return this.playerNames.some((p) => p.trim() === '');
+  }
+
+  public startGame() {
+    this.gameHolderService.service.players = this.playerNames.map((name, id) => ({ id, name, scores: [] }));
+    this.gameHolderService.service.playerStartsDealing = this.playerStartsDealing;
+
+    this.router.navigate(['../', ROUTING_PATHS.RANKING], { relativeTo: this.activatedRoute });
   }
 }

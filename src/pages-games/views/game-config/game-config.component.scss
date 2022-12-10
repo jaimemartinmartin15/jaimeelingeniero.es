@@ -1,10 +1,11 @@
 :host {
     position: fixed;
-    inset: 0;
-    padding: 15px;
+    inset: 0 0 66px 0; // 66px is the height of bottom control
+    padding: 15px 15px 0 15px;
     display: flex;
     flex-direction: column;
     gap: 15px;
+    overflow-y: auto;
 }
 
 label {
@@ -236,5 +237,19 @@ label {
                 }
             }
         }
+    }
+}
+
+.button-group {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 20px;
+    background-color: white;
+    text-align: center;
+
+    .app-button {
+        padding: 5px 9px;
     }
 }
