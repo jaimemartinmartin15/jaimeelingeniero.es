@@ -12,4 +12,5 @@ export interface GameService {
   winner: 'highestScore' | 'lowestScore';
 
   readonly showNumberOfCardsConfig: boolean;
+  readonly showLimitScoreConfig: boolean;
 }

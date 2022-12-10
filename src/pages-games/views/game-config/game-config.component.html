@@ -24,3 +24,15 @@
     <span (click)="setNumberOfCards = getNumberOfCards + 2">{{getNumberOfCards + 2}}</span>
   </div>
 </div>
+
+<div class="limit-score" *ngIf="gameHolderService.service.showLimitScoreConfig">
+  <label class="label">Límite</label>
+
+  <div #limitScore class="input-number" (scroll)="calculateLimitScore()">
+    <span (click)="setLimitScore = getLimitScore - 2">{{getLimitScore - 2}}</span>
+    <span (click)="setLimitScore = getLimitScore - 1">{{getLimitScore - 1}}</span>
+    <span class="selected">{{getLimitScore}}</span>
+    <span (click)="setLimitScore = getLimitScore + 1">{{getLimitScore + 1}}</span>
+    <span (click)="setLimitScore = getLimitScore + 2">{{getLimitScore + 2}}</span>
+  </div>
+</div>
