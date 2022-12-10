@@ -13,4 +13,5 @@ export interface GameService {
 
   readonly showNumberOfCardsConfig: boolean;
   readonly showLimitScoreConfig: boolean;
+  readonly showWinnerConfig: boolean;
 }

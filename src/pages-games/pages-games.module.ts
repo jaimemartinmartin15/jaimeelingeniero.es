@@ -24,6 +24,11 @@ export const GAME_SERVICES = new InjectionToken<GameService[]>('GAME_SERVICES to
       useValue: { gameName: 'Chinchon', showLimitScoreConfig: true, limitScore: 100 },
       multi: true,
     },
+    {
+      provide: GAME_SERVICES,
+      useValue: { gameName: 'Otro', showWinnerConfig: true, winner: 'highestScore' },
+      multi: true,
+    },
   ],
 })
 export class PagesGamesModule {}

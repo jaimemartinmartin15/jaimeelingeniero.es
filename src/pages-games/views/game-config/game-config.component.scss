@@ -7,7 +7,7 @@
     gap: 15px;
 }
 
-.label {
+label {
     color: #d17515;
     margin-bottom: 5px;
     display: inline-block;
@@ -80,6 +80,36 @@
 
             &.selected {
                 background-color: #d1751555;
+            }
+        }
+    }
+}
+
+.winner {
+    .radio-element {
+        margin-top: 5px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+
+        .radio-button {
+            position: relative;
+            height: 20px;
+            width: 20px;
+            border: 2px solid #d17515;
+            border-radius: 50%;
+
+            &.selected {
+                &::after {
+                    content: "";
+                    position: absolute;
+                    top: 5px;
+                    left: 5px;
+                    width: 10px;
+                    height: 10px;
+                    border-radius: 50%;
+                    background-color: #d17515;
+                }
             }
         }
     }

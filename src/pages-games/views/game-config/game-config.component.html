@@ -1,5 +1,5 @@
 <div class="game-name">
-  <label class="label">Juego</label>
+  <label>Juego</label>
 
   <div class="select" [ngClass]="{open: selectGameNameDropDownOpen}"
     (click)="selectGameNameDropDownOpen = !selectGameNameDropDownOpen">
@@ -14,7 +14,7 @@
 </div>
 
 <div class="number-of-cards" *ngIf="gameHolderService.service.showNumberOfCardsConfig">
-  <label class="label">Cartas</label>
+  <label>Cartas</label>
 
   <div #numberOfCards class="input-number" (scroll)="calculateNumberOfSelectedCards()">
     <span (click)="setNumberOfCards = getNumberOfCards - 2">{{getNumberOfCards - 2}}</span>
@@ -26,7 +26,7 @@
 </div>
 
 <div class="limit-score" *ngIf="gameHolderService.service.showLimitScoreConfig">
-  <label class="label">Límite</label>
+  <label>Límite</label>
 
   <div #limitScore class="input-number" (scroll)="calculateLimitScore()">
     <span (click)="setLimitScore = getLimitScore - 2">{{getLimitScore - 2}}</span>
@@ -34,5 +34,19 @@
     <span class="selected">{{getLimitScore}}</span>
     <span (click)="setLimitScore = getLimitScore + 1">{{getLimitScore + 1}}</span>
     <span (click)="setLimitScore = getLimitScore + 2">{{getLimitScore + 2}}</span>
+  </div>
+</div>
+
+<div class="winner" *ngIf="gameHolderService.service.showWinnerConfig">
+  <label>Ganador</label>
+
+  <div class="radio-element" (click)="setWinnerConfigHighestScore()">
+    <span class="radio-button" [ngClass]="{selected: gameHolderService.service.winner === 'highestScore'}"></span>
+    Quien más puntos tiene
+  </div>
+
+  <div class="radio-element" (click)="setWinnerConfigLowestScore()">
+    <span class="radio-button" [ngClass]="{selected: gameHolderService.service.winner === 'lowestScore'}"></span>
+    Quien menos puntos tiene
   </div>
 </div>

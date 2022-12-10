@@ -78,4 +78,12 @@ export class GameConfigComponent implements OnInit, AfterViewInit {
   public set setLimitScore(value: number) {
     this.gameHolderService.service.limitScore = value;
   }
+
+  public setWinnerConfigHighestScore() {
+    this.gameHolderService.service.winner = 'highestScore';
+  }
+
+  public setWinnerConfigLowestScore() {
+    this.gameHolderService.service.winner = 'lowestScore';
+  }
 }
