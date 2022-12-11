@@ -33,4 +33,5 @@ export interface GameService {
   getNumberOfRejoins(playerId: number): number;
 
   get rankingPlayers(): Player[];
+  gameHasStarted(): boolean;
 }

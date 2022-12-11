@@ -1,10 +1,18 @@
 :host {
     position: fixed;
-    inset: 0 0 66px 0; // 66px is the height of bottom control
-    padding: 15px 15px 0 15px;
+    inset: 0;
+    padding: 15px;
     display: flex;
     flex-direction: column;
     gap: 15px;
-    overflow-y: auto;
 }
 
+.empty-state {
+    text-align: center;
+    margin-top: 50%;
+}
+
+.players-list {
+    flex-grow: 1;
+    overflow-y: auto;
+}
