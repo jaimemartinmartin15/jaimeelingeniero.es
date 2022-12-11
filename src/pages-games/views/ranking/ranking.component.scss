@@ -1,0 +1,10 @@
+:host {
+    position: fixed;
+    inset: 0 0 66px 0; // 66px is the height of bottom control
+    padding: 15px 15px 0 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    overflow-y: auto;
+}
+

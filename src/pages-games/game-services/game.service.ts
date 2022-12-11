@@ -31,4 +31,6 @@ export interface GameService {
   getMaximumReachedScore(playerId: number): number;
   readonly showNumberOfRejoinsPlayerDisplay: boolean;
   getNumberOfRejoins(playerId: number): number;
+
+  get rankingPlayers(): Player[];
 }

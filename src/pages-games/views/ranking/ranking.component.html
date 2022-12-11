@@ -1,5 +1,10 @@
-<!-- TODO empty state and show full list of players -->
-
 <app-round-info></app-round-info>
 
-<app-player-display [playerId]="0"></app-player-display>
+<div *ngIf="gameHolderService.service.gameHasFinished()">
+    Introduce al menos una ronda para mostrar el ranking
+</div>
+
+<div *ngIf="!gameHolderService.service.gameHasFinished()">
+    <app-player-display *ngFor="let player of gameHolderService.service.rankingPlayers" [playerId]="player.id">
+    </app-player-display>
+</div>
