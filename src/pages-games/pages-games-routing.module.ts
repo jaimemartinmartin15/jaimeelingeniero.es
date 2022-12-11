@@ -5,6 +5,7 @@ import { PagesGamesNavigationGuard } from './pages-games-navigation.guard';
 import { ResumeGameComponent } from './views/resume-game/resume-game.component';
 import { GameConfigComponent } from './views/game-config/game-config.component';
 import { RankingComponent } from './views/ranking/ranking.component';
+import { EnterScoreComponent } from './views/enter-score/enter-score.component';
 
 const pathWithoutChildrens = (component: Type<any>): Routes => {
   return [
@@ -33,13 +34,13 @@ const routes: Routes = [
         children: pathWithoutChildrens(GameConfigComponent),
       },
       {
+        path: ROUTING_PATHS.ENTER_SCORE,
+        children: pathWithoutChildrens(EnterScoreComponent),
+      },
+      {
         path: ROUTING_PATHS.RANKING,
         children: pathWithoutChildrens(RankingComponent),
       },
-      // {
-      //   path: ROUTING_PATHS.ENTER_SCORE,
-      //   children: pathWithoutChildrens(EnterScoreComponent),
-      // },
       // {
       //   path: ROUTING_PATHS.SCOREBOARD,
       //   children: pathWithoutChildrens(ScoreboardComponent),

@@ -9,6 +9,7 @@ import { GameHolderService } from './game-services/game-holder.service';
 import { GameService } from './game-services/game.service';
 import { PochaService } from './game-services/pocha.service';
 import { PagesGamesRoutingModule } from './pages-games-routing.module';
+import { EnterScoreComponent } from './views/enter-score/enter-score.component';
 import { GameConfigComponent } from './views/game-config/game-config.component';
 import { PlayerDisplayComponent } from './views/ranking/player-display/player-display.component';
 import { RankingComponent } from './views/ranking/ranking.component';
@@ -18,7 +19,15 @@ export const GAME_SERVICES = new InjectionToken<GameService[]>('GAME_SERVICES to
 
 @NgModule({
   imports: [CommonModule, PagesGamesRoutingModule, PagesGamesSvgModule, FormsModule, DragDropModule],
-  declarations: [ResumeGameComponent, GameConfigComponent, RankingComponent, RoundInfoComponent, PlayerDisplayComponent, BottomControlsComponent],
+  declarations: [
+    ResumeGameComponent,
+    GameConfigComponent,
+    RankingComponent,
+    RoundInfoComponent,
+    PlayerDisplayComponent,
+    BottomControlsComponent,
+    EnterScoreComponent,
+  ],
   providers: [
     GameHolderService,
     { provide: GAME_SERVICES, useClass: PochaService, multi: true },

@@ -133,7 +133,7 @@ export class GameConfigComponent implements OnInit, AfterViewInit {
   }
 
   public startGame() {
-    this.gameHolderService.service.players = this.playerNames.map((name, id) => ({ id, name, scores: [] }));
+    this.gameHolderService.service.players = this.playerNames.map((name, id) => ({ id, name, scores: [], punctuation: 0 }));
     this.gameHolderService.service.playerStartsDealing = this.playerStartsDealing;
 
     this.router.navigate(['../', ROUTING_PATHS.RANKING], { relativeTo: this.activatedRoute });
