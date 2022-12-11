@@ -35,21 +35,18 @@ export class PochaService implements GameService {
   }
   public showNumberOfCardsToDealNextRound = true;
   public getNumberOfCardsToDealNextRound(): string {
-    if (this.getNextRoundNumber() <= this.numberOfCards / this.players.length) {
+    const cardsBetweenPlayers = Math.floor(this.numberOfCards / this._players.length);
+
+    if (this.getNextRoundNumber() <= cardsBetweenPlayers) {
       return `${this.getNextRoundNumber()}`;
     }
 
-    if (this.getNextRoundNumber() < this.numberOfCards / this.players.length + this.players.length) {
-      return `${Math.floor(this.numberOfCards / this.players.length)}`;
+    if (this.getNextRoundNumber() < cardsBetweenPlayers + this.players.length) {
+      return `${cardsBetweenPlayers}`;
     }
 
-    if (!(this.getNextRoundNumber() < (this.numberOfCards / this.players.length - 1) * 2 + this.players.length + 1)) {
-      return `${Math.floor(
-        this.numberOfCards / this.players.length - (this.getNextRoundNumber() - this.numberOfCards / this.players.length - this.players.length) - 1
-      )}`;
-    }
-
-    return '1 (frente)';
+    const cardsToDeal = Math.floor(cardsBetweenPlayers - (this.getNextRoundNumber() - cardsBetweenPlayers - this.players.length) - 1);
+    return cardsToDeal === 0 ? '1 (frente)' : `${cardsToDeal}`;
   }
   public showLimitScoreInfo = false;
 
