@@ -2,6 +2,8 @@ import { AnimationBuilder } from '@angular/animations';
 import { Location } from '@angular/common';
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
+import { GameHolderService } from 'src/pages-games/game-services/game-holder.service';
+import { LOCAL_STORE_KEYS } from 'src/pages-games/local-storage-keys';
 import { Player } from 'src/pages-games/player';
 import { playPlayerTransitionAnimation } from './enter-score.animation';
 
@@ -27,7 +29,12 @@ export class EnterScoreComponent {
     this.players[this.currentPlayer].punctuation = punctuation;
   }
 
-  public constructor(private readonly animationBuilder: AnimationBuilder, private readonly location: Location, private readonly router: Router) {
+  public constructor(
+    private readonly animationBuilder: AnimationBuilder,
+    private readonly location: Location,
+    private readonly router: Router,
+    private readonly gameHolderService: GameHolderService
+  ) {
     this.roundNumber = this.router.getCurrentNavigation()?.extras?.state?.['roundNumber'];
     this.players = this.router.getCurrentNavigation()?.extras?.state?.['players'];
     this.sign = this.puntuationCurrentPlayer >= 0 ? '+' : '-';
@@ -74,6 +81,7 @@ export class EnterScoreComponent {
   private goNextPlayer() {
     if (++this.currentPlayer == this.players.length) {
       this.players.forEach((p) => p.scores.push(p.punctuation));
+      this.saveGameLocalStorage();
       this.location.back();
       return;
     }
@@ -88,5 +96,20 @@ export class EnterScoreComponent {
       this.sign = this.puntuationCurrentPlayer >= 0 ? '+' : '-';
       playPlayerTransitionAnimation(this.animationBuilder, this.currentPlayer, this.playersContainerElement);
     }
+  }
+
+  private saveGameLocalStorage() {
+    localStorage.setItem(LOCAL_STORE_KEYS.PLAYERS, JSON.stringify(this.gameHolderService.service.players));
+    localStorage.setItem(
+      LOCAL_STORE_KEYS.CONFIG,
+      JSON.stringify({
+        numberOfCards: this.gameHolderService.service.numberOfCards,
+        limitScore: this.gameHolderService.service.limitScore,
+        winner: this.gameHolderService.service.winner,
+      })
+    );
+    localStorage.setItem(LOCAL_STORE_KEYS.STARTS_DEALING, JSON.stringify(this.gameHolderService.service.playerStartsDealing));
+    localStorage.setItem(LOCAL_STORE_KEYS.GAME_NAME, this.gameHolderService.service.gameName);
+    localStorage.setItem(LOCAL_STORE_KEYS.TIME_LAST_GAME, JSON.stringify(Date.now()));
   }
 }
