@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { InjectionToken, NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { PagesGamesSvgModule } from 'src/svg/generated/pages-games-svg.module';
+import { BottomControlsComponent } from './components/bottom-controls/bottom-controls.component';
 import { RoundInfoComponent } from './components/round-info/round-info.component';
 import { GameHolderService } from './game-services/game-holder.service';
 import { GameService } from './game-services/game.service';
@@ -17,7 +18,7 @@ export const GAME_SERVICES = new InjectionToken<GameService[]>('GAME_SERVICES to
 
 @NgModule({
   imports: [CommonModule, PagesGamesRoutingModule, PagesGamesSvgModule, FormsModule, DragDropModule],
-  declarations: [ResumeGameComponent, GameConfigComponent, RankingComponent, RoundInfoComponent, PlayerDisplayComponent],
+  declarations: [ResumeGameComponent, GameConfigComponent, RankingComponent, RoundInfoComponent, PlayerDisplayComponent, BottomControlsComponent],
   providers: [
     GameHolderService,
     { provide: GAME_SERVICES, useClass: PochaService, multi: true },
