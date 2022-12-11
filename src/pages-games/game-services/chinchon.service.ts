@@ -94,7 +94,7 @@ export class ChinchonService implements GameService {
   public showMaximumReachedScorePlayerDisplay = false;
   public getMaximumReachedScore(): number {
     // ignored
-    throw new Error('Chinchon game does not support maximum accumulated score');
+    throw new Error('Chinchon game does not support maximum reached score');
   }
   public showNumberOfRejoinsPlayerDisplay = true;
   public getNumberOfRejoins(playerId: number): number {

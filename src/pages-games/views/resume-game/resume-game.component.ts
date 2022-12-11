@@ -25,7 +25,7 @@ export class ResumeGameComponent implements OnInit {
   public ngOnInit() {
     // Note: gameName should not be undefined if this page was loaded
     this.gameName = localStorage.getItem(LOCAL_STORE_KEYS.GAME_NAME)!.toLowerCase();
-    this.showGameName = this.gameName != undefined && this.gameName != 'otro';
+    this.showGameName = this.gameName != undefined && this.gameName != 'otro juego';
   }
 
   public doNotResumeGame() {

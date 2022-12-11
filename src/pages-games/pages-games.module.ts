@@ -8,6 +8,7 @@ import { RoundInfoComponent } from './components/round-info/round-info.component
 import { ChinchonService } from './game-services/chinchon.service';
 import { GameHolderService } from './game-services/game-holder.service';
 import { GameService } from './game-services/game.service';
+import { OtherGameService } from './game-services/other-game.service';
 import { PochaService } from './game-services/pocha.service';
 import { PagesGamesRoutingModule } from './pages-games-routing.module';
 import { EnterScoreComponent } from './views/enter-score/enter-score.component';
@@ -33,12 +34,7 @@ export const GAME_SERVICES = new InjectionToken<GameService[]>('GAME_SERVICES to
     GameHolderService,
     { provide: GAME_SERVICES, useClass: PochaService, multi: true },
     { provide: GAME_SERVICES, useClass: ChinchonService, multi: true },
-    {
-      provide: GAME_SERVICES,
-      // TODO provide real game service
-      useValue: { gameName: 'Otro', showWinnerConfig: true, winner: 'highestScore' },
-      multi: true,
-    },
+    { provide: GAME_SERVICES, useClass: OtherGameService, multi: true },
   ],
 })
 export class PagesGamesModule {}
