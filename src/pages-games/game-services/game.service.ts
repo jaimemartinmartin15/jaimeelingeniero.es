@@ -14,4 +14,13 @@ export interface GameService {
   readonly showNumberOfCardsConfig: boolean;
   readonly showLimitScoreConfig: boolean;
   readonly showWinnerConfig: boolean;
+
+  getPlayerPosition(playerId: number): number;
+  getPlayerName(playerId: number): string;
+  getTotalScore(playerId: number): number;
+  getScoreLastRound(playerId: number): number;
+  readonly showMaximumReachedScorePlayerDisplay: boolean;
+  getMaximumReachedScore(playerId: number): number;
+  readonly showNumberOfRejoinsPlayerDisplay: boolean;
+  getNumberOfRejoins(playerId: number): number;
 }

@@ -1,0 +1,24 @@
+<div class="position">
+  <div class="number">{{playerPosition}}</div>
+  <div *ngIf="playerPosition === 1">🥇</div>
+  <div *ngIf="playerPosition === 2">🥈</div>
+  <div *ngIf="playerPosition === 3">🥉</div>
+</div>
+
+<div class="data">
+  <div class="name-score-container">
+    <span>{{gameHolderService.service.getPlayerName(playerId)}}</span>
+    <span>{{gameHolderService.service.getTotalScore(playerId)}}</span>
+  </div>
+  <div class="player-rounds-info">
+    <div>Última ronda: {{gameHolderService.service.getScoreLastRound(playerId)}}</div>
+
+    <div *ngIf="gameHolderService.service.showMaximumReachedScorePlayerDisplay">
+      Máximo alcanzado: {{gameHolderService.service.getMaximumReachedScore(playerId)}}
+    </div>
+
+    <div *ngIf="gameHolderService.service.showNumberOfRejoinsPlayerDisplay">
+      Reenganches: {{gameHolderService.service.getNumberOfRejoins(playerId)}}
+    </div>
+  </div>
+</div>

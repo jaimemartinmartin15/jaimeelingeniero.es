@@ -7,13 +7,15 @@ import { GameHolderService } from './game-services/game-holder.service';
 import { GameService } from './game-services/game.service';
 import { PagesGamesRoutingModule } from './pages-games-routing.module';
 import { GameConfigComponent } from './views/game-config/game-config.component';
+import { PlayerDisplayComponent } from './views/ranking/player-display/player-display.component';
+import { RankingComponent } from './views/ranking/ranking.component';
 import { ResumeGameComponent } from './views/resume-game/resume-game.component';
 
 export const GAME_SERVICES = new InjectionToken<GameService[]>('GAME_SERVICES token');
 
 @NgModule({
   imports: [CommonModule, PagesGamesRoutingModule, PagesGamesSvgModule, FormsModule, DragDropModule],
-  declarations: [ResumeGameComponent, GameConfigComponent],
+  declarations: [ResumeGameComponent, GameConfigComponent, RankingComponent, PlayerDisplayComponent],
   providers: [
     GameHolderService,
     // TODO provide real game services
