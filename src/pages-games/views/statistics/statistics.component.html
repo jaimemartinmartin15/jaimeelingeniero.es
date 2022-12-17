@@ -1,0 +1,9 @@
+<app-round-info></app-round-info>
+
+<div class="empty-state" *ngIf="!gameHolderService.service.gameHasStarted()">
+  Introduce al menos una ronda para mostrar las estadísticas
+</div>
+
+<!-- TODO implement rest of the screen -->
+
+<app-bottom-controls></app-bottom-controls>

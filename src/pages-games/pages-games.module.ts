@@ -18,6 +18,7 @@ import { PlayerDisplayComponent } from './views/ranking/player-display/player-di
 import { RankingComponent } from './views/ranking/ranking.component';
 import { ResumeGameComponent } from './views/resume-game/resume-game.component';
 import { ScoreboardComponent } from './views/scoreboard/scoreboard.component';
+import { StatisticsComponent } from './views/statistics/statistics.component';
 
 export const GAME_SERVICES = new InjectionToken<GameService[]>('GAME_SERVICES token');
 
@@ -33,6 +34,7 @@ export const GAME_SERVICES = new InjectionToken<GameService[]>('GAME_SERVICES to
     BottomControlsComponent,
     EnterScoreComponent,
     ScoreboardComponent,
+    StatisticsComponent,
   ],
   providers: [
     GameHolderService,
