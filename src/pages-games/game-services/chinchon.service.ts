@@ -132,23 +132,73 @@ export class ChinchonService implements GameService {
   }
 
   public getCellBackgroundColor(score: number): string {
-    // TODO
-    return 'red';
+    return `background-color: ${score > 0 ? '#f8c8c8' : '#b3ffb3'}`;
   }
   public getPlayerAccumulatedScoreAtRound(playerId: number, round: number): number {
-    // TODO
-    return 0;
+    const numberOfPlayers = this.players.length;
+
+    let accumulatedScoresAtRound = new Array(this.players.length).fill(0);
+    for (let r = 0; r < round + 1; r++) {
+      accumulatedScoresAtRound = accumulatedScoresAtRound.map((scoreAcc, i) => scoreAcc + this.players[i].scores[r]);
+      const rejoinScore = Math.max(...accumulatedScoresAtRound.filter((s) => s <= this.limitScore));
+      const thereIsWinner = accumulatedScoresAtRound.filter((s) => s <= this.limitScore).length === 1;
+
+      // reset scores outside limit
+      if (!thereIsWinner) {
+        for (let p = 0; p < numberOfPlayers; p++) {
+          if (accumulatedScoresAtRound[p] > this.limitScore && r !== round) {
+            accumulatedScoresAtRound[p] = rejoinScore;
+          }
+        }
+      }
+    }
+
+    return accumulatedScoresAtRound[playerId];
   }
-  public getPlayerAccumulatedScoreAtSpecialRound(playerId: number, round: number): number {
-    // TODO
-    return 0;
+  public getPlayerAccumulatedScoreAtSpecialRound(_: number, round: number): number {
+    // returns the new score with which the players rejoin
+
+    const numberOfPlayers = this.players.length;
+    let rejoinScore: number = 0;
+
+    let accumulatedScoresAtRound = new Array(this.players.length).fill(0);
+    for (let r = 0; r < round + 1; r++) {
+      accumulatedScoresAtRound = accumulatedScoresAtRound.map((scoreAcc, i) => scoreAcc + this.players[i].scores[r]);
+      rejoinScore = Math.max(...accumulatedScoresAtRound.filter((s) => s <= this.limitScore));
+
+      // reset scores outside limit
+      for (let p = 0; p < numberOfPlayers; p++) {
+        if (accumulatedScoresAtRound[p] > this.limitScore) {
+          accumulatedScoresAtRound[p] = rejoinScore;
+        }
+      }
+    }
+
+    return rejoinScore;
   }
   public showSpecialRowAfterRound(round: number): boolean {
-    // TODO
-    return true;
+    return this.getSpecialRoundScores(round).some((score) => score != 0);
   }
   public getSpecialRoundScores(round: number): number[] {
-    // TODO
-    return [0, 5, 4, 8, 9, 6, 7];
+    const numberOfPlayers = this.players.length;
+
+    let accumulatedScoresAtRound = new Array(this.players.length).fill(0);
+    let accumulatedScoresAtSpecialRound = new Array(this.players.length).fill(0);
+    for (let r = 0; r < round + 1; r++) {
+      accumulatedScoresAtRound = accumulatedScoresAtRound.map((scoreAcc, i) => scoreAcc + this.players[i].scores[r]);
+      const rejoinScore = Math.max(...accumulatedScoresAtRound.filter((s) => s <= this.limitScore));
+
+      // reset scores outside limit
+      for (let p = 0; p < numberOfPlayers; p++) {
+        if (accumulatedScoresAtRound[p] > this.limitScore) {
+          if (r === round) {
+            accumulatedScoresAtSpecialRound[p] = -(accumulatedScoresAtRound[p] - rejoinScore);
+          }
+          accumulatedScoresAtRound[p] = rejoinScore;
+        }
+      }
+    }
+
+    return accumulatedScoresAtSpecialRound;
   }
 }
