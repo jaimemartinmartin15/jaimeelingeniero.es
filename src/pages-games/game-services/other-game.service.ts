@@ -73,24 +73,19 @@ export class OtherGameService implements GameService {
     return this._players[0].scores.length > 0;
   }
 
-  public getCellBackgroundColor(score: number): string {
-    // TODO
-    return 'red';
+  public getCellBackgroundColor(): string {
+    return '#FFF';
   }
   public getPlayerAccumulatedScoreAtRound(playerId: number, round: number): number {
-    // TODO
-    return 0;
+    return this._players[playerId].scores.slice(0, round + 1).reduce((prev, current) => prev + current, 0);
   }
-  public getPlayerAccumulatedScoreAtSpecialRound(playerId: number, round: number): number {
-    // TODO
-    return 0;
+  public getPlayerAccumulatedScoreAtSpecialRound(): number {
+    return 0; // ignored
   }
-  public showSpecialRowAfterRound(round: number): boolean {
-    // TODO
-    return true;
+  public showSpecialRowAfterRound(): boolean {
+    return false;
   }
-  public getSpecialRoundScores(round: number): number[] {
-    // TODO
-    return [0, 5, 4, 8, 9, 6, 7];
+  public getSpecialRoundScores(): number[] {
+    return []; // ignored
   }
 }
