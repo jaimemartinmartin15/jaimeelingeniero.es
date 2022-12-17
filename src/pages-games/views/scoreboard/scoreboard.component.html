@@ -4,8 +4,8 @@
   Introduce al menos una ronda para mostrar la tabla de puntuaciones
 </div>
 
-<div class="scoreboard">
-  <table *ngIf="gameHolderService.service.gameHasStarted()">
+<div class="scoreboard" *ngIf="gameHolderService.service.gameHasStarted()">
+  <table>
     <thead class="sticky-header">
       <tr>
         <th class="highlight-cell sticky-round-number">Ronda</th>

@@ -7,6 +7,7 @@ import { GameConfigComponent } from './views/game-config/game-config.component';
 import { RankingComponent } from './views/ranking/ranking.component';
 import { EnterScoreComponent } from './views/enter-score/enter-score.component';
 import { ScoreboardComponent } from './views/scoreboard/scoreboard.component';
+import { PagesGamesComponent } from './pages-games.component';
 
 const pathWithoutChildrens = (component: Type<any>): Routes => {
   return [
@@ -24,7 +25,8 @@ const pathWithoutChildrens = (component: Type<any>): Routes => {
 const routes: Routes = [
   {
     path: '',
-    title: 'Puntuaciones', // TODO add also meta tags
+    component: PagesGamesComponent,
+    title: 'Puntuaciones',
     canActivateChild: [PagesGamesNavigationGuard],
     children: [
       {
