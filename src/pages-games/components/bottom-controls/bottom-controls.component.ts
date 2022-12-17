@@ -19,7 +19,7 @@ export class BottomControlsComponent {
   ) {}
 
   public goToGameConfigView() {
-    this.router.navigate(['../', ROUTING_PATHS.GAME_CONFIG], { relativeTo: this.activatedRoute, queryParamsHandling: 'merge' });
+    this.router.navigate(['../', ROUTING_PATHS.GAME_CONFIG], { relativeTo: this.activatedRoute });
   }
 
   public enterNewRound() {
@@ -27,6 +27,6 @@ export class BottomControlsComponent {
       players: this.gameHolderService.service.players.map((p) => ({ ...p, punctuation: 0 })),
       roundNumber: this.gameHolderService.service.getNextRoundNumber(),
     };
-    this.router.navigate(['../', ROUTING_PATHS.ENTER_SCORE], { relativeTo: this.activatedRoute, queryParamsHandling: 'merge', state });
+    this.router.navigate(['../', ROUTING_PATHS.ENTER_SCORE], { relativeTo: this.activatedRoute, state });
   }
 }

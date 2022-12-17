@@ -86,15 +86,28 @@ export class PochaService implements GameService {
   }
 
   public getCellBackgroundColor(score: number): string {
-    // TODO
-    return 'red';
+    const maximumScoreInOneRound = Math.max(...this._players.flatMap((p) => p.scores));
+    const minimumScoreInOneRound = Math.min(...this._players.flatMap((p) => p.scores));
+    if (score >= 0) {
+      const scorePercentile = score / maximumScoreInOneRound;
+      const threshold = 255 - 180 * scorePercentile;
+      return `background-color: rgb(${threshold}, 255, ${threshold})`;
+    } else {
+      const scorePercentile = Math.abs(score) / Math.abs(minimumScoreInOneRound);
+      const threshold = 255 - 180 * scorePercentile;
+      return `background-color: rgb(255,${threshold}, ${threshold})`;
+    }
   }
   public getPlayerAccumulatedScoreAtRound(playerId: number, round: number): number {
-    // TODO
-    return 0;
+    return this._players[playerId].scores.slice(0, round + 1).reduce((prev, current) => prev + current, 0);
   }
-  public getPlayerAccumulatedScoreAtSpecialRound(playerId: number, round: number): number {
-    // TODO
-    return 0;
+  public getPlayerAccumulatedScoreAtSpecialRound(): number {
+    return 0; // ignored
+  }
+  public showSpecialRowAfterRound(): boolean {
+    return false;
+  }
+  public getSpecialRoundScores(): number[] {
+    return []; // ignored
   }
 }

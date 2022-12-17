@@ -80,7 +80,7 @@ export class EnterScoreComponent {
 
   private goNextPlayer() {
     if (++this.currentPlayer == this.players.length) {
-      this.players.forEach((p) => p.scores.push(p.punctuation));
+      this.players.forEach((p) => (p.scores[this.roundNumber - 1] = p.punctuation));
       this.saveGameLocalStorage();
       this.location.back();
       return;

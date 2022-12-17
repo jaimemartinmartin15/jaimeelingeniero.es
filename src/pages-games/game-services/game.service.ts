@@ -38,4 +38,6 @@ export interface GameService {
   getCellBackgroundColor(score: number): string;
   getPlayerAccumulatedScoreAtRound(playerId: number, round: number): number;
   getPlayerAccumulatedScoreAtSpecialRound(playerId: number, round: number): number;
+  showSpecialRowAfterRound(round: number): boolean;
+  getSpecialRoundScores(round: number): number[];
 }

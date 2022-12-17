@@ -24,6 +24,7 @@ const pathWithoutChildrens = (component: Type<any>): Routes => {
 const routes: Routes = [
   {
     path: '',
+    title: 'Puntuaciones', // TODO add also meta tags
     canActivateChild: [PagesGamesNavigationGuard],
     children: [
       {

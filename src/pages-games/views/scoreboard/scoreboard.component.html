@@ -34,9 +34,10 @@
           </td>
         </tr>
 
-        <tr *ngIf="showSpecialRowAfterRound(round)">
+        <tr *ngIf="gameHolderService.service.showSpecialRowAfterRound(round)">
           <th class="highlight-cell sticky-round-number">-</th>
-          <td *ngFor="let score of getSpecialRoundScores(round); let playerId = index" class="score--rejoin">
+          <td *ngFor="let score of gameHolderService.service.getSpecialRoundScores(round); let playerId = index"
+            class="score--rejoin">
             <div class="score">
               <span style="visibility: hidden" class="accumulated-score">
                 ({{gameHolderService.service.getPlayerAccumulatedScoreAtSpecialRound(playerId, round)}})

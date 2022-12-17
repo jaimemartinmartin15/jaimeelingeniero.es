@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { GameHolderService } from 'src/pages-games/game-services/game-holder.service';
+import { ROUTING_PATHS } from 'src/pages-games/routing-paths';
 import { intervalArray } from 'src/utils/arrays';
 
 @Component({
@@ -7,17 +9,28 @@ import { intervalArray } from 'src/utils/arrays';
   templateUrl: './scoreboard.component.html',
   styleUrls: ['./scoreboard.component.scss'],
 })
-export class ScoreboardComponent implements OnInit {
-  public constructor(public readonly gameHolderService: GameHolderService) {}
-
-  ngOnInit() {}
+export class ScoreboardComponent {
+  public constructor(
+    public readonly gameHolderService: GameHolderService,
+    private readonly router: Router,
+    private readonly activatedRoute: ActivatedRoute
+  ) {}
 
   public changeScoresForRound(round: number) {
-    // TODO: navigate to another screen passing correct input in navigation extras
+    const state = {
+      players: this.gameHolderService.service.players.map((p) => ({ ...p, punctuation: p.scores[round] })),
+      roundNumber: round + 1,
+    };
+    this.router.navigate(['../', ROUTING_PATHS.ENTER_SCORE], { relativeTo: this.activatedRoute, state });
   }
 
-  public changeScoreForPlayerAndRound(player: number, round: number) {
-    // TODO: navigate to another screen passing correct input in navigation extras
+  public changeScoreForPlayerAndRound(playerId: number, round: number) {
+    const player = this.gameHolderService.service.players[playerId];
+    const state = {
+      players: [{ ...player, punctuation: player.scores[round] }],
+      roundNumber: round + 1,
+    };
+    this.router.navigate(['../', ROUTING_PATHS.ENTER_SCORE], { relativeTo: this.activatedRoute, state });
   }
 
   public getRoundNumbersAsArray() {
@@ -25,17 +38,6 @@ export class ScoreboardComponent implements OnInit {
   }
 
   public getRoundScores(round: number) {
-    // TODO
-    return this.gameHolderService.service.players.map(() => Math.round(Math.random() * 100));
-  }
-
-  public showSpecialRowAfterRound(round: number): boolean {
-    // TODO
-    return Math.random() > 0.5;
-  }
-
-  public getSpecialRoundScores(round: number) {
-    // TODO
-    return this.gameHolderService.service.players.map(() => Math.round(Math.random() * 100));
+    return this.gameHolderService.service.players.map((p) => p.scores[round]);
   }
 }

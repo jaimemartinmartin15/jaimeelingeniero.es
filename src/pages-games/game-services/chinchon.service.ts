@@ -143,4 +143,12 @@ export class ChinchonService implements GameService {
     // TODO
     return 0;
   }
+  public showSpecialRowAfterRound(round: number): boolean {
+    // TODO
+    return true;
+  }
+  public getSpecialRoundScores(round: number): number[] {
+    // TODO
+    return [0, 5, 4, 8, 9, 6, 7];
+  }
 }
