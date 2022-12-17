@@ -177,6 +177,9 @@ export class ChinchonService implements GameService {
     return rejoinScore;
   }
   public showSpecialRowAfterRound(round: number): boolean {
+    if (round === this.getNextRoundNumber() - 2 && this.gameHasFinished()) {
+      return false;
+    }
     return this.getSpecialRoundScores(round).some((score) => score != 0);
   }
   public getSpecialRoundScores(round: number): number[] {
