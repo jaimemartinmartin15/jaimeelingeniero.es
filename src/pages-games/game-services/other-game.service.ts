@@ -72,4 +72,17 @@ export class OtherGameService implements GameService {
   public gameHasStarted(): boolean {
     return this._players[0].scores.length > 0;
   }
+
+  public getCellBackgroundColor(score: number): string {
+    // TODO
+    return 'red';
+  }
+  public getPlayerAccumulatedScoreAtRound(playerId: number, round: number): number {
+    // TODO
+    return 0;
+  }
+  public getPlayerAccumulatedScoreAtSpecialRound(playerId: number, round: number): number {
+    // TODO
+    return 0;
+  }
 }

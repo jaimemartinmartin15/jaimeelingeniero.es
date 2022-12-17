@@ -34,4 +34,8 @@ export interface GameService {
 
   get rankingPlayers(): Player[];
   gameHasStarted(): boolean;
+
+  getCellBackgroundColor(score: number): string;
+  getPlayerAccumulatedScoreAtRound(playerId: number, round: number): number;
+  getPlayerAccumulatedScoreAtSpecialRound(playerId: number, round: number): number;
 }
