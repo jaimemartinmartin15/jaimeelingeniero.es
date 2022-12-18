@@ -4,6 +4,28 @@
   Introduce al menos una ronda para mostrar las estadísticas
 </div>
 
-<!-- TODO implement rest of the screen -->
+<div class="statistics" *ngIf="gameHolderService.service.gameHasStarted()">
+  <!-- TODO add graph -->
+
+  <div class="item">
+    <label>Jugadores en primera posición:</label>
+    <strong>{{getPlayersInFirstPosition()}}</strong>
+  </div>
+
+  <div class="item">
+    <label>Jugadores en última posición:</label>
+    <strong>{{getPlayersInLastPosition()}}</strong>
+  </div>
+
+  <div class="item">
+    <label>Máximo conseguido en una ronda:</label>
+    <strong>{{getMaximumScoreInOneRound()}} por {{getPlayerNamesWithMaximumScoreInOneRound()}}</strong>
+  </div>
+
+  <div class="item">
+    <label>Mínimo conseguido en una ronda:</label>
+    <strong>{{getMinimumScoreInOneRound()}} por {{getPlayerNamesWithMinimumScoreInOneRound()}}</strong>
+  </div>
+</div>
 
 <app-bottom-controls></app-bottom-controls>
