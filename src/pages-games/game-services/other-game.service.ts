@@ -88,4 +88,6 @@ export class OtherGameService implements GameService {
   public getSpecialRoundScores(): number[] {
     return []; // ignored
   }
+
+  readonly showProgressGraph = true;
 }

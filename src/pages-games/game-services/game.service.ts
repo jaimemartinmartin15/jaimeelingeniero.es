@@ -40,4 +40,6 @@ export interface GameService {
   getPlayerAccumulatedScoreAtSpecialRound(playerId: number, round: number): number;
   showSpecialRowAfterRound(round: number): boolean;
   getSpecialRoundScores(round: number): number[];
+
+  readonly showProgressGraph: boolean;
 }

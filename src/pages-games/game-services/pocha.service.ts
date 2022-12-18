@@ -110,4 +110,6 @@ export class PochaService implements GameService {
   public getSpecialRoundScores(): number[] {
     return []; // ignored
   }
+
+  readonly showProgressGraph = true;
 }

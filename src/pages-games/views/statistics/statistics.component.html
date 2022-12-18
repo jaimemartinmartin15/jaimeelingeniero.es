@@ -5,7 +5,7 @@
 </div>
 
 <div class="statistics" *ngIf="gameHolderService.service.gameHasStarted()">
-  <app-progress-graph></app-progress-graph>
+  <app-progress-graph *ngIf="gameHolderService.service.showProgressGraph"></app-progress-graph>
 
   <div class="item">
     <label>Jugadores en primera posición:</label>

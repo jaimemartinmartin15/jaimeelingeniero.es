@@ -185,4 +185,6 @@ export class ChinchonService implements GameService {
 
     return accumulatedScoresAtSpecialRound;
   }
+
+  readonly showProgressGraph = true;
 }
