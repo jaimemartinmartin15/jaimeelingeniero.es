@@ -66,7 +66,26 @@ export class ChinchonService implements GameService {
     return this._players[playerId].name;
   }
   public getTotalScore(playerId: number): number {
-    return this.getPlayerAccumulatedScoreAtRound(playerId, this.getNextRoundNumber() - 2);
+    const numberOfRounds = this.players[0].scores.length;
+    const numberOfPlayers = this.players.length;
+
+    let accumulatedScoresAtRound = new Array(this.players.length).fill(0);
+    for (let r = 0; r < numberOfRounds; r++) {
+      accumulatedScoresAtRound = accumulatedScoresAtRound.map((scoreAcc, i) => scoreAcc + this.players[i].scores[r]);
+      const rejoinScore = Math.max(...accumulatedScoresAtRound.filter((s) => s <= this.limitScore));
+      const thereIsWinner = accumulatedScoresAtRound.filter((s) => s <= this.limitScore).length === 1;
+
+      // reset scores outside limit
+      if (!thereIsWinner) {
+        for (let p = 0; p < numberOfPlayers; p++) {
+          if (accumulatedScoresAtRound[p] > this.limitScore) {
+            accumulatedScoresAtRound[p] = rejoinScore;
+          }
+        }
+      }
+    }
+
+    return accumulatedScoresAtRound[playerId];
   }
   public getScoreLastRound(playerId: number): number {
     const lastRoundIndex = this._players[playerId].scores.length - 1;
