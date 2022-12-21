@@ -5,3 +5,24 @@
         <span>{{player.name}}</span>
     </div>
 </div>
+
+<div class="round-panel-info" *ngIf="showRoundPanel">
+    <div class="round-number">
+        <strong>Ronda {{ selectedRound + 1 }}</strong>
+    </div>
+    <div class="player-display" *ngFor="let player of roundPanelPlayers">
+        <span class="dot-player" [attr.style]="'background-color: ' + colors[player.id]"></span>
+        <span class="name" (click)="showPlayerGraphLines[player.id] = !showPlayerGraphLines[player.id]">
+            {{player.name}}
+        </span>
+        <span class="accumulated-score">
+            {{gameHolderService.service.getTotalScore(player.id, selectedRound)}}
+        </span>
+        <span *ngIf="selectedRound > 0">
+            <ng-container *ngIf="playerMovements[player.id] > 0">
+                ⬆️{{playerMovements[player.id] | toEmoji}}</ng-container>
+            <ng-container *ngIf="playerMovements[player.id] < 0">
+                ⬇️{{playerMovements[player.id] | toEmoji}}</ng-container>
+        </span>
+    </div>
+</div>

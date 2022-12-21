@@ -25,7 +25,7 @@ export interface GameService {
 
   getPlayerPosition(playerId: number): number;
   getPlayerName(playerId: number): string;
-  getTotalScore(playerId: number): number;
+  getTotalScore(playerId: number, round?: number): number;
   getScoreLastRound(playerId: number): number;
   readonly showMaximumReachedScorePlayerDisplay: boolean;
   getMaximumReachedScore(playerId: number): number;

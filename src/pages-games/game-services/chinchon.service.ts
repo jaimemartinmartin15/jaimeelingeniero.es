@@ -65,12 +65,11 @@ export class ChinchonService implements GameService {
   public getPlayerName(playerId: number): string {
     return this._players[playerId].name;
   }
-  public getTotalScore(playerId: number): number {
-    const numberOfRounds = this.players[0].scores.length;
+  public getTotalScore(playerId: number, round: number = this.getNextRoundNumber() - 1): number {
     const numberOfPlayers = this.players.length;
 
     let accumulatedScoresAtRound = new Array(this.players.length).fill(0);
-    for (let r = 0; r < numberOfRounds; r++) {
+    for (let r = 0; r < round; r++) {
       accumulatedScoresAtRound = accumulatedScoresAtRound.map((scoreAcc, i) => scoreAcc + this.players[i].scores[r]);
       const rejoinScore = Math.max(...accumulatedScoresAtRound.filter((s) => s <= this.limitScore));
       const thereIsWinner = accumulatedScoresAtRound.filter((s) => s <= this.limitScore).length === 1;

@@ -2,6 +2,7 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
 import { CommonModule } from '@angular/common';
 import { InjectionToken, NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { PipesModule } from 'src/shared/pipes/pipes.module';
 import { PagesGamesSvgModule } from 'src/svg/generated/pages-games-svg.module';
 import { BottomControlsComponent } from './components/bottom-controls/bottom-controls.component';
 import { RoundInfoComponent } from './components/round-info/round-info.component';
@@ -24,7 +25,7 @@ import { StatisticsComponent } from './views/statistics/statistics.component';
 export const GAME_SERVICES = new InjectionToken<GameService[]>('GAME_SERVICES token');
 
 @NgModule({
-  imports: [CommonModule, PagesGamesRoutingModule, PagesGamesSvgModule, FormsModule, DragDropModule],
+  imports: [CommonModule, PagesGamesRoutingModule, PagesGamesSvgModule, PipesModule, FormsModule, DragDropModule],
   declarations: [
     PagesGamesComponent,
     ResumeGameComponent,

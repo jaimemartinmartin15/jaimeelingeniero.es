@@ -18,3 +18,32 @@
     border-radius: 50%;
     margin-right: 5px;
 }
+
+.round-panel-info {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-top: 30px;
+    padding: 15px;
+    background-color: #fbfbff;
+    border: 3px solid #d17515;
+    border-radius: 5px;
+    font-size: 0.9rem;
+
+    .round-number {
+        text-align: center;
+        margin-bottom: 10px;
+    }
+
+    .player-display {
+        display: flex;
+
+        .name {
+            width: 16ch;
+        }
+
+        .accumulated-score {
+            width: 10ch;
+        }
+    }
+}

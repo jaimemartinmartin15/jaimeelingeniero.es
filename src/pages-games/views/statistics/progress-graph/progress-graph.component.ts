@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { GameHolderService } from 'src/pages-games/game-services/game-holder.service';
+import { Player } from 'src/pages-games/player';
 
 @Component({
   selector: 'app-progress-graph',
@@ -9,6 +10,11 @@ import { GameHolderService } from 'src/pages-games/game-services/game-holder.ser
 export class ProgressGraphComponent implements OnInit {
   public showPlayerGraphLines: boolean[];
   public colors: string[] = ['#ff0000', '#0000ff', '#008000', '#804000', '#4cd3d3', '#9d9d9d', '#c32aed', '#e0e000'];
+
+  public showRoundPanel = true; // TODO
+  public selectedRound: number = 1; // TODO
+  public roundPanelPlayers: Player[] = this.gameHolderService.service.players; // TODO
+  public playerMovements: number[] = [1, 2, 3, -4]; // TODO
 
   public constructor(public readonly gameHolderService: GameHolderService) {}
 

@@ -47,8 +47,8 @@ export class OtherGameService implements GameService {
   public getPlayerName(playerId: number): string {
     return this._players[playerId].name;
   }
-  public getTotalScore(playerId: number): number {
-    return this.players[playerId].scores.reduce((acc, current) => acc + current, 0);
+  public getTotalScore(playerId: number, round: number = this.getNextRoundNumber() - 1): number {
+    return this.players[playerId].scores.slice(0, round).reduce((acc, current) => acc + current, 0);
   }
   public getScoreLastRound(playerId: number): number {
     const lastRoundIndex = this._players[playerId].scores.length - 1;
