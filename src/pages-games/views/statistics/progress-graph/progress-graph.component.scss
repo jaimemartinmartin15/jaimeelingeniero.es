@@ -1,3 +1,20 @@
 :host {
     display: block;
 }
+
+.legend {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 20px;
+    margin-top: 15px;
+    font-size: 0.9rem;
+}
+
+.dot-player {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    margin-right: 5px;
+}
