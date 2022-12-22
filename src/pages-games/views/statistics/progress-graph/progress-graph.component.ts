@@ -22,7 +22,7 @@ export class ProgressGraphComponent implements OnInit {
   public svgSelectedRound: { x1: number; y1: number; x2: number; y2: number };
   public selectedRound: number;
   public roundPanelPlayers: Player[];
-  public playerMovements: number[] = [1, 2, 3, -4]; // TODO
+  public playerMovements: number[];
 
   public constructor(public readonly gameHolderService: GameHolderService) {}
 
