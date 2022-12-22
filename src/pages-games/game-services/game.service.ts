@@ -47,4 +47,6 @@ export interface GameService {
   readonly svgHeight: number;
   getSvgPlayerLine(player: Player): string;
   get svgXAxisHeight(): number;
+  readonly showSvgLimitScore: boolean;
+  get svgLimitScoreHeight(): number;
 }

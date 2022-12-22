@@ -143,4 +143,8 @@ export class PochaService implements GameService {
 
     return this.svgHeight * (-minimumScore / (maximumScore - minimumScore)) || 0.5;
   }
+  readonly showSvgLimitScore = false;
+  get svgLimitScoreHeight(): number {
+    throw new Error('Pocha game does not have limit score');
+  }
 }

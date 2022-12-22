@@ -37,6 +37,22 @@
         stroke: #d17515;
         stroke-width: 1;
     }
+
+    .limit-score {
+        font-size: 0.55rem;
+
+        text {
+            transform: scale(1, -1);
+            text-anchor: end;
+            stroke: none;
+            fill: #d17515;
+        }
+
+        line {
+            stroke-width: 1;
+            stroke: #d17515;
+        }
+    }
 }
 
 .legend {

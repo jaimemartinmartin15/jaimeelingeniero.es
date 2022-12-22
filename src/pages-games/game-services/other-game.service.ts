@@ -120,4 +120,8 @@ export class OtherGameService implements GameService {
 
     return this.svgHeight * (-minimumScore / (maximumScore - minimumScore)) || 0.5;
   }
+  readonly showSvgLimitScore = false;
+  get svgLimitScoreHeight(): number {
+    throw new Error('Other game does not have limit score');
+  }
 }

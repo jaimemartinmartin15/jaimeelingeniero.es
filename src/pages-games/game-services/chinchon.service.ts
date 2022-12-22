@@ -4,6 +4,7 @@ import { GameService } from './game.service';
 
 @Injectable()
 export class ChinchonService implements GameService {
+  private readonly svgLimitScoreMargin = 5;
   public readonly gameName = 'Chinchón';
 
   private _players: Player[];
@@ -254,7 +255,7 @@ export class ChinchonService implements GameService {
     let path = `M 0,${this.svgXAxisHeight}`;
 
     const minimumScore = Math.min(...this.players.map((p) => this.getMinimumReachedScore(p.id)));
-    const maximumScore = Math.max(...this.players.map((p) => this.getMaximumReachedScore(p.id)));
+    const maximumScore = Math.max(...this.players.map((p) => this.getMaximumReachedScore(p.id)), this.limitScore + this.svgLimitScoreMargin);
     const svgRoundWidth = this.svgWidth / (this.getNextRoundNumber() - 1);
 
     const numberOfPlayers = this.players.length;
@@ -287,8 +288,15 @@ export class ChinchonService implements GameService {
   }
   public get svgXAxisHeight(): number {
     const minimumScore = Math.min(...this.players.map((p) => this.getMinimumReachedScore(p.id)));
-    const maximumScore = Math.max(...this.players.map((p) => this.getMaximumReachedScore(p.id)));
+    const maximumScore = Math.max(...this.players.map((p) => this.getMaximumReachedScore(p.id)), this.limitScore + this.svgLimitScoreMargin);
 
     return this.svgHeight * (-minimumScore / (maximumScore - minimumScore)) || 0.5;
+  }
+  readonly showSvgLimitScore = true;
+  get svgLimitScoreHeight(): number {
+    const minimumScore = Math.min(...this.players.map((p) => this.getMinimumReachedScore(p.id)));
+    const maximumScore = Math.max(...this.players.map((p) => this.getMaximumReachedScore(p.id)), this.limitScore + this.svgLimitScoreMargin);
+
+    return this.svgHeight * ((this.limitScore - minimumScore) / (maximumScore - minimumScore));
   }
 }
