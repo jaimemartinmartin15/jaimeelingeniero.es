@@ -140,13 +140,12 @@ export class ChinchonService implements GameService {
     return minimum;
   }
   public showNumberOfRejoinsPlayerDisplay = true;
-  public getNumberOfRejoins(playerId: number): number {
+  public getNumberOfRejoins(playerId: number, round = this.getNextRoundNumber() - 1): number {
     const numberOfRejoins = new Array(this.players.length).fill(0);
-    const numberOfRounds = this.players[0].scores.length;
     const numberOfPlayers = this.players.length;
 
     let accumulatedScoresAtRound = new Array(this.players.length).fill(0);
-    for (let r = 0; r < numberOfRounds; r++) {
+    for (let r = 0; r < round; r++) {
       accumulatedScoresAtRound = accumulatedScoresAtRound.map((scoreAcc, i) => scoreAcc + this.players[i].scores[r]);
       const rejoinScore = Math.max(...accumulatedScoresAtRound.filter((s) => s <= this.limitScore));
       const thereIsWinner = accumulatedScoresAtRound.filter((s) => s <= this.limitScore).length === 1;
@@ -165,9 +164,9 @@ export class ChinchonService implements GameService {
     return numberOfRejoins[playerId];
   }
 
-  public get rankingPlayers(): Player[] {
-    const totalScores = this.players.map((p) => this.getTotalScore(p.id));
-    const rejoins = this.players.map((p) => this.getNumberOfRejoins(p.id));
+  public getRankingPlayers(round: number = this.getNextRoundNumber() - 1): Player[] {
+    const totalScores = this.players.map((p) => this.getTotalScore(p.id, round));
+    const rejoins = this.players.map((p) => this.getNumberOfRejoins(p.id, round));
     return this.players.sort((p1, p2) => totalScores[p1.id] - totalScores[p2.id] || rejoins[p1.id] - rejoins[p2.id]);
   }
   public gameHasStarted(): boolean {

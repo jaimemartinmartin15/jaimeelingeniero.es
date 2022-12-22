@@ -66,8 +66,10 @@ export class PochaService implements GameService {
     return this._players[playerId].scores[lastRoundIndex];
   }
   public showMaximumReachedScorePlayerDisplay = true;
-  public getMaximumReachedScore(playerId: number): number {
-    const accumulatedScoresAtRounds = this.players[playerId].scores.reduce((prev, current, index) => [...prev, prev[index] + current], [0]);
+  public getMaximumReachedScore(playerId: number, round = this.getNextRoundNumber() - 1): number {
+    const accumulatedScoresAtRounds = this.players[playerId].scores
+      .slice(0, round)
+      .reduce((prev, current, index) => [...prev, prev[index] + current], [0]);
     return Math.max(...accumulatedScoresAtRounds);
   }
   public getMinimumReachedScore(playerId: number): number {
@@ -80,9 +82,9 @@ export class PochaService implements GameService {
     throw new Error('Pocha game does not support rejoins');
   }
 
-  public get rankingPlayers(): Player[] {
-    const totalScores = this.players.map((p) => this.getTotalScore(p.id));
-    const maximumScores = this.players.map((p) => this.getMaximumReachedScore(p.id));
+  public getRankingPlayers(round: number = this.getNextRoundNumber() - 1): Player[] {
+    const totalScores = this.players.map((p) => this.getTotalScore(p.id, round));
+    const maximumScores = this.players.map((p) => this.getMaximumReachedScore(p.id, round));
     return this.players.sort((p1, p2) => totalScores[p2.id] - totalScores[p1.id] || maximumScores[p2.id] - maximumScores[p1.id]);
   }
   public gameHasStarted(): boolean {

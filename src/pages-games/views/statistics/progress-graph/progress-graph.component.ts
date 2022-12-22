@@ -21,7 +21,7 @@ export class ProgressGraphComponent implements OnInit {
   public showRoundPanel = false;
   public svgSelectedRound: { x1: number; y1: number; x2: number; y2: number };
   public selectedRound: number;
-  public roundPanelPlayers: Player[] = this.gameHolderService.service.players; // TODO
+  public roundPanelPlayers: Player[];
   public playerMovements: number[] = [1, 2, 3, -4]; // TODO
 
   public constructor(public readonly gameHolderService: GameHolderService) {}
@@ -69,7 +69,7 @@ export class ProgressGraphComponent implements OnInit {
 
   public onClickToShowPlayersPanelInfo(event: MouseEvent): void {
     const previousSelectedRound = this.selectedRound;
-    this.selectedRound = this.calculateSvgSelectedRound({ x: event.offsetX, y: event.offsetY });
+    this.selectedRound = this.calculateSelectedRoundAndSvg({ x: event.offsetX, y: event.offsetY });
 
     if (previousSelectedRound === this.selectedRound) {
       this.selectedRound = -1;
@@ -77,11 +77,23 @@ export class ProgressGraphComponent implements OnInit {
       return;
     }
 
-    // TODO calculate other values for panel
+    this.roundPanelPlayers = this.gameHolderService.service.getRankingPlayers(this.selectedRound);
+
+    if (this.selectedRound > 1) {
+      // TODO add parameter to playerPosition at round
+      // const positionsBefore = this.gameHolderService.service.players.map((p) =>
+      //   this.gameHolderService.service.getPlayerPosition(p.id, this.selectedRound - 1)
+      // );
+      // const positionsNow = this.gameHolderService.service.players.map((p) =>
+      //   this.gameHolderService.service.getPlayerPosition(p.id, this.selectedRound)
+      // );
+      // this.playerMovements = this.gameHolderService.service.players.map((p) => positionsNow[p.id] - positionsBefore[p.id]);
+    }
+
     this.showRoundPanel = true;
   }
 
-  private calculateSvgSelectedRound({ x: xCoord, y: yCoord }: { x: number; y: number }): number {
+  private calculateSelectedRoundAndSvg({ x: xCoord, y: yCoord }: { x: number; y: number }): number {
     // convert click in screen to coordinates in svg
     const point = DOMPoint.fromPoint(this.graph.nativeElement);
     point.x = xCoord;
@@ -93,6 +105,7 @@ export class ProgressGraphComponent implements OnInit {
     const roundWidth = this.gameHolderService.service.svgWidth / numberOfRounds;
     const roundsPositions = intervalArray(numberOfRounds).map((r) => r * roundWidth);
     const minimumDistanceToRound = Math.min(...roundsPositions.map((rp) => Math.abs(svgXCoord - rp)));
+
     this.svgSelectedRound = {
       x1: roundsPositions.find((rp) => Math.abs(svgXCoord - rp) === minimumDistanceToRound)!,
       y1: 0,
@@ -100,6 +113,6 @@ export class ProgressGraphComponent implements OnInit {
       y2: this.gameHolderService.service.svgHeight,
     };
 
-    return roundsPositions.indexOf(this.svgSelectedRound.x1);
+    return roundsPositions.indexOf(this.svgSelectedRound.x1) + 1;
   }
 }

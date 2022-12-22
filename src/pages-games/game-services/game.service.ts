@@ -28,12 +28,12 @@ export interface GameService {
   getTotalScore(playerId: number, round?: number): number;
   getScoreLastRound(playerId: number): number;
   readonly showMaximumReachedScorePlayerDisplay: boolean;
-  getMaximumReachedScore(playerId: number): number;
+  getMaximumReachedScore(playerId: number, round?: number): number;
   getMinimumReachedScore(playerId: number): number;
   readonly showNumberOfRejoinsPlayerDisplay: boolean;
-  getNumberOfRejoins(playerId: number): number;
+  getNumberOfRejoins(playerId: number, round?: number): number;
 
-  get rankingPlayers(): Player[];
+  getRankingPlayers(round?: number): Player[];
   gameHasStarted(): boolean;
 
   getCellBackgroundColor(score: number): string;

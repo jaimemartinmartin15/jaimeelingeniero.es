@@ -36,7 +36,7 @@
 
 <div class="round-panel-info" *ngIf="showRoundPanel">
     <div class="round-number">
-        <strong>Ronda {{ selectedRound + 1 }}</strong>
+        <strong>Ronda {{ selectedRound }}</strong>
     </div>
     <div class="player-display" *ngFor="let player of roundPanelPlayers">
         <span class="dot-player" [attr.style]="'background-color: ' + colors[player.id]"></span>
@@ -44,13 +44,15 @@
             {{player.name}}
         </span>
         <span class="accumulated-score">
-            {{gameHolderService.service.getTotalScore(player.id, selectedRound + 1)}}
+            {{gameHolderService.service.getTotalScore(player.id, selectedRound)}}
         </span>
-        <span *ngIf="selectedRound > 0">
+        <span *ngIf="selectedRound > 1">
             <ng-container *ngIf="playerMovements[player.id] > 0">
-                ⬆️{{playerMovements[player.id] | toEmoji}}</ng-container>
+                ⬆️{{playerMovements[player.id] | toEmoji}}
+            </ng-container>
             <ng-container *ngIf="playerMovements[player.id] < 0">
-                ⬇️{{playerMovements[player.id] | toEmoji}}</ng-container>
+                ⬇️{{playerMovements[player.id] | toEmoji}}
+            </ng-container>
         </span>
     </div>
 </div>

@@ -65,11 +65,11 @@ export class OtherGameService implements GameService {
   }
   public showNumberOfRejoinsPlayerDisplay = false;
   public getNumberOfRejoins(): number {
-    throw new Error('Chinchon game does not support rejoins');
+    throw new Error('Other game does not support rejoins');
   }
 
-  public get rankingPlayers(): Player[] {
-    const totalScores = this.players.map((p) => this.getTotalScore(p.id));
+  public getRankingPlayers(round: number = this.getNextRoundNumber() - 1): Player[] {
+    const totalScores = this.players.map((p) => this.getTotalScore(p.id, round));
     return this.players.sort((p1, p2) =>
       this.winner === 'highestScore' ? totalScores[p2.id] - totalScores[p1.id] : totalScores[p1.id] - totalScores[p2.id]
     );
