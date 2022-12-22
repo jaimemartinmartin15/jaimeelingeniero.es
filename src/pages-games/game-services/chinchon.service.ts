@@ -252,10 +252,44 @@ export class ChinchonService implements GameService {
   public readonly svgWidth = 300;
   public readonly svgHeight = 200;
   public getSvgPlayerLine(player: Player): string {
-    return ''; // TODO
+    let path = `M 0,${this.svgXAxisHeight}`;
+
+    const minimumScore = Math.min(...this.players.map((p) => this.getMinimumReachedScore(p.id)));
+    const maximumScore = Math.max(...this.players.map((p) => this.getMaximumReachedScore(p.id)));
+    const svgRoundWidth = this.svgWidth / (this.getNextRoundNumber() - 1);
+
+    const numberOfPlayers = this.players.length;
+    const numberOfRounds = this.getNextRoundNumber() - 1;
+
+    let accumulatedScoresAtRound = new Array(this.players.length).fill(0);
+    for (let r = 0; r < numberOfRounds; r++) {
+      accumulatedScoresAtRound = accumulatedScoresAtRound.map((scoreAcc, i) => scoreAcc + this.players[i].scores[r]);
+      const rejoinScore = Math.max(...accumulatedScoresAtRound.filter((s) => s <= this.limitScore));
+      const thereIsWinner = accumulatedScoresAtRound.filter((s) => s <= this.limitScore).length === 1;
+
+      const pointX = svgRoundWidth * (r + 1);
+      const pointY = this.svgHeight * ((accumulatedScoresAtRound[player.id] - minimumScore) / (maximumScore - minimumScore));
+      path += ` ${pointX},${pointY}`;
+
+      // reset scores outside limit
+      if (!thereIsWinner) {
+        for (let p = 0; p < numberOfPlayers; p++) {
+          if (accumulatedScoresAtRound[p] > this.limitScore) {
+            accumulatedScoresAtRound[p] = rejoinScore;
+            const pointX = svgRoundWidth * (r + 1);
+            const pointY = this.svgHeight * ((accumulatedScoresAtRound[player.id] - minimumScore) / (maximumScore - minimumScore));
+            path += ` ${pointX},${pointY}`;
+          }
+        }
+      }
+    }
+
+    return path;
   }
   public get svgXAxisHeight(): number {
-    // TODO
-    return 50;
+    const minimumScore = Math.min(...this.players.map((p) => this.getMinimumReachedScore(p.id)));
+    const maximumScore = Math.max(...this.players.map((p) => this.getMaximumReachedScore(p.id)));
+
+    return this.svgHeight * (-minimumScore / (maximumScore - minimumScore)) || 0.5;
   }
 }

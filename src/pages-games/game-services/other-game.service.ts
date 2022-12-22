@@ -98,10 +98,26 @@ export class OtherGameService implements GameService {
   public readonly svgWidth = 300;
   public readonly svgHeight = 200;
   public getSvgPlayerLine(player: Player): string {
-    return ''; // TODO
+    let path = `M 0,${this.svgXAxisHeight}`;
+
+    const minimumScore = Math.min(...this.players.map((p) => this.getMinimumReachedScore(p.id)));
+    const maximumScore = Math.max(...this.players.map((p) => this.getMaximumReachedScore(p.id)));
+    const svgRoundWidth = this.svgWidth / (this.getNextRoundNumber() - 1);
+
+    player.scores
+      .map((_, r) => this.getPlayerAccumulatedScoreAtRound(player.id, r))
+      .forEach((score, round) => {
+        const pointX = svgRoundWidth * (round + 1);
+        const pointY = this.svgHeight * ((score - minimumScore) / (maximumScore - minimumScore));
+        path += ` ${pointX},${pointY}`;
+      });
+
+    return path;
   }
   public get svgXAxisHeight(): number {
-    // TODO
-    return 50;
+    const minimumScore = Math.min(...this.players.map((p) => this.getMinimumReachedScore(p.id)));
+    const maximumScore = Math.max(...this.players.map((p) => this.getMaximumReachedScore(p.id)));
+
+    return this.svgHeight * (-minimumScore / (maximumScore - minimumScore)) || 0.5;
   }
 }
