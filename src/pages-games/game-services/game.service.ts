@@ -29,6 +29,7 @@ export interface GameService {
   getScoreLastRound(playerId: number): number;
   readonly showMaximumReachedScorePlayerDisplay: boolean;
   getMaximumReachedScore(playerId: number): number;
+  getMinimumReachedScore(playerId: number): number;
   readonly showNumberOfRejoinsPlayerDisplay: boolean;
   getNumberOfRejoins(playerId: number): number;
 
@@ -42,4 +43,6 @@ export interface GameService {
   getSpecialRoundScores(round: number): number[];
 
   readonly showProgressGraph: boolean;
+  readonly svgWidth: number;
+  getViewBox(): { widht: number; height: number };
 }

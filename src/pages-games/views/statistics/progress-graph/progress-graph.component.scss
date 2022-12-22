@@ -2,6 +2,43 @@
     display: block;
 }
 
+.graph {
+    width: 100%;
+    transform: scale(1, -1);
+
+    .axis {
+        stroke-width: 3;
+        stroke: black;
+    }
+
+    .line {
+        fill: none;
+        stroke-width: 2;
+    }
+
+    .round-markers {
+        font-size: 0.7em;
+        stroke: #dcdcdccc;
+
+        text {
+            transform: scale(1, -1);
+            text-anchor: end;
+            stroke: none;
+            fill: #dcdcdccc;
+        }
+
+        line {
+            stroke-width: 2;
+            stroke-dasharray: 5, 5;
+        }
+    }
+
+    .round-panel-info-line {
+        stroke: #d17515;
+        stroke-width: 1;
+    }
+}
+
 .legend {
     display: flex;
     flex-direction: row;

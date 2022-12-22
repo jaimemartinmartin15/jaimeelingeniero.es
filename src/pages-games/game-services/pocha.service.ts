@@ -70,6 +70,10 @@ export class PochaService implements GameService {
     const accumulatedScoresAtRounds = this.players[playerId].scores.reduce((prev, current, index) => [...prev, prev[index] + current], [0]);
     return Math.max(...accumulatedScoresAtRounds);
   }
+  public getMinimumReachedScore(playerId: number): number {
+    const accumulatedScoresAtRounds = this.players[playerId].scores.reduce((prev, current, index) => [...prev, prev[index] + current], [0]);
+    return Math.min(...accumulatedScoresAtRounds);
+  }
   public showNumberOfRejoinsPlayerDisplay = false;
   public getNumberOfRejoins(): number {
     // ignored
@@ -111,5 +115,11 @@ export class PochaService implements GameService {
     return []; // ignored
   }
 
-  readonly showProgressGraph = true;
+  public readonly showProgressGraph = true;
+  public readonly svgWidth = 300;
+  public getViewBox(): { widht: number; height: number } {
+    const minimumCoord = Math.min(...this.players.map((p) => this.getMinimumReachedScore(p.id)));
+    const maximumCoord = Math.max(...this.players.map((p) => this.getMaximumReachedScore(p.id)));
+    return { widht: this.svgWidth, height: Math.max(200, Math.abs(maximumCoord - minimumCoord)) };
+  }
 }

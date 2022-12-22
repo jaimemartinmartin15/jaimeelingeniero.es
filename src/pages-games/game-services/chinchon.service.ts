@@ -95,6 +95,10 @@ export class ChinchonService implements GameService {
     // ignored
     throw new Error('Chinchon game does not support maximum reached score');
   }
+  public getMinimumReachedScore(): number {
+    // ignored
+    throw new Error('Chinchon game does not support minimum reached score');
+  }
   public showNumberOfRejoinsPlayerDisplay = true;
   public getNumberOfRejoins(playerId: number): number {
     const numberOfRejoins = new Array(this.players.length).fill(0);
@@ -205,4 +209,9 @@ export class ChinchonService implements GameService {
   }
 
   readonly showProgressGraph = true;
+  readonly svgWidth = 300;
+  public getViewBox(): { widht: number; height: number } {
+    const minimumCoord = Math.min(0, ...this.players.flatMap((p) => p.scores.map((_, r) => this.getPlayerAccumulatedScoreAtRound(p.id, r))));
+    return { widht: this.svgWidth, height: Math.max(200, Math.abs(this.limitScore - minimumCoord)) };
+  }
 }

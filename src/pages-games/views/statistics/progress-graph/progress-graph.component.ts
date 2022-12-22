@@ -8,6 +8,7 @@ import { Player } from 'src/pages-games/player';
   styleUrls: ['./progress-graph.component.scss'],
 })
 export class ProgressGraphComponent implements OnInit {
+  public viewBox: string;
   public showPlayerGraphLines: boolean[];
   public colors: string[] = ['#ff0000', '#0000ff', '#008000', '#804000', '#4cd3d3', '#9d9d9d', '#c32aed', '#e0e000'];
 
@@ -19,6 +20,8 @@ export class ProgressGraphComponent implements OnInit {
   public constructor(public readonly gameHolderService: GameHolderService) {}
 
   public ngOnInit(): void {
+    const box = this.gameHolderService.service.getViewBox();
+    this.viewBox = `0 0 ${box.widht} ${box.height}`;
     this.showPlayerGraphLines = new Array(this.gameHolderService.service.players.length).fill(true);
     this.createColorsForPlayers();
   }
@@ -38,5 +41,9 @@ export class ProgressGraphComponent implements OnInit {
 
     // adds transparency to all existing colors
     this.colors = this.colors.map((c) => c + 'CC');
+  }
+
+  public onClickToShowPlayersPanelInfo(event: MouseEvent): void {
+    // TODO
   }
 }
