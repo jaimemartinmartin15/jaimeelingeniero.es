@@ -122,4 +122,7 @@ export class PochaService implements GameService {
     const maximumCoord = Math.max(...this.players.map((p) => this.getMaximumReachedScore(p.id)));
     return { widht: this.svgWidth, height: Math.max(200, Math.abs(maximumCoord - minimumCoord)) };
   }
+  public getSvgPlayerLine(player: Player): string {
+    return 'M 0,0 100,100 100,50 50,100'; // TODO
+  }
 }

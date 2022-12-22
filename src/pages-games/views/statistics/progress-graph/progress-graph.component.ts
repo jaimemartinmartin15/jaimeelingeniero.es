@@ -13,6 +13,7 @@ export class ProgressGraphComponent implements OnInit {
   public viewBox: string;
   public showPlayerGraphLines: boolean[];
   public colors: string[] = ['#ff0000', '#0000ff', '#008000', '#804000', '#4cd3d3', '#9d9d9d', '#c32aed', '#e0e000'];
+  public playerLines: string[];
 
   public showRoundPanel = true; // TODO
   public selectedRound: number = 1; // TODO
@@ -26,6 +27,7 @@ export class ProgressGraphComponent implements OnInit {
     this.viewBox = `0 0 ${box.widht} ${box.height}`;
     this.showPlayerGraphLines = new Array(this.gameHolderService.service.players.length).fill(true);
     this.createColorsForPlayers();
+    this.playerLines = this.gameHolderService.service.players.map(p => this.gameHolderService.service.getSvgPlayerLine(p))
   }
 
   private createColorsForPlayers() {

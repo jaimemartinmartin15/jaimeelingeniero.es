@@ -208,10 +208,13 @@ export class ChinchonService implements GameService {
     return accumulatedScoresAtSpecialRound;
   }
 
-  readonly showProgressGraph = true;
-  readonly svgWidth = 300;
+  public readonly showProgressGraph = true;
+  public readonly svgWidth = 300;
   public getViewBox(): { widht: number; height: number } {
     const minimumCoord = Math.min(0, ...this.players.flatMap((p) => p.scores.map((_, r) => this.getPlayerAccumulatedScoreAtRound(p.id, r))));
     return { widht: this.svgWidth, height: Math.max(200, Math.abs(this.limitScore - minimumCoord)) };
+  }
+  public getSvgPlayerLine(player: Player): string {
+    return ''; // TODO
   }
 }

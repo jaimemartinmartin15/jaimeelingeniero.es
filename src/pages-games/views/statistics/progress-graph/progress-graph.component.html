@@ -17,6 +17,9 @@
     <!-- x axis -->
 
     <!-- player score lines  -->
+    <ng-container *ngFor="let line of playerLines; let i = index">
+        <path class="line" *ngIf="showPlayerGraphLines[i]" [attr.d]="line" [attr.stroke]="colors[i]" />
+    </ng-container>
 </svg>
 
 <div class="legend">
