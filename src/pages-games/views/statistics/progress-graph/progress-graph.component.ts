@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { GameHolderService } from 'src/pages-games/game-services/game-holder.service';
 import { Player } from 'src/pages-games/player';
 import { intervalArray } from 'src/utils/arrays';
@@ -10,13 +10,17 @@ import { SvgRoundMarker } from './svg-round-marker';
   styleUrls: ['./progress-graph.component.scss'],
 })
 export class ProgressGraphComponent implements OnInit {
+  @ViewChild('graph')
+  private readonly graph: ElementRef;
+
   public viewBox: string;
   public showPlayerGraphLines: boolean[];
   public colors: string[] = ['#ff0000', '#0000ff', '#008000', '#804000', '#4cd3d3', '#9d9d9d', '#c32aed', '#e0e000'];
   public playerLines: string[];
 
-  public showRoundPanel = true; // TODO
-  public selectedRound: number = 1; // TODO
+  public showRoundPanel = false;
+  public svgSelectedRound: { x1: number; y1: number; x2: number; y2: number };
+  public selectedRound: number;
   public roundPanelPlayers: Player[] = this.gameHolderService.service.players; // TODO
   public playerMovements: number[] = [1, 2, 3, -4]; // TODO
 
@@ -27,7 +31,7 @@ export class ProgressGraphComponent implements OnInit {
     this.viewBox = `0 0 ${box.widht} ${box.height}`;
     this.showPlayerGraphLines = new Array(this.gameHolderService.service.players.length).fill(true);
     this.createColorsForPlayers();
-    this.playerLines = this.gameHolderService.service.players.map(p => this.gameHolderService.service.getSvgPlayerLine(p))
+    this.playerLines = this.gameHolderService.service.players.map((p) => this.gameHolderService.service.getSvgPlayerLine(p));
   }
 
   private createColorsForPlayers() {
@@ -65,6 +69,39 @@ export class ProgressGraphComponent implements OnInit {
   }
 
   public onClickToShowPlayersPanelInfo(event: MouseEvent): void {
-    // TODO
+    const previousSelectedRound = this.selectedRound;
+    this.selectedRound = this.calculateSvgSelectedRound({ x: event.offsetX, y: event.offsetY });
+
+    if (previousSelectedRound === this.selectedRound) {
+      this.selectedRound = -1;
+      this.showRoundPanel = false;
+      return;
+    }
+
+    // TODO calculate other values for panel
+    this.showRoundPanel = true;
+  }
+
+  private calculateSvgSelectedRound({ x: xCoord, y: yCoord }: { x: number; y: number }): number {
+    // convert click in screen to coordinates in svg
+    const point = DOMPoint.fromPoint(this.graph.nativeElement);
+    point.x = xCoord;
+    point.y = yCoord;
+    const svgXCoord = point.matrixTransform(this.graph.nativeElement.getScreenCTM().inverse()).x;
+
+    // calculate the round
+    const box = this.gameHolderService.service.getViewBox();
+    const numberOfRounds = this.gameHolderService.service.getNextRoundNumber() - 1;
+    const roundWidth = box.widht / numberOfRounds;
+    const roundsPositions = intervalArray(numberOfRounds).map((r) => r * roundWidth);
+    const minimumDistanceToRound = Math.min(...roundsPositions.map((rp) => Math.abs(svgXCoord - rp)));
+    this.svgSelectedRound = {
+      x1: roundsPositions.find((rp) => Math.abs(svgXCoord - rp) === minimumDistanceToRound)!,
+      y1: 0,
+      x2: roundsPositions.find((rp) => Math.abs(svgXCoord - rp) === minimumDistanceToRound)!,
+      y2: box.height,
+    };
+
+    return roundsPositions.indexOf(this.svgSelectedRound.x1);
   }
 }

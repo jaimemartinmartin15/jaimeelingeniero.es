@@ -1,4 +1,4 @@
-<svg class="graph" (mousedown)="onClickToShowPlayersPanelInfo($event)" [attr.viewBox]="viewBox">
+<svg class="graph" #graph (mousedown)="onClickToShowPlayersPanelInfo($event)" [attr.viewBox]="viewBox">
     <!-- round markers -->
     <g class="round-markers">
         <ng-container *ngFor="let roundMark of svgRoundMarkers">
@@ -10,6 +10,8 @@
     </g>
 
     <!-- round panel info line -->
+    <line class="round-panel-info-line" *ngIf="showRoundPanel" [attr.x1]="svgSelectedRound.x1"
+        [attr.y1]="svgSelectedRound.y1" [attr.x2]="svgSelectedRound.x2" [attr.y2]="svgSelectedRound.y2" />
 
     <!-- y axis -->
     <line class="axis" x1="0" y1="0" x2="0" y2="100%" />
