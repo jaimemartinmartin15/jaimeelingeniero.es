@@ -217,4 +217,7 @@ export class ChinchonService implements GameService {
   public getSvgPlayerLine(player: Player): string {
     return ''; // TODO
   }
+  public get svgXAxisHeight(): number {
+    return 0; // TODO
+  }
 }

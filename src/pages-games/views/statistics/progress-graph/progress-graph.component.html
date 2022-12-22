@@ -14,9 +14,11 @@
         [attr.y1]="svgSelectedRound.y1" [attr.x2]="svgSelectedRound.x2" [attr.y2]="svgSelectedRound.y2" />
 
     <!-- y axis -->
-    <line class="axis" x1="0" y1="0" x2="0" y2="100%" />
+    <line class="axis" x1="0.5" y1="0" x2="0.5" y2="100%" />
 
     <!-- x axis -->
+    <line class="axis" x1="0" [attr.y1]="gameHolderService.service.svgXAxisHeight" x2="100%"
+        [attr.y2]="gameHolderService.service.svgXAxisHeight" />
 
     <!-- player score lines  -->
     <ng-container *ngFor="let line of playerLines; let i = index">

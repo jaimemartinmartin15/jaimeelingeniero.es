@@ -46,4 +46,5 @@ export interface GameService {
   readonly svgWidth: number;
   getViewBox(): { widht: number; height: number };
   getSvgPlayerLine(player: Player): string;
+  get svgXAxisHeight(): number;
 }

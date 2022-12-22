@@ -125,4 +125,7 @@ export class PochaService implements GameService {
   public getSvgPlayerLine(player: Player): string {
     return 'M 0,0 100,100 100,50 50,100'; // TODO
   }
+  public get svgXAxisHeight(): number {
+    return 50; // TODO
+  }
 }

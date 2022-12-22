@@ -58,7 +58,7 @@ export class ProgressGraphComponent implements OnInit {
 
     return intervalArray(numberOfMarkersToShow).map((m) => ({
       value: m * showEvery,
-      text: { x: svgRoundWidth * m * showEvery - 5, y: 0 },
+      text: { x: svgRoundWidth * m * showEvery - 5, y: -this.gameHolderService.service.svgXAxisHeight - 4 },
       line: {
         x1: svgRoundWidth * m * showEvery,
         y1: 0,
