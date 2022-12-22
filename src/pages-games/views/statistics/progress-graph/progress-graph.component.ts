@@ -28,7 +28,7 @@ export class ProgressGraphComponent implements OnInit {
 
   public ngOnInit(): void {
     const box = this.gameHolderService.service.getViewBox();
-    this.viewBox = `0 0 ${box.widht} ${box.height}`;
+    this.viewBox = `0 0 ${box.widht + 1} ${box.height}`;
     this.showPlayerGraphLines = new Array(this.gameHolderService.service.players.length).fill(true);
     this.createColorsForPlayers();
     this.playerLines = this.gameHolderService.service.players.map((p) => this.gameHolderService.service.getSvgPlayerLine(p));
