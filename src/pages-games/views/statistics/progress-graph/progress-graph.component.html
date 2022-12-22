@@ -44,7 +44,7 @@
             {{player.name}}
         </span>
         <span class="accumulated-score">
-            {{gameHolderService.service.getTotalScore(player.id, selectedRound)}}
+            {{gameHolderService.service.getTotalScore(player.id, selectedRound + 1)}}
         </span>
         <span *ngIf="selectedRound > 0">
             <ng-container *ngIf="playerMovements[player.id] > 0">

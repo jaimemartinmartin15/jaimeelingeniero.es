@@ -91,13 +91,53 @@ export class ChinchonService implements GameService {
     return this._players[playerId].scores[lastRoundIndex];
   }
   public showMaximumReachedScorePlayerDisplay = false;
-  public getMaximumReachedScore(): number {
-    // ignored
-    throw new Error('Chinchon game does not support maximum reached score');
+  public getMaximumReachedScore(playerId: number): number {
+    const numberOfPlayers = this.players.length;
+    const numberOfRounds = this.getNextRoundNumber() - 1;
+    let maximumScore = 0;
+
+    let accumulatedScoresAtRound = new Array(this.players.length).fill(0);
+    for (let r = 0; r < numberOfRounds; r++) {
+      accumulatedScoresAtRound = accumulatedScoresAtRound.map((scoreAcc, i) => scoreAcc + this.players[i].scores[r]);
+      const rejoinScore = Math.max(...accumulatedScoresAtRound.filter((s) => s <= this.limitScore));
+      const thereIsWinner = accumulatedScoresAtRound.filter((s) => s <= this.limitScore).length === 1;
+      maximumScore = Math.max(maximumScore, accumulatedScoresAtRound[playerId]);
+
+      // reset scores outside limit
+      if (!thereIsWinner) {
+        for (let p = 0; p < numberOfPlayers; p++) {
+          if (accumulatedScoresAtRound[p] > this.limitScore) {
+            accumulatedScoresAtRound[p] = rejoinScore;
+          }
+        }
+      }
+    }
+
+    return maximumScore;
   }
-  public getMinimumReachedScore(): number {
-    // ignored
-    throw new Error('Chinchon game does not support minimum reached score');
+  public getMinimumReachedScore(playerId: number): number {
+    const numberOfPlayers = this.players.length;
+    const numberOfRounds = this.getNextRoundNumber() - 1;
+    let minimum = 0;
+
+    let accumulatedScoresAtRound = new Array(this.players.length).fill(0);
+    for (let r = 0; r < numberOfRounds; r++) {
+      accumulatedScoresAtRound = accumulatedScoresAtRound.map((scoreAcc, i) => scoreAcc + this.players[i].scores[r]);
+      const rejoinScore = Math.max(...accumulatedScoresAtRound.filter((s) => s <= this.limitScore));
+      const thereIsWinner = accumulatedScoresAtRound.filter((s) => s <= this.limitScore).length === 1;
+      minimum = Math.min(minimum, accumulatedScoresAtRound[playerId]);
+
+      // reset scores outside limit
+      if (!thereIsWinner) {
+        for (let p = 0; p < numberOfPlayers; p++) {
+          if (accumulatedScoresAtRound[p] > this.limitScore) {
+            accumulatedScoresAtRound[p] = rejoinScore;
+          }
+        }
+      }
+    }
+
+    return minimum;
   }
   public showNumberOfRejoinsPlayerDisplay = true;
   public getNumberOfRejoins(playerId: number): number {
