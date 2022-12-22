@@ -44,7 +44,7 @@ export interface GameService {
 
   readonly showProgressGraph: boolean;
   readonly svgWidth: number;
-  getViewBox(): { widht: number; height: number };
+  readonly svgHeight: number;
   getSvgPlayerLine(player: Player): string;
   get svgXAxisHeight(): number;
 }

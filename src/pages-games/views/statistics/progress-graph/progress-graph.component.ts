@@ -27,8 +27,7 @@ export class ProgressGraphComponent implements OnInit {
   public constructor(public readonly gameHolderService: GameHolderService) {}
 
   public ngOnInit(): void {
-    const box = this.gameHolderService.service.getViewBox();
-    this.viewBox = `0 0 ${box.widht + 1} ${box.height}`;
+    this.viewBox = `0 0 ${this.gameHolderService.service.svgWidth + 1} ${this.gameHolderService.service.svgHeight}`;
     this.showPlayerGraphLines = new Array(this.gameHolderService.service.players.length).fill(true);
     this.createColorsForPlayers();
     this.playerLines = this.gameHolderService.service.players.map((p) => this.gameHolderService.service.getSvgPlayerLine(p));
@@ -63,7 +62,7 @@ export class ProgressGraphComponent implements OnInit {
         x1: svgRoundWidth * m * showEvery,
         y1: 0,
         x2: svgRoundWidth * m * showEvery,
-        y2: this.gameHolderService.service.getViewBox().height,
+        y2: this.gameHolderService.service.svgHeight,
       },
     }));
   }
@@ -90,16 +89,15 @@ export class ProgressGraphComponent implements OnInit {
     const svgXCoord = point.matrixTransform(this.graph.nativeElement.getScreenCTM().inverse()).x;
 
     // calculate the round
-    const box = this.gameHolderService.service.getViewBox();
     const numberOfRounds = this.gameHolderService.service.getNextRoundNumber() - 1;
-    const roundWidth = box.widht / numberOfRounds;
+    const roundWidth = this.gameHolderService.service.svgWidth / numberOfRounds;
     const roundsPositions = intervalArray(numberOfRounds).map((r) => r * roundWidth);
     const minimumDistanceToRound = Math.min(...roundsPositions.map((rp) => Math.abs(svgXCoord - rp)));
     this.svgSelectedRound = {
       x1: roundsPositions.find((rp) => Math.abs(svgXCoord - rp) === minimumDistanceToRound)!,
       y1: 0,
       x2: roundsPositions.find((rp) => Math.abs(svgXCoord - rp) === minimumDistanceToRound)!,
-      y2: box.height,
+      y2: this.gameHolderService.service.svgHeight,
     };
 
     return roundsPositions.indexOf(this.svgSelectedRound.x1);

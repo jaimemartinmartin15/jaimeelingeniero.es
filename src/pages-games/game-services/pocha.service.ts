@@ -117,15 +117,12 @@ export class PochaService implements GameService {
 
   public readonly showProgressGraph = true;
   public readonly svgWidth = 300;
-  public getViewBox(): { widht: number; height: number } {
-    const minimumCoord = Math.min(...this.players.map((p) => this.getMinimumReachedScore(p.id)));
-    const maximumCoord = Math.max(...this.players.map((p) => this.getMaximumReachedScore(p.id)));
-    return { widht: this.svgWidth, height: Math.max(200, Math.abs(maximumCoord - minimumCoord)) };
-  }
+  public readonly svgHeight = 200;
   public getSvgPlayerLine(player: Player): string {
     return 'M 0,0 100,100 100,50 50,100'; // TODO
   }
   public get svgXAxisHeight(): number {
-    return 50; // TODO
+    // TODO
+    return 100;
   }
 }
