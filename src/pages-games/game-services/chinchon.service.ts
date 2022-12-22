@@ -57,8 +57,8 @@ export class ChinchonService implements GameService {
   }
   public showLimitScoreInfo = true;
 
-  public getPlayerPosition(playerId: number): number {
-    const totalScores = this.players.map((p) => this.getTotalScore(p.id));
+  public getPlayerPosition(playerId: number, round = this.getNextRoundNumber() - 1): number {
+    const totalScores = this.players.map((p) => this.getTotalScore(p.id, round));
     const totalScoresSorted = [...totalScores].sort((n1, n2) => n1 - n2);
     return totalScoresSorted.indexOf(totalScores[playerId]) + 1;
   }

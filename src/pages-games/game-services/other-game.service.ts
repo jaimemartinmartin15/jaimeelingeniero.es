@@ -39,8 +39,8 @@ export class OtherGameService implements GameService {
   }
   public readonly showLimitScoreInfo = false;
 
-  public getPlayerPosition(playerId: number): number {
-    const accumulatedScores = this.players.map((p) => p.scores.reduce((acc, current) => acc + current), 0);
+  public getPlayerPosition(playerId: number, round = this.getNextRoundNumber() - 1): number {
+    const accumulatedScores = this.players.map((p) => p.scores.slice(0, round).reduce((acc, current) => acc + current), 0);
     const accumulatedScoresSorted = [...accumulatedScores].sort((n1, n2) => (this.winner === 'highestScore' ? n2 - n1 : n1 - n2));
     return accumulatedScoresSorted.indexOf(accumulatedScores[playerId]) + 1;
   }

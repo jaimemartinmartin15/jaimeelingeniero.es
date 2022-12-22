@@ -80,14 +80,13 @@ export class ProgressGraphComponent implements OnInit {
     this.roundPanelPlayers = this.gameHolderService.service.getRankingPlayers(this.selectedRound);
 
     if (this.selectedRound > 1) {
-      // TODO add parameter to playerPosition at round
-      // const positionsBefore = this.gameHolderService.service.players.map((p) =>
-      //   this.gameHolderService.service.getPlayerPosition(p.id, this.selectedRound - 1)
-      // );
-      // const positionsNow = this.gameHolderService.service.players.map((p) =>
-      //   this.gameHolderService.service.getPlayerPosition(p.id, this.selectedRound)
-      // );
-      // this.playerMovements = this.gameHolderService.service.players.map((p) => positionsNow[p.id] - positionsBefore[p.id]);
+      const positionsBefore = this.gameHolderService.service.players.map((p) =>
+        this.gameHolderService.service.getPlayerPosition(p.id, this.selectedRound - 1)
+      );
+      const positionsNow = this.gameHolderService.service.players.map((p) =>
+        this.gameHolderService.service.getPlayerPosition(p.id, this.selectedRound)
+      );
+      this.playerMovements = this.gameHolderService.service.players.map((p) => positionsBefore[p.id] - positionsNow[p.id]);
     }
 
     this.showRoundPanel = true;

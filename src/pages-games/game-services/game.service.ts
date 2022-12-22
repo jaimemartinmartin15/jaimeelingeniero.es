@@ -23,7 +23,7 @@ export interface GameService {
   getNumberOfCardsToDealNextRound(): string;
   readonly showLimitScoreInfo: boolean;
 
-  getPlayerPosition(playerId: number): number;
+  getPlayerPosition(playerId: number, round?: number): number;
   getPlayerName(playerId: number): string;
   getTotalScore(playerId: number, round?: number): number;
   getScoreLastRound(playerId: number): number;

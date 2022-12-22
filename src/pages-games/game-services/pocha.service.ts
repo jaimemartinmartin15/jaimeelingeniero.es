@@ -50,8 +50,8 @@ export class PochaService implements GameService {
   }
   public showLimitScoreInfo = false;
 
-  public getPlayerPosition(playerId: number): number {
-    const accumulatedScores = this.players.map((p) => p.scores.reduce((acc, current) => acc + current), 0);
+  public getPlayerPosition(playerId: number, round = this.getNextRoundNumber() - 1): number {
+    const accumulatedScores = this.players.map((p) => p.scores.slice(0, round).reduce((acc, current) => acc + current), 0);
     const accumulatedScoresSorted = [...accumulatedScores].sort((n1, n2) => n2 - n1);
     return accumulatedScoresSorted.indexOf(accumulatedScores[playerId]) + 1;
   }
