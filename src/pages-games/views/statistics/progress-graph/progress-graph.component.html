@@ -1,4 +1,13 @@
 <svg class="graph" (mousedown)="onClickToShowPlayersPanelInfo($event)" [attr.viewBox]="viewBox">
+    <!-- round markers -->
+    <g class="round-markers">
+        <ng-container *ngFor="let roundMark of svgRoundMarkers">
+            <text [attr.x]="roundMark.text.x" [attr.y]="roundMark.text.y">{{roundMark.value}}</text>
+            <line [attr.x1]="roundMark.line.x1" [attr.y1]="roundMark.line.y1" [attr.x2]="roundMark.line.x2"
+                [attr.y2]="roundMark.line.y2">
+            </line>
+        </ng-container>
+    </g>
 </svg>
 
 <div class="legend">

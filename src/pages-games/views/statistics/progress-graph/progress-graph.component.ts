@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { GameHolderService } from 'src/pages-games/game-services/game-holder.service';
 import { Player } from 'src/pages-games/player';
+import { intervalArray } from 'src/utils/arrays';
+import { SvgRoundMarker } from './svg-round-marker';
 
 @Component({
   selector: 'app-progress-graph',
@@ -41,6 +43,23 @@ export class ProgressGraphComponent implements OnInit {
 
     // adds transparency to all existing colors
     this.colors = this.colors.map((c) => c + 'CC');
+  }
+
+  public get svgRoundMarkers(): SvgRoundMarker[] {
+    const showEvery = 5;
+    const numberOfMarkersToShow = (this.gameHolderService.service.getNextRoundNumber() - 1) / showEvery;
+    const svgRoundWidth = this.gameHolderService.service.svgWidth / (this.gameHolderService.service.getNextRoundNumber() - 1);
+
+    return intervalArray(numberOfMarkersToShow).map((m) => ({
+      value: m * showEvery,
+      text: { x: svgRoundWidth * m * showEvery - 5, y: 0 },
+      line: {
+        x1: svgRoundWidth * m * showEvery,
+        y1: 0,
+        x2: svgRoundWidth * m * showEvery,
+        y2: this.gameHolderService.service.getViewBox().height,
+      },
+    }));
   }
 
   public onClickToShowPlayersPanelInfo(event: MouseEvent): void {
