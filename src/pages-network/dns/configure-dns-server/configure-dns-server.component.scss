@@ -81,16 +81,16 @@ code {
     width: 100%;
 }
 
-@media (max-width: 575px) {
+@media (max-width: $page-width) {
     :host {
-        padding: 0;
-
-        & > :not(app-header-print) {
-            padding: 20px;
-        }
+        padding: 0 0 35px 0;
     }
 
     .configure-dns-ubuntu-img {
         width: 100%;
+    }
+
+    main {
+        padding: 0 20px;
     }
 }
