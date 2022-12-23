@@ -1,61 +1,72 @@
-@import "../../styles";
-
 :host {
-    display: block;
-    overflow-x: auto;
-    height: 100%;
+    position: fixed;
+    inset: 0;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
 }
 
-@include empty-state;
+.empty-state {
+    text-align: center;
+    flex-grow: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
 
-table {
-    border-spacing: 0;
+.scoreboard {
+    flex-grow: 1;
+    overflow: auto;
 
-    th,
-    td {
-        border: 1px solid black;
-        white-space: nowrap;
-    }
+    table {
+        border-spacing: 0;
 
-    th {
-        padding: 3px 20px;
-    }
-
-    .score {
-        display: flex;
-        justify-content: space-between;
-        align-items: flex-end;
-        gap: 5px;
-        padding: 3px;
-
-        &--rejoin {
-            justify-content: center;
-            background-color: #6262ff;
-            color: white;
+        th,
+        td {
+            border: 1px solid black;
+            white-space: nowrap;
         }
 
-        .accumulated-score {
-            font-size: 0.58em;
+        th {
+            padding: 3px 20px;
         }
-    }
 
-    .sticky-header {
-        position: sticky;
-        top: 0;
-        z-index: 5;
-    }
+        .score {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            gap: 5px;
+            padding: 5px;
 
-    .sticky-round-number {
-        position: sticky;
-        left: 0;
-    }
+            &--rejoin {
+                background-color: #6262ff;
+                color: white;
+            }
 
-    .sticky-footer {
-        position: sticky;
-        bottom: 0;
-    }
+            .accumulated-score {
+                font-size: 0.7rem;
+            }
+        }
 
-    .highlight-cell {
-        background-color: azure;
+        .sticky-header {
+            position: sticky;
+            top: 0;
+            z-index: 1;
+        }
+
+        .sticky-round-number {
+            position: sticky;
+            left: 0;
+        }
+
+        .sticky-footer {
+            position: sticky;
+            bottom: 0;
+        }
+
+        .highlight-cell {
+            background-color: azure;
+        }
     }
 }

@@ -1,72 +1,77 @@
-<div class="form">
-  <div class="game-name">
-    <span>Juego</span>
-    <div class="select" [ngClass]="{open: selectGameNameDropDownOpen}"
-      (click)="selectGameNameDropDownOpen = !selectGameNameDropDownOpen">
-      {{selectedConfigGame.name | titlecase}}
-    </div>
-    <div class="options" *ngIf="selectGameNameDropDownOpen">
-      <div *ngFor="let game of gameNames" (click)="onSelectGameName(game)">{{game | titlecase}}</div>
-    </div>
+<div class="game-name">
+  <label>Juego</label>
+
+  <div class="select" [ngClass]="{open: selectGameNameDropDownOpen}"
+    (click)="selectGameNameDropDownOpen = !selectGameNameDropDownOpen">
+    {{gameHolderService.service.gameName}}
   </div>
 
-  <div class="number-of-cards" *ngIf="selectedConfigGame.cardsNumber != undefined">
-    <span>Cartas</span>
-    <br>
-    <div #numberOfCards class="input-number" (scroll)="calculateNumberOfSelectedCards()">
-      <span (click)="selectedNumberOfCards = selectedNumberOfCards - 2">{{selectedNumberOfCards - 2}}</span>
-      <span (click)="selectedNumberOfCards = selectedNumberOfCards - 1">{{selectedNumberOfCards - 1}}</span>
-      <span class="selected">{{selectedNumberOfCards}}</span>
-      <span (click)="selectedNumberOfCards = selectedNumberOfCards + 1">{{selectedNumberOfCards + 1}}</span>
-      <span (click)="selectedNumberOfCards = selectedNumberOfCards + 2">{{selectedNumberOfCards + 2}}</span>
+  <div class="options" *ngIf="selectGameNameDropDownOpen">
+    <div *ngFor="let gameService of gameServices" (click)="onSelectGameName(gameService)">
+      {{gameService.gameName}}
     </div>
   </div>
+</div>
 
-  <div class="winner" *ngIf="selectedConfigGame.name === 'otro'">
-    <span>Ganador</span>
+<div class="number-of-cards" *ngIf="gameHolderService.service.showNumberOfCardsConfig">
+  <label>Cartas</label>
 
-    <div class="radio-element" (click)="setWinnerConfigHighestScore()">
-      <span class="radio-button" [ngClass]="{selected: winner === 'highestScore'}"></span>
-      Quien más puntos tiene
-    </div>
+  <div #numberOfCards class="input-number" (scroll)="calculateNumberOfSelectedCards()">
+    <span (click)="setNumberOfCards = getNumberOfCards - 2">{{getNumberOfCards - 2}}</span>
+    <span (click)="setNumberOfCards = getNumberOfCards - 1">{{getNumberOfCards - 1}}</span>
+    <span class="selected">{{getNumberOfCards}}</span>
+    <span (click)="setNumberOfCards = getNumberOfCards + 1">{{getNumberOfCards + 1}}</span>
+    <span (click)="setNumberOfCards = getNumberOfCards + 2">{{getNumberOfCards + 2}}</span>
+  </div>
+</div>
 
-    <div class="radio-element" (click)="setWinnerConfigLowestScore()">
-      <span class="radio-button" [ngClass]="{selected: winner === 'lowestScore'}"></span>
-      Quien menos puntos tiene
-    </div>
+<div class="limit-score" *ngIf="gameHolderService.service.showLimitScoreConfig">
+  <label>Límite</label>
+
+  <div #limitScore class="input-number" (scroll)="calculateLimitScore()">
+    <span (click)="setLimitScore = getLimitScore - 2">{{getLimitScore - 2}}</span>
+    <span (click)="setLimitScore = getLimitScore - 1">{{getLimitScore - 1}}</span>
+    <span class="selected">{{getLimitScore}}</span>
+    <span (click)="setLimitScore = getLimitScore + 1">{{getLimitScore + 1}}</span>
+    <span (click)="setLimitScore = getLimitScore + 2">{{getLimitScore + 2}}</span>
+  </div>
+</div>
+
+<div class="winner" *ngIf="gameHolderService.service.showWinnerConfig">
+  <label>Ganador</label>
+
+  <div class="radio-element" (click)="setWinnerConfigHighestScore()">
+    <span class="radio-button" [ngClass]="{selected: gameHolderService.service.winner === 'highestScore'}"></span>
+    Quien más puntos tiene
   </div>
 
-  <div class="limit-score" *ngIf="selectedConfigGame.limitScore != undefined">
-    <span>Límite</span>
-    <br>
-    <div #limitScore class="input-number" (scroll)="calculateSelectedLimitScore()">
-      <span (click)="selectedLimitScore = selectedLimitScore - 2">{{selectedLimitScore - 2}}</span>
-      <span (click)="selectedLimitScore = selectedLimitScore - 1">{{selectedLimitScore - 1}}</span>
-      <span class="selected">{{selectedLimitScore}}</span>
-      <span (click)="selectedLimitScore = selectedLimitScore + 1">{{selectedLimitScore + 1}}</span>
-      <span (click)="selectedLimitScore = selectedLimitScore + 2">{{selectedLimitScore + 2}}</span>
-    </div>
+  <div class="radio-element" (click)="setWinnerConfigLowestScore()">
+    <span class="radio-button" [ngClass]="{selected: gameHolderService.service.winner === 'lowestScore'}"></span>
+    Quien menos puntos tiene
   </div>
+</div>
 
-  <div class="players">
-    <span>Jugadores <span class="add-player-button" (click)="addPlayer()"></span></span>
-    <br>
-    <ul cdkDropList (cdkDropListDropped)="onReorderingPlayer($event)" class="players-list">
-      <li cdkDrag cdkDragPreviewContainer="parent" class="player-item"
-        *ngFor="let player of playerNames; let i = index; trackBy: trackByPlayerIndex">
+<div class="players">
+  <label>Jugadores <span class="add-player-button" (click)="addPlayer()"></span></label>
 
-        <div *cdkDragPlaceholder></div>
+  <ul cdkDropList (cdkDropListDropped)="onReorderingPlayer($event)" class="players-list">
+    <li cdkDrag cdkDragPreviewContainer="parent" class="player-item"
+      *ngFor="let player of playerNames; let i = index; trackBy: trackByPlayerIndex">
 
-        <span class="player-id" cdkDragHandle>{{i + 1}}. </span>
+      <div *cdkDragPlaceholder></div>
 
-        <input class="input" #playerInput type="text" [(ngModel)]="playerNames[i]"
-          (ngModelChange)="updateStatusStartGameButton()">
+      <span class="player-id" cdkDragHandle>{{i + 1}}. </span>
 
-        <svg appDealCardsSvg viewBox="0 0 1000 1000" (click)="playerStartsDealing = i" class="deal-cards-icon"
-          [ngClass]="{'deal-cards-icon--active': playerStartsDealing === i}"></svg>
+      <input class="input" #playerInput type="text" [(ngModel)]="playerNames[i]">
 
-        <span class="delete-icon" (click)="deletePlayer(i)" *ngIf="this.playerNames.length > 1"></span>
-      </li>
-    </ul>
-  </div>
+      <svg appDealCardsSvg viewBox="0 0 1000 1000" (click)="playerStartsDealing = i" class="deal-cards-icon"
+        [ngClass]="{'deal-cards-icon--active': playerStartsDealing === i}"></svg>
+
+      <span class="delete-icon" (click)="deletePlayer(i)" *ngIf="this.playerNames.length > 1"></span>
+    </li>
+  </ul>
+</div>
+
+<div class="button-group">
+  <button class="app-button" [disabled]="startButtonDisabled" (click)="startGame()">Empezar</button>
 </div>
