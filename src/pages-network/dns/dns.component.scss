@@ -8,17 +8,6 @@ $page-width: 830px;
     line-height: 30px;
 }
 
-@media (max-width: $page-width) {
-    :host {
-        padding: 0 0 35px 0;
-    }
-
-    footer,
-    main {
-        padding: 0 20px 0 20px;
-    }
-}
-
 .title {
     text-align: center;
     margin: 20px 10px 10px 10px;
@@ -195,5 +184,16 @@ footer {
 
     dd {
         margin: 0;
+    }
+}
+
+@media (max-width: $page-width) {
+    :host {
+        padding: 0 0 35px 0;
+    }
+
+    footer,
+    main {
+        padding: 0 20px;
     }
 }
