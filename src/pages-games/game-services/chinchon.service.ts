@@ -33,7 +33,7 @@ export class ChinchonService implements GameService {
     for (let r = 0; r < numberOfRounds; r++) {
       accumulatedScoresAtRound = accumulatedScoresAtRound.map((scoreAcc, p) => scoreAcc + this.players[p].scores[r]);
       const rejoinScore = Math.max(...accumulatedScoresAtRound.filter((s) => s <= this.limitScore));
-      const thereIsWinner = accumulatedScoresAtRound.filter((s) => s <= this.limitScore).length === 1;
+      const thereIsWinner = accumulatedScoresAtRound.filter((s) => s <= this.limitScore).length <= 1;
 
       if (thereIsWinner) return true;
 
@@ -73,7 +73,7 @@ export class ChinchonService implements GameService {
     for (let r = 0; r < round; r++) {
       accumulatedScoresAtRound = accumulatedScoresAtRound.map((scoreAcc, i) => scoreAcc + this.players[i].scores[r]);
       const rejoinScore = Math.max(...accumulatedScoresAtRound.filter((s) => s <= this.limitScore));
-      const thereIsWinner = accumulatedScoresAtRound.filter((s) => s <= this.limitScore).length === 1;
+      const thereIsWinner = accumulatedScoresAtRound.filter((s) => s <= this.limitScore).length <= 1;
 
       // reset scores outside limit
       if (!thereIsWinner) {
@@ -101,7 +101,7 @@ export class ChinchonService implements GameService {
     for (let r = 0; r < numberOfRounds; r++) {
       accumulatedScoresAtRound = accumulatedScoresAtRound.map((scoreAcc, i) => scoreAcc + this.players[i].scores[r]);
       const rejoinScore = Math.max(...accumulatedScoresAtRound.filter((s) => s <= this.limitScore));
-      const thereIsWinner = accumulatedScoresAtRound.filter((s) => s <= this.limitScore).length === 1;
+      const thereIsWinner = accumulatedScoresAtRound.filter((s) => s <= this.limitScore).length <= 1;
       maximumScore = Math.max(maximumScore, accumulatedScoresAtRound[playerId]);
 
       // reset scores outside limit
@@ -125,7 +125,7 @@ export class ChinchonService implements GameService {
     for (let r = 0; r < numberOfRounds; r++) {
       accumulatedScoresAtRound = accumulatedScoresAtRound.map((scoreAcc, i) => scoreAcc + this.players[i].scores[r]);
       const rejoinScore = Math.max(...accumulatedScoresAtRound.filter((s) => s <= this.limitScore));
-      const thereIsWinner = accumulatedScoresAtRound.filter((s) => s <= this.limitScore).length === 1;
+      const thereIsWinner = accumulatedScoresAtRound.filter((s) => s <= this.limitScore).length <= 1;
       minimum = Math.min(minimum, accumulatedScoresAtRound[playerId]);
 
       // reset scores outside limit
@@ -149,7 +149,7 @@ export class ChinchonService implements GameService {
     for (let r = 0; r < round; r++) {
       accumulatedScoresAtRound = accumulatedScoresAtRound.map((scoreAcc, i) => scoreAcc + this.players[i].scores[r]);
       const rejoinScore = Math.max(...accumulatedScoresAtRound.filter((s) => s <= this.limitScore));
-      const thereIsWinner = accumulatedScoresAtRound.filter((s) => s <= this.limitScore).length === 1;
+      const thereIsWinner = accumulatedScoresAtRound.filter((s) => s <= this.limitScore).length <= 1;
 
       // reset scores outside limit and increment number of rejoins
       if (!thereIsWinner) {
@@ -184,7 +184,7 @@ export class ChinchonService implements GameService {
     for (let r = 0; r < round + 1; r++) {
       accumulatedScoresAtRound = accumulatedScoresAtRound.map((scoreAcc, i) => scoreAcc + this.players[i].scores[r]);
       const rejoinScore = Math.max(...accumulatedScoresAtRound.filter((s) => s <= this.limitScore));
-      const thereIsWinner = accumulatedScoresAtRound.filter((s) => s <= this.limitScore).length === 1;
+      const thereIsWinner = accumulatedScoresAtRound.filter((s) => s <= this.limitScore).length <= 1;
 
       // reset scores outside limit
       if (!thereIsWinner) {
@@ -265,7 +265,7 @@ export class ChinchonService implements GameService {
     for (let r = 0; r < numberOfRounds; r++) {
       accumulatedScoresAtRound = accumulatedScoresAtRound.map((scoreAcc, i) => scoreAcc + this.players[i].scores[r]);
       const rejoinScore = Math.max(...accumulatedScoresAtRound.filter((s) => s <= this.limitScore));
-      const thereIsWinner = accumulatedScoresAtRound.filter((s) => s <= this.limitScore).length === 1;
+      const thereIsWinner = accumulatedScoresAtRound.filter((s) => s <= this.limitScore).length <= 1;
 
       const pointX = svgRoundWidth * (r + 1);
       const pointY = this.svgHeight * ((accumulatedScoresAtRound[player.id] - minimumScore) / (maximumScore - minimumScore));
