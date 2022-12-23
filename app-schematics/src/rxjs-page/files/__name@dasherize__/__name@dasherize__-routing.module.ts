@@ -5,6 +5,7 @@ import { <%= classify(name) %>Component } from './<%= dasherize(name) %>.compone
 const routes: Routes = [
   {
     path: '',
+    title: '<%= classify(name) %> rxjs',
     component: <%= classify(name) %>Component,
   },
   {

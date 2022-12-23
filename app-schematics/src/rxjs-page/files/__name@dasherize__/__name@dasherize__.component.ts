@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
-import { Meta, Title } from '@angular/platform-browser';
+import { Meta } from '@angular/platform-browser';
 import { BehaviorSubject, Subject, <%= name %> } from 'rxjs';
+import { BaseOperatorComponent } from '../shared/base-operator.component';
+import { ButtonController } from '../shared/components/conveyor-controller/button-controller';
 import { ElementInConveyor } from '../shared/element-in-conveyor';
 import { ObservableEventType } from '../shared/observable-event-type';
-import { ButtonController } from '../shared/components/conveyor-controller/button-controller';
-import { BaseOperatorComponent } from '../shared/base-operator.component';
 
 @Component({
   selector: 'app-<%= dasherize(name) %>',
@@ -30,8 +30,8 @@ export class <%= classify(name) %>Component extends BaseOperatorComponent {
     [this.MAIN_ID]: new BehaviorSubject<boolean>(false),
   };
 
-  public constructor(titleService: Title, metaService: Meta) {
-    super(titleService, metaService, '<%= name %>');
+  public constructor(metaService: Meta) {
+    super(metaService, '<%= name %>');
   }
 
   protected moveElement(e: ElementInConveyor): void {

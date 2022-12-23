@@ -1,5 +1,5 @@
 import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { Meta, Title } from '@angular/platform-browser';
+import { Meta } from '@angular/platform-browser';
 import { BehaviorSubject, interval, Subject } from 'rxjs';
 import { ButtonController } from '../shared/components/conveyor-controller/button-controller';
 import { DemoContainerComponent } from '../shared/components/demo-container/demo-container.component';
@@ -34,10 +34,9 @@ export class ObservableComponent implements OnInit, AfterViewInit, OnDestroy {
 
   public speechBubble$ = new Subject<SpeechBubble>();
 
-  public constructor(private readonly titleService: Title, private readonly metaService: Meta) {}
+  public constructor(private readonly metaService: Meta) {}
 
   public ngOnInit() {
-    this.titleService.setTitle('Observable rxjs');
     this.metaService.updateTag({ name: 'description', content: 'Explicación de un Observable' });
     this.metaService.updateTag({ name: 'keywords', content: `observable, demo, rxjs` });
   }

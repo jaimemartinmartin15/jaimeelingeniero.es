@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
-import { Meta, Title } from '@angular/platform-browser';
+import { Meta } from '@angular/platform-browser';
 import { BehaviorSubject, distinct } from 'rxjs';
+import { BaseOperatorComponent } from '../shared/base-operator.component';
 import { ButtonController } from '../shared/components/conveyor-controller/button-controller';
 import { ElementInConveyor } from '../shared/element-in-conveyor';
 import { ObservableEventType } from '../shared/observable-event-type';
-import { BaseOperatorComponent } from '../shared/base-operator.component';
 
 @Component({
   selector: 'app-distinct',
@@ -32,8 +32,8 @@ export class DistinctComponent extends BaseOperatorComponent {
 
   public elementsEmmited: string[] = [];
 
-  public constructor(titleService: Title, metaService: Meta) {
-    super(titleService, metaService, 'distinct');
+  public constructor(metaService: Meta) {
+    super(metaService, 'distinct');
   }
 
   protected moveElement(e: ElementInConveyor): void {

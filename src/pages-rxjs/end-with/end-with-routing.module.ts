@@ -5,6 +5,7 @@ import { EndWithComponent } from './end-with.component';
 const routes: Routes = [
   {
     path: '',
+    title: 'EndWith rxjs',
     component: EndWithComponent,
   },
   {

@@ -1,12 +1,12 @@
-import { Component, OnInit } from '@angular/core';
-import { Meta, Title } from '@angular/platform-browser';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Meta } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-dns',
   templateUrl: './dns.component.html',
   styleUrls: ['./dns.component.scss'],
 })
-export class DnsComponent implements OnInit {
+export class DnsComponent implements OnInit, OnDestroy {
   public tab = 'SOA';
   public dnsResolvingDomainStep = 0;
   public headerPrintData = {
@@ -14,10 +14,9 @@ export class DnsComponent implements OnInit {
     date: '3 de noviembre de 2022',
   };
 
-  public constructor(private readonly titleService: Title, private readonly metaService: Meta) {}
+  public constructor(private readonly metaService: Meta) {}
 
   public ngOnInit(): void {
-    this.titleService.setTitle('El DNS - Redes');
     this.metaService.updateTag({
       name: 'description',
       content: 'Explicación desde cero del sistema de nombres de dominio. Aprende todo sobre este servicio tan usado en internet.',

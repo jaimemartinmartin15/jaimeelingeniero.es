@@ -5,6 +5,7 @@ import { OfComponent } from './of.component';
 const routes: Routes = [
   {
     path: '',
+    title: 'Of rxjs',
     component: OfComponent,
   },
   {

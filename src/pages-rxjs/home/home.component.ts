@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { Meta, Title } from '@angular/platform-browser';
-import { LINKS_GROUPS_OPERATORS, LINKS_TO_START, HomeLink } from './menu-links';
+import { Meta } from '@angular/platform-browser';
+import { HomeLink, LINKS_GROUPS_OPERATORS, LINKS_TO_START } from './menu-links';
 
 @Component({
   selector: 'app-rxjs-home',
@@ -16,10 +16,9 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   public searchControl = new FormControl<string>('', { nonNullable: true });
 
-  public constructor(private readonly titleService: Title, private readonly metaService: Meta) {}
+  public constructor(private readonly metaService: Meta) {}
 
   public ngOnInit(): void {
-    this.titleService.setTitle('Índice operadores rxjs');
     this.metaService.updateTag({ name: 'description', content: 'Accede a la lista de operadores rxjs' });
     this.metaService.updateTag({ name: 'keywords', content: 'operadores rxjs, lista' });
 

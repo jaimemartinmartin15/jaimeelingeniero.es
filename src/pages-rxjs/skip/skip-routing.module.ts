@@ -5,6 +5,7 @@ import { SkipComponent } from './skip.component';
 const routes: Routes = [
   {
     path: '',
+    title: 'Skip rxjs',
     component: SkipComponent,
   },
   {

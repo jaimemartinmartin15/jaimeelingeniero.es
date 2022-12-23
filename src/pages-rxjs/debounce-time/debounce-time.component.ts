@@ -34,8 +34,8 @@ export class DebounceTimeComponent extends BaseOperatorComponent {
     [this.MAIN_ID]: new BehaviorSubject<boolean>(false),
   };
 
-  public constructor(titleService: Title, metaService: Meta) {
-    super(titleService, metaService, 'debounceTime');
+  public constructor(metaService: Meta) {
+    super(metaService, 'debounceTime');
   }
 
   protected moveElement(e: ElementInConveyor): void {

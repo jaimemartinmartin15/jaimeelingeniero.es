@@ -5,6 +5,7 @@ import { FilterComponent } from './filter.component';
 const routes: Routes = [
   {
     path: '',
+    title: 'Filter rxjs',
     component: FilterComponent,
   },
   {

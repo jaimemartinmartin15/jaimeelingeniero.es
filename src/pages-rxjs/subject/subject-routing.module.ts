@@ -5,6 +5,7 @@ import { SubjectComponent } from './subject.component';
 const routes: Routes = [
   {
     path: '',
+    title: 'Subject rxjs',
     component: SubjectComponent,
   },
   {

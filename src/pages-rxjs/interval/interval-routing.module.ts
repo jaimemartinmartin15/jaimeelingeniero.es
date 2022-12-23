@@ -5,6 +5,7 @@ import { IntervalComponent } from './interval.component';
 const routes: Routes = [
   {
     path: '',
+    title: 'Interval rxjs',
     component: IntervalComponent,
   },
   {

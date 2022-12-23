@@ -1,40 +1,32 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
-import { filter, map } from 'rxjs';
-import { PATHS } from '../../paths';
-import { BottomControlsService } from './bottom-controls.service';
+import { Component } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { GameHolderService } from 'src/pages-games/game-services/game-holder.service';
+import { ROUTING_PATHS } from 'src/pages-games/routing-paths';
 
 @Component({
   selector: 'app-bottom-controls',
   templateUrl: './bottom-controls.component.html',
   styleUrls: ['./bottom-controls.component.scss'],
 })
-export class BottomControlsComponent implements OnInit {
+export class BottomControlsComponent {
+  public readonly ROUTING_PATHS = ROUTING_PATHS;
   public showViewNavigation: boolean = false;
-  public state: 'game-config' | 'game-started';
-  public startButtonEnabled: boolean = false;
 
   public constructor(
     private readonly router: Router,
     private readonly activatedRoute: ActivatedRoute,
-    public readonly bottomControlsService: BottomControlsService
+    private readonly gameHolderService: GameHolderService
   ) {}
 
-  public ngOnInit(): void {
-    this.state = this.router.url.includes(`${PATHS.GAME_CONFIG}`) ? 'game-config' : 'game-started';
-    this.router.events
-      .pipe(
-        filter((event): event is NavigationEnd => event instanceof NavigationEnd),
-        map((e: NavigationEnd) => e.url)
-      )
-      .subscribe((url: string) => {
-        this.state = url.includes(`${PATHS.GAME_CONFIG}`) ? 'game-config' : 'game-started';
-      });
-
-    this.bottomControlsService.enableStartGameButton$.subscribe((enabled) => (this.startButtonEnabled = enabled));
+  public goToGameConfigView() {
+    this.router.navigate(['../', ROUTING_PATHS.GAME_CONFIG], { relativeTo: this.activatedRoute });
   }
 
-  public goToGameConfigView() {
-    this.router.navigate(['./', PATHS.GAME_CONFIG], { relativeTo: this.activatedRoute, queryParamsHandling: 'merge' });
+  public enterNewRound() {
+    const state = {
+      players: this.gameHolderService.service.players.map((p) => ({ ...p, punctuation: 0 })),
+      roundNumber: this.gameHolderService.service.getNextRoundNumber(),
+    };
+    this.router.navigate(['../', ROUTING_PATHS.ENTER_SCORE], { relativeTo: this.activatedRoute, state });
   }
 }

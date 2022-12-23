@@ -5,6 +5,7 @@ import { BehaviorSubjectComponent } from './behavior-subject.component';
 const routes: Routes = [
   {
     path: '',
+    title: 'BehaviorSubject rxjs',
     component: BehaviorSubjectComponent,
   },
   {

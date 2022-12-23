@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Meta, Title } from '@angular/platform-browser';
+import { Meta } from '@angular/platform-browser';
 import { BehaviorSubject, startWith } from 'rxjs';
 import { BaseOperatorComponent } from '../shared/base-operator.component';
 import { ButtonController } from '../shared/components/conveyor-controller/button-controller';
@@ -30,8 +30,8 @@ export class StartWithComponent extends BaseOperatorComponent {
     [this.MAIN_ID]: new BehaviorSubject<boolean>(false),
   };
 
-  public constructor(titleService: Title, metaService: Meta) {
-    super(titleService, metaService, 'startWith');
+  public constructor(metaService: Meta) {
+    super(metaService, 'startWith');
   }
 
   protected moveElement(e: ElementInConveyor): void {

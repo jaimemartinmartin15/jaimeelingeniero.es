@@ -5,6 +5,7 @@ import { StartWithComponent } from './start-with.component';
 const routes: Routes = [
   {
     path: '',
+    title: 'StartWith rxjs',
     component: StartWithComponent,
   },
   {

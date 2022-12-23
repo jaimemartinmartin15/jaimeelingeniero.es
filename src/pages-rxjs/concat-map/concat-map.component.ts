@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
+import { Meta } from '@angular/platform-browser';
 import { BehaviorSubject, concatMap, Subject } from 'rxjs';
-import { fadeInOut } from '../shared/rxjs-animations';
+import { BaseOperatorComponent } from '../shared/base-operator.component';
+import { ButtonController } from '../shared/components/conveyor-controller/button-controller';
 import { ElementInConveyor } from '../shared/element-in-conveyor';
 import { ObservableEventType } from '../shared/observable-event-type';
-import { ButtonController } from '../shared/components/conveyor-controller/button-controller';
-import { Meta, Title } from '@angular/platform-browser';
-import { BaseOperatorComponent } from '../shared/base-operator.component';
+import { fadeInOut } from '../shared/rxjs-animations';
 
 @Component({
   selector: 'app-concat-map',
@@ -37,8 +37,8 @@ export class ConcatMapComponent extends BaseOperatorComponent {
 
   private concatMap$: { [key: string]: Subject<string> } = {};
 
-  public constructor(titleService: Title, metaService: Meta) {
-    super(titleService, metaService, 'concatMap');
+  public constructor(metaService: Meta) {
+    super(metaService, 'concatMap');
   }
 
   protected moveElement(e: ElementInConveyor): void {

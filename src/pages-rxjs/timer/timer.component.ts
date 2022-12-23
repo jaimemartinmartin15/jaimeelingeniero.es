@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
-import { Meta, Title } from '@angular/platform-browser';
-import { BehaviorSubject, map, switchMap, pipe, timer } from 'rxjs';
+import { Meta } from '@angular/platform-browser';
+import { BehaviorSubject, map, pipe, switchMap, timer } from 'rxjs';
+import { BaseOperatorComponent } from '../shared/base-operator.component';
+import { ButtonController } from '../shared/components/conveyor-controller/button-controller';
 import { ElementInConveyor } from '../shared/element-in-conveyor';
 import { ObservableEventType } from '../shared/observable-event-type';
-import { ButtonController } from '../shared/components/conveyor-controller/button-controller';
-import { BaseOperatorComponent } from '../shared/base-operator.component';
 
 @Component({
   selector: 'app-timer',
@@ -28,8 +28,8 @@ export class TimerComponent extends BaseOperatorComponent {
     [this.MAIN_ID]: new BehaviorSubject<boolean>(false),
   };
 
-  public constructor(titleService: Title, metaService: Meta) {
-    super(titleService, metaService, 'timer');
+  public constructor(metaService: Meta) {
+    super(metaService, 'timer');
   }
 
   protected moveElement(e: ElementInConveyor): void {

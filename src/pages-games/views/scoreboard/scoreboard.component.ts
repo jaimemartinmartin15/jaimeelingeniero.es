@@ -1,75 +1,43 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, HostBinding, OnDestroy, OnInit } from '@angular/core';
-import { Subject, takeUntil } from 'rxjs';
+import { Component } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { GameHolderService } from 'src/pages-games/game-services/game-holder.service';
+import { ROUTING_PATHS } from 'src/pages-games/routing-paths';
 import { intervalArray } from 'src/utils/arrays';
-import { Player } from '../../interfaces/player';
-import { GameService } from '../../services/game.service';
-import { ScoreboardService } from './scoreboard.service';
 
 @Component({
   selector: 'app-scoreboard',
   templateUrl: './scoreboard.component.html',
   styleUrls: ['./scoreboard.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ScoreboardComponent implements OnInit, OnDestroy {
-  private finishSubscriptions$ = new Subject<void>();
-
-  public players: Player[];
-
-  @HostBinding('class.empty-state')
-  public get isEmptyState(): boolean {
-    return this.players == null || this.gameService.playedRounds === 0;
-  }
-
+export class ScoreboardComponent {
   public constructor(
-    public readonly gameService: GameService,
-    public readonly changeDetectorRef: ChangeDetectorRef,
-    public readonly scoreboardService: ScoreboardService
+    public readonly gameHolderService: GameHolderService,
+    private readonly router: Router,
+    private readonly activatedRoute: ActivatedRoute
   ) {}
 
-  public ngOnInit(): void {
-    this.gameService.playersLoaded$.pipe(takeUntil(this.finishSubscriptions$)).subscribe(() => {
-      this.players = this.gameService.playersById;
-      this.changeDetectorRef.detectChanges();
-    });
+  public changeScoresForRound(round: number) {
+    const state = {
+      players: this.gameHolderService.service.players.map((p) => ({ ...p, punctuation: p.scores[round] })),
+      roundNumber: round + 1,
+    };
+    this.router.navigate(['../', ROUTING_PATHS.ENTER_SCORE], { relativeTo: this.activatedRoute, state });
+  }
 
-    this.gameService.scoreChanged$.pipe(takeUntil(this.finishSubscriptions$)).subscribe(() => {
-      this.players = this.gameService.playersById;
-      this.changeDetectorRef.detectChanges();
-    });
+  public changeScoreForPlayerAndRound(playerId: number, round: number) {
+    const player = this.gameHolderService.service.players[playerId];
+    const state = {
+      players: [{ ...player, punctuation: player.scores[round] }],
+      roundNumber: round + 1,
+    };
+    this.router.navigate(['../', ROUTING_PATHS.ENTER_SCORE], { relativeTo: this.activatedRoute, state });
   }
 
   public getRoundNumbersAsArray() {
-    return intervalArray(this.gameService.nextRoundNumber - 1);
+    return intervalArray(this.gameHolderService.service.getNextRoundNumber() - 1).map((r) => r - 1);
   }
 
   public getRoundScores(round: number) {
-    return this.players.map((p) => p.scores[round]);
-  }
-
-  public getBackgroundColor(score: number): string {
-    if (score >= 0) {
-      const scorePercentile = score / this.gameService.maximumScoreInOneRound;
-      const threshold = 255 - 180 * scorePercentile;
-      return `background-color: rgb(${threshold}, 255, ${threshold})`;
-    } else {
-      const scorePercentile = Math.abs(score) / Math.abs(this.gameService.minimumScoreInOneRound);
-      const threshold = 255 - 180 * scorePercentile;
-      return `background-color: rgb(255,${threshold}, ${threshold})`;
-    }
-  }
-
-  public showRejoinRowAfterRound(round: number): boolean {
-    return this.players.some((p) => p.rejoins.some((r) => r.afterRound === round));
-  }
-
-  public getRejoinScores(round: number): number[] {
-    const rejoinsRound = this.players.map((p) => p.rejoins.filter((r) => r.afterRound === round));
-    return rejoinsRound.map((r) => (r.length === 0 ? 0 : r[0].substractScore));
-  }
-
-  public ngOnDestroy(): void {
-    this.finishSubscriptions$.next();
-    this.finishSubscriptions$.complete();
+    return this.gameHolderService.service.players.map((p) => p.scores[round]);
   }
 }

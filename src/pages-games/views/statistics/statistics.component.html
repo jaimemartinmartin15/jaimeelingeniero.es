@@ -1,76 +1,31 @@
-<ng-container *ngIf="isEmptyState">
+<app-round-info></app-round-info>
+
+<div class="empty-state" *ngIf="!gameHolderService.service.gameHasStarted()">
   Introduce al menos una ronda para mostrar las estadísticas
-</ng-container>
+</div>
 
-<ng-container *ngIf="!isEmptyState">
-  <svg class="graph" (mousedown)="onClickToShowPlayersPanelInfo($event)"
-    [attr.viewBox]="(viewBox.x-5) + ' ' + (viewBox.y-5) + ' ' + (viewBox.width+10) + ' ' + (viewBox.height+10)">
-    <!-- round markers -->
-    <g class="round-markers">
-      <ng-container *ngFor="let roundMark of roundSvgMarkers">
-        <text [attr.x]="((viewBox.width-10)/(gameService.nextRoundNumber-1))*roundMark*5"
-          y="-5">{{roundMark*5}}</text>
-        <line [attr.x1]="5+((viewBox.width-10)/(gameService.nextRoundNumber-1))*roundMark*5" [attr.y1]="viewBox.y"
-          [attr.x2]="5+((viewBox.width-10)/(gameService.nextRoundNumber-1))*roundMark*5"
-          [attr.y2]="viewBox.y + viewBox.height">
-        </line>
-      </ng-container>
-    </g>
+<div class="statistics" *ngIf="gameHolderService.service.gameHasStarted()">
+  <app-progress-graph *ngIf="gameHolderService.service.showProgressGraph"></app-progress-graph>
 
-    <!-- round panel info line -->
-    <line class="round-panel-info-line" *ngIf="showPlayersPanelInfo"
-      [attr.x1]="5+((viewBox.width-10)/(gameService.playedRounds))*playersPanelInfoRound" [attr.y1]="viewBox.y"
-      [attr.x2]="5+((viewBox.width-10)/(gameService.playedRounds))*playersPanelInfoRound"
-      [attr.y2]="viewBox.y + viewBox.height" />
-
-    <!-- y axis -->
-    <line class="axis" x1="0" [attr.y1]="viewBox.y" x2="0" [attr.y2]="viewBox.y + viewBox.height" />
-
-    <!-- x axis -->
-    <line class="axis" x1="0" [attr.y1]="0" [attr.x2]="viewBox.width" [attr.y2]="0" />
-
-    <!-- player score lines  -->
-    <ng-container *ngFor="let player of players">
-      <path class="line" *ngIf="showPlayerGraphLines[player.id]" [attr.d]="buildPath(player)"
-        [attr.stroke]="colors[player.id]" />
-    </ng-container>
-  </svg>
-
-  <div class="legend">
-    <div *ngFor="let player of players" (click)="showPlayerGraphLines[player.id] = !showPlayerGraphLines[player.id]">
-      <span class="dot-player" [attr.style]="'background-color: ' + colors[player.id]"></span>
-      <span>{{player.name}}</span>
-    </div>
+  <div class="item">
+    <label>Jugadores en primera posición:</label>
+    <strong>{{getPlayersInFirstPosition()}}</strong>
   </div>
 
-  <div class="round-panel-info" *ngIf="showPlayersPanelInfo">
-    <div class="round-number"><strong>Ronda {{playersPanelInfoRound}}</strong></div>
-    <div class="player-display" *ngFor="let player of playersPanelInfoSorted">
-      <span class="dot-player" [attr.style]="'background-color: ' + colors[player.id]"></span>
-      <span class="name" (click)="showPlayerGraphLines[player.id] = !showPlayerGraphLines[player.id]">
-        {{player.name}}
-      </span>
-      <span class="accumulated-score">{{player.accumulatedScores[playersPanelInfoRound].afterRejoin}}</span>
-      <span *ngIf="playersPanelInfoRound > 0">
-        <ng-container *ngIf="playersPanelInfoPositionMovements[player.id] > 0">
-          ⬆️{{playersPanelInfoPositionMovements[player.id] | toEmoji}}</ng-container>
-        <ng-container *ngIf="playersPanelInfoPositionMovements[player.id] < 0">
-          ⬇️{{playersPanelInfoPositionMovements[player.id] | toEmoji}}</ng-container>
-      </span>
-    </div>
+  <div class="item">
+    <label>Jugadores en última posición:</label>
+    <strong>{{getPlayersInLastPosition()}}</strong>
   </div>
 
-  <div class="ranking">
-    <div class="box">Puntuación total actual más alta: <br> <strong>{{playersWithMaxCurrentScore}}</strong></div>
-    <div class="box">Puntuación total actual más baja: <br> <strong>{{playersWithMinCurrentScore}}</strong></div>
+  <div class="item">
+    <label>Máximo conseguido en una ronda:</label>
+    <strong>{{getMaximumScoreInOneRound()}} por {{getPlayerNamesWithMaximumScoreInOneRound()}}</strong>
   </div>
 
-  <div class="round-scoring">
-    <div class="box">Ronda máxima puntuación: <br> <strong>{{playersMaxScoreInRound}}
-        ({{gameService.maximumScoreInOneRound}})</strong>
-    </div>
-    <div class="box">Ronda mínima puntuación: <br> <strong>{{playersMinScoreInRound}}
-        ({{gameService.minimumScoreInOneRound}})</strong>
-    </div>
+  <div class="item">
+    <label>Mínimo conseguido en una ronda:</label>
+    <strong>{{getMinimumScoreInOneRound()}} por {{getPlayerNamesWithMinimumScoreInOneRound()}}</strong>
   </div>
-</ng-container>
+</div>
+
+<app-bottom-controls></app-bottom-controls>

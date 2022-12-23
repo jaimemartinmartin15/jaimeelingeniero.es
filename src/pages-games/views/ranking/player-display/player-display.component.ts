@@ -1,7 +1,5 @@
 import { Component, HostBinding, Input } from '@angular/core';
-import { GameService } from 'src/pages-games/services/game.service';
-import { pochaConfig } from '../../../game-configs/pocha-config';
-import { Player } from '../../../interfaces/player';
+import { GameHolderService } from 'src/pages-games/game-services/game-holder.service';
 
 @Component({
   selector: 'app-player-display',
@@ -9,25 +7,17 @@ import { Player } from '../../../interfaces/player';
   styleUrls: ['./player-display.component.scss'],
 })
 export class PlayerDisplayComponent {
-  public pochaConfig = pochaConfig;
-
   @Input()
-  public player: Player;
+  public playerId: number;
 
-  public constructor(public readonly gameService: GameService) {}
-
-  @HostBinding('class.position-1')
-  public get firstPosition() {
-    return this.player.position === 1;
+  @HostBinding('class')
+  public get styleClassPosition() {
+    return `position-${this.playerPosition}`;
   }
 
-  @HostBinding('class.position-2')
-  public get secondPosition() {
-    return this.player.position === 2;
-  }
+  public constructor(public readonly gameHolderService: GameHolderService) {}
 
-  @HostBinding('class.position-3')
-  public get thirdPosition() {
-    return this.player.position === 3;
+  public get playerPosition() {
+    return this.gameHolderService.service.getPlayerPosition(this.playerId);
   }
 }

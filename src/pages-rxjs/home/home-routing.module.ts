@@ -5,6 +5,7 @@ import { HomeComponent } from './home.component';
 const routes: Routes = [
   {
     path: '',
+    title: 'Índice operadores rxjs',
     component: HomeComponent,
   },
   {

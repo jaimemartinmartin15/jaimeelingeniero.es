@@ -6,6 +6,7 @@ import { MyTrayectoryComponent } from './my-trayectory.component';
 const routes: Routes = [
   {
     path: '',
+    title: 'Trayectoria',
     component: MyTrayectoryComponent
   },
   {

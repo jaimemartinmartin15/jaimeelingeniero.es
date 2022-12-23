@@ -5,6 +5,7 @@ import { ConcatMapComponent } from './concat-map.component';
 const routes: Routes = [
   {
     path: '',
+    title: 'ConcatMap rxjs',
     component: ConcatMapComponent,
   },
   {

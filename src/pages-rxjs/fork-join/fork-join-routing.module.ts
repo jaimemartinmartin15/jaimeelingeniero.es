@@ -5,6 +5,7 @@ import { ForkJoinComponent } from './fork-join.component';
 const routes: Routes = [
   {
     path: '',
+    title: 'ForkJoin rxjs',
     component: ForkJoinComponent,
   },
   {

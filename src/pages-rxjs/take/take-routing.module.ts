@@ -5,6 +5,7 @@ import { TakeComponent } from './take.component';
 const routes: Routes = [
   {
     path: '',
+    title: 'Take rxjs',
     component: TakeComponent,
   },
   {

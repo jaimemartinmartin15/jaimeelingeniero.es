@@ -5,6 +5,7 @@ import { FromComponent } from './from.component';
 const routes: Routes = [
   {
     path: '',
+    title: 'From rxjs',
     component: FromComponent,
   },
   {
