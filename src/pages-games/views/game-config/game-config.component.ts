@@ -136,6 +136,8 @@ export class GameConfigComponent implements OnInit, AfterViewInit {
     this.gameHolderService.service.players = this.playerNames.map((name, id) => ({ id, name, scores: [], punctuation: 0 }));
     this.gameHolderService.service.playerStartsDealing = this.playerStartsDealing;
 
+    localStorage.setItem(LOCAL_STORE_KEYS.TIME_GAME_STARTS, JSON.stringify(Date.now()));
+
     this.router.navigate(['../', ROUTING_PATHS.RANKING], { relativeTo: this.activatedRoute });
   }
 }
