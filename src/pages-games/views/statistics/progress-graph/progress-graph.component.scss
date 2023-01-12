@@ -89,6 +89,10 @@
         align-items: center;
         gap: 8px;
         margin-bottom: 10px;
+
+        .hidden-arrow {
+            visibility: hidden;
+        }
     }
 
     .player-display {
