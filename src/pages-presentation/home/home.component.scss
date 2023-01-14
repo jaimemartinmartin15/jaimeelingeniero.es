@@ -256,6 +256,7 @@
 
         .contact-list {
             flex-direction: column-reverse;
+            align-items: flex-start;
             max-width: 340px;
             gap: 15px;
         }
