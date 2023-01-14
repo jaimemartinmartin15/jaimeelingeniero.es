@@ -84,8 +84,15 @@
     font-size: 0.9rem;
 
     .round-number {
-        text-align: center;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 8px;
         margin-bottom: 10px;
+
+        .hidden-arrow {
+            visibility: hidden;
+        }
     }
 
     .player-display {

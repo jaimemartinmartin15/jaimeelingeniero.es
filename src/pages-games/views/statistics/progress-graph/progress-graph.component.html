@@ -43,7 +43,10 @@
 
 <div class="round-panel-info" *ngIf="showRoundPanel">
     <div class="round-number">
+        <span [ngClass]="{'hidden-arrow': selectedRound <= 1}" (click)="showRoundInfo(selectedRound -1)">⬅️</span>
         <strong>Ronda {{ selectedRound }}</strong>
+        <span [ngClass]="{'hidden-arrow': selectedRound >= gameHolderService.service.getNextRoundNumber()-1}"
+            (click)="showRoundInfo(selectedRound + 1)">➡️</span>
     </div>
     <div class="player-display" *ngFor="let player of roundPanelPlayers">
         <span class="dot-player" [attr.style]="'background-color: ' + colors[player.id]"></span>
