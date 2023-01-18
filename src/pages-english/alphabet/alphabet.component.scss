@@ -1,3 +1,41 @@
 :host {
     display: block;
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 0 10px 20px 10px;
+}
+
+.title {
+    margin: 20px 0;
+    text-align: center;
+}
+
+.alphabet {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, 100px);
+    justify-content: center;
+    grid-gap: 10px;
+
+    .letter {
+        padding-top: 5px;
+        border: 2px solid #d17515;
+        border-radius: 5px;
+        text-align: center;
+
+        span {
+            display: block;
+        }
+
+        .display {
+            font-size: 2.5rem;
+            font-weight: bold;
+        }
+
+        .pronunciation {
+            background-color: #ffd3a3;
+            padding: 3px;
+            margin-top: 2px;
+            font-weight: bold;
+        }
+    }
 }

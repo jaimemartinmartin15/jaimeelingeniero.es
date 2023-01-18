@@ -1,3 +1,9 @@
-<p>
-  alphabet works!
-</p>
+<h1 class="title">Alfabeto</h1>
+
+<div class="alphabet">
+  <div class="letter" *ngFor="let letter of letters">
+    <span class="display">{{letter.display}}</span>
+    <span>{{letter.radiophonic}}</span>
+    <span class="pronunciation">{{letter.pronunciation}}</span>
+  </div>
+</div>
