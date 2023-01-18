@@ -19,6 +19,10 @@ const routes: Routes = [
     loadChildren: () => import('../pages-network/network.module').then((m) => m.NetworkModule),
   },
   {
+    path: 'ingles',
+    loadChildren: () => import('../pages-english/pages-english.module').then((m) => m.PagesEnglishModule),
+  },
+  {
     path: 'bases-de-datos',
     loadChildren: () => import('../pages-bbdd/bbdd.module').then((m) => m.BBDDModule),
   },
