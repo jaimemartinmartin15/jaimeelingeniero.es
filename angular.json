@@ -28,7 +28,8 @@
             "inlineStyleLanguage": "scss",
             "assets": [
               "src/assets",
-              "src/pages-network/dns/assets"
+              "src/pages-network/dns/assets",
+              "src/pages-english/alphabet/assets"
             ],
             "styles": [
               "src/styles.scss"

@@ -192,30 +192,25 @@
 .contact {
     background-color: rgb(126, 126, 126);
     padding: 50px;
-    display: flex;
-    justify-content: center;
 
     .contact-list {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr 6fr);
-        grid-gap: 10px;
         max-width: 720px;
-
-        address {
-            align-self: center;
-        }
-
-        svg {
-            width: 50px;
-            align-self: center;
-        }
+        margin: 0 auto;
+        display: flex;
+        justify-content: space-between;
 
         .email,
         .linked-in,
         .github {
+            display: flex;
+            align-items: center;
+            gap: 10px;
             color: #fefefe;
             text-decoration: none;
-            align-self: center;
+
+            svg {
+                width: 50px;
+            }
         }
     }
 }
@@ -257,17 +252,27 @@
 
 @media (max-width: 768px) {
     .contact {
-        padding: 20px;
+        padding: 25px 15px;
 
         .contact-list {
-            grid-template-columns: 1fr 6fr;
-            grid-gap: 20px;
+            flex-direction: column-reverse;
+            align-items: flex-start;
+            max-width: 340px;
+            gap: 15px;
         }
     }
 }
 
 @media (max-width: 575px) {
     $title-size: 3em;
+
+    .intro {
+        min-height: calc(98vh - 60px);
+
+        .figure-and-title .title {
+            margin: 30px 0
+        }
+    }
 
     .about-me {
         padding: 20px;

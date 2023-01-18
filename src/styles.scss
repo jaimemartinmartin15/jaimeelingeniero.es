@@ -26,6 +26,10 @@ body {
     }
 }
 
+.app-no-break {
+    white-space: nowrap;
+}
+
 // for rxjs pages after upgrading highlight.js in routable-lateral-menu resolver
 pre[class~="hljs"] {
     padding: 10px;

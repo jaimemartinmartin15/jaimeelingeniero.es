@@ -1,15 +1,21 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { GameHolderService } from 'src/pages-games/game-services/game-holder.service';
+import { LOCAL_STORE_KEYS } from 'src/pages-games/local-storage-keys';
 
 @Component({
   selector: 'app-statistics',
   templateUrl: './statistics.component.html',
   styleUrls: ['./statistics.component.scss'],
 })
-export class StatisticsComponent {
+export class StatisticsComponent implements OnInit {
+  public playedTime: string;
   private formatter = new Intl.ListFormat('es', { style: 'long', type: 'conjunction' });
 
   public constructor(public readonly gameHolderService: GameHolderService) {}
+
+  public ngOnInit(): void {
+    this.setPlayedTime();
+  }
 
   public getPlayersInFirstPosition(): string {
     const players = this.gameHolderService.service.players;
@@ -50,5 +56,24 @@ export class StatisticsComponent {
     const minScore = this.getMinimumScoreInOneRound();
     const players = this.gameHolderService.service.players.filter((p) => p.scores.includes(minScore)).map((p) => p.name);
     return this.formatter.format(players);
+  }
+
+  private setPlayedTime() {
+    const timeGameStarted = +localStorage.getItem(LOCAL_STORE_KEYS.TIME_GAME_STARTS)!;
+    const elapsedSeconds = (Date.now() - timeGameStarted) / 1e3;
+    const minutes = Math.trunc((elapsedSeconds / 60) % 60);
+    const hours = Math.trunc(elapsedSeconds / 3600);
+    if (hours > 0) {
+      this.playedTime = `${hours} ${hours == 1 ? ' hora' : ' horas'}`;
+    }
+    if (minutes > 0 && hours > 0) {
+      this.playedTime = `${this.playedTime} y ${minutes} ${minutes == 1 ? ' minuto' : ' minutos'}`;
+    } else if (minutes > 0) {
+      this.playedTime = `${minutes} ${minutes == 1 ? ' minuto' : ' minutos'}`;
+    }
+
+    if (hours == 0 && minutes == 0) {
+      this.playedTime = 'Menos de un minuto';
+    }
   }
 }
