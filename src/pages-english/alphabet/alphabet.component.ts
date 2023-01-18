@@ -35,4 +35,10 @@ export class AlphabetComponent {
     { display: 'Y', pronunciation: 'guai', radiophonic: 'Yankee' },
     { display: 'Z', pronunciation: 'zzii', radiophonic: 'Zulu' },
   ];
+
+  public reproduceAudio(letter: Letter) {
+    const audioElement = document.createElement('audio');
+    audioElement.src = `pages-english/alphabet/assets/${letter.display}.mp3`;
+    audioElement.play();
+  }
 }
