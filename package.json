@@ -31,7 +31,7 @@
     "@angular-devkit/build-angular": "^15.0.2",
     "@angular/cli": "^15.0.2",
     "@angular/compiler-cli": "^15.0.2",
-    "@babbage-devkit/builders": "^0.1.2",
+    "@jaimemartinmartin15/jei-devkit-builders": "^1.0.1",
     "@types/jasmine": "~4.3.1",
     "@types/node": "^18.11.10",
     "jasmine-core": "~4.5.0",
