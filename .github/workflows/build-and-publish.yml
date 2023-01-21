@@ -7,11 +7,11 @@ on:
   # workflow_dispatch:
   #     inputs:
   #       logLevel:
-  #         description: 'Log level'     
+  #         description: 'Log level'
   #         required: true
   #         default: 'warning'
   #       tags:
-  #         description: 'Test scenario tags'  
+  #         description: 'Test scenario tags'
 
 jobs:
   build-and-deploy:
@@ -48,4 +48,7 @@ jobs:
       #     aws s3 sync ./dist/jaimeelingeniero s3://jaimeelingeniero.es --delete
       - name: Create new tag
         run: |
+          git config --global user.email "jaimemartinmartin15@gmail.com"
+          git config --global user.name "Jaime Martín Martín"
           git tag -a 1.0.0 -m ""
+          git push origin --tags
