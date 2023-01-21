@@ -1,17 +1,17 @@
 name: Deploy Webpage
 
 on:
-  push:
-    branches: [migration-to-github] # TODO change to main when it is working
-
-  # workflow_dispatch:
-  #     inputs:
-  #       logLevel:
-  #         description: 'Log level'
-  #         required: true
-  #         default: 'warning'
-  #       tags:
-  #         description: 'Test scenario tags'
+  workflow_dispatch:
+    inputs:
+      version:
+        type: choice
+        description: "Type of version to create"
+        required: true
+        options:
+          - major
+          - minor
+          - patch
+        default: minor
 
 jobs:
   build-and-deploy:
