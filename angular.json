@@ -29,7 +29,12 @@
             "assets": [
               "src/assets",
               "src/pages-network/dns/assets",
-              "src/pages-english/alphabet/assets"
+              "src/pages-english/alphabet/assets",
+              {
+                "glob": "sitemap.txt",
+                "input": ".",
+                "output": "."
+              }
             ],
             "styles": [
               "src/styles.scss"
