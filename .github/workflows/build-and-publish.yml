@@ -1,6 +1,8 @@
 name: Deploy Webpage
 
 on:
+  push:
+    branches: [migration-to-github] # TODO change to main when it is working
   workflow_dispatch:
     inputs:
       version:
