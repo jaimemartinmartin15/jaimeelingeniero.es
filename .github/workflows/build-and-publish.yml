@@ -16,6 +16,7 @@ jobs:
         with:
           node-version: 16
           registry-url: https://npm.pkg.github.com/
+          token: ${{secrets.GPR_READ_TOKEN}}
       - name: Install
         run: npm ci --no-audit --no-fund
       - name: Generate icons
