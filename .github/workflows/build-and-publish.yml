@@ -17,9 +17,10 @@ jobs:
           node-version: 16
           registry-url: https://npm.pkg.github.com/
           scope: "@jaimemartinmartin15"
-          token: ${{secrets.GITHUB_TOKEN}}
       - name: Install
         run: npm ci --no-audit --no-fund
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GH_REGISTRY_TOKEN }}
       - name: Generate icons
         run: |
           mkdir -p src/svg/generated
