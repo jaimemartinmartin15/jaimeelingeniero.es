@@ -30,4 +30,4 @@ Run `npm run build` to build the project. The output will be stored in the `dist
 
 Deploys are done when you push a new tag to the server. That is how the [workflow](.github\workflows\build-and-publish.yml) is configured.
 
-In master branch run `git merge develop --no-commit --no-ff`. Before completing the commit, increase the version in [package.json](package.json): `npm version minor --no-git-tag-version`. It can be minor or patch. Finish the commit and create a tag with the same version that the package. Push the branch and the tag created.
+Create a tag in the commit to deploy and push it to the server.
