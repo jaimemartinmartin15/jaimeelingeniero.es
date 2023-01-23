@@ -30,4 +30,4 @@ Run `npm run build` to build the project. The output will be stored in the `dist
 
 Deploys are done when you push a new tag to the server. That is how the [workflow](.github\workflows\build-and-publish.yml) is configured.
 
-Create a tag in the commit to deploy and push it to the server.
+Create a tag on the commit to deploy and push it to the server. The workflow file in that commit will be used! Be careful!
