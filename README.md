@@ -1,27 +1,33 @@
-# Jaimeelingeniero
+# jaimeelingeniero
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 13.1.1.
+This is the repository containing my personal web page deployed to amazon s3. You can visit it at [jaimeelingeniero.es](https://jaimeelingeniero.es)
 
-## Development server
+## Development
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+### Clone the repository
 
-## Code scaffolding
+Run `git clone https://github.com/jaimemartinmartin15/jaimeelingeniero.git`
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+### Install dependencies
 
-## Build
+Run `npm install`. You might need a valid personal access token to download some scoped dependencies on GPR (Github Package Registry). If you cannot obtain it, remove the dependency and install again. You will have to work without generating the icons.
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+### Start the server
 
-## Running unit tests
+Run `npm start` for a dev server. The browser should open on `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+Run `npm run start:public` for a public dev server. The browser should open on `http://localhost/`. You can also open it on other devices connected on the same private network connecting to the private IP of your computer. The app will automatically reload if you change any of the source files.
 
-## Running end-to-end tests
+Run `npm run start:prod` to serve the dist folder. You need to build the app beforehand. This allows to simulate what files are downloaded in real server when deployed.
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+### Build the app
 
-## Further help
+Before building the application, generate the icons. Run `npm run icons`.
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+Run `npm run build` to build the project. The output will be stored in the `dist/` directory.
+
+### Deploy the app
+
+Deploys are done when you push a new tag to the server. That is how the [workflow](.github\workflows\build-and-publish.yml) is configured.
+
+In master branch run `git merge develop --no-commit --no-ff`. Before completing the commit, increase the version in [package.json](package.json): `npm version minor --no-git-tag-version`. It can be minor or patch. Finish the commit and create a tag with the same version that the package. Push the branch and the tag created.
