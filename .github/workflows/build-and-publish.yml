@@ -2,18 +2,7 @@ name: Deploy Webpage
 
 on:
   push:
-    branches: [migration-to-github] # TODO change to main when it is working
-  workflow_dispatch:
-    inputs:
-      version:
-        type: choice
-        description: "Type of version to create"
-        required: true
-        options:
-          - major
-          - minor
-          - patch
-        default: minor
+    tags: ["[1-9].[0-9].[0-9]"]
 
 jobs:
   build-and-deploy:
@@ -48,9 +37,3 @@ jobs:
       #   run: |
       #     aws --version
       #     aws s3 sync ./dist/jaimeelingeniero s3://jaimeelingeniero.es --delete
-      - name: Create new tag
-        run: |
-          git config --global user.email "jaimemartinmartin15@gmail.com"
-          git config --global user.name "Jaime Martín Martín"
-          npm version ${{ github.event.inputs.version }}
-          git push origin --tags
