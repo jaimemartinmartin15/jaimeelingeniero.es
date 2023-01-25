@@ -1,0 +1,18 @@
+$screen-max-width: 830px;
+
+:host {
+    display: block;
+    max-width: $screen-max-width;
+    margin: 0 auto;
+    line-height: 30px;
+}
+
+main {
+    padding: 0;
+}
+
+@media (max-width: calc($screen-max-width + 10px)) {
+    main {
+        padding: 0 10px;
+    }
+}
