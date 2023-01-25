@@ -11,6 +11,11 @@ main {
     padding: 0;
 }
 
+.title {
+    text-align: center;
+    margin: 20px 10px 10px 10px;
+}
+
 @media (max-width: calc($screen-max-width + 10px)) {
     main {
         padding: 0 10px;
