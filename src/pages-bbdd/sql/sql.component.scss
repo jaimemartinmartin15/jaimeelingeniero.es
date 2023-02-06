@@ -16,6 +16,52 @@ main {
     margin: 20px 10px 10px 10px;
 }
 
+pre {
+    overflow-x: auto;
+    background-color: #f2f2f2;
+    padding: 10px 15px;
+}
+
+.car-table {
+    overflow: auto;
+
+    table {
+        border-collapse: collapse;
+    }
+
+    tr {
+        border-top: 1px solid #d17515;
+        border-bottom: 1px solid #d17515;
+    }
+
+    td {
+        padding: 5px 20px;
+    }
+}
+
+.comand-example {
+    display: block;
+    background-color: black;
+    padding: 10px;
+    border-radius: 5px;
+    font-size: 1rem;
+    margin-bottom: 18px;
+
+    :first-child {
+        overflow-x: auto;
+
+        pre {
+            margin: 0;
+            background-color: inherit;
+            color: white;
+        }
+
+        .command {
+            color: #25fa2d;
+        }
+    }
+}
+
 @media (max-width: calc($screen-max-width + 10px)) {
     main {
         padding: 0 10px;

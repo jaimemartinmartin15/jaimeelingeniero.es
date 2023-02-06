@@ -10,9 +10,7 @@
       Para empezar, SQL son las siglas de <strong>Structured Query Language</strong>, que en español significa
       <i>Lenguaje de consultas estructurado</i>. Es un lenguaje y sirve para realizar consultas a bases de datos
       relacionales. Resumiéndolo mucho, una base de datos relacional son varias tablas, con sus filas y sus columnas,
-      relacionadas
-      entre
-      sí.
+      relacionadas entre sí.
     </p>
 
     <p>
@@ -25,5 +23,105 @@
       Como todo lenguaje tiene su sintaxis y sus palabras reservadas, y es lo que vamos a ver a continuación. Vamos
       derecho a ello.
     </p>
+  </section>
+
+  <section>
+    <h2>La sentencia SELECT</h2>
+
+    <p>
+      Esta es la sentencia básica para recuperar datos de una base de datos. El formato de una consulta con esta
+      sentencia es:
+    </p>
+
+    <code>
+      <pre>SELECT [ALL | DISTINCT]
+expresión
+FROM tabla
+WHERE condición
+ORDER BY columna/nº columna [ASC | DESC]</pre>
+    </code>
+
+    <p>
+      La salida del comando es otra tabla con tantas filas como filas de la tabla a consultar cumplan la condición y
+      tantas columnas como expresiones indiquemos.
+    </p>
+
+    <p>
+      Con la primera línea indicamos que vamos a seleccionar datos de la tabla. La opción ALL es por defecto y significa
+      que seleccione todas las filas aunque estén repetidas. Si ponemos DISTINCT la tabla de salida solo tendrá filas
+      que no están repetidas (se eliminan las que están duplicadas).
+    </p>
+
+    <p>
+      La segunda línea es una expresión. Podemos poner varias separadas por comas. Consiste en el nombre de una columna
+      de la tabla, o expresiones matemáticas, o llamadas a funciones que manejen datos de tipo fecha o numérico o
+      string. Podemos hacer que se concatenen columnas en una sola, y muchas más cosas.
+    </p>
+
+    <p>
+      Con FROM indicamos la tabla de la cual vamos a seleccionar datos.
+    </p>
+
+    <p>
+      Con WHERE podemos indicar las condiciones para seleccionar filas de la tabla. Podemos usar operadores lógicos
+      (AND, OR y NOT), de comparación (=, &lt;&gt;, &lt;, &lt;=, &gt;,&gt;=) o predicados más avanzados (IN, BETWEEN,
+      LIKE, IS NULL)
+    </p>
+
+    <p>
+      Con ORDER BY podemos ordenar las filas de la tabla resultante de forma ascendente o descendente. Podemos hacerlo
+      indicando el índice de una columna o su nombre. El nombre de la columna es el de la tabla original, o si es una
+      columna compuesta (una expresión más compleja) podemos poner AS en la expresión para ponerle un nombre a la
+      columna resultante.
+    </p>
+
+    <p>
+      Veámosla en uso. Supongamos que tenemos la siguiente tabla (llamada <i>Car</i>) con información sobre coches:
+    </p>
+
+    <div class="car-table">
+      <table>
+        <thead>
+          <tr>
+            <td>ID</td>
+            <td>MARCA</td>
+            <td>NOMBRE</td>
+            <td>MATRICULA</td>
+            <td>COMBUSTIBLE</td>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let car of carsTable">
+            <td>{{car.id}}</td>
+            <td>{{car.brand}}</td>
+            <td>{{car.name}}</td>
+            <td>{{car.registration}}</td>
+            <td>{{car.propulsion}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p>
+      Ahora vamos a realizar algunas consultas. Por ejemplo, busquemos los coches que su combustible es diésel. La
+      consulta y el resultado serían estos:
+    </p>
+
+    <code class="comand-example">
+      <div>
+        <pre><span class="command">SELECT * FROM Car WHERE COMBUSTIBLE="Diésel";</span>
++----+---------+--------+-----------+-------------+
+| ID | MARCA   | NOMBRE | MATRICULA | COMBUSTIBLE |
++----+---------+--------+-----------+-------------+
+|  0 | Renault | Megane | 0012TER   | Diésel      |
+|  1 | Seat    | León   | 8435POM   | Diésel      |
+|  3 | Ford    | Focus  | 1493UGF   | Diésel      |
+|  6 | Seat    | Arona  | 7591MIN   | Diésel      |
+|  8 | Audi    | A3     | 1254UNR   | Diésel      |
++----+---------+--------+-----------+-------------+</pre>
+      </div>
+    </code>
+
+    <!-- TODO continue with more examples -->
   </section>
 </main>
