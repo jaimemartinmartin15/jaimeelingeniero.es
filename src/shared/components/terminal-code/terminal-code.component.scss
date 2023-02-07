@@ -1,0 +1,29 @@
+:host {
+    display: block;
+}
+
+code {
+    display: block;
+    background-color: black;
+    padding: 10px 15px;
+    border-radius: 5px;
+    font-size: 1rem;
+}
+
+.coder-inner-wrapper {
+    overflow-x: auto;
+    white-space: nowrap;
+
+    .command {
+        color: #25fa2d;
+    }
+
+    .output {
+        color: white;
+    }
+
+    &::ng-deep * {
+        margin: 0;
+        padding: 0;
+    }
+}

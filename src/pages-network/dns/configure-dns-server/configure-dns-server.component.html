@@ -59,25 +59,19 @@
       Para ello ejecutamos lo siguiente:
     </p>
 
-    <code>
-      <div>
-        <span class="command">apt update</span>
-        <br>
-        <span class="output">apt install bind9</span>
-      </div>
-    </code>
+    <app-terminal-code>
+      <p terminal-code-command>apt update</p>
+      <p terminal-code-command>apt install bind9</p>
+    </app-terminal-code>
 
     <p>
       Una vez instalado pues ya está. Instalado y corriendo. Lo podemos comprobar ejecutando el siguiente comando:
     </p>
 
-    <code>
-      <div>
-        <span class="command">systemctl is-active named</span>
-        <br>
-        <span class="output">active</span>
-      </div>
-    </code>
+    <app-terminal-code>
+      <p terminal-code-command>systemctl is-active named</p>
+      <p terminal-code-output>active</p>
+    </app-terminal-code>
 
     <p>
       El comando debería sacar por pantalla que el servicio esta <i>active</i>.
@@ -99,19 +93,12 @@
       configuración y la configuración por zonas en diferentes ficheros, de forma que resulta más fácil gestionarla.
     </p>
 
-    <code>
-      <div>
-        <span class="command">cat /etc/bind/named.conf</span>
-        <br>
-        <div class="output">
-          include "/etc/bind/named.conf.options"
-          <br>
-          include "/etc/bind/named.conf.local"
-          <br>
-          include "/etc/bind/named.conf.default-zones"
-        </div>
-      </div>
-    </code>
+    <app-terminal-code>
+      <p terminal-code-command>cat /etc/bind/named.conf</p>
+      <pre terminal-code-output>include "/etc/bind/named.conf.options"
+include "/etc/bind/named.conf.local"
+include "/etc/bind/named.conf.default-zones"</pre>
+    </app-terminal-code>
 
     <h3 class="file-name">/etc/bind/named.conf.options</h3>
 
@@ -120,23 +107,14 @@
       fichero creado al instalar BIND9 se ve así:
     </p>
 
-    <code>
-      <div>
-        <span class="command">cat /etc/bind/named.conf.options</span>
-        <br>
-        <div class="output">
-          options &#123;
-          <br>
-          &nbsp; &nbsp; directory "/var/cache/bind";
-          <br>
-          &nbsp; &nbsp; dnssec-validation auto;
-          <br>
-          &nbsp; &nbsp; listen-on-v6 &#123; any; &#125;;
-          <br>
-          &#125;;
-        </div>
-      </div>
-    </code>
+    <app-terminal-code>
+      <p terminal-code-command>cat /etc/bind/named.conf.options</p>
+      <pre terminal-code-output>options &#123;
+   directory "/var/cache/bind";
+   dnssec-validation auto;
+   listen-on-v6 &#123; any; &#125;;
+&#125;;</pre>
+    </app-terminal-code>
 
     <p>
       Por describir un poco lo que hay, <i>directory</i> indica el directorio de trabajo del servidor. Las rutas
@@ -158,13 +136,10 @@
       nuestros propios dominios.
     </p>
 
-    <code>
-      <div>
-        <span class="command">cat /etc/bind/named.conf.local</span>
-        <br>
-        <span class="output">// Do any local configuration here</span>
-      </div>
-    </code>
+    <app-terminal-code>
+      <span terminal-code-command>cat /etc/bind/named.conf.local</span>
+      <span terminal-code-output>// Do any local configuration here</span>
+    </app-terminal-code>
 
     <h3 class="file-name">/etc/bind/named.conf.default-zones</h3>
 
@@ -173,74 +148,49 @@
       raíces.
     </p>
 
-    <code>
-      <div>
-        <span class="command">cat /etc/bind/named.conf.default-zones</span>
-        <br>
-        <div class="output">
-          zone "." &#123;
-          <br>
-          &nbsp; &nbsp; type hint;
-          <br>
-          &nbsp; &nbsp; file "/usr/share/dns/root.hints";
-          <br>
-          &#125;
-          <br> <br>
-          zone "localhost" &#123;
-          <br>
-          &nbsp; &nbsp; type master;
-          <br>
-          &nbsp; &nbsp; file "/etc/bind/db.local";
-          <br>
-          &#125;
-          <br> <br>
-          zone "127.in-addr.arpa" &#123;
-          <br>
-          &nbsp; &nbsp; type master;
-          <br>
-          &nbsp; &nbsp; file "/etc/bind/db.127";
-          <br>
-          &#125;
-          <br> <br>
-          zone "0.in-addr.arpa" &#123;
-          <br>
-          &nbsp; &nbsp; type master;
-          <br>
-          &nbsp; &nbsp; file "/etc/bind/db.0";
-          <br>
-          &#125;
-          <br> <br>
-          zone "255.in-addr.arpa" &#123;
-          <br>
-          &nbsp; &nbsp; type master;
-          <br>
-          &nbsp; &nbsp; file "/etc/bind/db.255";
-          <br>
-          &#125;
-        </div>
-      </div>
-    </code>
+    <app-terminal-code>
+      <span terminal-code-command>cat /etc/bind/named.conf.default-zones</span>
+      <pre terminal-code-output>zone "." &#123;
+    type hint;
+    file "/usr/share/dns/root.hints";
+&#125;
+
+zone "localhost" &#123;
+    type master;
+    file "/etc/bind/db.local";
+&#125;
+
+zone "127.in-addr.arpa" &#123;
+    type master;
+    file "/etc/bind/db.127";
+&#125;
+
+zone "0.in-addr.arpa" &#123;
+    type master;
+    file "/etc/bind/db.0";
+&#125;
+
+zone "255.in-addr.arpa" &#123;
+    type master;
+    file "/etc/bind/db.255";
+&#125;</pre>
+    </app-terminal-code>
 
     <p>
       Los servidores de nombres deben conocer las direcciones IP de los servidores DNS raíz. Eso lo podemos encontrar en
       el fichero referenciado <span class="file-name">/usr/share/dns/root.hints</span>:
     </p>
 
-    <code>
-      <div>
-        <span class="command">cat /usr/share/dns/root.hints</span>
-        <br>
-<pre class="output">
-.                     3600000   NS     A.ROOT-SERVERS.NET.
+    <app-terminal-code>
+      <span terminal-code-command>cat /usr/share/dns/root.hints</span>
+      <pre terminal-code-output>.                     3600000   NS     A.ROOT-SERVERS.NET.
 A.ROOT-SERVERS.NET.   3600000   A      198.41.0.4
 A.ROOT-SERVERS.NET.   3600000   AAAA   2001:503:ba3e::2:30
 .                     3600000   NS     B.ROOT-SERVERS.NET.
 B.ROOT-SERVERS.NET.   3600000   A      199.9.14.201
 B.ROOT-SERVERS.NET.   3600000   AAAA   2001:500:200::b
-...
-</pre>
-      </div>
-    </code>
+...</pre>
+    </app-terminal-code>
 
     <h3 class="file-name">/etc/bind/db.*</h3>
 
@@ -248,12 +198,9 @@ B.ROOT-SERVERS.NET.   3600000   AAAA   2001:500:200::b
       Estos ficheros son los ficheros de zona con los mapas de dominio. Nosotros también crearemos los nuestros.
     </p>
 
-    <code>
-      <div>
-        <span class="command">cat /etc/bind/db.local</span>
-        <br>
-<pre class="output">
-$TTL   604800
+    <app-terminal-code>
+      <span terminal-code-command>cat /etc/bind/db.local</span>
+      <pre terminal-code-output>$TTL   604800
 @   IN   SOA   localhost. root.localhost. (
                 2
                 604800
@@ -262,10 +209,8 @@ $TTL   604800
                 604800 )
 @   IN   NS     localhost.
 @   IN   A      127.0.0.1
-@   IN   AAAA   ::1
-</pre>
-      </div>
-    </code>
+@   IN   AAAA   ::1</pre>
+    </app-terminal-code>
 
     <p>
       En este ejemplo tenemos un total de cuatro RR. Para saber qué significan y cual es el formato puedes visitar el
@@ -330,60 +275,43 @@ $TTL   604800
       fichero se verá así:
     </p>
 
-    <code>
-      <div>
-        <span class="command">cp /etc/bind/db.local /etc/bind/db.micasa</span>
-        <br>
-        <span class="command">pico /etc/bind/db.micasa</span>
-        <br>
-        <span class="command">cat /etc/bind/db.micasa</span>
-        <br>
-<pre class="output">
- $TTL    604800
- @   IN   SOA   localhost. mi-correo.gmail.com. (
-                              2
-                              604800
-                              86400
-                              2419200
-                              604800 )
- @                IN    NS    localhost.
- sobremesajaime   IN    A     192.168.1.55
- moviljaime       IN    A     192.168.1.54
- impresora        IN    A     192.168.1.42
-</pre>
-      </div>
-    </code>
+    <app-terminal-code>
+      <p terminal-code-command>cp /etc/bind/db.local /etc/bind/db.micasa</p>
+      <p terminal-code-command>pico /etc/bind/db.micasa</p>
+      <p terminal-code-command>cat /etc/bind/db.micasa</p>
+      <pre terminal-code-output>$TTL    604800
+@   IN   SOA   localhost. mi-correo.gmail.com. (
+                             2
+                             604800
+                             86400
+                             2419200
+                             604800 )
+@                IN    NS    localhost.
+sobremesajaime   IN    A     192.168.1.55
+moviljaime       IN    A     192.168.1.54
+impresora        IN    A     192.168.1.42</pre>
+    </app-terminal-code>
 
     <p>
       Para que BIND pueda ver este nuevo fichero, lo tenemos que poner en la configuración. El fichero que tenemos que
       editar es <span class="file-name">/etc/bind/named.conf.local</span>. Así se ve:
     </p>
 
-    <code>
-      <div>
-        <span class="command">cat /etc/bind/named.conf.local</span>
-        <br>
-        <div class="output">
-          zone "micasa" &#123;
-          <br>
-          &nbsp; &nbsp; type master;
-          <br>
-          &nbsp; &nbsp; file "/etc/bind/db.micasa";
-          <br>
-          &#125;;
-        </div>
-      </div>
-    </code>
+    <app-terminal-code>
+      <span terminal-code-command>cat /etc/bind/named.conf.local</span>
+      <pre terminal-code-output>zone "micasa" &#123;
+    type master;
+    file "/etc/bind/db.micasa";
+&#125;;</pre>
+    </app-terminal-code>
 
     <p>
       Por último lo que tenemos que hacer es recargar la cofiguración de BIND:
     </p>
 
-    <code>
-      <div>
-        <span class="command">service named reload</span>
-      </div>
-    </code>
+    <app-terminal-code>
+      <span terminal-code-command>service named reload</span>
+    </app-terminal-code>
   </section>
 
   <section>
@@ -406,17 +334,11 @@ $TTL   604800
       la configuración se borraría:
     </p>
 
-    <code>
-      <div>
-        <span class="command">cat /etc/resolv.conf</span>
-        <br>
-        <div class="output">
-          nameserver &lt;ip_de_la_máquina_donde_has_instalado_bind&gt;
-          <br>
-          # resto de líneas
-        </div>
-      </div>
-    </code>
+    <app-terminal-code>
+      <span terminal-code-command>cat /etc/resolv.conf</span>
+      <pre terminal-code-output>nameserver &lt;ip_de_la_máquina_donde_has_instalado_bind&gt;
+# resto de líneas</pre>
+    </app-terminal-code>
 
     <p>
       Para editarlo en windows, es un poco más complejo:
@@ -450,21 +372,18 @@ $TTL   604800
       Los parámetros entre corchetes son opcionales. El servidor al que preguntamos se precede con @.
     </p>
 
-    <code>
-      <div>
-        <span class="command">dig [@&lt;ip_o_dominio_servidor_dns&gt;] &lt;nombre_de_dominio_a_resolver&gt; [&lt;tipo_de_registro&gt;]</span>
-      </div>
-    </code>
+    <app-terminal-code>
+      <span terminal-code-command>
+        dig [@&lt;ip_o_dominio_servidor_dns&gt;] &lt;nombre_de_dominio_a_resolver&gt; [&lt;tipo_de_registro&gt;]
+      </span>
+    </app-terminal-code>
 
-    Vamos probarlo de verdad:
+    <p>Vamos probarlo de verdad:</p>
 
-    <code>
-      <div>
-        <span class="command">dig sobremesajaime.micasa | grep -v ';'</span>
-        <br>
-        <span class="output">sobremesajaime.micasa. 604800 IN A 192.168.1.55</span>
-      </div>
-    </code>
+    <app-terminal-code>
+      <span terminal-code-command>dig sobremesajaime.micasa | grep -v ';'</span>
+      <span terminal-code-output>sobremesajaime.micasa. 604800 IN A 192.168.1.55</span>
+    </app-terminal-code>
 
     <p>
       Bien! Funciona! Vemos que en la respuesta nos devuelve el registro A con la IP que configuramos en el archivo de
@@ -478,27 +397,21 @@ $TTL   604800
       Para probar la configuración en windows vamos a usar el comando nslookup:
     </p>
 
-    <code>
-      <div>
-        <span class="command">nslookup sobremesajaime.micasa</span>
-        <br>
-        <div class="output">
-          Servidor:  UnKnown
-          <br>
-          Address:  192.168.1.51
-          <br>
-          Nombre:  sobremesajaime.micasa
-          <br>
-          Address:  192.168.1.55
-        </div>
-      </div>
-    </code>
+    <app-terminal-code>
+      <span terminal-code-command>nslookup sobremesajaime.micasa</span>
+      <pre terminal-code-output>Servidor:  UnKnown
+Address:  192.168.1.51
+Nombre:  sobremesajaime.micasa
+Address:  192.168.1.55</pre>
+    </app-terminal-code>
 
     <p>
       También funciona! Genial. El servidor que nos responde es unknown porque no hemos configurado la resolución
       inversa de su IP y por lo tanto no puede resolver <i>51.1.168.192.in-addr.arpa</i>.
     </p>
   </section>
+
+  <!-- TODO continue trying to resolve the unknown dns message configuring reverse dns -->
 
   <p>
     Y esto es todo. Hemos visto un ejemplo de cómo configurar un dominio casero. Habrá decenas de cosas que puedas hacer

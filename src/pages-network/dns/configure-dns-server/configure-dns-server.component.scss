@@ -29,33 +29,8 @@ h3 + p {
     margin-top: 5px;
 }
 
-code {
-    display: block;
-    background-color: black;
-    padding: 10px;
-    border-radius: 5px;
-    font-size: 1rem;
+app-terminal-code {
     margin-bottom: 18px;
-
-    :first-child {
-        overflow-x: auto;
-
-        :not(pre) {
-            white-space: nowrap;
-        }
-
-        pre {
-            margin: 0;
-        }
-
-        .command {
-            color: #25fa2d;
-        }
-
-        .output {
-            color: white;
-        }
-    }
 }
 
 .block-sintax,
