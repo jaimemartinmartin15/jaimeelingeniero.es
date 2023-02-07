@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 
 import { HeaderPrintModule } from 'src/components/header-print/header-print.module';
+import { TerminalCodeModule } from 'src/shared/components/terminal-code/terminal-code.module';
 
 import { ConfigureDnsServerComponent } from './configure-dns-server/configure-dns-server.component';
 import { DnsRoutingModule } from './dns-routing.module';
@@ -19,7 +20,7 @@ import { TxtComponent } from './rr/txt/txt.component';
 import { WksComponent } from './rr/wks/wks.component';
 
 @NgModule({
-  imports: [CommonModule, DnsRoutingModule, HeaderPrintModule],
+  imports: [CommonModule, DnsRoutingModule, HeaderPrintModule, TerminalCodeModule],
   declarations: [
     DnsComponent,
     ConfigureDnsServerComponent,
