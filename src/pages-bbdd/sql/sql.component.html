@@ -50,13 +50,16 @@
     <p>Estando instalado, para conectarnos con una terminal donde aprender sql tenemos este comando:</p>
 
     <app-terminal-code>
-      <p terminal-code-command>mysql -h &lt;dominio-o-direccionIP&gt; -u &lt;usuario&gt; -p &lt;password&gt;</p>
+      <p terminal-code-command>
+        mysql -h &lt;dominio-o-direccionIP&gt; -u &lt;usuario&gt; -p&lt;password&gt;
+        &lt;nombreBaseDeDatos&gt;
+      </p>
     </app-terminal-code>
 
     <p>
-      <!-- TODO explain how to connect to database directly and space between -p and password -->
-      En mi caso el dominio es localhost, así que lo omito. Y si no pongo la contraseña en el comando, me la pide
-      después y así no se ve.
+      En mi caso el dominio es localhost, así que lo omito. Fíjate que la contraseña tiene que ir pegada al parámetro
+      -p. Si pones un espacio no te la tomará y te pedirá la contraseña al pulsar intro. El nombre de la base de datos
+      también es opcional. Como aún no tenemos ninguna, no lo pongo.
     </p>
 
     <app-terminal-code>
