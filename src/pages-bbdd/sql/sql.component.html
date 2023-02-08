@@ -54,6 +54,7 @@
     </app-terminal-code>
 
     <p>
+      <!-- TODO explain how to connect to database directly and space between -p and password -->
       En mi caso el dominio es localhost, así que lo omito. Y si no pongo la contraseña en el comando, me la pide
       después y así no se ve.
     </p>
@@ -66,6 +67,54 @@
   </section>
 
   <section>
+    <h2>Crear una base de datos</h2>
+
+    <p>
+      Para empezar a trabajar lo primero que tenemos que tener o crear es la base de datos. En este artículo vamos a
+      crear una base de datos para un negocio de coches ficticio. Esto es sencillo de hacer:
+    </p>
+
+    <app-terminal-code>
+      <p terminal-code-command>create database business;</p>
+      <p terminal-code-output>Query OK, 1 row affected (0,00 sec)</p>
+    </app-terminal-code>
+
+    <p>
+      Ya esta creada la base de datos. Lo único que no tiene tablas ni información. Podemos ver las bases de datos que
+      tenemos con:
+    </p>
+
+    <app-terminal-code>
+      <p terminal-code-command>show databases;</p>
+      <pre terminal-code-output>+--------------------+
+| Database           |
++--------------------+
+| business           |
+| information_schema |
+| mysql              |
+| performance_schema |
+| sys                |
++--------------------+
+5 rows in set (0,00 sec)</pre>
+    </app-terminal-code>
+
+    <p>
+      Vemos que nuestra base de datos está ahí. Las otras son cosas del servidor y contienen metainformación. Mejor no
+      tocarlas.
+    </p>
+
+    <p>
+      Para trabajar con la base de datos creada, la debemos seleccionar. De esta forma los comandos que escribamos irán
+      por defecto dirigidos a ella.
+    </p>
+
+    <app-terminal-code>
+      <p terminal-code-command>use business;</p>
+      <p terminal-code-output>Database changed</p>
+    </app-terminal-code>
+  </section>
+
+  <section>
     <h2>La sentencia SELECT</h2>
 
     <p>
@@ -74,7 +123,7 @@
     </p>
 
     <code>
-      <pre>SELECT [ALL | DISTINCT]
+      <pre class="select-sintax">SELECT [ALL | DISTINCT]
 expresión
 FROM tabla
 WHERE condición
