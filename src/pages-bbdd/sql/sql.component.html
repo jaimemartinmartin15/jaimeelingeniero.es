@@ -9,8 +9,8 @@
     <p>
       Para empezar, SQL son las siglas de <strong>Structured Query Language</strong>, que en español significa
       <i>Lenguaje de consultas estructurado</i>. Es un lenguaje y sirve para realizar consultas a bases de datos
-      relacionales. Resumiéndolo mucho, una base de datos relacional son varias tablas, con sus filas y sus columnas,
-      relacionadas entre sí.
+      relacionales. Resumiéndolo mucho una base de datos relacional son varias tablas relacionadas entre sí, con sus
+      filas y sus columnas.
     </p>
 
     <p>
@@ -23,6 +23,46 @@
       Como todo lenguaje tiene su sintaxis y sus palabras reservadas, y es lo que vamos a ver a continuación. Vamos
       derecho a ello.
     </p>
+  </section>
+
+  <section>
+    <h2>Entorno</h2>
+
+    <p>
+      Para poder practicar necesitamos tener algún programa instalado que nos permita crear bases de datos y realizar
+      consultas. En mi caso voy a usar MySql, que es un sistema de gestión de bases de datos relacional con licencia
+      dual, es decir, tiene una parte libre y otra comercial. Si tienes curiosidad investiga lo que significa, yo
+      tampoco lo sabía.
+    </p>
+
+    <p>
+      Como sistema operativo usaré Ubuntu. Es muy sencillo de instalar, así que por aquí dejo los comandos. Por cierto,
+      lo he hecho como usuario root.
+    </p>
+
+    <app-terminal-code>
+      <p terminal-code-command>apt-get update</p>
+      <p terminal-code-command>apt-get install mysql-server</p>
+      <p terminal-code-command>mysql --version</p>
+      <p terminal-code-output>mysql Ver 8.0.32-0ubuntu0.20.04.2 for Linux on x86_64 ((Ubuntu))</p>
+    </app-terminal-code>
+
+    <p>Estando instalado, para conectarnos con una terminal donde aprender sql tenemos este comando:</p>
+
+    <app-terminal-code>
+      <p terminal-code-command>mysql -h &lt;dominio-o-direccionIP&gt; -u &lt;usuario&gt; -p &lt;password&gt;</p>
+    </app-terminal-code>
+
+    <p>
+      En mi caso el dominio es localhost, así que lo omito. Y si no pongo la contraseña en el comando, me la pide
+      después y así no se ve.
+    </p>
+
+    <app-terminal-code>
+      <p terminal-code-command>mysql -u root -p</p>
+      <p terminal-code-output>Enter password:</p>
+      <p terminal-code-output>mysql></p>
+    </app-terminal-code>
   </section>
 
   <section>
