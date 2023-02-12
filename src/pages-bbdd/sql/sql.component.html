@@ -118,6 +118,78 @@
   </section>
 
   <section>
+    <h2>Crear tablas</h2>
+
+    <p>
+      Una base de datos sin información no vale para nada. Y la información se guarda en tablas. Así que vamos a ver
+      como crearlas.
+    </p>
+
+    <code>
+      <pre class="command-sintax">CREATE TABLE nombreTabla (
+  nombreColumna 
+    tipo
+    [NOT NULL]
+    [DEFAULT valorPorDefecto]
+    [UNIQUE] [PRIMARY_KEY] [REFERENCES tabla (columna)] [CHECK (expresiónBooleana)],
+  [UNIQUE (columna, columna, ...)],
+  [PRIMARY_KEY (columna, columna, ...)],
+  [FOREING_KEY (columna, columna, ...) REFERENCES tabla (columna, columna, ...)],
+  [CHECK (expresiónBooleana)]
+);</pre>
+    </code>
+
+    <p>
+      Esta sentencia creará una tabla en la base de datos seleccionada. El propietario de la tabla será el usuario que
+      la crea, es decir, el usuario que usaste para loguearte en el Sitema Gestor de Bases de Datos (SGBD).
+    </p>
+
+    <p>
+      Lo que tenemos son dos secciones: definición de columnas de la tabla, y definición de reglas de integridad para la
+      tabla entera. Cada columna o restricción de tabla va separada por una coma.
+    </p>
+
+    <p>
+      Lo imprescindible para definir una columna es el nombre y su tipo. El nombre lo eliges tú y el tipo puede
+      depender del SGBD. Estos son algunos de los habituales: VARCHAR, DATE, INTEGER, FLOAT. Consulta el manual del SGBD
+      para más información.
+    </p>
+
+    <p>
+      Además del nombre y el tipo podemos opcionalmente poner restricciones, como si la columna puede tener valores
+      vacíos o ponerle valores por defecto si no los indicamos al meter datos.
+    </p>
+
+    <p>
+      Toda tabla tiene una PRIMARY_KEY, que quiere decir que los valores de esa columna no se repiten para ninguna fila.
+      Con UNIQUE podemos decirle lo mismo, pero sin que sea la PRIMARY_KEY oficial.
+    </p>
+
+    <p>
+      Con REFERENCES podemos decir que el valor de la columna tendrá que ser un valor que coincida con alguno de otra
+      columna en otra tabla. De esta forma indicamos una FOREIGN_KEY.
+    </p>
+
+    <p>
+      Por último con CHECK podemos hacer validaciones sobre el valor. Por ejemplo, si es una edad lo que vamos a guardar
+      en la columna podemos comprobar que sea mayor que cero antes de introducir datos en la tabla.
+    </p>
+
+    <p>
+      La segunda sección serían las restricciones de la tabla. En caso que queramos poner restricciones que impliquen a
+      varias columnas podemos decirlo aquí.
+    </p>
+
+    <p>
+      Vamos ahora que conocemos la sintaxis a crear las tablas de nuestra base de datos. Este será el esquema:
+    </p>
+
+    <!-- TODO put scheme of the data base -->
+
+    <!-- TODO create collapsibles for each table of the data base -->
+  </section>
+
+  <section>
     <h2>La sentencia SELECT</h2>
 
     <p>
@@ -126,7 +198,7 @@
     </p>
 
     <code>
-      <pre class="select-sintax">SELECT [ALL | DISTINCT]
+      <pre class="command-sintax">SELECT [ALL | DISTINCT]
 expresión
 FROM tabla
 WHERE condición
