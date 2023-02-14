@@ -8,6 +8,16 @@ import { Component } from '@angular/core';
 export class SqlComponent {
   // TODO update date when finish
   public headerPrintData = { author: 'Jaime Martín Martín', date: '25 de enero de 2023' };
+  public collapsedTables = {
+    createTableMechanic: false,
+    createTableBrand: true,
+    createTableConcessionaire: true,
+    createTableCar: true,
+    createTableRepair: true,
+    createTableOffer: true,
+    createTableClient: true,
+    createTableSale: true,
+  }
   public carsTable = [
     { id: 0, brand: 'Renault', name: 'Megane', registration: '0012TER', propulsion: 'Diésel' },
     { id: 1, brand: 'Seat', name: 'Leon', registration: '8435POM', propulsion: 'Diésel' },
