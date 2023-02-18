@@ -1,3 +1,37 @@
 :host {
-    display: block;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    height: 100vh;
+}
+
+.statement {
+    font-size: 3rem;
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 80%;
+    max-width: 300px;
+
+    input {
+        border: 2px solid #d17515;
+        font-size: 1.5rem;
+        border-radius: 5px;
+        padding: 10px;
+        text-align: center;
+    }
+
+    button[type="submit"] {
+        font-size: 1.5rem;
+        margin-top: 50px;
+        padding: 10px;
+        cursor: pointer;
+    }
 }

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-tenses',
@@ -6,7 +7,28 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./tenses.component.scss'],
 })
 export class TensesComponent implements OnInit {
-  constructor() {}
+  public form: FormGroup<{
+    meaning: FormControl<string | null>;
+    present: FormControl<string | null>;
+    past: FormControl<string | null>;
+    participle: FormControl<string | null>;
+  }>;
 
-  ngOnInit() {}
+  public constructor(private readonly formBuilder: FormBuilder) {}
+
+  public ngOnInit() {
+    this.form = this.formBuilder.group({
+      meaning: ['', [Validators.required]],
+      present: ['', [Validators.required]],
+      past: ['', [Validators.required]],
+      participle: ['', [Validators.required]],
+    });
+  }
+
+  public validate(event: Event) {
+    event.preventDefault();
+
+    // TODO pick values and validate
+    console.log('jaime validating', event);
+  }
 }
