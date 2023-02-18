@@ -10,7 +10,7 @@ import { Verb } from './verb';
 })
 export class TensesComponent implements OnInit {
   private verbs: Verb[];
-  private currentVerb: Verb;
+  public currentVerb: Verb;
 
   public form: FormGroup<{
     meaning: FormControl<string | null>;
@@ -49,12 +49,16 @@ export class TensesComponent implements OnInit {
       setTimeout(() => {
         this.generateNewVerb();
         this.validation = '';
-      }, 500);
+      }, 750);
       return;
     }
 
     this.validation = 'error';
-    // TODO show solution
+  }
+
+  public nextVerb() {
+    this.validation = '';
+    this.generateNewVerb();
   }
 
   private generateNewVerb() {

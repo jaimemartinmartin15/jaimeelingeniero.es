@@ -13,7 +13,17 @@
   <input type="text" placeholder="Participio" formControlName="participle"
     [ngClass]="{success: validation == 'ok', error: validation == 'error'}">
 
-  <button type="submit" [disabled]="form.invalid" class="app-button">
+  <button type="submit" [disabled]="form.invalid" class="app-button" *ngIf="validation !== 'error'">
     Comprobar
   </button>
+
+  <div *ngIf="validation === 'error'" class="solution-panel">
+    Solución:
+    <p>Significado: <strong>{{currentVerb.meaning}}</strong></p>
+    <p>Presente: <strong>{{currentVerb.present}}</strong></p>
+    <p>Pasado: <strong>{{currentVerb.past}}</strong></p>
+    <p>Participio: <strong>{{currentVerb.participle}}</strong></p>
+  </div>
+
+  <button class="app-button" *ngIf="validation === 'error'" (click)="nextVerb()">Siguiente</button>
 </form>
