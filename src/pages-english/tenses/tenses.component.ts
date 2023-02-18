@@ -14,7 +14,7 @@ export class TensesComponent implements OnInit {
 
   public form: FormGroup<{
     meaning: FormControl<string | null>;
-    present: FormControl<string | null>;
+    infinitive: FormControl<string | null>;
     past: FormControl<string | null>;
     participle: FormControl<string | null>;
   }>;
@@ -25,7 +25,7 @@ export class TensesComponent implements OnInit {
   public ngOnInit() {
     this.form = this.formBuilder.group({
       meaning: ['', [Validators.required]],
-      present: ['', [Validators.required]],
+      infinitive: ['', [Validators.required]],
       past: ['', [Validators.required]],
       participle: ['', [Validators.required]],
     });
@@ -68,7 +68,7 @@ export class TensesComponent implements OnInit {
     const tenseToShow = Math.trunc(Math.random() * Object.keys(this.currentVerb).length);
     this.form.setValue({
       meaning: tenseToShow === 0 ? this.currentVerb.meaning : '',
-      present: tenseToShow === 1 ? this.currentVerb.present : '',
+      infinitive: tenseToShow === 1 ? this.currentVerb.infinitive : '',
       past: tenseToShow === 2 ? this.currentVerb.past : '',
       participle: tenseToShow === 3 ? this.currentVerb.participle : '',
     });

@@ -4,7 +4,7 @@
   <input type="text" placeholder="Significado" formControlName="meaning"
     [ngClass]="{success: validation == 'ok', error: validation == 'error'}">
 
-  <input type="text" placeholder="Presente" formControlName="present"
+  <input type="text" placeholder="Infinitivo" formControlName="infinitive"
     [ngClass]="{success: validation == 'ok', error: validation == 'error'}">
 
   <input type="text" placeholder="Pasado" formControlName="past"
@@ -20,7 +20,7 @@
   <div *ngIf="validation === 'error'" class="solution-panel">
     Solución:
     <p>Significado: <strong>{{currentVerb.meaning}}</strong></p>
-    <p>Presente: <strong>{{currentVerb.present}}</strong></p>
+    <p>Infinitivo: <strong>{{currentVerb.infinitive}}</strong></p>
     <p>Pasado: <strong>{{currentVerb.past}}</strong></p>
     <p>Participio: <strong>{{currentVerb.participle}}</strong></p>
   </div>

@@ -1,6 +1,6 @@
 export interface Verb {
   meaning: string;
-  present: string;
+  infinitive: string;
   past: string;
   participle: string;
 }
