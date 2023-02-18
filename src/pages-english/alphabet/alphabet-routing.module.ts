@@ -1,14 +1,12 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { AlphabetComponent } from './alphabet.component';
 
 const routes: Routes = [
   {
-    path: 'alfabeto',
-    loadChildren: () => import('./alphabet/alphabet.module').then((m) => m.AlphabetModule),
-  },
-  {
     path: '',
-    loadChildren: () => import('./menu/menu.module').then((m) => m.MenuModule),
+    title: 'Alfabeto inglés',
+    component: AlphabetComponent,
   },
   {
     path: '**',
@@ -20,4 +18,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class PagesEnglishRoutingModule {}
+export class AlphabetRoutingModule {}
