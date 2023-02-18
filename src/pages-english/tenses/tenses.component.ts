@@ -62,7 +62,10 @@ export class TensesComponent implements OnInit {
   }
 
   private generateNewVerb() {
-    const random = Math.trunc(Math.random() * this.verbs.length);
+    let random;
+    do {
+      random = Math.trunc(Math.random() * this.verbs.length);
+    } while (this.currentVerb === this.verbs[random]);
     this.currentVerb = this.verbs[random];
 
     const tenseToShow = Math.trunc(Math.random() * Object.keys(this.currentVerb).length);
