@@ -7,6 +7,10 @@ const routes: Routes = [
     loadChildren: () => import('./alphabet/alphabet.module').then((m) => m.AlphabetModule),
   },
   {
+    path: 'tiempos-verbales',
+    loadChildren: () => import('./tenses/tenses.module').then((m) => m.TensesModule),
+  },
+  {
     path: '',
     loadChildren: () => import('./menu/menu.module').then((m) => m.MenuModule),
   },
