@@ -9,6 +9,10 @@ const routes: Routes = [
     component: AlphabetComponent,
   },
   {
+    path: '',
+    loadChildren: () => import('./menu/menu.module').then((m) => m.MenuModule),
+  },
+  {
     path: '**',
     redirectTo: 'alfabeto',
     pathMatch: 'full',
