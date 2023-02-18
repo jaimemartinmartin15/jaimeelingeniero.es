@@ -1,13 +1,17 @@
 <span class="statement">Completa</span>
 
 <form (submit)="validate($event)" [formGroup]="form">
-  <input type="text" placeholder="Significado" formControlName="meaning">
+  <input type="text" placeholder="Significado" formControlName="meaning"
+    [ngClass]="{success: validation == 'ok', error: validation == 'error'}">
 
-  <input type="text" placeholder="Presente" formControlName="present">
+  <input type="text" placeholder="Presente" formControlName="present"
+    [ngClass]="{success: validation == 'ok', error: validation == 'error'}">
 
-  <input type="text" placeholder="Pasado" formControlName="past">
+  <input type="text" placeholder="Pasado" formControlName="past"
+    [ngClass]="{success: validation == 'ok', error: validation == 'error'}">
 
-  <input type="text" placeholder="Participio" formControlName="participle">
+  <input type="text" placeholder="Participio" formControlName="participle"
+    [ngClass]="{success: validation == 'ok', error: validation == 'error'}">
 
   <button type="submit" [disabled]="form.invalid" class="app-button">
     Comprobar

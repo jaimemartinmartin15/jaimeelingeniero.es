@@ -10,6 +10,7 @@ import { Verb } from './verb';
 })
 export class TensesComponent implements OnInit {
   private verbs: Verb[];
+  private currentVerb: Verb;
 
   public form: FormGroup<{
     meaning: FormControl<string | null>;
@@ -17,6 +18,7 @@ export class TensesComponent implements OnInit {
     past: FormControl<string | null>;
     participle: FormControl<string | null>;
   }>;
+  public validation: 'ok' | 'error' | '' = '';
 
   public constructor(private readonly formBuilder: FormBuilder, private readonly http: HttpClient) {}
 
@@ -30,15 +32,41 @@ export class TensesComponent implements OnInit {
 
     this.http.get<Verb[]>('/pages-english/tenses/assets/verbs.json').subscribe((verbs) => {
       this.verbs = verbs;
-
-      // TODO start game populating fields
+      this.generateNewVerb();
     });
   }
 
   public validate(event: Event) {
     event.preventDefault();
 
-    // TODO pick values and validate
-    console.log('jaime validating', event);
+    const values = this.form.value;
+    if (
+      Object.keys(values).every(
+        (key) => this.currentVerb[key as keyof Verb].trim().toLowerCase() === values[key as keyof typeof values]?.trim().toLowerCase()
+      )
+    ) {
+      this.validation = 'ok';
+      setTimeout(() => {
+        this.generateNewVerb();
+        this.validation = '';
+      }, 500);
+      return;
+    }
+
+    this.validation = 'error';
+    // TODO show solution
+  }
+
+  private generateNewVerb() {
+    const random = Math.trunc(Math.random() * this.verbs.length);
+    this.currentVerb = this.verbs[random];
+
+    const tenseToShow = Math.trunc(Math.random() * Object.keys(this.currentVerb).length);
+    this.form.setValue({
+      meaning: tenseToShow === 0 ? this.currentVerb.meaning : '',
+      present: tenseToShow === 1 ? this.currentVerb.present : '',
+      past: tenseToShow === 2 ? this.currentVerb.past : '',
+      participle: tenseToShow === 3 ? this.currentVerb.participle : '',
+    });
   }
 }
