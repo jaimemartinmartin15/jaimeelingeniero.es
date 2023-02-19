@@ -568,5 +568,11 @@
     "infinitive": "set",
     "past": "set",
     "participle": "set"
+  },
+  {
+    "meaning": "excavar",
+    "infinitive": "dig",
+    "past": "dug",
+    "participle": "dug"
   }
 ]
