@@ -13,7 +13,7 @@
   <input type="text" placeholder="Participio" formControlName="participle"
     [ngClass]="{success: validation == 'ok', error: validation == 'error'}">
 
-  <button type="submit" [disabled]="form.invalid" class="app-button" *ngIf="validation !== 'error'">
+  <button type="submit" [disabled]="form.invalid" class="app-button" *ngIf="validation === ''">
     Comprobar
   </button>
 

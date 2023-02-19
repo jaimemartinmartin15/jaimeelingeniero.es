@@ -34,10 +34,13 @@ export class TensesComponent implements OnInit {
       this.verbs = verbs;
       this.generateNewVerb();
     });
+
+    // TODO meta tags
   }
 
   public validate(event: Event) {
     event.preventDefault();
+    (document.activeElement as HTMLInputElement).blur();
 
     const values = this.form.value;
     if (
