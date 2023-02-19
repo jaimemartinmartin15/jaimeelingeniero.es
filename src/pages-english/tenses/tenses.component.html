@@ -1,4 +1,4 @@
-<span class="statement">Completa</span>
+<span class="statement">Completa los huecos</span>
 
 <form (submit)="validate($event)" [formGroup]="form">
   <input type="text" placeholder="Significado" formControlName="meaning"
@@ -18,7 +18,7 @@
   </button>
 
   <div *ngIf="validation === 'error'" class="solution-panel">
-    Solución:
+    <strong>Solución:</strong>
     <p>Significado: <strong>{{currentVerb.meaning}}</strong></p>
     <p>Infinitivo: <strong>{{currentVerb.infinitive}}</strong></p>
     <p>Pasado: <strong>{{currentVerb.past}}</strong></p>
