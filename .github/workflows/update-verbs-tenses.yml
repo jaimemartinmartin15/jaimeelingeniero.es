@@ -1,0 +1,16 @@
+name: Update verbs list tenses
+run-name: Update verbs.json
+
+on:
+  push:
+    paths: ["src/pages-english/tenses/assets/verbs.json"]
+
+jobs:
+  update-verbs-list:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Say something
+        run: echo funciona
