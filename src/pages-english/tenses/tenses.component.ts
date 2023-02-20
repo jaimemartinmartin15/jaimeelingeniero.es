@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Verb } from './verb';
 
@@ -52,6 +52,12 @@ export class TensesComponent implements OnInit {
     // TODO meta tags
   }
 
+  @HostListener('document:keydown.enter', ['$event']) onKeydownHandler() {
+    if (this.validation.global !== '') {
+      this.nextVerb();
+    }
+  }
+
   public validate(event: Event) {
     event.preventDefault();
     // hides keyboard
@@ -94,7 +100,6 @@ export class TensesComponent implements OnInit {
     this.validation.showMoreSolutions = Object.values(this.currentVerb).some((solutions) => solutions.includes('/'));
 
     this.form.disable();
-    console.log(this.validation);
   }
 
   public nextVerb() {
