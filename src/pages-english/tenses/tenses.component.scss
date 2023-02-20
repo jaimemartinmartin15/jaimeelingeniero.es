@@ -49,8 +49,13 @@ form {
         padding: 10px;
         background-color: #fbfbff;
 
-        p:last-child {
-            margin-bottom: 0;
+        p span.error {
+            color: #dd1717;
+            font-weight: bold;
+
+            &:last-child {
+                margin-bottom: 0;
+            }
         }
     }
 

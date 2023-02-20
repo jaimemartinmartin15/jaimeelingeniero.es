@@ -2,28 +2,36 @@
 
 <form (submit)="validate($event)" [formGroup]="form">
   <input type="text" placeholder="Significado" formControlName="meaning"
-    [ngClass]="{success: validation == 'ok', error: validation == 'error'}">
+    [ngClass]="{success: validation.meaning == 'ok', error: validation.meaning == 'error'}">
 
   <input type="text" placeholder="Infinitivo" formControlName="infinitive"
-    [ngClass]="{success: validation == 'ok', error: validation == 'error'}">
+    [ngClass]="{success: validation.infinitive == 'ok', error: validation.infinitive == 'error'}">
 
   <input type="text" placeholder="Pasado" formControlName="past"
-    [ngClass]="{success: validation == 'ok', error: validation == 'error'}">
+    [ngClass]="{success: validation.past == 'ok', error: validation.past == 'error'}">
 
   <input type="text" placeholder="Participio" formControlName="participle"
-    [ngClass]="{success: validation == 'ok', error: validation == 'error'}">
+    [ngClass]="{success: validation.participle == 'ok', error: validation.participle == 'error'}">
 
-  <button type="submit" [disabled]="form.invalid" class="app-button" *ngIf="validation === ''">
+  <button type="submit" [disabled]="form.invalid" class="app-button" *ngIf="validation.global === ''">
     Comprobar
   </button>
 
-  <div *ngIf="validation === 'error'" class="solution-panel">
-    <strong>Solución:</strong>
+  <div *ngIf="validation.global === 'ok' && validation.showMoreSolutions === true" class="solution-panel">
+    <strong>Otra solución:</strong>
     <p>Significado: <strong>{{currentVerb.meaning}}</strong></p>
     <p>Infinitivo: <strong>{{currentVerb.infinitive}}</strong></p>
     <p>Pasado: <strong>{{currentVerb.past}}</strong></p>
     <p>Participio: <strong>{{currentVerb.participle}}</strong></p>
   </div>
 
-  <button class="app-button" *ngIf="validation === 'error'" (click)="nextVerb()">Siguiente</button>
+  <div class="solution-panel" *ngIf="validation.global === 'error'">
+    <strong>Solución:</strong>
+    <p>Significado: <span [ngClass]="{error: validation.meaning === 'error'}">{{currentVerb.meaning}}</span></p>
+    <p>Infinitivo: <span [ngClass]="{error: validation.infinitive === 'error'}">{{currentVerb.infinitive}}</span></p>
+    <p>Pasado: <span [ngClass]="{error: validation.past === 'error'}">{{currentVerb.past}}</span></p>
+    <p>Participio: <span [ngClass]=" {error: validation.participle === 'error'}">{{currentVerb.participle}}</span></p>
+  </div>
+
+  <button type="submit" class=" app-button" (click)="nextVerb()" *ngIf="validation.global !== ''">Siguiente</button>
 </form>

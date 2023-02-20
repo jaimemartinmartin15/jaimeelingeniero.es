@@ -18,7 +18,21 @@ export class TensesComponent implements OnInit {
     past: FormControl<string | null>;
     participle: FormControl<string | null>;
   }>;
-  public validation: 'ok' | 'error' | '' = '';
+  public validation: {
+    meaning: 'ok' | 'error' | '';
+    infinitive: 'ok' | 'error' | '';
+    past: 'ok' | 'error' | '';
+    participle: 'ok' | 'error' | '';
+    global: 'ok' | 'error' | '';
+    showMoreSolutions: boolean;
+  } = {
+    meaning: '',
+    infinitive: '',
+    past: '',
+    participle: '',
+    global: '',
+    showMoreSolutions: false,
+  };
 
   public constructor(private readonly formBuilder: FormBuilder, private readonly http: HttpClient) {}
 
@@ -40,28 +54,60 @@ export class TensesComponent implements OnInit {
 
   public validate(event: Event) {
     event.preventDefault();
+    // hides keyboard
     (document.activeElement as HTMLInputElement).blur();
 
-    const values = this.form.value;
+    const formValues = this.form.value;
+    Object.keys(this.currentVerb).forEach((key) => {
+      if (
+        // TODO check acents => oir != oír
+        this.currentVerb[key as keyof Verb]
+          .toLowerCase()
+          .trim()
+          .split('/')
+          .some((solution) =>
+            formValues[key as keyof Verb]
+              ?.toLocaleLowerCase()
+              .trim()
+              .split('/')
+              .map((v) => v.trim())
+              .includes(solution)
+          )
+      ) {
+        this.validation[key as keyof Verb] = 'ok';
+      } else {
+        this.validation[key as keyof Verb] = 'error';
+      }
+    });
+
     if (
-      Object.keys(values).every(
-        (key) => this.currentVerb[key as keyof Verb].trim().toLowerCase() === values[key as keyof typeof values]?.trim().toLowerCase()
-      )
+      this.validation.meaning === 'ok' &&
+      this.validation.infinitive === 'ok' &&
+      this.validation.past === 'ok' &&
+      this.validation.participle === 'ok'
     ) {
-      this.validation = 'ok';
-      setTimeout(() => {
-        this.generateNewVerb();
-        this.validation = '';
-      }, 750);
-      return;
+      this.validation.global = 'ok';
+    } else {
+      this.validation.global = 'error';
     }
 
-    this.validation = 'error';
+    this.validation.showMoreSolutions = Object.values(this.currentVerb).some((solutions) => solutions.includes('/'));
+
+    this.form.disable();
+    console.log(this.validation);
   }
 
   public nextVerb() {
-    this.validation = '';
+    this.validation = {
+      meaning: '',
+      infinitive: '',
+      past: '',
+      participle: '',
+      global: '',
+      showMoreSolutions: false,
+    };
     this.generateNewVerb();
+    this.form.enable();
   }
 
   private generateNewVerb() {
