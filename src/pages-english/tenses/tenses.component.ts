@@ -1,28 +1,22 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, HostListener, OnInit } from '@angular/core';
+import { AfterViewInit, Component, HostListener, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { Verb } from './verb';
+import { normalizeValue } from './string.utils';
+import { Verb, VerbKeysForm, VerbKeysFormOfType } from './verb';
 
 @Component({
   selector: 'app-tenses',
   templateUrl: './tenses.component.html',
   styleUrls: ['./tenses.component.scss'],
 })
-export class TensesComponent implements OnInit {
+export class TensesComponent implements OnInit, AfterViewInit {
+  private inputs: HTMLInputElement[];
+
   private verbs: Verb[];
   public currentVerb: Verb;
 
-  public form: FormGroup<{
-    meaning: FormControl<string | null>;
-    infinitive: FormControl<string | null>;
-    past: FormControl<string | null>;
-    participle: FormControl<string | null>;
-  }>;
-  public validation: {
-    meaning: 'ok' | 'error' | '';
-    infinitive: 'ok' | 'error' | '';
-    past: 'ok' | 'error' | '';
-    participle: 'ok' | 'error' | '';
+  public form: FormGroup<VerbKeysFormOfType<FormControl<string | null>>>;
+  public validation: VerbKeysFormOfType<'ok' | 'error' | ''> & {
     global: 'ok' | 'error' | '';
     showMoreSolutions: boolean;
   } = {
@@ -52,6 +46,10 @@ export class TensesComponent implements OnInit {
     // TODO meta tags
   }
 
+  public ngAfterViewInit(): void {
+    this.inputs = Array.from(document.querySelectorAll('input'));
+  }
+
   @HostListener('document:keydown.enter', ['$event']) onKeydownHandler() {
     if (this.validation.global !== '') {
       this.nextVerb();
@@ -63,46 +61,22 @@ export class TensesComponent implements OnInit {
     // hides keyboard
     (document.activeElement as HTMLInputElement).blur();
 
-    const formValues = this.form.value;
-    Object.keys(this.currentVerb).forEach((key) => {
-      if (
-        // TODO check acents => oir != oír
-        this.currentVerb[key as keyof Verb]
-          .toLowerCase()
-          .trim()
-          .split('/')
-          .some((solution) =>
-            formValues[key as keyof Verb]
-              ?.toLocaleLowerCase()
-              .trim()
-              .split('/')
-              .map((v) => v.trim())
-              .includes(solution)
-          )
-      ) {
-        this.validation[key as keyof Verb] = 'ok';
-      } else {
-        this.validation[key as keyof Verb] = 'error';
-      }
+    const formValues = this.form.getRawValue();
+    VerbKeysForm.forEach((key) => {
+      const enteredValues = normalizeValue(formValues[key]!);
+      const correctValues = normalizeValue(this.currentVerb[key]);
+      this.validation[key] = enteredValues.every((answer) => correctValues.includes(answer)) ? 'ok' : 'error';
+
+      this.validation.showMoreSolutions = this.validation.showMoreSolutions || !correctValues.every((v) => enteredValues.includes(v));
     });
 
-    if (
-      this.validation.meaning === 'ok' &&
-      this.validation.infinitive === 'ok' &&
-      this.validation.past === 'ok' &&
-      this.validation.participle === 'ok'
-    ) {
-      this.validation.global = 'ok';
-    } else {
-      this.validation.global = 'error';
-    }
-
-    this.validation.showMoreSolutions = Object.values(this.currentVerb).some((solutions) => solutions.includes('/'));
+    this.validation.global = VerbKeysForm.every((key) => this.validation[key] === 'ok') ? 'ok' : 'error';
 
     this.form.disable();
   }
 
   public nextVerb() {
+    this.form.enable();
     this.validation = {
       meaning: '',
       infinitive: '',
@@ -112,7 +86,6 @@ export class TensesComponent implements OnInit {
       showMoreSolutions: false,
     };
     this.generateNewVerb();
-    this.form.enable();
   }
 
   private generateNewVerb() {
@@ -122,12 +95,16 @@ export class TensesComponent implements OnInit {
     } while (this.currentVerb === this.verbs[random]);
     this.currentVerb = this.verbs[random];
 
-    const tenseToShow = Math.trunc(Math.random() * Object.keys(this.currentVerb).length);
+    const tenseToShow = VerbKeysForm[Math.floor(Math.random() * VerbKeysForm.length)];
     this.form.setValue({
-      meaning: tenseToShow === 0 ? this.currentVerb.meaning : '',
-      infinitive: tenseToShow === 1 ? this.currentVerb.infinitive : '',
-      past: tenseToShow === 2 ? this.currentVerb.past : '',
-      participle: tenseToShow === 3 ? this.currentVerb.participle : '',
+      meaning: tenseToShow === 'meaning' ? this.currentVerb.meaning : '',
+      infinitive: tenseToShow === 'infinitive' ? this.currentVerb.infinitive : '',
+      past: tenseToShow === 'past' ? this.currentVerb.past : '',
+      participle: tenseToShow === 'participle' ? this.currentVerb.participle : '',
     });
+    this.form.get(tenseToShow)?.disable();
+
+    // set focus on first disabled input
+    this.inputs.find((i) => i.getAttribute('formcontrolname') !== tenseToShow)?.focus();
   }
 }
