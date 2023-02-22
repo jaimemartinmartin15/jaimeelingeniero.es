@@ -32,6 +32,10 @@ form {
             outline: 1px solid #d17515;
         }
 
+        &:disabled {
+            color: black;
+        }
+
         &.success {
             border-color: #87da0a;
         }

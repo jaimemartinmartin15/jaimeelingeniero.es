@@ -33,5 +33,5 @@
     <p>Participio: <span [ngClass]=" {error: validation.participle === 'error'}">{{currentVerb.participle}}</span></p>
   </div>
 
-  <button type="submit" class=" app-button" (click)="nextVerb()" *ngIf="validation.global !== ''">Siguiente</button>
+  <button type="submit" class="app-button" (click)="nextVerb()" *ngIf="validation.global !== ''">Siguiente</button>
 </form>
