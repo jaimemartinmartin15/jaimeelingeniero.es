@@ -12,6 +12,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
+      - name: minify json
+        run: echo "console.log(JSON.stringify(JSON.parse(\`$(cat src/pages-english/tenses/assets/verbs.json | sed "s/\"/\\\\\"/g")\`)));" | node > src/pages-english/tenses/assets/verbs.json
       - name: Set AWS credentials
         uses: aws-actions/configure-aws-credentials@v1-node16
         with:
