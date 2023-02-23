@@ -29,7 +29,13 @@
             "assets": [
               "src/assets",
               "src/pages-network/dns/assets",
-              "src/pages-english/alphabet/assets"
+              "src/pages-english/alphabet/assets",
+              "src/pages-english/tenses/assets",
+              {
+                "glob": "sitemap.txt",
+                "input": ".",
+                "output": "."
+              }
             ],
             "styles": [
               "src/styles.scss"
@@ -105,7 +111,7 @@
           }
         },
         "icons": {
-          "builder": "@babbage-devkit/builders:icons",
+          "builder": "@jaimemartinmartin15/jei-devkit-builders:generate-icons",
           "options": {
             "configFile": "src/svg/svg.json"
           }

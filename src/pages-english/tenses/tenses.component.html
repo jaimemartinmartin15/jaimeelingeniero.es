@@ -1,0 +1,49 @@
+<span class="statement">Completa los huecos</span>
+
+<form (submit)="validate($event)" [formGroup]="form">
+  <div>
+    <label>Significado</label>
+    <input type="text" formControlName="meaning"
+      [ngClass]="{success: validation.meaning == 'ok', error: validation.meaning == 'error'}">
+  </div>
+
+  <div>
+    <label>Infinitivo</label>
+    <input type="text" formControlName="infinitive"
+      [ngClass]="{success: validation.infinitive == 'ok', error: validation.infinitive == 'error'}">
+  </div>
+
+  <div>
+    <label>Pasado</label>
+    <input type="text" formControlName="past"
+      [ngClass]="{success: validation.past == 'ok', error: validation.past == 'error'}">
+  </div>
+
+  <div>
+    <label>Participio</label>
+    <input type="text" formControlName="participle"
+      [ngClass]="{success: validation.participle == 'ok', error: validation.participle == 'error'}">
+  </div>
+
+  <button type="submit" [disabled]="form.invalid" class="app-button" *ngIf="validation.global === ''">
+    Comprobar
+  </button>
+
+  <div *ngIf="validation.global === 'ok' && validation.showMoreSolutions === true" class="solution-panel">
+    <strong>Otra solución:</strong>
+    <p>Significado: <strong>{{currentVerb.meaning}}</strong></p>
+    <p>Infinitivo: <strong>{{currentVerb.infinitive}}</strong></p>
+    <p>Pasado: <strong>{{currentVerb.past}}</strong></p>
+    <p>Participio: <strong>{{currentVerb.participle}}</strong></p>
+  </div>
+
+  <div class="solution-panel" *ngIf="validation.global === 'error'">
+    <strong>Solución:</strong>
+    <p>Significado: <span [ngClass]="{error: validation.meaning === 'error'}">{{currentVerb.meaning}}</span></p>
+    <p>Infinitivo: <span [ngClass]="{error: validation.infinitive === 'error'}">{{currentVerb.infinitive}}</span></p>
+    <p>Pasado: <span [ngClass]="{error: validation.past === 'error'}">{{currentVerb.past}}</span></p>
+    <p>Participio: <span [ngClass]=" {error: validation.participle === 'error'}">{{currentVerb.participle}}</span></p>
+  </div>
+
+  <button type="submit" class="app-button" (click)="nextVerb()" *ngIf="validation.global !== ''">Siguiente</button>
+</form>
