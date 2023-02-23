@@ -13,14 +13,10 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
       - name: minify json
-        # run: echo "console.log(JSON.stringify(JSON.parse(\`$(cat src/pages-english/tenses/assets/verbs.json | sed "s/\"/\\\\\"/g")\`)));" | node > src/pages-english/tenses/assets/verbs.json
-        # echo "console.log(JSON.stringify(JSON.parse(\`$(cat src/pages-english/tenses/assets/verbs.json)\`)));" | node > src/pages-english/tenses/assets/verbs.json
         run: |
-          cat src/pages-english/tenses/assets/verbs.json
-          cat src/pages-english/tenses/assets/verbs.json | sed "s/\"/\\\\\"/g"
-          echo "console.log(JSON.stringify(JSON.parse(\`$(cat src/pages-english/tenses/assets/verbs.json)\`)));"
-          echo "console.log(JSON.stringify(JSON.parse(\`$(cat src/pages-english/tenses/assets/verbs.json | sed "s/\"/\\\\\"/g")\`)));"
-          echo "console.log(JSON.stringify(JSON.parse(\`$(cat src/pages-english/tenses/assets/verbs.json | sed "s/\"/\\\\\"/g")\`)));" | node > src/pages-english/tenses/assets/verbs.json
+          echo "console.log(JSON.stringify(JSON.parse(\`$(cat src/pages-english/tenses/assets/verbs.json | sed "s/\"/\\\\\"/g")\`)));" > verbs.temp.js
+          node verbs.temp.js > verbs.json
+          cat verbs.json
       - name: Set AWS credentials
         uses: aws-actions/configure-aws-credentials@v1-node16
         with:
