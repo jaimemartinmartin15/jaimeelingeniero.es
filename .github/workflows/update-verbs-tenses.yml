@@ -1,0 +1,28 @@
+name: Update verbs list tenses
+run-name: Update verbs.json
+
+on:
+  push:
+    paths: ["src/pages-english/tenses/assets/verbs.json"]
+
+jobs:
+  update-verbs-list:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: minify json
+        run: |
+          echo "console.log(JSON.stringify(JSON.parse(\`$(cat src/pages-english/tenses/assets/verbs.json | sed "s/\"/\\\\\"/g")\`)));" > verbs.temp.js
+          node verbs.temp.js > verbs.json
+      - name: Set AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1-node16
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-east-1
+      - name: Upload file
+        run: |
+          aws --version
+          aws s3 cp verbs.json s3://jaimeelingeniero.es/pages-english/tenses/assets/verbs.json

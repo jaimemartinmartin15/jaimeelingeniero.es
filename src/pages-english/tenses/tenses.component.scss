@@ -1,0 +1,93 @@
+:host {
+    display: block;
+    padding: 20px 10px;
+}
+
+.statement {
+    display: inline-block;
+    font-size: 1.3rem;
+    font-weight: bold;
+    margin-bottom: 18px;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 23px;
+    width: 100%;
+
+    div {
+        position: relative;
+
+        label {
+            position: absolute;
+            top: 0;
+            left: 15px;
+            transform: translateY(-50%);
+            background-color: #fbfbff;
+            color: #d17515;
+            padding: 1px 5px;
+            border-radius: 5px;
+        }
+
+        input {
+            width: 100%;
+            box-sizing: border-box;
+            border: 2px solid #d17515;
+            font-size: 1.5rem;
+            border-radius: 5px;
+            padding: 11px 15px 7px;
+            transition: border-color 0.2s;
+            background-color: #fbfbff;
+
+            &::placeholder {
+                color: #b5b5b5;
+            }
+
+            &:focus {
+                outline: 1px solid #d17515;
+            }
+
+            &:disabled {
+                color: black;
+            }
+
+            &.success {
+                border-color: #87da0a;
+            }
+
+            &.error {
+                border-color: #dd1717;
+            }
+        }
+    }
+
+    .solution-panel {
+        border: 1px solid #d17515;
+        border-radius: 5px;
+        padding: 10px;
+        background-color: #fbfbff;
+
+        p span.error {
+            color: #dd1717;
+            font-weight: bold;
+
+            &:last-child {
+                margin-bottom: 0;
+            }
+        }
+    }
+
+    button {
+        font-size: 1.5rem;
+        padding: 10px;
+        cursor: pointer;
+    }
+}
+
+@media (min-width: 576px) {
+    :host {
+        max-width: 576px;
+        margin: auto;
+    }
+}
