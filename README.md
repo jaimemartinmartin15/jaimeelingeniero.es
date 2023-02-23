@@ -2,6 +2,8 @@
 
 This is the repository containing my personal web page deployed to amazon s3. You can visit it at [jaimeelingeniero.es](https://jaimeelingeniero.es)
 
+[![Deploy Webpage](https://github.com/jaimemartinmartin15/jaimeelingeniero/actions/workflows/build-and-publish.yml/badge.svg)](https://github.com/jaimemartinmartin15/jaimeelingeniero/actions/workflows/build-and-publish.yml) [![Update verbs list tenses](https://github.com/jaimemartinmartin15/jaimeelingeniero/actions/workflows/update-verbs-tenses.yml/badge.svg)](https://github.com/jaimemartinmartin15/jaimeelingeniero/actions/workflows/update-verbs-tenses.yml)
+
 ## Development
 
 ### Clone the repository
@@ -10,7 +12,7 @@ Run `git clone https://github.com/jaimemartinmartin15/jaimeelingeniero.git`
 
 ### Install dependencies
 
-Run `npm install`. You might need a valid personal access token to download some scoped dependencies on GPR (Github Package Registry). If you cannot obtain it, remove the dependency and install again. You will have to work without generating the icons.
+Run `npm install`. You might need a valid personal access token to download some scoped dependencies on GPR (Github Package Registry). If you cannot obtain it, remove the dependency and install again. You will have to work without generating the icons. You will need also to remove the generated module imports that cannot be resolved.
 
 ### Start the server
 
@@ -31,3 +33,14 @@ Run `npm run build` to build the project. The output will be stored in the `dist
 Deploys are done when you push a new tag to the server. That is how the [workflow](.github\workflows\build-and-publish.yml) is configured.
 
 Create a tag on the commit to deploy and push it to the server. The workflow file in that commit will be used! Be careful!
+
+## Board
+
+There is a (private) [Trello board](https://trello.com/b/gnJWWpVh/jaime-el-ingeniero) created to organize the tasks and new features.
+
+## General reminders to build new feature
+
+* Add url to [sitemap.txt](./sitemap.txt)
+* Add title in routing module for the new page
+* Add meta tags
+* Make sure invalid routes are redirected correctly
