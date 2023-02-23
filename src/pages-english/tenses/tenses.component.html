@@ -1,17 +1,29 @@
 <span class="statement">Completa los huecos</span>
 
 <form (submit)="validate($event)" [formGroup]="form">
-  <input type="text" placeholder="Significado" formControlName="meaning"
-    [ngClass]="{success: validation.meaning == 'ok', error: validation.meaning == 'error'}">
+  <div>
+    <span>Significado</span>
+    <input type="text" formControlName="meaning"
+      [ngClass]="{success: validation.meaning == 'ok', error: validation.meaning == 'error'}">
+  </div>
 
-  <input type="text" placeholder="Infinitivo" formControlName="infinitive"
-    [ngClass]="{success: validation.infinitive == 'ok', error: validation.infinitive == 'error'}">
+  <div>
+    <span>Infinitivo</span>
+    <input type="text" formControlName="infinitive"
+      [ngClass]="{success: validation.infinitive == 'ok', error: validation.infinitive == 'error'}">
+  </div>
 
-  <input type="text" placeholder="Pasado" formControlName="past"
-    [ngClass]="{success: validation.past == 'ok', error: validation.past == 'error'}">
+  <div>
+    <span>Pasado</span>
+    <input type="text" formControlName="past"
+      [ngClass]="{success: validation.past == 'ok', error: validation.past == 'error'}">
+  </div>
 
-  <input type="text" placeholder="Participio" formControlName="participle"
-    [ngClass]="{success: validation.participle == 'ok', error: validation.participle == 'error'}">
+  <div>
+    <span>Participio</span>
+    <input type="text" formControlName="participle"
+      [ngClass]="{success: validation.participle == 'ok', error: validation.participle == 'error'}">
+  </div>
 
   <button type="submit" [disabled]="form.invalid" class="app-button" *ngIf="validation.global === ''">
     Comprobar

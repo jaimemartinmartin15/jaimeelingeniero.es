@@ -16,32 +16,49 @@ form {
     gap: 20px;
     width: 100%;
 
-    input {
-        border: 2px solid #d17515;
-        font-size: 1.5rem;
-        border-radius: 5px;
-        padding: 10px 15px;
-        transition: border-color 0.2s;
-        background-color: #fbfbff;
+    div {
+        position: relative;
 
-        &::placeholder {
-            color: #b5b5b5;
+        span {
+            position: absolute;
+            top: 0;
+            left: 15px;
+            transform: translateY(-50%);
+            background-color: #fbfbff;
+            color: #d17515;
+            padding: 1px 5px;
+            border-radius: 5px;
         }
 
-        &:focus {
-            outline: 1px solid #d17515;
-        }
+        input {
+            width: 100%;
+            box-sizing: border-box;
+            border: 2px solid #d17515;
+            font-size: 1.5rem;
+            border-radius: 5px;
+            padding: 11px 15px 7px;
+            transition: border-color 0.2s;
+            background-color: #fbfbff;
 
-        &:disabled {
-            color: black;
-        }
+            &::placeholder {
+                color: #b5b5b5;
+            }
 
-        &.success {
-            border-color: #87da0a;
-        }
+            &:focus {
+                outline: 1px solid #d17515;
+            }
 
-        &.error {
-            border-color: #dd1717;
+            &:disabled {
+                color: black;
+            }
+
+            &.success {
+                border-color: #87da0a;
+            }
+
+            &.error {
+                border-color: #dd1717;
+            }
         }
     }
 
