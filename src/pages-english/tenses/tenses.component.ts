@@ -40,7 +40,7 @@ export class TensesComponent implements OnInit, AfterViewInit {
 
     this.http.get<Verb[]>('/pages-english/tenses/assets/verbs.json').subscribe((verbs) => {
       this.verbs = verbs;
-      this.generateNewVerb();
+      this.generateNewVerbAndResetForm();
     });
 
     // TODO meta tags
@@ -85,10 +85,10 @@ export class TensesComponent implements OnInit, AfterViewInit {
       global: '',
       showMoreSolutions: false,
     };
-    this.generateNewVerb();
+    this.generateNewVerbAndResetForm();
   }
 
-  private generateNewVerb() {
+  private generateNewVerbAndResetForm() {
     let random;
     do {
       random = Math.trunc(Math.random() * this.verbs.length);

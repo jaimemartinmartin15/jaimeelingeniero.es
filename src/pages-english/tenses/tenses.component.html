@@ -2,25 +2,25 @@
 
 <form (submit)="validate($event)" [formGroup]="form">
   <div>
-    <span>Significado</span>
+    <label>Significado</label>
     <input type="text" formControlName="meaning"
       [ngClass]="{success: validation.meaning == 'ok', error: validation.meaning == 'error'}">
   </div>
 
   <div>
-    <span>Infinitivo</span>
+    <label>Infinitivo</label>
     <input type="text" formControlName="infinitive"
       [ngClass]="{success: validation.infinitive == 'ok', error: validation.infinitive == 'error'}">
   </div>
 
   <div>
-    <span>Pasado</span>
+    <label>Pasado</label>
     <input type="text" formControlName="past"
       [ngClass]="{success: validation.past == 'ok', error: validation.past == 'error'}">
   </div>
 
   <div>
-    <span>Participio</span>
+    <label>Participio</label>
     <input type="text" formControlName="participle"
       [ngClass]="{success: validation.participle == 'ok', error: validation.participle == 'error'}">
   </div>
