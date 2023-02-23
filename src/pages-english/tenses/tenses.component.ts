@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { AfterViewInit, Component, HostListener, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { normalizeValue } from './string.utils';
+import { normalizeString } from 'src/utils/strings';
 import { Verb, VerbKeysForm, VerbKeysFormOfType } from './verb';
 
 @Component({
@@ -63,8 +63,8 @@ export class TensesComponent implements OnInit, AfterViewInit {
 
     const formValues = this.form.getRawValue();
     VerbKeysForm.forEach((key) => {
-      const enteredValues = normalizeValue(formValues[key]!);
-      const correctValues = normalizeValue(this.currentVerb[key]);
+      const enteredValues = formValues[key]?.split('/').map((v) => normalizeString(v))!;
+      const correctValues = this.currentVerb[key].split('/').map((v) => normalizeString(v));
       this.validation[key] = enteredValues.every((answer) => correctValues.includes(answer)) ? 'ok' : 'error';
 
       this.validation.showMoreSolutions = this.validation.showMoreSolutions || !correctValues.every((v) => enteredValues.includes(v));
