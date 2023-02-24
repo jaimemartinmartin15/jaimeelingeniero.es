@@ -1,7 +1,7 @@
-import { HttpClient } from '@angular/common/http';
 import { AfterViewInit, Component, HostListener, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Meta } from '@angular/platform-browser';
+import { ActivatedRoute } from '@angular/router';
 import { normalizeString } from 'src/utils/strings';
 import { Verb, VerbKeysForm, VerbKeysFormOfType } from './verb';
 
@@ -29,7 +29,11 @@ export class TensesComponent implements OnInit, AfterViewInit, OnDestroy {
     showMoreSolutions: false,
   };
 
-  public constructor(private readonly formBuilder: FormBuilder, private readonly http: HttpClient, private readonly metaService: Meta) {}
+  public constructor(
+    private readonly formBuilder: FormBuilder,
+    private readonly activatedRoute: ActivatedRoute,
+    private readonly metaService: Meta
+  ) {}
 
   public ngOnInit() {
     this.form = this.formBuilder.group({
@@ -39,10 +43,8 @@ export class TensesComponent implements OnInit, AfterViewInit, OnDestroy {
       participle: ['', [Validators.required]],
     });
 
-    this.http.get<Verb[]>('/pages-english/tenses/assets/verbs.json').subscribe((verbs) => {
-      this.verbs = verbs;
-      this.generateNewVerbAndResetForm();
-    });
+    this.verbs = this.activatedRoute.snapshot.data['listOfVerbs'];
+    this.generateNewVerbAndResetForm();
 
     this.metaService.updateTag({
       name: 'description',
