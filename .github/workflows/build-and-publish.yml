@@ -38,4 +38,4 @@ jobs:
         # excluded path is updated by update-verbs-tenses.yml workflow
         run: |
           aws --version
-          aws s3 sync ./dist/jaimeelingeniero s3://jaimeelingeniero.es --delete --exclude src/pages-english/tenses/assets/verbs.json
+          aws s3 sync ./dist/jaimeelingeniero s3://jaimeelingeniero.es --delete --exclude ./dist/jaimeelingeniero/pages-english/tenses/assets/verbs.json
