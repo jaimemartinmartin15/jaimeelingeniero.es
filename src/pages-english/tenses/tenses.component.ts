@@ -16,6 +16,9 @@ export class TensesComponent implements OnInit, AfterViewInit, OnDestroy {
   private verbs: Verb[];
   public currentVerb: Verb;
 
+  public hits: number = 0;
+  public misses: number = 0;
+
   public form: FormGroup<VerbKeysFormOfType<FormControl<string | null>>>;
   public validation: VerbKeysFormOfType<'ok' | 'error' | ''> & {
     global: 'ok' | 'error' | '';
@@ -77,7 +80,13 @@ export class TensesComponent implements OnInit, AfterViewInit, OnDestroy {
       this.validation.showMoreSolutions = this.validation.showMoreSolutions || !correctValues.every((v) => enteredValues.includes(v));
     });
 
-    this.validation.global = VerbKeysForm.every((key) => this.validation[key] === 'ok') ? 'ok' : 'error';
+    if (VerbKeysForm.every((key) => this.validation[key] === 'ok')) {
+      this.validation.global = 'ok';
+      this.hits++;
+    } else {
+      this.validation.global = 'error';
+      this.misses++;
+    }
 
     this.form.disable();
   }
