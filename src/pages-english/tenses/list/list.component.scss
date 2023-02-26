@@ -27,6 +27,10 @@ div {
       text-align: start;
     }
 
+    th {
+      padding: 15px;
+    }
+
     tbody:before {
       // adds some space between header and body
       content: ".";
