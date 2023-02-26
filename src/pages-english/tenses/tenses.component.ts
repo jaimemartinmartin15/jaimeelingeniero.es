@@ -47,7 +47,6 @@ export class TensesComponent implements OnInit, AfterViewInit, OnDestroy {
     });
 
     this.verbs = this.activatedRoute.snapshot.data['listOfVerbs'];
-    this.generateNewVerbAndResetForm();
 
     this.metaService.updateTag({
       name: 'description',
@@ -58,6 +57,7 @@ export class TensesComponent implements OnInit, AfterViewInit, OnDestroy {
 
   public ngAfterViewInit(): void {
     this.inputs = Array.from(document.querySelectorAll('input'));
+    setTimeout(this.generateNewVerbAndResetForm.bind(this));
   }
 
   @HostListener('document:keydown.enter', ['$event']) onKeydownHandler() {
