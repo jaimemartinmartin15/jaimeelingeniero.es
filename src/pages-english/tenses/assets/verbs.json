@@ -75,7 +75,7 @@
     "meaning": "elegir",
     "infinitive": "choose",
     "past": "chose",
-    "participle": "choosen"
+    "participle": "chosen"
   },
   {
     "meaning": "venir/llegar",
@@ -586,5 +586,137 @@
     "infinitive": "arise",
     "past": "arose",
     "participle": "arisen"
+  },
+  {
+    "meaning": "soplar",
+    "infinitive": "blow",
+    "past": "blew",
+    "participle": "blown"
+  },
+  {
+    "meaning": "arrastrarse",
+    "infinitive": "creep",
+    "past": "crept",
+    "participle": "crept"
+  },
+  {
+    "meaning": "dar/repartir",
+    "infinitive": "deal",
+    "past": "dealt",
+    "participle": "dealt"
+  },
+  {
+    "meaning": "huir",
+    "infinitive": "flee",
+    "past": "fled",
+    "participle": "fled"
+  },
+  {
+    "meaning": "abandonar",
+    "infinitive": "forsake",
+    "past": "forsook",
+    "participle": "forsaken"
+  },
+  {
+    "meaning": "moler",
+    "infinitive": "grind",
+    "past": "ground",
+    "participle": "ground"
+  },
+  {
+    "meaning": "colgar",
+    "infinitive": "hang",
+    "past": "hung",
+    "participle": "hung"
+  },
+  {
+    "meaning": "arrodillarse",
+    "infinitive": "kneel",
+    "past": "knelt",
+    "participle": "knelt"
+  },
+  {
+    "meaning": "abandonar",
+    "infinitive": "quit",
+    "past": "quit/quitted",
+    "participle": "quit/quitted"
+  },
+  {
+    "meaning": "coser",
+    "infinitive": "sew",
+    "past": "sewed",
+    "participle": "sewn/sewed"
+  },
+  {
+    "meaning": "encoger",
+    "infinitive": "shrink",
+    "past": "shrank/shrunk",
+    "participle": "shrunk"
+  },
+  {
+    "meaning": "deslizar",
+    "infinitive": "slide",
+    "past": "slid",
+    "participle": "slid"
+  },
+  {
+    "meaning": "partir",
+    "infinitive": "split",
+    "past": "split",
+    "participle": "split"
+  },
+  {
+    "meaning": "estropear",
+    "infinitive": "spoil",
+    "past": "spoilt/spoiled",
+    "participle": "spoilt/spoiled"
+  },
+  {
+    "meaning": "extenderse",
+    "infinitive": "spread",
+    "past": "spread",
+    "participle": "spread"
+  },
+  {
+    "meaning": "picar",
+    "infinitive": "sting",
+    "past": "stung",
+    "participle": "stung"
+  },
+  {
+    "meaning": "apestar",
+    "infinitive": "stink",
+    "past": "stank/stunk",
+    "participle": "stunk"
+  },
+  {
+    "meaning": "barrer",
+    "infinitive": "sweep",
+    "past": "swept",
+    "participle": "swept"
+  },
+  {
+    "meaning": "rasgar",
+    "infinitive": "tear",
+    "past": "tore",
+    "participle": "torn"
+  },
+  {
+    "meaning": "pisar",
+    "infinitive": "tread",
+    "past": "trode",
+    "participle": "trodden/trod"
+  },
+  {
+    "meaning": "tejer",
+    "infinitive": "weave",
+    "past": "wove",
+    "participle": "woven"
+  },
+  {
+    "meaning": "exprimir",
+    "infinitive": "wring",
+    "past": "wrung",
+    "participle": "wrung"
   }
 ]
