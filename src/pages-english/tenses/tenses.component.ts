@@ -14,6 +14,7 @@ export class TensesComponent implements OnInit, AfterViewInit, OnDestroy {
   private inputs: HTMLInputElement[];
 
   private verbs: Verb[];
+  private verbsHits: Verb[] = [];
   public currentVerb: Verb;
 
   public hits: number = 0;
@@ -83,6 +84,8 @@ export class TensesComponent implements OnInit, AfterViewInit, OnDestroy {
     if (VerbKeysForm.every((key) => this.validation[key] === 'ok')) {
       this.validation.global = 'ok';
       this.hits++;
+      this.verbsHits.push(this.currentVerb);
+      this.verbs.splice(this.verbs.indexOf(this.currentVerb), 1);
     } else {
       this.validation.global = 'error';
       this.misses++;
@@ -105,6 +108,11 @@ export class TensesComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   private generateNewVerbAndResetForm() {
+    if (this.verbs.length == 0) {
+      this.verbs = this.verbsHits;
+      this.verbsHits = [];
+    }
+
     let random;
     do {
       random = Math.trunc(Math.random() * this.verbs.length);
