@@ -1,7 +1,7 @@
-import { HttpClient } from '@angular/common/http';
 import { AfterViewInit, Component, HostListener, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Meta } from '@angular/platform-browser';
+import { ActivatedRoute } from '@angular/router';
 import { normalizeString } from 'src/utils/strings';
 import { Verb, VerbKeysForm, VerbKeysFormOfType } from './verb';
 
@@ -14,7 +14,11 @@ export class TensesComponent implements OnInit, AfterViewInit, OnDestroy {
   private inputs: HTMLInputElement[];
 
   private verbs: Verb[];
+  private verbsHits: Verb[] = [];
   public currentVerb: Verb;
+
+  public hits: number = 0;
+  public misses: number = 0;
 
   public form: FormGroup<VerbKeysFormOfType<FormControl<string | null>>>;
   public validation: VerbKeysFormOfType<'ok' | 'error' | ''> & {
@@ -29,7 +33,11 @@ export class TensesComponent implements OnInit, AfterViewInit, OnDestroy {
     showMoreSolutions: false,
   };
 
-  public constructor(private readonly formBuilder: FormBuilder, private readonly http: HttpClient, private readonly metaService: Meta) {}
+  public constructor(
+    private readonly formBuilder: FormBuilder,
+    private readonly activatedRoute: ActivatedRoute,
+    private readonly metaService: Meta
+  ) {}
 
   public ngOnInit() {
     this.form = this.formBuilder.group({
@@ -39,10 +47,7 @@ export class TensesComponent implements OnInit, AfterViewInit, OnDestroy {
       participle: ['', [Validators.required]],
     });
 
-    this.http.get<Verb[]>('/pages-english/tenses/assets/verbs.json').subscribe((verbs) => {
-      this.verbs = verbs;
-      this.generateNewVerbAndResetForm();
-    });
+    this.verbs = this.activatedRoute.snapshot.data['listOfVerbs'];
 
     this.metaService.updateTag({
       name: 'description',
@@ -53,6 +58,7 @@ export class TensesComponent implements OnInit, AfterViewInit, OnDestroy {
 
   public ngAfterViewInit(): void {
     this.inputs = Array.from(document.querySelectorAll('input'));
+    setTimeout(this.generateNewVerbAndResetForm.bind(this));
   }
 
   @HostListener('document:keydown.enter', ['$event']) onKeydownHandler() {
@@ -75,7 +81,15 @@ export class TensesComponent implements OnInit, AfterViewInit, OnDestroy {
       this.validation.showMoreSolutions = this.validation.showMoreSolutions || !correctValues.every((v) => enteredValues.includes(v));
     });
 
-    this.validation.global = VerbKeysForm.every((key) => this.validation[key] === 'ok') ? 'ok' : 'error';
+    if (VerbKeysForm.every((key) => this.validation[key] === 'ok')) {
+      this.validation.global = 'ok';
+      this.hits++;
+      this.verbsHits.push(this.currentVerb);
+      this.verbs.splice(this.verbs.indexOf(this.currentVerb), 1);
+    } else {
+      this.validation.global = 'error';
+      this.misses++;
+    }
 
     this.form.disable();
   }
@@ -94,6 +108,11 @@ export class TensesComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   private generateNewVerbAndResetForm() {
+    if (this.verbs.length == 0) {
+      this.verbs = this.verbsHits;
+      this.verbsHits = [];
+    }
+
     let random;
     do {
       random = Math.trunc(Math.random() * this.verbs.length);
