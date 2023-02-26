@@ -3,11 +3,30 @@
     padding: 20px 10px;
 }
 
+.link-to-list-of-verbs {
+    text-align: end;
+    margin-bottom: 15px;
+
+    a {
+        text-decoration: none;
+        color: #d17515;
+    }
+}
+
 .statement {
-    display: inline-block;
+    display: flex;
+    justify-content: space-between;
     font-size: 1.3rem;
     font-weight: bold;
     margin-bottom: 18px;
+
+    .hits {
+        color: #87da0a;
+    }
+
+    .misses {
+        color: #dd1717;
+    }
 }
 
 form {

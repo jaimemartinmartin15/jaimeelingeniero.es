@@ -1,0 +1,49 @@
+:host {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+}
+
+div {
+  overflow: auto;
+  flex-grow: 1;
+
+  table {
+    width: 100%;
+    border-spacing: 0;
+
+    thead {
+      font-weight: bold;
+      position: sticky;
+      top: 0;
+      background-color: white;
+      box-shadow: 0 3px 10px #bdbdbd;
+    }
+
+    th,
+    td {
+      padding: 8px 15px;
+      text-align: start;
+    }
+
+    th {
+      padding: 15px;
+    }
+
+    tbody:before {
+      // adds some space between header and body
+      content: ".";
+      display: block;
+      line-height: 10px;
+      text-indent: -99999px;
+    }
+  }
+}
+
+@media (min-width: 768px) {
+  :host {
+    align-items: center;
+  }
+}

@@ -1,4 +1,16 @@
-<span class="statement">Completa los huecos</span>
+<div class="link-to-list-of-verbs">
+  <a routerLink="lista">Hacer repaso ➡️</a>
+</div>
+
+<div class="statement">
+  <span>Completa los huecos</span>
+
+  <span>
+    <span class="hits">{{hits}}</span>
+    /
+    <span class="misses">{{misses}}</span>
+  </span>
+</div>
 
 <form (submit)="validate($event)" [formGroup]="form">
   <div>
