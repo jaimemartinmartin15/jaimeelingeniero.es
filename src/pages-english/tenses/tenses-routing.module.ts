@@ -12,15 +12,20 @@ const routes: Routes = [
     },
     children: [
       {
+        path: 'lista',
+        children: [
+          {
+            path: '',
+            title: 'Lista de tiempos verbales',
+            component: ListComponent,
+          },
+          { path: '**', redirectTo: '' },
+        ],
+      },
+      {
         path: '',
         title: 'Tiempos verbales',
         component: TensesComponent,
-        pathMatch: 'full',
-      },
-      {
-        path: 'lista',
-        title: 'Lista de tiempos verbales',
-        component: ListComponent,
       },
       {
         path: '**',
