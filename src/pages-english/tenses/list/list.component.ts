@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { Verb } from '../verb';
 
 @Component({
   selector: 'app-list',
@@ -6,7 +8,11 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./list.component.scss'],
 })
 export class ListComponent implements OnInit {
-  public constructor() {}
+  public verbs: Verb[];
 
-  public ngOnInit() {}
+  public constructor(private readonly activatedRoute: ActivatedRoute) {}
+
+  public ngOnInit() {
+    this.verbs = this.activatedRoute.snapshot.data['listOfVerbs'];
+  }
 }

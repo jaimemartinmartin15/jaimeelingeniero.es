@@ -1,3 +1,21 @@
-<p>
-  list works!
-</p>
+<div>
+  <table>
+    <thead>
+      <tr>
+        <th>Infinitivo</th>
+        <th>Pasado</th>
+        <th>Participio</th>
+        <th>Significado</th>
+      </tr>
+    </thead>
+  
+    <tbody>
+      <tr *ngFor="let verb of verbs">
+        <td>{{verb.infinitive}}</td>
+        <td>{{verb.past}}</td>
+        <td>{{verb.participle}}</td>
+        <td>{{verb.meaning}}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
