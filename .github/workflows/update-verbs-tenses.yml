@@ -16,6 +16,7 @@ jobs:
         run: |
           echo "console.log(JSON.stringify(JSON.parse(\`$(cat src/pages-english/tenses/assets/verbs.json | sed "s/\"/\\\\\"/g")\`).sort((v1,v2) => (v1.infinitive > v2.infinitive) ? 1 : ((v2.infinitive > v1.infinitive) ? -1 : 0))));" > verbs.temp.js
           node verbs.temp.js > verbs.json
+          cat verbs.json
       - name: Set AWS credentials
         uses: aws-actions/configure-aws-credentials@v1-node16
         with:

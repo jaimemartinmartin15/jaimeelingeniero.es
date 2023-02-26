@@ -355,7 +355,7 @@
   },
   {
     "meaning": "agitar/sacudir",
-    "infinitive": "shake", 
+    "infinitive": "shake",
     "past": "shook",
     "participle": "shaken"
   },
@@ -580,5 +580,11 @@
     "infinitive": "lay",
     "past": "laid",
     "participle": "laid"
+  },
+  {
+    "meaning": "surgir",
+    "infinitive": "arise",
+    "past": "arose",
+    "participle": "arisen"
   }
 ]
