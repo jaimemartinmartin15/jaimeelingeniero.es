@@ -116,7 +116,7 @@ export class TensesComponent implements OnInit, AfterViewInit, OnDestroy {
     let random;
     do {
       random = Math.trunc(Math.random() * this.verbs.length);
-    } while (this.currentVerb === this.verbs[random]);
+    } while (this.currentVerb === this.verbs[random] && this.verbs.length > 1);
     this.currentVerb = this.verbs[random];
 
     const tenseToShow = VerbKeysForm[Math.floor(Math.random() * VerbKeysForm.length)];
