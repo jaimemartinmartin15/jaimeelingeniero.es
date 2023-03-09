@@ -384,7 +384,56 @@ Records: 0  Duplicates: 0  Warnings: 0</pre>
     </p>
   </section>
 
+  <section>
+    <h2>Rellenando la base de datos</h2>
 
+    <p>
+      Ahora sí ha llegado la hora de meter información en nuestra base de datos. Veamos la orden en general:
+    </p>
+
+    <code>
+      <pre class="command-sintax">INSERT INTO tabla [(lista, de, columnas)] VALUES (lista, de, valores);</pre>
+    </code>
+
+    <p>
+      La orden es muy sencillita. Especificamos las columnas que vamos a rellenar y sus valores. Entonces se creará una
+      nueva fila en la tabla. Vamos a introducir algunas filas.
+    </p>
+
+    <app-terminal-code>
+      <pre terminal-code-command>INSERT INTO MARCA VALUES (0, 'Renault', 'Francia');</pre>
+      <pre terminal-code-output>Query OK, 1 row affected (0,01 sec)</pre>
+    </app-terminal-code>
+
+    <p>
+      En este caso no he necesitado proporcionar el nombre de las columnas porque he proporcionado todos los valores en
+      el orden que especificamos las columnas.
+    </p>
+
+    <app-terminal-code>
+      <pre terminal-code-command>INSERT INTO COCHE VALUES (0, 1, 'MEGANE', 'Diésel');</pre>
+      <pre
+        terminal-code-output>ERROR 1452 (23000): Cannot add or update a child row: a foreign key constraint fails (`business`.`COCHE`, CONSTRAINT `COCHE_ibfk_1` FOREIGN KEY (`cod_marca`) REFERENCES `MARCA` (`codigo`))</pre>
+    </app-terminal-code>
+
+    <p>
+      En esta otra orden hemos intentado añadir un coche haciendo referencia a una marca que no existe, y tal es el caso
+      que el sistema ha rechazado la transacción.
+    </p>
+
+    <p>
+      Ahora para eliminar una fila de la tabla lo hacemos con esta otra orden:
+    </p>
+
+    <code>
+      <pre class="command-sintax">DELETE FROM tabla WHERE condicion</pre>
+    </code>
+
+    <p>
+      Es muy importante especificar la condición con la palabra WHERE. De otra forma se eliminarían todas las filas de
+      la tabla.
+    </p>
+  </section>
 
 
 
