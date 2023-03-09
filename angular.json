@@ -30,6 +30,7 @@
               "src/assets",
               "src/pages-network/dns/assets",
               "src/pages-english/alphabet/assets",
+              "src/pages-english/tenses/assets",
               "src/pages-bbdd/assets",
               {
                 "glob": "sitemap.txt",

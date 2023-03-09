@@ -35,6 +35,7 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: us-east-1
       - name: Deploy
+        # excluded path is updated by update-verbs-tenses.yml workflow
         run: |
           aws --version
-          aws s3 sync ./dist/jaimeelingeniero s3://jaimeelingeniero.es --delete
+          aws s3 sync ./dist/jaimeelingeniero s3://jaimeelingeniero.es --delete --exclude ./dist/jaimeelingeniero/pages-english/tenses/assets/verbs.json
