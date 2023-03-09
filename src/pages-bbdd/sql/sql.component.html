@@ -331,7 +331,58 @@
     </div>
   </section>
 
+  <section>
+    <h2>Alteración de tablas</h2>
 
+    <p>
+      A medida que vamos usando la base de datos y los requisitos de nuestra aplicación varian, puede que tengamos que
+      cambiar restricciones, referencias, eliminar o añadir nuevas columnas, etc. Y eso es lo que vamos a ver antes de
+      rellenar la base de datos por si te equivocaste al crear una de las tablas.
+    </p>
+
+    <p>
+      Veamos como eliminar una tabla. Ten en cuenta que solo se podrá eliminar si no está referenciada por ninguna otra
+      tabla u objeto en la base de datos.
+    </p>
+
+    <code>
+      <pre class="command-sintax">DROP TABLE nombre_de_la_tabla</pre>
+    </code>
+
+    <p>
+      Ahora veamos como añadir o eliminar una columna de una tabla, o sus restricciones:
+    </p>
+
+    <code>
+      <pre class="command-sintax">ALTER TABLE nombre_de_la_tabla
+ADD especificación_de_una_columna
+ADD [CONSTRAINT nombre_restricción] restricción_tabla
+DROP CONSTRAINT nombre_restricción
+DROP COLUMN nombre_columna [RESTRICT | CASCADE]</pre>
+    </code>
+
+    <p>
+      Al eliminar una columna podemos indicar las opciones RESTRICT o CASCADE. Si indicamos RESTRICT la columna no se
+      eliminará si es referenciada por otra tabla u objeto de la base de datos. Si indicamos CASCADE se eliminará la
+      columna y todo lo que dependa de ella en otras tablas o lugares.
+    </p>
+
+    <p>
+      Veamos un ejemplo para cambiar el tipo de una columna.
+    </p>
+
+    <app-terminal-code>
+      <pre terminal-code-command>ALTER TABLE REPARA MODIFY fecha Date default (CURRENT_DATE);</pre>
+
+      <pre terminal-code-output>Query OK, 0 rows affected (0,03 sec)
+Records: 0  Duplicates: 0  Warnings: 0</pre>
+    </app-terminal-code>
+
+    <p>
+      En test caso puesto que estamos modificando una columna existente y cambiando su tipo, usamos la palabra MODIFY.
+      Después la sintaxis es la misma que ya hemos visto para definir una columna.
+    </p>
+  </section>
 
 
 
