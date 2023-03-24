@@ -1,5 +1,10 @@
 const fs = require('fs');
-const cargaBDPath = "UPDATE THE PATH HERE"; // TODO
+
+/*
+ * // TODO
+ * Pon aquí el path donde quieres generar el fichero (con el nombre del fichero incluido acabado en .sql)
+ */
+const cargaBDPath = "UPDATE THE PATH HERE";
 
 function generarNombreTaller() {
   const adjetivos = ['Rápido', 'Experto', 'Hábil', 'Innovador', 'Eficiente', 'Preciso', 'Oportuno', 'Seguro', 'Fiable', 'Profesional'];
@@ -368,7 +373,7 @@ for (let codCoche = 1; codCoche <= TABLA_COCHE.length; codCoche++) {
   let codConcesionario;
   do {
     codConcesionario = Math.floor(Math.random() * TABLA_CONCESIONARIO.length) + 1;
-  } while (TABLA_OFRECE.includes(oferta => oferta[0] === codCoche && oferta[1] === codConcesionario));
+  } while (TABLA_OFRECE.some(oferta => oferta[0] === codCoche && oferta[1] === codConcesionario));
   const cantidad = Math.floor(Math.random() * 31) + 10;
   TABLA_OFRECE.push([codCoche, codConcesionario, cantidad]);
 }
@@ -380,7 +385,7 @@ for (let i = TABLA_OFRECE.length; i < 800; i++) {
   do {
     codCoche = Math.floor(Math.random() * 353) + 1;
     codConcesionario = Math.floor(Math.random() * 15) + 1;
-  } while (TABLA_OFRECE.includes(oferta => oferta[0] === codCoche && oferta[1] === codConcesionario));
+  } while (TABLA_OFRECE.some(oferta => oferta[0] === codCoche && oferta[1] === codConcesionario));
   
   const cantidad = Math.floor(Math.random() * 31) + 10;
   TABLA_OFRECE.push([codCoche, codConcesionario, cantidad]);
@@ -435,12 +440,14 @@ const TABLA_VENTA = [];
 
 // asegurar que cada cliente hace al menos una compra
 TABLA_CLIENTE.forEach((cliente, i) =>{
-  TABLA_VENTA.push([i+1, cliente[0], generarNumeroAleatorio(TABLA_COCHE.length), generarNumeroAleatorio(TABLA_CONCESIONARIO.length), generarPrecioAleatorio(15000,50000), generarFechaAleatoria('1995-01-01', '2022-12-31')]);
+  const ofrece = TABLA_OFRECE[generarNumeroAleatorio(TABLA_OFRECE.length - 1)];
+  TABLA_VENTA.push([i+1, cliente[0], ofrece[0], ofrece[1], generarPrecioAleatorio(15000,50000), generarFechaAleatoria('1995-01-01', '2022-12-31')]);
 });
 
 // añadir alguna compra mas de clientes aleatorios
-for(let i = TABLA_VENTA.length; i <= 600; i++) {
-  TABLA_VENTA.push([i, TABLA_CLIENTE[generarNumeroAleatorio(TABLA_CLIENTE.length-1)][0], generarNumeroAleatorio(TABLA_COCHE.length), generarNumeroAleatorio(TABLA_CONCESIONARIO.length), generarPrecioAleatorio(15000,50000), generarFechaAleatoria('1995-01-01', '2022-12-31')]);
+for(let i = TABLA_VENTA.length+1; i <= 600; i++) {
+  const ofrece = TABLA_OFRECE[generarNumeroAleatorio(TABLA_OFRECE.length - 1)];
+  TABLA_VENTA.push([i, TABLA_CLIENTE[generarNumeroAleatorio(TABLA_CLIENTE.length-1)][0], ofrece[0], ofrece[1], generarPrecioAleatorio(15000,50000), generarFechaAleatoria('1995-01-01', '2022-12-31')]);
 }
 
 fs.appendFileSync(cargaBDPath, '\n\n/************ CARGA DE LA TABLA VENTA (NUM_FACTURA, COD_CLIENTE, COD_COCHE, COD_CONCESIONARIO, PRECIO, FECHA) ************/\n');
