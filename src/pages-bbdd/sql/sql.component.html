@@ -679,4 +679,90 @@ ORDER BY columna/nº columna [ASC | DESC]</pre>
       un alias a la tabla resultante anidada. En este caso simplemente la he llamado T.
     </p>
   </section>
+
+  <section>
+    <h2>El JOIN</h2>
+
+    <p>
+      Hasta ahora solo hemos hecho consultas que implicaban una tabla. ¿Pero que pasa si la información está distribuida
+      por varias de ellas? Para eso usaremos el JOIN.
+    </p>
+
+    <p>
+      El JOIN nos permite combinar las tablas que aparezcan en la cláusula FROM. La tabla resultante de la combinación
+      es otra tabla resultado de aplicar el producto cartesiano de las tablas implicadas. Con esta imágen entenderemos
+      mejor que es el producto cartesiano:
+    </p>
+
+    <img class="combination-table-image" src="pages-bbdd/assets/combination_table.png" alt="Combinación de tablas">
+
+    <p>
+      La orden para combinar las tablas sería así:
+    </p>
+
+    <code>
+      <pre class="command-sintax">SELECT ta.c2, tb.c2, c5, ...
+FROM tablaA ta, tablaB tb, tablaC
+WHERE condición;</pre>
+    </code>
+
+    <p>
+      En caso de que dos tablas tengan columnas con el mismo nombre, se deben usar alias para eliminar ambigüedades.
+      En este ejemplo, ta y tb son alias para la tablaA y la tablaB. Los alias son opcionales en otras circunstancias.
+    </p>
+
+    <p>
+      Es importante especificar una cláusula WHERE, ya que si no tendremos filas que no tendrán ningún sentido tras
+      realizar el producto cartesiano, y obtendremos resultados que pueden ser incorrectos o confusos. El caso más
+      habitual es igualar dos columnas entre dos tablas, aunque también se pueden usar otros operadores distintos al de
+      la igualdad. En caso de relacionar más de dos tablas, recuerda que también se pueden usar condiciones AND y OR
+      para relacionar las columnas de varias tablas mediante varias condiciones.
+    </p>
+
+    <p>
+      Para poder separar las condiciones que combinan las tablas correctamente de las condiciones que queremos para
+      seleccionar las filas de nuestra consulta, se puede usar la operación JOIN en el FROM, que da como resultado la
+      tabla sobre la que se operará.
+    </p>
+
+    <code>
+      <pre class="command-sintax">SELECT expresiones
+FROM tabla1 [alias1] [INNER | LEFT | RIGHT | FULL | CROSS] JOIN tabla2 [alias2] ON condiciónDelJoin;
+WHERE condiciónDeLaConsulta</pre>
+    </code>
+
+    <p>
+      Existen varios tipos de JOIN. Vamos a explicarlos suponiendo que la condición es que C2 de la tabla A es igual a
+      C2 de la tabla B.
+    </p>
+
+    <p>
+      El <strong>INNER JOIN</strong> es el JOIN por defecto. Devuelve sólo las filas que cumplen la condición.
+    </p>
+
+    <img class="inner-join-image" src="pages-bbdd/assets/inner-join.png" alt="Inner join de tablas">
+
+    <p>
+      El <strong>LEFT JOIN</strong> devuelve todas las filas de la tabla de la izquierda (tabla A) y las que coinciden
+      con la tabla derecha (tabla B). Si no hay coincidencias, se establece el valor a NULL en la tabla resultante.
+    </p>
+
+    <img class="left-join-image" src="pages-bbdd/assets/left-join.png" alt="Left join de tablas">
+
+    <p>
+      El <strong>RIGHT JOIN</strong> es igual que el LEFT JOIN, pero con la tabla de la derecha.
+    </p>
+
+    <img class="right-join-image" src="pages-bbdd/assets/right-join.png" alt="Right join de tablas">
+
+    <p>
+      El <strong>FULL JOIN</strong> es una combinación del LEFT JOIN y el RIGHT JOIN.
+    </p>
+
+    <img class="full-join-image" src="pages-bbdd/assets/full-join.png" alt="Full join de tablas">
+
+    <p>
+      Por último, el CROSS JOIN sería realizar el producto cartesiano, que es lo que habíamos visto al principio.
+    </p>
+  </section>
 </main>
