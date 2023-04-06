@@ -48,21 +48,15 @@ main {
     }
 }
 
-.car-table {
-    overflow: auto;
-
-    table {
-        border-collapse: collapse;
-    }
-
-    tr {
-        border-top: 1px solid #d17515;
-        border-bottom: 1px solid #d17515;
-    }
-
-    td {
-        padding: 5px 20px;
-    }
+.combination-table-image,
+.inner-join-image,
+.left-join-image,
+.right-join-image,
+.full-join-image {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
 }
 
 .comand-example {
