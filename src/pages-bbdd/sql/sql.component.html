@@ -492,7 +492,7 @@ Records: 0  Duplicates: 0  Warnings: 0</pre>
     </p>
 
     <code>
-      <pre class="command-sintax">DELETE FROM tabla WHERE condicion</pre>
+      <pre class="command-sintax">DELETE FROM tabla WHERE condición</pre>
     </code>
 
     <p>
@@ -790,10 +790,11 @@ WHERE condiciónDeLaConsulta</pre>
     </p>
 
     <app-terminal-code>
-      <pre terminal-code-command>select me.nombre from MECANICO me, REPARA r, COCHE c, MARCA ma where me.codigo=r.cod_mecanico AND r.cod_coche=c.codigo AND c.cod_marca=ma.codigo AND ma.nombre="Tesla"
+      <pre
+        terminal-code-command>select me.nombre from MECANICO me, REPARA r, COCHE c, MARCA ma where me.codigo=r.cod_mecanico AND r.cod_coche=c.codigo AND c.cod_marca=ma.codigo AND ma.nombre="Tesla"
 intersect
 select me.nombre from MECANICO me, REPARA r, COCHE c, MARCA ma where me.codigo=r.cod_mecanico AND r.cod_coche=c.codigo AND c.cod_marca=ma.codigo AND ma.nombre="Seat";</pre>
-      
+
       <pre terminal-code-output>+-------------------------------+
 | nombre                        |
 +-------------------------------+
@@ -802,5 +803,63 @@ select me.nombre from MECANICO me, REPARA r, COCHE c, MARCA ma where me.codigo=r
 +-------------------------------+
 2 rows in set (0,01 sec)</pre>
     </app-terminal-code>
+  </section>
+
+  <section>
+    <h2>Consultas con subselect</h2>
+
+    <p>
+      Una consulta subselect no es más que una consulta SQL que se anida dentro de otra consulta SQL más grande. La
+      consulta subselect se ejecuta primero y el resultado es usado en la consulta externa. Van escritas entre
+      paréntesis.
+    </p>
+
+    <p>
+      Se dice que una subselect no tiene correlación si no hace referencia a la select externa. De este modo se evalúa
+      primero y el resultado se pasa a la select externa.
+    </p>
+
+    <p>
+      Por el contrario, si la subselect tiene referencias a la select externa se dice que tiene correlación. En esta
+      situación la subselect se evalúa una vez por cada valor obtenido en la externa.
+    </p>
+
+    <p>
+      El resultado de una subselect debe estar compuesto únicamente por una columna, a excepción de si se utiliza un
+      predicado exists en el WHERE. A su vez, una subselect puede tener anidadas otras sentencias subselect.
+    </p>
+
+    <p>
+      Si la consulta subselect devuelve solo una fila, se pueden usar los operadores =, &lt;&gt;, &lt;, &lt;=, &gt; y
+      &gt;=. Si por el contrario la consulta subselect devuelve más de una fila, se pueden usar los predicados IN, ALL,
+      ANY y EXISTS.
+    </p>
+
+    <p>
+      El predicado IN devuelve cierto si el valor de una columna para una fila está presente en alguna columna de las
+      filas devueltas por la subselect.
+    </p>
+
+    <code>
+      <pre class="command-sintax">SELECT expresiones
+FROM tabla1
+WHERE nombreColumna IN (SELECT soloUnaColumna FROM tabla2 WHERE condición);</pre>
+    </code>
+
+    <p>
+      El predicado ALL es cierto si la comparación es cierta para todas las filas devueltas por la subselect, y el
+      predicado ANY es cierto si la comparación es cierta para al menos una fila devuelta por la subselect.
+    </p>
+
+    <code>
+      <pre class="command-sintax">SELECT *
+FROM tabla1
+WHERE columna > [NOT] ALL | ANY (SELECT soloUnaColumna FROM tabla2 WHERE condición);</pre>
+    </code>
+
+    <p>
+      El predicado EXISTS se usa habitualmente con correlación. Devuelve cierto si la subselect devuelve alguna fila
+      (independientemente del número de columnas).
+    </p>
   </section>
 </main>
