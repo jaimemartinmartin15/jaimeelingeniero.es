@@ -765,4 +765,42 @@ WHERE condiciónDeLaConsulta</pre>
       Por último, el CROSS JOIN sería realizar el producto cartesiano, que es lo que habíamos visto al principio.
     </p>
   </section>
+
+  <section>
+    <h2>Otros operadores</h2>
+
+    <p>
+      El operador <strong>UNION</strong> permite unir dos tablas que tienen el mismo número de columnas y que además sus
+      tipos coinciden. Si apareciesen resultados duplicados en la tabla resultante son eliminados. En caso de no querer
+      elimnarlos existe la versión <strong>UNION ALL</strong>.
+    </p>
+
+    <p>
+      El operador <strong>INTERSECT</strong> entre dos tablas devuelve las filas que están en ambas tablas. Igualmente
+      el número de columnas y el tipo debe coincidir. Recuerda que podemos utilizar select para coger solo las columnas
+      que necesitemos y generar una tabla nueva 😉
+    </p>
+
+    <p>
+      El operador <strong>MINUS</strong> devuelve las filas que existen en la primera tabla pero no en la segunda.
+    </p>
+
+    <p>
+      Por ejemplo, queremos saber que mecánicos han reparado coches de la marca Tesla <strong>y</strong> Seat.
+    </p>
+
+    <app-terminal-code>
+      <pre terminal-code-command>select me.nombre from MECANICO me, REPARA r, COCHE c, MARCA ma where me.codigo=r.cod_mecanico AND r.cod_coche=c.codigo AND c.cod_marca=ma.codigo AND ma.nombre="Tesla"
+intersect
+select me.nombre from MECANICO me, REPARA r, COCHE c, MARCA ma where me.codigo=r.cod_mecanico AND r.cod_coche=c.codigo AND c.cod_marca=ma.codigo AND ma.nombre="Seat";</pre>
+      
+      <pre terminal-code-output>+-------------------------------+
+| nombre                        |
++-------------------------------+
+| Técnica Experto de Coches     |
+| Mecánica Innovador Mecánico   |
++-------------------------------+
+2 rows in set (0,01 sec)</pre>
+    </app-terminal-code>
+  </section>
 </main>
