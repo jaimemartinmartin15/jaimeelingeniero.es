@@ -1,3 +1,5 @@
+
+
 <app-header-print [data]="headerPrintData"></app-header-print>
 
 <main>
@@ -78,12 +80,12 @@
     </p>
 
     <app-terminal-code>
-      <p terminal-code-command>create database business;</p>
+      <p terminal-code-command>create database automoviles;</p>
       <p terminal-code-output>Query OK, 1 row affected (0,00 sec)</p>
     </app-terminal-code>
 
     <p>
-      Ya esta creada la base de datos. La he llamado <i>business</i>. Lo único que no tiene tablas ni información.
+      Ya esta creada la base de datos. La he llamado <i>automoviles</i>. Lo único que no tiene tablas ni información.
       Podemos ver las bases de datos que tenemos con:
     </p>
 
@@ -92,7 +94,7 @@
       <pre terminal-code-output>+--------------------+
 | Database           |
 +--------------------+
-| business           |
+| automoviles        |
 | information_schema |
 | mysql              |
 | performance_schema |
@@ -112,7 +114,7 @@
     </p>
 
     <app-terminal-code>
-      <p terminal-code-command>use business;</p>
+      <p terminal-code-command>use automoviles;</p>
       <p terminal-code-output>Database changed</p>
     </app-terminal-code>
   </section>
@@ -131,11 +133,15 @@
     tipo
     [NOT NULL]
     [DEFAULT valorPorDefecto]
-    [UNIQUE] [PRIMARY_KEY] [REFERENCES tabla (columna)] [CHECK (expresiónBooleana)],
-  [UNIQUE (columna, columna, ...)],
-  [PRIMARY_KEY (columna, columna, ...)],
-  [FOREING_KEY (columna, columna, ...) REFERENCES tabla (columna, columna, ...)],
-  [CHECK (expresiónBooleana)]
+    [[CONSTRAINT nombreConstraint] UNIQUE]
+    [[CONSTRAINT nombreConstraint] PRIMARY KEY]
+    [[CONSTRAINT nombreConstraint] REFERENCES tabla (columna) [ON DELETE opcionAccion] [ON UPDATE opcionAccion]]
+    [[CONSTRAINT nombreConstraint] CHECK (expresiónBooleana)],
+  [[CONSTRAINT nombreConstraint] UNIQUE (columna, columna, ...)],
+  [[CONSTRAINT nombreConstraint] PRIMARY KEY (columna, columna, ...)],
+  [[CONSTRAINT nombreConstraint] FOREIGN KEY (columna, columna, ...) REFERENCES
+    tabla (columna, columna, ...) [ON DELETE opcionAccion] [ON UPDATE opcionAccion]],
+  [[CONSTRAINT nombreConstraint] CHECK (expresiónBooleana)]
 );</pre>
     </code>
 
@@ -151,8 +157,8 @@
 
     <p>
       Lo imprescindible para definir una columna es el nombre y su tipo. El nombre lo eliges tú y el tipo puede
-      depender del SGBD. Estos son algunos de los habituales: VARCHAR, DATE, INTEGER, FLOAT. Consulta el manual del SGBD
-      para más información.
+      depender del SGBD. Estos son algunos de los habituales: VARCHAR, DATE, INTEGER, DECIMAL. Consulta el manual del
+      SGBD para más información.
     </p>
 
     <p>
@@ -161,13 +167,43 @@
     </p>
 
     <p>
-      Toda tabla tiene una PRIMARY_KEY, que quiere decir que los valores de esa columna no se repiten para ninguna fila.
-      Con UNIQUE podemos decirle lo mismo, pero sin que sea la PRIMARY_KEY oficial.
+      Toda tabla tiene una PRIMARY KEY, que quiere decir que los valores de esa columna no se repiten para ninguna fila.
+      Con UNIQUE podemos decirle lo mismo, pero sin que sea la PRIMARY KEY oficial. Con CONSTRAINT podemos poner nombres
+      a estas restricciones para luego poder editarlas en caso de necesitarlo.
     </p>
 
     <p>
       Con REFERENCES podemos decir que el valor de la columna tendrá que ser un valor que coincida con alguno de otra
-      columna en otra tabla. De esta forma indicamos una FOREIGN_KEY.
+      columna en una fila de otra tabla, o de no ser así, el valor sería NULL. De esta forma indicamos una FOREIGN KEY.
+      Las opciones para ON DELETE y ON UPDATE pueden ser:
+    </p>
+
+    <ul>
+      <li>
+        CASCADE: eliminará o actualizará las filas de la tabla actual (la que estamos creando) si eliminamos o
+        actualizamos el valor referenciado en la tabla referenciada.
+      </li>
+      <li>
+        SET NULL: establece el valor de la columna a NULL cuando eliminamos o actualizamos el valor referenciado en la
+        tabla referenciada.
+      </li>
+      <li>
+        SET DEFAULT: se establece el valor por defecto definido para la columna cuando se elimina o modifica el valor
+        referenciado en la tabla referenciada.
+      </li>
+      <li>
+        RESTRICT: evita eliminar o actualizar la fila en la tabla referenciada si tenemos valores que hacen referencia a
+        ella en la tabla actual.
+      </li>
+      <li>
+        NO ACTION: indica que no hay ninguna acción definida y que depende del sistema gestor de base de datos como
+        gestionarlo. En el caso de MySql, es lo mismo que RESTRICT.
+      </li>
+    </ul>
+
+    <p>
+      Si no ponemos la opción ON DELETE u ON UPDATE nos dejará eliminar o actualizar cualquier fila en la tabla
+      referenciada pero la base de datos podría quedar incosistente.
     </p>
 
     <p>
@@ -198,9 +234,25 @@
 
       <app-terminal-code [ngClass]="{'app-terminal-code--expanded': !collapsedTables.createTableMechanic}">
         <pre terminal-code-command>CREATE TABLE MECANICO (
-  codigo integer not null primary key,
-  nombre varchar(50),
-  ciudad varchar(50)
+  codigo INT not null primary key,
+  nombre VARCHAR(50) not null,
+  ciudad VARCHAR(50) not null
+);</pre>
+
+        <span terminal-code-output>Query OK, 0 rows affected (0,02 sec)</span>
+      </app-terminal-code>
+    </div>
+
+    <div class="collapsible">
+      <p class="collapsible__title"
+        (click)="collapsedTables.createTablePropulsion = !collapsedTables.createTablePropulsion">
+        PROPULSION
+      </p>
+
+      <app-terminal-code [ngClass]="{'app-terminal-code--expanded': !collapsedTables.createTablePropulsion}">
+        <pre terminal-code-command>CREATE TABLE PROPULSION (
+  id INT not null primary key,
+  nombre VARCHAR(30) not null
 );</pre>
 
         <span terminal-code-output>Query OK, 0 rows affected (0,02 sec)</span>
@@ -214,9 +266,9 @@
 
       <app-terminal-code [ngClass]="{'app-terminal-code--expanded': !collapsedTables.createTableBrand}">
         <pre terminal-code-command>CREATE TABLE MARCA (
-  codigo integer not null primary key, 
-  nombre varchar(20),
-  sede varchar(20)
+  codigo INT not null primary key,
+  nombre VARCHAR(20) not null,
+  sede VARCHAR(20) not null
 );</pre>
 
         <span terminal-code-output>Query OK, 0 rows affected (0,01 sec)</span>
@@ -231,13 +283,30 @@
 
       <app-terminal-code [ngClass]="{'app-terminal-code--expanded': !collapsedTables.createTableConcessionaire}">
         <pre terminal-code-command>CREATE TABLE CONCESIONARIO (
-  codigo integer not null primary key, 
-  localidad varchar(50),
-  hora_apertura varchar(50),
-  hora_cierre varchar(50)
+  codigo INT not null primary key, 
+  localidad VARCHAR(50) not null,
+  hora_apertura TIME not null,
+  hora_cierre TIME not null
 );</pre>
 
         <span terminal-code-output>Query OK, 0 rows affected (0,03 sec)</span>
+      </app-terminal-code>
+    </div>
+
+    <div class="collapsible">
+      <p class="collapsible__title" (click)="collapsedTables.createTableClient = !collapsedTables.createTableClient">
+        CLIENTE
+      </p>
+
+      <app-terminal-code [ngClass]="{'app-terminal-code--expanded': !collapsedTables.createTableClient}">
+        <pre terminal-code-command>CREATE TABLE CLIENTE (
+  dni VARCHAR(15) not null primary key,
+  nombre VARCHAR(40) not null,
+  fecha_nac DATE not null,
+  telefono VARCHAR(15) not null
+);</pre>
+
+        <span terminal-code-output>Query OK, 0 rows affected (0,01 sec)</span>
       </app-terminal-code>
     </div>
 
@@ -248,10 +317,27 @@
 
       <app-terminal-code [ngClass]="{'app-terminal-code--expanded': !collapsedTables.createTableCar}">
         <pre terminal-code-command>CREATE TABLE COCHE (
-  codigo integer not null primary key,
-  cod_marca integer not null references marca,
-  modelo varchar(60) not null,
-  propulsion varchar(60) not null
+  codigo INT not null primary key,
+  cod_marca INT not null references MARCA(codigo) ON DELETE RESTRICT,
+  modelo VARCHAR(60) not null,
+  propulsion INT not null references PROPULSION(id) ON DELETE RESTRICT
+);</pre>
+
+        <span terminal-code-output>Query OK, 0 rows affected (0,02 sec)</span>
+      </app-terminal-code>
+    </div>
+
+    <div class="collapsible">
+      <p class="collapsible__title" (click)="collapsedTables.createTableOffer = !collapsedTables.createTableOffer">
+        OFRECE
+      </p>
+
+      <app-terminal-code [ngClass]="{'app-terminal-code--expanded': !collapsedTables.createTableOffer}">
+        <pre terminal-code-command>CREATE TABLE OFRECE (
+  cod_coche INT not null references COCHE(codigo) ON DELETE RESTRICT,
+  cod_concesionario INT not null references CONCESIONARIO(codigo) ON DELETE RESTRICT,
+  cantidad INT check(cantidad > 0),
+  primary key (cod_coche, cod_concesionario)
 );</pre>
 
         <span terminal-code-output>Query OK, 0 rows affected (0,02 sec)</span>
@@ -265,45 +351,11 @@
 
       <app-terminal-code [ngClass]="{'app-terminal-code--expanded': !collapsedTables.createTableRepair}">
         <pre terminal-code-command>CREATE TABLE REPARA (
-  cod_mecanico integer not null references mecanico, 
-  cod_coche integer not null references coche,
-  fecha varchar(20),
-  precio integer check(precio > 0),
-  primary key (cod_mecanico, cod_coche)
-);</pre>
-
-        <span terminal-code-output>Query OK, 0 rows affected (0,01 sec)</span>
-      </app-terminal-code>
-    </div>
-
-    <div class="collapsible">
-      <p class="collapsible__title" (click)="collapsedTables.createTableOffer = !collapsedTables.createTableOffer">
-        OFRECE
-      </p>
-
-      <app-terminal-code [ngClass]="{'app-terminal-code--expanded': !collapsedTables.createTableOffer}">
-        <pre terminal-code-command>CREATE TABLE OFRECE (
-  cod_coche integer not null references coche,
-  cod_concesionario integer not null references concesionario,
-  cantidad integer,
-  primary key (cod_coche, cod_concesionario)
-);</pre>
-
-        <span terminal-code-output>Query OK, 0 rows affected (0,02 sec)</span>
-      </app-terminal-code>
-    </div>
-
-    <div class="collapsible">
-      <p class="collapsible__title" (click)="collapsedTables.createTableClient = !collapsedTables.createTableClient">
-        CLIENTE
-      </p>
-
-      <app-terminal-code [ngClass]="{'app-terminal-code--expanded': !collapsedTables.createTableClient}">
-        <pre terminal-code-command>CREATE TABLE CLIENTE (
-  dni varchar(15) not null primary key,
-  nombre varchar(40) not null,
-  fecha_nac varchar(40),
-  telefono varchar(15)
+  id INT not null primary key,
+  cod_mecanico INT not null references MECANICO(codigo) ON DELETE RESTRICT, 
+  cod_coche INT not null references COCHE(codigo) ON DELETE RESTRICT,
+  fecha INT not null,
+  precio DECIMAL(10,2) not null check(precio > 0)
 );</pre>
 
         <span terminal-code-output>Query OK, 0 rows affected (0,01 sec)</span>
@@ -317,18 +369,20 @@
 
       <app-terminal-code [ngClass]="{'app-terminal-code--expanded': !collapsedTables.createTableSale}">
         <pre terminal-code-command>CREATE TABLE VENTA (
-  num_factura varchar(15) not null primary key,
-  cod_cliente varchar(15) not null references cliente(dni),
-  cod_coche integer,
-  cod_concesionario integer,
-  precio integer check(precio > 100),
-  fecha varchar(30) not null,
+  num_factura VARCHAR(15) not null primary key,
+  cod_cliente VARCHAR(15) not null references CLIENTE(dni) ON DELETE RESTRICT,
+  cod_coche INT not null,
+  cod_concesionario INT not null,
+  precio DECIMAL(10,2) not null check(precio > 100),
+  fecha VARCHAR(30) not null,
   foreign key (cod_coche, cod_concesionario) references OFRECE(cod_coche, cod_concesionario)
 );</pre>
 
         <span terminal-code-output>Query OK, 0 rows affected (0,02 sec)</span>
       </app-terminal-code>
     </div>
+
+    <!-- TODO put link with scripts to create tables. ¿in a zip file? -->
   </section>
 
   <section>
@@ -341,8 +395,8 @@
     </p>
 
     <p>
-      Veamos como eliminar una tabla. Ten en cuenta que solo se podrá eliminar si no está referenciada por ninguna otra
-      tabla u objeto en la base de datos.
+      Veamos como eliminar una tabla. Ten en cuenta que sólo se podrá eliminar si no está referenciada por ninguna otra
+      tabla u objeto en la base de datos (en caso de haber puesto las restricciones oportunas).
     </p>
 
     <code>
@@ -354,33 +408,45 @@
     </p>
 
     <code>
-      <pre class="command-sintax">ALTER TABLE nombre_de_la_tabla
-ADD especificación_de_una_columna
-ADD [CONSTRAINT nombre_restricción] restricción_tabla
-DROP CONSTRAINT nombre_restricción
-DROP COLUMN nombre_columna [RESTRICT | CASCADE]</pre>
+      <pre class="command-sintax">ALTER TABLE nombreTabla
+  ADD [COLUMN] especificaciónColumna,
+  DROP [COLUMN] nombreColumna,
+  ALTER [COLUMN] redefiniciónColumna,
+  ADD CONSTRAINT nombreConstraint restriccionDeTabla,
+  DROP CONSTRAINT nombreConstraint;</pre>
     </code>
 
     <p>
-      Al eliminar una columna podemos indicar las opciones RESTRICT o CASCADE. Si indicamos RESTRICT la columna no se
-      eliminará si es referenciada por otra tabla u objeto de la base de datos. Si indicamos CASCADE se eliminará la
-      columna y todo lo que dependa de ella en otras tablas o lugares.
+
+
+
+      <!-- TODO revisar este comentario. Si lo separamos por coma se puede hacer a la vez? -->
+
+
+
+      Estas sentencias hay que ejecutarlas de una en una. No se puede añadir una columna a la vez que se elimina otra,
+      por ejemplo. Para añadir una columna nueva la especificación de la columna es como cuando creamos una tabla. Y
+      para eliminarla, simplemente indicamos el nombre. Si queremos redefinir la columna, es lo mismo, es como si
+      estuvieramos definiéndola desde cero. Y con las restricciones de clave primaria, o foránea o un check es más de lo
+      mismo, igual que si lo estuvieramos definiciendo como cuando creamos una tabla.
     </p>
 
     <p>
-      Veamos un ejemplo para cambiar el tipo de una columna.
+      Ahora veamos un ejemplo para cambiar el tipo de una columna.
     </p>
 
     <app-terminal-code>
-      <pre terminal-code-command>ALTER TABLE REPARA MODIFY fecha Date default (CURRENT_DATE);</pre>
+      <pre terminal-code-command>ALTER TABLE REPARA MODIFY fecha DATE default (CURRENT_DATE);</pre>
 
       <pre terminal-code-output>Query OK, 0 rows affected (0,03 sec)
 Records: 0  Duplicates: 0  Warnings: 0</pre>
     </app-terminal-code>
 
     <p>
-      En test caso puesto que estamos modificando una columna existente y cambiando su tipo, usamos la palabra MODIFY.
-      Después la sintaxis es la misma que ya hemos visto para definir una columna.
+      En test caso, puesto que estamos modificando una columna existente y cambiando su tipo, usamos la palabra MODIFY.
+      Después la sintaxis es la misma que ya hemos visto para definir una columna. Hay que tener en cuenta que al
+      cambiar el tipo de dato podemos perder los valores de la columna si no son compatibles con el nuevo tipo. También
+      puede que tengamos que eliminar primero ciertas restricciones antes de operar sobre la columna.
     </p>
   </section>
 
@@ -401,7 +467,7 @@ Records: 0  Duplicates: 0  Warnings: 0</pre>
     </p>
 
     <app-terminal-code>
-      <pre terminal-code-command>INSERT INTO MARCA VALUES (0, 'Renault', 'Francia');</pre>
+      <pre terminal-code-command>INSERT INTO MARCA VALUES(1, 'Toyota', 'Japón');</pre>
       <pre terminal-code-output>Query OK, 1 row affected (0,01 sec)</pre>
     </app-terminal-code>
 
@@ -411,7 +477,7 @@ Records: 0  Duplicates: 0  Warnings: 0</pre>
     </p>
 
     <app-terminal-code>
-      <pre terminal-code-command>INSERT INTO COCHE VALUES (0, 1, 'MEGANE', 'Diésel');</pre>
+      <pre terminal-code-command>INSERT INTO COCHE VALUES(18, 2, 'Model', 1);</pre>
       <pre
         terminal-code-output>ERROR 1452 (23000): Cannot add or update a child row: a foreign key constraint fails (`business`.`COCHE`, CONSTRAINT `COCHE_ibfk_1` FOREIGN KEY (`cod_marca`) REFERENCES `MARCA` (`codigo`))</pre>
     </app-terminal-code>
@@ -430,18 +496,10 @@ Records: 0  Duplicates: 0  Warnings: 0</pre>
     </code>
 
     <p>
-      Es muy importante especificar la condición con la palabra WHERE. De otra forma se eliminarían todas las filas de
-      la tabla.
+      Es muy importante especificar la condición con la palabra WHERE. De otra forma <strong>se eliminarían todas las
+        filas de la tabla.</strong>
     </p>
   </section>
-
-
-
-
-
-
-
-
 
   <section>
     <h2>La sentencia SELECT</h2>
@@ -456,6 +514,8 @@ Records: 0  Duplicates: 0  Warnings: 0</pre>
 expresión
 FROM tabla
 WHERE condición
+GROUP BY columna 
+HAVING condición 
 ORDER BY columna/nº columna [ASC | DESC]</pre>
     </code>
 
@@ -465,7 +525,7 @@ ORDER BY columna/nº columna [ASC | DESC]</pre>
     </p>
 
     <p>
-      Con la primera línea indicamos que vamos a seleccionar datos de la tabla. La opción ALL es por defecto y significa
+      Con la orden SELECT indicamos que vamos a seleccionar datos de la tabla. La opción ALL es por defecto y significa
       que seleccione todas las filas aunque estén repetidas. Si ponemos DISTINCT la tabla de salida solo tendrá filas
       que no están repetidas (se eliminan las que están duplicadas).
     </p>
@@ -487,59 +547,136 @@ ORDER BY columna/nº columna [ASC | DESC]</pre>
     </p>
 
     <p>
+      Con GROUP BY podemos agrupar las filas resultantes en función de una de las columnas. Permite realizar operaciones
+      de agregación, como sumas o promedios, por ejemplo. La tabla resultante tras usar esta cláusula, tiene una fila
+      por cada grupo formado, es decir, por cada valor de la columnas o columnas. En el SELECT solo podremos tener
+      columnas usadas en el GROUP BY y funciones.
+    </p>
+
+    <p>
+      Con HAVING podemos filtrar los grupos con la condición indicada. Es igual que el WHERE, pero filtra grupos en vez
+      de filas. La condición del WHERE se aplica a filas antes de agrupar, y el HAVING se aplica a grupos después de
+      agrupar.
+    </p>
+
+    <p>
       Con ORDER BY podemos ordenar las filas de la tabla resultante de forma ascendente o descendente. Podemos hacerlo
       indicando el índice de una columna o su nombre. El nombre de la columna es el de la tabla original, o si es una
       columna compuesta (una expresión más compleja) podemos poner AS en la expresión para ponerle un nombre a la
       columna resultante.
     </p>
+  </section>
+
+  <section>
+    <h2>Ejemplo básico de consulta</h2>
 
     <p>
-      Veámosla en uso. Supongamos que tenemos la siguiente tabla (llamada <i>Car</i>) con información sobre coches:
+      Para poner en práctica la sentencia SELECT voy a poner unos ejemplos de como usarla.
     </p>
-
-    <div class="car-table">
-      <table>
-        <thead>
-          <tr>
-            <td>ID</td>
-            <td>MARCA</td>
-            <td>NOMBRE</td>
-            <td>MATRICULA</td>
-            <td>COMBUSTIBLE</td>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let car of carsTable">
-            <td>{{car.id}}</td>
-            <td>{{car.brand}}</td>
-            <td>{{car.name}}</td>
-            <td>{{car.registration}}</td>
-            <td>{{car.propulsion}}</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
 
     <p>
-      Ahora vamos a realizar algunas consultas. Por ejemplo, busquemos los coches que su combustible es diésel. La
-      consulta y el resultado serían estos:
+      Vamos a consultar todos los mecánicos que hay en la tabla MECANICO:
     </p>
 
-    <code class="comand-example">
-      <div>
-        <pre><span class="command">SELECT * FROM Car WHERE COMBUSTIBLE="Diésel";</span>
-+----+---------+--------+-----------+-------------+
-| ID | MARCA   | NOMBRE | MATRICULA | COMBUSTIBLE |
-+----+---------+--------+-----------+-------------+
-|  0 | Renault | Megane | 0012TER   | Diésel      |
-|  1 | Seat    | León   | 8435POM   | Diésel      |
-|  3 | Ford    | Focus  | 1493UGF   | Diésel      |
-|  6 | Seat    | Arona  | 7591MIN   | Diésel      |
-|  8 | Audi    | A3     | 1254UNR   | Diésel      |
-+----+---------+--------+-----------+-------------+</pre>
-      </div>
-    </code>
+    <app-terminal-code>
+      <span terminal-code-command>SELECT * from MECANICO;</span>
+      <pre terminal-code-output>+--------+---------------------------------------+------------------------+
+| codigo | nombre                                | ciudad                 |
++--------+---------------------------------------+------------------------+
+|      1 | Mecánica Hábil Técnico                | Cuenca                 |
+|      2 | Diagnóstico Hábil Total               | Burgos                 |
+|      3 | Servicio Rápido Automotriz            | Zamora                 |
+|      4 | Técnica Experto de Coches             | Almería                |
+|      5 | Electromecánica Eficiente Express     | Girona                 |
+|      6 | Mantenimiento Fiable de Coches        | Teruel                 |
+|      7 | Técnica Preciso del Motor             | Castellón de la Plana  |
+|      8 | Mecánica Innovador Mecánico           | Cáceres                |
+|      9 | Electromecánica Innovador Automotriz  | Huelva                 |
+|     10 | Neumáticos Eficiente Mantenimiento    | Lugo                   |
++--------+---------------------------------------+------------------------+
+10 rows in set (0,00 sec)</pre>
+    </app-terminal-code>
 
-    <!-- TODO continue with more examples -->
+    <p>
+      Si como expresión usamos el comodín (<strong>*</strong>) se seleccionan todas las columnas.
+    </p>
+
+    <p>
+      Ahora vamos a seleccionar el nombre de las marcas que tienen sede en Alemania:
+    </p>
+
+    <app-terminal-code>
+      <span terminal-code-command>SELECT nombre FROM MARCA where sede="alemania" ORDER BY 1;</span>
+      <pre terminal-code-output>+---------------+
+| nombre        |
++---------------+
+| Audi          |
+| BMW           |
+| Mercedes-Benz |
+| Volkswagen    |
++---------------+
+4 rows in set (0,00 sec)</pre>
+    </app-terminal-code>
+
+    <p>
+      En esta otra sentencia la columna nos sale ordenada alfabéticamente al haber especificado el ORDER BY. Como sólo
+      tenemos una columna en la salida, pues decimos que nos lo ordene por la primera columna, de ahí el 1.
+    </p>
+
+    <p>
+      Ahora pidamos una consulta algo más compleja. Queremos saber la cantidad total de coches que ofrece cada
+      concesionario.
+    </p>
+
+    <app-terminal-code>
+      <span terminal-code-command>SELECT cod_concesionario, sum(cantidad) as total_coches FROM OFRECE GROUP BY
+        cod_concesionario ORDER BY 1;</span>
+      <pre terminal-code-output>+-------------------+--------------+
+| cod_concesionario | total_coches |
++-------------------+--------------+
+|                 1 |         1629 |
+|                 2 |         1515 |
+|                 3 |         1002 |
+|                 4 |         1594 |
+|                 5 |         1302 |
+|                 6 |         1397 |
+|                 7 |         1335 |
+|                 8 |         1664 |
+|                 9 |          964 |
+|                10 |         1193 |
+|                11 |         1189 |
+|                12 |         1283 |
+|                13 |         1394 |
+|                14 |         1317 |
+|                15 |         1312 |
++-------------------+--------------+
+15 rows in set (0,00 sec)</pre>
+    </app-terminal-code>
+
+    <p>
+      Esta tabla tiene dos columnas. La primera es parte de la tabla original, y la segunda la hemos puesto un alias
+      <i>total_coches</i>, que es la suma de todas las cantidades por concesionario.
+    </p>
+
+    <p>
+      Calculemos ahora la media de coches que ofrecen los concesionarios:
+    </p>
+
+    <app-terminal-code>
+      <span terminal-code-command>SELECT floor(avg(total_coches)) as promedio FROM (SELECT cod_concesionario,
+        sum(cantidad) as total_coches FROM OFRECE GROUP BY cod_concesionario ORDER BY 1) as T;</span>
+      <pre terminal-code-output>+----------+
+| promedio |
++----------+
+|     1339 |
++----------+
+1 row in set (0,00 sec)</pre>
+    </app-terminal-code>
+
+    <p>
+      En esta ocasión hemos tenido que anidar dos sentencias y para ello he usado los paréntesis. Primero se obtiene la
+      cantidad de coches de cada concesionario y sobre la tabla resultante, se calcula el promedio. Es obligatorio poner
+      un alias a la tabla resultante anidada. En este caso simplemente la he llamado T.
+    </p>
   </section>
 </main>
