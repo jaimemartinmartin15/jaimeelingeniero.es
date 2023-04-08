@@ -83,6 +83,10 @@ main {
     }
 }
 
+a {
+    color: #d17515;
+}
+
 @media (max-width: calc($screen-max-width + 10px)) {
     main {
         padding: 0 10px;
