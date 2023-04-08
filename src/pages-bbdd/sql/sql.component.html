@@ -1,4 +1,6 @@
-
+<!-- TODO revisar todos los TODO -->
+<!-- TODO revisar si es responsive -->
+<!-- TODO put link with scripts to create tables. ¿in a zip file? Explain how to load them-->
 
 <app-header-print [data]="headerPrintData"></app-header-print>
 
@@ -11,19 +13,22 @@
     <p>
       Para empezar, SQL son las siglas de <strong>Structured Query Language</strong>, que en español significa
       <i>Lenguaje de consultas estructurado</i>. Es un lenguaje y sirve para realizar consultas a bases de datos
-      relacionales. Resumiéndolo mucho una base de datos relacional son varias tablas relacionadas entre sí, con sus
-      filas y sus columnas.
+      relacionales. Resumiéndolo mucho una base de datos relacional son varias tablas con filas y columnas que se
+      relacionan entre sí.
     </p>
 
     <p>
-      Este lenguaje es un estándar, por lo que pueden existir diferentes implementaciones o también llamados dialectos
-      que pueden diferir entre sí con elementos que no están en el estándar. Ejemplos son las implementaciones de
-      Oracle, Microsoft, MySQL o PostgreSQL.
+      Este lenguaje es un estándar, por lo que pueden existir diferentes implementaciones o también llamados
+      <strong>dialectos</strong> que pueden diferir entre sí con elementos que no están en el estándar. Ejemplos son las
+      implementaciones de Oracle, Microsoft, MySQL o PostgreSQL. Dependiendo del sistema gestor que usemos puede que
+      haya cosas que se hagan de diferente manera, así que tendremos que tener la documentación "a mano" (buscar en
+      internet, vamos).
     </p>
 
     <p>
-      Como todo lenguaje tiene su sintaxis y sus palabras reservadas, y es lo que vamos a ver a continuación. Vamos
-      derecho a ello.
+      Como todo lenguaje tiene su sintaxis y sus palabras reservadas, y es lo que vamos a ver a continuación.
+      <!-- TODO (descomentar este texto) Después al final os dejaré un link con ejercicios para practicar. Vamos a ello 💪 -->
+      Vamos derecho a ello.
     </p>
   </section>
 
@@ -32,14 +37,15 @@
 
     <p>
       Para poder practicar necesitamos tener algún programa instalado que nos permita crear bases de datos y realizar
-      consultas. En mi caso voy a usar MySql, que es un sistema de gestión de bases de datos relacional con licencia
-      dual, es decir, tiene una parte libre y otra comercial. Si tienes curiosidad investiga lo que significa, yo
-      tampoco lo sabía.
+      consultas. En mi caso voy a usar <strong>MySql</strong>, que es un sistema de gestión de bases de datos relacional
+      con licencia dual, es decir, tiene una parte libre y otra comercial. Si tienes curiosidad investiga lo que
+      significa, como debe hacer un ingeniero, yo tampoco lo sabía. Como sistema operativo usaré
+      <strong>Ubuntu</strong>.
     </p>
 
     <p>
-      Como sistema operativo usaré Ubuntu. Es muy sencillo de instalar, así que por aquí dejo los comandos. Por cierto,
-      lo he hecho como usuario root.
+      Para instalar MySql es muy sencillo, así que por aquí dejo los comandos. Por cierto, lo he hecho como usuario
+      root.
     </p>
 
     <app-terminal-code>
@@ -51,17 +57,15 @@
 
     <p>Estando instalado, para conectarnos con una terminal donde aprender sql tenemos este comando:</p>
 
-    <app-terminal-code>
-      <p terminal-code-command>
-        mysql -h &lt;dominio-o-direccionIP&gt; -u &lt;usuario&gt; -p&lt;password&gt;
-        &lt;nombreBaseDeDatos&gt;
-      </p>
-    </app-terminal-code>
+    <code>
+      <pre class="command-sintax">mysql -h &lt;dominio-o-direccionIP&gt; -u &lt;usuario&gt; -p&lt;password&gt; &lt;nombreBaseDeDatos&gt;</pre>
+    </code>
 
     <p>
-      En mi caso el dominio es localhost, así que lo omito. Fíjate que la contraseña tiene que ir pegada al parámetro
-      -p. Si pones un espacio no te la tomará y te pedirá la contraseña al pulsar intro. El nombre de la base de datos
-      también es opcional. Como aún no tenemos ninguna, no lo pongo.
+      Si el dominio es localhost se puede omitir. Fíjate que la contraseña tiene que ir pegada al parámetro -p. Si pones
+      un espacio no te la tomará y te pedirá la contraseña igualmene al pulsar intro (lo cual es lo más recomendable
+      para que no queda registrada en el comando usado). El nombre de la base de datos también es opcional. Como aún no
+      tenemos ninguna, no lo pongo, y en mi caso el comando quedaría asi:
     </p>
 
     <app-terminal-code>
@@ -75,8 +79,15 @@
     <h2>Crear una base de datos</h2>
 
     <p>
-      Para empezar a trabajar lo primero que tenemos que tener o crear es la base de datos. En este artículo vamos a
-      crear una base de datos para un negocio fiction de coches. Esto es sencillo de hacer:
+      Para empezar a trabajar lo primero que tenemos que tener o crear es la base de datos. Este es el comando:
+    </p>
+
+    <code>
+      <pre class="command-sintax">create database &lt;nombre-de-la-base-de-datos&gt;;</pre>
+    </code>
+
+    <p>
+      En este artículo vamos a crear una base de datos para un negocio fictio de coches, así que:
     </p>
 
     <app-terminal-code>
@@ -86,7 +97,11 @@
 
     <p>
       Ya esta creada la base de datos. La he llamado <i>automoviles</i>. Lo único que no tiene tablas ni información.
-      Podemos ver las bases de datos que tenemos con:
+      Está vacía.
+    </p>
+
+    <p>
+      Con el siguiente comando podemos ver todas las bases de datos que hemos creado:
     </p>
 
     <app-terminal-code>
@@ -105,7 +120,7 @@
 
     <p>
       Vemos que nuestra base de datos está ahí. Las otras son cosas del servidor y contienen metainformación. Mejor no
-      tocarlas.
+      tocarlas si no sabemos lo que estamos haciendo.
     </p>
 
     <p>
@@ -117,6 +132,28 @@
       <p terminal-code-command>use automoviles;</p>
       <p terminal-code-output>Database changed</p>
     </app-terminal-code>
+
+    <p>
+      Ahora por ejemplo podemos comprobar que tablas existen, pero como hemos dicho, la base de datos está vacía:
+    </p>
+
+    <app-terminal-code>
+      <span terminal-code-command>show tables;</span>
+      <span terminal-code-output>Empty set (0,00 sec)</span>
+    </app-terminal-code>
+  </section>
+
+  <section>
+    <h2>Eliminar una base de datos</h2>
+
+    <p>
+      Dependiendo del sistema gestor que estemos usando el comando puede variar. Habrá que consultar internet 😉. En el
+      caso de MySql el comando es:
+    </p>
+
+    <code>
+      <pre class="command-sintax">DROP DATABASE &lt;nombreDeLaBaseDeDatos&gt;;</pre>
+    </code>
   </section>
 
   <section>
@@ -124,7 +161,7 @@
 
     <p>
       Una base de datos sin información no vale para nada. Y la información se guarda en tablas. Así que vamos a ver
-      como crearlas.
+      como crearlas. Este es un comando generico que vamos a explicar.
     </p>
 
     <code>
@@ -135,12 +172,13 @@
     [DEFAULT valorPorDefecto]
     [[CONSTRAINT nombreConstraint] UNIQUE]
     [[CONSTRAINT nombreConstraint] PRIMARY KEY]
-    [[CONSTRAINT nombreConstraint] REFERENCES tabla (columna) [ON DELETE opcionAccion] [ON UPDATE opcionAccion]]
+    [[CONSTRAINT nombreConstraint] REFERENCES tabla (columna) [ON DELETE opciónAcción] [ON UPDATE opciónAcción]]
     [[CONSTRAINT nombreConstraint] CHECK (expresiónBooleana)],
+
   [[CONSTRAINT nombreConstraint] UNIQUE (columna, columna, ...)],
   [[CONSTRAINT nombreConstraint] PRIMARY KEY (columna, columna, ...)],
   [[CONSTRAINT nombreConstraint] FOREIGN KEY (columna, columna, ...) REFERENCES
-    tabla (columna, columna, ...) [ON DELETE opcionAccion] [ON UPDATE opcionAccion]],
+    tabla (columna, columna, ...) [ON DELETE opciónAcción] [ON UPDATE opciónAcción]],
   [[CONSTRAINT nombreConstraint] CHECK (expresiónBooleana)]
 );</pre>
     </code>
@@ -151,8 +189,9 @@
     </p>
 
     <p>
-      Lo que tenemos son dos secciones: definición de columnas de la tabla, y definición de reglas de integridad para la
-      tabla entera. Cada columna o restricción de tabla va separada por una coma.
+      Lo que tenemos son dos posibles secciones: <strong>definición de columnas</strong> de la tabla, y
+      <strong>definición de reglas de integridad</strong> para la tabla entera. Cada columna o restricción de tabla va
+      separada por una coma.
     </p>
 
     <p>
@@ -223,7 +262,8 @@
     <img class="bbdd-scheme-image" src="pages-bbdd/assets/bbdd-scheme.png" alt="Esquema base de datos">
 
     <p>
-      Despliega los elementos para ver la orden que crea las tablas:
+      Pincha sobre el nombre de las tablas a continuación para ver la orden que las crea. Ten en cuenta que hay que
+      crearlas en un orden específico para poder referenciar unas a otras.
     </p>
 
     <div class="collapsible">
@@ -381,15 +421,13 @@
         <span terminal-code-output>Query OK, 0 rows affected (0,02 sec)</span>
       </app-terminal-code>
     </div>
-
-    <!-- TODO put link with scripts to create tables. ¿in a zip file? -->
   </section>
 
   <section>
     <h2>Alteración de tablas</h2>
 
     <p>
-      A medida que vamos usando la base de datos y los requisitos de nuestra aplicación varian, puede que tengamos que
+      A medida que vamos usando la base de datos y los requisitos de nuestra aplicación varían, puede que tengamos que
       cambiar restricciones, referencias, eliminar o añadir nuevas columnas, etc. Y eso es lo que vamos a ver antes de
       rellenar la base de datos por si te equivocaste al crear una de las tablas.
     </p>
@@ -409,26 +447,23 @@
 
     <code>
       <pre class="command-sintax">ALTER TABLE nombreTabla
-  ADD [COLUMN] especificaciónColumna,
+  ADD [COLUMN] nombreColumna especificación,
   DROP [COLUMN] nombreColumna,
-  ALTER [COLUMN] redefiniciónColumna,
+  ALTER [COLUMN] nombreColumna nuevaEspecificación,
   ADD CONSTRAINT nombreConstraint restriccionDeTabla,
   DROP CONSTRAINT nombreConstraint;</pre>
     </code>
 
     <p>
-
-
-
-      <!-- TODO revisar este comentario. Si lo separamos por coma se puede hacer a la vez? -->
-
-
-
-      Estas sentencias hay que ejecutarlas de una en una. No se puede añadir una columna a la vez que se elimina otra,
-      por ejemplo. Para añadir una columna nueva la especificación de la columna es como cuando creamos una tabla. Y
+      Para añadir una columna nueva la especificación de la columna es como cuando creamos una tabla. Y
       para eliminarla, simplemente indicamos el nombre. Si queremos redefinir la columna, es lo mismo, es como si
       estuvieramos definiéndola desde cero. Y con las restricciones de clave primaria, o foránea o un check es más de lo
       mismo, igual que si lo estuvieramos definiciendo como cuando creamos una tabla.
+    </p>
+
+    <p>
+      Como vemos no tiene complicación alguna, a menos que los tipos no sean compatibles o haya referencias. En tal
+      caso deberíamos tratar primero esas restricciones eliminándolas temporalmente, por ejemplo.
     </p>
 
     <p>
@@ -443,11 +478,39 @@ Records: 0  Duplicates: 0  Warnings: 0</pre>
     </app-terminal-code>
 
     <p>
-      En test caso, puesto que estamos modificando una columna existente y cambiando su tipo, usamos la palabra MODIFY.
+      En este caso, puesto que estamos modificando una columna existente y cambiando su tipo, usamos la palabra MODIFY.
+      Es simplemente otra forma de modificar la columna, equivalente a utilizar el ALTER, pero quizá más intuitivo.
       Después la sintaxis es la misma que ya hemos visto para definir una columna. Hay que tener en cuenta que al
       cambiar el tipo de dato podemos perder los valores de la columna si no son compatibles con el nuevo tipo. También
       puede que tengamos que eliminar primero ciertas restricciones antes de operar sobre la columna.
     </p>
+  </section>
+
+  <section>
+    <h2>Describiendo las tablas</h2>
+
+    <p>
+      Tras crear las tablas o modificarlas, puede que tengamos dudas sobre su definición actual. Para ello podemos usar
+      este comando (en MySql, ya que depende del sistema gestor):
+    </p>
+
+    <code>
+      <pre class="command-sintax">DESCRIBE &lt;nombreDeLaTabla&gt;;</pre>
+    </code>
+
+    <app-terminal-code>
+      <span terminal-code-command>DESCRIBE REPARA;</span>
+      <pre terminal-code-output>+--------------+---------------+------+-----+-----------+-------------------+
+| Field        | Type          | Null | Key | Default   | Extra             |
++--------------+---------------+------+-----+-----------+-------------------+
+| id           | int           | NO   | PRI | NULL      |                   |
+| cod_mecanico | int           | NO   |     | NULL      |                   |
+| cod_coche    | int           | NO   |     | NULL      |                   |
+| fecha        | date          | NO   |     | curdate() | DEFAULT_GENERATED |
+| precio       | decimal(10,2) | NO   |     | NULL      |                   |
++--------------+---------------+------+-----+-----------+-------------------+
+5 rows in set (0,00 sec)</pre>
+    </app-terminal-code>
   </section>
 
   <section>
@@ -458,7 +521,7 @@ Records: 0  Duplicates: 0  Warnings: 0</pre>
     </p>
 
     <code>
-      <pre class="command-sintax">INSERT INTO tabla [(lista, de, columnas)] VALUES (lista, de, valores);</pre>
+      <pre class="command-sintax">INSERT INTO tabla [(columna1, columna2, ...)] VALUES (valor1, valor2, ...);</pre>
     </code>
 
     <p>
@@ -477,7 +540,7 @@ Records: 0  Duplicates: 0  Warnings: 0</pre>
     </p>
 
     <app-terminal-code>
-      <pre terminal-code-command>INSERT INTO COCHE VALUES(18, 2, 'Model', 1);</pre>
+      <pre terminal-code-command>INSERT INTO COCHE VALUES(18, 20, 'Modelo', 1);</pre>
       <pre
         terminal-code-output>ERROR 1452 (23000): Cannot add or update a child row: a foreign key constraint fails (`business`.`COCHE`, CONSTRAINT `COCHE_ibfk_1` FOREIGN KEY (`cod_marca`) REFERENCES `MARCA` (`codigo`))</pre>
     </app-terminal-code>
@@ -488,7 +551,7 @@ Records: 0  Duplicates: 0  Warnings: 0</pre>
     </p>
 
     <p>
-      Ahora para eliminar una fila de la tabla lo hacemos con esta otra orden:
+      Ahora para <strong>eliminar una fila</strong> de la tabla lo hacemos con esta otra orden:
     </p>
 
     <code>
@@ -514,14 +577,14 @@ Records: 0  Duplicates: 0  Warnings: 0</pre>
 expresión
 FROM tabla
 WHERE condición
-GROUP BY columna 
+GROUP BY columna1, columna2, ...
 HAVING condición 
 ORDER BY columna/nº columna [ASC | DESC]</pre>
     </code>
 
     <p>
-      La salida del comando es otra tabla con tantas filas como filas de la tabla a consultar cumplan la condición y
-      tantas columnas como expresiones indiquemos.
+      <strong>La salida del comando es otra tabla</strong> con tantas filas como filas de la tabla a consultar cumplan
+      la condición y tantas columnas como expresiones indiquemos.
     </p>
 
     <p>
@@ -536,21 +599,33 @@ ORDER BY columna/nº columna [ASC | DESC]</pre>
       string. Podemos hacer que se concatenen columnas en una sola, y muchas más cosas.
     </p>
 
+    <!-- TODO explicar aquí las funciones que se pueden usar, o algunas de ellas. -->
+
     <p>
-      Con FROM indicamos la tabla de la cual vamos a seleccionar datos.
+      Con FROM indicamos la tabla de la cual vamos a seleccionar datos. Más adelante veremos como podemos implicar
+      varias tablas en una consulta.
     </p>
 
     <p>
-      Con WHERE podemos indicar las condiciones para seleccionar filas de la tabla. Podemos usar operadores lógicos
-      (AND, OR y NOT), de comparación (=, &lt;&gt;, &lt;, &lt;=, &gt;,&gt;=) o predicados más avanzados (IN, BETWEEN,
-      LIKE, IS NULL)
+      Con WHERE podemos indicar las condiciones para seleccionar filas de la tabla. Podemos usar <strong>operadores
+        lógicos</strong> (<strong>AND</strong>, <strong>OR</strong> y <strong>NOT</strong>), <strong>operadores de
+        comparación</strong> (<strong>=</strong>, <strong>&lt;&gt;</strong>, <strong>&lt;</strong>,
+      <strong>&lt;=</strong>, <strong>&gt;,&gt;=</strong>) o <strong>predicados</strong> más avanzados
+      (<strong>IN</strong>, <strong>BETWEEN</strong>, <strong>LIKE</strong>, <strong>IS NULL</strong>). Cuando usamos el
+      predicado LIKE exisen también dos caracteres especiales:
     </p>
+
+    <ul>
+      <li><strong>%</strong> representa cualquier secuencia de caracteres.</li>
+      <li><strong>_</strong> representa cualquier carácter individual.</li>
+      <li>Dependiendo del sistema gestor pueden existir más comodines.</li>
+    </ul>
 
     <p>
       Con GROUP BY podemos agrupar las filas resultantes en función de una de las columnas. Permite realizar operaciones
-      de agregación, como sumas o promedios, por ejemplo. La tabla resultante tras usar esta cláusula, tiene una fila
-      por cada grupo formado, es decir, por cada valor de la columnas o columnas. En el SELECT solo podremos tener
-      columnas usadas en el GROUP BY y funciones.
+      de agregación, como sumas o promedios, por ejemplo. La tabla resultante tras usar esta cláusula tiene <strong>una
+        fila por cada grupo formado</strong>, es decir, por cada valor de la columna o columnas usadas. Si usamos GROUP
+      BY en el SELECT solo podremos tener columnas usadas en el GROUP BY y funciones.
     </p>
 
     <p>
@@ -562,8 +637,8 @@ ORDER BY columna/nº columna [ASC | DESC]</pre>
     <p>
       Con ORDER BY podemos ordenar las filas de la tabla resultante de forma ascendente o descendente. Podemos hacerlo
       indicando el índice de una columna o su nombre. El nombre de la columna es el de la tabla original, o si es una
-      columna compuesta (una expresión más compleja) podemos poner AS en la expresión para ponerle un nombre a la
-      columna resultante.
+      columna compuesta (una expresión más compleja, o con funciones...) podemos poner <strong>AS</strong> en la
+      expresión <strong>para ponerle un nombre a la columna resultante</strong>.
     </p>
   </section>
 
@@ -598,7 +673,7 @@ ORDER BY columna/nº columna [ASC | DESC]</pre>
     </app-terminal-code>
 
     <p>
-      Si como expresión usamos el comodín (<strong>*</strong>) se seleccionan todas las columnas.
+      Si como expresión usamos el comodín <strong>*</strong> se seleccionan todas las columnas.
     </p>
 
     <p>
@@ -655,11 +730,12 @@ ORDER BY columna/nº columna [ASC | DESC]</pre>
 
     <p>
       Esta tabla tiene dos columnas. La primera es parte de la tabla original, y la segunda la hemos puesto un alias
-      <i>total_coches</i>, que es la suma de todas las cantidades por concesionario.
+      <i>total_coches</i>, que es la suma de todas las cantidades por concesionario. Fíjate como la tabla resultante
+      tiene sólo 15 filas, una por concesionario, al haber usado GROUP BY.
     </p>
 
     <p>
-      Calculemos ahora la media de coches que ofrecen los concesionarios:
+      Ahora veamos otra consulta algo más compleja aún: calculemos la media de coches que ofrecen los concesionarios:
     </p>
 
     <app-terminal-code>
@@ -675,8 +751,44 @@ ORDER BY columna/nº columna [ASC | DESC]</pre>
 
     <p>
       En esta ocasión hemos tenido que anidar dos sentencias y para ello he usado los paréntesis. Primero se obtiene la
-      cantidad de coches de cada concesionario y sobre la tabla resultante, se calcula el promedio. Es obligatorio poner
-      un alias a la tabla resultante anidada. En este caso simplemente la he llamado T.
+      cantidad de coches de cada concesionario (como en la consulta anterior) y sobre la tabla resultante, se calcula el
+      promedio. Es obligatorio poner un alias a la tabla resultante anidada. En este caso simplemente la he llamado T.
+    </p>
+
+    <p>
+      Vamos a poner ahora unos ejemplos usando predicados. Primero seleccionemos los modelos de coche que empiezan por
+      'Z':
+    </p>
+
+    <app-terminal-code>
+      <span terminal-code-command>select modelo from COCHE where modelo LIKE "z%";</span>
+      <pre terminal-code-output>+--------+
+| modelo |
++--------+
+| Zoe    |
++--------+
+1 row in set (0,00 sec)</pre>
+    </app-terminal-code>
+
+    <p>
+      Y ahora vamos a seleccionar las reparaciones que tuvieron lugar entre dos fechas:
+    </p>
+
+    <app-terminal-code>
+      <span terminal-code-command>select * from REPARA where fecha BETWEEN "2022-03-09" AND "2022-03-11";</span>
+      <pre terminal-code-output>+-----+--------------+-----------+------------+---------+
+| id  | cod_mecanico | cod_coche | fecha      | precio  |
++-----+--------------+-----------+------------+---------+
+|   1 |            8 |       303 | 2022-03-10 | 2566.04 |
+| 337 |            3 |        19 | 2022-03-09 |  186.93 |
++-----+--------------+-----------+------------+---------+
+2 rows in set (0,00 sec)</pre>
+    </app-terminal-code>
+
+    <p>
+      Esto de realizar consultas a una tabla no es muy complicado. Poco a poco irás cogiendo práctica y te será más
+      fácil a medida que te familiarices con los comandos. Pero para eso hay que practicar 🖥️
+      <!-- TODO comentar aquí que hay otra pagina con ejercicios para practicar con la BBDD creada por los scripts -->
     </p>
   </section>
 
@@ -689,34 +801,40 @@ ORDER BY columna/nº columna [ASC | DESC]</pre>
     </p>
 
     <p>
-      El JOIN nos permite combinar las tablas que aparezcan en la cláusula FROM. La tabla resultante de la combinación
-      es otra tabla resultado de aplicar el producto cartesiano de las tablas implicadas. Con esta imágen entenderemos
-      mejor que es el producto cartesiano:
+      El JOIN nos permite <strong>combinar las tablas</strong> que aparezcan en la cláusula FROM. La tabla resultante de
+      la combinación es otra tabla resultado de aplicar el producto cartesiano de las tablas implicadas. Con esta imágen
+      entenderemos mejor que es el producto cartesiano:
     </p>
 
     <img class="combination-table-image" src="pages-bbdd/assets/combination_table.png" alt="Combinación de tablas">
 
     <p>
-      La orden para combinar las tablas sería así:
+      Como ves es realizar todas las posibles combinaciones entre las filas de las tablas. Puede que acabe siendo un
+      sinsentido, pero... veremos como arreglarlo después. Es algo que depende del programador.
+    </p>
+
+    <p>
+      La orden genérica para combinar las tablas sería así:
     </p>
 
     <code>
-      <pre class="command-sintax">SELECT ta.c2, tb.c2, c5, ...
-FROM tablaA ta, tablaB tb, tablaC
+      <pre class="command-sintax">SELECT aliasTablaA.columna, columna, ...
+FROM tablaA aliasTablaA, tablaB, tablaC
 WHERE condición;</pre>
     </code>
 
     <p>
       En caso de que dos tablas tengan columnas con el mismo nombre, se deben usar alias para eliminar ambigüedades.
-      En este ejemplo, ta y tb son alias para la tablaA y la tablaB. Los alias son opcionales en otras circunstancias.
+      Los alias son opcionales en otras circunstancias.
     </p>
 
     <p>
       Es importante especificar una cláusula WHERE, ya que si no tendremos filas que no tendrán ningún sentido tras
-      realizar el producto cartesiano, y obtendremos resultados que pueden ser incorrectos o confusos. El caso más
-      habitual es igualar dos columnas entre dos tablas, aunque también se pueden usar otros operadores distintos al de
-      la igualdad. En caso de relacionar más de dos tablas, recuerda que también se pueden usar condiciones AND y OR
-      para relacionar las columnas de varias tablas mediante varias condiciones.
+      realizar el producto cartesiano y obtendremos resultados que pueden ser incorrectos o confusos. El caso más
+      habitual es igualar dos columnas entre dos tablas (dos id, clave primaria y clave foránea, por ejemplo), aunque
+      también se pueden usar otros operadores distintos al de la igualdad. En caso de relacionar más de dos tablas,
+      recuerda que también se pueden usar condiciones AND y OR para relacionar las columnas de varias tablas mediante
+      varias condiciones.
     </p>
 
     <p>
@@ -764,6 +882,33 @@ WHERE condiciónDeLaConsulta</pre>
     <p>
       Por último, el CROSS JOIN sería realizar el producto cartesiano, que es lo que habíamos visto al principio.
     </p>
+
+    <p>
+      Veamos un ejemplo real sobre como usar el JOIN. Averigüemos las ciudades de los concesionarios que ofrecen
+      cantidades de coches superiores a 39:
+    </p>
+
+    <app-terminal-code>
+      <pre
+        terminal-code-command>select DISTINCT c.localidad from CONCESIONARIO c JOIN OFRECE o ON c.codigo=o.cod_concesionario where o.cantidad>39;</pre>
+      <pre terminal-code-output>+------------+
+| localidad  |
++------------+
+| Madrid     |
+| Alicante   |
+| Palma      |
+| Córdoba    |
+| Valladolid |
+| Málaga     |
+| Barcelona  |
+| Bilbao     |
+| Murcia     |
+| Sevilla    |
+| Zaragoza   |
+| Gijón      |
++------------+
+12 rows in set (0,00 sec)</pre>
+    </app-terminal-code>
   </section>
 
   <section>
@@ -772,12 +917,12 @@ WHERE condiciónDeLaConsulta</pre>
     <p>
       El operador <strong>UNION</strong> permite unir dos tablas que tienen el mismo número de columnas y que además sus
       tipos coinciden. Si apareciesen resultados duplicados en la tabla resultante son eliminados. En caso de no querer
-      elimnarlos existe la versión <strong>UNION ALL</strong>.
+      eliminarlos existe la versión <strong>UNION ALL</strong>.
     </p>
 
     <p>
       El operador <strong>INTERSECT</strong> entre dos tablas devuelve las filas que están en ambas tablas. Igualmente
-      el número de columnas y el tipo debe coincidir. Recuerda que podemos utilizar select para coger solo las columnas
+      el número de columnas y el tipo debe coincidir. Recuerda que podemos utilizar SELECT para coger sólo las columnas
       que necesitemos y generar una tabla nueva 😉
     </p>
 
@@ -815,18 +960,19 @@ select me.nombre from MECANICO me, REPARA r, COCHE c, MARCA ma where me.codigo=r
     </p>
 
     <p>
-      Se dice que una subselect no tiene correlación si no hace referencia a la select externa. De este modo se evalúa
-      primero y el resultado se pasa a la select externa.
+      Se dice que una subselect <strong>no tiene correlación</strong> si no hace referencia a la select externa. De este
+      modo se evalúa primero y el resultado se pasa a la select externa.
     </p>
 
     <p>
-      Por el contrario, si la subselect tiene referencias a la select externa se dice que tiene correlación. En esta
-      situación la subselect se evalúa una vez por cada valor obtenido en la externa.
+      Por el contrario, si la subselect tiene referencias a la select externa se dice que <strong>tiene
+        correlación</strong>. En esta situación la subselect se evalúa una vez por cada valor obtenido en la externa.
     </p>
 
     <p>
-      El resultado de una subselect debe estar compuesto únicamente por una columna, a excepción de si se utiliza un
-      predicado exists en el WHERE. A su vez, una subselect puede tener anidadas otras sentencias subselect.
+      El resultado de una subselect debe estar compuesto <strong>únicamente por una columna</strong>, a excepción de si
+      se utiliza un predicado EXISTS en el WHERE. A su vez, una subselect puede tener anidadas otras sentencias
+      subselect.
     </p>
 
     <p>
