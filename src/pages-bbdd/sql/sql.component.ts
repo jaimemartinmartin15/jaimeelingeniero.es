@@ -7,8 +7,7 @@ import { Meta } from '@angular/platform-browser';
   styleUrls: ['./sql.component.scss'],
 })
 export class SqlComponent implements OnInit, OnDestroy {
-  // TODO update date when finish
-  public headerPrintData = { author: 'Jaime Martín Martín', date: '25 de enero de 2023' };
+  public headerPrintData = { author: 'Jaime Martín Martín', date: '8 de abril de 2023' };
   public collapsedTables = {
     createTableMechanic: false,
     createTablePropulsion: true,
