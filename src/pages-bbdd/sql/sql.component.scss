@@ -49,6 +49,31 @@ main {
     }
 }
 
+table {
+    width: 100%;
+    margin-bottom: 30px;
+
+    thead th {
+        text-align: center;
+    }
+
+    th,
+    td {
+        padding: 3px 10px;
+    }
+
+    th {
+        width: 30%;
+        text-align: end;
+        vertical-align: top;
+    }
+
+    td {
+        width: 70%;
+        text-align: start;
+    }
+}
+
 .combination-table-image,
 .inner-join-image,
 .left-join-image,
