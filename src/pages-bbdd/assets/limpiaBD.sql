@@ -1,9 +1,0 @@
-delete from VENTA;
-delete from REPARA;
-delete from OFRECE;
-delete from COCHE;
-delete from CLIENTE;
-delete from CONCESIONARIO;
-delete from MARCA;
-delete from PROPULSION;
-delete from MECANICO;

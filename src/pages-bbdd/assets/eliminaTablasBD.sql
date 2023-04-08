@@ -1,9 +1,0 @@
-drop table VENTA;
-drop table REPARA;
-drop table OFRECE;
-drop table COCHE;
-drop table CLIENTE;
-drop table CONCESIONARIO;
-drop table MARCA;
-drop table PROPULSION;
-drop table MECANICO;
