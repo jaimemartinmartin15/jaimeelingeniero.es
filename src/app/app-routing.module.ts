@@ -23,6 +23,10 @@ const routes: Routes = [
     loadChildren: () => import('../pages-english/pages-english.module').then((m) => m.PagesEnglishModule),
   },
   {
+    path: 'bases-de-datos',
+    loadChildren: () => import('../pages-bbdd/bbdd.module').then((m) => m.BBDDModule),
+  },
+  {
     path: '',
     loadChildren: () => import('../pages-presentation/home/home.module').then((m) => m.HomeModule),
   },
