@@ -26,8 +26,8 @@ export class SeoService {
         })
       )
       .subscribe(({ metaTags }) => {
-        this.updateDescription(metaTags.description);
-        this.updateKeyworkds(metaTags.keywords);
+        this.updateDescription(metaTags?.description);
+        this.updateKeyworkds(metaTags?.keywords);
         this.setCanonical();
       });
 
@@ -38,11 +38,15 @@ export class SeoService {
   }
 
   public updateDescription(description: string) {
-    this.metaService.updateTag({ name: 'description', content: description });
+    if (description != undefined) {
+      this.metaService.updateTag({ name: 'description', content: description });
+    }
   }
 
   public updateKeyworkds(keyworkds: string[]) {
-    this.metaService.updateTag({ name: 'keywords', content: keyworkds.join(', ') });
+    if (keyworkds != undefined) {
+      this.metaService.updateTag({ name: 'keywords', content: keyworkds.join(', ') });
+    }
   }
 
   public setCanonical() {
