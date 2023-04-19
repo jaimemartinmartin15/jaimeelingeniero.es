@@ -5,21 +5,16 @@ import { SqlComponent } from './sql.component';
 const routes: Routes = [
   {
     path: '',
-    children: [
-      {
-        path: '**',
-        redirectTo: '',
-        component: SqlComponent,
-        title: 'Lenguaje SQL',
-        data: {
-          metaTags: {
-            description: 'Aprende el lenguaje SQL y su sintáxis con magníficos ejemplos y explicaciones.',
-            keywords: ['sql', 'bases de datos', 'select', 'join', 'tablas'],
-          },
-        },
+    component: SqlComponent,
+    title: 'Lenguaje SQL',
+    data: {
+      metaTags: {
+        description: 'Aprende el lenguaje SQL y su sintáxis con magníficos ejemplos y explicaciones.',
+        keywords: ['sql', 'bases de datos', 'select', 'join', 'tablas'],
       },
-    ],
+    },
   },
+  { path: '**', redirectTo: '' },
 ];
 
 @NgModule({
