@@ -1,6 +1,5 @@
-import { AfterViewInit, Component, HostListener, OnDestroy, OnInit } from '@angular/core';
+import { AfterViewInit, Component, HostListener, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { Meta } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { normalizeString } from 'src/utils/strings';
 import { Verb, VerbKeysForm, VerbKeysFormOfType } from './verb';
@@ -10,7 +9,7 @@ import { Verb, VerbKeysForm, VerbKeysFormOfType } from './verb';
   templateUrl: './tenses.component.html',
   styleUrls: ['./tenses.component.scss'],
 })
-export class TensesComponent implements OnInit, AfterViewInit, OnDestroy {
+export class TensesComponent implements OnInit, AfterViewInit {
   private inputs: HTMLInputElement[];
 
   private verbs: Verb[];
@@ -36,7 +35,6 @@ export class TensesComponent implements OnInit, AfterViewInit, OnDestroy {
   public constructor(
     private readonly formBuilder: FormBuilder,
     private readonly activatedRoute: ActivatedRoute,
-    private readonly metaService: Meta
   ) {}
 
   public ngOnInit() {
@@ -48,12 +46,6 @@ export class TensesComponent implements OnInit, AfterViewInit, OnDestroy {
     });
 
     this.verbs = this.activatedRoute.snapshot.data['listOfVerbs'];
-
-    this.metaService.updateTag({
-      name: 'description',
-      content: `Repasa los tiempos verbales de los verbos en inglés. Estudia y practica para tus exámenes.`,
-    });
-    this.metaService.updateTag({ name: 'keywords', content: 'tiempos verbales, ingles, significado, infinitivo, pasado, participio ' });
   }
 
   public ngAfterViewInit(): void {
@@ -130,10 +122,5 @@ export class TensesComponent implements OnInit, AfterViewInit, OnDestroy {
 
     // set focus on first disabled input
     this.inputs.find((i) => i.getAttribute('formcontrolname') !== tenseToShow)?.focus();
-  }
-
-  public ngOnDestroy(): void {
-    this.metaService.removeTag('name="description"');
-    this.metaService.removeTag('name="keywords"');
   }
 }
