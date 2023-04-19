@@ -51,7 +51,7 @@ export class SeoService {
 
   public setCanonical() {
     if (!location.hostname.includes('www') || location.protocol === 'http') {
-      const canonicalLink = this.document.createElement('link');
+      const canonicalLink = (this.document.querySelector('link[rel="canonical"]') as HTMLLinkElement) || this.document.createElement('link');
       canonicalLink.rel = 'canonical';
       canonicalLink.href = `https://www.jaimeelingeniero.es${location.href.substring(location.origin.length)}`;
       this.document.head.appendChild(canonicalLink);
