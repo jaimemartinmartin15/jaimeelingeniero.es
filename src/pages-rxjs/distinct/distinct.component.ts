@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { Meta } from '@angular/platform-browser';
 import { BehaviorSubject, distinct } from 'rxjs';
 import { BaseOperatorComponent } from '../shared/base-operator.component';
 import { ButtonController } from '../shared/components/conveyor-controller/button-controller';
@@ -31,10 +30,6 @@ export class DistinctComponent extends BaseOperatorComponent {
   };
 
   public elementsEmmited: string[] = [];
-
-  public constructor(metaService: Meta) {
-    super(metaService, 'distinct');
-  }
 
   protected moveElement(e: ElementInConveyor): void {
     e.x += this.demo.speed;

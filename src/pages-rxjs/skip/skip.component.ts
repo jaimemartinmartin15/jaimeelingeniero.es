@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { Meta } from '@angular/platform-browser';
 import { BehaviorSubject, skip } from 'rxjs';
 import { BaseOperatorComponent } from '../shared/base-operator.component';
 import { ButtonController } from '../shared/components/conveyor-controller/button-controller';
@@ -31,10 +30,6 @@ export class SkipComponent extends BaseOperatorComponent {
   public conveyorsWorking: { [key: string]: BehaviorSubject<boolean> } = {
     [this.MAIN_ID]: new BehaviorSubject<boolean>(false),
   };
-
-  public constructor(metaService: Meta) {
-    super(metaService, 'skip');
-  }
 
   protected moveElement(e: ElementInConveyor): void {
     e.x += this.demo.speed;

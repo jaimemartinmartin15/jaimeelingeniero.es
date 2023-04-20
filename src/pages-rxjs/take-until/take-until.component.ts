@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { Meta } from '@angular/platform-browser';
 import { BehaviorSubject, Subject, takeUntil } from 'rxjs';
 import { BaseOperatorComponent } from '../shared/base-operator.component';
 import { ButtonController } from '../shared/components/conveyor-controller/button-controller';
@@ -37,10 +36,6 @@ export class TakeUntilComponent extends BaseOperatorComponent {
     [this.MAIN_ID]: new BehaviorSubject<boolean>(false),
     [this.TAKE_UNTIL]: new BehaviorSubject<boolean>(false),
   };
-
-  public constructor(metaService: Meta) {
-    super(metaService, 'takeUntil');
-  }
 
   protected moveElement(e: ElementInConveyor): void {
     if (e.conveyorId === this.MAIN_ID) {

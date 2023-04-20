@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
-import { Meta, Title } from '@angular/platform-browser';
-import { BehaviorSubject, debounceTime, interval, tap, Subscription } from 'rxjs';
+import { BehaviorSubject, Subscription, debounceTime, interval, tap } from 'rxjs';
 import { BaseOperatorComponent } from '../shared/base-operator.component';
 import { ButtonController } from '../shared/components/conveyor-controller/button-controller';
 import { ElementInConveyor } from '../shared/element-in-conveyor';
@@ -33,10 +32,6 @@ export class DebounceTimeComponent extends BaseOperatorComponent {
   public conveyorsWorking: { [key: string]: BehaviorSubject<boolean> } = {
     [this.MAIN_ID]: new BehaviorSubject<boolean>(false),
   };
-
-  public constructor(metaService: Meta) {
-    super(metaService, 'debounceTime');
-  }
 
   protected moveElement(e: ElementInConveyor): void {
     e.x += this.demo.speed;
