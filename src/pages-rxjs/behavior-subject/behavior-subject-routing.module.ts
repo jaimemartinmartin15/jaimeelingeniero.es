@@ -5,13 +5,18 @@ import { BehaviorSubjectComponent } from './behavior-subject.component';
 const routes: Routes = [
   {
     path: '',
-    title: 'BehaviorSubject rxjs',
     component: BehaviorSubjectComponent,
+    title: 'BehaviorSubject rxjs',
+    data: {
+      metaTags: {
+        description: 'Subject que guarda el último elemento emitido y lo emite a los nuevos suscriptores cuando se suscriben.',
+        keywords: ['behaviorsubject', 'demo', 'rxjs'],
+      },
+    },
   },
   {
     path: '**',
     redirectTo: '',
-    pathMatch: 'full',
   },
 ];
 

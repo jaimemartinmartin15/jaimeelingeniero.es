@@ -5,13 +5,18 @@ import { TimerComponent } from './timer.component';
 const routes: Routes = [
   {
     path: '',
-    title: 'Timer rxjs',
     component: TimerComponent,
+    title: 'Timer rxjs',
+    data: {
+      metaTags: {
+        description: 'Devuelve un Observable que emite el número 0 pasado el tiempo que le indiquemos o en una fecha concreta.',
+        keywords: ['timer', 'demo', 'rxjs'],
+      },
+    },
   },
   {
     path: '**',
     redirectTo: '',
-    pathMatch: 'full',
   },
 ];
 

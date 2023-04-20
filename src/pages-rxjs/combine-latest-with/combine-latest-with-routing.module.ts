@@ -5,13 +5,19 @@ import { CombineLatestWithComponent } from './combine-latest-with.component';
 const routes: Routes = [
   {
     path: '',
-    title: 'CombineLatestWith rxjs',
     component: CombineLatestWithComponent,
+    title: 'CombineLatestWith rxjs',
+    data: {
+      metaTags: {
+        description:
+          'Crea un nuevo Observable que combina en un array los últimos elementos emitidos por el Observable fuente y los Observables pasados como argumentos, siempre que todos los Observables hayan emitido al menos un elemento.',
+        keywords: ['combinelatestwith', 'demo', 'rxjs'],
+      },
+    },
   },
   {
     path: '**',
     redirectTo: '',
-    pathMatch: 'full',
   },
 ];
 

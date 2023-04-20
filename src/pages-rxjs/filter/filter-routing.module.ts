@@ -5,13 +5,18 @@ import { FilterComponent } from './filter.component';
 const routes: Routes = [
   {
     path: '',
-    title: 'Filter rxjs',
     component: FilterComponent,
+    title: 'Filter rxjs',
+    data: {
+      metaTags: {
+        description: 'Sólo deja pasar los elementos que cumplen una condición.',
+        keywords: ['filter', 'demo', 'rxjs'],
+      },
+    },
   },
   {
     path: '**',
     redirectTo: '',
-    pathMatch: 'full',
   },
 ];
 

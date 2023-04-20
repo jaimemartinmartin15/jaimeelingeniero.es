@@ -5,13 +5,18 @@ import { SkipComponent } from './skip.component';
 const routes: Routes = [
   {
     path: '',
-    title: 'Skip rxjs',
     component: SkipComponent,
+    title: 'Skip rxjs',
+    data: {
+      metaTags: {
+        description: 'Rechaza totalmente la primera cantidad de elementos que le indiquemos.',
+        keywords: ['skip', 'demo', 'rxjs'],
+      },
+    },
   },
   {
     path: '**',
     redirectTo: '',
-    pathMatch: 'full',
   },
 ];
 

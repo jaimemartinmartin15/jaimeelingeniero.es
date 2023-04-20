@@ -6,18 +6,23 @@ import { MyTrayectoryComponent } from './my-trayectory.component';
 const routes: Routes = [
   {
     path: '',
+    component: MyTrayectoryComponent,
     title: 'Trayectoria',
-    component: MyTrayectoryComponent
+    data: {
+      metaTags: {
+        description: 'Conoce cual ha sido mi trayectoria profesional hasta el día de hoy y en que proyectos he trabajado.',
+        keywords: ['jaime martin martin', 'curriculum', 'trayectoria'],
+      },
+    },
   },
   {
     path: '**',
-    redirectTo: '',
-    pathMatch: 'full'
-  }
+    redirectTo: ''
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class MyTrayectoryRoutingModule { }
+export class MyTrayectoryRoutingModule {}

@@ -11,15 +11,7 @@ export class PagesGamesComponent implements OnInit, OnDestroy {
   public constructor(private readonly metaService: Meta, @Inject(DOCUMENT) private document: Document) {}
 
   public ngOnInit(): void {
-    this.metaService.updateTag({
-      name: 'description',
-      content: `
-        Utiliza esta aplicación cuando estes jugando a las cartas con amigos o la familia
-        y anota las puntuaciones para saber quién gana. Obtén estadísticas y bonitos gráficos.
-      `,
-    });
-    this.metaService.updateTag({ name: 'keywords', content: 'tabla, puntuaciones, cartas, juego, online, ranking, clasificacion' });
-
+    // TODO: move also to seo service
     // set only the icon when saving in home screen mobile (not the one with type="image/x-icon")
     const linkElementsFavIcon = this.document.getElementsByClassName('favIcon');
     for (let i = 0; i < linkElementsFavIcon.length; i++) {
@@ -30,9 +22,7 @@ export class PagesGamesComponent implements OnInit, OnDestroy {
   }
 
   public ngOnDestroy(): void {
-    this.metaService.removeTag('name="description"');
-    this.metaService.removeTag('name="keywords"');
-
+    // TODO: move also to seo service
     // set default favicons again
     const linkElementsFavIcon = this.document.getElementsByClassName('favIcon');
     for (let i = 0; i < linkElementsFavIcon.length; i++) {

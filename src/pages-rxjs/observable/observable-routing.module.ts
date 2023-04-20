@@ -5,13 +5,18 @@ import { ObservableComponent } from './observable.component';
 const routes: Routes = [
   {
     path: '',
-    title: 'Observable rxjs',
     component: ObservableComponent,
+    title: 'Observable rxjs',
+    data: {
+      metaTags: {
+        description: 'Un Observable es como una cinta transportadora que emite datos...',
+        keywords: ['observable', 'demo', 'rxjs'],
+      },
+    },
   },
   {
     path: '**',
     redirectTo: '',
-    pathMatch: 'full',
   },
 ];
 

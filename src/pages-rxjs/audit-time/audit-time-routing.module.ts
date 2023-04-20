@@ -5,13 +5,19 @@ import { AuditTimeComponent } from './audit-time.component';
 const routes: Routes = [
   {
     path: '',
-    title: 'AuditTime rxjs',
     component: AuditTimeComponent,
+    title: 'AuditTime rxjs',
+    data: {
+      metaTags: {
+        description:
+          'Espera a que se emita un elemento en el Observable fuente. A continuación inicia un temporizador, y cuando termina, emite el último elemento que haya pasado en el Observable fuente. A continuación espera el siguiente elemento y repite el proceso.',
+        keywords: ['audittime', 'demo', 'rxjs'],
+      },
+    },
   },
   {
     path: '**',
     redirectTo: '',
-    pathMatch: 'full',
   },
 ];
 

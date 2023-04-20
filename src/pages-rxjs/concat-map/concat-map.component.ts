@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { Meta } from '@angular/platform-browser';
 import { BehaviorSubject, concatMap, Subject } from 'rxjs';
 import { BaseOperatorComponent } from '../shared/base-operator.component';
 import { ButtonController } from '../shared/components/conveyor-controller/button-controller';
@@ -36,10 +35,6 @@ export class ConcatMapComponent extends BaseOperatorComponent {
   };
 
   private concatMap$: { [key: string]: Subject<string> } = {};
-
-  public constructor(metaService: Meta) {
-    super(metaService, 'concatMap');
-  }
 
   protected moveElement(e: ElementInConveyor): void {
     if (e.conveyorId === this.MAIN_ID) {

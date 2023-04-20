@@ -5,13 +5,19 @@ import { ExhaustMapComponent } from './exhaust-map.component';
 const routes: Routes = [
   {
     path: '',
-    title: 'ExhaustMap rxjs',
     component: ExhaustMapComponent,
+    title: 'ExhaustMap rxjs',
+    data: {
+      metaTags: {
+        description:
+          'Coge cada uno de los elementos emitidos por un Observable fuente y devuelve un nuevo Observable por cada elemento, cuyos elementos emitidos serán puestos de nuevo en el observable fuente y que serán los que se entregen al suscriptor. Los elementos emitidos en el Observable fuente son ignorados si el Observable creado para el elemento anterior aún no ha completado.',
+        keywords: ['exhaustmap', 'demo', 'rxjs'],
+      },
+    },
   },
   {
     path: '**',
     redirectTo: '',
-    pathMatch: 'full',
   },
 ];
 

@@ -5,13 +5,18 @@ import { OfComponent } from './of.component';
 const routes: Routes = [
   {
     path: '',
-    title: 'Of rxjs',
     component: OfComponent,
+    title: 'Of rxjs',
+    data: {
+      metaTags: {
+        description: 'Devuelve un Observable que emite los elementos que le pasamos como argumento. Cuando los ha emitido todos, completa.',
+        keywords: ['of', 'demo', 'rxjs'],
+      },
+    },
   },
   {
     path: '**',
     redirectTo: '',
-    pathMatch: 'full',
   },
 ];
 

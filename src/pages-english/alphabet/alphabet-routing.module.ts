@@ -5,8 +5,14 @@ import { AlphabetComponent } from './alphabet.component';
 const routes: Routes = [
   {
     path: '',
-    title: 'Alfabeto inglés',
     component: AlphabetComponent,
+    title: 'Alfabeto inglés',
+    data: {
+      metaTags: {
+        description: 'Aprende a pronunciar las letras del alfabeto inglés en español.',
+        keywords: ['pronunciacion', 'alfabeto', 'ingles'],
+      },
+    },
   },
   {
     path: '**',

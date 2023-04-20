@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
-import { Meta, Title } from '@angular/platform-browser';
-import { BehaviorSubject, exhaustMap, Subject } from 'rxjs';
+import { BehaviorSubject, Subject, exhaustMap } from 'rxjs';
 import { BaseOperatorComponent } from '../shared/base-operator.component';
 import { ButtonController } from '../shared/components/conveyor-controller/button-controller';
 import { ElementInConveyor } from '../shared/element-in-conveyor';
@@ -35,10 +34,6 @@ export class ExhaustMapComponent extends BaseOperatorComponent {
   };
 
   private exhaustMap$: { [key: string]: Subject<string> } = {};
-
-  public constructor(metaService: Meta) {
-    super(metaService, 'exhaustMap');
-  }
 
   protected moveElement(e: ElementInConveyor): void {
     if (e.conveyorId === this.MAIN_ID) {
