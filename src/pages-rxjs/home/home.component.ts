@@ -1,6 +1,5 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { Meta } from '@angular/platform-browser';
 import { HomeLink, LINKS_GROUPS_OPERATORS, LINKS_TO_START } from './menu-links';
 
 @Component({
@@ -8,7 +7,7 @@ import { HomeLink, LINKS_GROUPS_OPERATORS, LINKS_TO_START } from './menu-links';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
 })
-export class HomeComponent implements OnInit, OnDestroy {
+export class HomeComponent implements OnInit {
   public showHomeLinksToStart = true;
 
   public readonly LINKS_GROUPS_OPERATORS = LINKS_GROUPS_OPERATORS;
@@ -16,12 +15,7 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   public searchControl = new FormControl<string>('', { nonNullable: true });
 
-  public constructor(private readonly metaService: Meta) {}
-
   public ngOnInit(): void {
-    this.metaService.updateTag({ name: 'description', content: 'Accede a la lista de operadores rxjs' });
-    this.metaService.updateTag({ name: 'keywords', content: 'operadores rxjs, lista' });
-
     this.searchControl.valueChanges.subscribe((searchCriteria: string) => (searchCriteria = searchCriteria.toLocaleLowerCase()));
   }
 
@@ -31,10 +25,5 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   public hasToShowLink(link: HomeLink['links'][number]): boolean {
     return link.display.toLowerCase().includes(this.searchControl.value.toLowerCase());
-  }
-
-  public ngOnDestroy(): void {
-    this.metaService.removeTag('name="description"');
-    this.metaService.removeTag('name="keywords"');
   }
 }
