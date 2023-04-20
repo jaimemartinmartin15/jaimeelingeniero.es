@@ -5,13 +5,19 @@ import { SwitchMapComponent } from './switch-map.component';
 const routes: Routes = [
   {
     path: '',
-    title: 'SwitchMap rxjs',
     component: SwitchMapComponent,
+    title: 'SwitchMap rxjs',
+    data: {
+      metaTags: {
+        description:
+          'Coge cada uno de los elementos emitidos por un Observable fuente y devuelve un nuevo Observable por cada elemento, cuyos elementos emitidos serán puestos de nuevo en el observable fuente y que serán los que se entregen al subscriptor. En el momento en el que un nuevo elemento es emitido en el Observable fuente, se cancela el Observable creado del elemento anterior y se suscribe al nuevo.',
+        keywords: ['switchmap', 'demo', 'rxjs'],
+      },
+    },
   },
   {
     path: '**',
     redirectTo: '',
-    pathMatch: 'full',
   },
 ];
 

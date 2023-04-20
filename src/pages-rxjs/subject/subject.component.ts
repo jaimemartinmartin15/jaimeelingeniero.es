@@ -1,6 +1,5 @@
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
-import { Meta } from '@angular/platform-browser';
-import { BehaviorSubject, interval, Subject, Subscription } from 'rxjs';
+import { AfterViewInit, Component, ViewChild } from '@angular/core';
+import { BehaviorSubject, Subject, Subscription, interval } from 'rxjs';
 import { ButtonController } from '../shared/components/conveyor-controller/button-controller';
 import { DemoContainerComponent } from '../shared/components/demo-container/demo-container.component';
 import { ElementInConveyor } from '../shared/element-in-conveyor';
@@ -12,7 +11,7 @@ import { SpeechBubble } from '../shared/speech-bubble';
   templateUrl: './subject.component.html',
   styleUrls: ['./subject.component.scss'],
 })
-export class SubjectComponent implements OnInit, AfterViewInit {
+export class SubjectComponent implements AfterViewInit {
   public headerPrintData = { author: 'Jaime Martín Martín', date: '18 de julio de 2022' };
 
   public S1 = '0';
@@ -42,13 +41,6 @@ export class SubjectComponent implements OnInit, AfterViewInit {
     [this.S2]: new Subject<SpeechBubble>(),
     [this.S3]: new Subject<SpeechBubble>(),
   };
-
-  public constructor(private readonly metaService: Meta) {}
-
-  public ngOnInit() {
-    this.metaService.updateTag({ name: 'description', content: 'Explicación de un Subject' });
-    this.metaService.updateTag({ name: 'keywords', content: `subject, demo, rxjs` });
-  }
 
   public ngAfterViewInit(): void {
     interval(this.demo.fps).subscribe(() => {
@@ -119,10 +111,5 @@ export class SubjectComponent implements OnInit, AfterViewInit {
         type: ObservableEventType.NONE,
       })
     );
-  }
-
-  public ngOnDestroy(): void {
-    this.metaService.removeTag('name="description"');
-    this.metaService.removeTag('name="keywords"');
   }
 }

@@ -5,13 +5,18 @@ import { FromComponent } from './from.component';
 const routes: Routes = [
   {
     path: '',
-    title: 'From rxjs',
     component: FromComponent,
+    title: 'From rxjs',
+    data: {
+      metaTags: {
+        description: 'Devuelve un Observable que emite los elementos de un array, o los caracteres de un string, o el resultado de una promesa.',
+        keywords: ['from', 'demo', 'rxjs'],
+      },
+    },
   },
   {
     path: '**',
     redirectTo: '',
-    pathMatch: 'full',
   },
 ];
 

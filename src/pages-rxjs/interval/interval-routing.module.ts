@@ -5,13 +5,18 @@ import { IntervalComponent } from './interval.component';
 const routes: Routes = [
   {
     path: '',
-    title: 'Interval rxjs',
     component: IntervalComponent,
+    title: 'Interval rxjs',
+    data: {
+      metaTags: {
+        description: 'Devuelve un Observable que cada intervalo de tiempo que nosotros indiquemos devuelve un número en secuencia ascendente.',
+        keywords: ['interval', 'demo', 'rxjs'],
+      },
+    },
   },
   {
     path: '**',
     redirectTo: '',
-    pathMatch: 'full',
   },
 ];
 
