@@ -2,7 +2,7 @@ import { DOCUMENT } from '@angular/common';
 import { Inject, Injectable } from '@angular/core';
 import { Meta } from '@angular/platform-browser';
 import { ActivatedRoute, NavigationEnd, NavigationStart, Router } from '@angular/router';
-import { filter, map, switchMap } from 'rxjs';
+import { filter, switchMap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -21,7 +21,8 @@ export class SeoService {
         filter((event) => event instanceof NavigationEnd),
         switchMap(() => {
           let route = this.activatedRoute;
-          while (route.firstChild != null) route = route.firstChild;
+          // Puntuaciones page is an exception here
+          while (route.firstChild != null && route.routeConfig?.title !== 'Puntuaciones') route = route.firstChild;
           return route.data;
         })
       )
