@@ -51,11 +51,10 @@ export class SeoService {
   }
 
   public setCanonical() {
-    if (!location.hostname.includes('www') || location.protocol === 'http') {
-      const canonicalLink = (this.document.querySelector('link[rel="canonical"]') as HTMLLinkElement) || this.document.createElement('link');
-      canonicalLink.rel = 'canonical';
-      canonicalLink.href = `https://www.jaimeelingeniero.es${location.href.substring(location.origin.length)}`;
-      this.document.head.appendChild(canonicalLink);
-    }
+    // In Mueller’s words: “It’s a great practice to have a self-referencing canonical but it’s not critical.”
+    const canonicalLink = (this.document.querySelector('link[rel="canonical"]') as HTMLLinkElement) || this.document.createElement('link');
+    canonicalLink.rel = 'canonical';
+    canonicalLink.href = `https://www.jaimeelingeniero.es${location.href.substring(location.origin.length)}`;
+    this.document.head.appendChild(canonicalLink); // it won´t be duplicated 😉 (read docs)
   }
 }
