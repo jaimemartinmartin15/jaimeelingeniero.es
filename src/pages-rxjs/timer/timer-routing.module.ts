@@ -12,6 +12,10 @@ const routes: Routes = [
         description: 'Devuelve un Observable que emite el número 0 pasado el tiempo que le indiquemos o en una fecha concreta.',
         keywords: ['timer', 'demo', 'rxjs'],
       },
+      headerPrint: {
+        author: 'Jaime Martín Martín',
+        date: '3 de agosto de 2022',
+      },
     },
   },
   {

@@ -12,6 +12,10 @@ const routes: Routes = [
         description: 'Un Observable es como una cinta transportadora que emite datos...',
         keywords: ['observable', 'demo', 'rxjs'],
       },
+      headerPrint: {
+        author: 'Jaime Martín Martín',
+        date: '2 de abril de 2022',
+      },
     },
   },
   {

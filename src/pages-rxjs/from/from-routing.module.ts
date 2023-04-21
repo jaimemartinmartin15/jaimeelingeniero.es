@@ -12,6 +12,10 @@ const routes: Routes = [
         description: 'Devuelve un Observable que emite los elementos de un array, o los caracteres de un string, o el resultado de una promesa.',
         keywords: ['from', 'demo', 'rxjs'],
       },
+      headerPrint: {
+        author: 'Jaime Martín Martín',
+        date: '1 de agosto de 2022',
+      },
     },
   },
   {

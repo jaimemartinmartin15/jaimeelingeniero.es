@@ -11,8 +11,6 @@ import { ObservableEventType } from '../shared/observable-event-type';
   styleUrls: ['./sample-time.component.scss'],
 })
 export class SampleTimeComponent extends BaseOperatorComponent {
-  public headerPrintData = { author: 'Jaime Martín Martín', date: '3 de junio de 2022' };
-
   private errorOrCompleteEmitted = false;
   public elementInStandBy = '';
   public counterSubscription: Subscription;

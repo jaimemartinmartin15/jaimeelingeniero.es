@@ -11,8 +11,6 @@ import { ObservableEventType } from '../shared/observable-event-type';
   styleUrls: ['./filter.component.scss'],
 })
 export class FilterComponent extends BaseOperatorComponent {
-  public headerPrintData = { author: 'Jaime Martín Martín', date: '19 de junio de 2022' };
-
   protected operator = filter((e) => e === '🥦');
 
   public controllerButtons: { [key: string]: ButtonController[] } = {

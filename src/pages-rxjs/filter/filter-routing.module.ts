@@ -12,6 +12,10 @@ const routes: Routes = [
         description: 'Sólo deja pasar los elementos que cumplen una condición.',
         keywords: ['filter', 'demo', 'rxjs'],
       },
+      headerPrint: {
+        author: 'Jaime Martín Martín',
+        date: '19 de junio de 2022',
+      },
     },
   },
   {

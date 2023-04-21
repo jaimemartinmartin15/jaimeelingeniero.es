@@ -11,8 +11,6 @@ import { ObservableEventType } from '../shared/observable-event-type';
   styleUrls: ['./start-with.component.scss'],
 })
 export class StartWithComponent extends BaseOperatorComponent {
-  public headerPrintData = { author: 'Jaime Martín Martín', date: '20 de mayo de 2022' };
-
   protected operator = startWith('🍐');
 
   public controllerButtons: { [key: string]: ButtonController[] } = {

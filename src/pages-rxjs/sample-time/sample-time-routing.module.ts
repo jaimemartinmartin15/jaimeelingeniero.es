@@ -13,6 +13,10 @@ const routes: Routes = [
           'Mira cada cierto tiempo el Observable fuente y emite el último elemento que se se haya emitido hasta ese momento desde la última vez que miró.',
         keywords: ['sampletime', 'demo', 'rxjs'],
       },
+      headerPrint: {
+        author: 'Jaime Martín Martín',
+        date: '3 de junio de 2022',
+      },
     },
   },
   {

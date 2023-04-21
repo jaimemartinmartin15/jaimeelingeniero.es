@@ -11,8 +11,6 @@ import { ObservableEventType } from '../shared/observable-event-type';
   styleUrls: ['./fork-join.component.scss'],
 })
 export class ForkJoinComponent extends BaseOperatorComponent {
-  public headerPrintData = { author: 'Jaime Martín Martín', date: '18 de mayo de 2022' };
-
   public readonly FORKJOIN = ['1', '2', '3'];
   protected operator: any;
 

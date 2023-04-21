@@ -5,9 +5,4 @@ import { Component } from '@angular/core';
   templateUrl: './configure-dns-server.component.html',
   styleUrls: ['./configure-dns-server.component.scss'],
 })
-export class ConfigureDnsServerComponent {
-  public headerPrintData = {
-    author: 'Jaime Martín Martín',
-    date: '3 de diciembre de 2022',
-  };
-}
+export class ConfigureDnsServerComponent {}

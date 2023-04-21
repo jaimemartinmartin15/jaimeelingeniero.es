@@ -12,6 +12,10 @@ const routes: Routes = [
         description: 'Devuelve un Observable que cada intervalo de tiempo que nosotros indiquemos devuelve un número en secuencia ascendente.',
         keywords: ['interval', 'demo', 'rxjs'],
       },
+      headerPrint: {
+        author: 'Jaime Martín Martín',
+        date: '2 de agosto de 2022',
+      },
     },
   },
   {

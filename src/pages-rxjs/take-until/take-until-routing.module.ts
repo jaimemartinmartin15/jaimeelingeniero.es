@@ -12,6 +12,10 @@ const routes: Routes = [
         description: 'Deja pasar los elementos del Observable fuente hasta que otro Observable, el notificador, emite algún valor.',
         keywords: ['takeuntil', 'demo', 'rxjs'],
       },
+      headerPrint: {
+        author: 'Jaime Martín Martín',
+        date: '15 de junio de 2022',
+      },
     },
   },
   {

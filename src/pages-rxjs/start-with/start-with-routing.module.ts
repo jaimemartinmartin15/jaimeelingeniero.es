@@ -12,6 +12,10 @@ const routes: Routes = [
         description: 'Emite inmediatamente un nuevo elemento en el pipe del Observable cuando un suscriptor se suscribe.',
         keywords: ['startwith', 'demo', 'rxjs'],
       },
+      headerPrint: {
+        author: 'Jaime Martín Martín',
+        date: '20 de mayo de 2022',
+      },
     },
   },
   {

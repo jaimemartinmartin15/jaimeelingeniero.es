@@ -12,6 +12,10 @@ const routes: Routes = [
         description: 'Rechaza totalmente la primera cantidad de elementos que le indiquemos.',
         keywords: ['skip', 'demo', 'rxjs'],
       },
+      headerPrint: {
+        author: 'Jaime Martín Martín',
+        date: '10 de junio de 2022',
+      },
     },
   },
   {

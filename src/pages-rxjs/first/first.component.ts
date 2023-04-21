@@ -11,8 +11,6 @@ import { ObservableEventType } from '../shared/observable-event-type';
   styleUrls: ['./first.component.scss'],
 })
 export class FirstComponent extends BaseOperatorComponent {
-  public headerPrintData = { author: 'Jaime Martín Martín', date: '11 de junio de 2022' };
-
   protected operator = first();
 
   public controllerButtons: { [key: string]: ButtonController[] } = {

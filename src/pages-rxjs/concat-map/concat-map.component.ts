@@ -13,8 +13,6 @@ import { fadeInOut } from '../shared/rxjs-animations';
   animations: [fadeInOut],
 })
 export class ConcatMapComponent extends BaseOperatorComponent {
-  public headerPrintData = { author: 'Jaime Martín Martín', date: '28 de abril de 2022' };
-
   private nextConcatMapId = 1;
   public readonly CONCATMAP: string[] = [];
   protected operator: any;
