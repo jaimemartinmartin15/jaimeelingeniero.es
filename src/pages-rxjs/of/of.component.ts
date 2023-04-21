@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { Meta } from '@angular/platform-browser';
 import { BehaviorSubject, of, switchMap } from 'rxjs';
 import { BaseOperatorComponent } from '../shared/base-operator.component';
 import { ButtonController } from '../shared/components/conveyor-controller/button-controller';
@@ -12,8 +11,6 @@ import { ObservableEventType } from '../shared/observable-event-type';
   styleUrls: ['./of.component.scss'],
 })
 export class OfComponent extends BaseOperatorComponent {
-  public headerPrintData = { author: 'Jaime Martín Martín', date: '29 de julio de 2022' };
-
   private numberOfEmissions = 0;
   private subscriptions: ReturnType<typeof setTimeout>[] = [];
   protected operator = switchMap(() => of('🥥', '🌽', '🌶️'));
@@ -31,10 +28,6 @@ export class OfComponent extends BaseOperatorComponent {
   public readonly conveyorsWorking: { [key: string]: BehaviorSubject<boolean> } = {
     [this.MAIN_ID]: new BehaviorSubject<boolean>(false),
   };
-
-  public constructor(metaService: Meta) {
-    super(metaService, 'of');
-  }
 
   protected moveElement(e: ElementInConveyor): void {
     e.x += this.demo.speed;

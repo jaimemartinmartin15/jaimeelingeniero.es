@@ -16,16 +16,28 @@ const routes: Routes = [
         children: [
           {
             path: '',
-            title: 'Lista de tiempos verbales',
             component: ListComponent,
+            title: 'Lista de tiempos verbales',
+            data: {
+              metaTags: {
+                description: 'Lista de verbos en inglés para estudiar',
+                keywords: ['Verbos', 'ingles', 'infinitivo', 'pasado', 'participio', 'significado'],
+              },
+            },
           },
           { path: '**', redirectTo: '' },
         ],
       },
       {
         path: '',
-        title: 'Tiempos verbales',
         component: TensesComponent,
+        title: 'Tiempos verbales',
+        data: {
+          metaTags: {
+            description: 'Repasa los tiempos verbales de los verbos en inglés. Estudia y practica para tus exámenes.',
+            keywords: ['tiempos verbales', 'ingles', 'significado', 'infinitivo', 'pasado', 'participio'],
+          },
+        },
       },
       {
         path: '**',

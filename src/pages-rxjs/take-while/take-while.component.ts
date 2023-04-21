@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { Meta } from '@angular/platform-browser';
 import { BehaviorSubject, takeWhile } from 'rxjs';
 import { BaseOperatorComponent } from '../shared/base-operator.component';
 import { ButtonController } from '../shared/components/conveyor-controller/button-controller';
@@ -12,8 +11,6 @@ import { ObservableEventType } from '../shared/observable-event-type';
   styleUrls: ['./take-while.component.scss'],
 })
 export class TakeWhileComponent extends BaseOperatorComponent {
-  public headerPrintData = { author: 'Jaime Martín Martín', date: '21 de junio de 2022' };
-
   protected operator = takeWhile((e) => e === '🥦' || e === '🍐');
 
   public controllerButtons: { [key: string]: ButtonController[] } = {
@@ -29,10 +26,6 @@ export class TakeWhileComponent extends BaseOperatorComponent {
   public conveyorsWorking: { [key: string]: BehaviorSubject<boolean> } = {
     [this.MAIN_ID]: new BehaviorSubject<boolean>(false),
   };
-
-  public constructor(metaService: Meta) {
-    super(metaService, 'takeWhile');
-  }
 
   protected moveElement(e: ElementInConveyor): void {
     e.x += this.demo.speed;

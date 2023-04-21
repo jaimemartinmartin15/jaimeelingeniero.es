@@ -5,8 +5,8 @@ import { MenuComponent } from './menu.component';
 const routes: Routes = [
   {
     path: '',
-    title: 'Practica inglés',
     component: MenuComponent,
+    title: 'Practica inglés',
   },
   {
     path: '**',

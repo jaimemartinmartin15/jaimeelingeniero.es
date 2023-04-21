@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { Meta } from '@angular/platform-browser';
 import { BehaviorSubject, first } from 'rxjs';
 import { BaseOperatorComponent } from '../shared/base-operator.component';
 import { ButtonController } from '../shared/components/conveyor-controller/button-controller';
@@ -12,8 +11,6 @@ import { ObservableEventType } from '../shared/observable-event-type';
   styleUrls: ['./first.component.scss'],
 })
 export class FirstComponent extends BaseOperatorComponent {
-  public headerPrintData = { author: 'Jaime Martín Martín', date: '11 de junio de 2022' };
-
   protected operator = first();
 
   public controllerButtons: { [key: string]: ButtonController[] } = {
@@ -29,10 +26,6 @@ export class FirstComponent extends BaseOperatorComponent {
   public conveyorsWorking: { [key: string]: BehaviorSubject<boolean> } = {
     [this.MAIN_ID]: new BehaviorSubject<boolean>(false),
   };
-
-  public constructor(metaService: Meta) {
-    super(metaService, 'first');
-  }
 
   protected moveElement(e: ElementInConveyor): void {
     e.x += this.demo.speed;

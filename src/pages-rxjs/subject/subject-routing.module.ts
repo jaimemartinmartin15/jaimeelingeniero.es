@@ -5,13 +5,22 @@ import { SubjectComponent } from './subject.component';
 const routes: Routes = [
   {
     path: '',
-    title: 'Subject rxjs',
     component: SubjectComponent,
+    title: 'Subject rxjs',
+    data: {
+      metaTags: {
+        description: 'Tipo de Observable que a su vez es observador. Sí, los elementos que emite los recibe él mismo.',
+        keywords: ['subject', 'demo', 'rxjs'],
+      },
+      headerPrint: {
+        author: 'Jaime Martín Martín',
+        date: '18 de julio de 2022',
+      },
+    },
   },
   {
     path: '**',
     redirectTo: '',
-    pathMatch: 'full',
   },
 ];
 

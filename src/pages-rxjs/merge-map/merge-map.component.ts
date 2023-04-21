@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { Meta } from '@angular/platform-browser';
 import { BehaviorSubject, mergeMap, Subject } from 'rxjs';
 import { BaseOperatorComponent } from '../shared/base-operator.component';
 import { ButtonController } from '../shared/components/conveyor-controller/button-controller';
@@ -14,8 +13,6 @@ import { fadeInOut } from '../shared/rxjs-animations';
   animations: [fadeInOut],
 })
 export class MergeMapComponent extends BaseOperatorComponent {
-  public headerPrintData = { author: 'Jaime Martín Martín', date: '20 de abril de 2022' };
-
   private nextMergeMapId = 1;
   public readonly MERGEMAP: string[] = [];
   protected operator: any;
@@ -35,10 +32,6 @@ export class MergeMapComponent extends BaseOperatorComponent {
   };
 
   private mergeMap$: { [key: string]: Subject<string> } = {};
-
-  public constructor(metaService: Meta) {
-    super(metaService, 'mergeMap');
-  }
 
   protected moveElement(e: ElementInConveyor): void {
     if (e.conveyorId === this.MAIN_ID) {

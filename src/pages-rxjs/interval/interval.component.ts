@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { Meta } from '@angular/platform-browser';
 import { BehaviorSubject, interval, map, pipe, switchMap } from 'rxjs';
 import { BaseOperatorComponent } from '../shared/base-operator.component';
 import { ButtonController } from '../shared/components/conveyor-controller/button-controller';
@@ -12,8 +11,6 @@ import { ObservableEventType } from '../shared/observable-event-type';
   styleUrls: ['./interval.component.scss'],
 })
 export class IntervalComponent extends BaseOperatorComponent {
-  public headerPrintData = { author: 'Jaime Martín Martín', date: '2 de agosto de 2022' };
-
   protected operator = pipe(
     switchMap(() => interval(2000)),
     map((n) => this.convertToEmojis(n))
@@ -24,10 +21,6 @@ export class IntervalComponent extends BaseOperatorComponent {
   public readonly conveyorsWorking: { [key: string]: BehaviorSubject<boolean> } = {
     [this.MAIN_ID]: new BehaviorSubject<boolean>(false),
   };
-
-  public constructor(metaService: Meta) {
-    super(metaService, 'interval');
-  }
 
   protected moveElement(e: ElementInConveyor): void {
     e.x += this.demo.speed;

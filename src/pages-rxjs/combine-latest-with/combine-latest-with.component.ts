@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { Meta } from '@angular/platform-browser';
 import { BehaviorSubject, combineLatestWith, Subject } from 'rxjs';
 import { BaseOperatorComponent } from '../shared/base-operator.component';
 import { ButtonController } from '../shared/components/conveyor-controller/button-controller';
@@ -12,8 +11,6 @@ import { ObservableEventType } from '../shared/observable-event-type';
   styleUrls: ['./combine-latest-with.component.scss'],
 })
 export class CombineLatestWithComponent extends BaseOperatorComponent {
-  public headerPrintData = { author: 'Jaime Martín Martín', date: '13 de mayo de 2022' };
-  
   public readonly COMBINELATESTWITH = [
     '1', // Combine latest with left
     '2', // Combine latest with right
@@ -62,10 +59,6 @@ export class CombineLatestWithComponent extends BaseOperatorComponent {
     {} as any as ElementInConveyor,
     {} as any as ElementInConveyor,
   ];
-
-  public constructor(metaService: Meta) {
-    super(metaService, 'combineLatestWith');
-  }
 
   protected moveElement(e: ElementInConveyor): void {
     if (e.conveyorId === this.MAIN_ID || e.conveyorId === this.COMBINELATESTWITH[2]) {

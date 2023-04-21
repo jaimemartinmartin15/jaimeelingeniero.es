@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { Meta } from '@angular/platform-browser';
 import { BehaviorSubject, skip } from 'rxjs';
 import { BaseOperatorComponent } from '../shared/base-operator.component';
 import { ButtonController } from '../shared/components/conveyor-controller/button-controller';
@@ -12,8 +11,6 @@ import { ObservableEventType } from '../shared/observable-event-type';
   styleUrls: ['./skip.component.scss'],
 })
 export class SkipComponent extends BaseOperatorComponent {
-  public headerPrintData = { author: 'Jaime Martín Martín', date: '10 de junio de 2022' };
-
   public counterSkip = 3;
   public readonly counterSkipEmojis = ['1️⃣', '2️⃣', '3️⃣'];
   protected operator = skip(3);
@@ -31,10 +28,6 @@ export class SkipComponent extends BaseOperatorComponent {
   public conveyorsWorking: { [key: string]: BehaviorSubject<boolean> } = {
     [this.MAIN_ID]: new BehaviorSubject<boolean>(false),
   };
-
-  public constructor(metaService: Meta) {
-    super(metaService, 'skip');
-  }
 
   protected moveElement(e: ElementInConveyor): void {
     e.x += this.demo.speed;

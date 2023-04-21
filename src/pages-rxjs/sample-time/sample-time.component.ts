@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { Meta } from '@angular/platform-browser';
 import { BehaviorSubject, interval, sampleTime, Subscription, tap } from 'rxjs';
 import { BaseOperatorComponent } from '../shared/base-operator.component';
 import { ButtonController } from '../shared/components/conveyor-controller/button-controller';
@@ -12,8 +11,6 @@ import { ObservableEventType } from '../shared/observable-event-type';
   styleUrls: ['./sample-time.component.scss'],
 })
 export class SampleTimeComponent extends BaseOperatorComponent {
-  public headerPrintData = { author: 'Jaime Martín Martín', date: '3 de junio de 2022' };
-
   private errorOrCompleteEmitted = false;
   public elementInStandBy = '';
   public counterSubscription: Subscription;
@@ -33,10 +30,6 @@ export class SampleTimeComponent extends BaseOperatorComponent {
   public conveyorsWorking: { [key: string]: BehaviorSubject<boolean> } = {
     [this.MAIN_ID]: new BehaviorSubject<boolean>(false),
   };
-
-  public constructor(metaService: Meta) {
-    super(metaService, 'sampleTime');
-  }
 
   protected moveElement(e: ElementInConveyor): void {
     e.x += this.demo.speed;

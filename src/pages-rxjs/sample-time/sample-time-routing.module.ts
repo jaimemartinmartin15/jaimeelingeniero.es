@@ -5,13 +5,23 @@ import { SampleTimeComponent } from './sample-time.component';
 const routes: Routes = [
   {
     path: '',
-    title: 'SampleTime rxjs',
     component: SampleTimeComponent,
+    title: 'SampleTime rxjs',
+    data: {
+      metaTags: {
+        description:
+          'Mira cada cierto tiempo el Observable fuente y emite el último elemento que se se haya emitido hasta ese momento desde la última vez que miró.',
+        keywords: ['sampletime', 'demo', 'rxjs'],
+      },
+      headerPrint: {
+        author: 'Jaime Martín Martín',
+        date: '3 de junio de 2022',
+      },
+    },
   },
   {
     path: '**',
     redirectTo: '',
-    pathMatch: 'full',
   },
 ];
 

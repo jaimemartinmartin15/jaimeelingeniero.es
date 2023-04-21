@@ -5,13 +5,22 @@ import { DistinctUntilChangedComponent } from './distinct-until-changed.componen
 const routes: Routes = [
   {
     path: '',
-    title: 'DistinctUntil rxjs',
     component: DistinctUntilChangedComponent,
+    title: 'DistinctUntilChanged rxjs',
+    data: {
+      metaTags: {
+        description: 'Evita que se emitan dos eventos iguales seguidos.',
+        keywords: ['distinctuntilchanged', 'demo', 'rxjs'],
+      },
+      headerPrint: {
+        author: 'Jaime Martín Martín',
+        date: '10 de junio de 2022',
+      },
+    },
   },
   {
     path: '**',
     redirectTo: '',
-    pathMatch: 'full',
   },
 ];
 

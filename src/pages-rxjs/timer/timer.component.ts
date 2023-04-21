@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { Meta } from '@angular/platform-browser';
 import { BehaviorSubject, map, pipe, switchMap, timer } from 'rxjs';
 import { BaseOperatorComponent } from '../shared/base-operator.component';
 import { ButtonController } from '../shared/components/conveyor-controller/button-controller';
@@ -12,8 +11,6 @@ import { ObservableEventType } from '../shared/observable-event-type';
   styleUrls: ['./timer.component.scss'],
 })
 export class TimerComponent extends BaseOperatorComponent {
-  public headerPrintData = { author: 'Jaime Martín Martín', date: '3 de agosto de 2022' };
-
   public readonly today = new Date();
 
   protected operator = pipe(
@@ -27,10 +24,6 @@ export class TimerComponent extends BaseOperatorComponent {
   public readonly conveyorsWorking: { [key: string]: BehaviorSubject<boolean> } = {
     [this.MAIN_ID]: new BehaviorSubject<boolean>(false),
   };
-
-  public constructor(metaService: Meta) {
-    super(metaService, 'timer');
-  }
 
   protected moveElement(e: ElementInConveyor): void {
     e.x += this.demo.speed;

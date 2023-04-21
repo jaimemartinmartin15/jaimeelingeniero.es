@@ -5,13 +5,22 @@ import { TakeComponent } from './take.component';
 const routes: Routes = [
   {
     path: '',
-    title: 'Take rxjs',
     component: TakeComponent,
+    title: 'Take rxjs',
+    data: {
+      metaTags: {
+        description: 'Entrega solamente la primera cantidad de elementos que le digamos.',
+        keywords: ['take', 'demo', 'rxjs'],
+      },
+      headerPrint: {
+        author: 'Jaime Martín Martín',
+        date: '14 de junio de 2022',
+      },
+    },
   },
   {
     path: '**',
     redirectTo: '',
-    pathMatch: 'full',
   },
 ];
 

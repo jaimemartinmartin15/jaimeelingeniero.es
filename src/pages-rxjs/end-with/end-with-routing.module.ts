@@ -5,13 +5,22 @@ import { EndWithComponent } from './end-with.component';
 const routes: Routes = [
   {
     path: '',
-    title: 'EndWith rxjs',
     component: EndWithComponent,
+    title: 'EndWith rxjs',
+    data: {
+      metaTags: {
+        description: 'Emite inmediatamente un nuevo elemento en el pipe del Observable justo antes de que complete.',
+        keywords: ['endwith', 'demo', 'rxjs'],
+      },
+      headerPrint: {
+        author: 'Jaime Martín Martín',
+        date: '28 de mayo de 2022',
+      },
+    },
   },
   {
     path: '**',
     redirectTo: '',
-    pathMatch: 'full',
   },
 ];
 

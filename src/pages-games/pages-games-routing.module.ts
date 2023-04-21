@@ -28,6 +28,14 @@ const routes: Routes = [
     path: '',
     component: PagesGamesComponent,
     title: 'Puntuaciones',
+    data: {
+      metaTags: {
+        description:
+          'Utiliza esta aplicación cuando estes jugando a las cartas con amigos o la familia y anota las puntuaciones para saber quién gana. Obtén estadísticas y bonitos gráficos.',
+        keywords: ['tabla', 'puntuaciones', 'cartas', 'juego', 'online', 'ranking', 'clasificacion'],
+        favIcon: 'assets/favicons/puntuaciones/favicon-{size}x{size}.png',
+      },
+    },
     canActivateChild: [PagesGamesNavigationGuard],
     children: [
       {

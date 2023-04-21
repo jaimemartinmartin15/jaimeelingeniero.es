@@ -1,6 +1,5 @@
-import { AfterViewInit, Component, Inject, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { Meta } from '@angular/platform-browser';
-import { BehaviorSubject, interval, Subject, Subscription } from 'rxjs';
+import { AfterViewInit, Component, ViewChild } from '@angular/core';
+import { BehaviorSubject, Subject, Subscription, interval } from 'rxjs';
 import { ButtonController } from './components/conveyor-controller/button-controller';
 import { DemoContainerComponent } from './components/demo-container/demo-container.component';
 import { ElementInConveyor } from './element-in-conveyor';
@@ -18,7 +17,7 @@ export interface BaseOperatorComponent {
 @Component({
   template: '',
 })
-export abstract class BaseOperatorComponent implements OnInit, AfterViewInit, OnDestroy {
+export abstract class BaseOperatorComponent implements AfterViewInit {
   public MAIN_ID = '0';
 
   @ViewChild(DemoContainerComponent)
@@ -35,13 +34,6 @@ export abstract class BaseOperatorComponent implements OnInit, AfterViewInit, On
   public abstract controllerButtons: { [key: string]: ButtonController[] };
 
   public elementsInConveyor: ElementInConveyor[] = [];
-
-  public constructor(protected readonly metaService: Meta, @Inject(String) private readonly operatorName: string) {}
-
-  public ngOnInit() {
-    this.metaService.updateTag({ name: 'description', content: `Explicación del operador rxjs ${this.operatorName}` });
-    this.metaService.updateTag({ name: 'keywords', content: `${this.operatorName.toLowerCase()}, demo, rxjs` });
-  }
 
   public ngAfterViewInit() {
     interval(this.demo.fps).subscribe(() => {
@@ -128,9 +120,4 @@ export abstract class BaseOperatorComponent implements OnInit, AfterViewInit, On
   }
 
   protected abstract addElementToBeginningOfConveyor(conveyorId: string, type: ObservableEventType, value: string): void;
-
-  public ngOnDestroy(): void {
-    this.metaService.removeTag('name="description"');
-    this.metaService.removeTag('name="keywords"');
-  }
 }

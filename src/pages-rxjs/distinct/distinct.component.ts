@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { Meta } from '@angular/platform-browser';
 import { BehaviorSubject, distinct } from 'rxjs';
 import { BaseOperatorComponent } from '../shared/base-operator.component';
 import { ButtonController } from '../shared/components/conveyor-controller/button-controller';
@@ -12,8 +11,6 @@ import { ObservableEventType } from '../shared/observable-event-type';
   styleUrls: ['./distinct.component.scss'],
 })
 export class DistinctComponent extends BaseOperatorComponent {
-  public headerPrintData = { author: 'Jaime Martín Martín', date: '21 de junio de 2022' };
-
   protected operator = distinct();
 
   public controllerButtons: { [key: string]: ButtonController[] } = {
@@ -31,10 +28,6 @@ export class DistinctComponent extends BaseOperatorComponent {
   };
 
   public elementsEmmited: string[] = [];
-
-  public constructor(metaService: Meta) {
-    super(metaService, 'distinct');
-  }
 
   protected moveElement(e: ElementInConveyor): void {
     e.x += this.demo.speed;

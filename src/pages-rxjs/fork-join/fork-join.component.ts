@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { Meta } from '@angular/platform-browser';
 import { BehaviorSubject, forkJoin, Subject, switchMap } from 'rxjs';
 import { BaseOperatorComponent } from '../shared/base-operator.component';
 import { ButtonController } from '../shared/components/conveyor-controller/button-controller';
@@ -12,8 +11,6 @@ import { ObservableEventType } from '../shared/observable-event-type';
   styleUrls: ['./fork-join.component.scss'],
 })
 export class ForkJoinComponent extends BaseOperatorComponent {
-  public headerPrintData = { author: 'Jaime Martín Martín', date: '18 de mayo de 2022' };
-
   public readonly FORKJOIN = ['1', '2', '3'];
   protected operator: any;
 
@@ -59,10 +56,6 @@ export class ForkJoinComponent extends BaseOperatorComponent {
     {} as any as ElementInConveyor,
     {} as any as ElementInConveyor,
   ];
-
-  public constructor(metaService: Meta) {
-    super(metaService, 'jorkJoin');
-  }
 
   protected moveElement(e: ElementInConveyor): void {
     if (e.conveyorId === this.MAIN_ID) {

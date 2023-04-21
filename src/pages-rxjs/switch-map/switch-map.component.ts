@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { Meta } from '@angular/platform-browser';
 import { BehaviorSubject, Subject, switchMap } from 'rxjs';
 import { BaseOperatorComponent } from '../shared/base-operator.component';
 import { ButtonController } from '../shared/components/conveyor-controller/button-controller';
@@ -14,8 +13,6 @@ import { fadeInOut } from '../shared/rxjs-animations';
   animations: [fadeInOut],
 })
 export class SwitchMapComponent extends BaseOperatorComponent {
-  public headerPrintData = { author: 'Jaime Martín Martín', date: '28 de abril de 2022' };
-
   private nextSwitchMapId = 1;
   public readonly SWITCHMAP: string[] = [];
   protected operator: any;
@@ -35,10 +32,6 @@ export class SwitchMapComponent extends BaseOperatorComponent {
   };
 
   private switchMap$: { [key: string]: Subject<string> } = {};
-
-  public constructor(metaService: Meta) {
-    super(metaService, 'switchMap');
-  }
 
   protected moveElement(e: ElementInConveyor): void {
     if (e.conveyorId === this.MAIN_ID) {

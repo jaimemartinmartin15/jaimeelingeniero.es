@@ -1,7 +1,6 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Meta } from '@angular/platform-browser';
+import { Component, OnInit } from '@angular/core';
 import { intervalArray } from 'src/utils/arrays';
-
+import { calculateCurrentAge } from 'src/utils/dates';
 import { rotateProfilePicture } from './home.animations';
 
 const CHANGE_PICTURE_TIME = 15000; // 15 seconds
@@ -21,7 +20,7 @@ const VIEW_BOX_HEIGHT_DESKTOP = 10;
   styleUrls: ['./home.component.scss'],
   animations: [rotateProfilePicture],
 })
-export class HomeComponent implements OnInit, OnDestroy {
+export class HomeComponent implements OnInit {
   public years: number;
 
   // profile animation
@@ -50,13 +49,8 @@ export class HomeComponent implements OnInit, OnDestroy {
   public waveViewBox = `0 0 ${this.viewBoxWidth} ${this.viewBoxHeight}`;
   public wavePath = '';
 
-  public constructor(private readonly metaService: Meta) {}
-
   public ngOnInit(): void {
-    this.years = this.calculateAge(new Date(1996, 10, 15));
-
-    this.metaService.updateTag({ name: 'description', content: `Me llamo Jaime, tengo ${this.years} años y soy ingeniero informático` });
-    this.metaService.updateTag({ name: 'keywords', content: 'jaime martin martin, ingeniero informático' });
+    this.years = calculateCurrentAge(new Date(1996, 10, 15));
 
     this.calculateWavePath();
     this.scheduleWaveAnimation(0);
@@ -137,20 +131,5 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.wavePath += ` ${this.viewBoxWidth},${heightValues[Math.trunc(Math.random() * heightValues.length)]}L${this.viewBoxWidth},0z`;
 
     this.scheduleWaveAnimation(ANIMATION_WAVE_TIME);
-  }
-
-  private calculateAge(birthDate: Date): number {
-    const today = new Date();
-    let age = today.getFullYear() - birthDate.getFullYear();
-    const month = today.getMonth() - birthDate.getMonth();
-    if (month < 0 || (month === 0 && today.getDate() < birthDate.getDate())) {
-      age--;
-    }
-    return age;
-  }
-
-  public ngOnDestroy(): void {
-    this.metaService.removeTag('name="description"');
-    this.metaService.removeTag('name="keywords"');
   }
 }

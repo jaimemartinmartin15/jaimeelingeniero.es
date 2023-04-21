@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { Meta } from '@angular/platform-browser';
 import { auditTime, BehaviorSubject, interval, Subscription, takeUntil, tap, timer } from 'rxjs';
 import { BaseOperatorComponent } from '../shared/base-operator.component';
 import { ButtonController } from '../shared/components/conveyor-controller/button-controller';
@@ -12,8 +11,6 @@ import { ObservableEventType } from '../shared/observable-event-type';
   styleUrls: ['./audit-time.component.scss'],
 })
 export class AuditTimeComponent extends BaseOperatorComponent {
-  public headerPrintData = { author: 'Jaime Martín Martín', date: '10 de junio de 2022' };
-
   private errorOrCompleteEmitted = false;
   private counterSubscription: Subscription;
   public elementInStandBy = '';
@@ -33,10 +30,6 @@ export class AuditTimeComponent extends BaseOperatorComponent {
   public conveyorsWorking: { [key: string]: BehaviorSubject<boolean> } = {
     [this.MAIN_ID]: new BehaviorSubject<boolean>(false),
   };
-
-  public constructor(metaService: Meta) {
-    super(metaService, 'auditTime');
-  }
 
   protected moveElement(e: ElementInConveyor): void {
     e.x += this.demo.speed;
