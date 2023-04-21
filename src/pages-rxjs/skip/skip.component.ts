@@ -11,8 +11,6 @@ import { ObservableEventType } from '../shared/observable-event-type';
   styleUrls: ['./skip.component.scss'],
 })
 export class SkipComponent extends BaseOperatorComponent {
-  public headerPrintData = { author: 'Jaime Martín Martín', date: '10 de junio de 2022' };
-
   public counterSkip = 3;
   public readonly counterSkipEmojis = ['1️⃣', '2️⃣', '3️⃣'];
   protected operator = skip(3);

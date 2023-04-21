@@ -11,8 +11,6 @@ import { ObservableEventType } from '../shared/observable-event-type';
   styleUrls: ['./end-with.component.scss'],
 })
 export class EndWithComponent extends BaseOperatorComponent {
-  public headerPrintData = { author: 'Jaime Martín Martín', date: '28 de mayo de 2022' };
-
   protected operator = endWith('🍐');
 
   public controllerButtons: { [key: string]: ButtonController[] } = {

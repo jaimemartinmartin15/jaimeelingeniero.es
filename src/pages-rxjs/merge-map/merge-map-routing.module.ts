@@ -13,6 +13,10 @@ const routes: Routes = [
           'Coge cada uno de los elementos emitidos por un Observable fuente y devuelve un nuevo Observable por cada elemento, cuyos elementos emitidos serán puestos de nuevo en el observable fuente y que serán los que se entregen al suscriptor.',
         keywords: ['mergemap', 'demo', 'rxjs'],
       },
+      headerPrint: {
+        author: 'Jaime Martín Martín',
+        date: '20 de abril de 2022',
+      },
     },
   },
   {

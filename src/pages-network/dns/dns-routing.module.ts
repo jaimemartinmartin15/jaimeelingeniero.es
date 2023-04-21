@@ -16,6 +16,10 @@ const routes: Routes = [
             description: 'Configuración desde cero de un servidor DNS BIND9.',
             keywords: ['dns', 'servidor', 'configuracion'],
           },
+          headerPrint: {
+            author: 'Jaime Martín Martín',
+            date: '3 de diciembre de 2022',
+          },
         },
       },
       { path: '**', redirectTo: '' },
@@ -29,6 +33,10 @@ const routes: Routes = [
       metaTags: {
         description: 'Explicación desde cero del sistema de nombres de dominio. Aprende todo sobre este servicio tan usado en internet.',
         keywords: ['dns', 'sistema de nombres de dominio', 'dominio'],
+      },
+      headerPrint: {
+        author: 'Jaime Martín Martín',
+        date: '3 de noviembre de 2022',
       },
     },
   },

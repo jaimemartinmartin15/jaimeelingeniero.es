@@ -6,7 +6,6 @@ import { Component } from '@angular/core';
   styleUrls: ['./sql.component.scss'],
 })
 export class SqlComponent {
-  public headerPrintData = { author: 'Jaime Martín Martín', date: '8 de abril de 2023' };
   public collapsedTables = {
     createTableMechanic: false,
     createTablePropulsion: true,

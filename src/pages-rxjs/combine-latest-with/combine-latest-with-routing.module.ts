@@ -13,6 +13,10 @@ const routes: Routes = [
           'Crea un nuevo Observable que combina en un array los últimos elementos emitidos por el Observable fuente y los Observables pasados como argumentos, siempre que todos los Observables hayan emitido al menos un elemento.',
         keywords: ['combinelatestwith', 'demo', 'rxjs'],
       },
+      headerPrint: {
+        author: 'Jaime Martín Martín',
+        date: '13 de mayo de 2022',
+      },
     },
   },
   {

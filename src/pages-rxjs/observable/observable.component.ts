@@ -12,8 +12,6 @@ import { SpeechBubble } from '../shared/speech-bubble';
   styleUrls: ['./observable.component.scss'],
 })
 export class ObservableComponent implements AfterViewInit {
-  public headerPrintData = { author: 'Jaime Martín Martín', date: '2 de abril de 2022' };
-
   public ID = '0';
 
   @ViewChild(DemoContainerComponent)
