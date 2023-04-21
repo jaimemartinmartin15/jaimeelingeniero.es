@@ -8,8 +8,4 @@ import { Component } from '@angular/core';
 export class DnsComponent {
   public tab = 'SOA';
   public dnsResolvingDomainStep = 0;
-  public headerPrintData = {
-    author: 'Jaime Martín Martín',
-    date: '3 de noviembre de 2022',
-  };
 }
