@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Subject } from 'rxjs';
 import { HomeLink, LINKS_GROUPS_OPERATORS, LINKS_TO_START } from '../home/menu-links';
 
 @Component({
@@ -8,8 +7,6 @@ import { HomeLink, LINKS_GROUPS_OPERATORS, LINKS_TO_START } from '../home/menu-l
   styleUrls: ['./routable-lateral-menu.component.scss'],
 })
 export class RoutableLateralMenuComponent implements OnInit {
-  public updateHeaderPrint$ = new Subject<void>();
-
   public GROUPS_OF_LINKS: HomeLink[];
 
   public isSmallerThanDesktop: boolean = window.matchMedia('(max-width: 1200px)').matches;
