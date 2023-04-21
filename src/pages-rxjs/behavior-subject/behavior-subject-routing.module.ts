@@ -12,6 +12,10 @@ const routes: Routes = [
         description: 'Subject que guarda el último elemento emitido y lo emite a los nuevos suscriptores cuando se suscriben.',
         keywords: ['behaviorsubject', 'demo', 'rxjs'],
       },
+      headerPrint: {
+        author: 'Jaime Martín Martín',
+        date: '22 de julio de 2022',
+      },
     },
   },
   {

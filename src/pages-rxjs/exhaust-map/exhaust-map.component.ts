@@ -13,8 +13,6 @@ import { fadeInOut } from '../shared/rxjs-animations';
   animations: [fadeInOut],
 })
 export class ExhaustMapComponent extends BaseOperatorComponent {
-  public headerPrintData = { author: 'Jaime Martín Martín', date: '16 de mayo de 2022' };
-
   private nextExhaustMapId = 1;
   public readonly EXHAUSTMAP: string[] = [];
   protected operator: any;

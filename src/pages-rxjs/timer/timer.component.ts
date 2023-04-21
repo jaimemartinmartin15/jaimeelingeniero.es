@@ -11,8 +11,6 @@ import { ObservableEventType } from '../shared/observable-event-type';
   styleUrls: ['./timer.component.scss'],
 })
 export class TimerComponent extends BaseOperatorComponent {
-  public headerPrintData = { author: 'Jaime Martín Martín', date: '3 de agosto de 2022' };
-
   public readonly today = new Date();
 
   protected operator = pipe(

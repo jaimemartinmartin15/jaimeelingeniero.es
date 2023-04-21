@@ -1,4 +1,4 @@
-<app-header-print [data]="rxjsPageData"></app-header-print>
+<app-header-print [updateInfo$]="updateHeaderPrint$"></app-header-print>
 
 <div class="content">
   <nav class="left-menu">
@@ -16,6 +16,6 @@
   </nav>
 
   <div class="pages">
-    <router-outlet (activate)="rxjsPageData=$event.headerPrintData"></router-outlet>
+    <router-outlet (activate)="updateHeaderPrint$.next()"></router-outlet>
   </div>
 </div>

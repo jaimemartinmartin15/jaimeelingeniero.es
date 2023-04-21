@@ -5,6 +5,4 @@ import { Component } from '@angular/core';
   templateUrl: './from.component.html',
   styleUrls: ['./from.component.scss'],
 })
-export class FromComponent {
-  public headerPrintData = { author: 'Jaime Martín Martín', date: '1 de agosto de 2022' };
-}
+export class FromComponent {}

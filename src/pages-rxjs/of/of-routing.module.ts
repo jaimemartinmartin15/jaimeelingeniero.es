@@ -12,6 +12,10 @@ const routes: Routes = [
         description: 'Devuelve un Observable que emite los elementos que le pasamos como argumento. Cuando los ha emitido todos, completa.',
         keywords: ['of', 'demo', 'rxjs'],
       },
+      headerPrint: {
+        author: 'Jaime Martín Martín',
+        date: '29 de julio de 2022',
+      },
     },
   },
   {

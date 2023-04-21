@@ -12,6 +12,10 @@ const routes: Routes = [
         description: 'Deja pasar sólo el primer elemento del Observable fuente.',
         keywords: ['first', 'demo', 'rxjs'],
       },
+      headerPrint: {
+        author: 'Jaime Martín Martín',
+        date: '11 de junio de 2022',
+      },
     },
   },
   {

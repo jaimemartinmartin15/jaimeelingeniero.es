@@ -13,6 +13,10 @@ const routes: Routes = [
           'Espera a que se emita un elemento en el Observable fuente. A continuación inicia un temporizador, y cuando termina, emite el último elemento que haya pasado en el Observable fuente. A continuación espera el siguiente elemento y repite el proceso.',
         keywords: ['audittime', 'demo', 'rxjs'],
       },
+      headerPrint: {
+        author: 'Jaime Martín Martín',
+        date: '10 de junio de 2022',
+      },
     },
   },
   {

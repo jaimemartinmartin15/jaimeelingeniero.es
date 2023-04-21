@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Subject } from 'rxjs';
 import { HomeLink, LINKS_GROUPS_OPERATORS, LINKS_TO_START } from '../home/menu-links';
 
 @Component({
@@ -7,8 +8,7 @@ import { HomeLink, LINKS_GROUPS_OPERATORS, LINKS_TO_START } from '../home/menu-l
   styleUrls: ['./routable-lateral-menu.component.scss'],
 })
 export class RoutableLateralMenuComponent implements OnInit {
-  // init to empty object to avoid error, since header is rendered before than first navigation
-  public rxjsPageData: { author: string; date: string } = {} as { author: string; date: string };
+  public updateHeaderPrint$ = new Subject<void>();
 
   public GROUPS_OF_LINKS: HomeLink[];
 

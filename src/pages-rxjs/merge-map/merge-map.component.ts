@@ -13,8 +13,6 @@ import { fadeInOut } from '../shared/rxjs-animations';
   animations: [fadeInOut],
 })
 export class MergeMapComponent extends BaseOperatorComponent {
-  public headerPrintData = { author: 'Jaime Martín Martín', date: '20 de abril de 2022' };
-
   private nextMergeMapId = 1;
   public readonly MERGEMAP: string[] = [];
   protected operator: any;

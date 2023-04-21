@@ -12,6 +12,10 @@ const routes: Routes = [
         description: 'Solo deja pasar elementos que no se hayan emitido anteriormente.',
         keywords: ['distinct', 'demo', 'rxjs'],
       },
+      headerPrint: {
+        author: 'Jaime Martín Martín',
+        date: '21 de junio de 2022',
+      },
     },
   },
   {
