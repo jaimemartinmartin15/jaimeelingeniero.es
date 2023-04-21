@@ -29,6 +29,7 @@ export class SeoService {
       .subscribe(({ metaTags }) => {
         this.updateDescription(metaTags?.description);
         this.updateKeyworkds(metaTags?.keywords);
+        this.setFavIcons(metaTags?.favIcon);
         this.setCanonical();
       });
 
@@ -47,6 +48,15 @@ export class SeoService {
   public updateKeyworkds(keyworkds: string[]) {
     if (keyworkds != undefined) {
       this.metaService.updateTag({ name: 'keywords', content: keyworkds.join(', ') });
+    }
+  }
+
+  public setFavIcons(favIconPath: string) {
+    const linkElementsFavIcon = this.document.querySelectorAll('link[rel*="icon"]');
+    for (let i = 0; i < linkElementsFavIcon.length; i++) {
+      let linkElement = linkElementsFavIcon.item(i) as HTMLLinkElement;
+      const size = linkElement.sizes.value.split('x')[0];
+      linkElement.href = favIconPath != undefined ? favIconPath.replaceAll('{size}', size) : `assets/favicons/default/favicon-${size}x${size}.png`;
     }
   }
 
