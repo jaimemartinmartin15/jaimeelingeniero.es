@@ -1,3 +1,28 @@
+$screen-max-width: 830px;
+
 :host {
-  display: block;
+    display: block;
+    max-width: $screen-max-width;
+    margin: 0 auto;
+    line-height: 30px;
+    padding-bottom: 30px;
+}
+
+main {
+    padding: 0;
+}
+
+.title {
+    text-align: center;
+    margin: 20px 10px 10px 10px;
+}
+
+a {
+  color: #d17515;
+}
+
+@media (max-width: calc($screen-max-width + 10px)) {
+  main {
+      padding: 0 10px;
+  }
 }
