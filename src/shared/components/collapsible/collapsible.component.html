@@ -1,0 +1,7 @@
+<div class="collapsible-header" (click)="toggle()">
+  <ng-content select="[collapsible-header]"></ng-content>
+</div>
+
+<div class="collapsible-body" #collapsibleContent>
+  <ng-content select="[collapsible-content]"></ng-content>
+</div>

@@ -1,0 +1,11 @@
+:host {
+  display: block;
+}
+
+.collapsible-header {
+  cursor: pointer;
+}
+
+.collapsible-body {
+  transition: height 0.3s ease-in-out;
+}
