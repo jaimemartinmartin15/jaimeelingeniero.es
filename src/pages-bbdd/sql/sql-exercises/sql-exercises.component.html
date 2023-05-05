@@ -28,7 +28,8 @@
       </p>
 
       <app-collapsible>
-        <span collapsible-header>Ver solución</span>
+        <span collapsible-header-closed>Ver solución</span>
+        <span collapsible-header-open>Ocultar solución</span>
         <app-terminal-code collapsible-content>
           <span terminal-code-command>select * from MECANICO;</span>
           <pre terminal-code-output>+--------+---------------------------------------+------------------------+
@@ -113,6 +114,40 @@
 |     15 | Gijón                      | 11:30:00      | 19:30:00    |
 +--------+----------------------------+---------------+-------------+
 15 rows in set (0,00 sec)</pre>
+        </app-terminal-code>
+      </app-collapsible>
+    </div>
+
+    <div class="exercise-block">
+      <h2 class="exercise-title">Ejercicio 2</h2>
+
+      <p class="exercise-statement">
+        Obtener la fecha de nacimiento de los clientes ordenadas de la más antigua a la más actual sin que se repitan.
+      </p>
+
+      <app-collapsible>
+        <span collapsible-header-closed>Ver solución</span>
+        <span collapsible-header-open>Ocultar solución</span>
+
+        <app-terminal-code collapsible-content>
+          <span terminal-code-command>select DISTINCT fecha_nac from CLIENTE order by fecha_nac asc;</span>
+          <pre terminal-code-output>+------------+
+| fecha_nac  |
++------------+
+| 1955-01-31 |
+| 1955-03-25 |
+| 1955-05-19 |
+| 1955-07-17 |
+| 1955-11-03 |
+...
+| 1999-02-25 |
+| 1999-03-08 |
+| 1999-08-25 |
+| 1999-09-20 |
+| 1999-09-24 |
+| 1999-11-03 |
++------------+
+396 rows in set (0,00 sec)</pre>
         </app-terminal-code>
       </app-collapsible>
     </div>

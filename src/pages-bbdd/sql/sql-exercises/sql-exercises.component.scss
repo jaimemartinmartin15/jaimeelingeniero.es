@@ -22,17 +22,24 @@ a {
 }
 
 .exercise-block {
+  padding: 15px;
+  margin: 0 0 20px 0;
+  background-color: #fbfbff;
+  border: 2px solid #d17515;
+  border-radius: 5px;
+
   .exercise-title {
+    font-size: 1.3rem;
     margin: 0;
-    font-size: 1.15rem;
   }
 
   .exercise-statement {
-    margin-top: 0;
+    margin: 10px 0 20px 0;
   }
 
   app-collapsible {
-    [collapsible-header] {
+    [collapsible-header-open],
+    [collapsible-header-closed] {
       color: #d17515;
     }
 
