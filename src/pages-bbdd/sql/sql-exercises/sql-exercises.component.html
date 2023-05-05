@@ -189,5 +189,45 @@
         </app-terminal-code>
       </app-collapsible>
     </div>
+
+    <div class="exercise-block">
+      <h2 class="exercise-title">Ejercicio 4</h2>
+
+      <p class="exercise-statement">
+        Obtener el código y nombre de las marcas. Incluir tres puntos entre ambos y llamar a la columna 'marcas'.
+      </p>
+
+      <app-collapsible>
+        <span collapsible-header-closed>Ver solución</span>
+        <span collapsible-header-open>Ocultar solución</span>
+
+        <app-terminal-code collapsible-content>
+          <span terminal-code-command>select concat(codigo, ' ... ', nombre) as marcas from MARCA;</span>
+          <pre terminal-code-output>+---------------------+
+| marcas              |
++---------------------+
+| 1 ... Toyota        |
+| 2 ... Ford          |
+| 3 ... BMW           |
+| 4 ... Audi          |
+| 5 ... Mercedes-Benz |
+| 6 ... Volkswagen    |
+| 7 ... Nissan        |
+| 8 ... Chevrolet     |
+| 9 ... Honda         |
+| 10 ... Hyundai      |
+| 11 ... Kia          |
+| 12 ... Mazda        |
+| 13 ... Volvo        |
+| 14 ... Peugeot      |
+| 15 ... Fiat         |
+| 16 ... Seat         |
+| 17 ... Tesla        |
+| 18 ... Renault      |
++---------------------+
+18 rows in set (0,00 sec)</pre>
+        </app-terminal-code>
+      </app-collapsible>
+    </div>
   </section>
 </main>
