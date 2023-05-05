@@ -391,7 +391,8 @@
         <span collapsible-header-open>Ocultar solución</span>
 
         <app-terminal-code collapsible-content>
-          <span terminal-code-command>select num_factura, timestampdiff(year, fecha, curdate()) as años from VENTA where timestampdiff(year, fecha, curdate())>=5 AND timestampdiff(year, fecha, curdate())<=8;</span>
+          <span terminal-code-command>select num_factura, timestampdiff(year, fecha, curdate()) as años from VENTA where
+            timestampdiff(year, fecha, curdate())&gt;=5 AND timestampdiff(year, fecha, curdate())&lt;=8;</span>
           <pre terminal-code-output>+-------------+-------+
 | num_factura | años  |
 +-------------+-------+
@@ -415,6 +416,36 @@
 | 93          |     5 |
 +-------------+-------+
 91 rows in set (0,00 sec)</pre>
+        </app-terminal-code>
+      </app-collapsible>
+    </div>
+
+    <div class="exercise-block">
+      <h2 class="exercise-title">Ejercicio 11</h2>
+
+      <p class="exercise-statement">
+        Obtener el listado de los clientes que este año superan los 50 años.
+      </p>
+
+      <app-collapsible>
+        <span collapsible-header-closed>Ver solución</span>
+        <span collapsible-header-open>Ocultar solución</span>
+
+        <app-terminal-code collapsible-content>
+          <span terminal-code-command>select dni, nombre, telefono from CLIENTE where extract(year from
+            fecha_nac)=extract(year from curdate())-50;</span>
+          <pre terminal-code-output>+-----------+--------------------------+-----------+
+| dni       | nombre                   | telefono  |
++-----------+--------------------------+-----------+
+| 10322807S | Joaquín Prieto Cano      | 664815475 |
+| 28875972B | Juan Carlos Rubio Alonso | 699456562 |
+| 28975520F | Leo López Prieto         | 697803270 |
+| 31140191J | Silvia Iglesias Ramírez  | 664672978 |
+| 34061458Z | Javier Santos Ramírez    | 963064558 |
+| 52515981P | Silvia Gómez Ortiz       | 930167882 |
+| 80982751E | Paula Domínguez Martín   | 616891071 |
++-----------+--------------------------+-----------+
+7 rows in set (0,00 sec)</pre>
         </app-terminal-code>
       </app-collapsible>
     </div>
