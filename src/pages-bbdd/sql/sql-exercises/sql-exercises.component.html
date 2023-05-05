@@ -312,5 +312,44 @@
         </app-terminal-code>
       </app-collapsible>
     </div>
+
+    <div class="exercise-block">
+      <h2 class="exercise-title">Ejercicio 8</h2>
+
+      <p class="exercise-statement">
+        Obtener los concesionarios que ofrecen 39 o más coches de un mismo tipo. Indicar el código de concesionario, el
+        código del coche y la cantidad. Ordenar por la primera columna.
+      </p>
+
+      <app-collapsible>
+        <span collapsible-header-closed>Ver solución</span>
+        <span collapsible-header-open>Ocultar solución</span>
+
+        <app-terminal-code collapsible-content>
+          <span terminal-code-command>select cod_concesionario, cod_coche, cantidad from OFRECE where cantidad>=39 order by 1;</span>
+          <pre terminal-code-output>+-------------------+-----------+----------+
+| cod_concesionario | cod_coche | cantidad |
++-------------------+-----------+----------+
+|                 1 |       244 |       39 |
+|                 1 |       150 |       40 |
+|                 1 |        20 |       40 |
+|                 1 |       347 |       39 |
+|                 1 |       139 |       39 |
+|                 1 |       121 |       39 |
+|                 1 |       343 |       40 |
+|                 2 |        97 |       40 |
+...
+|                13 |        78 |       40 |
+|                13 |       333 |       40 |
+|                14 |        33 |       39 |
+|                14 |       329 |       39 |
+|                14 |       202 |       39 |
+|                15 |        81 |       39 |
+|                15 |       312 |       40 |
++-------------------+-----------+----------+
+59 rows in set (0,00 sec)</pre>
+        </app-terminal-code>
+      </app-collapsible>
+    </div>
   </section>
 </main>
