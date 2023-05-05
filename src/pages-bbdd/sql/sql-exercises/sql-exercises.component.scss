@@ -1,28 +1,49 @@
 $screen-max-width: 830px;
 
 :host {
-    display: block;
-    max-width: $screen-max-width;
-    margin: 0 auto;
-    line-height: 30px;
-    padding-bottom: 30px;
+  display: block;
+  max-width: $screen-max-width;
+  margin: 0 auto;
+  line-height: 30px;
+  padding-bottom: 30px;
 }
 
 main {
-    padding: 0;
+  padding: 0;
 }
 
 .title {
-    text-align: center;
-    margin: 20px 10px 10px 10px;
+  text-align: center;
+  margin: 20px 10px 10px 10px;
 }
 
 a {
   color: #d17515;
 }
 
+.exercise-block {
+  .exercise-title {
+    margin: 0;
+    font-size: 1.15rem;
+  }
+
+  .exercise-statement {
+    margin-top: 0;
+  }
+
+  app-collapsible {
+    [collapsible-header] {
+      color: #d17515;
+    }
+
+    app-terminal-code {
+      margin-bottom: 10px;
+    }
+  }
+}
+
 @media (max-width: calc($screen-max-width + 10px)) {
   main {
-      padding: 0 10px;
+    padding: 0 10px;
   }
 }

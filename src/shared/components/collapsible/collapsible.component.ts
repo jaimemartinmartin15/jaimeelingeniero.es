@@ -10,7 +10,7 @@ export class CollapsibleComponent implements AfterViewInit {
   private collapsibleContent: ElementRef;
 
   @Input()
-  public isOpen = true;
+  public isOpen = false;
 
   toggle() {
     this.isOpen = !this.isOpen;

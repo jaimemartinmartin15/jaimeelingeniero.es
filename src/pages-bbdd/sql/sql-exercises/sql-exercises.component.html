@@ -9,7 +9,112 @@
       <a download href="pages-bbdd/assets/scripts.zip">descarga el zip</a> con los archivos para que cargues la base
       de datos con la misma información que yo. En el zip encontrarás las instrucciones necesarias para cargarlo. Por si
       no lo has visto, también te dejo aquí un link a la <a routerLink="../">página de teoría</a>, en la que explico en
-      que consite SQL y como utilizarlo desde cero. Vamos a practicar ⚙️
+      que consite SQL y cómo utilizarlo desde cero.
     </p>
+
+    <p>
+      En el caso de que la salida sea muy grande, yo la acotaré con puntos para no tener que poner todas las filas.
+      Puedes ver las soluciones pinchando en "Ver solución". Vamos a practicar ⚙️
+    </p>
+  </section>
+
+  <section>
+    <div class="exercise-block">
+      <h2 class="exercise-title">Ejercicio 1</h2>
+
+      <p class="exercise-statement">
+        Obtener la información almacenada en la base de datos relacionada con mecánicos, marcas, tipos de propulsión y
+        concesionarios.
+      </p>
+
+      <app-collapsible>
+        <span collapsible-header>Ver solución</span>
+        <app-terminal-code collapsible-content>
+          <span terminal-code-command>select * from MECANICO;</span>
+          <pre terminal-code-output>+--------+---------------------------------------+------------------------+
+| codigo | nombre                                | ciudad                 |
++--------+---------------------------------------+------------------------+
+|      1 | Mecánica Hábil Técnico                | Cuenca                 |
+|      2 | Diagnóstico Hábil Total               | Burgos                 |
+|      3 | Servicio Rápido Automotriz            | Zamora                 |
+|      4 | Técnica Experto de Coches             | Almería                |
+|      5 | Electromecánica Eficiente Express     | Girona                 |
+|      6 | Mantenimiento Fiable de Coches        | Teruel                 |
+|      7 | Técnica Preciso del Motor             | Castellón de la Plana  |
+|      8 | Mecánica Innovador Mecánico           | Cáceres                |
+|      9 | Electromecánica Innovador Automotriz  | Huelva                 |
+|     10 | Neumáticos Eficiente Mantenimiento    | Lugo                   |
++--------+---------------------------------------+------------------------+
+10 rows in set (0,00 sec)</pre>
+        </app-terminal-code>
+
+        <app-terminal-code collapsible-content>
+          <span terminal-code-command>select * from MARCA;</span>
+          <pre terminal-code-output>+--------+---------------+----------------+
+| codigo | nombre        | sede           |
++--------+---------------+----------------+
+|      1 | Toyota        | Japón          |
+|      2 | Ford          | Estados Unidos |
+|      3 | BMW           | Alemania       |
+|      4 | Audi          | Alemania       |
+|      5 | Mercedes-Benz | Alemania       |
+|      6 | Volkswagen    | Alemania       |
+|      7 | Nissan        | Japón          |
+|      8 | Chevrolet     | Estados Unidos |
+|      9 | Honda         | Japón          |
+|     10 | Hyundai       | Corea del Sur  |
+|     11 | Kia           | Corea del Sur  |
+|     12 | Mazda         | Japón          |
+|     13 | Volvo         | Suecia         |
+|     14 | Peugeot       | Francia        |
+|     15 | Fiat          | Italia         |
+|     16 | Seat          | España         |
+|     17 | Tesla         | Estados Unidos |
+|     18 | Renault       | Francia        |
++--------+---------------+----------------+
+18 rows in set (0,00 sec)</pre>
+        </app-terminal-code>
+
+        <app-terminal-code collapsible-content>
+          <span terminal-code-command>select * from PROPULSION;</span>
+          <pre terminal-code-output> id | nombre              |
++----+---------------------+
+|  1 | Gasolina            |
+|  2 | Diésel              |
+|  3 | Híbrido eléctrico   |
+|  4 | Híbrido enchufable  |
+|  5 | Eléctrico           |
+|  6 | Hidrógeno           |
+|  7 | Híbrido             |
+|  8 | GNC                 |
++----+---------------------+
+8 rows in set (0,01 sec)</pre>
+        </app-terminal-code>
+
+        <app-terminal-code collapsible-content>
+          <span terminal-code-command>select * from CONCESIONARIO;</span>
+          <pre terminal-code-output>+--------+----------------------------+---------------+-------------+
+| codigo | localidad                  | hora_apertura | hora_cierre |
++--------+----------------------------+---------------+-------------+
+|      1 | Madrid                     | 11:00:00      | 21:00:00    |
+|      2 | Barcelona                  | 09:00:00      | 18:30:00    |
+|      3 | Valencia                   | 11:00:00      | 20:00:00    |
+|      4 | Sevilla                    | 10:00:00      | 19:00:00    |
+|      5 | Zaragoza                   | 11:30:00      | 20:00:00    |
+|      6 | Málaga                     | 09:30:00      | 18:30:00    |
+|      7 | Murcia                     | 08:30:00      | 18:30:00    |
+|      8 | Palma                      | 11:00:00      | 19:30:00    |
+|      9 | Las Palmas de Gran Canaria | 09:30:00      | 18:30:00    |
+|     10 | Bilbao                     | 09:30:00      | 20:00:00    |
+|     11 | Alicante                   | 10:30:00      | 20:00:00    |
+|     12 | Córdoba                    | 09:30:00      | 21:00:00    |
+|     13 | Valladolid                 | 10:00:00      | 19:30:00    |
+|     14 | Vigo                       | 11:30:00      | 18:00:00    |
+|     15 | Gijón                      | 11:30:00      | 19:30:00    |
++--------+----------------------------+---------------+-------------+
+15 rows in set (0,00 sec)</pre>
+        </app-terminal-code>
+      </app-collapsible>
+    </div>
   </section>
 </main>
