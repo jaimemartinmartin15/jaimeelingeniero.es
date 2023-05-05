@@ -289,5 +289,28 @@
         </app-terminal-code>
       </app-collapsible>
     </div>
+
+    <div class="exercise-block">
+      <h2 class="exercise-title">Ejercicio 7</h2>
+
+      <p class="exercise-statement">
+        Obtener la hora de apertura del concesionario cuyo código es 4.
+      </p>
+
+      <app-collapsible>
+        <span collapsible-header-closed>Ver solución</span>
+        <span collapsible-header-open>Ocultar solución</span>
+
+        <app-terminal-code collapsible-content>
+          <span terminal-code-command>select hora_apertura from CONCESIONARIO where codigo=4;</span>
+          <pre terminal-code-output>+---------------+
+| hora_apertura |
++---------------+
+| 10:00:00      |
++---------------+
+1 row in set (0,00 sec)</pre>
+        </app-terminal-code>
+      </app-collapsible>
+    </div>
   </section>
 </main>
