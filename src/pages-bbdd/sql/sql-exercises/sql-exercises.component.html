@@ -378,5 +378,45 @@
         </app-terminal-code>
       </app-collapsible>
     </div>
+
+    <div class="exercise-block">
+      <h2 class="exercise-title">Ejercicio 10</h2>
+
+      <p class="exercise-statement">
+        Obtener los números de factura de los coches que se vendieron entre hace 5 y 8 años, y los años que tienen.
+      </p>
+
+      <app-collapsible>
+        <span collapsible-header-closed>Ver solución</span>
+        <span collapsible-header-open>Ocultar solución</span>
+
+        <app-terminal-code collapsible-content>
+          <span terminal-code-command>select num_factura, timestampdiff(year, fecha, curdate()) as años from VENTA where timestampdiff(year, fecha, curdate())>=5 AND timestampdiff(year, fecha, curdate())<=8;</span>
+          <pre terminal-code-output>+-------------+-------+
+| num_factura | años  |
++-------------+-------+
+| 1           |     8 |
+| 100         |     8 |
+| 105         |     7 |
+| 11          |     6 |
+| 111         |     5 |
+| 114         |     6 |
+| 122         |     7 |
+| 134         |     8 |
+| 14          |     8 |
+| 141         |     5 |
+...
+| 7           |     7 |
+| 71          |     6 |
+| 74          |     5 |
+| 76          |     7 |
+| 8           |     6 |
+| 85          |     8 |
+| 93          |     5 |
++-------------+-------+
+91 rows in set (0,00 sec)</pre>
+        </app-terminal-code>
+      </app-collapsible>
+    </div>
   </section>
 </main>
