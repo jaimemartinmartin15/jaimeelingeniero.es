@@ -229,5 +229,28 @@
         </app-terminal-code>
       </app-collapsible>
     </div>
+
+    <div class="exercise-block">
+      <h2 class="exercise-title">Ejercicio 5</h2>
+
+      <p class="exercise-statement">
+        Obtener el número de teléfono del cliente que se llama 'Sara Morales Martínez'.
+      </p>
+
+      <app-collapsible>
+        <span collapsible-header-closed>Ver solución</span>
+        <span collapsible-header-open>Ocultar solución</span>
+
+        <app-terminal-code collapsible-content>
+          <span terminal-code-command>select telefono from CLIENTE where nombre='Sara Morales Martínez';</span>
+          <pre terminal-code-output>+-----------+
+| telefono  |
++-----------+
+| 999575661 |
++-----------+
+1 row in set (0,00 sec)</pre>
+        </app-terminal-code>
+      </app-collapsible>
+    </div>
   </section>
 </main>
