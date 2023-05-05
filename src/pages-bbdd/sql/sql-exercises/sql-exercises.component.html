@@ -509,5 +509,49 @@
         </app-terminal-code>
       </app-collapsible>
     </div>
+
+    <div class="exercise-block">
+      <h2 class="exercise-title">Ejercicio 14</h2>
+
+      <p class="exercise-statement">
+        Seleccionar las reparaciones que cuestan entre 500 y 600 euros o entre 1.300 y 1.500 euros.
+      </p>
+
+      <app-collapsible>
+        <span collapsible-header-closed>Ver solución</span>
+        <span collapsible-header-open>Ocultar solución</span>
+
+        <app-terminal-code collapsible-content>
+          <span terminal-code-command>select * from REPARA where (precio&gt;=500 and precio&lt;=600) or (precio&gt;=1300
+            and precio&lt;=1500);</span>
+          <pre terminal-code-output>+-----+--------------+-----------+------------+---------+
+| id  | cod_mecanico | cod_coche | fecha      | precio  |
++-----+--------------+-----------+------------+---------+
+|   7 |            1 |       291 | 2019-12-02 | 1432.03 |
+|   8 |            7 |       272 | 2018-03-02 | 1365.86 |
+|  41 |            8 |       133 | 2017-12-09 |  562.56 |
+| 100 |            8 |       213 | 2018-01-27 | 1442.18 |
+| 140 |            9 |       117 | 2021-07-11 |  565.76 |
+| 153 |            7 |        34 | 2016-03-05 |  576.24 |
+| 161 |            2 |       167 | 2018-10-05 |  547.90 |
+| 192 |            2 |       233 | 2015-07-26 | 1402.48 |
+| 204 |            7 |       301 | 2020-12-08 | 1340.78 |
+| 254 |            2 |       193 | 2016-12-05 | 1429.68 |
+| 264 |            4 |       161 | 2019-01-11 | 1385.62 |
+| 296 |            9 |       204 | 2022-10-16 | 1414.03 |
+| 315 |            2 |        55 | 2016-05-07 | 1336.46 |
+| 319 |            9 |       142 | 2022-01-22 |  549.60 |
+| 334 |            2 |       116 | 2015-06-28 |  523.20 |
+| 339 |            9 |        48 | 2020-08-18 |  562.40 |
+| 366 |            5 |        52 | 2020-12-14 | 1471.51 |
+| 373 |            7 |        49 | 2019-02-15 | 1370.02 |
+| 389 |            7 |       211 | 2022-10-15 | 1418.18 |
+| 414 |            2 |       287 | 2017-10-28 | 1459.58 |
+| 432 |            4 |        69 | 2020-03-23 | 1317.40 |
++-----+--------------+-----------+------------+---------+
+21 rows in set (0,00 sec)</pre>
+        </app-terminal-code>
+      </app-collapsible>
+    </div>
   </section>
 </main>
