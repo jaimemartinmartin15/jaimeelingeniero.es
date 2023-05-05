@@ -449,5 +449,65 @@
         </app-terminal-code>
       </app-collapsible>
     </div>
+
+    <div class="exercise-block">
+      <h2 class="exercise-title">Ejercicio 12</h2>
+
+      <p class="exercise-statement">
+        Obtener los códigos de concesionarios que ofrecen coches por una cantidad de 10.
+      </p>
+
+      <app-collapsible>
+        <span collapsible-header-closed>Ver solución</span>
+        <span collapsible-header-open>Ocultar solución</span>
+
+        <app-terminal-code collapsible-content>
+          <span terminal-code-command>select DISTINCT cod_concesionario from OFRECE where cantidad = 10;</span>
+          <pre terminal-code-output>+-------------------+
+| cod_concesionario |
++-------------------+
+|                13 |
+|                 1 |
+|                 8 |
+|                11 |
+|                 4 |
+|                 5 |
+|                 6 |
+|                 3 |
+|                 9 |
+|                 7 |
++-------------------+
+10 rows in set (0,00 sec)</pre>
+        </app-terminal-code>
+      </app-collapsible>
+    </div>
+
+    <div class="exercise-block">
+      <h2 class="exercise-title">Ejercicio 13</h2>
+
+      <p class="exercise-statement">
+        Obtener los concesionarios que abren como pronto a las 10 y cierran como tarde a las 19:30.
+      </p>
+
+      <app-collapsible>
+        <span collapsible-header-closed>Ver solución</span>
+        <span collapsible-header-open>Ocultar solución</span>
+
+        <app-terminal-code collapsible-content>
+          <span terminal-code-command>select * from CONCESIONARIO where hora_apertura&gt;='10:00:00' and
+            hora_cierre&lt;='19:30:00';</span>
+          <pre terminal-code-output>+--------+------------+---------------+-------------+
+| codigo | localidad  | hora_apertura | hora_cierre |
++--------+------------+---------------+-------------+
+|      4 | Sevilla    | 10:00:00      | 19:00:00    |
+|      8 | Palma      | 11:00:00      | 19:30:00    |
+|     13 | Valladolid | 10:00:00      | 19:30:00    |
+|     14 | Vigo       | 11:30:00      | 18:00:00    |
+|     15 | Gijón      | 11:30:00      | 19:30:00    |
++--------+------------+---------------+-------------+
+5 rows in set (0,00 sec)</pre>
+        </app-terminal-code>
+      </app-collapsible>
+    </div>
   </section>
 </main>
