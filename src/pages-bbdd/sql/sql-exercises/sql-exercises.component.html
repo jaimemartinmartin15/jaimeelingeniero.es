@@ -151,5 +151,43 @@
         </app-terminal-code>
       </app-collapsible>
     </div>
+
+    <div class="exercise-block">
+      <h2 class="exercise-title">Ejercicio 3</h2>
+
+      <p class="exercise-statement">
+        Obtener el código de los coches que se han vendido por un precio superior a 48.000 euros, junto con el código de
+        concesionario y fecha, ordenados por concesionario y fecha.
+      </p>
+
+      <app-collapsible>
+        <span collapsible-header-closed>Ver solución</span>
+        <span collapsible-header-open>Ocultar solución</span>
+
+        <app-terminal-code collapsible-content>
+          <span terminal-code-command>select cod_coche, cod_concesionario, fecha from VENTA where precio>48000 order by
+            cod_concesionario, fecha;</span>
+          <pre terminal-code-output>+-----------+-------------------+------------+
+| cod_coche | cod_concesionario | fecha      |
++-----------+-------------------+------------+
+|        99 |                 1 | 1999-12-28 |
+|       214 |                 1 | 2008-03-02 |
+|        45 |                 1 | 2010-10-14 |
+|       269 |                 2 | 1996-11-05 |
+|       319 |                 2 | 1999-03-09 |
+...
+|       141 |                14 | 2009-08-24 |
+|       206 |                14 | 2016-06-11 |
+|       137 |                15 | 1998-09-09 |
+|       140 |                15 | 2006-03-05 |
+|       205 |                15 | 2012-10-29 |
+|       300 |                15 | 2015-08-11 |
+|       302 |                15 | 2022-06-01 |
++-----------+-------------------+------------+
+40 rows in set (0,00 sec)
+</pre>
+        </app-terminal-code>
+      </app-collapsible>
+    </div>
   </section>
 </main>
