@@ -326,7 +326,8 @@
         <span collapsible-header-open>Ocultar solución</span>
 
         <app-terminal-code collapsible-content>
-          <span terminal-code-command>select cod_concesionario, cod_coche, cantidad from OFRECE where cantidad>=39 order by 1;</span>
+          <span terminal-code-command>select cod_concesionario, cod_coche, cantidad from OFRECE where cantidad>=39 order
+            by 1;</span>
           <pre terminal-code-output>+-------------------+-----------+----------+
 | cod_concesionario | cod_coche | cantidad |
 +-------------------+-----------+----------+
@@ -348,6 +349,32 @@
 |                15 |       312 |       40 |
 +-------------------+-----------+----------+
 59 rows in set (0,00 sec)</pre>
+        </app-terminal-code>
+      </app-collapsible>
+    </div>
+
+    <div class="exercise-block">
+      <h2 class="exercise-title">Ejercicio 9</h2>
+
+      <p class="exercise-statement">
+        Obtener el código de los clientes que han comprado un coche con código 122 ordenados por fecha de compra y
+        precio.
+      </p>
+
+      <app-collapsible>
+        <span collapsible-header-closed>Ver solución</span>
+        <span collapsible-header-open>Ocultar solución</span>
+
+        <app-terminal-code collapsible-content>
+          <span terminal-code-command>select cod_cliente from VENTA where cod_coche=122 order by fecha, precio;</span>
+          <pre terminal-code-output>+-------------+
+| cod_cliente |
++-------------+
+| 57463306Q   |
+| 69135462R   |
+| 28864068M   |
++-------------+
+3 rows in set (0,00 sec)</pre>
         </app-terminal-code>
       </app-collapsible>
     </div>
