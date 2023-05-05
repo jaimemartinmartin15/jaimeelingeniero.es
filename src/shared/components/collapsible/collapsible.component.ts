@@ -1,9 +1,16 @@
+import { animate, style, transition, trigger } from '@angular/animations';
 import { Component, ElementRef, Input, AfterViewInit, ViewChild } from '@angular/core';
 
 @Component({
   selector: 'app-collapsible',
   templateUrl: './collapsible.component.html',
   styleUrls: ['./collapsible.component.scss'],
+  animations: [
+    trigger('fade', [
+      transition(':enter', [style({ opacity: 0 }), animate('0s 300ms ease-out', style({ opacity: 1 }))]),
+      transition(':leave', [animate('0s 300ms ease-out', style({ opacity: 0 }))]),
+    ]),
+  ],
 })
 export class CollapsibleComponent implements AfterViewInit {
   @ViewChild('collapsibleContent', { static: false })
