@@ -252,5 +252,42 @@
         </app-terminal-code>
       </app-collapsible>
     </div>
+
+    <div class="exercise-block">
+      <h2 class="exercise-title">Ejercicio 6</h2>
+
+      <p class="exercise-statement">
+        Obtener el modelo de los coches que se propulsan con GNC (gas natural comprimido). Previamente busca el código
+        de propulsión para el GNC.
+      </p>
+
+      <app-collapsible>
+        <span collapsible-header-closed>Ver solución</span>
+        <span collapsible-header-open>Ocultar solución</span>
+
+        <app-terminal-code collapsible-content>
+          <span terminal-code-command>select * from PROPULSION where nombre='GNC';</span>
+          <pre terminal-code-output>+----+--------+
+| id | nombre |
++----+--------+
+|  8 | GNC    |
++----+--------+
+1 row in set (0,00 sec)</pre>
+        </app-terminal-code>
+
+        <app-terminal-code collapsible-content>
+          <span terminal-code-command>select modelo from COCHE where propulsion=8;</span>
+          <pre terminal-code-output>+------------+
+| modelo     |
++------------+
+| Panda      |
+| Tipo       |
+| Doblo      |
+| Tipo Sedan |
++------------+
+4 rows in set (0,00 sec)</pre>
+        </app-terminal-code>
+      </app-collapsible>
+    </div>
   </section>
 </main>
