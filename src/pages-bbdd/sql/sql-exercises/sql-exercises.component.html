@@ -707,5 +707,41 @@
         </app-terminal-code>
       </app-collapsible>
     </div>
+
+    <div class="exercise-block">
+      <h2 class="exercise-title">Ejercicio 20</h2>
+
+      <p class="exercise-statement">
+        Obtener el nombre del mecánico, nombre de la marca y modelo de coche que han reparado los mecánicos.
+      </p>
+
+      <app-collapsible>
+        <span collapsible-header-closed>Ver solución</span>
+        <span collapsible-header-open>Ocultar solución</span>
+
+        <app-terminal-code collapsible-content>
+          <span terminal-code-command>select me.nombre as 'nombre mecanico', m.nombre as marca, c.modelo from MARCA m,
+            COCHE c, REPARA r, MECANICO me where m.codigo=c.cod_marca and r.cod_coche=c.codigo and
+            r.cod_mecanico=me.codigo;</span>
+          <pre terminal-code-output>+---------------------------------------+---------------+--------------------+
+| nombre mecanico                       | marca         | modelo             |
++---------------------------------------+---------------+--------------------+
+| Mecánica Innovador Mecánico           | Fiat          | 500L MPV           |
+| Técnica Preciso del Motor             | Volkswagen    | Arteon             |
+| Diagnóstico Hábil Total               | Ford          | EcoSport           |
+| Servicio Rápido Automotriz            | Chevrolet     | Camaro             |
+| Mantenimiento Fiable de Coches        | Fiat          | 500                |
+...
+| Técnica Preciso del Motor             | Volkswagen    | Tiguan             |
+| Servicio Rápido Automotriz            | Kia           | Niro               |
+| Electromecánica Eficiente Express     | Fiat          | Fullback           |
+| Diagnóstico Hábil Total               | Renault       | Koleos             |
+| Electromecánica Eficiente Express     | Volkswagen    | Up                 |
++---------------------------------------+---------------+--------------------+</pre>
+        </app-terminal-code>
+      </app-collapsible>
+    </div>
+
+
   </section>
 </main>
