@@ -858,5 +858,37 @@
         </app-terminal-code>
       </app-collapsible>
     </div>
+
+    <div class="exercise-block">
+      <h2 class="exercise-title">Ejercicio 24</h2>
+
+      <p class="exercise-statement">
+        Mostrar los coches de la marca 'Tesla' que han sido reparados en algun taller. Mostrar modelo y nombre del
+        taller.
+      </p>
+
+      <app-collapsible>
+        <span collapsible-header-closed>Ver solución</span>
+        <span collapsible-header-open>Ocultar solución</span>
+
+        <app-terminal-code collapsible-content>
+          <span terminal-code-command>select c.modelo, me.nombre from MARCA m, COCHE c, REPARA r, MECANICO me where
+            m.codigo=c.cod_marca and c.codigo=r.cod_coche and r.cod_mecanico= me.codigo and m.nombre='Tesla';</span>
+          <pre terminal-code-output>+---------+-------------------------------+
+| modelo  | nombre                        |
++---------+-------------------------------+
+| Model Y | Técnica Experto de Coches     |
+| Model S | Mecánica Innovador Mecánico   |
+| Model S | Técnica Preciso del Motor     |
+| Model X | Mecánica Innovador Mecánico   |
+| Model Y | Técnica Experto de Coches     |
+| Model S | Técnica Preciso del Motor     |
++---------+-------------------------------+
+6 rows in set (0,00 sec)</pre>
+        </app-terminal-code>
+      </app-collapsible>
+    </div>
+
+    
   </section>
 </main>
