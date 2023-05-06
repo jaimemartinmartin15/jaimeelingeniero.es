@@ -708,6 +708,10 @@
       </app-collapsible>
     </div>
 
+    <p>
+      Los ejercicios que vienen a continuación implican ya varias tablas.
+    </p>
+
     <div class="exercise-block">
       <h2 class="exercise-title">Ejercicio 20</h2>
 
@@ -746,7 +750,7 @@
       <h2 class="exercise-title">Ejercicio 21</h2>
 
       <p class="exercise-statement">
-        Obtener la marca de los coches que ofrece el concesionario de la localidad de Valencia.
+        Obtener el nombre de las marcas de los coches que ofrece el concesionario de la localidad de Valencia.
       </p>
 
       <app-collapsible>
@@ -777,6 +781,44 @@
 | Renault    |
 +------------+
 15 rows in set (0,00 sec)</pre>
+        </app-terminal-code>
+      </app-collapsible>
+    </div>
+
+    <div class="exercise-block">
+      <h2 class="exercise-title">Ejercicio 22</h2>
+
+      <p class="exercise-statement">
+        Para los coches que se ofrecen en una cantidad mayor o igual a 39, obtener el código y localidad de los
+        concesionarios que los ofrecen, junto al nombre de la marca y modelo del coche y su cantidad.
+      </p>
+
+      <app-collapsible>
+        <span collapsible-header-closed>Ver solución</span>
+        <span collapsible-header-open>Ocultar solución</span>
+
+        <app-terminal-code collapsible-content>
+          <span terminal-code-command>select con.codigo, con.localidad, m.nombre as marca, c.modelo, o.cantidad from
+            CONCESIONARIO con, OFRECE o, COCHE c, MARCA m where con.codigo=o.cod_concesionario and o.cod_coche=c.codigo
+            and c.cod_marca=m.codigo and o.cantidad&gt;= 39 order by 2;</span>
+          <pre terminal-code-output>+--------+----------------------------+---------------+--------------+----------+
+| codigo | localidad                  | marca         | modelo       | cantidad |
++--------+----------------------------+---------------+--------------+----------+
+|     11 | Alicante                   | Nissan        | Juke         |       39 |
+|     11 | Alicante                   | Renault       | Zoe          |       39 |
+|     11 | Alicante                   | Hyundai       | i10          |       39 |
+|     11 | Alicante                   | BMW           | Serie 2      |       40 |
+|      2 | Barcelona                  | Renault       | Scénic       |       40 |
+|      2 | Barcelona                  | Mercedes-Benz | Clase A      |       40 |
+...
+|     13 | Valladolid                 | Peugeot       | 108          |       39 |
+|     14 | Vigo                       | Mazda         | 3            |       39 |
+|     14 | Vigo                       | Ford          | Mustang      |       39 |
+|     14 | Vigo                       | Renault       | Mégane       |       39 |
+|      5 | Zaragoza                   | Kia           | Ceed         |       40 |
+|      5 | Zaragoza                   | Fiat          | Talento      |       39 |
++--------+----------------------------+---------------+--------------+----------+
+59 rows in set (0,00 sec)</pre>
         </app-terminal-code>
       </app-collapsible>
     </div>
