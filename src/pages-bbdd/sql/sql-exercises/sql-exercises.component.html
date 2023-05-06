@@ -553,5 +553,93 @@
         </app-terminal-code>
       </app-collapsible>
     </div>
+
+    <div class="exercise-block">
+      <h2 class="exercise-title">Ejercicio 15</h2>
+
+      <p class="exercise-statement">
+        Obtener el nombre de los mecánicos cuya ciudad empiece por C.
+      </p>
+
+      <app-collapsible>
+        <span collapsible-header-closed>Ver solución</span>
+        <span collapsible-header-open>Ocultar solución</span>
+
+        <app-terminal-code collapsible-content>
+          <span terminal-code-command>select nombre from MECANICO where ciudad like 'C%';</span>
+          <pre terminal-code-output>+-------------------------------+
+| nombre                        |
++-------------------------------+
+| Mecánica Hábil Técnico        |
+| Técnica Preciso del Motor     |
+| Mecánica Innovador Mecánico   |
++-------------------------------+
+3 rows in set (0,00 sec)</pre>
+        </app-terminal-code>
+      </app-collapsible>
+    </div>
+
+    <div class="exercise-block">
+      <h2 class="exercise-title">Ejercicio 16</h2>
+
+      <p class="exercise-statement">
+        Obtener el nombre de los clientes que empiezan por J e incluyen alguna L.
+      </p>
+
+      <app-collapsible>
+        <span collapsible-header-closed>Ver solución</span>
+        <span collapsible-header-open>Ocultar solución</span>
+
+        <app-terminal-code collapsible-content>
+          <span terminal-code-command>select * from CLIENTE where nombre like 'J%L%';</span>
+          <pre terminal-code-output>+-----------+-------------------------------+------------+-----------+
+| dni       | nombre                        | fecha_nac  | telefono  |
++-----------+-------------------------------+------------+-----------+
+| 03856744P | Julia Gutiérrez García        | 1991-06-19 | 626265672 |
+| 04977394L | Juan Carlos Sánchez Jiménez   | 1990-12-01 | 981523122 |
+| 06717159K | Javier Vidal Calvo            | 1977-07-28 | 621133738 |
+| 07522235S | José Gallego Cano             | 1969-07-27 | 921929844 |
+...
+| 89771451N | Julia Gil Delgado             | 1993-08-07 | 671661503 |
+| 92275037D | Juan Moreno Alonso            | 1996-09-01 | 656661250 |
+| 95836417T | Juan Carlos Lozano Morales    | 1992-03-03 | 665246646 |
+| 99743507F | Javier Prieto Álvarez         | 1964-05-17 | 697795794 |
++-----------+-------------------------------+------------+-----------+
+32 rows in set (0,00 sec)</pre>
+        </app-terminal-code>
+      </app-collapsible>
+    </div>
+
+    <div class="exercise-block">
+      <h2 class="exercise-title">Ejercicio 17</h2>
+
+      <p class="exercise-statement">
+        Obtener una lista de marcas que no están en Alemania o Japón.
+      </p>
+
+      <app-collapsible>
+        <span collapsible-header-closed>Ver solución</span>
+        <span collapsible-header-open>Ocultar solución</span>
+
+        <app-terminal-code collapsible-content>
+          <span terminal-code-command>select * from MARCA where sede not in ('Alemania', 'Japón');</span>
+          <pre terminal-code-output>+--------+-----------+----------------+
+| codigo | nombre    | sede           |
++--------+-----------+----------------+
+|      2 | Ford      | Estados Unidos |
+|      8 | Chevrolet | Estados Unidos |
+|     10 | Hyundai   | Corea del Sur  |
+|     11 | Kia       | Corea del Sur  |
+|     13 | Volvo     | Suecia         |
+|     14 | Peugeot   | Francia        |
+|     15 | Fiat      | Italia         |
+|     16 | Seat      | España         |
+|     17 | Tesla     | Estados Unidos |
+|     18 | Renault   | Francia        |
++--------+-----------+----------------+
+10 rows in set (0,00 sec)</pre>
+        </app-terminal-code>
+      </app-collapsible>
+    </div>
   </section>
 </main>
