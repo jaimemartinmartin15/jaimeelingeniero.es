@@ -641,5 +641,71 @@
         </app-terminal-code>
       </app-collapsible>
     </div>
+
+    <div class="exercise-block">
+      <h2 class="exercise-title">Ejercicio 18</h2>
+
+      <p class="exercise-statement">
+        Seleccionar las propulsiones que tienen un nombre con menos o igual de 8 letras.
+      </p>
+
+      <app-collapsible>
+        <span collapsible-header-closed>Ver solución</span>
+        <span collapsible-header-open>Ocultar solución</span>
+
+        <app-terminal-code collapsible-content>
+          <span terminal-code-command>select * from PROPULSION where length(nombre)&lt;=8;</span>
+          <pre terminal-code-output>+----+----------+
+| id | nombre   |
++----+----------+
+|  1 | Gasolina |
+|  2 | Diésel   |
+|  7 | Híbrido  |
+|  8 | GNC      |
++----+----------+
+4 rows in set (0,00 sec)</pre>
+        </app-terminal-code>
+      </app-collapsible>
+    </div>
+
+    <div class="exercise-block">
+      <h2 class="exercise-title">Ejercicio 19</h2>
+
+      <p class="exercise-statement">
+        Obtener el nombre y edad de los clientes entre 30 y 33 años y ordenarlos de mayor a menor.
+      </p>
+
+      <app-collapsible>
+        <span collapsible-header-closed>Ver solución</span>
+        <span collapsible-header-open>Ocultar solución</span>
+
+        <app-terminal-code collapsible-content>
+          <span terminal-code-command>select nombre, timestampdiff(year, fecha_nac, curdate()) as edad from CLIENTE
+            where timestampdiff(year, fecha_nac, curdate()) between 30 and 33 order by 2 DESC;</span>
+          <pre terminal-code-output>+-------------------------------+------+
+| nombre                        | edad |
++-------------------------------+------+
+| Valentina Guerrero Ortiz      |   33 |
+| Beatriz González Fernández    |   33 |
+| Luisa Gil Castro              |   33 |
+| Eva Jiménez Martínez          |   33 |
+| Lucía Delgado Iglesias        |   33 |
+| Lorena Rubio Martínez         |   33 |
+...
+| Rosa Castro López             |   31 |
+| Javier Guerrero Suárez        |   31 |
+| Pablo Cano Ortiz              |   30 |
+| Óscar Prieto Ramírez          |   30 |
+| Ángel Marín Sanz              |   30 |
+| Gloria Serrano González       |   30 |
+| Miriam Nuñez Ramos            |   30 |
+| Antonio Martínez Cortés       |   30 |
+| Javier Ortiz Ortega           |   30 |
+| Lucas Ruiz Rubio              |   30 |
++-------------------------------+------+
+45 rows in set (0,00 sec)</pre>
+        </app-terminal-code>
+      </app-collapsible>
+    </div>
   </section>
 </main>
