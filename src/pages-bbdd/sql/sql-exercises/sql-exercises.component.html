@@ -923,5 +923,33 @@
         </app-terminal-code>
       </app-collapsible>
     </div>
+
+    <div class="exercise-block">
+      <h2 class="exercise-title">Ejercicio 26</h2>
+
+      <p class="exercise-statement">
+        Mostrar la localidad de los concesionarios en los que ha comprado coches 'Javier Guerrero Suárez'.
+      </p>
+
+      <app-collapsible>
+        <span collapsible-header-closed>Ver solución</span>
+        <span collapsible-header-open>Ocultar solución</span>
+
+        <app-terminal-code collapsible-content>
+          <span terminal-code-command>select con.localidad from CONCESIONARIO con, OFRECE o, VENTA v, CLIENTE cl where
+            con.codigo=o.cod_concesionario and o.cod_coche=v.cod_coche and o.cod_concesionario=v.cod_concesionario and
+            v.cod_cliente=cl.dni and cl.nombre='Javier Guerrero Suárez';</span>
+          <pre terminal-code-output>+----------------------------+
+| localidad                  |
++----------------------------+
+| Murcia                     |
+| Gijón                      |
+| Las Palmas de Gran Canaria |
+| Barcelona                  |
++----------------------------+
+4 rows in set (0,00 sec)</pre>
+        </app-terminal-code>
+      </app-collapsible>
+    </div>
   </section>
 </main>
