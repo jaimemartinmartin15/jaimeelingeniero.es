@@ -742,6 +742,43 @@
       </app-collapsible>
     </div>
 
+    <div class="exercise-block">
+      <h2 class="exercise-title">Ejercicio 21</h2>
 
+      <p class="exercise-statement">
+        Obtener la marca de los coches que ofrece el concesionario de la localidad de Valencia.
+      </p>
+
+      <app-collapsible>
+        <span collapsible-header-closed>Ver solución</span>
+        <span collapsible-header-open>Ocultar solución</span>
+
+        <app-terminal-code collapsible-content>
+          <span terminal-code-command>select DISTINCT m.nombre from MARCA m, COCHE c, OFRECE o, CONCESIONARIO con where
+            con.codigo=o.cod_concesionario and o.cod_coche=c.codigo and m.codigo=c.cod_marca and
+            con.localidad='Valencia';</span>
+          <pre terminal-code-output>+------------+
+| nombre     |
++------------+
+| Toyota     |
+| Ford       |
+| BMW        |
+| Audi       |
+| Volkswagen |
+| Nissan     |
+| Honda      |
+| Hyundai    |
+| Kia        |
+| Mazda      |
+| Volvo      |
+| Peugeot    |
+| Fiat       |
+| Seat       |
+| Renault    |
++------------+
+15 rows in set (0,00 sec)</pre>
+        </app-terminal-code>
+      </app-collapsible>
+    </div>
   </section>
 </main>
