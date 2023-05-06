@@ -951,5 +951,41 @@
         </app-terminal-code>
       </app-collapsible>
     </div>
+
+    <div class="exercise-block">
+      <h2 class="exercise-title">Ejercicio 27</h2>
+
+      <p class="exercise-statement">
+        Seleccionar el nombre de los clientes que han comprado coches híbrido enchufable.
+      </p>
+
+      <app-collapsible>
+        <span collapsible-header-closed>Ver solución</span>
+        <span collapsible-header-open>Ocultar solución</span>
+
+        <app-terminal-code collapsible-content>
+          <span terminal-code-command>select cl.nombre from CLIENTE cl, VENTA v, OFRECE o, COCHE co, PROPULSION p where
+            cl.dni=v.cod_cliente and v.cod_coche=o.cod_coche and v.cod_concesionario=o.cod_concesionario and
+            o.cod_coche=co.codigo and co.propulsion=p.id and p.nombre='hibrido enchufable'</span>
+          <pre terminal-code-output>+-------------------------------+
+| nombre                        |
++-------------------------------+
+| Rosa Sanz Ortega              |
+| María Calvo Cortés            |
+| Emma Guerrero Castillo        |
+| Mateo Suárez Marín            |
+| Isabel Pérez Gómez            |
+| Silvia Castro Moreno          |
+| Laura Díaz Ramírez            |
+...
+| Mariano Suárez Muñoz          |
+| Patricia Pérez Moreno         |
+| Silvia Iglesias Ramírez       |
+| Francisco Rodríguez Marín     |
++-------------------------------+
+68 rows in set (0,00 sec)</pre>
+        </app-terminal-code>
+      </app-collapsible>
+    </div>
   </section>
 </main>
