@@ -14,7 +14,8 @@
 
     <p>
       En el caso de que la salida sea muy grande, yo la acotaré con puntos para no tener que poner todas las filas.
-      Puedes ver las soluciones pinchando en "Ver solución". Vamos a practicar ⚙️
+      Puedes ver las soluciones pinchando en "Ver solución". También es posible que algunos resultados varien
+      dependiendo en la fecha que los realices, ya que algunas consultas usan la fecha actual. Vamos a practicar ⚙️
     </p>
   </section>
 
@@ -819,6 +820,41 @@
 |      5 | Zaragoza                   | Fiat          | Talento      |       39 |
 +--------+----------------------------+---------------+--------------+----------+
 59 rows in set (0,00 sec)</pre>
+        </app-terminal-code>
+      </app-collapsible>
+    </div>
+
+    <div class="exercise-block">
+      <h2 class="exercise-title">Ejercicio 23</h2>
+
+      <p class="exercise-statement">
+        Mostrar las reparaciones de hace menos de 1 año, con el nombre del mecánico, modelo del coche y la fecha de
+        reparación.
+      </p>
+
+      <app-collapsible>
+        <span collapsible-header-closed>Ver solución</span>
+        <span collapsible-header-open>Ocultar solución</span>
+
+        <app-terminal-code collapsible-content>
+          <span terminal-code-command>select m.nombre, c.modelo, r.fecha from MECANICO m, COCHE c, REPARA r where
+            c.codigo=r.cod_coche and r.cod_mecanico=m.codigo and timestampdiff(year, r.fecha, curdate())&lt;1 order by
+            3;</span>
+          <pre terminal-code-output>+---------------------------------------+------------+------------+
+| nombre                                | modelo     | fecha      |
++---------------------------------------+------------+------------+
+| Diagnóstico Hábil Total               | Captur     | 2022-05-09 |
+| Mecánica Hábil Técnico                | Sorento    | 2022-05-14 |
+| Técnica Experto de Coches             | Model Y    | 2022-06-03 |
+| Técnica Experto de Coches             | Santa Fe   | 2022-06-15 |
+...
+| Servicio Rápido Automotriz            | HR-V       | 2023-02-19 |
+| Neumáticos Eficiente Mantenimiento    | Sorento    | 2023-02-21 |
+| Mecánica Innovador Mecánico           | A7         | 2023-02-26 |
+| Mecánica Innovador Mecánico           | Tucson     | 2023-03-02 |
+| Mantenimiento Fiable de Coches        | 508        | 2023-03-15 |
++---------------------------------------+------------+------------+
+43 rows in set (0,00 sec)</pre>
         </app-terminal-code>
       </app-collapsible>
     </div>
