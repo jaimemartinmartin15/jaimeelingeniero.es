@@ -1188,5 +1188,38 @@
         </app-terminal-code>
       </app-collapsible>
     </div>
+
+    <div class="exercise-block">
+      <h2 class="exercise-title">Ejercicio 34</h2>
+
+      <p class="exercise-statement">
+        Mostrar el nombre de las marcas de coche y la sede que ha reparado el taller con código 1.
+      </p>
+
+      <app-collapsible>
+        <span collapsible-header-closed>Ver solución</span>
+        <span collapsible-header-open>Ocultar solución</span>
+
+        <app-terminal-code collapsible-content>
+          <span terminal-code-command>select DISTINCT ma.nombre, ma.sede from MARCA ma, COCHE c, REPARA r, MECANICO me
+            where ma.codigo=c.cod_marca and c.codigo=r.cod_coche and r.cod_mecanico=me.codigo and me.codigo=1;</span>
+          <pre terminal-code-output>+---------+----------------+
+| nombre  | sede           |
++---------+----------------+
+| Fiat    | Italia         |
+| BMW     | Alemania       |
+| Ford    | Estados Unidos |
+| Peugeot | Francia        |
+| Kia     | Corea del Sur  |
+| Honda   | Japón          |
+| Seat    | España         |
+| Volvo   | Suecia         |
+| Toyota  | Japón          |
+| Mazda   | Japón          |
++---------+----------------+
+10 rows in set (0,00 sec)</pre>
+        </app-terminal-code>
+      </app-collapsible>
+    </div>
   </section>
 </main>
