@@ -1022,5 +1022,34 @@
         </app-terminal-code>
       </app-collapsible>
     </div>
+
+    <div class="exercise-block">
+      <h2 class="exercise-title">Ejercicio 29</h2>
+
+      <p class="exercise-statement">
+        Mostrar el número disponible de coches de la marca Nissan en el concesionario de Córdoba.
+      </p>
+
+      <app-collapsible>
+        <span collapsible-header-closed>Ver solución</span>
+        <span collapsible-header-open>Ocultar solución</span>
+
+        <app-terminal-code collapsible-content>
+          <span terminal-code-command>select o.cantidad, c.modelo from MARCA m, COCHE c, OFRECE o, CONCESIONARIO con
+            where con.codigo=o.cod_concesionario and o.cod_coche=c.codigo and c.cod_marca=m.codigo and m.nombre="Nissan"
+            and con.localidad="Cordoba";</span>
+          <pre terminal-code-output>+----------+--------+
+| cantidad | modelo |
++----------+--------+
+|       11 | Micra  |
+|       28 | Juke   |
+|       25 | GT-R   |
++----------+--------+
+3 rows in set (0,00 sec)</pre>
+        </app-terminal-code>
+      </app-collapsible>
+    </div>
+
+    
   </section>
 </main>
