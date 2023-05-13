@@ -1050,6 +1050,31 @@
       </app-collapsible>
     </div>
 
-    
+    <div class="exercise-block">
+      <h2 class="exercise-title">Ejercicio 30</h2>
+
+      <p class="exercise-statement">
+        Mostrar la marca y modelo del coche, y la localidad de los concesionarios donde está disponible el coche con
+        codigo 258.
+      </p>
+
+      <app-collapsible>
+        <span collapsible-header-closed>Ver solución</span>
+        <span collapsible-header-open>Ocultar solución</span>
+
+        <app-terminal-code collapsible-content>
+          <span terminal-code-command>select m.nombre, c.modelo, con.localidad, o.cantidad from MARCA m, COCHE c, OFRECE
+            o, CONCESIONARIO con where m.codigo=c.cod_marca and c.codigo=o.cod_coche and o.cod_concesionario=con.codigo
+            and c.codigo=258 and o.cantidad&gt;0;</span>
+          <pre terminal-code-output>+---------+--------+-----------+----------+
+| nombre  | modelo | localidad | cantidad |
++---------+--------+-----------+----------+
+| Peugeot | Expert | Murcia    |       18 |
+| Peugeot | Expert | Palma     |       29 |
++---------+--------+-----------+----------+
+2 rows in set (0,00 sec)</pre>
+        </app-terminal-code>
+      </app-collapsible>
+    </div>
   </section>
 </main>
