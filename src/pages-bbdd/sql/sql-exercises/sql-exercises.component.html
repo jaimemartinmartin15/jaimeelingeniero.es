@@ -1108,6 +1108,55 @@
       </app-collapsible>
     </div>
 
-    
+    <div class="exercise-block">
+      <h2 class="exercise-title">Ejercicio 32</h2>
+
+      <p class="exercise-statement">
+        Mostrar la información de los mecánicos, el nombre de la marca y modelo del coche, de mecánicos que han reparado
+        coches cuya marca contienen la vocal I seguida inmediatamente por una A o coches cuyo modelo contienen la vocal
+        E seguida inmediatamente por la vocal O. Ordenar la salida por nombre del mecánico.
+      </p>
+
+      <app-collapsible>
+        <span collapsible-header-closed>Ver solución</span>
+        <span collapsible-header-open>Ocultar solución</span>
+
+        <app-terminal-code collapsible-content>
+          <span terminal-code-command>select DISTINCT me.nombre, me.ciudad, ma.nombre, c.modelo from MARCA ma, COCHE c,
+            REPARA r, MECANICO me where ma.codigo=c.cod_marca and c.codigo=r.cod_coche and r.cod_mecanico=me.codigo and
+            (ma.nombre LIKE "%IA%" OR c.modelo LIKE "%EO%") ORDER BY 1;</span>
+          <pre terminal-code-output>+---------------------------------------+------------------------+------------+--------------------+
+| nombre                                | ciudad                 | nombre     | modelo             |
++---------------------------------------+------------------------+------------+--------------------+
+| Diagnóstico Hábil Total               | Burgos                 | Fiat       | 500L Trekking      |
+| Diagnóstico Hábil Total               | Burgos                 | Renault    | Koleos             |
+| Diagnóstico Hábil Total               | Burgos                 | Fiat       | 500L Living        |
+| Diagnóstico Hábil Total               | Burgos                 | Fiat       | 500X               |
+| Diagnóstico Hábil Total               | Burgos                 | Fiat       | 500S               |
+| Diagnóstico Hábil Total               | Burgos                 | Kia        | Sportage           |
+| Diagnóstico Hábil Total               | Burgos                 | Fiat       | 500e               |
+| Diagnóstico Hábil Total               | Burgos                 | Fiat       | 500L MPV           |
+| Electromecánica Eficiente Express     | Girona                 | Fiat       | Tipo Cross         |
+| Electromecánica Eficiente Express     | Girona                 | Fiat       | 500X               |
+...
+| Técnica Experto de Coches             | Almería                | Seat       | Leon               |
+| Técnica Experto de Coches             | Almería                | Fiat       | Panda              |
+| Técnica Experto de Coches             | Almería                | Kia        | Rio                |
+| Técnica Preciso del Motor             | Castellón de la Plana  | Fiat       | Doblo              |
+| Técnica Preciso del Motor             | Castellón de la Plana  | Fiat       | 500L Urban         |
+| Técnica Preciso del Motor             | Castellón de la Plana  | Fiat       | 124 Spider         |
+| Técnica Preciso del Motor             | Castellón de la Plana  | Fiat       | Tipo               |
+| Técnica Preciso del Motor             | Castellón de la Plana  | Fiat       | 500S               |
+| Técnica Preciso del Motor             | Castellón de la Plana  | Fiat       | Ducato             |
+| Técnica Preciso del Motor             | Castellón de la Plana  | Fiat       | Tipo Station Wagon |
+| Técnica Preciso del Motor             | Castellón de la Plana  | Ford       | Mondeo             |
+| Técnica Preciso del Motor             | Castellón de la Plana  | Kia        | Ceed               |
+| Técnica Preciso del Motor             | Castellón de la Plana  | Fiat       | 500 Spiaggina 58   |
+| Técnica Preciso del Motor             | Castellón de la Plana  | Volkswagen | Arteon             |
++---------------------------------------+------------------------+------------+--------------------+
+80 rows in set (0,01 sec)</pre>
+        </app-terminal-code>
+      </app-collapsible>
+    </div>
   </section>
 </main>
