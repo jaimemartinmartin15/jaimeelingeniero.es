@@ -1158,5 +1158,35 @@
         </app-terminal-code>
       </app-collapsible>
     </div>
+
+    <div class="exercise-block">
+      <h2 class="exercise-title">Ejercicio 33</h2>
+
+      <p class="exercise-statement">
+        Mostrar el dni, nombre y teléfono de los clientes que han comprado un coche en el concesionario de Murcia en el
+        año 2020.
+      </p>
+
+      <app-collapsible>
+        <span collapsible-header-closed>Ver solución</span>
+        <span collapsible-header-open>Ocultar solución</span>
+
+        <app-terminal-code collapsible-content>
+          <span terminal-code-command>select cl.dni, cl.nombre, cl.telefono, v.fecha from CLIENTE cl, VENTA v, OFRECE o,
+            CONCESIONARIO con where cl.dni=v.cod_cliente and v.cod_coche=o.cod_coche and
+            v.cod_concesionario=o.cod_concesionario and o.cod_concesionario=con.codigo and con.localidad="Murcia" and
+            YEAR(v.fecha)=2020;</span>
+          <pre terminal-code-output>+-----------+------------------------------------+-----------+------------+
+| dni       | nombre                             | telefono  | fecha      |
++-----------+------------------------------------+-----------+------------+
+| 04287342E | Sara Hernández Jiménez             | 904816461 | 2020-06-14 |
+| 29048114M | José Antonio Martínez Domínguez    | 617087010 | 2020-05-16 |
+| 28875972B | Juan Carlos Rubio Alonso           | 699456562 | 2020-11-04 |
+| 73454716H | Miriam Blanco Romero               | 684549080 | 2020-09-05 |
++-----------+------------------------------------+-----------+------------+
+4 rows in set (0,00 sec)</pre>
+        </app-terminal-code>
+      </app-collapsible>
+    </div>
   </section>
 </main>
