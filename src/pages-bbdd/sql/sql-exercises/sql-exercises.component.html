@@ -1076,5 +1076,38 @@
         </app-terminal-code>
       </app-collapsible>
     </div>
+
+    <div class="exercise-block">
+      <h2 class="exercise-title">Ejercicio 31</h2>
+
+      <p class="exercise-statement">
+        Obtener todos los modelos de la marca Kia.
+      </p>
+
+      <app-collapsible>
+        <span collapsible-header-closed>Ver solución</span>
+        <span collapsible-header-open>Ocultar solución</span>
+
+        <app-terminal-code collapsible-content>
+          <span terminal-code-command>select DISTINCT c.modelo from MARCA m, COCHE c where m.codigo=c.cod_marca and
+            m.nombre="Kia";</span>
+          <pre terminal-code-output>+-----------+
+| modelo    |
++-----------+
+| Picanto   |
+| Rio       |
+| Stonic    |
+| Niro      |
+| Ceed      |
+| Sportage  |
+| Sorento   |
+| Telluride |
++-----------+
+8 rows in set (0,00 sec)</pre>
+        </app-terminal-code>
+      </app-collapsible>
+    </div>
+
+    
   </section>
 </main>
