@@ -1222,4 +1222,64 @@
       </app-collapsible>
     </div>
   </section>
+
+  <section>
+    <p>
+      Los ejercicios a continuación son similares a los anteriores que implicaban varias tablas, pero se resuelven
+      usando la claúsula JOIN.
+    </p>
+
+    <div class="exercise-block">
+      <h2 class="exercise-title">Ejercicio 35</h2>
+
+      <p class="exercise-statement">
+        Seleccionar los modelos de coche propulsados con hidrógeno y que sean de la marca con código 1.
+      </p>
+
+      <app-collapsible>
+        <span collapsible-header-closed>Ver solución</span>
+        <span collapsible-header-open>Ocultar solución</span>
+
+        <app-terminal-code collapsible-content>
+          <span terminal-code-command>select c.modelo from COCHE c JOIN PROPULSION p ON c.propulsion=p.id where
+            c.cod_marca=1 and p.nombre="Hidrógeno";</span>
+          <pre terminal-code-output>+--------+
+| modelo |
++--------+
+| Mirai  |
++--------+
+1 row in set (0,00 sec)</pre>
+        </app-terminal-code>
+      </app-collapsible>
+    </div>
+
+    <div class="exercise-block">
+      <h2 class="exercise-title">Ejercicio 36</h2>
+
+      <p class="exercise-statement">
+        Obtener un listado de los coches de la marca Chevrolet que han sido reparados.
+      </p>
+
+      <app-collapsible>
+        <span collapsible-header-closed>Ver solución</span>
+        <span collapsible-header-open>Ocultar solución</span>
+
+        <app-terminal-code collapsible-content>
+          <span terminal-code-command>select m.nombre, c.modelo from (MARCA m JOIN COCHE c ON m.codigo=c.cod_marca) JOIN
+            REPARA r ON c.cod_marca=r.id where m.nombre="Chevrolet";</span>
+          <pre terminal-code-output>+-----------+----------+
+| nombre    | modelo   |
++-----------+----------+
+| Chevrolet | Bel Air  |
+| Chevrolet | Camaro   |
+| Chevrolet | Chevelle |
+| Chevrolet | Corvette |
+| Chevrolet | Impala   |
+| Chevrolet | Nova     |
++-----------+----------+
+6 rows in set (0,00 sec)</pre>
+        </app-terminal-code>
+      </app-collapsible>
+    </div>
+  </section>
 </main>
