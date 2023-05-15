@@ -1281,5 +1281,91 @@
         </app-terminal-code>
       </app-collapsible>
     </div>
+
+    <div class="exercise-block">
+      <h2 class="exercise-title">Ejercicio 37</h2>
+
+      <p class="exercise-statement">
+        Obtener la lista de modelos de coche que ha comprado el cliente con DNI 98531793A.
+      </p>
+
+      <app-collapsible>
+        <span collapsible-header-closed>Ver solución</span>
+        <span collapsible-header-open>Ocultar solución</span>
+
+        <app-terminal-code collapsible-content>
+          <span terminal-code-command>select co.modelo from ((CLIENTE cl JOIN VENTA v ON cl.dni=v.cod_cliente) JOIN
+            OFRECE o on v.cod_coche=o.cod_coche and v.cod_concesionario=o.cod_concesionario) JOIN COCHE co ON
+            co.codigo=o.cod_coche where cl.dni="98531793A";</span>
+          <pre terminal-code-output>+--------+
+| modelo |
++--------+
+| CX-5   |
+| i30    |
+| Prius  |
+| Arteon |
++--------+
+4 rows in set (0,00 sec)</pre>
+        </app-terminal-code>
+      </app-collapsible>
+    </div>
+
+    <div class="exercise-block">
+      <h2 class="exercise-title">Ejercicio 38</h2>
+
+      <p class="exercise-statement">
+        Mostrar la localidad del concesionario donde ha realizado compras el cliente con número de teléfono
+        670436964.
+      </p>
+
+      <app-collapsible>
+        <span collapsible-header-closed>Ver solución</span>
+        <span collapsible-header-open>Ocultar solución</span>
+
+        <app-terminal-code collapsible-content>
+          <span terminal-code-command>select con.localidad from (CONCESIONARIO con JOIN VENTA v ON
+            con.codigo=v.cod_concesionario) JOIN CLIENTE cl ON cl.dni=v.cod_cliente where
+            cl.telefono="670436964";</span>
+          <pre terminal-code-output>+-----------+
+| localidad |
++-----------+
+| Alicante  |
++-----------+
+1 row in set (0,00 sec)</pre>
+        </app-terminal-code>
+      </app-collapsible>
+    </div>
+
+    <div class="exercise-block">
+      <h2 class="exercise-title">Ejercicio 39</h2>
+
+      <p class="exercise-statement">
+        Obtener el listado de clientes que han comprado coches propulsados con diésel a partir del día 20 de junio del
+        2020.
+      </p>
+
+      <app-collapsible>
+        <span collapsible-header-closed>Ver solución</span>
+        <span collapsible-header-open>Ocultar solución</span>
+
+        <app-terminal-code collapsible-content>
+          <span terminal-code-command>select cl.dni, cl.nombre, cl.telefono, v.fecha from ((CLIENTE cl JOIN VENTA v ON
+            cl.dni=v.cod_cliente) JOIN COCHE co ON v.cod_coche=co.codigo) JOIN PROPULSION p ON co.propulsion=p.id where
+            p.nombre="Diésel" and v.fecha &gt; '2020-06-20';</span>
+          <pre terminal-code-output>+-----------+------------------------------+-----------+------------+
+| dni       | nombre                       | telefono  | fecha      |
++-----------+------------------------------+-----------+------------+
+| 60002680E | Jesús Muñoz Alonso           | 967695378 | 2022-11-14 |
+| 73454716H | Miriam Blanco Romero         | 684549080 | 2020-09-05 |
+| 77056400G | Irene Sanz Muñoz             | 613684334 | 2021-01-07 |
+...
+| 30294366J | Alejandro López Rodríguez    | 654625286 | 2021-10-02 |
+| 77099551K | Óscar Prieto Ramírez         | 996727939 | 2020-11-01 |
+| 92126794V | Luisa Martín Torres          | 954102552 | 2021-07-11 |
++-----------+------------------------------+-----------+------------+
+16 rows in set (0,00 sec)</pre>
+        </app-terminal-code>
+      </app-collapsible>
+    </div>
   </section>
 </main>
