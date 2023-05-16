@@ -1410,5 +1410,45 @@
         </app-terminal-code>
       </app-collapsible>
     </div>
+
+    <div class="exercise-block">
+      <h2 class="exercise-title">Ejercicio 41</h2>
+
+      <p class="exercise-statement">
+        Listar las marcas, modelos y propulsión de los coches que no están disponibles en el concesionario de Gijón.
+      </p>
+
+      <app-collapsible>
+        <span collapsible-header-closed>Ver solución</span>
+        <span collapsible-header-open>Ocultar solución</span>
+
+        <app-terminal-code collapsible-content>
+          <span terminal-code-command>
+            select ma.nombre, co.modelo, p.nombre
+            from (((CONCESIONARIO con JOIN OFRECE o ON con.codigo=o.cod_concesionario and con.localidad="Gijón")
+            RIGHT JOIN COCHE co ON o.cod_coche=co.codigo)
+            JOIN MARCA ma ON ma.codigo=co.cod_marca)
+            JOIN PROPULSION p ON co.propulsion=p.id
+            where o.cod_coche is null;
+          </span>
+          <pre terminal-code-output>+---------------+--------------------+---------------------+
+| nombre        | modelo             | nombre              |
++---------------+--------------------+---------------------+
+| Toyota        | Corolla            | Gasolina            |
+| Toyota        | Corolla            | Híbrido eléctrico   |
+| Toyota        | Yaris              | Gasolina            |
+| Toyota        | Yaris              | Híbrido eléctrico   |
+| Toyota        | RAV4               | Gasolina            |
+...
+| Renault       | Koleos             | Híbrido             |
+| Renault       | Clio               | Gasolina            |
+| Renault       | Laguna             | Gasolina            |
+| Renault       | Laguna             | Diésel              |
+| Renault       | Laguna             | Híbrido             |
++---------------+--------------------+---------------------+
+303 rows in set (0,00 sec)</pre>
+        </app-terminal-code>
+      </app-collapsible>
+    </div>
   </section>
 </main>
