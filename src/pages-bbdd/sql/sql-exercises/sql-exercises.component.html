@@ -1450,5 +1450,94 @@
         </app-terminal-code>
       </app-collapsible>
     </div>
+
+    <div class="exercise-block">
+      <h2 class="exercise-title">Ejercicio 42</h2>
+
+      <p class="exercise-statement">
+        Obtener el nombre de los clientes que han comprado coches en los concesionarios de Bilbao (código 10) o Zaragoza
+        (código 5).
+      </p>
+
+      <app-collapsible>
+        <span collapsible-header-closed>Ver solución</span>
+        <span collapsible-header-open>Ocultar solución</span>
+
+        <div collapsible-content>
+          <span>Solución 1:</span>
+
+          <app-terminal-code>
+            <span terminal-code-command>
+              select cl.dni, cl.nombre
+              from CLIENTE cl JOIN VENTA v ON cl.dni=v.cod_cliente
+              where v.cod_concesionario IN (5, 10);
+            </span>
+            <pre terminal-code-output>+-----------+------------------------------+
+| dni       | nombre                       |
++-----------+------------------------------+
+| 03186492D | Eva Rubio Ramos              |
+| 91462412Q | Ángel Álvarez Guerrero       |
+...
+| 11707557F | Luisa Jiménez Calvo          |
+| 54872971J | Beatriz Suárez Marín         |
+| 60360886J | Jorge Calvo Morales          |
++-----------+------------------------------+
+82 rows in set (0,00 sec)</pre>
+          </app-terminal-code>
+
+          <span>Solución 2:</span>
+
+          <app-terminal-code>
+            <span terminal-code-command>select cl.dni, cl.nombre
+              from CLIENTE cl JOIN VENTA v ON cl.dni=v.cod_cliente
+              where v.cod_concesionario=5 or v.cod_concesionario=10;</span>
+            <pre terminal-code-output>+-----------+------------------------------+
+| dni       | nombre                       |
++-----------+------------------------------+
+| 03186492D | Eva Rubio Ramos              |
+| 91462412Q | Ángel Álvarez Guerrero       |
+...
+| 11707557F | Luisa Jiménez Calvo          |
+| 54872971J | Beatriz Suárez Marín         |
+| 60360886J | Jorge Calvo Morales          |
++-----------+------------------------------+
+82 rows in set (0,00 sec)</pre>
+          </app-terminal-code>
+
+          <span>Solución 3:</span>
+
+          <app-terminal-code>
+            <span terminal-code-command>
+              select cl.dni, cl.nombre
+              from CLIENTE cl JOIN VENTA v ON cl.dni=v.cod_cliente
+              where v.cod_concesionario=5
+              union all
+              select cl.dni, cl.nombre
+              from CLIENTE cl JOIN VENTA v ON cl.dni=v.cod_cliente
+              where v.cod_concesionario=10;
+            </span>
+            <pre terminal-code-output>+-----------+------------------------------+
+| dni       | nombre                       |
++-----------+------------------------------+
+| 03186492D | Eva Rubio Ramos              |
+| 91462412Q | Ángel Álvarez Guerrero       |
+| 12280217M | Manuel Cortés Ortiz          |
+...
+| 52920803M | Laura Sánchez Iglesias       |
+| 11707557F | Luisa Jiménez Calvo          |
+| 54872971J | Beatriz Suárez Marín         |
+| 60360886J | Jorge Calvo Morales          |
+| 39695859Y | Cristina Torres Morales      |
+...
+| 85208599S | Eva Lozano Gallego           |
+| 51916482J | Miguel Gil González          |
++-----------+------------------------------+
+82 rows in set (0,00 sec)</pre>
+          </app-terminal-code>
+        </div>
+      </app-collapsible>
+    </div>
+
+    
   </section>
 </main>
