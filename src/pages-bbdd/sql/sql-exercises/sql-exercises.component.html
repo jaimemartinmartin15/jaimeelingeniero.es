@@ -1367,5 +1367,48 @@
         </app-terminal-code>
       </app-collapsible>
     </div>
+
+    <div class="exercise-block">
+      <h2 class="exercise-title">Ejercicio 40</h2>
+
+      <p class="exercise-statement">
+        Obtener la lista de coches (código, marca y modelo) que ofrece el concesionario con código 1 y si el coche se ha
+        vendido, indicar el número de factura, dni y el nombre del cliente.
+      </p>
+
+      <app-collapsible>
+        <span collapsible-header-closed>Ver solución</span>
+        <span collapsible-header-open>Ocultar solución</span>
+
+        <app-terminal-code collapsible-content>
+          <span terminal-code-command>
+            select co.codigo as cod_coche, ma.nombre as marca, co.modelo, v.num_factura, cl.dni, cl.nombre from (((MARCA
+            ma JOIN COCHE co ON ma.codigo=co.cod_marca) JOIN OFRECE o ON co.codigo=o.cod_coche) LEFT JOIN VENTA v ON
+            o.cod_coche=v.cod_coche and o.cod_concesionario=v.cod_concesionario) LEFT JOIN CLIENTE cl ON
+            v.cod_cliente=cl.dni where o.cod_concesionario=1 order by num_factura DESC;
+          </span>
+          <pre terminal-code-output>+-----------+---------------+------------+-------------+-----------+-------------------------------+
+| cod_coche | marca         | modelo     | num_factura | dni       | nombre                        |
++-----------+---------------+------------+-------------+-----------+-------------------------------+
+|       315 | Seat          | Leon       | 96          | 55189313J | Isabel Morales Gómez          |
+|        99 | Mercedes-Benz | Clase C    | 78          | 97422552D | Joaquín Serrano Cano          |
+|         6 | Toyota        | RAV4       | 73          | 23691443T | David Fernández Romero        |
+|        93 | Audi          | Q5         | 600         | 84000725L | Adriana Ramos Gutiérrez       |
+...
+|        52 | BMW           | Serie 6    | 139         | 93212025T | Hugo Serrano Prieto           |
+|       221 | Volvo         | XC40       | 111         | 86618517M | Daniel Navarro Guerrero       |
+|        52 | BMW           | Serie 6    | 10          | 20714820J | Lorena Ortiz Domínguez        |
+|       273 | Fiat          | Doblo      | NULL        | NULL      | NULL                          |
+|       264 | Fiat          | 500L       | NULL        | NULL      | NULL                          |
+|        12 | Toyota        | Mirai      | NULL        | NULL      | NULL                          |
+...
+|        97 | Mercedes-Benz | Clase A    | NULL        | NULL      | NULL                          |
+|        83 | Audi          | A2         | NULL        | NULL      | NULL                          |
+|        88 | Audi          | A7         | NULL        | NULL      | NULL                          |
++-----------+---------------+------------+-------------+-----------+-------------------------------+
+71 rows in set (0,00 sec)</pre>
+        </app-terminal-code>
+      </app-collapsible>
+    </div>
   </section>
 </main>
