@@ -1538,6 +1538,34 @@
       </app-collapsible>
     </div>
 
-    
+    <div class="exercise-block">
+      <h2 class="exercise-title">Ejercicio 43</h2>
+
+      <p class="exercise-statement">
+        Obtener el nombre de los clientes que han comprado coches tanto en el concesionario con código 13 como en el
+        concesionario con código 1.
+      </p>
+
+      <app-collapsible>
+        <span collapsible-header-closed>Ver solución</span>
+        <span collapsible-header-open>Ocultar solución</span>
+
+        <app-terminal-code collapsible-content>
+          <span terminal-code-command>
+            select cl.nombre from VENTA v JOIN CLIENTE cl ON cl.dni=v.cod_cliente where v.cod_concesionario=13
+            intersect
+            select cl.nombre from VENTA v JOIN CLIENTE cl ON cl.dni=v.cod_cliente where v.cod_concesionario=1;
+          </span>
+          <pre terminal-code-output>+----------------------+
+| nombre               |
++----------------------+
+| David Romero López   |
+| Alejandro Alonso Gil |
+| Hugo Serrano Prieto  |
++----------------------+
+3 rows in set (0,00 sec)</pre>
+        </app-terminal-code>
+      </app-collapsible>
+    </div>
   </section>
 </main>
