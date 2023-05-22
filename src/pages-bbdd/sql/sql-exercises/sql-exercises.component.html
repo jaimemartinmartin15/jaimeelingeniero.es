@@ -1708,5 +1708,36 @@
         </app-terminal-code>
       </app-collapsible>
     </div>
+
+    <div class="exercise-block">
+      <h2 class="exercise-title">Ejercicio 49</h2>
+
+      <p class="exercise-statement">
+        Obtener el número de ventas realizadas por cada concesionario en el año 2001. Obtenerlo por orden ascendente de
+        código de concesionario.
+      </p>
+
+      <app-collapsible>
+        <span collapsible-header-closed>Ver solución</span>
+        <span collapsible-header-open>Ocultar solución</span>
+
+        <app-terminal-code collapsible-content>
+          <span terminal-code-command>select cod_concesionario, count(*) as NUM_VENTAS from VENTA where year(fecha)=2001
+            GROUP BY cod_concesionario ORDER BY 1;</span>
+          <pre terminal-code-output>+-------------------+------------+
+| cod_concesionario | NUM_VENTAS |
++-------------------+------------+
+|                 1 |          2 |
+|                 2 |          3 |
+|                 3 |          3 |
+...
+|                11 |          3 |
+|                12 |          3 |
+|                14 |          5 |
++-------------------+------------+
+13 rows in set (0,00 sec)</pre>
+        </app-terminal-code>
+      </app-collapsible>
+    </div>
   </section>
 </main>
