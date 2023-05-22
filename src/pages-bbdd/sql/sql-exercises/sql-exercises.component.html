@@ -1567,5 +1567,92 @@
         </app-terminal-code>
       </app-collapsible>
     </div>
+
+    <div class="exercise-block">
+      <h2 class="exercise-title">Ejercicio 44</h2>
+
+      <p class="exercise-statement">
+        Obtener un listado de los clientes llamados Silvia y que han comprado un coche en el concesionario de Alicante
+        (código 11). Mostrar los datos de la venta. Todos los clientes llamados Silvia aparecerán igualmente en el
+        listado.
+      </p>
+
+      <app-collapsible>
+        <span collapsible-header-closed>Ver solución</span>
+        <span collapsible-header-open>Ocultar solución</span>
+
+        <app-terminal-code collapsible-content>
+          <span terminal-code-command>ct cl.nombre, cl.dni, v.num_factura, v.precio from CLIENTE cl LEFT JOIN VENTA v ON
+            cl.dni=v.cod_cliente and v.cod_concesionario=4 where cl.nombre LIKE 'Silvia%';</span>
+          <pre terminal-code-output>+------------------------------+-----------+-------------+----------+
+| nombre                       | dni       | num_factura | precio   |
++------------------------------+-----------+-------------+----------+
+| Silvia Iglesias Ramírez      | 31140191J | 298         | 42247.97 |
+| Silvia Suárez Méndez         | 49019414X | NULL        |     NULL |
+| Silvia Serrano Jiménez       | 49324137S | NULL        |     NULL |
+| Silvia Gómez Ortiz           | 52515981P | NULL        |     NULL |
+| Silvia González Castillo     | 83770850X | NULL        |     NULL |
+| Silvia Rodríguez Rodríguez   | 86942129N | NULL        |     NULL |
+| Silvia García García         | 97860658F | NULL        |     NULL |
+| Silvia Castro Moreno         | 98366460Q | 410         | 49058.20 |
++------------------------------+-----------+-------------+----------+
+8 rows in set (0,01 sec)</pre>
+        </app-terminal-code>
+      </app-collapsible>
+    </div>
+
+    <div class="exercise-block">
+      <h2 class="exercise-title">Ejercicio 45</h2>
+
+      <p class="exercise-statement">
+        Listar las localidades de los concesionarios que coinciden con las ciudades de algún mecánico.
+      </p>
+
+      <app-collapsible>
+        <span collapsible-header-closed>Ver solución</span>
+        <span collapsible-header-open>Ocultar solución</span>
+
+        <app-terminal-code collapsible-content>
+          <span terminal-code-command>
+            select localidad from CONCESIONARIO
+            INTERSECT
+            select ciudad from MECANICO;
+          </span>
+          <pre terminal-code-output>Empty set (0,00 sec)</pre>
+        </app-terminal-code>
+      </app-collapsible>
+    </div>
+
+    <div class="exercise-block">
+      <h2 class="exercise-title">Ejercicio 46</h2>
+
+      <p class="exercise-statement">
+        Obtener un listado de marcas y modelos que ofrecen coches no propulsados con diésel o gasolina.
+      </p>
+
+      <app-collapsible>
+        <span collapsible-header-closed>Ver solución</span>
+        <span collapsible-header-open>Ocultar solución</span>
+
+        <app-terminal-code collapsible-content>
+          <span terminal-code-command>ect DISTINCT m.nombre as marca, c.modelo, p.nombre from (MARCA m JOIN COCHE c ON
+            m.codigo=c.cod_marca) JOIN PROPULSION p ON c.propulsion=p.id where p.nombre NOT IN ('diesel',
+            'gasolina');</span>
+          <pre terminal-code-output>+---------------+------------+---------------------+
+| marca         | modelo     | nombre              |
++---------------+------------+---------------------+
+| Toyota        | Corolla    | Híbrido eléctrico   |
+| Toyota        | Yaris      | Híbrido eléctrico   |
+| Toyota        | RAV4       | Híbrido eléctrico   |
+...
+| Renault       | Scénic     | Híbrido             |
+| Renault       | Twingo     | Eléctrico           |
+| Renault       | Koleos     | Híbrido             |
+| Renault       | Laguna     | Híbrido             |
++---------------+------------+---------------------+
+111 rows in set (0,00 sec)</pre>
+        </app-terminal-code>
+      </app-collapsible>
+    </div>
   </section>
 </main>
