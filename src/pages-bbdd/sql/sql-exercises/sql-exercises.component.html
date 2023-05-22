@@ -1655,4 +1655,58 @@
       </app-collapsible>
     </div>
   </section>
+
+  <section>
+    <p>
+      Los ejercicios enunciados a continuación son sobre consultas con GROUP BY y funciones.
+    </p>
+
+    <div class="exercise-block">
+      <h2 class="exercise-title">Ejercicio 47</h2>
+
+      <p class="exercise-statement">
+        Hallar el número de clientes cuyo número de teléfono empieza con 97.
+      </p>
+
+      <app-collapsible>
+        <span collapsible-header-closed>Ver solución</span>
+        <span collapsible-header-open>Ocultar solución</span>
+
+        <app-terminal-code collapsible-content>
+          <span terminal-code-command>select count(*) from CLIENTE where telefono like '97%';</span>
+          <pre terminal-code-output>+----------+
+| count(*) |
++----------+
+|       11 |
++----------+
+1 row in set (0,00 sec)</pre>
+        </app-terminal-code>
+      </app-collapsible>
+    </div>
+
+    <div class="exercise-block">
+      <h2 class="exercise-title">Ejercicio 48</h2>
+
+      <p class="exercise-statement">
+        Calcular la edad máxima, mínima y media de los clientes.
+      </p>
+
+      <app-collapsible>
+        <span collapsible-header-closed>Ver solución</span>
+        <span collapsible-header-open>Ocultar solución</span>
+
+        <app-terminal-code collapsible-content>
+          <span terminal-code-command>SELECT min(timestampdiff(YEAR, fecha_nac, CURDATE())) as EDAD_MIN,
+            max(timestampdiff(YEAR, fecha_nac, CURDATE())) as EDAD_MAX, avg(timestampdiff(YEAR, fecha_nac, CURDATE()))
+            as MEDIA FROM CLIENTE;</span>
+          <pre terminal-code-output>+----------+----------+---------+
+| EDAD_MIN | EDAD_MAX | MEDIA   |
++----------+----------+---------+
+|       23 |       68 | 44.6250 |
++----------+----------+---------+
+1 row in set (0,00 sec)</pre>
+        </app-terminal-code>
+      </app-collapsible>
+    </div>
+  </section>
 </main>
