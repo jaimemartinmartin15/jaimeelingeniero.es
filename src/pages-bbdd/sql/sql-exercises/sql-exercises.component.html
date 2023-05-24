@@ -1874,5 +1874,34 @@ ORDER BY 2;</pre>
         </app-terminal-code>
       </app-collapsible>
     </div>
+
+    <div class="exercise-block">
+      <h2 class="exercise-title">Ejercicio 54</h2>
+
+      <p class="exercise-statement">
+        Obtener los códigos de coches que se han reparado más de 4 veces, indicando el número total de reparaciones por
+        coche.
+      </p>
+
+      <app-collapsible>
+        <span collapsible-header-closed>Ver solución</span>
+        <span collapsible-header-open>Ocultar solución</span>
+
+        <app-terminal-code collapsible-content>
+          <span terminal-code-command>
+            select cod_coche, count(id) from REPARA group by cod_coche having count(id) &gt; 4 order by 1;</span>
+          <pre terminal-code-output>+-----------+-----------+
+| cod_coche | count(id) |
++-----------+-----------+
+|        26 |         5 |
+|        49 |         6 |
+|        65 |         5 |
+|       189 |         5 |
+|       311 |         5 |
++-----------+-----------+
+5 rows in set (0,00 sec)</pre>
+        </app-terminal-code>
+      </app-collapsible>
+    </div>
   </section>
 </main>
