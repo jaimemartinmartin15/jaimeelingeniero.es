@@ -1845,5 +1845,34 @@ ORDER BY 2;</pre>
         </app-terminal-code>
       </app-collapsible>
     </div>
+
+    <div class="exercise-block">
+      <h2 class="exercise-title">Ejercicio 53</h2>
+
+      <p class="exercise-statement">
+        Indicar para los años 2011 a 2016 el número de clientes que realizaron compras de coches esos años.
+      </p>
+
+      <app-collapsible>
+        <span collapsible-header-closed>Ver solución</span>
+        <span collapsible-header-open>Ocultar solución</span>
+
+        <app-terminal-code collapsible-content>
+          <span terminal-code-command>select YEAR(fecha), count(cod_cliente) from VENTA where YEAR(fecha) between 2011
+            and 2016 group by YEAR(fecha) order by 1;</span>
+          <pre terminal-code-output>+-------------+--------------------+
+| YEAR(fecha) | count(cod_cliente) |
++-------------+--------------------+
+|        2011 |                 17 |
+|        2012 |                 19 |
+|        2013 |                 18 |
+|        2014 |                 23 |
+|        2015 |                 25 |
+|        2016 |                 21 |
++-------------+--------------------+
+6 rows in set (0,00 sec)</pre>
+        </app-terminal-code>
+      </app-collapsible>
+    </div>
   </section>
 </main>
