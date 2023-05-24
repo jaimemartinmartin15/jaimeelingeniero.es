@@ -1811,5 +1811,39 @@ ORDER BY 2;</pre>
         </app-terminal-code>
       </app-collapsible>
     </div>
+
+    <div class="exercise-block">
+      <h2 class="exercise-title">Ejercicio 52</h2>
+
+      <p class="exercise-statement">
+        Obtener los códigos de los coches y el número total ofertado de ellos en el conjunto de todos los
+        concesionarios.
+      </p>
+
+      <app-collapsible>
+        <span collapsible-header-closed>Ver solución</span>
+        <span collapsible-header-open>Ocultar solución</span>
+
+        <app-terminal-code collapsible-content>
+          <span terminal-code-command>select c.codigo, c.modelo, sum(o.cantidad) from COCHE c LEFT JOIN OFRECE o ON
+            c.codigo=o.cod_coche group by c.codigo, c.modelo;</span>
+          <pre terminal-code-output>+--------+--------------------+-----------------+
+| codigo | modelo             | sum(o.cantidad) |
++--------+--------------------+-----------------+
+|      1 | Corolla            |              59 |
+|      2 | Corolla            |              39 |
+|      3 | Yaris              |              22 |
+|      4 | Yaris              |              15 |
+...
+|    349 | Koleos             |              27 |
+|    350 | Clio               |              11 |
+|    351 | Laguna             |              40 |
+|    352 | Laguna             |              51 |
+|    353 | Laguna             |              55 |
++--------+--------------------+-----------------+
+353 rows in set (0,00 sec)</pre>
+        </app-terminal-code>
+      </app-collapsible>
+    </div>
   </section>
 </main>
