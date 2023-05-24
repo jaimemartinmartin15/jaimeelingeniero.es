@@ -1903,5 +1903,60 @@ ORDER BY 2;</pre>
         </app-terminal-code>
       </app-collapsible>
     </div>
+
+    <div class="exercise-block">
+      <h2 class="exercise-title">Ejercicio 55</h2>
+
+      <p class="exercise-statement">
+        Obtener para cada coche, el número medio de cantidad ofertada por los concesionarios.
+      </p>
+
+      <app-collapsible>
+        <span collapsible-header-closed>Ver solución</span>
+        <span collapsible-header-open>Ocultar solución</span>
+
+        <app-terminal-code collapsible-content>
+          <span terminal-code-command>select cod_coche, avg(cantidad) as media from OFRECE group by cod_coche;</span>
+          <pre terminal-code-output>+-----------+---------+
+| cod_coche | media   |
++-----------+---------+
+|         1 | 29.5000 |
+|         2 | 19.5000 |
+|         3 | 22.0000 |
+|         4 | 15.0000 |
+...
+|       350 | 11.0000 |
+|       351 | 20.0000 |
+|       352 | 25.5000 |
+|       353 | 27.5000 |
++-----------+---------+
+353 rows in set (0,00 sec)</pre>
+        </app-terminal-code>
+      </app-collapsible>
+    </div>
+
+    <div class="exercise-block">
+      <h2 class="exercise-title">Ejercicio 56</h2>
+
+      <p class="exercise-statement">
+        Obtener la reparación más reciente
+      </p>
+
+      <app-collapsible>
+        <span collapsible-header-closed>Ver solución</span>
+        <span collapsible-header-open>Ocultar solución</span>
+
+        <app-terminal-code collapsible-content>
+          <span terminal-code-command>select r1.fecha from REPARA r1, REPARA r2 group by r1.id having r1.fecha =
+            max(r2.fecha);</span>
+          <pre terminal-code-output>+------------+
+| fecha      |
++------------+
+| 2023-03-15 |
++------------+
+1 row in set (0,07 sec)</pre>
+        </app-terminal-code>
+      </app-collapsible>
+    </div>
   </section>
 </main>
