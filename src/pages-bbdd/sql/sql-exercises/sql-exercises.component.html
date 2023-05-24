@@ -1739,5 +1739,38 @@
         </app-terminal-code>
       </app-collapsible>
     </div>
+
+    <div class="exercise-block">
+      <h2 class="exercise-title">Ejercicio 50</h2>
+
+      <p class="exercise-statement">
+        Obtener el número de coches por propulsión que existen en la base de datos.
+      </p>
+
+      <app-collapsible>
+        <span collapsible-header-closed>Ver solución</span>
+        <span collapsible-header-open>Ocultar solución</span>
+
+        <app-terminal-code collapsible-content>
+          <pre terminal-code-command>select p.nombre as propulsion, count(p.id) as cantidad
+from COCHE c JOIN PROPULSION p ON c.propulsion=p.id
+GROUP BY p.nombre
+ORDER BY 2;</pre>
+          <pre terminal-code-output>+---------------------+----------+
+| propulsion          | cantidad |
++---------------------+----------+
+| Hidrógeno           |        1 |
+| GNC                 |        4 |
+| Híbrido eléctrico   |        9 |
+| Híbrido enchufable  |       28 |
+| Eléctrico           |       33 |
+| Híbrido             |       36 |
+| Diésel              |      102 |
+| Gasolina            |      140 |
++---------------------+----------+
+8 rows in set (0,00 sec)</pre>
+        </app-terminal-code>
+      </app-collapsible>
+    </div>
   </section>
 </main>
