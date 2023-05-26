@@ -1998,5 +1998,36 @@ ORDER BY 2;</pre>
         </app-terminal-code>
       </app-collapsible>
     </div>
+
+    <div class="exercise-block">
+      <h2 class="exercise-title">Ejercicio 58</h2>
+
+      <p class="exercise-statement">
+        Listar el nombre de los clientes que tienen el número de teléfono que comienza por 66 y tienen una fecha de
+        nacimiento anterior a la de algún cliente con número que empieza por 990.
+      </p>
+
+      <app-collapsible>
+        <span collapsible-header-closed>Ver solución</span>
+        <span collapsible-header-open>Ocultar solución</span>
+
+        <app-terminal-code collapsible-content>
+          <span terminal-code-command>select * from CLIENTE where telefono like '66%' and fecha_nac &lt; any (select
+            fecha_nac from CLIENTE where telefono like '990%') order by 3;</span>
+          <pre terminal-code-output>+-----------+-----------------------------+------------+-----------+
+| dni       | nombre                      | fecha_nac  | telefono  |
++-----------+-----------------------------+------------+-----------+
+| 89531049H | Isabel Álvarez Gallego      | 1958-01-05 | 669448370 |
+| 01351505C | Mateo Marín Ramos           | 1959-01-07 | 666513603 |
+| 19287838R | Julia Vázquez García        | 1959-02-28 | 662957939 |
+...
+| 93913105M | Ángel Fernández Alonso      | 1988-05-23 | 662319946 |
+| 99444547Z | Carmen Ortega Sanz          | 1989-10-16 | 665528146 |
+| 96117956N | Verónica Ramírez Guerrero   | 1991-04-14 | 664405671 |
++-----------+-----------------------------+------------+-----------+
+21 rows in set (0,00 sec)</pre>
+        </app-terminal-code>
+      </app-collapsible>
+    </div>
   </section>
 </main>
