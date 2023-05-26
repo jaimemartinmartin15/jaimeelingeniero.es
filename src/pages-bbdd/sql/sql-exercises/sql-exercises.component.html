@@ -1962,15 +1962,15 @@ ORDER BY 2;</pre>
 
   <section>
     <p>
-      Los ejercicios que viene a continuación incluyen consultas subselect.
+      Los ejercicios que viene a continuación incluyen consultas subselect sin correlación.
     </p>
 
     <div class="exercise-block">
       <h2 class="exercise-title">Ejercicio 57</h2>
 
       <p class="exercise-statement">
-        <!-- TODO continuar po la pagina 15, sesion 5, primer ejercicio -->
-        [TODO] escribir el enunciado aqui
+        Listar los modelos de los coches que ofrece el concesionario de Vigo (código 14) en una cantidad superior al
+        coche con código 215.
       </p>
 
       <app-collapsible>
@@ -1978,8 +1978,23 @@ ORDER BY 2;</pre>
         <span collapsible-header-open>Ocultar solución</span>
 
         <app-terminal-code collapsible-content>
-          <span terminal-code-command>Statement here</span>
-          <pre terminal-code-output>output here</pre>
+          <span terminal-code-command>select DISTINCT co.modelo from COCHE co JOIN OFRECE o ON co.codigo=o.cod_coche
+            where cod_concesionario=14 and cantidad&gt;(select cantidad from OFRECE where cod_coche=215 and
+            cod_concesionario=14);</span>
+          <pre terminal-code-output>+----------+
+| modelo   |
++----------+
+| Mustang  |
+| Serie 5  |
+| Clase S  |
+| Polo     |
+...
+| Tarraco  |
+| Model 3  |
+| Model Y  |
+| Mégane   |
++----------+
+20 rows in set (0,00 sec)</pre>
         </app-terminal-code>
       </app-collapsible>
     </div>
