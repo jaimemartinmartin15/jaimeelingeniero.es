@@ -2096,5 +2096,30 @@ ORDER BY 2;</pre>
         </app-terminal-code>
       </app-collapsible>
     </div>
+
+    <div class="exercise-block">
+      <h2 class="exercise-title">Ejercicio 61</h2>
+
+      <p class="exercise-statement">
+        Datos del concesionario que tiene el mayor número de ventas.
+      </p>
+
+      <app-collapsible>
+        <span collapsible-header-closed>Ver solución</span>
+        <span collapsible-header-open>Ocultar solución</span>
+
+        <app-terminal-code collapsible-content>
+          <span terminal-code-command>select * from CONCESIONARIO where codigo in (select cod_concesionario from VENTA
+            group by cod_concesionario having count(*)=(select max(cantidad) from (select count(*) as cantidad from
+            VENTA group by cod_concesionario) AS T));</span>
+          <pre terminal-code-output>+--------+-----------+---------------+-------------+
+| codigo | localidad | hora_apertura | hora_cierre |
++--------+-----------+---------------+-------------+
+|      4 | Sevilla   | 10:00:00      | 19:00:00    |
++--------+-----------+---------------+-------------+
+1 row in set (0,00 sec)</pre>
+        </app-terminal-code>
+      </app-collapsible>
+    </div>
   </section>
 </main>
