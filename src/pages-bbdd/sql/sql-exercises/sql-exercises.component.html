@@ -2121,5 +2121,31 @@ ORDER BY 2;</pre>
         </app-terminal-code>
       </app-collapsible>
     </div>
+
+    <div class="exercise-block">
+      <h2 class="exercise-title">Ejercicio 62</h2>
+
+      <p class="exercise-statement">
+        Datos del mecánico que realizó durante el año 2013 el mayor número de reparaciones.
+      </p>
+
+      <app-collapsible>
+        <span collapsible-header-closed>Ver solución</span>
+        <span collapsible-header-open>Ocultar solución</span>
+
+        <app-terminal-code collapsible-content>
+          <span terminal-code-command>select * from MECANICO where codigo in (select cod_mecanico from REPARA where
+            YEAR(fecha)=2018 group by cod_mecanico having count(*)=(select max(cantidad) from (select count(*) as
+            cantidad from REPARA where YEAR(fecha)=2018 group by cod_mecanico) as T));</span>
+          <pre terminal-code-output>+--------+------------------------------------+--------+
+| codigo | nombre                             | ciudad |
++--------+------------------------------------+--------+
+|      5 | Electromecánica Eficiente Express  | Girona |
+|      6 | Mantenimiento Fiable de Coches     | Teruel |
++--------+------------------------------------+--------+
+2 rows in set (0,00 sec)</pre>
+        </app-terminal-code>
+      </app-collapsible>
+    </div>
   </section>
 </main>
