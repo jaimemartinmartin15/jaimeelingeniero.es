@@ -2029,5 +2029,43 @@ ORDER BY 2;</pre>
         </app-terminal-code>
       </app-collapsible>
     </div>
+
+    <div class="exercise-block">
+      <h2 class="exercise-title">Ejercicio 59</h2>
+
+      <p class="exercise-statement">
+        Listar las reparaciones hechas después que todas las ventas.
+      </p>
+
+      <app-collapsible>
+        <span collapsible-header-closed>Ver solución</span>
+        <span collapsible-header-open>Ocultar solución</span>
+
+        <div collapsible-content>
+          <app-terminal-code>
+            <span terminal-code-command>select * from REPARA where fecha > all (select fecha from VENTA);</span>
+            <pre terminal-code-output>+-----+--------------+-----------+------------+---------+
+| id  | cod_mecanico | cod_coche | fecha      | precio  |
++-----+--------------+-----------+------------+---------+
+|  49 |            3 |       281 | 2023-02-18 | 4321.51 |
+| 114 |            2 |       330 | 2023-02-03 | 3118.37 |
+| 191 |            6 |       246 | 2023-03-15 | 3123.35 |
+...
+| 434 |            1 |        30 | 2023-02-01 |  461.69 |
+| 443 |            4 |        30 | 2023-02-18 | 4552.19 |
+| 447 |            3 |       189 | 2023-01-25 | 1252.60 |
++-----+--------------+-----------+------------+---------+
+15 rows in set (0,00 sec)</pre>
+          </app-terminal-code>
+
+          Otra solución también sería:
+
+          <app-terminal-code>
+            <span terminal-code-command>select * from REPARA where fecha > (select max(fecha) from VENTA);</span>
+            <pre terminal-code-output>Mismo resultado que antes</pre>
+          </app-terminal-code>
+        </div>
+      </app-collapsible>
+    </div>
   </section>
 </main>
