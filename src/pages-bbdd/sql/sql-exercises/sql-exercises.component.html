@@ -2067,5 +2067,34 @@ ORDER BY 2;</pre>
         </div>
       </app-collapsible>
     </div>
+
+    <div class="exercise-block">
+      <h2 class="exercise-title">Ejercicio 60</h2>
+
+      <p class="exercise-statement">
+        Clientes con número de teléfono coincidente con las dos primeras cifras del teléfono de Julia Gil Delgado y que
+        hayan nacido en el mismo año que Juan Pérez Navarro.
+      </p>
+
+      <app-collapsible>
+        <span collapsible-header-closed>Ver solución</span>
+        <span collapsible-header-open>Ocultar solución</span>
+
+        <app-terminal-code collapsible-content>
+          <span terminal-code-command>select * from CLIENTE where substring(telefono, 1, 2)=(select substring(telefono,
+            1, 2) from CLIENTE where nombre="Julia
+            Gil Delgado") and YEAR(fecha_nac)=(select YEAR(fecha_nac) from CLIENTE where nombre="Juan Pérez
+            Navarro");</span>
+          <pre terminal-code-output>+-----------+------------------------+------------+-----------+
+| dni       | nombre                 | fecha_nac  | telefono  |
++-----------+------------------------+------------+-----------+
+| 69007223B | Celia Delgado López    | 1993-09-04 | 672286210 |
+| 70835235W | Alicia Gómez Ramírez   | 1993-07-07 | 677290516 |
+| 89771451N | Julia Gil Delgado      | 1993-08-07 | 671661503 |
++-----------+------------------------+------------+-----------+
+3 rows in set (0,00 sec)</pre>
+        </app-terminal-code>
+      </app-collapsible>
+    </div>
   </section>
 </main>
