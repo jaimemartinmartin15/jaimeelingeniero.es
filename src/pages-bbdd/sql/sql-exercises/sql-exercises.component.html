@@ -2175,4 +2175,42 @@ ORDER BY 2;</pre>
       </app-collapsible>
     </div>
   </section>
+
+  <section>
+    <p>
+      Los ejercicios que viene a continuación incluyen consultas subselect con correlación.
+    </p>
+
+    <div class="exercise-block">
+      <h2 class="exercise-title">Ejercicio 64</h2>
+
+      <p class="exercise-statement">
+        Datos de las las últimas reparaciones de cada código de coche.
+      </p>
+
+      <app-collapsible>
+        <span collapsible-header-closed>Ver solución</span>
+        <span collapsible-header-open>Ocultar solución</span>
+
+        <app-terminal-code collapsible-content>
+          <span terminal-code-command>select * from REPARA r where fecha=(select min(fecha) from REPARA where
+            cod_coche=r.cod_coche);</span>
+          <pre terminal-code-output>+-----+--------------+-----------+------------+---------+
+| id  | cod_mecanico | cod_coche | fecha      | precio  |
++-----+--------------+-----------+------------+---------+
+|   6 |            3 |        93 | 2020-04-16 | 1543.17 |
+|   8 |            7 |       272 | 2018-03-02 | 1365.86 |
+|   9 |            2 |       164 | 2021-10-26 | 1801.06 |
+|  10 |            5 |       222 | 2015-05-31 | 2836.78 |
+|  11 |            1 |        39 | 2021-07-29 | 4171.23 |
+...
+| 448 |            5 |       289 | 2018-06-08 | 4727.83 |
+| 449 |            2 |       348 | 2017-08-30 | 4146.64 |
+| 450 |            5 |       129 | 2016-10-17 | 1019.38 |
++-----+--------------+-----------+------------+---------+
+259 rows in set (0,04 sec)</pre>
+        </app-terminal-code>
+      </app-collapsible>
+    </div>
+  </section>
 </main>
