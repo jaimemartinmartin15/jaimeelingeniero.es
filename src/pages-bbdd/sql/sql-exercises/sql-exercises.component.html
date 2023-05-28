@@ -2245,5 +2245,42 @@ ORDER BY 2;</pre>
         </app-terminal-code>
       </app-collapsible>
     </div>
+
+    <div class="exercise-block">
+      <h2 class="exercise-title">Ejercicio 66</h2>
+
+      <p class="exercise-statement">
+        Indicar si hay coches ofertados por los concesionarios que no han sido vendidos en ese concesionario. Mostrar
+        los datos del coche y del concesionario.
+      </p>
+
+      <app-collapsible>
+        <span collapsible-header-closed>Ver solución</span>
+        <span collapsible-header-open>Ocultar solución</span>
+
+        <app-terminal-code collapsible-content>
+          <span terminal-code-command>select c.codigo as cod_coche, c.cod_marca, c.modelo, con.codigo, con.localidad,
+            o.cantidad from (COCHE c JOIN OFRECE o ON c.codigo=o.cod_coche) JOIN CONCESIONARIO con ON
+            con.codigo=o.cod_concesionario where not exists (select * from VENTA v where o.cod_coche=v.cod_coche and
+            o.cod_concesionario=v.cod_concesionario);</span>
+          <pre terminal-code-output>+-----------+-----------+------------------+--------+----------------------------+----------+
+| cod_coche | cod_marca | modelo           | codigo | localidad                  | cantidad |
++-----------+-----------+------------------+--------+----------------------------+----------+
+|         1 |         1 | Corolla          |      5 | Zaragoza                   |       20 |
+|         1 |         1 | Corolla          |      7 | Murcia                     |       39 |
+|         2 |         1 | Corolla          |     10 | Bilbao                     |       24 |
+|         2 |         1 | Corolla          |     14 | Vigo                       |       15 |
+|         3 |         1 | Yaris            |      8 | Palma                      |       22 |
+...
+|       348 |        18 | Koleos           |     14 | Vigo                       |       11 |
+|       351 |        18 | Laguna           |      8 | Palma                      |       13 |
+|       351 |        18 | Laguna           |     13 | Valladolid                 |       27 |
+|       353 |        18 | Laguna           |      7 | Murcia                     |       32 |
+|       353 |        18 | Laguna           |     14 | Vigo                       |       23 |
++-----------+-----------+------------------+--------+----------------------------+----------+
+367 rows in set (0,00 sec)</pre>
+        </app-terminal-code>
+      </app-collapsible>
+    </div>
   </section>
 </main>
