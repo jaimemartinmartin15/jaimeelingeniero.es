@@ -2149,5 +2149,30 @@ ORDER BY 2;</pre>
         </app-terminal-code>
       </app-collapsible>
     </div>
+
+    <div class="exercise-block">
+      <h2 class="exercise-title">Ejercicio 63</h2>
+
+      <p class="exercise-statement">
+        Obtener los datos del cliente con mayor edad.
+      </p>
+
+      <app-collapsible>
+        <span collapsible-header-closed>Ver solución</span>
+        <span collapsible-header-open>Ocultar solución</span>
+
+        <app-terminal-code collapsible-content>
+          <span terminal-code-command>
+            select * from CLIENTE where fecha_nac &lt;= all (select fecha_nac from CLIENTE);
+          </span>
+          <pre terminal-code-output>+-----------+-------------------------+------------+-----------+
+| dni       | nombre                  | fecha_nac  | telefono  |
++-----------+-------------------------+------------+-----------+
+| 39913933K | Andrea Rubio Gutiérrez  | 1955-01-31 | 651808030 |
++-----------+-------------------------+------------+-----------+
+1 row in set (0,00 sec)</pre>
+        </app-terminal-code>
+      </app-collapsible>
+    </div>
   </section>
 </main>
