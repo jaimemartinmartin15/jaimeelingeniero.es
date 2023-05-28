@@ -2212,5 +2212,38 @@ ORDER BY 2;</pre>
         </app-terminal-code>
       </app-collapsible>
     </div>
+
+    <div class="exercise-block">
+      <h2 class="exercise-title">Ejercicio 65</h2>
+
+      <p class="exercise-statement">
+        Verificar si hay algún modelo de coche que no ha sido reparado nunca. Si es así, indicar los datos del coche.
+      </p>
+
+      <app-collapsible>
+        <span collapsible-header-closed>Ver solución</span>
+        <span collapsible-header-open>Ocultar solución</span>
+
+        <app-terminal-code collapsible-content>
+          <span terminal-code-command>select * from COCHE c where not exists (select * from REPARA where
+            c.codigo=cod_coche);</span>
+          <pre terminal-code-output>+--------+-----------+---------------+------------+
+| codigo | cod_marca | modelo        | propulsion |
++--------+-----------+---------------+------------+
+|      2 |         1 | Corolla       |          3 |
+|      6 |         1 | RAV4          |          3 |
+|      8 |         1 | C-HR          |          3 |
+|     13 |         1 | GR Supra      |          1 |
+...
+|    336 |        18 | Kadjar        |          1 |
+|    342 |        18 | Scénic        |          1 |
+|    347 |        18 | Koleos        |          1 |
+|    349 |        18 | Koleos        |          7 |
+|    352 |        18 | Laguna        |          2 |
++--------+-----------+---------------+------------+
+94 rows in set (0,00 sec)</pre>
+        </app-terminal-code>
+      </app-collapsible>
+    </div>
   </section>
 </main>
