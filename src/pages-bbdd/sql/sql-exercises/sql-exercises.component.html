@@ -2282,5 +2282,180 @@ ORDER BY 2;</pre>
         </app-terminal-code>
       </app-collapsible>
     </div>
+
+    <div class="exercise-block">
+      <h2 class="exercise-title">Ejercicio 67</h2>
+
+      <p class="exercise-statement">
+        Mostrar la última reparación de cada mecánico.
+      </p>
+
+      <app-collapsible>
+        <span collapsible-header-closed>Ver solución</span>
+        <span collapsible-header-open>Ocultar solución</span>
+
+        <app-terminal-code collapsible-content>
+          <span terminal-code-command>select * from REPARA r1 where fecha=(select max(fecha) from REPARA r2 where
+            r1.cod_mecanico=r2.cod_mecanico) order by 2;</span>
+          <pre terminal-code-output>+-----+--------------+-----------+------------+---------+
+| id  | cod_mecanico | cod_coche | fecha      | precio  |
++-----+--------------+-----------+------------+---------+
+| 434 |            1 |        30 | 2023-02-01 |  461.69 |
+| 193 |            2 |       353 | 2023-02-18 | 2823.71 |
+| 348 |            3 |       160 | 2023-02-19 |  965.68 |
+| 443 |            4 |        30 | 2023-02-18 | 4552.19 |
+| 362 |            5 |        38 | 2022-09-25 | 1820.50 |
+| 191 |            6 |       246 | 2023-03-15 | 3123.35 |
+|   2 |            7 |       128 | 2022-11-28 | 3944.27 |
+| 324 |            8 |       181 | 2023-03-02 | 2555.83 |
+| 296 |            9 |       204 | 2022-10-16 | 1414.03 |
+| 396 |           10 |       196 | 2023-02-21 | 1547.22 |
++-----+--------------+-----------+------------+---------+
+10 rows in set (0,04 sec)</pre>
+        </app-terminal-code>
+      </app-collapsible>
+    </div>
+
+    <div class="exercise-block">
+      <h2 class="exercise-title">Ejercicio 68</h2>
+
+      <p class="exercise-statement">
+        Listado de concesionarios indicando el coche en más cantidad que ofrecen.
+      </p>
+
+      <app-collapsible>
+        <span collapsible-header-closed>Ver solución</span>
+        <span collapsible-header-open>Ocultar solución</span>
+
+        <app-terminal-code collapsible-content>
+          <span terminal-code-command>select c1.codigo as cod_coche, c1.modelo, con1.localidad as concesionario,
+            o1.cantidad from (OFRECE o1 JOIN CONCESIONARIO con1 ON o1.cod_concesionario=con1.codigo) JOIN COCHE c1 ON
+            c1.codigo=o1.cod_coche where cantidad &gt;= all (select cantidad from OFRECE o2 where
+            o1.cod_concesionario=o2.cod_concesionario) order by 3;</span>
+          <pre terminal-code-output>+-----------+------------+----------------------------+----------+
+| cod_coche | modelo     | concesionario              | cantidad |
++-----------+------------+----------------------------+----------+
+|        41 | Serie 2    | Alicante                   |       40 |
+|       342 | Scénic     | Barcelona                  |       40 |
+|        97 | Clase A    | Barcelona                  |       40 |
+|       202 | 3          | Barcelona                  |       40 |
+|       152 | Nova       | Bilbao                     |       40 |
+...
+|       329 | Mégane     | Vigo                       |       39 |
+|        33 | Mustang    | Vigo                       |       39 |
+|       191 | Ceed       | Zaragoza                   |       40 |
++-----------+------------+----------------------------+----------+
+34 rows in set (0,01 sec)</pre>
+        </app-terminal-code>
+      </app-collapsible>
+    </div>
+
+    <div class="exercise-block">
+      <h2 class="exercise-title">Ejercicio 69</h2>
+
+      <p class="exercise-statement">
+        Listar los clientes que no han hecho compras de coche en los concesionarios del código 1 al 5.
+      </p>
+
+      <app-collapsible>
+        <span collapsible-header-closed>Ver solución</span>
+        <span collapsible-header-open>Ocultar solución</span>
+
+        <app-terminal-code collapsible-content>
+          <span terminal-code-command>select DISTINCT c1.dni, c1.nombre from CLIENTE c1 JOIN VENTA v1 ON
+            c1.dni=v1.cod_cliente where not exists (select * from VENTA v2 where v1.cod_cliente=v2.cod_cliente and
+            cod_concesionario between 1 and 5);</span>
+          <pre terminal-code-output>+-----------+------------------------------------+
+| dni       | nombre                             |
++-----------+------------------------------------+
+| 47545518L | Beatriz González Fernández         |
+| 70452473A | Mateo Domínguez González           |
+| 33487838Z | Marina Prieto Medina               |
+...
+| 38583379F | Andrea Torres Santos               |
+| 09347370K | David Sánchez Vázquez              |
+| 21885852V | Juan Martín Iglesias               |
++-----------+------------------------------------+
+207 rows in set (0,00 sec)</pre>
+        </app-terminal-code>
+      </app-collapsible>
+    </div>
+
+    <div class="exercise-block">
+      <h2 class="exercise-title">Ejercicio 70</h2>
+
+      <p class="exercise-statement">
+        Listar los concesionarios que han vendido coches que no han sido reparados.
+      </p>
+
+      <app-collapsible>
+        <span collapsible-header-closed>Ver solución</span>
+        <span collapsible-header-open>Ocultar solución</span>
+
+        <app-terminal-code collapsible-content>
+          <span terminal-code-command>select * from CONCESIONARIO c1 where exists (select * from VENTA v1 where
+            c1.codigo=v1.cod_concesionario and not exists (select * from REPARA r1 where
+            v1.cod_coche=r1.cod_coche));</span>
+          <pre terminal-code-output>output here</pre>
+        </app-terminal-code>
+      </app-collapsible>
+    </div>
+
+    <div class="exercise-block">
+      <h2 class="exercise-title">Ejercicio 71</h2>
+
+      <p class="exercise-statement">
+        Listar los coches que no han sido reparados.
+      </p>
+
+      <app-collapsible>
+        <span collapsible-header-closed>Ver solución</span>
+        <span collapsible-header-open>Ocultar solución</span>
+
+        <app-terminal-code collapsible-content>
+          <span terminal-code-command>select * from COCHE c1 where not exists (select * from REPARA r1 where
+            c1.codigo=r1.cod_coche);</span>
+          <pre terminal-code-output>+--------+-----------+---------------+------------+
+| codigo | cod_marca | modelo        | propulsion |
++--------+-----------+---------------+------------+
+|      2 |         1 | Corolla       |          3 |
+|      6 |         1 | RAV4          |          3 |
+|      8 |         1 | C-HR          |          3 |
+...
+|    347 |        18 | Koleos        |          1 |
+|    349 |        18 | Koleos        |          7 |
+|    352 |        18 | Laguna        |          2 |
++--------+-----------+---------------+------------+
+94 rows in set (0,00 sec)</pre>
+        </app-terminal-code>
+      </app-collapsible>
+    </div>
   </section>
+
+  <section>
+    <p>
+      El siguiente ejercicio tiene una complejidad especial. Es de división (álgebra relacional):
+    </p>
+
+    <div class="exercise-block">
+      <h2 class="exercise-title">Ejercicio 72</h2>
+
+      <p class="exercise-statement">
+        Clientes que han comprado coches en todos los concesionarios.
+      </p>
+
+      <app-collapsible>
+        <span collapsible-header-closed>Ver solución</span>
+        <span collapsible-header-open>Ocultar solución</span>
+
+        <app-terminal-code collapsible-content>
+          <span terminal-code-command>select * from CLIENTE c1 where not exists (select * from CONCESIONARIO c1 where
+            not exists (select * from VENTA v1 where v1.cod_concesionario=c1.codigo and c1.dni=v1.cod_cliente));</span>
+          <pre terminal-code-output>Empty set (0,11 sec)</pre>
+        </app-terminal-code>
+      </app-collapsible>
+    </div>
+  </section>
+
+  <!-- TODO sesion 6 crear una base de datos. Pagina 19 -->
 </main>
