@@ -2434,7 +2434,8 @@ ORDER BY 2;</pre>
 
   <section>
     <p>
-      El siguiente ejercicio tiene una complejidad especial. Es de división (álgebra relacional):
+      El siguiente ejercicio tiene una complejidad especial. Es de división (álgebra relacional) e implica una doble
+      negación:
     </p>
 
     <div class="exercise-block">
@@ -2448,11 +2449,19 @@ ORDER BY 2;</pre>
         <span collapsible-header-closed>Ver solución</span>
         <span collapsible-header-open>Ocultar solución</span>
 
-        <app-terminal-code collapsible-content>
-          <span terminal-code-command>select * from CLIENTE c1 where not exists (select * from CONCESIONARIO c1 where
-            not exists (select * from VENTA v1 where v1.cod_concesionario=c1.codigo and c1.dni=v1.cod_cliente));</span>
-          <pre terminal-code-output>Empty set (0,11 sec)</pre>
-        </app-terminal-code>
+        <div collapsible-content>
+          <app-terminal-code>
+            <span terminal-code-command>select * from CLIENTE c1 where not exists (select * from CONCESIONARIO c1 where
+              not exists (select * from VENTA v1 where v1.cod_concesionario=c1.codigo and
+              c1.dni=v1.cod_cliente));</span>
+            <pre terminal-code-output>Empty set (0,11 sec)</pre>
+          </app-terminal-code>
+
+          <p>
+            El enunciado es lo mismo que buscar clientes tal que no existe un concesionario en el que no hayan hecho una
+            compra.
+          </p>
+        </div>
       </app-collapsible>
     </div>
   </section>
