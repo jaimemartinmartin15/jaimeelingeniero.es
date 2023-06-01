@@ -2466,5 +2466,88 @@ ORDER BY 2;</pre>
     </div>
   </section>
 
-  <!-- TODO sesion 6 crear una base de datos. Pagina 19 -->
+  <section>
+    <p>
+      A continuación se pide crear una base de datos muy simple, con tres tablas. Se pedirá insertar datos, eliminarlos
+      e investigar que sucede.
+    </p>
+
+    <div class="exercise-block">
+      <h2 class="exercise-title">Ejercicio 73</h2>
+
+      <div class="exercise-statement">
+        <p>Crear las tablas correspondientes a una base de datos para gestionar una inmobiliaria:</p>
+
+        <pre>INQUILINO(<span class="primary-key">dni</span>, nombre, apellido)
+PISO(<span class="primary-key">codigo</span>, ciudad, metros2)
+ALQUILER(<span class="primary-key">piso, inquilino</span>, precio, fecha_inicio, fecha_fin)</pre>
+
+        <p>Las restricciones son las siguientes:</p>
+
+        <ul>
+          <li>Los atributos subrayados son los atributos primarios de cada tabla.</li>
+          <li>
+            Los atributos dni y codigo son de tipo entero. Los atributos piso e inquilino hacen referencia a ellos.
+          </li>
+          <li>No se permiten inquilinos con mismo nombre y apellido.</li>
+          <li>Ningún atributo de la tabla PISO puede ser nulo.</li>
+          <li>Los metros cuadrados de un piso serán entre 100 y 500. Por defecto son 150 si no se especifica.</li>
+          <li>El precio de un alquiler tendra un valor entre 100 y 1000. Por defecto serán 400.</li>
+          <li>Por defecto la tabla ALQUILER tomará como fecha de inicio la fecha en que se inserta la tupla.</li>
+          <li>La fecha de fin de un alquiler puede ser nula.</li>
+        </ul>
+      </div>
+
+      <app-collapsible>
+        <span collapsible-header-closed>Ver solución</span>
+        <span collapsible-header-open>Ocultar solución</span>
+
+        <div collapsible-content>
+          <app-terminal-code>
+            <span terminal-code-command>create database inmobiliaria;</span>
+            <pre terminal-code-output>Query OK, 1 row affected (0,01 sec)</pre>
+          </app-terminal-code>
+
+          <app-terminal-code>
+            <span terminal-code-command>use inmobiliaria;</span>
+            <pre terminal-code-output>Database changed</pre>
+          </app-terminal-code>
+
+          <app-terminal-code>
+            <pre terminal-code-command>create table INQUILINO (
+  dni INTEGER NOT NULL PRIMARY KEY,
+  nombre VARCHAR(50) NOT NULL,
+  apellido VARCHAR(50) NOT NULL,
+  CONSTRAINT nombreYApellidoUnico UNIQUE (nombre, apellido)
+);</pre>
+            <pre terminal-code-output>Query OK, 1 row affected (0,01 sec)</pre>
+          </app-terminal-code>
+
+          <app-terminal-code>
+            <pre terminal-code-command>create table PISO (
+  codigo INTEGER NOT NULL PRIMARY KEY,
+  ciudad VARCHAR(50) NOT NULL,
+  metros2 INTEGER NOT NULL DEFAULT 150 CHECK (metros2&gt;=100 and metros2&lt;=500)
+);</pre>
+            <pre terminal-code-output>Query OK, 0 rows affected (0,02 sec)</pre>
+          </app-terminal-code>
+
+          <app-terminal-code>
+            <pre terminal-code-command>create table ALQUILER (
+  piso INTEGER NOT NULL REFERENCES PISO(codigo) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  inquilino INTEGER NOT NULL REFERENCES INQUILINO(dni) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  precio DECIMAL(7,2) NOT NULL DEFAULT 400 CHECK (precio>=100 and precio<=1000),
+  fecha_inicio DATE DEFAULT(CURRENT_DATE),
+  fecha_fin DATE,
+  PRIMARY KEY (piso, inquilino),
+  CHECK (fecha_fin IS NULL or fecha_inicio > fecha_fin)
+);</pre>
+            <pre terminal-code-output>Query OK, 0 rows affected (0,02 sec)</pre>
+          </app-terminal-code>
+        </div>
+      </app-collapsible>
+    </div>
+  </section>
+
+  <!-- TODO seguir con ejercicio 2 pagina 20 -->
 </main>
