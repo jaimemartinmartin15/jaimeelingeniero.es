@@ -2753,5 +2753,70 @@ Records: 0  Duplicates: 0  Warnings: 0</pre>
         </div>
       </app-collapsible>
     </div>
+
+    <div class="exercise-block">
+      <h2 class="exercise-title">Ejercicio 80</h2>
+
+      <p class="exercise-statement">
+        Insertar un nuevo INQUILINO con dni 123654 y nombre Jose Castro. ¿Qué sucede? Eliminar la restricción y volver a
+        intentarlo.
+      </p>
+
+      <app-collapsible>
+        <span collapsible-header-closed>Ver solución</span>
+        <span collapsible-header-open>Ocultar solución</span>
+
+        <div collapsible-content>
+          <app-terminal-code>
+            <span terminal-code-command>insert into INQUILINO (dni, nombre, apellido) values (123654, 'Jose',
+              'Castro');</span>
+            <pre
+              terminal-code-output>ERROR 1062 (23000): Duplicate entry 'Jose-Castro' for key 'INQUILINO.nombreYApellidoUnico'</pre>
+          </app-terminal-code>
+
+          <p>
+            No permite insertar el nuevo inquilino ya que hay una restricción que no permite a dos inquilinos tener el
+            mismo nombre y apellidos.
+          </p>
+
+          <app-terminal-code collapsible-content>
+            <span terminal-code-command>alter table INQUILINO drop constraint nombreYApellidoUnico;</span>
+            <pre terminal-code-output>Query OK, 0 rows affected (0,02 sec)
+Records: 0  Duplicates: 0  Warnings: 0</pre>
+          </app-terminal-code>
+
+          <p>
+            Después de eliminar la restricción ya sí nos deja insertar la tupla. El nombre de la restricción lo sabemos
+            porque lo indicamos al crear la tabla. Si no lo supiéramos, tendríamos que tratar de violarla para que nos
+            indique el nombre.
+          </p>
+        </div>
+      </app-collapsible>
+    </div>
+
+    <div class="exercise-block">
+      <h2 class="exercise-title">Ejercicio 81</h2>
+
+      <p class="exercise-statement">
+        Eliminar la tabla PISO. ¿Qué sucede?
+      </p>
+
+      <app-collapsible>
+        <span collapsible-header-closed>Ver solución</span>
+        <span collapsible-header-open>Ocultar solución</span>
+
+        <div collapsible-content>
+          <app-terminal-code>
+            <span terminal-code-command>rop table PISO;</span>
+            <pre
+              terminal-code-output>ERROR 3730 (HY000): Cannot drop table 'PISO' referenced by a foreign key constraint 'ALQUILER_ibfk_2' on table 'ALQUILER'.</pre>
+          </app-terminal-code>
+
+          <p>
+            No nos permite eliminar la tabla ya que tiene valores referenciados por otras tablas.
+          </p>
+        </div>
+      </app-collapsible>
+    </div>
   </section>
 </main>
