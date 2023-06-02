@@ -2547,7 +2547,58 @@ ALQUILER(<span class="primary-key">piso, inquilino</span>, precio, fecha_inicio,
         </div>
       </app-collapsible>
     </div>
-  </section>
 
-  <!-- TODO seguir con ejercicio 2 pagina 20 -->
+    <div class="exercise-block">
+      <h2 class="exercise-title">Ejercicio 74</h2>
+
+      <p class="exercise-statement">
+        Comprobar la estructura de las tablas creadas. Para ello puedes usar el comando DESCRIBE, específico de MySQL.
+      </p>
+
+      <app-collapsible>
+        <span collapsible-header-closed>Ver solución</span>
+        <span collapsible-header-open>Ocultar solución</span>
+
+        <div collapsible-content>
+          <app-terminal-code>
+            <span terminal-code-command>describe INQUILINO;</span>
+            <pre terminal-code-output>+----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| dni      | int         | NO   | PRI | NULL    |       |
+| nombre   | varchar(50) | NO   | MUL | NULL    |       |
+| apellido | varchar(50) | NO   |     | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+3 rows in set (0,00 sec)</pre>
+          </app-terminal-code>
+
+          <app-terminal-code>
+            <span terminal-code-command>describe PISO;</span>
+            <pre terminal-code-output>+---------+-------------+------+-----+---------+-------+
+| Field   | Type        | Null | Key | Default | Extra |
++---------+-------------+------+-----+---------+-------+
+| codigo  | int         | NO   | PRI | NULL    |       |
+| ciudad  | varchar(50) | NO   |     | NULL    |       |
+| metros2 | int         | NO   |     | 150     |       |
++---------+-------------+------+-----+---------+-------+
+3 rows in set (0,01 sec)</pre>
+          </app-terminal-code>
+
+          <app-terminal-code>
+            <span terminal-code-command>describe ALQUILER;</span>
+            <pre terminal-code-output>+--------------+--------------+------+-----+-----------+-------------------+
+| Field        | Type         | Null | Key | Default   | Extra             |
++--------------+--------------+------+-----+-----------+-------------------+
+| piso         | int          | NO   | PRI | NULL      |                   |
+| inquilino    | int          | NO   | PRI | NULL      |                   |
+| precio       | decimal(7,2) | NO   |     | 400.00    |                   |
+| fecha_inicio | date         | YES  |     | curdate() | DEFAULT_GENERATED |
+| fecha_fin    | date         | YES  |     | NULL      |                   |
++--------------+--------------+------+-----+-----------+-------------------+
+5 rows in set (0,00 sec)</pre>
+          </app-terminal-code>
+        </div>
+      </app-collapsible>
+    </div>
+  </section>
 </main>
