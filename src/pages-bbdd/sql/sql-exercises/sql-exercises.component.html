@@ -2600,5 +2600,85 @@ ALQUILER(<span class="primary-key">piso, inquilino</span>, precio, fecha_inicio,
         </div>
       </app-collapsible>
     </div>
+
+    <div class="exercise-block">
+      <h2 class="exercise-title">Ejercicio 75</h2>
+
+      <p class="exercise-statement">
+        Insertar los siguientes datos para un PISO: código 1 en la ciudad de Ávila. Insertarla sin especificar los
+        metros cuadrados y comprobar que se asignan por defecto.
+      </p>
+
+      <app-collapsible>
+        <span collapsible-header-closed>Ver solución</span>
+        <span collapsible-header-open>Ocultar solución</span>
+
+        <div collapsible-content>
+          <app-terminal-code>
+            <span terminal-code-command>insert into PISO (codigo, ciudad) values (1, 'Ávila');</span>
+            <pre terminal-code-output>Query OK, 1 row affected (0,01 sec)</pre>
+          </app-terminal-code>
+
+          <app-terminal-code>
+            <span terminal-code-command>select * from PISO;</span>
+            <pre terminal-code-output>+--------+--------+---------+
+| codigo | ciudad | metros2 |
++--------+--------+---------+
+|      1 | Ávila  |     150 |
++--------+--------+---------+
+1 row in set (0,00 sec)</pre>
+          </app-terminal-code>
+        </div>
+      </app-collapsible>
+    </div>
+
+    <div class="exercise-block">
+      <h2 class="exercise-title">Ejercicio 76</h2>
+
+      <p class="exercise-statement">
+        Insertar la siguiente información relativa a un INQUILINO: Jose Castro con dni 357159.
+      </p>
+
+      <app-collapsible>
+        <span collapsible-header-closed>Ver solución</span>
+        <span collapsible-header-open>Ocultar solución</span>
+
+        <app-terminal-code collapsible-content>
+          <span terminal-code-command>insert into INQUILINO values (357159, 'Jose', 'Castro');</span>
+          <pre terminal-code-output>Query OK, 1 row affected (0,01 sec)</pre>
+        </app-terminal-code>
+      </app-collapsible>
+    </div>
+
+    <div class="exercise-block">
+      <h2 class="exercise-title">Ejercicio 77</h2>
+
+      <p class="exercise-statement">
+        Insertar una tupla en la tabla ALQUILER indicando que el inquilino anterior alquila el piso anterior por un
+        precio de 300 euros. Comprobar los datos insertados.
+      </p>
+
+      <app-collapsible>
+        <span collapsible-header-closed>Ver solución</span>
+        <span collapsible-header-open>Ocultar solución</span>
+
+        <div collapsible-content>
+          <app-terminal-code>
+            <span terminal-code-command>insert into ALQUILER (piso, inquilino, precio) values (1, 357159, 300);</span>
+            <pre terminal-code-output>Query OK, 1 row affected (0,01 sec)</pre>
+          </app-terminal-code>
+
+          <app-terminal-code>
+            <span terminal-code-command>select * from ALQUILER;</span>
+            <pre terminal-code-output>+------+-----------+--------+--------------+-----------+
+| piso | inquilino | precio | fecha_inicio | fecha_fin |
++------+-----------+--------+--------------+-----------+
+|    1 |    357159 | 300.00 | 2023-06-02   | NULL      |
++------+-----------+--------+--------------+-----------+
+1 row in set (0,00 sec)</pre>
+          </app-terminal-code>
+        </div>
+      </app-collapsible>
+    </div>
   </section>
 </main>
