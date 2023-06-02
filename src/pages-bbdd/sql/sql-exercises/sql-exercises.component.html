@@ -2534,13 +2534,15 @@ ALQUILER(<span class="primary-key">piso, inquilino</span>, precio, fecha_inicio,
 
           <app-terminal-code>
             <pre terminal-code-command>create table ALQUILER (
-  piso INTEGER NOT NULL REFERENCES PISO(codigo) ON DELETE RESTRICT ON UPDATE RESTRICT,
-  inquilino INTEGER NOT NULL REFERENCES INQUILINO(dni) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  piso INTEGER NOT NULL,
+  inquilino INTEGER NOT NULL,
   precio DECIMAL(7,2) NOT NULL DEFAULT 400 CHECK (precio>=100 and precio<=1000),
   fecha_inicio DATE DEFAULT(CURRENT_DATE),
   fecha_fin DATE,
   PRIMARY KEY (piso, inquilino),
-  CHECK (fecha_fin IS NULL or fecha_inicio > fecha_fin)
+  CHECK (fecha_fin IS NULL or fecha_inicio > fecha_fin),
+  FOREIGN KEY (inquilino) REFERENCES INQUILINO(dni) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  FOREIGN KEY (piso) REFERENCES PISO(codigo) ON DELETE RESTRICT ON UPDATE RESTRICT
 );</pre>
             <pre terminal-code-output>Query OK, 0 rows affected (0,02 sec)</pre>
           </app-terminal-code>
@@ -2675,6 +2677,77 @@ ALQUILER(<span class="primary-key">piso, inquilino</span>, precio, fecha_inicio,
 +------+-----------+--------+--------------+-----------+
 |    1 |    357159 | 300.00 | 2023-06-02   | NULL      |
 +------+-----------+--------+--------------+-----------+
+1 row in set (0,00 sec)</pre>
+          </app-terminal-code>
+        </div>
+      </app-collapsible>
+    </div>
+
+    <div class="exercise-block">
+      <h2 class="exercise-title">Ejercicio 78</h2>
+
+      <p class="exercise-statement">
+        Insertar en la tabla ALQUILER una nueva tupla del inquilino con dni 987654 en el piso con código 1. ¿Qué
+        sucede?
+      </p>
+
+      <app-collapsible>
+        <span collapsible-header-closed>Ver solución</span>
+        <span collapsible-header-open>Ocultar solución</span>
+
+        <div collapsible-content>
+          <app-terminal-code>
+            <span terminal-code-command>insert into ALQUILER (piso, inquilino) values (1, 987654);</span>
+            <pre
+              terminal-code-output>ERROR 1452 (23000): Cannot add or update a child row: a foreign key constraint fails (`inmobiliaria`.`ALQUILER`, CONSTRAINT `ALQUILER_ibfk_1` FOREIGN KEY (`inquilino`) REFERENCES `INQUILINO` (`dni`) ON DELETE RESTRICT ON UPDATE RESTRICT)</pre>
+          </app-terminal-code>
+
+          <p>
+            Lo que sucede es que se produce un error porque el inquilino con dni 987654 no existe en la tabla INQUILINO
+            y por lo tanto no se le puede hacer referencia.
+          </p>
+        </div>
+      </app-collapsible>
+    </div>
+
+    <div class="exercise-block">
+      <h2 class="exercise-title">Ejercicio 79</h2>
+
+      <p class="exercise-statement">
+        Modificar la tabla INQUILINO para almacenar también su edad.
+      </p>
+
+      <app-collapsible>
+        <span collapsible-header-closed>Ver solución</span>
+        <span collapsible-header-open>Ocultar solución</span>
+
+        <div collapsible-content>
+          <app-terminal-code>
+            <span terminal-code-command>alter table INQUILINO add edad INTEGER;</span>
+            <pre terminal-code-output>Query OK, 0 rows affected (0,01 sec)
+Records: 0  Duplicates: 0  Warnings: 0</pre>
+          </app-terminal-code>
+
+          <app-terminal-code>
+            <span terminal-code-command>describe INQUILINO;</span>
+            <pre terminal-code-output>+----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| dni      | int         | NO   | PRI | NULL    |       |
+| nombre   | varchar(50) | NO   | MUL | NULL    |       |
+| apellido | varchar(50) | NO   |     | NULL    |       |
+| edad     | int         | YES  |     | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+4 rows in set (0,00 sec)</pre>
+          </app-terminal-code>
+
+          <app-terminal-code>
+            <span terminal-code-command>select * from INQUILINO;</span>
+            <pre terminal-code-output>+--------+--------+----------+------+
+| dni    | nombre | apellido | edad |
++--------+--------+----------+------+
+| 357159 | Jose   | Castro   | NULL |
++--------+--------+----------+------+
 1 row in set (0,00 sec)</pre>
           </app-terminal-code>
         </div>
