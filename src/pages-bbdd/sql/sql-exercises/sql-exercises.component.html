@@ -166,8 +166,8 @@
         <span collapsible-header-open>Ocultar solución</span>
 
         <app-terminal-code collapsible-content>
-          <span terminal-code-command>select cod_coche, cod_concesionario, fecha from VENTA where precio>48000 order by
-            cod_concesionario, fecha;</span>
+          <pre terminal-code-command>select cod_coche, cod_concesionario, fecha from VENTA 
+where precio>48000 order by cod_concesionario, fecha;</pre>
           <pre terminal-code-output>+-----------+-------------------+------------+
 | cod_coche | cod_concesionario | fecha      |
 +-----------+-------------------+------------+
@@ -327,8 +327,8 @@
         <span collapsible-header-open>Ocultar solución</span>
 
         <app-terminal-code collapsible-content>
-          <span terminal-code-command>select cod_concesionario, cod_coche, cantidad from OFRECE where cantidad>=39 order
-            by 1;</span>
+          <pre terminal-code-command>select cod_concesionario, cod_coche, cantidad from OFRECE
+where cantidad>=39 order by 1;</pre>
           <pre terminal-code-output>+-------------------+-----------+----------+
 | cod_concesionario | cod_coche | cantidad |
 +-------------------+-----------+----------+
@@ -336,14 +336,7 @@
 |                 1 |       150 |       40 |
 |                 1 |        20 |       40 |
 |                 1 |       347 |       39 |
-|                 1 |       139 |       39 |
-|                 1 |       121 |       39 |
-|                 1 |       343 |       40 |
-|                 2 |        97 |       40 |
 ...
-|                13 |        78 |       40 |
-|                13 |       333 |       40 |
-|                14 |        33 |       39 |
 |                14 |       329 |       39 |
 |                14 |       202 |       39 |
 |                15 |        81 |       39 |
@@ -392,8 +385,8 @@
         <span collapsible-header-open>Ocultar solución</span>
 
         <app-terminal-code collapsible-content>
-          <span terminal-code-command>select num_factura, timestampdiff(year, fecha, curdate()) as años from VENTA where
-            timestampdiff(year, fecha, curdate())&gt;=5 AND timestampdiff(year, fecha, curdate())&lt;=8;</span>
+          <pre terminal-code-command>select num_factura, timestampdiff(year, fecha, curdate()) as años from VENTA
+where timestampdiff(year, fecha, curdate())&gt;=5 AND timestampdiff(year, fecha, curdate())&lt;=8;</pre>
           <pre terminal-code-output>+-------------+-------+
 | num_factura | años  |
 +-------------+-------+
@@ -402,16 +395,7 @@
 | 105         |     7 |
 | 11          |     6 |
 | 111         |     5 |
-| 114         |     6 |
-| 122         |     7 |
-| 134         |     8 |
-| 14          |     8 |
-| 141         |     5 |
 ...
-| 7           |     7 |
-| 71          |     6 |
-| 74          |     5 |
-| 76          |     7 |
 | 8           |     6 |
 | 85          |     8 |
 | 93          |     5 |
@@ -433,8 +417,8 @@
         <span collapsible-header-open>Ocultar solución</span>
 
         <app-terminal-code collapsible-content>
-          <span terminal-code-command>select dni, nombre, telefono from CLIENTE where extract(year from
-            fecha_nac)=extract(year from curdate())-50;</span>
+          <pre terminal-code-command>select dni, nombre, telefono from CLIENTE
+where extract(year from fecha_nac)=extract(year from curdate())-50;</pre>
           <pre terminal-code-output>+-----------+--------------------------+-----------+
 | dni       | nombre                   | telefono  |
 +-----------+--------------------------+-----------+
@@ -532,19 +516,7 @@
 |   8 |            7 |       272 | 2018-03-02 | 1365.86 |
 |  41 |            8 |       133 | 2017-12-09 |  562.56 |
 | 100 |            8 |       213 | 2018-01-27 | 1442.18 |
-| 140 |            9 |       117 | 2021-07-11 |  565.76 |
-| 153 |            7 |        34 | 2016-03-05 |  576.24 |
-| 161 |            2 |       167 | 2018-10-05 |  547.90 |
-| 192 |            2 |       233 | 2015-07-26 | 1402.48 |
-| 204 |            7 |       301 | 2020-12-08 | 1340.78 |
-| 254 |            2 |       193 | 2016-12-05 | 1429.68 |
-| 264 |            4 |       161 | 2019-01-11 | 1385.62 |
-| 296 |            9 |       204 | 2022-10-16 | 1414.03 |
-| 315 |            2 |        55 | 2016-05-07 | 1336.46 |
-| 319 |            9 |       142 | 2022-01-22 |  549.60 |
-| 334 |            2 |       116 | 2015-06-28 |  523.20 |
-| 339 |            9 |        48 | 2020-08-18 |  562.40 |
-| 366 |            5 |        52 | 2020-12-14 | 1471.51 |
+...
 | 373 |            7 |        49 | 2019-02-15 | 1370.02 |
 | 389 |            7 |       211 | 2022-10-15 | 1418.18 |
 | 414 |            2 |       287 | 2017-10-28 | 1459.58 |
@@ -681,25 +653,15 @@
         <span collapsible-header-open>Ocultar solución</span>
 
         <app-terminal-code collapsible-content>
-          <span terminal-code-command>select nombre, timestampdiff(year, fecha_nac, curdate()) as edad from CLIENTE
-            where timestampdiff(year, fecha_nac, curdate()) between 30 and 33 order by 2 DESC;</span>
+          <pre terminal-code-command>select nombre, timestampdiff(year, fecha_nac, curdate()) as edad from CLIENTE
+where timestampdiff(year, fecha_nac, curdate()) between 30 and 33 order by 2 DESC;</pre>
           <pre terminal-code-output>+-------------------------------+------+
 | nombre                        | edad |
 +-------------------------------+------+
 | Valentina Guerrero Ortiz      |   33 |
 | Beatriz González Fernández    |   33 |
 | Luisa Gil Castro              |   33 |
-| Eva Jiménez Martínez          |   33 |
-| Lucía Delgado Iglesias        |   33 |
-| Lorena Rubio Martínez         |   33 |
 ...
-| Rosa Castro López             |   31 |
-| Javier Guerrero Suárez        |   31 |
-| Pablo Cano Ortiz              |   30 |
-| Óscar Prieto Ramírez          |   30 |
-| Ángel Marín Sanz              |   30 |
-| Gloria Serrano González       |   30 |
-| Miriam Nuñez Ramos            |   30 |
 | Antonio Martínez Cortés       |   30 |
 | Javier Ortiz Ortega           |   30 |
 | Lucas Ruiz Rubio              |   30 |
@@ -727,9 +689,9 @@
         <span collapsible-header-open>Ocultar solución</span>
 
         <app-terminal-code collapsible-content>
-          <span terminal-code-command>select me.nombre as 'nombre mecanico', m.nombre as marca, c.modelo from MARCA m,
-            COCHE c, REPARA r, MECANICO me where m.codigo=c.cod_marca and r.cod_coche=c.codigo and
-            r.cod_mecanico=me.codigo;</span>
+          <pre terminal-code-command>select me.nombre as 'nombre mecanico', m.nombre as marca, c.modelo
+from MARCA m, COCHE c, REPARA r, MECANICO me 
+where m.codigo=c.cod_marca and r.cod_coche=c.codigo andr.cod_mecanico=me.codigo;</pre>
           <pre terminal-code-output>+---------------------------------------+---------------+--------------------+
 | nombre mecanico                       | marca         | modelo             |
 +---------------------------------------+---------------+--------------------+
@@ -737,9 +699,7 @@
 | Técnica Preciso del Motor             | Volkswagen    | Arteon             |
 | Diagnóstico Hábil Total               | Ford          | EcoSport           |
 | Servicio Rápido Automotriz            | Chevrolet     | Camaro             |
-| Mantenimiento Fiable de Coches        | Fiat          | 500                |
 ...
-| Técnica Preciso del Motor             | Volkswagen    | Tiguan             |
 | Servicio Rápido Automotriz            | Kia           | Niro               |
 | Electromecánica Eficiente Express     | Fiat          | Fullback           |
 | Diagnóstico Hábil Total               | Renault       | Koleos             |
@@ -762,24 +722,17 @@
         <span collapsible-header-open>Ocultar solución</span>
 
         <app-terminal-code collapsible-content>
-          <span terminal-code-command>select DISTINCT m.nombre from MARCA m, COCHE c, OFRECE o, CONCESIONARIO con where
-            con.codigo=o.cod_concesionario and o.cod_coche=c.codigo and m.codigo=c.cod_marca and
-            con.localidad='Valencia';</span>
+          <pre
+            terminal-code-command>select DISTINCT m.nombre from MARCA m, COCHE c, OFRECE o, CONCESIONARIO con
+where con.codigo=o.cod_concesionario and o.cod_coche=c.codigo and m.codigo=c.cod_marca
+and con.localidad='Valencia';</pre>
           <pre terminal-code-output>+------------+
 | nombre     |
 +------------+
 | Toyota     |
 | Ford       |
 | BMW        |
-| Audi       |
-| Volkswagen |
-| Nissan     |
-| Honda      |
-| Hyundai    |
-| Kia        |
-| Mazda      |
-| Volvo      |
-| Peugeot    |
+...
 | Fiat       |
 | Seat       |
 | Renault    |
@@ -802,22 +755,17 @@
         <span collapsible-header-open>Ocultar solución</span>
 
         <app-terminal-code collapsible-content>
-          <span terminal-code-command>select con.codigo, con.localidad, m.nombre as marca, c.modelo, o.cantidad from
-            CONCESIONARIO con, OFRECE o, COCHE c, MARCA m where con.codigo=o.cod_concesionario and o.cod_coche=c.codigo
-            and c.cod_marca=m.codigo and o.cantidad&gt;= 39 order by 2;</span>
+          <pre terminal-code-command>select con.codigo, con.localidad, m.nombre as marca, c.modelo, o.cantidad
+from CONCESIONARIO con, OFRECE o, COCHE c, MARCA m
+where con.codigo=o.cod_concesionario and o.cod_coche=c.codigo and c.cod_marca=m.codigo
+and o.cantidad&gt;= 39 order by 2;</pre>
           <pre terminal-code-output>+--------+----------------------------+---------------+--------------+----------+
 | codigo | localidad                  | marca         | modelo       | cantidad |
 +--------+----------------------------+---------------+--------------+----------+
 |     11 | Alicante                   | Nissan        | Juke         |       39 |
 |     11 | Alicante                   | Renault       | Zoe          |       39 |
 |     11 | Alicante                   | Hyundai       | i10          |       39 |
-|     11 | Alicante                   | BMW           | Serie 2      |       40 |
-|      2 | Barcelona                  | Renault       | Scénic       |       40 |
-|      2 | Barcelona                  | Mercedes-Benz | Clase A      |       40 |
 ...
-|     13 | Valladolid                 | Peugeot       | 108          |       39 |
-|     14 | Vigo                       | Mazda         | 3            |       39 |
-|     14 | Vigo                       | Ford          | Mustang      |       39 |
 |     14 | Vigo                       | Renault       | Mégane       |       39 |
 |      5 | Zaragoza                   | Kia           | Ceed         |       40 |
 |      5 | Zaragoza                   | Fiat          | Talento      |       39 |
@@ -840,9 +788,9 @@
         <span collapsible-header-open>Ocultar solución</span>
 
         <app-terminal-code collapsible-content>
-          <span terminal-code-command>select m.nombre, c.modelo, r.fecha from MECANICO m, COCHE c, REPARA r where
-            c.codigo=r.cod_coche and r.cod_mecanico=m.codigo and timestampdiff(year, r.fecha, curdate())&lt;1 order by
-            3;</span>
+          <pre terminal-code-command>select m.nombre, c.modelo, r.fecha from MECANICO m, COCHE c, REPARA r
+where c.codigo=r.cod_coche and r.cod_mecanico=m.codigo
+and timestampdiff(year, r.fecha, curdate())&lt;1 order by 3;</pre>
           <pre terminal-code-output>+---------------------------------------+------------+------------+
 | nombre                                | modelo     | fecha      |
 +---------------------------------------+------------+------------+
@@ -851,7 +799,6 @@
 | Técnica Experto de Coches             | Model Y    | 2022-06-03 |
 | Técnica Experto de Coches             | Santa Fe   | 2022-06-15 |
 ...
-| Servicio Rápido Automotriz            | HR-V       | 2023-02-19 |
 | Neumáticos Eficiente Mantenimiento    | Sorento    | 2023-02-21 |
 | Mecánica Innovador Mecánico           | A7         | 2023-02-26 |
 | Mecánica Innovador Mecánico           | Tucson     | 2023-03-02 |
@@ -875,8 +822,9 @@
         <span collapsible-header-open>Ocultar solución</span>
 
         <app-terminal-code collapsible-content>
-          <span terminal-code-command>select c.modelo, me.nombre from MARCA m, COCHE c, REPARA r, MECANICO me where
-            m.codigo=c.cod_marca and c.codigo=r.cod_coche and r.cod_mecanico= me.codigo and m.nombre='Tesla';</span>
+          <pre terminal-code-command>select c.modelo, me.nombre from MARCA m, COCHE c, REPARA r, MECANICO me
+where m.codigo=c.cod_marca and c.codigo=r.cod_coche and r.cod_mecanico= me.codigo
+and m.nombre='Tesla';</pre>
           <pre terminal-code-output>+---------+-------------------------------+
 | modelo  | nombre                        |
 +---------+-------------------------------+
@@ -905,10 +853,10 @@
         <span collapsible-header-open>Ocultar solución</span>
 
         <app-terminal-code collapsible-content>
-          <span terminal-code-command>select cl.nombre, m.nombre, v.fecha from CLIENTE cl, VENTA v, OFRECE o, COCHE c,
-            MARCA m where cl.dni=v.cod_cliente and v.cod_coche=o.cod_coche and v.cod_concesionario=o.cod_concesionario
-            and o.cod_coche=c.codigo and c.cod_marca=m.codigo and cl.nombre like '%Gutierrez %' order by cl.nombre,
-            v.fecha;</span>
+          <pre terminal-code-command>select cl.nombre, m.nombre, v.fecha
+from CLIENTE cl, VENTA v, OFRECE o, COCHE c, MARCA m
+where cl.dni=v.cod_cliente and v.cod_coche=o.cod_coche and v.cod_concesionario=o.cod_concesionario and o.cod_coche=c.codigo and c.cod_marca=m.codigo 
+and cl.nombre like '%Gutierrez %' order by cl.nombre, v.fecha;</pre>
           <pre terminal-code-output>+-----------------------------+---------------+------------+
 | nombre                      | nombre        | fecha      |
 +-----------------------------+---------------+------------+
@@ -937,9 +885,9 @@
         <span collapsible-header-open>Ocultar solución</span>
 
         <app-terminal-code collapsible-content>
-          <span terminal-code-command>select con.localidad from CONCESIONARIO con, OFRECE o, VENTA v, CLIENTE cl where
-            con.codigo=o.cod_concesionario and o.cod_coche=v.cod_coche and o.cod_concesionario=v.cod_concesionario and
-            v.cod_cliente=cl.dni and cl.nombre='Javier Guerrero Suárez';</span>
+          <pre terminal-code-command>select con.localidad from CONCESIONARIO con, OFRECE o, VENTA v, CLIENTE cl
+where con.codigo=o.cod_concesionario and o.cod_coche=v.cod_coche and o.cod_concesionario=v.cod_concesionario and v.cod_cliente=cl.dni
+and cl.nombre='Javier Guerrero Suárez';</pre>
           <pre terminal-code-output>+----------------------------+
 | localidad                  |
 +----------------------------+
@@ -965,21 +913,16 @@
         <span collapsible-header-open>Ocultar solución</span>
 
         <app-terminal-code collapsible-content>
-          <span terminal-code-command>select cl.nombre from CLIENTE cl, VENTA v, OFRECE o, COCHE co, PROPULSION p where
-            cl.dni=v.cod_cliente and v.cod_coche=o.cod_coche and v.cod_concesionario=o.cod_concesionario and
-            o.cod_coche=co.codigo and co.cod_prop=p.id and p.nombre='hibrido enchufable'</span>
+          <pre terminal-code-command>select cl.nombre from CLIENTE cl, VENTA v, OFRECE o, COCHE co, PROPULSION p
+where cl.dni=v.cod_cliente and v.cod_coche=o.cod_coche and v.cod_concesionario=o.cod_concesionario and o.cod_coche=co.codigo and co.cod_prop=p.id
+and p.nombre='hibrido enchufable'</pre>
           <pre terminal-code-output>+-------------------------------+
 | nombre                        |
 +-------------------------------+
 | Rosa Sanz Ortega              |
 | María Calvo Cortés            |
 | Emma Guerrero Castillo        |
-| Mateo Suárez Marín            |
-| Isabel Pérez Gómez            |
-| Silvia Castro Moreno          |
-| Laura Díaz Ramírez            |
 ...
-| Mariano Suárez Muñoz          |
 | Patricia Pérez Moreno         |
 | Silvia Iglesias Ramírez       |
 | Francisco Rodríguez Marín     |
@@ -1001,19 +944,16 @@
         <span collapsible-header-open>Ocultar solución</span>
 
         <app-terminal-code collapsible-content>
-          <span terminal-code-command>select cl.dni, cl.nombre from CLIENTE cl, VENTA v, OFRECE o, CONCESIONARIO c where
-            cl.dni=v.cod_cliente and v.cod_coche=o.cod_coche and v.cod_concesionario=o.cod_concesionario and
-            o.cod_concesionario=c.codigo and c.localidad="Valencia";</span>
+          <pre terminal-code-command>select cl.dni, cl.nombre from CLIENTE cl, VENTA v, OFRECE o, CONCESIONARIO c
+where cl.dni=v.cod_cliente and v.cod_coche=o.cod_coche and v.cod_concesionario=o.cod_concesionario and o.cod_concesionario=c.codigo
+and c.localidad="Valencia";</pre>
           <pre terminal-code-output>+-----------+----------------------------+
 | dni       | nombre                     |
 +-----------+----------------------------+
 | 88831254L | Isabel Ortiz Castro        |
 | 03053910S | Enrique Serrano Vázquez    |
 | 66161033R | Álvaro Pérez López         |
-| 97492403D | Mateo Ramírez Cortés       |
 ...
-| 48877398G | María Suárez Nuñez         |
-| 20592505H | Mercedes Ramos Marín       |
 | 57133438P | Emma Morales López         |
 | 29689240P | Patricia Rubio Romero      |
 | 23488734H | Sofía Marín Ramos          |
@@ -1035,9 +975,9 @@
         <span collapsible-header-open>Ocultar solución</span>
 
         <app-terminal-code collapsible-content>
-          <span terminal-code-command>select o.cantidad, c.modelo from MARCA m, COCHE c, OFRECE o, CONCESIONARIO con
-            where con.codigo=o.cod_concesionario and o.cod_coche=c.codigo and c.cod_marca=m.codigo and m.nombre="Nissan"
-            and con.localidad="Cordoba";</span>
+          <pre terminal-code-command>select o.cantidad, c.modelo from MARCA m, COCHE c, OFRECE o, CONCESIONARIO con
+where con.codigo=o.cod_concesionario and o.cod_coche=c.codigo and c.cod_marca=m.codigo
+and m.nombre="Nissan" and con.localidad="Cordoba";</pre>
           <pre terminal-code-output>+----------+--------+
 | cantidad | modelo |
 +----------+--------+
@@ -1063,9 +1003,10 @@
         <span collapsible-header-open>Ocultar solución</span>
 
         <app-terminal-code collapsible-content>
-          <span terminal-code-command>select m.nombre, c.modelo, con.localidad, o.cantidad from MARCA m, COCHE c, OFRECE
-            o, CONCESIONARIO con where m.codigo=c.cod_marca and c.codigo=o.cod_coche and o.cod_concesionario=con.codigo
-            and c.codigo=258 and o.cantidad&gt;0;</span>
+          <pre terminal-code-command>select m.nombre, c.modelo, con.localidad, o.cantidad
+from MARCA m, COCHE c, OFRECE o, CONCESIONARIO con
+where m.codigo=c.cod_marca and c.codigo=o.cod_coche and o.cod_concesionario=con.codigo
+and c.codigo=258 and o.cantidad&gt;0;</pre>
           <pre terminal-code-output>+---------+--------+-----------+----------+
 | nombre  | modelo | localidad | cantidad |
 +---------+--------+-----------+----------+
@@ -1122,9 +1063,10 @@
         <span collapsible-header-open>Ocultar solución</span>
 
         <app-terminal-code collapsible-content>
-          <span terminal-code-command>select DISTINCT me.nombre, me.ciudad, ma.nombre, c.modelo from MARCA ma, COCHE c,
-            REPARA r, MECANICO me where ma.codigo=c.cod_marca and c.codigo=r.cod_coche and r.cod_mecanico=me.codigo and
-            (ma.nombre LIKE "%IA%" OR c.modelo LIKE "%EO%") ORDER BY 1;</span>
+          <pre terminal-code-command>select DISTINCT me.nombre, me.ciudad, ma.nombre, c.modelo
+from MARCA ma, COCHE c, REPARA r, MECANICO me
+where ma.codigo=c.cod_marca and c.codigo=r.cod_coche and r.cod_mecanico=me.codigo
+and (ma.nombre LIKE "%IA%" OR c.modelo LIKE "%EO%") ORDER BY 1;</pre>
           <pre terminal-code-output>+---------------------------------------+------------------------+------------+--------------------+
 | nombre                                | ciudad                 | nombre     | modelo             |
 +---------------------------------------+------------------------+------------+--------------------+
@@ -1132,23 +1074,7 @@
 | Diagnóstico Hábil Total               | Burgos                 | Renault    | Koleos             |
 | Diagnóstico Hábil Total               | Burgos                 | Fiat       | 500L Living        |
 | Diagnóstico Hábil Total               | Burgos                 | Fiat       | 500X               |
-| Diagnóstico Hábil Total               | Burgos                 | Fiat       | 500S               |
-| Diagnóstico Hábil Total               | Burgos                 | Kia        | Sportage           |
-| Diagnóstico Hábil Total               | Burgos                 | Fiat       | 500e               |
-| Diagnóstico Hábil Total               | Burgos                 | Fiat       | 500L MPV           |
-| Electromecánica Eficiente Express     | Girona                 | Fiat       | Tipo Cross         |
-| Electromecánica Eficiente Express     | Girona                 | Fiat       | 500X               |
 ...
-| Técnica Experto de Coches             | Almería                | Seat       | Leon               |
-| Técnica Experto de Coches             | Almería                | Fiat       | Panda              |
-| Técnica Experto de Coches             | Almería                | Kia        | Rio                |
-| Técnica Preciso del Motor             | Castellón de la Plana  | Fiat       | Doblo              |
-| Técnica Preciso del Motor             | Castellón de la Plana  | Fiat       | 500L Urban         |
-| Técnica Preciso del Motor             | Castellón de la Plana  | Fiat       | 124 Spider         |
-| Técnica Preciso del Motor             | Castellón de la Plana  | Fiat       | Tipo               |
-| Técnica Preciso del Motor             | Castellón de la Plana  | Fiat       | 500S               |
-| Técnica Preciso del Motor             | Castellón de la Plana  | Fiat       | Ducato             |
-| Técnica Preciso del Motor             | Castellón de la Plana  | Fiat       | Tipo Station Wagon |
 | Técnica Preciso del Motor             | Castellón de la Plana  | Ford       | Mondeo             |
 | Técnica Preciso del Motor             | Castellón de la Plana  | Kia        | Ceed               |
 | Técnica Preciso del Motor             | Castellón de la Plana  | Fiat       | 500 Spiaggina 58   |
@@ -1172,10 +1098,10 @@
         <span collapsible-header-open>Ocultar solución</span>
 
         <app-terminal-code collapsible-content>
-          <span terminal-code-command>select cl.dni, cl.nombre, cl.telefono, v.fecha from CLIENTE cl, VENTA v, OFRECE o,
-            CONCESIONARIO con where cl.dni=v.cod_cliente and v.cod_coche=o.cod_coche and
-            v.cod_concesionario=o.cod_concesionario and o.cod_concesionario=con.codigo and con.localidad="Murcia" and
-            YEAR(v.fecha)=2020;</span>
+          <pre terminal-code-command>select cl.dni, cl.nombre, cl.telefono, v.fecha
+from CLIENTE cl, VENTA v, OFRECE o, CONCESIONARIO con
+where cl.dni=v.cod_cliente and v.cod_coche=o.cod_coche and v.cod_concesionario=o.cod_concesionario and o.cod_concesionario=con.codigo
+and con.localidad="Murcia" and YEAR(v.fecha)=2020;</pre>
           <pre terminal-code-output>+-----------+------------------------------------+-----------+------------+
 | dni       | nombre                             | telefono  | fecha      |
 +-----------+------------------------------------+-----------+------------+
@@ -1201,8 +1127,8 @@
         <span collapsible-header-open>Ocultar solución</span>
 
         <app-terminal-code collapsible-content>
-          <span terminal-code-command>select DISTINCT ma.nombre, ma.sede from MARCA ma, COCHE c, REPARA r, MECANICO me
-            where ma.codigo=c.cod_marca and c.codigo=r.cod_coche and r.cod_mecanico=me.codigo and me.codigo=1;</span>
+          <pre terminal-code-command>select DISTINCT ma.nombre, ma.sede from MARCA ma, COCHE c, REPARA r, MECANICO me
+where ma.codigo=c.cod_marca and c.codigo=r.cod_coche and r.cod_mecanico=me.codigo and me.codigo=1;</pre>
           <pre terminal-code-output>+---------+----------------+
 | nombre  | sede           |
 +---------+----------------+
@@ -1241,8 +1167,8 @@
         <span collapsible-header-open>Ocultar solución</span>
 
         <app-terminal-code collapsible-content>
-          <span terminal-code-command>select c.modelo from COCHE c JOIN PROPULSION p ON c.cod_prop=p.id where
-            c.cod_marca=1 and p.nombre="Hidrógeno";</span>
+          <pre terminal-code-command>select c.modelo from COCHE c JOIN PROPULSION p ON c.cod_prop=p.id
+where c.cod_marca=1 and p.nombre="Hidrógeno";</pre>
           <pre terminal-code-output>+--------+
 | modelo |
 +--------+
@@ -1265,8 +1191,9 @@
         <span collapsible-header-open>Ocultar solución</span>
 
         <app-terminal-code collapsible-content>
-          <span terminal-code-command>select m.nombre, c.modelo from (MARCA m JOIN COCHE c ON m.codigo=c.cod_marca) JOIN
-            REPARA r ON c.cod_marca=r.id where m.nombre="Chevrolet";</span>
+          <pre terminal-code-command>select m.nombre, c.modelo
+from (MARCA m JOIN COCHE c ON m.codigo=c.cod_marca) JOIN REPARA r ON c.cod_marca=r.id
+where m.nombre="Chevrolet";</pre>
           <pre terminal-code-output>+-----------+----------+
 | nombre    | modelo   |
 +-----------+----------+
@@ -1294,9 +1221,11 @@
         <span collapsible-header-open>Ocultar solución</span>
 
         <app-terminal-code collapsible-content>
-          <span terminal-code-command>select co.modelo from ((CLIENTE cl JOIN VENTA v ON cl.dni=v.cod_cliente) JOIN
-            OFRECE o on v.cod_coche=o.cod_coche and v.cod_concesionario=o.cod_concesionario) JOIN COCHE co ON
-            co.codigo=o.cod_coche where cl.dni="98531793A";</span>
+          <pre terminal-code-command>select co.modelo
+from ((CLIENTE cl JOIN VENTA v ON cl.dni=v.cod_cliente)
+JOIN OFRECE o on v.cod_coche=o.cod_coche and v.cod_concesionario=o.cod_concesionario)
+JOIN COCHE co ON co.codigo=o.cod_coche
+where cl.dni="98531793A";</pre>
           <pre terminal-code-output>+--------+
 | modelo |
 +--------+
@@ -1323,9 +1252,10 @@
         <span collapsible-header-open>Ocultar solución</span>
 
         <app-terminal-code collapsible-content>
-          <span terminal-code-command>select con.localidad from (CONCESIONARIO con JOIN VENTA v ON
-            con.codigo=v.cod_concesionario) JOIN CLIENTE cl ON cl.dni=v.cod_cliente where
-            cl.telefono="670436964";</span>
+          <pre terminal-code-command>select con.localidad
+from (CONCESIONARIO con JOIN VENTA v ON con.codigo=v.cod_concesionario)
+JOIN CLIENTE cl ON cl.dni=v.cod_cliente
+where cl.telefono="670436964";</pre>
           <pre terminal-code-output>+-----------+
 | localidad |
 +-----------+
@@ -1349,9 +1279,11 @@
         <span collapsible-header-open>Ocultar solución</span>
 
         <app-terminal-code collapsible-content>
-          <span terminal-code-command>select cl.dni, cl.nombre, cl.telefono, v.fecha from ((CLIENTE cl JOIN VENTA v ON
-            cl.dni=v.cod_cliente) JOIN COCHE co ON v.cod_coche=co.codigo) JOIN PROPULSION p ON co.cod_prop=p.id where
-            p.nombre="Diésel" and v.fecha &gt; '2020-06-20';</span>
+          <pre terminal-code-command>select cl.dni, cl.nombre, cl.telefono, v.fecha
+from ((CLIENTE cl JOIN VENTA v ON cl.dni=v.cod_cliente)
+JOIN COCHE co ON v.cod_coche=co.codigo)
+JOIN PROPULSION p ON co.cod_prop=p.id
+where p.nombre="Diésel" and v.fecha &gt; '2020-06-20';</pre>
           <pre terminal-code-output>+-----------+------------------------------+-----------+------------+
 | dni       | nombre                       | telefono  | fecha      |
 +-----------+------------------------------+-----------+------------+
@@ -1381,12 +1313,12 @@
         <span collapsible-header-open>Ocultar solución</span>
 
         <app-terminal-code collapsible-content>
-          <span terminal-code-command>
-            select co.codigo as cod_coche, ma.nombre as marca, co.modelo, v.num_factura, cl.dni, cl.nombre from (((MARCA
-            ma JOIN COCHE co ON ma.codigo=co.cod_marca) JOIN OFRECE o ON co.codigo=o.cod_coche) LEFT JOIN VENTA v ON
-            o.cod_coche=v.cod_coche and o.cod_concesionario=v.cod_concesionario) LEFT JOIN CLIENTE cl ON
-            v.cod_cliente=cl.dni where o.cod_concesionario=1 order by num_factura DESC;
-          </span>
+          <pre terminal-code-command>select co.codigo as cod_coche, ma.nombre as marca, co.modelo, v.num_factura, cl.dni, cl.nombre
+from (((MARCA ma JOIN COCHE co ON ma.codigo=co.cod_marca)
+JOIN OFRECE o ON co.codigo=o.cod_coche)
+LEFT JOIN VENTA v ON o.cod_coche=v.cod_coche and o.cod_concesionario=v.cod_concesionario)
+LEFT JOIN CLIENTE cl ON v.cod_cliente=cl.dni
+where o.cod_concesionario=1 order by num_factura DESC;</pre>
           <pre terminal-code-output>+-----------+---------------+------------+-------------+-----------+-------------------------------+
 | cod_coche | marca         | modelo     | num_factura | dni       | nombre                        |
 +-----------+---------------+------------+-------------+-----------+-------------------------------+
@@ -1423,14 +1355,12 @@
         <span collapsible-header-open>Ocultar solución</span>
 
         <app-terminal-code collapsible-content>
-          <span terminal-code-command>
-            select ma.nombre, co.modelo, p.nombre
-            from (((CONCESIONARIO con JOIN OFRECE o ON con.codigo=o.cod_concesionario and con.localidad="Gijón")
-            RIGHT JOIN COCHE co ON o.cod_coche=co.codigo)
-            JOIN MARCA ma ON ma.codigo=co.cod_marca)
-            JOIN PROPULSION p ON co.cod_prop=p.id
-            where o.cod_coche is null;
-          </span>
+          <pre terminal-code-command>select ma.nombre, co.modelo, p.nombre
+from (((CONCESIONARIO con JOIN OFRECE o ON con.codigo=o.cod_concesionario and con.localidad="Gijón")
+RIGHT JOIN COCHE co ON o.cod_coche=co.codigo)
+JOIN MARCA ma ON ma.codigo=co.cod_marca)
+JOIN PROPULSION p ON co.cod_prop=p.id
+where o.cod_coche is null; </pre>
           <pre terminal-code-output>+---------------+--------------------+---------------------+
 | nombre        | modelo             | nombre              |
 +---------------+--------------------+---------------------+
@@ -1467,11 +1397,9 @@
           <span>Solución 1:</span>
 
           <app-terminal-code>
-            <span terminal-code-command>
-              select cl.dni, cl.nombre
-              from CLIENTE cl JOIN VENTA v ON cl.dni=v.cod_cliente
-              where v.cod_concesionario IN (5, 10);
-            </span>
+            <pre terminal-code-command>select cl.dni, cl.nombre
+from CLIENTE cl JOIN VENTA v ON cl.dni=v.cod_cliente
+where v.cod_concesionario IN (5, 10);</pre>
             <pre terminal-code-output>+-----------+------------------------------+
 | dni       | nombre                       |
 +-----------+------------------------------+
@@ -1488,9 +1416,9 @@
           <span>Solución 2:</span>
 
           <app-terminal-code>
-            <span terminal-code-command>select cl.dni, cl.nombre
-              from CLIENTE cl JOIN VENTA v ON cl.dni=v.cod_cliente
-              where v.cod_concesionario=5 or v.cod_concesionario=10;</span>
+            <pre terminal-code-command>select cl.dni, cl.nombre
+from CLIENTE cl JOIN VENTA v ON cl.dni=v.cod_cliente
+where v.cod_concesionario=5 or v.cod_concesionario=10;</pre>
             <pre terminal-code-output>+-----------+------------------------------+
 | dni       | nombre                       |
 +-----------+------------------------------+
@@ -1507,15 +1435,13 @@
           <span>Solución 3:</span>
 
           <app-terminal-code>
-            <span terminal-code-command>
-              select cl.dni, cl.nombre
-              from CLIENTE cl JOIN VENTA v ON cl.dni=v.cod_cliente
-              where v.cod_concesionario=5
-              union all
-              select cl.dni, cl.nombre
-              from CLIENTE cl JOIN VENTA v ON cl.dni=v.cod_cliente
-              where v.cod_concesionario=10;
-            </span>
+            <pre terminal-code-command>select cl.dni, cl.nombre
+from CLIENTE cl JOIN VENTA v ON cl.dni=v.cod_cliente
+where v.cod_concesionario=5
+union all
+select cl.dni, cl.nombre
+from CLIENTE cl JOIN VENTA v ON cl.dni=v.cod_cliente
+where v.cod_concesionario=10;</pre>
             <pre terminal-code-output>+-----------+------------------------------+
 | dni       | nombre                       |
 +-----------+------------------------------+
@@ -1551,11 +1477,9 @@
         <span collapsible-header-open>Ocultar solución</span>
 
         <app-terminal-code collapsible-content>
-          <span terminal-code-command>
-            select cl.nombre from VENTA v JOIN CLIENTE cl ON cl.dni=v.cod_cliente where v.cod_concesionario=13
-            intersect
-            select cl.nombre from VENTA v JOIN CLIENTE cl ON cl.dni=v.cod_cliente where v.cod_concesionario=1;
-          </span>
+          <pre terminal-code-command>select cl.nombre from VENTA v JOIN CLIENTE cl ON cl.dni=v.cod_cliente where v.cod_concesionario=13
+intersect
+select cl.nombre from VENTA v JOIN CLIENTE cl ON cl.dni=v.cod_cliente where v.cod_concesionario=1;</pre>
           <pre terminal-code-output>+----------------------+
 | nombre               |
 +----------------------+
@@ -1582,8 +1506,10 @@
         <span collapsible-header-open>Ocultar solución</span>
 
         <app-terminal-code collapsible-content>
-          <span terminal-code-command>ct cl.nombre, cl.dni, v.num_factura, v.precio from CLIENTE cl LEFT JOIN VENTA v ON
-            cl.dni=v.cod_cliente and v.cod_concesionario=4 where cl.nombre LIKE 'Silvia%';</span>
+          <!-- TODO what happened here? no select sentence? -->
+          <pre terminal-code-command>ct cl.nombre, cl.dni, v.num_factura, v.precio
+from CLIENTE cl LEFT JOIN VENTA v ON cl.dni=v.cod_cliente and v.cod_concesionario=4
+where cl.nombre LIKE 'Silvia%';</pre>
           <pre terminal-code-output>+------------------------------+-----------+-------------+----------+
 | nombre                       | dni       | num_factura | precio   |
 +------------------------------+-----------+-------------+----------+
@@ -1613,11 +1539,9 @@
         <span collapsible-header-open>Ocultar solución</span>
 
         <app-terminal-code collapsible-content>
-          <span terminal-code-command>
-            select localidad from CONCESIONARIO
-            INTERSECT
-            select ciudad from MECANICO;
-          </span>
+          <pre terminal-code-command>select localidad from CONCESIONARIO
+INTERSECT
+select ciudad from MECANICO;</pre>
           <pre terminal-code-output>Empty set (0,00 sec)</pre>
         </app-terminal-code>
       </app-collapsible>
@@ -1635,9 +1559,10 @@
         <span collapsible-header-open>Ocultar solución</span>
 
         <app-terminal-code collapsible-content>
-          <span terminal-code-command>ect DISTINCT m.nombre as marca, c.modelo, p.nombre from (MARCA m JOIN COCHE c ON
-            m.codigo=c.cod_marca) JOIN PROPULSION p ON c.cod_prop=p.id where p.nombre NOT IN ('diesel',
-            'gasolina');</span>
+          <pre terminal-code-command>select DISTINCT m.nombre as marca, c.modelo, p.nombre
+from (MARCA m JOIN COCHE c ON m.codigo=c.cod_marca)
+JOIN PROPULSION p ON c.cod_prop=p.id
+where p.nombre NOT IN ('diesel', 'gasolina');</pre>
           <pre terminal-code-output>+---------------+------------+---------------------+
 | marca         | modelo     | nombre              |
 +---------------+------------+---------------------+
@@ -1696,9 +1621,11 @@
         <span collapsible-header-open>Ocultar solución</span>
 
         <app-terminal-code collapsible-content>
-          <span terminal-code-command>SELECT min(timestampdiff(YEAR, fecha_nac, CURDATE())) as EDAD_MIN,
-            max(timestampdiff(YEAR, fecha_nac, CURDATE())) as EDAD_MAX, avg(timestampdiff(YEAR, fecha_nac, CURDATE()))
-            as MEDIA FROM CLIENTE;</span>
+          <!-- TODO missing from table? -->
+          <pre terminal-code-command>SELECT
+min(timestampdiff(YEAR, fecha_nac, CURDATE())) as EDAD_MIN,
+max(timestampdiff(YEAR, fecha_nac, CURDATE())) as EDAD_MAX,
+avg(timestampdiff(YEAR, fecha_nac, CURDATE())) as MEDIA FROM CLIENTE;</pre>
           <pre terminal-code-output>+----------+----------+---------+
 | EDAD_MIN | EDAD_MAX | MEDIA   |
 +----------+----------+---------+
@@ -1722,8 +1649,10 @@
         <span collapsible-header-open>Ocultar solución</span>
 
         <app-terminal-code collapsible-content>
-          <span terminal-code-command>select cod_concesionario, count(*) as NUM_VENTAS from VENTA where year(fecha)=2001
-            GROUP BY cod_concesionario ORDER BY 1;</span>
+          <pre terminal-code-command>select cod_concesionario, count(*) as NUM_VENTAS
+from VENTA
+where year(fecha)=2001
+GROUP BY cod_concesionario ORDER BY 1;</pre>
           <pre terminal-code-output>+-------------------+------------+
 | cod_concesionario | NUM_VENTAS |
 +-------------------+------------+
@@ -1825,8 +1754,9 @@ ORDER BY 2;</pre>
         <span collapsible-header-open>Ocultar solución</span>
 
         <app-terminal-code collapsible-content>
-          <span terminal-code-command>select c.codigo, c.modelo, sum(o.cantidad) from COCHE c LEFT JOIN OFRECE o ON
-            c.codigo=o.cod_coche group by c.codigo, c.modelo;</span>
+          <pre terminal-code-command>select c.codigo, c.modelo, sum(o.cantidad)
+from COCHE c LEFT JOIN OFRECE o ON c.codigo=o.cod_coche
+group by c.codigo, c.modelo;</pre>
           <pre terminal-code-output>+--------+--------------------+-----------------+
 | codigo | modelo             | sum(o.cantidad) |
 +--------+--------------------+-----------------+
@@ -1858,8 +1788,9 @@ ORDER BY 2;</pre>
         <span collapsible-header-open>Ocultar solución</span>
 
         <app-terminal-code collapsible-content>
-          <span terminal-code-command>select YEAR(fecha), count(cod_cliente) from VENTA where YEAR(fecha) between 2011
-            and 2016 group by YEAR(fecha) order by 1;</span>
+          <pre terminal-code-command>select YEAR(fecha), count(cod_cliente)
+from VENTA where YEAR(fecha) between 2011 and 2016
+group by YEAR(fecha) order by 1;</pre>
           <pre terminal-code-output>+-------------+--------------------+
 | YEAR(fecha) | count(cod_cliente) |
 +-------------+--------------------+
@@ -1947,8 +1878,8 @@ ORDER BY 2;</pre>
         <span collapsible-header-open>Ocultar solución</span>
 
         <app-terminal-code collapsible-content>
-          <span terminal-code-command>select r1.fecha from REPARA r1, REPARA r2 group by r1.id having r1.fecha =
-            max(r2.fecha);</span>
+          <pre terminal-code-command>select r1.fecha from REPARA r1, REPARA r2
+group by r1.id having r1.fecha = max(r2.fecha);</pre>
           <pre terminal-code-output>+------------+
 | fecha      |
 +------------+
@@ -1978,9 +1909,10 @@ ORDER BY 2;</pre>
         <span collapsible-header-open>Ocultar solución</span>
 
         <app-terminal-code collapsible-content>
-          <span terminal-code-command>select DISTINCT co.modelo from COCHE co JOIN OFRECE o ON co.codigo=o.cod_coche
-            where cod_concesionario=14 and cantidad&gt;(select cantidad from OFRECE where cod_coche=215 and
-            cod_concesionario=14);</span>
+          <pre terminal-code-command>select DISTINCT co.modelo
+from COCHE co JOIN OFRECE o ON co.codigo=o.cod_coche
+where cod_concesionario=14 and cantidad&gt;(select cantidad
+  from OFRECE where cod_coche=215 and cod_concesionario=14);</pre>
           <pre terminal-code-output>+----------+
 | modelo   |
 +----------+
@@ -2012,8 +1944,10 @@ ORDER BY 2;</pre>
         <span collapsible-header-open>Ocultar solución</span>
 
         <app-terminal-code collapsible-content>
-          <span terminal-code-command>select * from CLIENTE where telefono like '66%' and fecha_nac &lt; any (select
-            fecha_nac from CLIENTE where telefono like '990%') order by 3;</span>
+          <pre terminal-code-command>select * from CLIENTE
+where telefono like '66%' and fecha_nac &lt; any (select
+  fecha_nac from CLIENTE where telefono like '990%')
+order by 3;</pre>
           <pre terminal-code-output>+-----------+-----------------------------+------------+-----------+
 | dni       | nombre                      | fecha_nac  | telefono  |
 +-----------+-----------------------------+------------+-----------+
@@ -2081,10 +2015,11 @@ ORDER BY 2;</pre>
         <span collapsible-header-open>Ocultar solución</span>
 
         <app-terminal-code collapsible-content>
-          <span terminal-code-command>select * from CLIENTE where substring(telefono, 1, 2)=(select substring(telefono,
-            1, 2) from CLIENTE where nombre="Julia
-            Gil Delgado") and YEAR(fecha_nac)=(select YEAR(fecha_nac) from CLIENTE where nombre="Juan Pérez
-            Navarro");</span>
+          <pre terminal-code-command>select * from CLIENTE
+where substring(telefono, 1, 2)=(select substring(telefono, 1, 2) from CLIENTE
+  where nombre="Julia Gil Delgado")
+and YEAR(fecha_nac)=(select YEAR(fecha_nac) from CLIENTE
+  where nombre="Juan Pérez Navarro");</pre>
           <pre terminal-code-output>+-----------+------------------------+------------+-----------+
 | dni       | nombre                 | fecha_nac  | telefono  |
 +-----------+------------------------+------------+-----------+
@@ -2109,9 +2044,10 @@ ORDER BY 2;</pre>
         <span collapsible-header-open>Ocultar solución</span>
 
         <app-terminal-code collapsible-content>
-          <span terminal-code-command>select * from CONCESIONARIO where codigo in (select cod_concesionario from VENTA
-            group by cod_concesionario having count(*)=(select max(cantidad) from (select count(*) as cantidad from
-            VENTA group by cod_concesionario) AS T));</span>
+          <pre terminal-code-command>select * from CONCESIONARIO where codigo in (select cod_concesionario from VENTA
+  group by cod_concesionario having count(*)=(select max(cantidad)
+    from (select count(*) as cantidad
+      from VENTA group by cod_concesionario) AS T));</pre>
           <pre terminal-code-output>+--------+-----------+---------------+-------------+
 | codigo | localidad | hora_apertura | hora_cierre |
 +--------+-----------+---------------+-------------+
@@ -2134,11 +2070,13 @@ ORDER BY 2;</pre>
         <span collapsible-header-open>Ocultar solución</span>
 
         <app-terminal-code collapsible-content>
-          <span terminal-code-command>select * from MECANICO as m1 JOIN (select cod_mecanico, count(*) as cantidad from
-            REPARA where YEAR(fecha)=2018 group by cod_mecanico) as T ON m1.codigo=T.cod_mecanico where codigo in
-            (select cod_mecanico from REPARA where YEAR(fecha)=2018 group by cod_mecanico having count(*)=(select
-            max(cantidad) from (select count(*) as cantidad from REPARA where YEAR(fecha)=2018 group by cod_mecanico) as
-            W));</span>
+          <pre terminal-code-command>select * from MECANICO as m1 JOIN (select cod_mecanico, count(*) as cantidad
+  from REPARA where YEAR(fecha)=2018 group by cod_mecanico) as T
+ON m1.codigo=T.cod_mecanico
+where codigo in (select cod_mecanico from REPARA
+  where YEAR(fecha)=2018 group by cod_mecanico having count(*)=(select max(cantidad)
+    from (select count(*) as cantidad
+      from REPARA where YEAR(fecha)=2018 group by cod_mecanico) as W));</pre>
           <pre terminal-code-output>+--------+------------------------------------+--------+--------------+----------+
 | codigo | nombre                             | ciudad | cod_mecanico | cantidad |
 +--------+------------------------------------+--------+--------------+----------+
@@ -2193,8 +2131,8 @@ ORDER BY 2;</pre>
         <span collapsible-header-open>Ocultar solución</span>
 
         <app-terminal-code collapsible-content>
-          <span terminal-code-command>select * from REPARA r where fecha=(select min(fecha) from REPARA where
-            cod_coche=r.cod_coche);</span>
+          <pre terminal-code-command>select * from REPARA r where fecha=(select min(fecha)
+  from REPARA where cod_coche=r.cod_coche);</pre>
           <pre terminal-code-output>+-----+--------------+-----------+------------+---------+
 | id  | cod_mecanico | cod_coche | fecha      | precio  |
 +-----+--------------+-----------+------------+---------+
@@ -2225,8 +2163,8 @@ ORDER BY 2;</pre>
         <span collapsible-header-open>Ocultar solución</span>
 
         <app-terminal-code collapsible-content>
-          <span terminal-code-command>select * from COCHE c where not exists (select * from REPARA where
-            c.codigo=cod_coche);</span>
+          <pre terminal-code-command>select * from COCHE c where not exists (select * from REPARA
+  where c.codigo=cod_coche);</pre>
           <pre terminal-code-output>+--------+-----------+---------------+------------+
 | codigo | cod_marca | modelo        | propulsion |
 +--------+-----------+---------------+------------+
@@ -2259,10 +2197,11 @@ ORDER BY 2;</pre>
         <span collapsible-header-open>Ocultar solución</span>
 
         <app-terminal-code collapsible-content>
-          <span terminal-code-command>select c.codigo as cod_coche, c.cod_marca, c.modelo, con.codigo, con.localidad,
-            o.cantidad from (COCHE c JOIN OFRECE o ON c.codigo=o.cod_coche) JOIN CONCESIONARIO con ON
-            con.codigo=o.cod_concesionario where not exists (select * from VENTA v where o.cod_coche=v.cod_coche and
-            o.cod_concesionario=v.cod_concesionario);</span>
+          <pre terminal-code-command>select c.codigo as cod_coche, c.cod_marca, c.modelo, con.codigo, con.localidad, o.cantidad
+from (COCHE c JOIN OFRECE o ON c.codigo=o.cod_coche)
+JOIN CONCESIONARIO con ON con.codigo=o.cod_concesionario
+where not exists (select * from VENTA v
+  where o.cod_coche=v.cod_coche and o.cod_concesionario=v.cod_concesionario);</pre>
           <pre terminal-code-output>+-----------+-----------+------------------+--------+----------------------------+----------+
 | cod_coche | cod_marca | modelo           | codigo | localidad                  | cantidad |
 +-----------+-----------+------------------+--------+----------------------------+----------+
@@ -2295,8 +2234,8 @@ ORDER BY 2;</pre>
         <span collapsible-header-open>Ocultar solución</span>
 
         <app-terminal-code collapsible-content>
-          <span terminal-code-command>select * from REPARA r1 where fecha=(select max(fecha) from REPARA r2 where
-            r1.cod_mecanico=r2.cod_mecanico) order by 2;</span>
+          <pre terminal-code-command>select * from REPARA r1 where fecha=(select max(fecha)
+  from REPARA r2 where r1.cod_mecanico=r2.cod_mecanico) order by 2;</pre>
           <pre terminal-code-output>+-----+--------------+-----------+------------+---------+
 | id  | cod_mecanico | cod_coche | fecha      | precio  |
 +-----+--------------+-----------+------------+---------+
@@ -2328,10 +2267,11 @@ ORDER BY 2;</pre>
         <span collapsible-header-open>Ocultar solución</span>
 
         <app-terminal-code collapsible-content>
-          <span terminal-code-command>select c1.codigo as cod_coche, c1.modelo, con1.localidad as concesionario,
-            o1.cantidad from (OFRECE o1 JOIN CONCESIONARIO con1 ON o1.cod_concesionario=con1.codigo) JOIN COCHE c1 ON
-            c1.codigo=o1.cod_coche where cantidad &gt;= all (select cantidad from OFRECE o2 where
-            o1.cod_concesionario=o2.cod_concesionario) order by 3;</span>
+          <pre terminal-code-command>select c1.codigo as cod_coche, c1.modelo, con1.localidad as concesionario, o1.cantidad
+from (OFRECE o1 JOIN CONCESIONARIO con1 ON o1.cod_concesionario=con1.codigo)
+JOIN COCHE c1 ON c1.codigo=o1.cod_coche where cantidad &gt;= all (select cantidad
+  from OFRECE o2 where o1.cod_concesionario=o2.cod_concesionario)
+order by 3;</pre>
           <pre terminal-code-output>+-----------+------------+----------------------------+----------+
 | cod_coche | modelo     | concesionario              | cantidad |
 +-----------+------------+----------------------------+----------+
@@ -2362,9 +2302,10 @@ ORDER BY 2;</pre>
         <span collapsible-header-open>Ocultar solución</span>
 
         <app-terminal-code collapsible-content>
-          <span terminal-code-command>select DISTINCT c1.dni, c1.nombre from CLIENTE c1 JOIN VENTA v1 ON
-            c1.dni=v1.cod_cliente where not exists (select * from VENTA v2 where v1.cod_cliente=v2.cod_cliente and
-            cod_concesionario between 1 and 5);</span>
+          <pre terminal-code-command>select DISTINCT c1.dni, c1.nombre
+from CLIENTE c1 JOIN VENTA v1 ON c1.dni=v1.cod_cliente
+where not exists (select * from VENTA v2
+  where v1.cod_cliente=v2.cod_cliente and cod_concesionario between 1 and 5);</pre>
           <pre terminal-code-output>+-----------+------------------------------------+
 | dni       | nombre                             |
 +-----------+------------------------------------+
@@ -2393,9 +2334,10 @@ ORDER BY 2;</pre>
         <span collapsible-header-open>Ocultar solución</span>
 
         <app-terminal-code collapsible-content>
-          <span terminal-code-command>select * from CONCESIONARIO c1 where exists (select * from VENTA v1 where
-            c1.codigo=v1.cod_concesionario and not exists (select * from REPARA r1 where
-            v1.cod_coche=r1.cod_coche));</span>
+          <pre terminal-code-command>select * from CONCESIONARIO c1 where exists (select * from VENTA v1
+  where c1.codigo=v1.cod_concesionario and not exists (select * from REPARA r1
+    where v1.cod_coche=r1.cod_coche));</pre>
+          <!-- TODO what happens with the output? -->
           <pre terminal-code-output>output here</pre>
         </app-terminal-code>
       </app-collapsible>
@@ -2413,8 +2355,8 @@ ORDER BY 2;</pre>
         <span collapsible-header-open>Ocultar solución</span>
 
         <app-terminal-code collapsible-content>
-          <span terminal-code-command>select * from COCHE c1 where not exists (select * from REPARA r1 where
-            c1.codigo=r1.cod_coche);</span>
+          <pre terminal-code-command>select * from COCHE c1 where not exists (select * from REPARA r1
+  where c1.codigo=r1.cod_coche);</pre>
           <pre terminal-code-output>+--------+-----------+---------------+------------+
 | codigo | cod_marca | modelo        | propulsion |
 +--------+-----------+---------------+------------+
@@ -2451,9 +2393,9 @@ ORDER BY 2;</pre>
 
         <div collapsible-content>
           <app-terminal-code>
-            <span terminal-code-command>select * from CLIENTE c1 where not exists (select * from CONCESIONARIO c1 where
-              not exists (select * from VENTA v1 where v1.cod_concesionario=c1.codigo and
-              c1.dni=v1.cod_cliente));</span>
+            <pre terminal-code-command>select * from CLIENTE c1 where not exists (select * from CONCESIONARIO c1
+  where not exists (select * from VENTA v1
+    where v1.cod_concesionario=c1.codigo and c1.dni=v1.cod_cliente));</pre>
             <pre terminal-code-output>Empty set (0,11 sec)</pre>
           </app-terminal-code>
 
@@ -2807,7 +2749,7 @@ Records: 0  Duplicates: 0  Warnings: 0</pre>
 
         <div collapsible-content>
           <app-terminal-code>
-            <span terminal-code-command>rop table PISO;</span>
+            <span terminal-code-command>drop table PISO;</span>
             <pre
               terminal-code-output>ERROR 3730 (HY000): Cannot drop table 'PISO' referenced by a foreign key constraint 'ALQUILER_ibfk_2' on table 'ALQUILER'.</pre>
           </app-terminal-code>
