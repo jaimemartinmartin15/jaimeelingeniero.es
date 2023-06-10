@@ -967,7 +967,7 @@
         <app-terminal-code collapsible-content>
           <span terminal-code-command>select cl.nombre from CLIENTE cl, VENTA v, OFRECE o, COCHE co, PROPULSION p where
             cl.dni=v.cod_cliente and v.cod_coche=o.cod_coche and v.cod_concesionario=o.cod_concesionario and
-            o.cod_coche=co.codigo and co.propulsion=p.id and p.nombre='hibrido enchufable'</span>
+            o.cod_coche=co.codigo and co.cod_prop=p.id and p.nombre='hibrido enchufable'</span>
           <pre terminal-code-output>+-------------------------------+
 | nombre                        |
 +-------------------------------+
@@ -1241,7 +1241,7 @@
         <span collapsible-header-open>Ocultar solución</span>
 
         <app-terminal-code collapsible-content>
-          <span terminal-code-command>select c.modelo from COCHE c JOIN PROPULSION p ON c.propulsion=p.id where
+          <span terminal-code-command>select c.modelo from COCHE c JOIN PROPULSION p ON c.cod_prop=p.id where
             c.cod_marca=1 and p.nombre="Hidrógeno";</span>
           <pre terminal-code-output>+--------+
 | modelo |
@@ -1350,7 +1350,7 @@
 
         <app-terminal-code collapsible-content>
           <span terminal-code-command>select cl.dni, cl.nombre, cl.telefono, v.fecha from ((CLIENTE cl JOIN VENTA v ON
-            cl.dni=v.cod_cliente) JOIN COCHE co ON v.cod_coche=co.codigo) JOIN PROPULSION p ON co.propulsion=p.id where
+            cl.dni=v.cod_cliente) JOIN COCHE co ON v.cod_coche=co.codigo) JOIN PROPULSION p ON co.cod_prop=p.id where
             p.nombre="Diésel" and v.fecha &gt; '2020-06-20';</span>
           <pre terminal-code-output>+-----------+------------------------------+-----------+------------+
 | dni       | nombre                       | telefono  | fecha      |
@@ -1428,7 +1428,7 @@
             from (((CONCESIONARIO con JOIN OFRECE o ON con.codigo=o.cod_concesionario and con.localidad="Gijón")
             RIGHT JOIN COCHE co ON o.cod_coche=co.codigo)
             JOIN MARCA ma ON ma.codigo=co.cod_marca)
-            JOIN PROPULSION p ON co.propulsion=p.id
+            JOIN PROPULSION p ON co.cod_prop=p.id
             where o.cod_coche is null;
           </span>
           <pre terminal-code-output>+---------------+--------------------+---------------------+
@@ -1636,7 +1636,7 @@
 
         <app-terminal-code collapsible-content>
           <span terminal-code-command>ect DISTINCT m.nombre as marca, c.modelo, p.nombre from (MARCA m JOIN COCHE c ON
-            m.codigo=c.cod_marca) JOIN PROPULSION p ON c.propulsion=p.id where p.nombre NOT IN ('diesel',
+            m.codigo=c.cod_marca) JOIN PROPULSION p ON c.cod_prop=p.id where p.nombre NOT IN ('diesel',
             'gasolina');</span>
           <pre terminal-code-output>+---------------+------------+---------------------+
 | marca         | modelo     | nombre              |
@@ -1753,7 +1753,7 @@
 
         <app-terminal-code collapsible-content>
           <pre terminal-code-command>select p.nombre as propulsion, count(p.id) as cantidad
-from COCHE c JOIN PROPULSION p ON c.propulsion=p.id
+from COCHE c JOIN PROPULSION p ON c.cod_prop=p.id
 GROUP BY p.nombre
 ORDER BY 2;</pre>
           <pre terminal-code-output>+---------------------+----------+
