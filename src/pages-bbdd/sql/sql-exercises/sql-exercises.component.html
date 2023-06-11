@@ -2339,8 +2339,18 @@ where not exists (select * from VENTA v2
           <pre terminal-code-command>select * from CONCESIONARIO c1 where exists (select * from VENTA v1
   where c1.codigo=v1.cod_concesionario and not exists (select * from REPARA r1
     where v1.cod_coche=r1.cod_coche));</pre>
-          <!-- TODO what happens with the output? -->
-          <pre terminal-code-output>output here</pre>
+          <pre terminal-code-output>+--------+----------------------------+---------------+-------------+
+| codigo | localidad                  | hora_apertura | hora_cierre |
++--------+----------------------------+---------------+-------------+
+|      1 | Madrid                     | 11:00:00      | 21:00:00    |
+|      2 | Barcelona                  | 09:00:00      | 18:30:00    |
+|      3 | Valencia                   | 11:00:00      | 20:00:00    |
+...
+|     13 | Valladolid                 | 10:00:00      | 19:30:00    |
+|     14 | Vigo                       | 11:30:00      | 18:00:00    |
+|     15 | Gijón                      | 11:30:00      | 19:30:00    |
++--------+----------------------------+---------------+-------------+
+15 rows in set (0,01 sec)</pre>
         </app-terminal-code>
       </app-collapsible>
     </div>
