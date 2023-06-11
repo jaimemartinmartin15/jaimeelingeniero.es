@@ -1226,9 +1226,8 @@ where m.nombre="Chevrolet";</pre>
 
         <app-terminal-code collapsible-content>
           <pre terminal-code-command>select co.modelo
-from ((CLIENTE cl JOIN VENTA v ON cl.dni=v.cod_cliente)
-JOIN OFRECE o on v.cod_coche=o.cod_coche and v.cod_concesionario=o.cod_concesionario)
-JOIN COCHE co ON co.codigo=o.cod_coche
+from (CLIENTE cl JOIN VENTA v ON cl.dni=v.cod_cliente)
+JOIN COCHE co ON co.codigo=v.cod_coche
 where cl.dni="98531793A";</pre>
           <pre terminal-code-output>+--------+
 | modelo |
@@ -1510,8 +1509,7 @@ select cl.nombre from VENTA v JOIN CLIENTE cl ON cl.dni=v.cod_cliente where v.co
         <span collapsible-header-open>Ocultar solución</span>
 
         <app-terminal-code collapsible-content>
-          <!-- TODO what happened here? no select sentence? -->
-          <pre terminal-code-command>ct cl.nombre, cl.dni, v.num_factura, v.precio
+          <pre terminal-code-command>select cl.nombre, cl.dni, v.num_factura, v.precio
 from CLIENTE cl LEFT JOIN VENTA v ON cl.dni=v.cod_cliente and v.cod_concesionario=4
 where cl.nombre LIKE 'Silvia%';</pre>
           <pre terminal-code-output>+------------------------------+-----------+-------------+----------+
