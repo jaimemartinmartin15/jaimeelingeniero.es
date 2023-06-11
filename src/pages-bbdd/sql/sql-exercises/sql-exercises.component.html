@@ -1623,15 +1623,15 @@ where p.nombre NOT IN ('diesel', 'gasolina');</pre>
         <span collapsible-header-open>Ocultar solución</span>
 
         <app-terminal-code collapsible-content>
-          <!-- TODO missing from table? -->
-          <pre terminal-code-command>SELECT
+          <pre terminal-code-command>select
 min(timestampdiff(YEAR, fecha_nac, CURDATE())) as EDAD_MIN,
 max(timestampdiff(YEAR, fecha_nac, CURDATE())) as EDAD_MAX,
-avg(timestampdiff(YEAR, fecha_nac, CURDATE())) as MEDIA FROM CLIENTE;</pre>
+avg(timestampdiff(YEAR, fecha_nac, CURDATE())) as MEDIA
+FROM CLIENTE;</pre>
           <pre terminal-code-output>+----------+----------+---------+
 | EDAD_MIN | EDAD_MAX | MEDIA   |
 +----------+----------+---------+
-|       23 |       68 | 44.6250 |
+|       23 |       68 | 44.6775 |
 +----------+----------+---------+
 1 row in set (0,00 sec)</pre>
         </app-terminal-code>
@@ -1708,7 +1708,7 @@ ORDER BY 2;</pre>
       <h2 class="exercise-title">Ejercicio 51</h2>
 
       <p class="exercise-statement">
-        Listar la cantidad de coches (por id) ofertada por cada concesionario.
+        Listar la cantidad de coches diferentes (por id) ofertada por cada concesionario.
       </p>
 
       <app-collapsible>
