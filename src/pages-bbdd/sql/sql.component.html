@@ -356,7 +356,7 @@
   codigo INT not null primary key,
   cod_marca INT not null references MARCA(codigo) ON DELETE RESTRICT,
   modelo VARCHAR(60) not null,
-  propulsion INT not null references PROPULSION(id) ON DELETE RESTRICT
+  cod_prop INT not null references PROPULSION(id) ON DELETE RESTRICT
 );</pre>
 
         <span terminal-code-output>Query OK, 0 rows affected (0,02 sec)</span>
