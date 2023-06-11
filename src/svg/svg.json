@@ -14,7 +14,8 @@
                 "spring-boot-logo",
                 "git-logo",
                 "docker-logo",
-                "kubernetes-logo"
+                "kubernetes-logo",
+                "lit-element-logo"
             ]
         },
         {

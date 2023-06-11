@@ -24,8 +24,7 @@
     <p>
       Como todo lenguaje tiene su sintaxis y sus palabras reservadas, y es lo que vamos a ver a continuación. Luego al
       final del artículo tenéis un link a un zip con archivos que os ayudan a crear una base de datos y que
-      practiquéis lo aprendido. Vamos manos a la obra 💪
-      <!-- TODO cuando la pagina de ejercicios este lista, mencionar aqui tambien que hay ejercicios. -->
+      practiquéis lo aprendido. También hay un link con ejercicios y soluciones. Vamos manos a la obra 💪
     </p>
   </section>
 
@@ -357,7 +356,7 @@
   codigo INT not null primary key,
   cod_marca INT not null references MARCA(codigo) ON DELETE RESTRICT,
   modelo VARCHAR(60) not null,
-  propulsion INT not null references PROPULSION(id) ON DELETE RESTRICT
+  cod_prop INT not null references PROPULSION(id) ON DELETE RESTRICT
 );</pre>
 
         <span terminal-code-output>Query OK, 0 rows affected (0,02 sec)</span>
@@ -1019,7 +1018,7 @@ select me.nombre from MECANICO me, REPARA r, COCHE c, MARCA ma where me.codigo=r
   </section>
 
   <section>
-    <h2>Consultas con subselect</h2>
+    <h2 id="consultas-con-subselect">Consultas con subselect</h2>
 
     <p>
       Una consulta subselect no es más que una consulta SQL que se anida dentro de otra consulta SQL más grande. La
@@ -1082,12 +1081,12 @@ WHERE columna > [NOT] ALL | ANY (SELECT soloUnaColumna FROM tabla2 WHERE condici
 
     <p>
       Ahora ya sabemos lo básico para crear y consultar bases de datos relaciones con SQL. Aún queda mucho que aprender
-      y para ello es necesario prácticar y asentar unas buenas bases. Para ello te dejo el link que te <a download
+      y para ello es necesario practicar y asentar unas buenas bases. Para ello te dejo el link que te <a download
         href="pages-bbdd/assets/scripts.zip">descarga el zip</a> con varios scripts que cargan los datos que he usado yo
       para este artículo. En el propio zip hay un README.txt con más información.
     </p>
 
-    <!-- TODO descomentar cuando la página este lista. <p>También te dejo un link con ejercicios resueltos para que practiques consultas.</p> -->
+    <p>También te dejo un <a routerLink="./ejercicios">link con ejercicios</a> resueltos para que practiques consultas.</p>
 
     <p>Buena suerte! 🍀</p>
   </section>

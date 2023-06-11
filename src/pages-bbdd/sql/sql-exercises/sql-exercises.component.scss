@@ -1,0 +1,60 @@
+$screen-max-width: 830px;
+
+:host {
+  display: block;
+  max-width: $screen-max-width;
+  margin: 0 auto;
+  line-height: 30px;
+  padding-bottom: 30px;
+}
+
+main {
+  padding: 0;
+}
+
+.title {
+  text-align: center;
+  margin: 20px 10px 10px 10px;
+}
+
+a {
+  color: #d17515;
+}
+
+.primary-key {
+  text-decoration: underline;
+}
+
+.exercise-block {
+  padding: 15px;
+  margin: 0 0 20px 0;
+  background-color: #fbfbff;
+  border: 2px solid #d17515;
+  border-radius: 5px;
+
+  .exercise-title {
+    font-size: 1.3rem;
+    margin: 0;
+  }
+
+  .exercise-statement {
+    margin: 10px 0 20px 0;
+  }
+
+  app-collapsible {
+    [collapsible-header-open],
+    [collapsible-header-closed] {
+      color: #d17515;
+    }
+
+    app-terminal-code {
+      margin-bottom: 10px;
+    }
+  }
+}
+
+@media (max-width: calc($screen-max-width + 10px)) {
+  main {
+    padding: 0 10px;
+  }
+}

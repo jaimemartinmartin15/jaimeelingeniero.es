@@ -41,6 +41,8 @@ There is a (private) [Trello board](https://trello.com/b/gnJWWpVh/jaime-el-ingen
 ## General reminders to build new feature
 
 * Add url to [sitemap.txt](./sitemap.txt)
-* Add title in routing module for the new page
-* Add meta tags
+* In routing module:
+  * Add title for the new page
+  * Add router data metaTags (description and keywords)
+  * Add router data headerPrint (author and date) if necessary
 * Make sure invalid routes are redirected correctly
