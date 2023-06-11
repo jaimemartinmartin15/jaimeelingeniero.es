@@ -691,7 +691,7 @@ where timestampdiff(year, fecha_nac, curdate()) between 30 and 33 order by 2 DES
         <app-terminal-code collapsible-content>
           <pre terminal-code-command>select me.nombre as 'nombre mecanico', m.nombre as marca, c.modelo
 from MARCA m, COCHE c, REPARA r, MECANICO me 
-where m.codigo=c.cod_marca and r.cod_coche=c.codigo andr.cod_mecanico=me.codigo;</pre>
+where m.codigo=c.cod_marca and r.cod_coche=c.codigo and r.cod_mecanico=me.codigo;</pre>
           <pre terminal-code-output>+---------------------------------------+---------------+--------------------+
 | nombre mecanico                       | marca         | modelo             |
 +---------------------------------------+---------------+--------------------+
@@ -794,17 +794,16 @@ and timestampdiff(year, r.fecha, curdate())&lt;1 order by 3;</pre>
           <pre terminal-code-output>+---------------------------------------+------------+------------+
 | nombre                                | modelo     | fecha      |
 +---------------------------------------+------------+------------+
-| Diagnóstico Hábil Total               | Captur     | 2022-05-09 |
-| Mecánica Hábil Técnico                | Sorento    | 2022-05-14 |
-| Técnica Experto de Coches             | Model Y    | 2022-06-03 |
 | Técnica Experto de Coches             | Santa Fe   | 2022-06-15 |
+| Mecánica Innovador Mecánico           | Civic      | 2022-06-19 |
+| Mecánica Innovador Mecánico           | 124 Spider | 2022-06-19 |
 ...
 | Neumáticos Eficiente Mantenimiento    | Sorento    | 2023-02-21 |
 | Mecánica Innovador Mecánico           | A7         | 2023-02-26 |
 | Mecánica Innovador Mecánico           | Tucson     | 2023-03-02 |
 | Mantenimiento Fiable de Coches        | 508        | 2023-03-15 |
 +---------------------------------------+------------+------------+
-43 rows in set (0,00 sec)</pre>
+40 rows in set (0,00 sec)</pre>
         </app-terminal-code>
       </app-collapsible>
     </div>
@@ -823,7 +822,7 @@ and timestampdiff(year, r.fecha, curdate())&lt;1 order by 3;</pre>
 
         <app-terminal-code collapsible-content>
           <pre terminal-code-command>select c.modelo, me.nombre from MARCA m, COCHE c, REPARA r, MECANICO me
-where m.codigo=c.cod_marca and c.codigo=r.cod_coche and r.cod_mecanico= me.codigo
+where m.codigo=c.cod_marca and c.codigo=r.cod_coche and r.cod_mecanico=me.codigo
 and m.nombre='Tesla';</pre>
           <pre terminal-code-output>+---------+-------------------------------+
 | modelo  | nombre                        |
@@ -854,9 +853,10 @@ and m.nombre='Tesla';</pre>
 
         <app-terminal-code collapsible-content>
           <pre terminal-code-command>select cl.nombre, m.nombre, v.fecha
-from CLIENTE cl, VENTA v, OFRECE o, COCHE c, MARCA m
-where cl.dni=v.cod_cliente and v.cod_coche=o.cod_coche and v.cod_concesionario=o.cod_concesionario and o.cod_coche=c.codigo and c.cod_marca=m.codigo 
-and cl.nombre like '%Gutierrez %' order by cl.nombre, v.fecha;</pre>
+from CLIENTE cl, VENTA v, COCHE c, MARCA m
+where cl.dni=v.cod_cliente and v.cod_coche=c.codigo and c.cod_marca=m.codigo
+and cl.nombre like '% Gutierrez %'
+order by cl.nombre, v.fecha;</pre>
           <pre terminal-code-output>+-----------------------------+---------------+------------+
 | nombre                      | nombre        | fecha      |
 +-----------------------------+---------------+------------+
@@ -885,8 +885,9 @@ and cl.nombre like '%Gutierrez %' order by cl.nombre, v.fecha;</pre>
         <span collapsible-header-open>Ocultar solución</span>
 
         <app-terminal-code collapsible-content>
-          <pre terminal-code-command>select con.localidad from CONCESIONARIO con, OFRECE o, VENTA v, CLIENTE cl
-where con.codigo=o.cod_concesionario and o.cod_coche=v.cod_coche and o.cod_concesionario=v.cod_concesionario and v.cod_cliente=cl.dni
+          <pre terminal-code-command>select con.localidad
+from CONCESIONARIO con, VENTA v, CLIENTE cl
+where v.cod_cliente=cl.dni and v.cod_concesionario=con.codigo
 and cl.nombre='Javier Guerrero Suárez';</pre>
           <pre terminal-code-output>+----------------------------+
 | localidad                  |
@@ -913,9 +914,10 @@ and cl.nombre='Javier Guerrero Suárez';</pre>
         <span collapsible-header-open>Ocultar solución</span>
 
         <app-terminal-code collapsible-content>
-          <pre terminal-code-command>select cl.nombre from CLIENTE cl, VENTA v, OFRECE o, COCHE co, PROPULSION p
-where cl.dni=v.cod_cliente and v.cod_coche=o.cod_coche and v.cod_concesionario=o.cod_concesionario and o.cod_coche=co.codigo and co.cod_prop=p.id
-and p.nombre='hibrido enchufable'</pre>
+          <pre terminal-code-command>select cl.nombre
+from CLIENTE cl, VENTA v, COCHE co, PROPULSION p
+where cl.dni=v.cod_cliente and v.cod_coche=co.codigo and co.cod_prop=p.id
+and p.nombre='hibrido enchufable';</pre>
           <pre terminal-code-output>+-------------------------------+
 | nombre                        |
 +-------------------------------+
@@ -944,8 +946,9 @@ and p.nombre='hibrido enchufable'</pre>
         <span collapsible-header-open>Ocultar solución</span>
 
         <app-terminal-code collapsible-content>
-          <pre terminal-code-command>select cl.dni, cl.nombre from CLIENTE cl, VENTA v, OFRECE o, CONCESIONARIO c
-where cl.dni=v.cod_cliente and v.cod_coche=o.cod_coche and v.cod_concesionario=o.cod_concesionario and o.cod_concesionario=c.codigo
+          <pre terminal-code-command>select cl.dni, cl.nombre
+from CLIENTE cl, VENTA v, CONCESIONARIO c
+where cl.dni=v.cod_cliente and v.cod_concesionario=c.codigo
 and c.localidad="Valencia";</pre>
           <pre terminal-code-output>+-----------+----------------------------+
 | dni       | nombre                     |
@@ -1099,8 +1102,8 @@ and (ma.nombre LIKE "%IA%" OR c.modelo LIKE "%EO%") ORDER BY 1;</pre>
 
         <app-terminal-code collapsible-content>
           <pre terminal-code-command>select cl.dni, cl.nombre, cl.telefono, v.fecha
-from CLIENTE cl, VENTA v, OFRECE o, CONCESIONARIO con
-where cl.dni=v.cod_cliente and v.cod_coche=o.cod_coche and v.cod_concesionario=o.cod_concesionario and o.cod_concesionario=con.codigo
+from CLIENTE cl, VENTA v, CONCESIONARIO con
+where cl.dni=v.cod_cliente and v.cod_concesionario=con.codigo
 and con.localidad="Murcia" and YEAR(v.fecha)=2020;</pre>
           <pre terminal-code-output>+-----------+------------------------------------+-----------+------------+
 | dni       | nombre                             | telefono  | fecha      |
@@ -1128,7 +1131,8 @@ and con.localidad="Murcia" and YEAR(v.fecha)=2020;</pre>
 
         <app-terminal-code collapsible-content>
           <pre terminal-code-command>select DISTINCT ma.nombre, ma.sede from MARCA ma, COCHE c, REPARA r, MECANICO me
-where ma.codigo=c.cod_marca and c.codigo=r.cod_coche and r.cod_mecanico=me.codigo and me.codigo=1;</pre>
+where ma.codigo=c.cod_marca and c.codigo=r.cod_coche and r.cod_mecanico=me.codigo
+and me.codigo=1;</pre>
           <pre terminal-code-output>+---------+----------------+
 | nombre  | sede           |
 +---------+----------------+
@@ -1152,7 +1156,7 @@ where ma.codigo=c.cod_marca and c.codigo=r.cod_coche and r.cod_mecanico=me.codig
   <section>
     <p>
       Los ejercicios a continuación son similares a los anteriores que implicaban varias tablas, pero se resuelven
-      usando la claúsula JOIN.
+      usando las cláusulas JOIN, LEFT JOIN o RIGHT JOIN.
     </p>
 
     <div class="exercise-block">
