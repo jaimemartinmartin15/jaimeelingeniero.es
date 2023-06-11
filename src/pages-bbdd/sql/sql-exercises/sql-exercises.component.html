@@ -167,7 +167,7 @@
 
         <app-terminal-code collapsible-content>
           <pre terminal-code-command>select cod_coche, cod_concesionario, fecha from VENTA 
-where precio>48000 order by cod_concesionario, fecha;</pre>
+where precio&gt;48000 order by cod_concesionario, fecha;</pre>
           <pre terminal-code-output>+-----------+-------------------+------------+
 | cod_coche | cod_concesionario | fecha      |
 +-----------+-------------------+------------+
@@ -277,7 +277,7 @@ where precio>48000 order by cod_concesionario, fecha;</pre>
         </app-terminal-code>
 
         <app-terminal-code collapsible-content>
-          <span terminal-code-command>select modelo from COCHE where propulsion=8;</span>
+          <span terminal-code-command>select modelo from COCHE where cod_prop=8;</span>
           <pre terminal-code-output>+------------+
 | modelo     |
 +------------+
