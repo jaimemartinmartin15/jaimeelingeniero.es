@@ -4,6 +4,10 @@ import { SqlComponent } from './sql.component';
 
 const routes: Routes = [
   {
+    path: 'ejercicios',
+    loadChildren: () => import('./sql-exercises/sql-exercises.module').then((m) => m.SqlExercisesModule),
+  },
+  {
     path: '',
     component: SqlComponent,
     title: 'Lenguaje SQL',
