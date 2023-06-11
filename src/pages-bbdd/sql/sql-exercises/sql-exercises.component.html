@@ -1979,7 +1979,7 @@ order by 3;</pre>
 
         <div collapsible-content>
           <app-terminal-code>
-            <span terminal-code-command>select * from REPARA where fecha > all (select fecha from VENTA);</span>
+            <span terminal-code-command>select * from REPARA where fecha &gt; all (select fecha from VENTA);</span>
             <pre terminal-code-output>+-----+--------------+-----------+------------+---------+
 | id  | cod_mecanico | cod_coche | fecha      | precio  |
 +-----+--------------+-----------+------------+---------+
@@ -1997,7 +1997,7 @@ order by 3;</pre>
           Otra solución también sería:
 
           <app-terminal-code>
-            <span terminal-code-command>select * from REPARA where fecha > (select max(fecha) from VENTA);</span>
+            <span terminal-code-command>select * from REPARA where fecha &gt; (select max(fecha) from VENTA);</span>
             <pre terminal-code-output>Mismo resultado que antes</pre>
           </app-terminal-code>
         </div>
