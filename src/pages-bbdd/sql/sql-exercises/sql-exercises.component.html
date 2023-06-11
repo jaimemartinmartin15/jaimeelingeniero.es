@@ -328,7 +328,7 @@ where precio&gt;48000 order by cod_concesionario, fecha;</pre>
 
         <app-terminal-code collapsible-content>
           <pre terminal-code-command>select cod_concesionario, cod_coche, cantidad from OFRECE
-where cantidad>=39 order by 1;</pre>
+where cantidad&gt;=39 order by 1;</pre>
           <pre terminal-code-output>+-------------------+-----------+----------+
 | cod_concesionario | cod_coche | cantidad |
 +-------------------+-----------+----------+
@@ -391,12 +391,12 @@ where timestampdiff(year, fecha, curdate())&gt;=5 AND timestampdiff(year, fecha,
 | num_factura | años  |
 +-------------+-------+
 | 1           |     8 |
-| 100         |     8 |
 | 105         |     7 |
 | 11          |     6 |
 | 111         |     5 |
 ...
-| 8           |     6 |
+| 76          |     7 |
+| 8           |     7 |
 | 85          |     8 |
 | 93          |     5 |
 +-------------+-------+
@@ -658,15 +658,15 @@ where timestampdiff(year, fecha_nac, curdate()) between 30 and 33 order by 2 DES
           <pre terminal-code-output>+-------------------------------+------+
 | nombre                        | edad |
 +-------------------------------+------+
-| Valentina Guerrero Ortiz      |   33 |
-| Beatriz González Fernández    |   33 |
-| Luisa Gil Castro              |   33 |
+| Lucía Delgado Iglesias        |   33 |
+| Marina Cortés Castro          |   33 |
+| Miriam Blanco Romero          |   33 |
 ...
 | Antonio Martínez Cortés       |   30 |
 | Javier Ortiz Ortega           |   30 |
 | Lucas Ruiz Rubio              |   30 |
 +-------------------------------+------+
-45 rows in set (0,00 sec)</pre>
+43 rows in set (0,00 sec)</pre>
         </app-terminal-code>
       </app-collapsible>
     </div>
