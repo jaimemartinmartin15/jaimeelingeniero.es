@@ -74,8 +74,5 @@
 
 <div class="button-group">
   <button class="app-button" *ngIf="!isEdition" (click)="startGame()" [disabled]="startButtonDisabled">Empezar</button>
-  <button class="app-button" *ngIf="isEdition" (click)="cancelEdition()">Cancelar</button>
-  <button class="app-button" *ngIf="isEdition" (click)="editConfigCurrentGame()" [disabled]="startButtonDisabled">
-    Aplicar cambios
-  </button>
+  <button class="app-button" *ngIf="isEdition" (click)="editConfigCurrentGame()">Volver</button>
 </div>
