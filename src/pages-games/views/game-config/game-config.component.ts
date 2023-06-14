@@ -1,4 +1,5 @@
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
+import { Location } from '@angular/common';
 import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, Inject, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { GameHolderService } from 'src/pages-games/game-services/game-holder.service';
@@ -15,6 +16,7 @@ import { ROUTING_PATHS } from 'src/pages-games/routing-paths';
 })
 export class GameConfigComponent implements OnInit, AfterViewInit {
   public selectGameNameDropDownOpen = false;
+  public isEdition = false;
 
   @ViewChild('numberOfCards')
   public numberOfCardsContainer: ElementRef<HTMLDivElement>;
@@ -32,11 +34,14 @@ export class GameConfigComponent implements OnInit, AfterViewInit {
     @Inject(GAME_SERVICES) public gameServices: GameService[],
     public readonly gameHolderService: GameHolderService,
     private readonly router: Router,
-    private readonly activatedRoute: ActivatedRoute
+    private readonly activatedRoute: ActivatedRoute,
+    private readonly location: Location
   ) {}
 
   public ngOnInit() {
-    // load player names from previous game if available
+    this.isEdition = this.activatedRoute.snapshot.data['isEdition'];
+
+    // load player names from previous/current game if available
     const previousPlayers = localStorage.getItem(LOCAL_STORE_KEYS.PLAYERS);
     if (previousPlayers != null) {
       const players: Player[] = JSON.parse(previousPlayers);
@@ -139,5 +144,14 @@ export class GameConfigComponent implements OnInit, AfterViewInit {
     localStorage.setItem(LOCAL_STORE_KEYS.TIME_GAME_STARTS, JSON.stringify(Date.now()));
 
     this.router.navigate(['../', ROUTING_PATHS.RANKING], { relativeTo: this.activatedRoute });
+  }
+
+  public editConfigCurrentGame() {
+    // TODO
+    console.log('editing');
+  }
+
+  public cancelEdition() {
+    this.location.back();
   }
 }

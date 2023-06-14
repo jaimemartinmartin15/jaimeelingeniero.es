@@ -1,4 +1,4 @@
-<div class="game-name">
+<div class="game-name" *ngIf="!isEdition">
   <label>Juego</label>
 
   <div class="select" [ngClass]="{open: selectGameNameDropDownOpen}"
@@ -73,5 +73,9 @@
 </div>
 
 <div class="button-group">
-  <button class="app-button" [disabled]="startButtonDisabled" (click)="startGame()">Empezar</button>
+  <button class="app-button" *ngIf="!isEdition" (click)="startGame()" [disabled]="startButtonDisabled">Empezar</button>
+  <button class="app-button" *ngIf="isEdition" (click)="cancelEdition()">Cancelar</button>
+  <button class="app-button" *ngIf="isEdition" (click)="editConfigCurrentGame()" [disabled]="startButtonDisabled">
+    Aplicar cambios
+  </button>
 </div>

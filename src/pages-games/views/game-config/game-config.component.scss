@@ -241,13 +241,15 @@ label {
 }
 
 .button-group {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
     position: fixed;
     bottom: 0;
     left: 0;
     right: 0;
     padding: 20px;
     background-color: white;
-    text-align: center;
 
     .app-button {
         padding: 5px 9px;
