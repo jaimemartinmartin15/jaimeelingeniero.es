@@ -57,7 +57,7 @@ export class EnterScoreComponent {
       return;
     }
 
-    if (buttonKey === '↩') {
+    if (buttonKey === '⌫') {
       this.puntuationCurrentPlayer = +`${this.puntuationCurrentPlayer}`.slice(0, -1);
       if (Number.isNaN(this.puntuationCurrentPlayer)) {
         // in case only the '-' is in the string, replace with 0
@@ -80,8 +80,11 @@ export class EnterScoreComponent {
 
   private goNextPlayer() {
     if (++this.currentPlayer == this.players.length) {
+      // change the player that deals only if it is a new round (not edition in table view)
+      if (this.roundNumber === this.gameHolderService.service.getNextRoundNumber()) {
+        this.gameHolderService.service.setNextDealingPlayer();
+      }
       this.players.forEach((p) => (p.scores[this.roundNumber - 1] = p.punctuation));
-      this.gameHolderService.service.setNextDealingPlayer();
       this.saveGameLocalStorage();
       this.location.back();
       return;
