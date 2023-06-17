@@ -5,7 +5,8 @@ export interface GameService {
 
   get players(): Player[];
   set players(value: Player[]);
-  playerStartsDealing: number;
+  dealingPlayerIndex: number;
+  setNextDealingPlayer(): void;
 
   numberOfCards: number;
   limitScore: number;

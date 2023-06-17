@@ -1,5 +1,5 @@
 import { NgModule, Type } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import { Data, RouterModule, Routes } from '@angular/router';
 import { PagesGamesNavigationGuard } from './pages-games-navigation.guard';
 import { PagesGamesComponent } from './pages-games.component';
 import { ROUTING_PATHS } from './routing-paths';
@@ -10,11 +10,12 @@ import { ResumeGameComponent } from './views/resume-game/resume-game.component';
 import { ScoreboardComponent } from './views/scoreboard/scoreboard.component';
 import { StatisticsComponent } from './views/statistics/statistics.component';
 
-const pathWithoutChildrens = (component: Type<any>): Routes => {
+const pathWithoutChildrens = (component: Type<any>, data?: Data): Routes => {
   return [
     {
       path: '',
       component,
+      data,
     },
     {
       path: '**',
@@ -44,7 +45,11 @@ const routes: Routes = [
       },
       {
         path: ROUTING_PATHS.GAME_CONFIG,
-        children: pathWithoutChildrens(GameConfigComponent),
+        children: pathWithoutChildrens(GameConfigComponent, { isEdition: false }),
+      },
+      {
+        path: ROUTING_PATHS.CHANGE_CONFIG,
+        children: pathWithoutChildrens(GameConfigComponent, { isEdition: true }),
       },
       {
         path: ROUTING_PATHS.ENTER_SCORE,

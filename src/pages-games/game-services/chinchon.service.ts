@@ -14,7 +14,13 @@ export class ChinchonService implements GameService {
   public set players(value: Player[]) {
     this._players = value;
   }
-  public playerStartsDealing = 0;
+  public dealingPlayerIndex = 0;
+  public setNextDealingPlayer() {
+    this.dealingPlayerIndex++;
+    if (this.dealingPlayerIndex >= this.players.length) {
+      this.dealingPlayerIndex = 0;
+    }
+  }
 
   public numberOfCards: number; // ignored
   public limitScore = 100;
@@ -50,7 +56,7 @@ export class ChinchonService implements GameService {
     return this._players[0].scores.length + 1;
   }
   public getPlayerNameThatDeals(): string {
-    return this.players[(this.playerStartsDealing + this.getNextRoundNumber() - 1) % this.players.length].name;
+    return this.players[this.dealingPlayerIndex].name;
   }
   public showNumberOfCardsToDealNextRound = false;
   public getNumberOfCardsToDealNextRound(): string {
