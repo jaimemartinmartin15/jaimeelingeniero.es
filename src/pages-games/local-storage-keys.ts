@@ -6,5 +6,5 @@ export const LOCAL_STORE_KEYS = {
   GAME_NAME: `${prefixKey}gameName`,
   CONFIG: `${prefixKey}config`,
   PLAYERS: `${prefixKey}players`,
-  STARTS_DEALING: `${prefixKey}startsDealing`,
+  DEALING_PLAYER_INDEX: `${prefixKey}dealingPlayerIndex`,
 };

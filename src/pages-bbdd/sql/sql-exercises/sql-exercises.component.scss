@@ -53,6 +53,10 @@ a {
   }
 }
 
+.exercise-73 {
+  overflow-x: auto;
+}
+
 @media (max-width: calc($screen-max-width + 10px)) {
   main {
     padding: 0 10px;

@@ -1,4 +1,4 @@
-<div class="game-name">
+<div class="game-name" *ngIf="!isEdition">
   <label>Juego</label>
 
   <div class="select" [ngClass]="{open: selectGameNameDropDownOpen}"
@@ -64,8 +64,8 @@
 
       <input class="input" #playerInput type="text" [(ngModel)]="playerNames[i]">
 
-      <svg appDealCardsSvg viewBox="0 0 1000 1000" (click)="playerStartsDealing = i" class="deal-cards-icon"
-        [ngClass]="{'deal-cards-icon--active': playerStartsDealing === i}"></svg>
+      <svg appDealCardsSvg viewBox="0 0 1000 1000" (click)="dealingPlayerIndex = i" class="deal-cards-icon"
+        [ngClass]="{'deal-cards-icon--active': dealingPlayerIndex === i}"></svg>
 
       <span class="delete-icon" (click)="deletePlayer(i)" *ngIf="this.playerNames.length > 1"></span>
     </li>
@@ -73,5 +73,6 @@
 </div>
 
 <div class="button-group">
-  <button class="app-button" [disabled]="startButtonDisabled" (click)="startGame()">Empezar</button>
+  <button class="app-button" *ngIf="!isEdition" (click)="startGame()" [disabled]="startButtonDisabled">Empezar</button>
+  <button class="app-button" *ngIf="isEdition" (click)="editConfigCurrentGame()">Volver</button>
 </div>

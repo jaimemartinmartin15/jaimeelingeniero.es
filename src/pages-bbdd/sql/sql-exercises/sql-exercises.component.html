@@ -722,8 +722,7 @@ where m.codigo=c.cod_marca and r.cod_coche=c.codigo and r.cod_mecanico=me.codigo
         <span collapsible-header-open>Ocultar solución</span>
 
         <app-terminal-code collapsible-content>
-          <pre
-            terminal-code-command>select DISTINCT m.nombre from MARCA m, COCHE c, OFRECE o, CONCESIONARIO con
+          <pre terminal-code-command>select DISTINCT m.nombre from MARCA m, COCHE c, OFRECE o, CONCESIONARIO con
 where con.codigo=o.cod_concesionario and o.cod_coche=c.codigo and m.codigo=c.cod_marca
 and con.localidad='Valencia';</pre>
           <pre terminal-code-output>+------------+
@@ -1895,7 +1894,8 @@ group by r1.id having r1.fecha = max(r2.fecha);</pre>
 
   <section>
     <p>
-      Los ejercicios que viene a continuación incluyen consultas <a routerLink="../" fragment="consultas-con-subselect">subselect sin correlación</a>.
+      Los ejercicios que viene a continuación incluyen consultas <a routerLink="../"
+        fragment="consultas-con-subselect">subselect sin correlación</a>.
     </p>
 
     <div class="exercise-block">
@@ -2118,7 +2118,8 @@ where codigo in (select cod_mecanico from REPARA
 
   <section>
     <p>
-      Los ejercicios que viene a continuación incluyen consultas <a routerLink="../" fragment="consultas-con-subselect">subselect con correlación</a>.
+      Los ejercicios que viene a continuación incluyen consultas <a routerLink="../"
+        fragment="consultas-con-subselect">subselect con correlación</a>.
     </p>
 
     <div class="exercise-block">
@@ -2432,7 +2433,7 @@ where not exists (select * from VENTA v2
       <div class="exercise-statement">
         <p>Crear las tablas correspondientes a una base de datos para gestionar una inmobiliaria:</p>
 
-        <pre>INQUILINO(<span class="primary-key">dni</span>, nombre, apellido)
+        <pre class="exercise-73">INQUILINO(<span class="primary-key">dni</span>, nombre, apellido)
 PISO(<span class="primary-key">codigo</span>, ciudad, metros2)
 ALQUILER(<span class="primary-key">piso, inquilino</span>, precio, fecha_inicio, fecha_fin)</pre>
 
