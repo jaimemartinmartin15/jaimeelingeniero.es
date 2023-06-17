@@ -81,6 +81,7 @@ export class EnterScoreComponent {
   private goNextPlayer() {
     if (++this.currentPlayer == this.players.length) {
       this.players.forEach((p) => (p.scores[this.roundNumber - 1] = p.punctuation));
+      this.gameHolderService.service.setNextDealingPlayer();
       this.saveGameLocalStorage();
       this.location.back();
       return;
@@ -108,7 +109,7 @@ export class EnterScoreComponent {
         winner: this.gameHolderService.service.winner,
       })
     );
-    localStorage.setItem(LOCAL_STORE_KEYS.STARTS_DEALING, JSON.stringify(this.gameHolderService.service.playerStartsDealing));
+    localStorage.setItem(LOCAL_STORE_KEYS.DEALING_PLAYER_INDEX, JSON.stringify(this.gameHolderService.service.dealingPlayerIndex));
     localStorage.setItem(LOCAL_STORE_KEYS.GAME_NAME, this.gameHolderService.service.gameName);
     localStorage.setItem(LOCAL_STORE_KEYS.TIME_LAST_GAME, JSON.stringify(Date.now()));
   }

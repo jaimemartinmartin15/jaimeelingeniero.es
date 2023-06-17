@@ -27,7 +27,7 @@ export class GameConfigComponent implements OnInit, AfterViewInit {
   @ViewChildren('playerInput')
   private playerInputs: QueryList<ElementRef>;
   public playerNames: string[] = ['', '', '', ''];
-  public playerStartsDealing: number = 0;
+  public dealingPlayerIndex: number;
 
   public constructor(
     private readonly changeDetectorRef: ChangeDetectorRef,
@@ -40,6 +40,7 @@ export class GameConfigComponent implements OnInit, AfterViewInit {
 
   public ngOnInit() {
     this.isEdition = this.activatedRoute.snapshot.data['isEdition'];
+    this.dealingPlayerIndex = this.gameHolderService.service.dealingPlayerIndex;
 
     // load player names from previous/current game if available
     const previousPlayers = localStorage.getItem(LOCAL_STORE_KEYS.PLAYERS);
@@ -120,17 +121,17 @@ export class GameConfigComponent implements OnInit, AfterViewInit {
   }
 
   public onReorderingPlayer(event: CdkDragDrop<string[]>) {
-    const playerNameDealing = this.playerNames[this.playerStartsDealing];
+    const dealingPlayerName = this.playerNames[this.dealingPlayerIndex];
     moveItemInArray(this.playerNames, event.previousIndex, event.currentIndex);
-    this.playerStartsDealing = this.playerNames.indexOf(playerNameDealing);
+    this.dealingPlayerIndex = this.playerNames.indexOf(dealingPlayerName);
   }
 
   public deletePlayer(index: number) {
-    const playerNameDealing = this.playerNames[this.playerStartsDealing];
+    const playerNameDealing = this.playerNames[this.dealingPlayerIndex];
     this.playerNames.splice(index, 1);
     const playerNameDealingIndex = this.playerNames.indexOf(playerNameDealing);
-    const playerBefore = this.playerStartsDealing - 1;
-    this.playerStartsDealing = playerNameDealingIndex !== -1 ? playerNameDealingIndex : playerBefore !== -1 ? playerBefore : 0;
+    const playerBefore = this.dealingPlayerIndex - 1;
+    this.dealingPlayerIndex = playerNameDealingIndex !== -1 ? playerNameDealingIndex : playerBefore !== -1 ? playerBefore : 0;
   }
 
   public get startButtonDisabled(): boolean {
@@ -138,8 +139,8 @@ export class GameConfigComponent implements OnInit, AfterViewInit {
   }
 
   public startGame() {
-    this.gameHolderService.service.players = this.playerNames.map((name, id) => ({ id, name, scores: [], punctuation: 0 }));
-    this.gameHolderService.service.playerStartsDealing = this.playerStartsDealing;
+    this.gameHolderService.service.players = this.playerNames.map((name, id) => ({ id, name: name.trim(), scores: [], punctuation: 0 }));
+    this.gameHolderService.service.dealingPlayerIndex = this.dealingPlayerIndex;
 
     localStorage.setItem(LOCAL_STORE_KEYS.TIME_GAME_STARTS, JSON.stringify(Date.now()));
 
@@ -147,11 +148,14 @@ export class GameConfigComponent implements OnInit, AfterViewInit {
   }
 
   public editConfigCurrentGame() {
-    // TODO
-    console.log('editing');
-  }
+    this.gameHolderService.service.players = this.playerNames.map((name, id) => {
+      // check if it is an existing player by name and change its id, or create a new one with same number of scores
+      const existingPlayer = this.gameHolderService.service.players.find((p) => p.name === name.trim());
+      const numberOfRounds = this.gameHolderService.service.getNextRoundNumber() - 1;
+      return existingPlayer ? { ...existingPlayer, id } : { id, name: name.trim(), scores: new Array(numberOfRounds).fill(0), punctuation: 0 };
+    });
+    this.gameHolderService.service.dealingPlayerIndex = this.dealingPlayerIndex;
 
-  public cancelEdition() {
     this.location.back();
   }
 }

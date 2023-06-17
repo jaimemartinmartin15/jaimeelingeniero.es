@@ -38,7 +38,7 @@ export class ResumeGameComponent implements OnInit {
 
     // load players and scores
     gameService.players = JSON.parse(localStorage.getItem(LOCAL_STORE_KEYS.PLAYERS)!);
-    gameService.playerStartsDealing = JSON.parse(localStorage.getItem(LOCAL_STORE_KEYS.STARTS_DEALING)!);
+    gameService.dealingPlayerIndex = JSON.parse(localStorage.getItem(LOCAL_STORE_KEYS.DEALING_PLAYER_INDEX)!);
 
     // override configuration from local storage
     const config = JSON.parse(localStorage.getItem(LOCAL_STORE_KEYS.CONFIG)!);

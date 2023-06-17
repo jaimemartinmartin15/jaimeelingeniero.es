@@ -17,6 +17,10 @@ export class RoundInfoComponent {
 
   @HostListener('click')
   private navigateToChangeConfig() {
-    this.router.navigate(['../', ROUTING_PATHS.CHANGE_CONFIG], { relativeTo: this.activatedRoute });
+    // the condition is to ensure the player names were saved in local storage after
+    // entering first round and they do not appear empty
+    if (this.gameHolderService.service.getNextRoundNumber() > 1) {
+      this.router.navigate(['../', ROUTING_PATHS.CHANGE_CONFIG], { relativeTo: this.activatedRoute });
+    }
   }
 }
