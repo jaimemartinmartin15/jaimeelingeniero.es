@@ -5,4 +5,8 @@ import { Component } from '@angular/core';
   templateUrl: './pages-commands.component.html',
   styleUrls: ['./pages-commands.component.scss'],
 })
-export class PagesCommandsComponent {}
+export class PagesCommandsComponent {
+  public readonly commands: { display: string; url: string }[] = [
+    // TODO add commands here
+  ];
+}

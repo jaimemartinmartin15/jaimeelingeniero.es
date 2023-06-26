@@ -1,3 +1,8 @@
-<p>
-  pages-commands works!
-</p>
+<nav class="left-menu">
+  <a *ngFor="let command of commands" [routerLink]="[command.url]"
+    routerLinkActive="menu-section-active">{{command.display}}</a>
+</nav>
+
+<div class="command-article">
+  <router-outlet></router-outlet>
+</div>
