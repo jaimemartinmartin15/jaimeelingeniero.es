@@ -1,0 +1,45 @@
+:host {
+  display: flex;
+  gap: 40px;
+  max-width: 970px;
+  margin: auto;
+  padding: 0 20px 50px 20px;
+  line-height: 30px;
+}
+
+.left-menu {
+  display: flex;
+  flex-direction: column;
+  min-width: 150px;
+  margin-top: 30px;
+  max-height: calc(100vh - 100px);
+  position: sticky;
+  top: 50px;
+  overflow-y: scroll;
+
+  a {
+    margin: 15px 0 0 5px;
+    text-decoration: none;
+    color: black;
+    transition: 0.5s;
+    line-height: 25px;
+
+    &:hover:not(.menu-section-active) {
+      font-size: 1.15em;
+
+      &::after {
+        content: "➡️";
+        margin-left: 5px;
+      }
+    }
+  }
+
+  .menu-section-active {
+    color: #d17515;
+    font-size: 1.3em;
+  }
+}
+
+.command-article {
+  flex-grow: 1;
+}

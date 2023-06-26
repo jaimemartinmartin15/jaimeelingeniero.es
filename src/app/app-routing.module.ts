@@ -27,6 +27,10 @@ const routes: Routes = [
     loadChildren: () => import('../pages-bbdd/bbdd.module').then((m) => m.BBDDModule),
   },
   {
+    path: 'comandos',
+    loadChildren: () => import('../pages-commands/pages-commands.module').then((m) => m.PagesCommandsModule),
+  },
+  {
     path: '',
     loadChildren: () => import('../pages-presentation/home/home.module').then((m) => m.HomeModule),
   },
