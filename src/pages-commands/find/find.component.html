@@ -1,3 +1,77 @@
-<p>
-  find works!
-</p>
+<app-header-print></app-header-print>
+
+<main>
+  <section>
+    <!-- TODO put link to man page like in rxjs pages -->
+    <h1 class="title">Find</h1>
+
+    <p>
+      Este comando permite hacer <strong>búsqueda de ficheros y directorios</strong> en el sistema de archivos. Permite
+      buscarlos por nombre, tamaño y otros atributos. La sintaxis básica es:
+    </p>
+
+    <!-- TODO set background color -->
+    <pre>find &lt;directorio-de-entrada&gt; &lt;opciones&gt;</pre>
+
+    <ul>
+      <li><b>directorio-de-entrada</b>: es el directorio en el que empieza la búsqueda.</li>
+      <li><b>opciones</b>: especifica la búsqueda de ficheros por tamaño, fecha, etc.</li>
+    </ul>
+
+    <p>
+      El directorio de entrada por defecto es el actual, y algunas opciones son añadidas automaticamente con valores por
+      defecto.
+    </p>
+  </section>
+
+  <section>
+    <h2>Búsqueda por nombre de fichero</h2>
+
+    <p>Para buscar un fichero o directorio con un nombre concreto la opción a usar es <strong>-name</strong>:</p>
+
+    <app-terminal-code>
+      <span terminal-code-command>find -name nombre-fichero.txt</span>
+    </app-terminal-code>
+
+    <p>También podemos usar una expresión regular. Se recomienda encerrarla entre comillas.</p>
+
+    <app-terminal-code>
+      <span terminal-code-command>find -name "*.txt"</span>
+    </app-terminal-code>
+
+    <p>
+      Si no queremos tener en cuenta mayúsculas ni minúsculas, podemos usar la opción <strong>-iname</strong>
+    </p>
+  </section>
+
+  <section>
+    <h2>Limitar la búsqueda</h2>
+
+    <p>
+      Por defecto la búsqueda se hace de forma recursiva en los directorios que se va encontrando.
+    </p>
+
+    <p>
+      Podemos especificar desde, hasta que profundidad buscar con las opciones <strong>-mindepth</strong> y
+      <strong>-maxdepth</strong>
+    </p>
+
+    <app-terminal-code>
+      <p terminal-code-command>find -mindepth 2 -maxdepth 3</p>
+    </app-terminal-code>
+
+    <p>
+      <span class="app-no-break">-mindepth 1</span> significa que procese todos los ficheros o directorios excepto los
+      del punto de partida. <span class="app-no-break">-maxdepth 0</span> significa que procese sólo los puntos de
+      entrada.
+    </p>
+
+    <p>
+      Para <strong>excluir directorios</strong> de la búsqueda podemos hacerlo con la opción <strong>-not -path</strong>
+    </p>
+
+    <app-terminal-code>
+      <span terminal-code-command>find -name package.json -not -path "./node_modules/*"</span>
+    </app-terminal-code>
+  </section>
+</main>

@@ -6,6 +6,12 @@ const routes: Routes = [
   {
     path: '',
     component: FindComponent,
+    data: {
+      headerPrint: {
+        author: 'Jaime Martín Martín',
+        date: '27 de junio de 2023',
+      },
+    },
   },
   {
     path: '**',
