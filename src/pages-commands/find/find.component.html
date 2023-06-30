@@ -158,19 +158,98 @@
 
   <section>
     <h1>Búsqueda por tamaño</h1>
+
+    <p>
+      Podemos realizar búsquedas por el tamaño de un fichero con la opción <strong class="app-no-break">-size</strong>:
+    </p>
+
+    <app-terminal-code>
+      <span terminal-code-command>find -size 15M</span>
+    </app-terminal-code>
+
+    <p>
+      Debemos pasarle una cantidad y una unidad. En este caso se mostrarán los ficheros que ocupen 15 mebibytes.
+    </p>
+
+    <p>
+      También podemos usar las opciones + y - como hicimos en la búsqueda por fechas.
+    </p>
+
+    <p>Las unidades disponibles son:</p>
+
+    <ul>
+      <li><strong>b</strong>: bloques de 512 bytes</li>
+      <li><strong>c</strong>: bytes</li>
+      <li><strong>k</strong>: kibibytes</li>
+      <li><strong>M</strong>: mebibytes</li>
+      <li><strong>G</strong>: gibibytes</li>
+    </ul>
   </section>
 
   <section>
     <h1>Búsqueda por dueño</h1>
+
+    <p>
+      Find también nos permite buscar ficheros por el propietario del mismo con la opción <strong
+        class="app-no-break">-user</strong> o <strong class="app-no-break">-group</strong>:
+    </p>
+
+    <app-terminal-code>
+      <span terminal-code-command>find -user jaime</span>
+    </app-terminal-code>
+
+    <p>
+      Busca todos los ficheros que son propiedad del usuario con nombre jaime.
+    </p>
+
+    <app-terminal-code>
+      <span terminal-code-command>find -group 1001</span>
+    </app-terminal-code>
+
+    <p>
+      También se permite pasar el id del usuario o el grupo. En este último caso se mostrarán los ficheros que
+      pertenecen al grupo con id 1001.
+    </p>
   </section>
 
   <section>
     <h1>Búsqueda por permisos</h1>
+
+    <p>
+      Con la opción <strong class="app-no-break">-perm</strong> podemos buscar ficheros con exactamente los permisos que
+      le pasemos:
+    </p>
+
+    <app-terminal-code>
+      <span terminal-code-command>find -perm 700</span>
+    </app-terminal-code>
+
+    <p>
+      Con este comando buscamos ficheros que tengan permisos de lectura, escritura y ejecución para los propietarios del
+      fichero, pero para nadie más. Es decir, exactamente los permisos <span class="app-no-break">-rwx------</span>.
+    </p>
+
+    <p>
+      La opción <span class="app-no-break">-perm</span> también permite búsquedas más flexibles. Por ejemplo, para
+      buscar si al menos tiene activado todos los permisos que le pasemos añadimos un - delante de la representación
+      octal (también se podría usar la notación simbólica):
+    </p>
+
+    <app-terminal-code>
+      <span terminal-code-command>find -perm -4000</span>
+    </app-terminal-code>
+
+    <p>
+      Este comando buscaría ficheros que tienen el bit SUID activado, independientemente de si tienen o no otros
+      permisos de lectura, escritura o ejecución activados.
+    </p>
+
   </section>
 
   <section>
     <h1>Otras opciones</h1>
 
+    <p></p>
     <!-- TODO Usar ands y ors, exec, directorios vacios -->
   </section>
 </main>
