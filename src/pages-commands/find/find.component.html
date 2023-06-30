@@ -74,4 +74,103 @@
       <span terminal-code-command>find -name package.json -not -path "./node_modules/*"</span>
     </app-terminal-code>
   </section>
+
+  <section>
+    <h1>Búsqueda por tipo</h1>
+
+    <p>
+      En Linux existen archivos, directorios, enlaces simbólicos, etc. El comando find nos permite buscar por este tipo
+      mediante la opción <strong>-type:</strong>
+    </p>
+
+    <app-terminal-code>
+      <span terminal-code-command>find -type f </span>
+    </app-terminal-code>
+
+    <ul>
+      <li><strong>f</strong>: ficheros normales</li>
+      <li><strong>d</strong>: directorios</li>
+      <li><strong>l</strong>: enlaces simbólicos</li>
+      <li><strong>s</strong>: sockets</li>
+      <li>...</li>
+    </ul>
+  </section>
+
+  <section>
+    <h1>Búsqueda por fecha</h1>
+
+    <p>
+      El comando find no permite buscar por la fecha de creación de un fichero, pero permite buscar por la
+      <strong>fecha de modificación</strong> con la opción <strong class="app-no-break">-mtime</strong>:
+    </p>
+
+    <app-terminal-code>
+      <span terminal-code-command>find -mtime 1</span>
+    </app-terminal-code>
+
+    <p>
+      Con este comando estamos buscando archivos que fueron modificados exactamente hace un día. Con modificar me
+      refiero a escribir en ellos, a editar su contenido y a guardarlo.
+    </p>
+
+    <p>
+      También podemos buscar por la <strong>fecha de acceso</strong> con la opción <strong
+        class="app-no-break">-atime</strong>:
+    </p>
+
+    <app-terminal-code>
+      <span terminal-code-command>find -atime +2</span>
+    </app-terminal-code>
+
+    <p>
+      Con este comando buscamos ficheros que hayan sido accedidos hace más de dos días por última vez. Con accedido me
+      refiero a que algún programa ha leído el contendido para mostrarlo por pantalla, o enviarlo por correo, por
+      ejemplo.
+    </p>
+
+    <p>
+      También podemos buscar por la <strong>fecha de modificación de las propiedades</strong> del archivo con la opción
+      <strong class="app-no-break">-ctime</strong>:
+    </p>
+
+    <app-terminal-code>
+      <span terminal-code-command>find -ctime -3</span>
+    </app-terminal-code>
+
+    <p>
+      Con este comando buscamos ficheros cuyos metadatos han sido modificados por última vez hace menos de tres días.
+      Con metadatos me refiero a los permisos, nombre o directorio en el que se encuentra.
+    </p>
+
+    <p>
+      Como vemos en los ejemplos, añadiendo el + o el - podemos indicar que sea más tiempo de, menos tiempo de, o que
+      sea exactamente un tiempo. En realidad el número pasado a la opción es 24 horas multiplicado por ese número. Si
+      pasamos 0.5, pues sería medio día (12 horas).
+      <!-- TODO review this comment about decimal numbers -->
+    </p>
+
+    <p>
+      Si la búsqueda la queremos hacer en minutos, también tenemos las opciones <strong
+        class="app-no-break">-mmin</strong>, <strong class="app-no-break">-amin</strong> y <strong
+        class="app-no-break">-cmin</strong>.
+    </p>
+  </section>
+
+  <section>
+    <h1>Búsqueda por tamaño</h1>
+  </section>
+
+  <section>
+    <h1>Búsqueda por dueño</h1>
+  </section>
+
+  <section>
+    <h1>Búsqueda por permisos</h1>
+  </section>
+
+  <section>
+    <h1>Otras opciones</h1>
+
+    <!-- TODO Usar ands y ors, exec, directorios vacios -->
+  </section>
 </main>
