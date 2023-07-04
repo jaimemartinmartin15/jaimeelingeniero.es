@@ -46,3 +46,4 @@ There is a (private) [Trello board](https://trello.com/b/gnJWWpVh/jaime-el-ingen
   * Add router data metaTags (description and keywords)
   * Add router data headerPrint (author and date) if necessary
 * Make sure invalid routes are redirected correctly
+* Review mobile and desktop designs
