@@ -56,6 +56,18 @@
         }
       }
     }
+
+    .calendar {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      list-style: none;
+      padding: 0;
+
+      li:nth-child(-n + 7) {
+        // these are the initials of the week days LMXJVSD
+        font-weight: bold;
+      }
+    }
   }
 
   .year-graphic-container {

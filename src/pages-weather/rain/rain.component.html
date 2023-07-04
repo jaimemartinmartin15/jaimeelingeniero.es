@@ -11,8 +11,21 @@
           <span>&gt;</span>
         </div>
       </div>
+
+      <ol class="calendar">
+        <li>L</li>
+        <li>M</li>
+        <li>X</li>
+        <li>J</li>
+        <li>V</li>
+        <li>S</li>
+        <li>D</li>
+
+        <li [ngStyle]="{'grid-column-start': weekDayIndexMonthStarts}">1</li>
+        <li *ngFor="let day of monthDaysLiters | slice:1; let i=index">{{i+2}}</li>
+      </ol>
     </div>
-    
+
     <span class="caption">Total litros: 58 L</span>
   </div>
 
