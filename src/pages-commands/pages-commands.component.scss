@@ -1,45 +1,59 @@
 :host {
-  display: flex;
-  gap: 40px;
-  max-width: 970px;
+  display: block;
+  max-width: 1000px;
   margin: auto;
-  padding: 0 20px 50px 20px;
-  line-height: 30px;
+  padding-bottom: 65px;
 }
 
-.left-menu {
+.content {
   display: flex;
-  flex-direction: column;
-  min-width: 150px;
-  margin-top: 30px;
-  max-height: calc(100vh - 100px);
-  position: sticky;
-  top: 50px;
-  overflow-y: scroll;
 
-  a {
-    margin: 15px 0 0 5px;
-    text-decoration: none;
-    color: black;
-    transition: 0.5s;
-    line-height: 25px;
+  .left-menu {
+    display: flex;
+    flex-direction: column;
+    min-width: 250px;
+    margin-top: 30px;
+    max-height: calc(100vh - 100px);
+    position: sticky;
+    top: 50px;
+    overflow-y: auto;
 
-    &:hover:not(.menu-section-active) {
-      font-size: 1.15em;
+    a {
+      margin: 15px 0 0 5px;
+      text-decoration: none;
+      color: black;
+      transition: 0.5s;
+      line-height: 25px;
 
-      &::after {
-        content: "➡️";
-        margin-left: 5px;
+      &:hover:not(.menu-section-active) {
+        font-size: 1.15em;
+
+        &::after {
+          content: "➡️";
+          margin-left: 5px;
+        }
       }
+    }
+
+    .menu-section-active {
+      color: #d17515;
+      font-size: 1.3em;
     }
   }
 
-  .menu-section-active {
-    color: #d17515;
-    font-size: 1.3em;
+  .pages {
+    flex-grow: 1;
+    margin: 0 20px;
   }
 }
 
-.command-article {
-  flex-grow: 1;
+@media (max-width: 1000px) {
+  .content {
+    display: block;
+
+    .left-menu {
+      position: static;
+      overflow: hidden;
+    }
+  }
 }

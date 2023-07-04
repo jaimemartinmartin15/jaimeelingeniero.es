@@ -1,8 +1,7 @@
-:host {
-  display: block;
-}
+@import "../shared/base-page";
 
-.title {
-  text-align: center;
-  margin: 20px 10px 10px 10px;
+.command-sintax {
+  overflow-x: auto;
+  background-color: #f2f2f2;
+  padding: 10px 15px;
 }
