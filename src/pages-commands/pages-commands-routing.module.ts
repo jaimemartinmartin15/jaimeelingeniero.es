@@ -8,8 +8,12 @@ const routes: Routes = [
     component: PagesCommandsComponent,
     children: [
       {
+        path: 'find',
+        loadChildren: () => import('./find/find.module').then((m) => m.FindModule),
+      },
+      {
         path: '**',
-        redirectTo: '', // TODO establish default command
+        redirectTo: 'find',
       },
     ],
   },

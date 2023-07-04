@@ -1,8 +1,12 @@
-<nav class="left-menu">
-  <a *ngFor="let command of commands" [routerLink]="[command.url]"
-    routerLinkActive="menu-section-active">{{command.display}}</a>
-</nav>
+<app-header-print></app-header-print>
 
-<div class="command-article">
-  <router-outlet></router-outlet>
+<div class="content">
+  <nav class="left-menu">
+    <a *ngFor="let command of commands" [routerLink]="[command.url]"
+      routerLinkActive="menu-section-active">{{command.display}}</a>
+  </nav>
+
+  <div class="pages">
+    <router-outlet></router-outlet>
+  </div>
 </div>
