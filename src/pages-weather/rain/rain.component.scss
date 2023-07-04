@@ -1,3 +1,38 @@
 :host {
   display: block;
+  padding: 15px;
+}
+
+.graphics-container {
+  display: flex;
+  gap: 40px;
+
+  [class$="graphic-container"] {
+    width: 50%;
+
+    // TODO remove
+    border: 2px solid black;
+    border-radius: 8px;
+    height: 400px;
+  }
+
+  .month-graphic-container {
+  }
+
+  .year-graphic-container {
+  }
+}
+
+@media (max-width: 992px) {
+  .title {
+    text-align: center;
+  }
+
+  .graphics-container {
+    flex-wrap: wrap;
+
+    [class$="graphic-container"] {
+      width: 100%;
+    }
+  }
 }
