@@ -15,9 +15,7 @@
     .graphic-card {
       border: 2px solid black;
       border-radius: 8px;
-
-      // TODO remove
-      height: 300px;
+      padding: 5px;
     }
 
     .caption {
@@ -28,6 +26,36 @@
   }
 
   .month-graphic-container {
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 20px;
+
+      .icon {
+        flex-grow: 1;
+      }
+
+      .change-month-buttons {
+        display: flex;
+        gap: 10px;
+
+        span {
+          display: inline-flex;
+          justify-content: center;
+          align-items: center;
+          border: 2px solid black;
+          border-radius: 3px;
+          width: 30px;
+          height: 30px;
+          cursor: pointer;
+        }
+
+        span:hover {
+          background-color: #bad0ff;
+        }
+      }
+    }
   }
 
   .year-graphic-container {
