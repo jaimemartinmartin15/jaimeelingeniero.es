@@ -52,6 +52,7 @@
     display: block;
 
     .left-menu {
+      display: none; // TODO create a content page like in rxjs pages
       position: static;
       overflow: hidden;
     }

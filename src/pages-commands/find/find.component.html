@@ -9,7 +9,7 @@
 
 <section>
   <p>
-    Este comando permite hacer <strong>búsqueda de ficheros y directorios</strong> en un sistema de archivos . Además
+    Este comando permite hacer <strong>búsqueda de ficheros y directorios</strong> en un sistema de archivos. Además
     de búsquedas por nombre, tamaño y otros atributos permite realizar otras acciones con los resultados obtenidos. La
     sintaxis simplificada es:
   </p>
@@ -75,19 +75,21 @@
 
   <app-terminal-code>
     <span terminal-code-command>find / -name nombre-fichero.txt</span>
-    <!-- TODO add an output example ? -->
+    <span terminal-code-output>/home/jaime/nombre-fichero.txt</span>
   </app-terminal-code>
 
   <p>
     Con este comando, para cada fichero encontrado de forma recursiva en el sistema de archivos, se comprueba si su
     nombre es <span class="app-no-break">"nombre-fichero.txt"</span>. Si esto es cierto, por defecto la acción
-    -print tomará efecto, que es imprimir el fichero por la salida estándard.
+    <span class="app-no-break">-print</span> tomará efecto, que es imprimir el fichero por la salida estándard.
   </p>
 
   <p>También podemos usar una expresión regular simple. Se recomienda encerrarla entre comillas.</p>
 
   <app-terminal-code>
     <span terminal-code-command>find -name "*.txt"</span>
+    <pre terminal-code-output>./Escritorio/reyes.txt
+./Musica/playlist.txt</pre>
   </app-terminal-code>
 
   <p>
@@ -99,7 +101,8 @@
     Si queremos tener en cuenta <strong>toda la ruta del archivo</strong> (relativa al directorio de entrada),
     deberemos usar <strong class="app-no-break">-path</strong> o <strong class="app-no-break">-regex</strong>. La
     diferencia está en como se tratan las expresiones regulares y los caracteres especiales. La opción regex permite
-    expresiones regulares más complejas, mientras que path son más sencillas.
+    expresiones regulares más complejas, mientras que con path son más sencillas y no se interpretan algunos
+    metacaracteres.
   </p>
 </section>
 
@@ -194,7 +197,7 @@
   </app-terminal-code>
 
   <p>
-    Con este comando buscamos ficheros que hayan sido accedidos hace más de dos días (2 o más bloques de 24 horas) por
+    Con este comando buscamos ficheros que hayan sido accedidos hace más de dos días (3 o más bloques de 24 horas) por
     última vez. Con accedido me refiero a que algún programa ha leído el contendido para mostrarlo por pantalla, o
     enviarlo por correo, por ejemplo.
   </p>
