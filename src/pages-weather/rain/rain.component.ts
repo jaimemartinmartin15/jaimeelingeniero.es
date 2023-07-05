@@ -33,4 +33,24 @@ export class RainComponent implements OnInit {
   public get weekDayIndexMonthStarts(): number {
     return new Date(this.currentYear, this.currentMonthIndex, 1).getDay();
   }
+
+  public showPreviousMonth() {
+    this.currentMonthIndex--;
+    if (this.currentMonthIndex < 0) {
+      this.currentMonthIndex = 11; // set December last year
+      this.currentYear--;
+    }
+
+    this.setMonthDays(this.currentYear, this.currentMonthIndex);
+  }
+
+  public showNextMonth() {
+    this.currentMonthIndex++;
+    if (this.currentMonthIndex > 11) {
+      this.currentMonthIndex = 0; // set January next year
+      this.currentYear++;
+    }
+
+    this.setMonthDays(this.currentYear, this.currentMonthIndex);
+  }
 }
