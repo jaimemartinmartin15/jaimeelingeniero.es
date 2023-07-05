@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { MONTHS } from 'src/utils/dates';
 
 @Component({
   selector: 'app-rain',
@@ -7,6 +8,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./rain.component.scss'],
 })
 export class RainComponent implements OnInit {
+  public readonly MONTHS = MONTHS;
   public currentYear = new Date().getFullYear();
   public currentMonthIndex = new Date().getMonth();
   public monthDays: { percentage: number; liters: number }[] = [];
@@ -32,6 +34,10 @@ export class RainComponent implements OnInit {
 
   public get weekDayIndexMonthStarts(): number {
     return new Date(this.currentYear, this.currentMonthIndex, 1).getDay();
+  }
+
+  public get totalAmountOfLitersInCurrentMonth(): number {
+    return this.monthDays.map((d) => d.liters).reduce((a, b) => a + b, 0);
   }
 
   public showPreviousMonth() {
