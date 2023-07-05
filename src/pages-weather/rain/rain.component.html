@@ -24,9 +24,7 @@
       <svg class="pluviometer-svg" viewBox="0 0 300 360">
         <filter [id]="'fillpartial'+i">
           <feFlood flood-color="#00a2e8" />
-          <feOffset [attr.dy]="day.svgOffset">
-            <animate attributeName="dy" from="365" [attr.to]="day.svgOffset" dur="0.6s" />
-          </feOffset>
+          <feOffset [attr.dy]="day.svgOffset"></feOffset>
           <feComposite operator="in" in2="SourceGraphic" />
           <feComposite operator="over" in2="SourceGraphic" />
         </filter>
