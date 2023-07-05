@@ -1,53 +1,46 @@
-<h1 class="title">Lluvias</h1>
-
-<div class="graphics-container">
-  <div class="month-graphic-container">
-    <div class="graphic-card">
-      <div class="header">
-        <span>Julio 2023</span>
-        <span class="icon">☀️</span>
-        <div class="change-month-buttons">
-          <!-- TODO change to buttons -->
-          <span>&lt;</span>
-          <span>&gt;</span>
-        </div>
-      </div>
-
-      <ol class="calendar">
-        <li>L</li>
-        <li>M</li>
-        <li>X</li>
-        <li>J</li>
-        <li>V</li>
-        <li>S</li>
-        <li>D</li>
-
-        <li *ngFor="let day of monthDays; let i=index"
-          [ngStyle]="i===0 ?{'grid-column-start': weekDayIndexMonthStarts}:{}">
-          <span class="day-number">{{i+1}}</span>
-          <svg class="pluviometer-svg" viewBox="0 0 300 360">
-            <defs>
-              <filter [id]="'fillpartial'+i" primitiveUnits="objectBoundingBox" x="0%" y="0%" width="100%" height="100%">
-                <feFlood x="0%" y="0%" width="100%" height="100%" flood-color="#00a2e8" />
-                <feOffset [attr.dy]="1-day.percentage">
-                  <animate attributeName="dy" from="1" [attr.to]="1-day.percentage" dur="0.6s" />
-                </feOffset>
-                <feComposite operator="in" in2="SourceGraphic" />
-                <feComposite operator="over" in2="SourceGraphic" />
-              </filter>
-            </defs>
-            <path [attr.filter]="'url(#fillpartial'+i+')'" d="M10,40C100,10 200,10 290,40L290,115C280,150 240,160 220,170L190,350L110,350L80,170C60,160 20,150 10,115Z" stroke="#b5e61d" stroke-width="20" fill="#e1ffe2"/>
-          </svg>
-          <span class="liters">{{day.liters}} L</span>
-        </li>
-      </ol>
+<div class="month-graphic-container">
+  <div class="header">
+    <span>
+      <p class="month-and-year">Julio 2023</p>
+      <!-- TODO replace liters -->
+      <p class="liters">4 litros</p>
+    </span>
+    <span class="icon">☀️</span>
+    <div class="change-month-buttons">
+      <button>&lt;</button>
+      <button>&gt;</button>
     </div>
-
-    <span class="caption">Total litros: 58 L</span>
   </div>
 
-  <div class="year-graphic-container">
-    <div class="graphic-card"></div>
-    <span class="caption">Total litros: 58 L</span>
-  </div>
+  <ol class="calendar">
+    <li>L</li>
+    <li>M</li>
+    <li>X</li>
+    <li>J</li>
+    <li>V</li>
+    <li>S</li>
+    <li>D</li>
+
+    <li *ngFor="let day of monthDays; let i=index" [ngStyle]="i===0 ?{'grid-column-start': weekDayIndexMonthStarts}:{}">
+      <span class="day-number">{{i+1}}</span>
+      <svg class="pluviometer-svg" viewBox="0 0 300 360">
+        <defs>
+          <filter [id]="'fillpartial'+i" primitiveUnits="objectBoundingBox" x="0%" y="0%" width="100%" height="100%">
+            <feFlood x="0%" y="0%" width="100%" height="100%" flood-color="#00a2e8" />
+            <feOffset [attr.dy]="1-day.percentage">
+              <animate attributeName="dy" from="1" [attr.to]="1-day.percentage" dur="0.6s" />
+            </feOffset>
+            <feComposite operator="in" in2="SourceGraphic" />
+            <feComposite operator="over" in2="SourceGraphic" />
+          </filter>
+        </defs>
+        <path [attr.filter]="'url(#fillpartial'+i+')'"
+          d="M10,40C100,10 200,10 290,40L290,115C280,150 240,160 220,170L190,350L110,350L80,170C60,160 20,150 10,115Z"
+          stroke="#b5e61d" stroke-width="20" fill="#e1ffe2" />
+      </svg>
+      <span class="liters">{{day.liters}} L</span>
+    </li>
+  </ol>
 </div>
+
+<div class="graphic-card"></div>
