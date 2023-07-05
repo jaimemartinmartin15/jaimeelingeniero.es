@@ -19,14 +19,17 @@ export class RainComponent implements OnInit {
 
   public ngOnInit() {
     this.http.get('assets/pages-weather/rain/rain-data.txt', { responseType: 'text' }).subscribe((response) => {
-      this.historical = response.split('\n').map((line) => {
-        const date = line.split(/\/|-|\r/); // \r is the new line, so the liters do not contain it
-        // svgOffset: 360 is svg viewBox height (363 avoids shadow). Pluviometer: offset 0 -> full water (35 L)    offset 360 -> empty water (0 L)
-        // start from offset 185 to not fill full pluviometer  (difference 178)   offset 185 -> 35 L     offset 363 -> 0 L
-        // if it rains more than 70 do not take it into account (negative offset)
-        const svgOffset = 363 - 178 * (Math.min(+date[3], 70) / 35);
-        return { date: new Date(+date[2], +date[1] - 1, +date[0]), svgOffset, liters: +date[3] };
-      });
+      this.historical = response
+        .split('\n')
+        .filter((l) => !l.trim().startsWith('//') && l.trim() !== '')
+        .map((line) => {
+          const date = line.split(/\/|-|\r/); // \r is the new line, so the liters do not contain it
+          // svgOffset: 360 is svg viewBox height (363 avoids shadow). Pluviometer: offset 0 -> full water (35 L)    offset 360 -> empty water (0 L)
+          // start from offset 185 to not fill full pluviometer  (difference 178)   offset 185 -> 35 L     offset 363 -> 0 L
+          // if it rains more than 70 do not take it into account (negative offset)
+          const svgOffset = 363 - 178 * (Math.min(+date[3], 70) / 35);
+          return { date: new Date(+date[2], +date[1] - 1, +date[0]), svgOffset, liters: +date[3] };
+        });
 
       this.setMonthDays(this.currentYear, this.currentMonthIndex);
       this.calculateWaterYearLines(this.currentYear);
