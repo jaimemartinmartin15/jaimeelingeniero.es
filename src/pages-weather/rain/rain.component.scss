@@ -92,7 +92,25 @@ div[class$="graphic-container"] {
 }
 
 .year-graphic-container {
-  // TODO
+  .header {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    gap: 15px;
+    margin: 10px 10px 40px 10px;
+    font-size: 1.5rem;
+    font-weight: bold;
+
+    button {
+      background-color: #cbf0ff;
+      border: 2px solid black;
+      border-radius: 3px;
+      width: 42px;
+      height: 42px;
+      cursor: pointer;
+      font-size: 1.5rem;
+    }
+  }
 }
 
 @media (max-width: 992px) {

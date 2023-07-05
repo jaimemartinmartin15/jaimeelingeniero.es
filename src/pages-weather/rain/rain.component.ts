@@ -12,6 +12,7 @@ export class RainComponent implements OnInit {
   public currentYear = new Date().getFullYear();
   public currentMonthIndex = new Date().getMonth();
   public monthDays: { svgOffset: number; liters: number }[] = [];
+  public waterYearLines: number[] = [];
   public historical: { date: Date; svgOffset: number; liters: number }[] = [];
 
   public constructor(private readonly http: HttpClient) {}
@@ -27,8 +28,23 @@ export class RainComponent implements OnInit {
         return { date: new Date(+date[2], +date[1] - 1, +date[0]), svgOffset, liters: +date[3] };
       });
 
+      this.calculateWaterYearLines(this.currentYear);
+
       this.setMonthDays(this.currentYear, this.currentMonthIndex);
     });
+  }
+
+  public calculateWaterYearLines(year: number) {
+    const monthLiters: { [key: string]: number } = {};
+    this.historical
+      .filter((d) => d.date.getFullYear() === year)
+      .forEach((h) => {
+        monthLiters[h.date.getMonth()] = monthLiters[h.date.getMonth()] ?? 0;
+        monthLiters[h.date.getMonth()] += h.liters;
+      });
+    const maxLiters = Math.max(...Object.values(monthLiters));
+    // 0 L -> 258 (svg x axis height aprox)    MAX L -> 0
+    this.waterYearLines = Object.values(monthLiters).map((l) => 258 - 258 * (l / maxLiters));
   }
 
   public setMonthDays(year: number, month: number) {

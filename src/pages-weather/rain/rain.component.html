@@ -49,4 +49,25 @@
   </p>
 </div>
 
-<div class="graphic-card"></div>
+<div class="year-graphic-container">
+  <div class="header">
+    <button (click)="showPreviousMonth()">&lt;</button>
+    <span>{{currentYear}}</span>
+    <button (click)="showNextMonth()">&gt;</button>
+  </div>
+
+  <svg viewBox="0 0 400 300">
+    <!-- water lines -->
+    <line *ngFor="let waterLine of waterYearLines; let i=index" [attr.x1]="30 + 30*i" y1="260" [attr.x2]="30 + 30*i"
+      [attr.y2]="waterLine" stroke="#00a2e8" stroke-width="20" />
+
+    <!-- y axis -->
+    <line x1="5" y1="5" x2="5" y2="260" stroke="black" stroke-width="5" />
+
+    <!-- x axis -->
+    <line x1="2.5" y1="260" x2="390" y2="260" stroke="black" stroke-width="5" />
+
+    <!-- month initial letters -->
+    <text [attr.x]="25 + 30*i" y="290" *ngFor="let month of MONTHS; let i=index">{{month[0]}}</text>
+  </svg>
+</div>
