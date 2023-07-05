@@ -94,7 +94,7 @@
 
         .liters {
           font-size: 0.8rem;
-          color: rgb(0,162,232);
+          color: #00a2e8;
           font-weight: bold;
         }
       }
@@ -108,6 +108,7 @@
 @media (max-width: 992px) {
   .title {
     text-align: center;
+    margin-top: 10px;
   }
 
   .graphics-container {
