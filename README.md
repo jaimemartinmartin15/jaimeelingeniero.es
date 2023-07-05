@@ -45,4 +45,5 @@ There is a (private) [Trello board](https://trello.com/b/gnJWWpVh/jaime-el-ingen
   * Add title for the new page
   * Add router data metaTags (description and keywords)
   * Add router data headerPrint (author and date) if necessary
+  * Add router data favIcons if they are different than the default and check they work
 * Make sure invalid routes are redirected correctly

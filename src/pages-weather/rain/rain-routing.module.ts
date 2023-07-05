@@ -11,6 +11,7 @@ const routes: Routes = [
       metaTags: {
         description: 'En esta página podrás ver lo que ha llovido en la zona que vivo a lo largo del tiempo.',
         keywords: ['lluvia', 'tiempo', 'precipitacion'],
+        favIcon: 'assets/favicons/pages-weather/rain/favicon-{size}x{size}.png',
       },
     },
   },
