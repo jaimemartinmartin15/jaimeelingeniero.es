@@ -21,7 +21,7 @@ export class RainComponent implements OnInit {
       this.historical = response.split('\n').map((line) => {
         const date = line.split(/\/|-|\r/); // \r is the new line, so the liters do not contain it
         const percentage = (+date[3] * 0.8) / 35; // pluviometer makes 35 liters but it only fills 80% in the animation
-        return { date: new Date(+date[2], +date[1], +date[0]), percentage, liters: +date[3] };
+        return { date: new Date(+date[2], +date[1]-1, +date[0]), percentage, liters: +date[3] };
       });
 
       this.setMonthDays(this.currentYear, this.currentMonthIndex);
