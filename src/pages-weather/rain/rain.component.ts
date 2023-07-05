@@ -28,10 +28,15 @@ export class RainComponent implements OnInit {
         return { date: new Date(+date[2], +date[1] - 1, +date[0]), svgOffset, liters: +date[3] };
       });
 
-      this.calculateWaterYearLines(this.currentYear);
-
       this.setMonthDays(this.currentYear, this.currentMonthIndex);
+      this.calculateWaterYearLines(this.currentYear);
     });
+  }
+
+  public setMonthDays(year: number, month: number) {
+    this.currentYear = year;
+    this.currentMonthIndex = month;
+    this.monthDays = this.historical.filter((d) => d.date.getFullYear() === year && d.date.getMonth() === month);
   }
 
   public calculateWaterYearLines(year: number) {
@@ -47,25 +52,8 @@ export class RainComponent implements OnInit {
     this.waterYearLines = Object.values(monthLiters).map((l) => 258 - 258 * (l / maxLiters));
   }
 
-  public setMonthDays(year: number, month: number) {
-    this.currentYear = year;
-    this.currentMonthIndex = month;
-    this.monthDays = this.historical.filter((d) => d.date.getFullYear() === year && d.date.getMonth() === month);
-  }
-
-  public get weekDayIndexMonthStarts(): number {
-    return new Date(this.currentYear, this.currentMonthIndex, 1).getDay();
-  }
-
   public get totalAmountOfLitersInCurrentMonth(): number {
     return this.monthDays.map((d) => d.liters).reduce((a, b) => a + b, 0);
-  }
-
-  public get totalAmountOfLitersInCurrentYear(): number {
-    return this.historical
-      .filter((d) => d.date.getFullYear() === this.currentYear)
-      .map((h) => h.liters)
-      .reduce((a, b) => a + b, 0);
   }
 
   public get weatherIcon(): string {
@@ -95,6 +83,17 @@ export class RainComponent implements OnInit {
     }
 
     this.setMonthDays(this.currentYear, this.currentMonthIndex);
+  }
+
+  public get weekDayIndexMonthStarts(): number {
+    return new Date(this.currentYear, this.currentMonthIndex, 1).getDay();
+  }
+
+  public get totalAmountOfLitersInCurrentYear(): number {
+    return this.historical
+      .filter((d) => d.date.getFullYear() === this.currentYear)
+      .map((h) => h.liters)
+      .reduce((a, b) => a + b, 0);
   }
 
   public showPreviousYear() {
