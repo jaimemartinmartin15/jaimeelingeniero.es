@@ -48,6 +48,8 @@ export class RainComponent implements OnInit {
   }
 
   public setMonthDays(year: number, month: number) {
+    this.currentYear = year;
+    this.currentMonthIndex = month;
     this.monthDays = this.historical.filter((d) => d.date.getFullYear() === year && d.date.getMonth() === month);
   }
 
@@ -57,6 +59,13 @@ export class RainComponent implements OnInit {
 
   public get totalAmountOfLitersInCurrentMonth(): number {
     return this.monthDays.map((d) => d.liters).reduce((a, b) => a + b, 0);
+  }
+
+  public get totalAmountOfLitersInCurrentYear(): number {
+    return this.historical
+      .filter((d) => d.date.getFullYear() === this.currentYear)
+      .map((h) => h.liters)
+      .reduce((a, b) => a + b, 0);
   }
 
   public get weatherIcon(): string {
@@ -71,6 +80,7 @@ export class RainComponent implements OnInit {
     if (this.currentMonthIndex < 0) {
       this.currentMonthIndex = 11; // set December last year
       this.currentYear--;
+      this.calculateWaterYearLines(this.currentYear);
     }
 
     this.setMonthDays(this.currentYear, this.currentMonthIndex);
@@ -81,8 +91,21 @@ export class RainComponent implements OnInit {
     if (this.currentMonthIndex > 11) {
       this.currentMonthIndex = 0; // set January next year
       this.currentYear++;
+      this.calculateWaterYearLines(this.currentYear);
     }
 
+    this.setMonthDays(this.currentYear, this.currentMonthIndex);
+  }
+
+  public showPreviousYear() {
+    this.currentYear--;
+    this.calculateWaterYearLines(this.currentYear);
+    this.setMonthDays(this.currentYear, this.currentMonthIndex);
+  }
+
+  public showNextYear() {
+    this.currentYear++;
+    this.calculateWaterYearLines(this.currentYear);
     this.setMonthDays(this.currentYear, this.currentMonthIndex);
   }
 }

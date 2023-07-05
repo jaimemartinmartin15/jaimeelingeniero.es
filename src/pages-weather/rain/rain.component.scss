@@ -84,11 +84,6 @@ div[class$="graphic-container"] {
       }
     }
   }
-
-  .no-data-available {
-    margin-top: 40px;
-    text-align: center;
-  }
 }
 
 .year-graphic-container {
@@ -100,6 +95,20 @@ div[class$="graphic-container"] {
     margin: 10px 10px 40px 10px;
     font-size: 1.5rem;
     font-weight: bold;
+    text-align: center;
+
+    .year {
+      margin: 0;
+      font-size: 1.5rem;
+      font-weight: bold;
+    }
+
+    .liters {
+      margin: 0;
+      color: #00a2e8;
+      font-weight: bold;
+      font-size: 1rem;
+    }
 
     button {
       background-color: #cbf0ff;
@@ -111,6 +120,15 @@ div[class$="graphic-container"] {
       font-size: 1.5rem;
     }
   }
+
+  .water-year-line {
+    cursor: pointer;
+  }
+}
+
+.no-data-available {
+  margin-top: 40px;
+  text-align: center;
 }
 
 @media (max-width: 992px) {
