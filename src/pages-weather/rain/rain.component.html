@@ -4,7 +4,7 @@
       <p class="month-and-year">{{MONTHS[currentMonthIndex]}} {{currentYear}}</p>
       <p class="liters">{{totalAmountOfLitersInCurrentMonth}} litros</p>
     </span>
-    <span class="icon">☀️</span>
+    <span class="icon">{{weatherIcon}}</span>
     <div class="change-month-buttons">
       <button (click)="showPreviousMonth()">&lt;</button>
       <button (click)="showNextMonth()">&gt;</button>
@@ -40,6 +40,10 @@
       <span class="liters">{{day.liters}} L</span>
     </li>
   </ol>
+
+  <p *ngIf="monthDays.length === 0" class="no-data-available">
+    No hay datos disponibles
+  </p>
 </div>
 
 <div class="graphic-card"></div>
