@@ -71,16 +71,6 @@ div[class$="graphic-container"] {
       gap: 3px;
       align-items: center;
       margin-top: 15px;
-      position: relative;
-
-      .day-number {
-        position: absolute;
-        top: 2px;
-        left: 50%;
-        transform: translate(-50%);
-        color: #1c9a00;
-        font-size: 0.9rem;
-      }
 
       .pluviometer-svg {
         display: block;
