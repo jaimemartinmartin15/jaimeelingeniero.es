@@ -1,4 +1,4 @@
-name: Update file with fallen rain
+name: Update rain data
 run-name: Update rain-data.txt
 
 on:

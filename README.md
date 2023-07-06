@@ -2,7 +2,7 @@
 
 This is the repository containing my personal web page deployed to amazon s3. You can visit it at [jaimeelingeniero.es](https://jaimeelingeniero.es)
 
-[![Deploy Webpage](https://github.com/jaimemartinmartin15/jaimeelingeniero/actions/workflows/build-and-publish.yml/badge.svg)](https://github.com/jaimemartinmartin15/jaimeelingeniero/actions/workflows/build-and-publish.yml) [![Update verbs list tenses](https://github.com/jaimemartinmartin15/jaimeelingeniero/actions/workflows/update-verbs-tenses.yml/badge.svg)](https://github.com/jaimemartinmartin15/jaimeelingeniero/actions/workflows/update-verbs-tenses.yml)
+[![Deploy Webpage](https://github.com/jaimemartinmartin15/jaimeelingeniero/actions/workflows/build-and-publish.yml/badge.svg)](https://github.com/jaimemartinmartin15/jaimeelingeniero/actions/workflows/build-and-publish.yml) [![Update verbs list tenses](https://github.com/jaimemartinmartin15/jaimeelingeniero/actions/workflows/update-verbs-tenses.yml/badge.svg)](https://github.com/jaimemartinmartin15/jaimeelingeniero/actions/workflows/update-verbs-tenses.yml) [![Update rain data](https://github.com/jaimemartinmartin15/jaimeelingeniero/actions/workflows/update-weather-rain.yml/badge.svg)](https://github.com/jaimemartinmartin15/jaimeelingeniero/actions/workflows/update-weather-rain.yml)
 
 ## Development
 
