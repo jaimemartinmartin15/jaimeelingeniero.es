@@ -43,12 +43,12 @@
           text-anchor="middle">{{i+1}}</text>
       </svg>
 
-      <span class="liters">{{day.liters}} L</span>
+      <span class="liters" *ngIf="!day.isFake">{{day.liters}} L</span>
     </li>
   </ol>
 
-  <p *ngIf="daysRainData.length === 0" class="no-data-available">
-    No hay datos disponibles
+  <p *ngIf="isDataAvailableForSelectedMonth" class="no-data-available">
+    No hay datos disponibles por día
   </p>
 </div>
 
@@ -57,12 +57,14 @@
     <button (click)="showPreviousYear()">&lt;</button>
     <span>
       <p class="year">{{selectedYear}}</p>
-      <p class="liters">{{totalAmountOfLitersInSelectedYear}} litros</p>
+      <p class="liters" *ngIf="isTotalAmountOfLitersAvailableForSelectedYear">
+        {{totalAmountOfLitersInSelectedYear}} litros
+      </p>
     </span>
     <button (click)="showNextYear()">&gt;</button>
   </div>
 
-  <svg viewBox="0 0 400 300" *ngIf="isDataAvailableForYear(selectedYear)">
+  <svg viewBox="0 0 400 300" *ngIf="isDataAvailableForSelectedYear()">
     <!-- water lines -->
     <line *ngFor="let waterLine of monthsRainData; let i=index" class="water-year-line" [attr.x1]="30 + 30*i" y1="260"
       [attr.x2]="30 + 30*i" [attr.y2]="waterLine.svgOffset" [attr.stroke]="i===selectedMonth ? '#c1c100' : '#00a2e8'"
@@ -78,7 +80,7 @@
     <text [attr.x]="25 + 30*i" y="290" *ngFor="let month of MONTHS; let i=index">{{month[0]}}</text>
   </svg>
 
-  <p *ngIf="!isDataAvailableForYear(selectedYear)" class="no-data-available">
-    No hay datos disponibles
+  <p *ngIf="!isDataAvailableForSelectedYear()" class="no-data-available">
+    No hay datos disponibles para este año
   </p>
 </div>

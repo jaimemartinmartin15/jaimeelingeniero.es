@@ -3,26 +3,24 @@
 # Lines starting with # or empty are ignored. Spaces in front are also ignored in such lines
 #
 # Format of lines
-#   Month graph: dd/mm/yyyy-LITERS # comment
-#                example: 02/07/2023-8 # it rained 8 liters on 2 July 2023
-#   Year graph: xx/mm/yyyy-LITERS # comment
-#               example: xx/05/2017-27 # it rained a total of 27 liters for the full month of May (no data available for each day)
+#   Month graph (day data line):
+#     dd/mm/yyyy-LITERS # comment
+#     example: 02/07/2023-8 # it rained 8 liters on 2 July 2023
+#   Year graph (month data line):
+#     xx/mm/yyyy-LITERS # comment
+#     example: xx/05/2017-27 # it rained a total of 27 liters for the full month of May (no data available for each day)
 #
-# Advertising: if there is data for at least one day of the month, it should start from first day of the month
-#              the order the data appears in the file for each month, is the order they appear in the month calendar graph (day number is not taken into account)
+# Advertising for month graph:
+#   Duplicated day data lines for same day will produce unexpected behaviour
+#   If there is at least one day data line for the month it will show all days of the month. Missing day data lines for the month will not show liters
+#   The total amount of liters is shown if there is a day data line or a month data line. If there is a month data line, liters are taken from this line (it is not the sum of the days)
 #
-#              if there is data for at least one month in a year (it includes also data for a specific day of a month), there should be data for all months in that year
-#              the order the data appears in the file, is the order they appear in the year graph (month number is not taken into account)
-#
-#              Resuming: add complete sorted data for a month starting from the first day
-#                        add complete sorted data for a year starting from the first month
+# Advertising for year graph:
+#   If there is any month data line for the year (it could be calculated also from day data lines) the graph will show.
+#   For missing months no water line is shown (0 liters is considered).
 #
 
 # AÑO 2017 (primer mes mayo)
-xx/01/2017-0    # sin datos
-xx/02/2017-0    # sin datos
-xx/03/2017-0    # sin datos
-xx/04/2017-0    # sin datos
 xx/05/2017-27
 xx/06/2017-26
 xx/07/2017-39
@@ -116,3 +114,4 @@ xx/06/2023-86
 03/07/2023-0
 04/07/2023-0
 05/07/2023-0
+06/07/2023-0

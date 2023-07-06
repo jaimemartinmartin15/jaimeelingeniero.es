@@ -29,7 +29,11 @@ export class RainComponent implements OnInit {
   }
 
   public get isTotalAmountOfLitersAvailableForSelectedMonthAndYear(): boolean {
-    return this.monthsRainData.find((m) => m.date.getMonth() === this.selectedMonth && m.date.getFullYear() === this.selectedYear) != undefined;
+    return (
+      this.monthsRainData
+        .filter((m) => !m.isFake)
+        .find((m) => m.date.getMonth() === this.selectedMonth) != undefined
+    );
   }
 
   public get totalAmountOfLitersInSelectedMonthAndYear(): number {
@@ -69,6 +73,14 @@ export class RainComponent implements OnInit {
     return new Date(this.selectedYear, this.selectedMonth, 1).getDay();
   }
 
+  public get isDataAvailableForSelectedMonth(): boolean {
+    return this.daysRainData.every((d) => d.isFake);
+  }
+
+  public get isTotalAmountOfLitersAvailableForSelectedYear(): boolean {
+    return this.monthsRainData.some((m) => !m.isFake);
+  }
+
   public get totalAmountOfLitersInSelectedYear(): number {
     return this.monthsRainData.map((m) => m.liters).reduce((a, b) => a + b, 0);
   }
@@ -85,8 +97,8 @@ export class RainComponent implements OnInit {
     this.monthsRainData = this.rainDataService.getRainDataForMonthsInYear(this.selectedYear);
   }
 
-  public isDataAvailableForYear(year: number) {
-    return this.monthsRainData.some((m) => m.date.getFullYear() === year);
+  public isDataAvailableForSelectedYear() {
+    return this.monthsRainData.some((m) => !m.isFake);
   }
 
   public selectMonthOfSelectedYear(month: number) {

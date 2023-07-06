@@ -25,21 +25,27 @@ export class RainDataService {
       }
 
       // it is rain for the full month (no data available for each day)
-      this.allMonthsRainData.push({ date: new Date(+splitLine[2], +splitLine[1] - 1, 1), liters: +splitLine[3], svgOffset: 0, isFake: false });
-      // add new month for those months which rain is calculated adding their days
-      const separator = '/';
-      const missingMonths: Map<string, number> = new Map();
-      this.allDaysRainData.forEach((d) => {
-        const keyDate = `${d.date.getMonth()}${separator}${d.date.getFullYear()}`;
-        missingMonths.set(keyDate, (missingMonths.get(keyDate) ?? 0) + d.liters);
+      this.allMonthsRainData.push({
+        date: new Date(+splitLine[2], +splitLine[1] - 1, 1),
+        liters: +splitLine[3],
+        svgOffset: 0,
+        isFake: false,
       });
-      missingMonths.forEach((value, key) => {
-        const month = +key.split(separator)[0];
-        const year = +key.split(separator)[1];
-        if (this.allMonthsRainData.find((m) => m.date.getMonth() === month && m.date.getFullYear() === year) == undefined) {
-          this.allMonthsRainData.push({ date: new Date(year, month, 1), liters: value, svgOffset: 0, isFake: false });
-        }
-      });
+    });
+
+    // add new month for those months which rain is calculated adding their days
+    const separator = '/';
+    const missingMonths: Map<string, number> = new Map();
+    this.allDaysRainData.forEach((d) => {
+      const keyDate = `${d.date.getMonth()}${separator}${d.date.getFullYear()}`;
+      missingMonths.set(keyDate, (missingMonths.get(keyDate) ?? 0) + d.liters);
+    });
+    missingMonths.forEach((value, key) => {
+      const month = +key.split(separator)[0];
+      const year = +key.split(separator)[1];
+      if (this.allMonthsRainData.find((m) => m.date.getMonth() === month && m.date.getFullYear() === year) == undefined) {
+        this.allMonthsRainData.push({ date: new Date(year, month, 1), liters: value, svgOffset: 0, isFake: false });
+      }
     });
 
     this.calculateSvgOffsetsForAllDays();
@@ -68,10 +74,34 @@ export class RainDataService {
   }
 
   public getRainDataForDaysInMonthAndYear(month: number, year: number): RainData[] {
-    return this.allDaysRainData.filter((d) => d.date.getMonth() === month && d.date.getFullYear() === year);
+    // by using 0 as the day it will give us the last day of the prior month
+    const totalNumberOfDaysInMonth = new Date(year, month + 1, 0).getDate();
+    const today = new Date();
+    const requestedDays = this.allDaysRainData.filter((d) => d.date.getMonth() === month && d.date.getFullYear() === year);
+    if (year <= today.getFullYear() && month <= today.getMonth() && requestedDays.length > 0 && requestedDays.length < totalNumberOfDaysInMonth) {
+      // if it is requesting days for a month in the past (current included too)
+      // and there are missing days (maybe started to log on day 17) then add fake missing days
+      for (let day = 1; day <= totalNumberOfDaysInMonth; day++) {
+        if (requestedDays.find((d) => d.date.getDate() === day) === undefined) {
+          requestedDays.push({ date: new Date(year, month, day), liters: 0, svgOffset: 363, isFake: true });
+        }
+      }
+    }
+
+    return requestedDays.sort((a, b) => a.date.getTime() - b.date.getTime());
   }
 
   public getRainDataForMonthsInYear(year: number): RainData[] {
-    return this.allMonthsRainData.filter((m) => m.date.getFullYear() === year);
+    const requestedMonths = this.allMonthsRainData.filter((m) => m.date.getFullYear() === year);
+    if (requestedMonths.length < 12) {
+      // if there are missing data for any month in the requested year, add fake missing months
+      for (let month = 0; month < 12; month++) {
+        if (requestedMonths.find((m) => m.date.getMonth() === month) === undefined) {
+          requestedMonths.push({ date: new Date(year, month, 1), liters: 0, svgOffset: 258, isFake: true });
+        }
+      }
+    }
+
+    return requestedMonths.sort((a, b) => a.date.getTime() - b.date.getTime());
   }
 }
