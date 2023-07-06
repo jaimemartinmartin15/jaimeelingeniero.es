@@ -33,6 +33,11 @@
               "src/pages-english/tenses/assets",
               "src/pages-bbdd/assets",
               {
+                "glob": "**/*",
+                "input": "src/pages-weather/rain/assets",
+                "output": "/assets/pages-weather/rain/"
+              },
+              {
                 "glob": "sitemap.txt",
                 "input": ".",
                 "output": "."
