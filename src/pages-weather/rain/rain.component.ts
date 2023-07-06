@@ -43,11 +43,10 @@ export class RainComponent implements OnInit {
   }
 
   public calculateWaterYearLines(year: number) {
-    const monthLiters: { [key: string]: number } = {};
+    const monthLiters: { [key: string]: number } = { 0: 0, 1: 0, 2: 0, 3: 0, 4: 0, 5: 0, 6: 0, 7: 0, 8: 0, 9: 0, 10: 0, 11: 0 };
     this.historical
       .filter((d) => d.date.getFullYear() === year)
       .forEach((h) => {
-        monthLiters[h.date.getMonth()] = monthLiters[h.date.getMonth()] ?? 0;
         monthLiters[h.date.getMonth()] += h.liters;
       });
     const maxLiters = Math.max(...Object.values(monthLiters));
@@ -109,5 +108,9 @@ export class RainComponent implements OnInit {
     this.currentYear++;
     this.calculateWaterYearLines(this.currentYear);
     this.setMonthDays(this.currentYear, this.currentMonthIndex);
+  }
+
+  public isDataAvailableForYear(year: number) {
+    return this.historical.find((h) => h.date.getFullYear() === year) != undefined;
   }
 }
