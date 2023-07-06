@@ -11,20 +11,39 @@ export class RainDataService {
 
   public setData(data: string[]): void {
     data.forEach((line) => {
-      const splitLine = line.split(/\/|-|\r/); // \r is the new line, so the last part does not contain it
+      const splitLine = line.split(/\/|-/); // divide day/month/year-liters
 
-      if (line.trim().startsWith('xx')) {
-        // it is rain for the full month (no data available for each day)
-        this.allMonthsRainData.push({ date: new Date(+splitLine[2], +splitLine[1] - 1, 1), liters: +splitLine[3], svgOffset: 0 });
+      if (!line.startsWith('xx')) {
+        // it is rain for a specific day
+        this.allDaysRainData.push({
+          date: new Date(+splitLine[2], +splitLine[1] - 1, +splitLine[0]),
+          liters: +splitLine[3],
+          svgOffset: 0,
+          isFake: false,
+        });
         return;
       }
 
-      // it is rain for a specific day
-      this.allDaysRainData.push({ date: new Date(+splitLine[2], +splitLine[1] - 1, +splitLine[0]), liters: +splitLine[3], svgOffset: 0 });
+      // it is rain for the full month (no data available for each day)
+      this.allMonthsRainData.push({ date: new Date(+splitLine[2], +splitLine[1] - 1, 1), liters: +splitLine[3], svgOffset: 0, isFake: false });
+      // add new month for those months which rain is calculated adding their days
+      const separator = '/';
+      const missingMonths: Map<string, number> = new Map();
+      this.allDaysRainData.forEach((d) => {
+        const keyDate = `${d.date.getMonth()}${separator}${d.date.getFullYear()}`;
+        missingMonths.set(keyDate, (missingMonths.get(keyDate) ?? 0) + d.liters);
+      });
+      missingMonths.forEach((value, key) => {
+        const month = +key.split(separator)[0];
+        const year = +key.split(separator)[1];
+        if (this.allMonthsRainData.find((m) => m.date.getMonth() === month && m.date.getFullYear() === year) == undefined) {
+          this.allMonthsRainData.push({ date: new Date(year, month, 1), liters: value, svgOffset: 0, isFake: false });
+        }
+      });
     });
 
     this.calculateSvgOffsetsForAllDays();
-    this.calculateSvgOffsetsForAllYears();
+    this.calculateSvgOffsetsForAllMonths();
   }
 
   private calculateSvgOffsetsForAllDays() {
@@ -37,34 +56,15 @@ export class RainDataService {
     });
   }
 
-  private calculateSvgOffsetsForAllYears() {
-    // first add new object for those months which rain is calculated adding their days
-    let minYear = Math.min(...this.allDaysRainData.map((d) => d.date.getFullYear()));
-    let maxYear = Math.max(...this.allDaysRainData.map((d) => d.date.getFullYear()));
-    for (let year = minYear; year <= maxYear; year++) {
-      const monthLiters: { [key: string]: number } = { 0: 0, 1: 0, 2: 0, 3: 0, 4: 0, 5: 0, 6: 0, 7: 0, 8: 0, 9: 0, 10: 0, 11: 0 };
-      // pick days of a year, and calculate for each month the amount of rain
-      this.allDaysRainData
-        .filter((d) => d.date.getFullYear() === year)
-        .forEach((h) => {
-          monthLiters[h.date.getMonth()] += h.liters;
-        });
-
-      Object.entries(monthLiters)
-        // filter months that are already included in allMonthsRainData
-        .filter((e) => this.allMonthsRainData.find((m) => m.date.getFullYear() === year && m.date.getMonth() === +e[0]) == undefined)
-        .forEach((e) => this.allMonthsRainData.push({ date: new Date(year, +e[0], 1), liters: +e[1], svgOffset: 0 }));
-    }
-
+  private calculateSvgOffsetsForAllMonths() {
     // pick months year by year and calculate the offset of each month
-    minYear = Math.min(...this.allMonthsRainData.map((d) => d.date.getFullYear()));
-    maxYear = Math.max(...this.allMonthsRainData.map((d) => d.date.getFullYear()));
-    for (let year = minYear; year <= maxYear; year++) {
+    const years = new Set<number>(this.allMonthsRainData.map((m) => m.date.getFullYear()));
+    years.forEach((year) => {
       const monthsOfTheYear = this.allMonthsRainData.filter((m) => m.date.getFullYear() === year);
       const maxLiters = Math.max(...monthsOfTheYear.map((m) => m.liters));
       // 0 L -> 258 (svg x axis height aprox)    MAX L -> 0
       monthsOfTheYear.forEach((m) => (m.svgOffset = 258 - 258 * (m.liters / maxLiters)));
-    }
+    });
   }
 
   public getRainDataForDaysInMonthAndYear(month: number, year: number): RainData[] {
