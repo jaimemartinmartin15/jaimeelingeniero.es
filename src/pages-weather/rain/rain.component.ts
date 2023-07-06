@@ -1,116 +1,96 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { MONTHS } from 'src/utils/dates';
+import { RainData } from './rain-data';
+import { RainDataService } from './rain-data.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-rain',
   templateUrl: './rain.component.html',
   styleUrls: ['./rain.component.scss'],
+  providers: [RainDataService],
 })
 export class RainComponent implements OnInit {
   public readonly MONTHS = MONTHS;
-  public currentYear = new Date().getFullYear();
-  public currentMonthIndex = new Date().getMonth();
-  public monthDays: { svgOffset: number; liters: number }[] = [];
-  public waterYearLines: number[] = [];
-  public historical: { date: Date; svgOffset: number; liters: number }[] = [];
 
-  public constructor(private readonly http: HttpClient) {}
+  public selectedYear = new Date().getFullYear();
+  public selectedMonth = new Date().getMonth();
+
+  public daysRainData: RainData[] = [];
+  public monthsRainData: RainData[] = [];
+
+  public constructor(public readonly rainDataService: RainDataService, private readonly activatedRoute: ActivatedRoute) {}
 
   public ngOnInit() {
-    this.http.get('assets/pages-weather/rain/rain-data.txt', { responseType: 'text' }).subscribe((response) => {
-      this.historical = response
-        .split('\n')
-        .filter((l) => !l.trim().startsWith('//') && l.trim() !== '')
-        .map((line) => {
-          const date = line.split(/\/|-|\r/); // \r is the new line, so the liters do not contain it
-          // svgOffset: 360 is svg viewBox height (363 avoids shadow). Pluviometer: offset 0 -> full water (35 L)    offset 360 -> empty water (0 L)
-          // start from offset 185 to not fill full pluviometer  (difference 178)   offset 185 -> 35 L     offset 363 -> 0 L
-          // if it rains more than 70 do not take it into account (negative offset)
-          const svgOffset = 363 - 178 * (Math.min(+date[3], 70) / 35);
-          return { date: new Date(+date[2], +date[1] - 1, +date[0]), svgOffset, liters: +date[3] };
-        });
-
-      this.setMonthDays(this.currentYear, this.currentMonthIndex);
-      this.calculateWaterYearLines(this.currentYear);
-    });
+    this.rainDataService.setData(this.activatedRoute.snapshot.data['rainData']);
+    this.daysRainData = this.rainDataService.getRainDataForDaysInMonthAndYear(this.selectedMonth, this.selectedYear);
+    this.monthsRainData = this.rainDataService.getRainDataForMonthsInYear(this.selectedYear);
   }
 
-  public setMonthDays(year: number, month: number) {
-    this.currentYear = year;
-    this.currentMonthIndex = month;
-    this.monthDays = this.historical.filter((d) => d.date.getFullYear() === year && d.date.getMonth() === month);
+  public get isTotalAmountOfLitersAvailableForSelectedMonthAndYear(): boolean {
+    return this.monthsRainData.find((m) => m.date.getMonth() === this.selectedMonth && m.date.getFullYear() === this.selectedYear) != undefined;
   }
 
-  public calculateWaterYearLines(year: number) {
-    const monthLiters: { [key: string]: number } = { 0: 0, 1: 0, 2: 0, 3: 0, 4: 0, 5: 0, 6: 0, 7: 0, 8: 0, 9: 0, 10: 0, 11: 0 };
-    this.historical
-      .filter((d) => d.date.getFullYear() === year)
-      .forEach((h) => {
-        monthLiters[h.date.getMonth()] += h.liters;
-      });
-    const maxLiters = Math.max(...Object.values(monthLiters));
-    // 0 L -> 258 (svg x axis height aprox)    MAX L -> 0
-    this.waterYearLines = Object.values(monthLiters).map((l) => 258 - 258 * (l / maxLiters));
-  }
-
-  public get totalAmountOfLitersInCurrentMonth(): number {
-    return this.monthDays.map((d) => d.liters).reduce((a, b) => a + b, 0);
+  public get totalAmountOfLitersInSelectedMonthAndYear(): number {
+    return this.monthsRainData.find((m) => m.date.getMonth() === this.selectedMonth)!.liters;
   }
 
   public get weatherIcon(): string {
-    if (this.currentMonthIndex < 3) return '❄️';
-    if (this.currentMonthIndex < 6) return '🌹';
-    if (this.currentMonthIndex < 9) return '☀️';
+    if (this.selectedMonth < 3) return '❄️';
+    if (this.selectedMonth < 6) return '🌹';
+    if (this.selectedMonth < 9) return '☀️';
     return '🍁';
   }
 
   public showPreviousMonth() {
-    this.currentMonthIndex--;
-    if (this.currentMonthIndex < 0) {
-      this.currentMonthIndex = 11; // set December last year
-      this.currentYear--;
-      this.calculateWaterYearLines(this.currentYear);
+    this.selectedMonth--;
+    if (this.selectedMonth < 0) {
+      this.selectedMonth = 11; // set December last year
+      this.selectedYear--;
+      this.monthsRainData = this.rainDataService.getRainDataForMonthsInYear(this.selectedYear);
     }
 
-    this.setMonthDays(this.currentYear, this.currentMonthIndex);
+    this.daysRainData = this.rainDataService.getRainDataForDaysInMonthAndYear(this.selectedMonth, this.selectedYear);
   }
 
   public showNextMonth() {
-    this.currentMonthIndex++;
-    if (this.currentMonthIndex > 11) {
-      this.currentMonthIndex = 0; // set January next year
-      this.currentYear++;
-      this.calculateWaterYearLines(this.currentYear);
+    this.selectedMonth++;
+    if (this.selectedMonth > 11) {
+      this.selectedMonth = 0; // set January next year
+      this.selectedYear++;
+      this.monthsRainData = this.rainDataService.getRainDataForMonthsInYear(this.selectedYear);
     }
 
-    this.setMonthDays(this.currentYear, this.currentMonthIndex);
+    this.daysRainData = this.rainDataService.getRainDataForDaysInMonthAndYear(this.selectedMonth, this.selectedYear);
   }
 
-  public get weekDayIndexMonthStarts(): number {
-    return new Date(this.currentYear, this.currentMonthIndex, 1).getDay();
+  public get firstDayOfMonthWeekDayIndex(): number {
+    return new Date(this.selectedYear, this.selectedMonth, 1).getDay();
   }
 
-  public get totalAmountOfLitersInCurrentYear(): number {
-    return this.historical
-      .filter((d) => d.date.getFullYear() === this.currentYear)
-      .map((h) => h.liters)
-      .reduce((a, b) => a + b, 0);
+  public get totalAmountOfLitersInSelectedYear(): number {
+    return this.monthsRainData.map((m) => m.liters).reduce((a, b) => a + b, 0);
   }
 
   public showPreviousYear() {
-    this.currentYear--;
-    this.calculateWaterYearLines(this.currentYear);
-    this.setMonthDays(this.currentYear, this.currentMonthIndex);
+    this.selectedYear--;
+    this.daysRainData = this.rainDataService.getRainDataForDaysInMonthAndYear(this.selectedMonth, this.selectedYear);
+    this.monthsRainData = this.rainDataService.getRainDataForMonthsInYear(this.selectedYear);
   }
 
   public showNextYear() {
-    this.currentYear++;
-    this.calculateWaterYearLines(this.currentYear);
-    this.setMonthDays(this.currentYear, this.currentMonthIndex);
+    this.selectedYear++;
+    this.daysRainData = this.rainDataService.getRainDataForDaysInMonthAndYear(this.selectedMonth, this.selectedYear);
+    this.monthsRainData = this.rainDataService.getRainDataForMonthsInYear(this.selectedYear);
   }
 
   public isDataAvailableForYear(year: number) {
-    return this.historical.find((h) => h.date.getFullYear() === year) != undefined;
+    return this.monthsRainData.some((m) => m.date.getFullYear() === year);
+  }
+
+  public selectMonthOfSelectedYear(month: number) {
+    this.selectedMonth = month;
+    this.daysRainData = this.rainDataService.getRainDataForDaysInMonthAndYear(this.selectedMonth, this.selectedYear);
   }
 }

@@ -1,8 +1,10 @@
 <div class="month-graphic-container">
   <div class="header">
     <span>
-      <p class="month-and-year">{{MONTHS[currentMonthIndex]}} {{currentYear}}</p>
-      <p class="liters">{{totalAmountOfLitersInCurrentMonth}} litros</p>
+      <p class="month-and-year">{{MONTHS[selectedMonth]}} {{selectedYear}}</p>
+      <p class="liters" *ngIf="isTotalAmountOfLitersAvailableForSelectedMonthAndYear">
+        {{totalAmountOfLitersInSelectedMonthAndYear}} litros
+      </p>
     </span>
     <span class="icon">{{weatherIcon}}</span>
     <div class="change-month-buttons">
@@ -20,7 +22,8 @@
     <li>S</li>
     <li>D</li>
 
-    <li *ngFor="let day of monthDays; let i=index" [ngStyle]="i===0 ?{'grid-column-start': weekDayIndexMonthStarts}:{}">
+    <li *ngFor="let day of daysRainData; let i=index"
+      [ngStyle]="i===0 ?{'grid-column-start': firstDayOfMonthWeekDayIndex}:{}">
       <svg class="pluviometer-svg" viewBox="0 0 300 360">
         <filter [id]="'fillpartial'+i">
           <feFlood flood-color="#00a2e8" />
@@ -44,7 +47,7 @@
     </li>
   </ol>
 
-  <p *ngIf="monthDays.length === 0" class="no-data-available">
+  <p *ngIf="daysRainData.length === 0" class="no-data-available">
     No hay datos disponibles
   </p>
 </div>
@@ -53,17 +56,17 @@
   <div class="header">
     <button (click)="showPreviousYear()">&lt;</button>
     <span>
-      <p class="year">{{currentYear}}</p>
-      <p class="liters">{{totalAmountOfLitersInCurrentYear}} litros</p>
+      <p class="year">{{selectedYear}}</p>
+      <p class="liters">{{totalAmountOfLitersInSelectedYear}} litros</p>
     </span>
     <button (click)="showNextYear()">&gt;</button>
   </div>
 
-  <svg viewBox="0 0 400 300" *ngIf="isDataAvailableForYear(currentYear)">
+  <svg viewBox="0 0 400 300" *ngIf="isDataAvailableForYear(selectedYear)">
     <!-- water lines -->
-    <line *ngFor="let waterLine of waterYearLines; let i=index" class="water-year-line" [attr.x1]="30 + 30*i" y1="260"
-      [attr.x2]="30 + 30*i" [attr.y2]="waterLine" [attr.stroke]="i===currentMonthIndex ? '#c1c100' : '#00a2e8'"
-      stroke-width="20" (click)="setMonthDays(currentYear, i)" />
+    <line *ngFor="let waterLine of monthsRainData; let i=index" class="water-year-line" [attr.x1]="30 + 30*i" y1="260"
+      [attr.x2]="30 + 30*i" [attr.y2]="waterLine.svgOffset" [attr.stroke]="i===selectedMonth ? '#c1c100' : '#00a2e8'"
+      stroke-width="20" (click)="selectMonthOfSelectedYear(i)" />
 
     <!-- y axis -->
     <line x1="5" y1="5" x2="5" y2="260" stroke="black" stroke-width="5" />
@@ -75,7 +78,7 @@
     <text [attr.x]="25 + 30*i" y="290" *ngFor="let month of MONTHS; let i=index">{{month[0]}}</text>
   </svg>
 
-  <p *ngIf="!isDataAvailableForYear(currentYear)" class="no-data-available">
+  <p *ngIf="!isDataAvailableForYear(selectedYear)" class="no-data-available">
     No hay datos disponibles
   </p>
 </div>
