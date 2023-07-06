@@ -31,6 +31,10 @@ const routes: Routes = [
     loadChildren: () => import('../pages-weather/rain/rain.module').then((m) => m.RainModule),
   },
   {
+    path: 'comandos',
+    loadChildren: () => import('../pages-commands/pages-commands.module').then((m) => m.PagesCommandsModule),
+  },
+  {
     path: '',
     loadChildren: () => import('../pages-presentation/home/home.module').then((m) => m.HomeModule),
   },

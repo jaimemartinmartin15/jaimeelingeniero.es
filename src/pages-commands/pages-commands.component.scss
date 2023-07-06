@@ -1,0 +1,60 @@
+:host {
+  display: block;
+  max-width: 1000px;
+  margin: auto;
+  padding-bottom: 65px;
+}
+
+.content {
+  display: flex;
+
+  .left-menu {
+    display: flex;
+    flex-direction: column;
+    min-width: 250px;
+    margin-top: 30px;
+    max-height: calc(100vh - 100px);
+    position: sticky;
+    top: 50px;
+    overflow-y: auto;
+
+    a {
+      margin: 15px 0 0 5px;
+      text-decoration: none;
+      color: black;
+      transition: 0.5s;
+      line-height: 25px;
+
+      &:hover:not(.menu-section-active) {
+        font-size: 1.15em;
+
+        &::after {
+          content: "➡️";
+          margin-left: 5px;
+        }
+      }
+    }
+
+    .menu-section-active {
+      color: #d17515;
+      font-size: 1.3em;
+    }
+  }
+
+  .pages {
+    flex-grow: 1;
+    margin: 0 20px;
+  }
+}
+
+@media (max-width: 1000px) {
+  .content {
+    display: block;
+
+    .left-menu {
+      display: none; // TODO create a content page like in rxjs pages
+      position: static;
+      overflow: hidden;
+    }
+  }
+}

@@ -1,0 +1,372 @@
+<!-- TODO check all commands shown work properly -->
+
+<div class="page-header">
+  <h1 class="title">Find</h1>
+  <a class="link-command" href="https://man7.org/linux/man-pages/man1/find.1.html" target="_blank" rel="noopener">
+    man find ➡️
+  </a>
+</div>
+
+<section>
+  <p>
+    Este comando permite hacer <strong>búsqueda de ficheros y directorios</strong> en un sistema de archivos. Además
+    de búsquedas por nombre, tamaño y otros atributos permite realizar otras acciones con los resultados obtenidos. La
+    sintaxis simplificada es:
+  </p>
+
+  <pre class="command-sintax">find &lt;directorio-de-entrada&gt; &lt;expresiones&gt;</pre>
+
+  <ul>
+    <li><b>directorio-de-entrada</b>: es el directorio en el que empieza la búsqueda recursiva.</li>
+    <li>
+      <b>expresiones</b>: condiciones que deben cumplir los ficheros o directorios para ser parte del resultado de
+      este comando.
+    </li>
+  </ul>
+
+  <p>
+    Si no se indica el directorio de entrada, por defecto es el actual.
+  </p>
+
+  <p>
+    En cuanto a las expresiones se categorizan en tests, acciones, opciones globales, opciones posicionales u
+    operadores. Estas son evaluadas para cada fichero encontrado devolviendo un valor verdadero o falso, siguiendo una
+    precedencia, de mayor a menor:
+  </p>
+
+  <ul>
+    <li>
+      <strong>(</strong>expresión<strong>)</strong>: los paréntesis suelen tener que ir escapados con \ para que no
+      sean interpretados por la shell.
+    </li>
+    <li>
+      <strong>-not</strong> expresión: la negación invierte el valor devuelto por la expresión.
+    </li>
+    <li>
+      expresión <strong>Y</strong> expresión: devuelve verdadero si las dos expresiones son verdaderas. Si la
+      expresión de la izquierda es falsa, la de la derecha no se evalúa. En caso de no espeficar ningún operador
+      entre expresiones, este es el de por defecto.
+    </li>
+    <li>
+      expresión <strong>O</strong> expresión: devuelve verdadero si alguna de las dos expresiones es verdadera. Si la
+      expresión de la izquierda es verdadera, la de la derecha no se evalúa.
+    </li>
+    <li>
+      expresión <strong>,</strong> expresión: el operador coma evalúa todas las expresiones, pero solo devuelve el
+      valor devuelto por la última.
+    </li>
+  </ul>
+
+  <p>
+    Según el valor devuelto por la expresión entera en su conjunto, el fichero encontrado formará o no parte del
+    resultado del comando y se ejecutarán ciertas acciones (como imprimir el fichero por pantalla).
+  </p>
+</section>
+
+<section>
+  <h2>Búsqueda por nombre de fichero</h2>
+
+  <p>Vamos a comenzar por algo sencillo e irlo explicando para entenderlo mejor.</p>
+
+  <p>
+    Para buscar un fichero o directorio con un nombre concreto la expresión (tipo test) a usar es
+    <strong class="app-no-break">-name</strong>:
+  </p>
+
+  <app-terminal-code>
+    <span terminal-code-command>find / -name nombre-fichero.txt</span>
+    <span terminal-code-output>/home/jaime/nombre-fichero.txt</span>
+  </app-terminal-code>
+
+  <p>
+    Con este comando, para cada fichero encontrado de forma recursiva en el sistema de archivos, se comprueba si su
+    nombre es <span class="app-no-break">"nombre-fichero.txt"</span>. Si esto es cierto, por defecto la acción
+    <span class="app-no-break">-print</span> tomará efecto, que es imprimir el fichero por la salida estándard.
+  </p>
+
+  <p>También podemos usar una expresión regular simple. Se recomienda encerrarla entre comillas.</p>
+
+  <app-terminal-code>
+    <span terminal-code-command>find -name "*.txt"</span>
+    <pre terminal-code-output>./Escritorio/reyes.txt
+./Musica/playlist.txt</pre>
+  </app-terminal-code>
+
+  <p>
+    Si no queremos tener en cuenta mayúsculas ni minúsculas, podemos usar la expresión (tipo test) <strong
+      class="app-no-break">-iname</strong>
+  </p>
+
+  <p>
+    Si queremos tener en cuenta <strong>toda la ruta del archivo</strong> (relativa al directorio de entrada),
+    deberemos usar <strong class="app-no-break">-path</strong> o <strong class="app-no-break">-regex</strong>. La
+    diferencia está en como se tratan las expresiones regulares y los caracteres especiales. La opción regex permite
+    expresiones regulares más complejas, mientras que con path son más sencillas y no se interpretan algunos
+    metacaracteres.
+  </p>
+</section>
+
+<section>
+  <h2>Limitar la búsqueda</h2>
+
+  <p>
+    Como hemos dicho, la búsqueda se hace de forma recursiva en los directorios que se va encontrando. Eso quiere
+    decir que para cada fichero o directorio encontrado se evalúan las expresiones.
+  </p>
+
+  <p>
+    Con las opciones globales <strong>-mindepth</strong> y <strong>-maxdepth</strong> podemos especificar desde, hasta
+    que profundidad buscar en los directorios. Imagina un ábol en el que los directorios de entrada son el nivel 0, y
+    todo el contenido es el nivel 1. Luego el contenido del contenido sería el nivel 2, y así.
+  </p>
+
+  <app-terminal-code>
+    <p terminal-code-command>find -mindepth 2 -maxdepth 3</p>
+  </app-terminal-code>
+
+  <p>
+    <span class="app-no-break">-mindepth 1</span> significaría que procese todos los ficheros o directorios excepto
+    los del punto de partida. <span class="app-no-break">-maxdepth 0</span> significaría que procese sólo los puntos
+    de entrada (no su contenido).
+  </p>
+
+  <p>
+    Para <strong>excluir directorios</strong> de la búsqueda podemos usar la expresión (acción)
+    <strong>-prune</strong>. En combinación con otras expresiones puede ser muy útil para optimizar búsquedas:
+  </p>
+
+  <app-terminal-code>
+    <span terminal-code-command>find -path "*node_modules*" -prune -false -o -name package.json</span>
+  </app-terminal-code>
+
+  <p>
+    En este comando se evalúan las expresiones de izquierda a derecha, siguiendo el orden de precedencia. Por tanto
+    primero se evalúa el path, y si coincide, prune se salta el directorio (no escanéa el contenido). Con la expresión
+    tipo test <strong class="app-no-break">-false</strong> hacemos que se tenga que evaluar la parte derecha de la
+    condición. Si el fichero se llama package.json, se imprimirá por la pantalla. Si no ponemos <span
+      class="app-no-break">-false</span> la parte izquierda sería verdadera, pero por defecto -prune también imprime
+    el resultado, y no queremos en este caso.
+  </p>
+</section>
+
+<section>
+  <h1>Búsqueda por tipo</h1>
+
+  <p>
+    En Linux existen archivos, directorios, enlaces simbólicos, etc. El comando find nos permite buscar por este tipo
+    mediante la expresión test <strong>-type:</strong>
+  </p>
+
+  <app-terminal-code>
+    <span terminal-code-command>find -type f </span>
+  </app-terminal-code>
+
+  <ul>
+    <li><strong>f</strong>: ficheros normales</li>
+    <li><strong>d</strong>: directorios</li>
+    <li><strong>l</strong>: enlaces simbólicos</li>
+    <li><strong>s</strong>: sockets</li>
+    <li>...</li>
+  </ul>
+</section>
+
+<section>
+  <h1>Búsqueda por fecha</h1>
+
+  <p>
+    El comando find no permite buscar por la fecha de creación de un fichero, pero permite buscar por la
+    <strong>fecha de modificación</strong> con la expresión test <strong class="app-no-break">-mtime</strong>:
+  </p>
+
+  <app-terminal-code>
+    <span terminal-code-command>find -mtime 1</span>
+  </app-terminal-code>
+
+  <p>
+    Con este comando estamos buscando archivos que fueron modificados exactamente hace un día (un bloque de 24 horas).
+    Con modificar me refiero a escribir en ellos, a editar su contenido y a guardarlo.
+  </p>
+
+  <p>
+    También podemos buscar por la <strong>fecha de acceso</strong> con la expresión test <strong
+      class="app-no-break">-atime</strong>:
+  </p>
+
+  <app-terminal-code>
+    <span terminal-code-command>find -atime +2</span>
+  </app-terminal-code>
+
+  <p>
+    Con este comando buscamos ficheros que hayan sido accedidos hace más de dos días (3 o más bloques de 24 horas) por
+    última vez. Con accedido me refiero a que algún programa ha leído el contendido para mostrarlo por pantalla, o
+    enviarlo por correo, por ejemplo.
+  </p>
+
+  <p>
+    También podemos buscar por la <strong>fecha de modificación de las propiedades</strong> del archivo con la
+    expresión test <strong class="app-no-break">-ctime</strong>:
+  </p>
+
+  <app-terminal-code>
+    <span terminal-code-command>find -ctime -3</span>
+  </app-terminal-code>
+
+  <p>
+    Con este comando buscamos ficheros cuyos metadatos han sido modificados por última vez hace menos de tres días.
+    Con metadatos me refiero a los permisos, nombre o directorio en el que se encuentra.
+  </p>
+
+  <p>
+    Como vemos en los ejemplos, añadiendo el <strong>+</strong> o el <strong>-</strong> podemos indicar que sea más
+    tiempo de, menos tiempo de, o que sea exactamente un tiempo.
+  </p>
+
+  <p>
+    Si la búsqueda la queremos hacer en minutos, también tenemos las expresiones <strong
+      class="app-no-break">-mmin</strong>, <strong class="app-no-break">-amin</strong> y <strong
+      class="app-no-break">-cmin</strong>.
+  </p>
+</section>
+
+<section>
+  <h1>Búsqueda por tamaño</h1>
+
+  <p>
+    Podemos realizar búsquedas por el tamaño de un fichero con la expresión test <strong
+      class="app-no-break">-size</strong>:
+  </p>
+
+  <app-terminal-code>
+    <span terminal-code-command>find -size 15M</span>
+  </app-terminal-code>
+
+  <p>
+    Debemos pasarle una cantidad y una unidad. En este caso se mostrarán los ficheros que ocupen 15 mebibytes.
+  </p>
+
+  <p>
+    También podemos usar las opciones <strong>+</strong> y <strong>-</strong> como hicimos en la búsqueda por fechas.
+  </p>
+
+  <p>Las unidades disponibles son:</p>
+
+  <ul>
+    <li><strong>b</strong>: bloques de 512 bytes</li>
+    <li><strong>c</strong>: bytes</li>
+    <li><strong>k</strong>: kibibytes</li>
+    <li><strong>M</strong>: mebibytes</li>
+    <li><strong>G</strong>: gibibytes</li>
+  </ul>
+</section>
+
+<section>
+  <h1>Búsqueda por dueño</h1>
+
+  <p>
+    Find también nos permite buscar ficheros por el propietario del mismo con la expresión test
+    <strong class="app-no-break">-user</strong> o <strong class="app-no-break">-group</strong>:
+  </p>
+
+  <app-terminal-code>
+    <span terminal-code-command>find -user jaime</span>
+  </app-terminal-code>
+
+  <p>
+    Busca todos los ficheros que son propiedad del usuario con nombre jaime.
+  </p>
+
+  <app-terminal-code>
+    <span terminal-code-command>find -group 1001</span>
+  </app-terminal-code>
+
+  <p>
+    También se permite pasar el id del usuario o el grupo. En este último caso se mostrarán los ficheros y directorios
+    que pertenecen al grupo con id 1001.
+  </p>
+</section>
+
+<section>
+  <h1>Búsqueda por permisos</h1>
+
+  <!-- TODO put in this section a link to a page explaining the bit permissions -rxwrxwrxw -->
+
+  <p>
+    Con la expresión test <strong class="app-no-break">-perm</strong> podemos buscar ficheros con exactamente los
+    permisos que le pasemos:
+  </p>
+
+  <app-terminal-code>
+    <span terminal-code-command>find -perm 700</span>
+  </app-terminal-code>
+
+  <p>
+    Con este comando buscamos ficheros que tengan permisos de lectura, escritura y ejecución para los propietarios del
+    fichero, pero para nadie más. Es decir, exactamente los permisos <span class="app-no-break">-rwx------</span>.
+  </p>
+
+  <p>
+    La expresión <span class="app-no-break">-perm</span> también permite búsquedas más flexibles. Por ejemplo, para
+    buscar ficheros que tengan ciertos permisos activados (independientemente del resto), añadimos un
+    <strong>-</strong> delante de la representación octal (también se podría usar la notación simbólica):
+  </p>
+
+  <app-terminal-code>
+    <span terminal-code-command>find -perm -4000</span>
+  </app-terminal-code>
+
+  <p>
+    Este comando buscaría ficheros que tienen el bit SUID activado, independientemente de si tienen o no otros
+    permisos de lectura, escritura o ejecución activados.
+  </p>
+
+</section>
+
+<section>
+  <h1>Otras expresiones</h1>
+
+  <p>
+    Hemos visto que existen diferentes tipos de expresiones. Las de tipo test se evalúan en el momento y devuelven
+    cierto o falso. Las opciones globales y posicionales siempre devuelven cierto. Y las acciones devuelven un valor
+    según el resultado de la acción. Además las opciones posicionales solo afectan a las expresiones que la siguen,
+    pero no a las anteriores. Vamos a ver algún ejemplo más interesante.
+  </p>
+
+  <p>
+    Búsqueda de <strong>directorios o ficheros vacíos</strong> con la expresión test <strong
+      class="app-no-break">-empty</strong>:
+  </p>
+
+  <app-terminal-code>
+    <span terminal-code-command>find -empty</span>
+  </app-terminal-code>
+
+  <p>
+    A la vez que buscamos ficheros también pueden ser eliminados con la expresión acción <strong
+      class="app-no-break">-delete</strong>
+  </p>
+
+  <app-terminal-code>
+    <span terminal-code-command>find -name "*.txt" -delete</span>
+  </app-terminal-code>
+
+  <p>
+    Este comando borraría todos los ficheros txt del directorio actual (y subdirectorios). Si lo que queremos es
+    borrar directorios, <span class="app-no-break">-delete</span> fallaría en caso de no estar vacío. Hay que tener
+    cuidado al usar esta opción.
+  </p>
+
+  <p>
+    Otra expresión que nos proporciona find es <strong class="app-no-break">-exec command ;</strong>, que permite
+    ejecutar cualquier otro comando para el fichero que se procesa. Todos los argumentos pasados hasta el
+    <strong>;</strong> son parte del comando. Los &#123;&#125; se remplazan por el fichero en cuestión.
+  </p>
+
+  <app-terminal-code>
+    <span terminal-code-command>find / \( -name tmp -o -name '*.temp' \) -atime +7 -exec rm &#123;&#125; \;</span>
+  </app-terminal-code>
+
+  <p>
+    Este comando eliminaría los ficheros que se llaman tmp o que acaban en temp y que no han sido accedidos en los
+    últimos siete días. Algunos caracteres vemos que hay que escaparlos para que el comando no falle.
+  </p>
+</section>
