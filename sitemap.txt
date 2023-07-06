@@ -35,3 +35,5 @@ https://www.jaimeelingeniero.es/ingles/tiempos-verbales
 https://www.jaimeelingeniero.es/ingles/tiempos-verbales/lista
 https://www.jaimeelingeniero.es/bases-de-datos/sql
 https://www.jaimeelingeniero.es/bases-de-datos/sql/ejercicios
+https://www.jaimeelingeniero.es/lluvias
+https://www.jaimeelingeniero.es/comandos/find
