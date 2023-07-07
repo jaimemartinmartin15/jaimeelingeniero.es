@@ -70,6 +70,16 @@
       [attr.x2]="30 + 30*i" [attr.y2]="waterLine.svgOffset" [attr.stroke]="i===selectedMonth ? '#c1c100' : '#00a2e8'"
       stroke-width="20" (click)="selectMonthOfSelectedYear(i)" />
 
+    <!-- water liters -->
+    <text *ngFor="let waterLine of monthsRainData; let i=index" (click)="selectMonthOfSelectedYear(i)"
+      [attr.text-anchor]="waterLine.svgOffset > 200 ? 'end' : 'start'"
+      [attr.transform]="'rotate(90,'+(25 + 30*i)+','+waterLine.svgOffset+')'"
+      [attr.x]="waterLine.svgOffset > 200 ? (15 + 30*i): (35 + 30*i)" [attr.y]="waterLine.svgOffset +2"
+      [attr.fill]="waterLine.svgOffset > 200 ? i===selectedMonth ? '#c1c100': '#00a2e8' : 'white'" stroke="none"
+      font-size="1.2rem" style="cursor: pointer">
+      <ng-container *ngIf="!waterLine.isFake">{{waterLine.liters}} L</ng-container>
+    </text>
+
     <!-- y axis -->
     <line x1="5" y1="5" x2="5" y2="260" stroke="black" stroke-width="5" />
 
