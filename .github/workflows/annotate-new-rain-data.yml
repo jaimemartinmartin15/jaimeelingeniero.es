@@ -3,7 +3,7 @@ run-name: Annotate new line in rain-data.txt
 
 on:
   schedule:
-    - cron: "45 23 * * *" # run at 23:45 every day (will pick the date of that day yet)
+    - cron: "05 12 * * *" # run at 23:45 every day (will pick the date of that day yet)
 
 jobs:
   annotate-rain-data:
