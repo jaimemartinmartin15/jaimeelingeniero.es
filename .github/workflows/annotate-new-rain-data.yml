@@ -1,0 +1,22 @@
+name: Annotate rain data
+run-name: Annotate new line in rain-data.txt
+
+on:
+  schedule:
+    - cron: "45 23 * * *" # run at 23:45 every day (will pick the date of that day yet)
+
+jobs:
+  annotate-rain-data:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Add new line
+        run: echo "$(date +%d/%m/%Y)-0" >> src/pages-weather/rain/assets/rain-data.txt
+      - name: Push changes
+        run: |
+          git config --global user.name 'Github action'
+          git config --global user.email 'jaimemartinmartin15@users.noreply.github.com'
+          git commit -am "Automatic update rain data file"
+          git push
