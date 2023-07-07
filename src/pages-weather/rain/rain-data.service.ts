@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { LineData, LineType } from './line-data';
 import { RainData } from './rain-data';
 
 @Injectable()
@@ -9,28 +10,28 @@ export class RainDataService {
   // lines of type xx/mm/yyyy-liters
   private allMonthsRainData: RainData[] = [];
 
-  public setData(data: string[]): void {
+  public setData(data: LineData[]): void {
     data.forEach((line) => {
-      const splitLine = line.split(/\/|-/); // divide day/month/year-liters
-
-      if (!line.startsWith('xx')) {
-        // it is rain for a specific day
-        this.allDaysRainData.push({
-          date: new Date(+splitLine[2], +splitLine[1] - 1, +splitLine[0]),
-          liters: +splitLine[3],
-          svgOffset: 0,
-          isFake: false,
-        });
-        return;
+      switch (line.lineType) {
+        case LineType.DAY:
+          this.allDaysRainData.push({
+            date: new Date(line.year, line.month, line.day),
+            liters: line.liters,
+            popUpContent: line.popUpContent,
+            svgOffset: 0,
+            isFake: false,
+          });
+          break;
+        case LineType.MONTH:
+          this.allMonthsRainData.push({
+            date: new Date(line.year, line.month, 1),
+            liters: line.liters,
+            popUpContent: line.popUpContent,
+            svgOffset: 0,
+            isFake: false,
+          });
+          break;
       }
-
-      // it is rain for the full month (no data available for each day)
-      this.allMonthsRainData.push({
-        date: new Date(+splitLine[2], +splitLine[1] - 1, 1),
-        liters: +splitLine[3],
-        svgOffset: 0,
-        isFake: false,
-      });
     });
 
     // add new month for those months which rain is calculated adding their days

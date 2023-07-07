@@ -1,0 +1,33 @@
+name: Annotate rain data
+run-name: Annotate new line in rain-data.txt
+
+on:
+  workflow_dispatch: # allow manual trigger
+  schedule:
+    - cron: "45 23 * * *" # run at 23:45 every day (will pick the date of that day yet)
+
+jobs:
+  annotate-rain-data:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Add new line
+        run: echo "$(date +%d/%m/%Y)-0" >> src/pages-weather/rain/assets/rain-data.txt
+      - name: Push changes
+        run: |
+          git config --global user.name 'Github action'
+          git config --global user.email 'jaimemartinmartin15@users.noreply.github.com'
+          git commit -am "Automatic update rain data file"
+          git push
+      - name: Set AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1-node16
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-east-1
+      - name: Upload file
+        run: |
+          aws --version
+          aws s3 cp src/pages-weather/rain/assets/rain-data.txt s3://jaimeelingeniero.es/assets/pages-weather/rain/rain-data.txt

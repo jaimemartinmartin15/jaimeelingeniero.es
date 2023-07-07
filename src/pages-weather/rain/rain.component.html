@@ -1,7 +1,10 @@
 <div class="month-graphic-container">
   <div class="header">
-    <span>
-      <p class="month-and-year">{{MONTHS[selectedMonth]}} {{selectedYear}}</p>
+    <span (click)="showPopUpForSelectedMonth()">
+      <p class="month-and-year">
+        <span class="badge" *ngIf="showBadgeForSelectedMonthAndYear"></span>
+        {{MONTHS[selectedMonth]}} {{selectedYear}}
+      </p>
       <p class="liters" *ngIf="isTotalAmountOfLitersAvailableForSelectedMonthAndYear">
         {{totalAmountOfLitersInSelectedMonthAndYear}} litros
       </p>
@@ -22,8 +25,10 @@
     <li>S</li>
     <li>D</li>
 
-    <li *ngFor="let day of daysRainData; let i=index"
+    <li *ngFor="let day of daysRainData; let i=index" (click)="showPopUpForDay(day)"
       [ngStyle]="i===0 ?{'grid-column-start': firstDayOfMonthWeekDayIndex}:{}">
+      <span class="badge" *ngIf="day.popUpContent !== undefined"></span>
+
       <svg class="pluviometer-svg" viewBox="0 0 300 360">
         <filter [id]="'fillpartial'+i">
           <feFlood flood-color="#00a2e8" />
@@ -70,6 +75,16 @@
       [attr.x2]="30 + 30*i" [attr.y2]="waterLine.svgOffset" [attr.stroke]="i===selectedMonth ? '#c1c100' : '#00a2e8'"
       stroke-width="20" (click)="selectMonthOfSelectedYear(i)" />
 
+    <!-- water liters -->
+    <text *ngFor="let waterLine of monthsRainData; let i=index" (click)="selectMonthOfSelectedYear(i)"
+      [attr.text-anchor]="waterLine.svgOffset > 200 ? 'end' : 'start'"
+      [attr.transform]="'rotate(90,'+(25 + 30*i)+','+waterLine.svgOffset+')'"
+      [attr.x]="waterLine.svgOffset > 200 ? (15 + 30*i): (35 + 30*i)" [attr.y]="waterLine.svgOffset +2"
+      [attr.fill]="waterLine.svgOffset > 200 ? i===selectedMonth ? '#c1c100': '#00a2e8' : 'white'" stroke="none"
+      font-size="1.2rem" style="cursor: pointer">
+      <ng-container *ngIf="!waterLine.isFake">{{waterLine.liters}} L</ng-container>
+    </text>
+
     <!-- y axis -->
     <line x1="5" y1="5" x2="5" y2="260" stroke="black" stroke-width="5" />
 
@@ -83,4 +98,11 @@
   <p *ngIf="!isDataAvailableForSelectedYear()" class="no-data-available">
     No hay datos disponibles para este año
   </p>
+</div>
+
+<div class="pop-up-wrapper" *ngIf="popUp.show">
+  <div class="content">
+    <div>{{popUp.content}}</div>
+    <button (click)="popUp.show = false">Aceptar</button>
+  </div>
 </div>
