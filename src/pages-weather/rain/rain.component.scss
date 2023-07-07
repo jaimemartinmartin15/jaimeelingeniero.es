@@ -18,6 +18,10 @@ div[class$="graphic-container"] {
     gap: 15px;
     margin: 10px;
 
+    & span:first-of-type:has(.badge) {
+      cursor: pointer;
+    }
+
     .month-and-year {
       position: relative;
       margin: 0;
@@ -79,6 +83,10 @@ div[class$="graphic-container"] {
       gap: 3px;
       position: relative;
       margin-top: 15px;
+
+      &:has(.badge) {
+        cursor: pointer;
+      }
 
       .badge {
         position: absolute;
