@@ -9,4 +9,5 @@ export interface LineData {
   month: number;
   year: number;
   liters: number;
+  popUpContent?: string;
 }

@@ -2,22 +2,23 @@
 #
 # Lines starting with # or empty are ignored. Spaces in front are also ignored in such lines
 #
-# Format of lines
+# Format of lines [pop up content is optional]
 #   Month graph (day data line):
-#     dd/mm/yyyy-LITERS # comment
-#     example: 02/07/2023-8 # it rained 8 liters on 2 July 2023
+#     dd/mm/yyyy-LITERS[pop up content] # comment
+#     example: 02/07/2023-8[Rain of three days] # it rained 8 liters on 2 July 2023
 #   Year graph (month data line):
-#     xx/mm/yyyy-LITERS # comment
-#     example: xx/05/2017-27 # it rained a total of 27 liters for the full month of May (no data available for each day)
+#     xx/mm/yyyy-LITERS[pop up content] # comment
+#     example: xx/05/2017-27[Big snow this month last five days] # it rained a total of 27 liters for the full month of May (no data available for each day)
 #
 # Advertising for month graph:
-#   Duplicated day data lines for same day will produce unexpected behaviour
+#   Duplicated day data lines for same day will produce unexpected behaviour.
+#   Day data lines for future days also produce unexpected behaviour.
 #   If there is at least one day data line for the month it will show all days of the month. Missing day data lines for the month will not show liters
 #   The total amount of liters is shown if there is a day data line or a month data line. If there is a month data line, liters are taken from this line (it is not the sum of the days)
 #
 # Advertising for year graph:
 #   If there is any month data line for the year (it could be calculated also from day data lines) the graph will show.
-#   For missing months no water line is shown (0 liters is considered).
+#   For missing months no water line or liters number is shown (0 liters is considered).
 #
 
 # AÑO 2017 (primer mes mayo)
@@ -31,7 +32,7 @@ xx/11/2017-24
 xx/12/2017-35
 
 # AÑO 2018
-xx/01/2018-41
+xx/01/2018-41[Gran nevada días 6 y 7]
 xx/02/2018-55
 xx/03/2018-85
 xx/04/2018-75
@@ -73,7 +74,7 @@ xx/11/2020-61
 xx/12/2020-58
 
 # AÑO 2021
-xx/01/2021-32
+xx/01/2021-32[Gran nevada por la borrasca Filomena]
 xx/02/2021-75
 xx/03/2021-8
 xx/04/2021-71
