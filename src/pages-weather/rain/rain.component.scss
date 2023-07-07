@@ -19,9 +19,16 @@ div[class$="graphic-container"] {
     margin: 10px;
 
     .month-and-year {
+      position: relative;
       margin: 0;
       font-size: 1.5rem;
       font-weight: bold;
+
+      .badge {
+        position: absolute;
+        top: 0;
+        right: -10px;
+      }
     }
 
     .liters {
@@ -68,9 +75,16 @@ div[class$="graphic-container"] {
       // these are the boxes for each day
       display: flex;
       flex-direction: column;
-      gap: 3px;
       align-items: center;
+      gap: 3px;
+      position: relative;
       margin-top: 15px;
+
+      .badge {
+        position: absolute;
+        top: -3px;
+        right: 5px;
+      }
 
       .pluviometer-svg {
         display: block;
@@ -126,19 +140,17 @@ div[class$="graphic-container"] {
   }
 }
 
+.badge {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: red;
+}
+
 .no-data-available {
   margin-top: 40px;
   text-align: center;
-}
-
-@media (max-width: 992px) {
-  :host {
-    flex-wrap: wrap;
-  }
-
-  div[class$="graphic-container"] {
-    width: 100%;
-  }
 }
 
 .pop-up-wrapper {
@@ -166,5 +178,15 @@ div[class$="graphic-container"] {
       font-size: 1.2rem;
       cursor: pointer;
     }
+  }
+}
+
+@media (max-width: 992px) {
+  :host {
+    flex-wrap: wrap;
+  }
+
+  div[class$="graphic-container"] {
+    width: 100%;
   }
 }

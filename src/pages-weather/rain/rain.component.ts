@@ -1,9 +1,8 @@
-import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { MONTHS } from 'src/utils/dates';
 import { RainData } from './rain-data';
 import { RainDataService } from './rain-data.service';
-import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-rain',
@@ -13,6 +12,7 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class RainComponent implements OnInit {
   public readonly MONTHS = MONTHS;
+  public readonly popUp = { show: false, content: '' };
 
   public selectedYear = new Date().getFullYear();
   public selectedMonth = new Date().getMonth();
@@ -28,12 +28,12 @@ export class RainComponent implements OnInit {
     this.monthsRainData = this.rainDataService.getRainDataForMonthsInYear(this.selectedYear);
   }
 
+  public get showBadgeForSelectedMonthAndYear(): boolean {
+    return this.monthsRainData.find((m) => m.date.getMonth() === this.selectedMonth)?.popUpContent != undefined;
+  }
+
   public get isTotalAmountOfLitersAvailableForSelectedMonthAndYear(): boolean {
-    return (
-      this.monthsRainData
-        .filter((m) => !m.isFake)
-        .find((m) => m.date.getMonth() === this.selectedMonth) != undefined
-    );
+    return this.monthsRainData.filter((m) => !m.isFake).find((m) => m.date.getMonth() === this.selectedMonth) != undefined;
   }
 
   public get totalAmountOfLitersInSelectedMonthAndYear(): number {
@@ -104,5 +104,20 @@ export class RainComponent implements OnInit {
   public selectMonthOfSelectedYear(month: number) {
     this.selectedMonth = month;
     this.daysRainData = this.rainDataService.getRainDataForDaysInMonthAndYear(this.selectedMonth, this.selectedYear);
+  }
+
+  public showPopUpForSelectedMonth() {
+    const month = this.monthsRainData.find((m) => m.date.getMonth() === this.selectedMonth && m.date.getFullYear() === this.selectedYear);
+    if (month?.popUpContent !== undefined) {
+      this.popUp.show = true;
+      this.popUp.content = month.popUpContent;
+    }
+  }
+
+  public showPopUpForDay(day: RainData) {
+    if (day.popUpContent !== undefined) {
+      this.popUp.show = true;
+      this.popUp.content = day.popUpContent;
+    }
   }
 }

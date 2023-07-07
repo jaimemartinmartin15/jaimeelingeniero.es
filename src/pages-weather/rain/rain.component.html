@@ -1,7 +1,10 @@
 <div class="month-graphic-container">
   <div class="header">
-    <span>
-      <p class="month-and-year">{{MONTHS[selectedMonth]}} {{selectedYear}}</p>
+    <span (click)="showPopUpForSelectedMonth()">
+      <p class="month-and-year">
+        <span class="badge" *ngIf="showBadgeForSelectedMonthAndYear"></span>
+        {{MONTHS[selectedMonth]}} {{selectedYear}}
+      </p>
       <p class="liters" *ngIf="isTotalAmountOfLitersAvailableForSelectedMonthAndYear">
         {{totalAmountOfLitersInSelectedMonthAndYear}} litros
       </p>
@@ -22,8 +25,10 @@
     <li>S</li>
     <li>D</li>
 
-    <li *ngFor="let day of daysRainData; let i=index"
+    <li *ngFor="let day of daysRainData; let i=index" (click)="showPopUpForDay(day)"
       [ngStyle]="i===0 ?{'grid-column-start': firstDayOfMonthWeekDayIndex}:{}">
+      <span class="badge" *ngIf="day.popUpContent !== undefined"></span>
+
       <svg class="pluviometer-svg" viewBox="0 0 300 360">
         <filter [id]="'fillpartial'+i">
           <feFlood flood-color="#00a2e8" />
@@ -95,10 +100,9 @@
   </p>
 </div>
 
-<div class="pop-up-wrapper" *ngIf="false">
+<div class="pop-up-wrapper" *ngIf="popUp.show">
   <div class="content">
-    <!-- TODO add pop up content here -->
-    <div>Gran nevada los días 6 y 7.</div>
-    <button>Aceptar</button>
+    <div>{{popUp.content}}</div>
+    <button (click)="popUp.show = false">Aceptar</button>
   </div>
 </div>
