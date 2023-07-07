@@ -17,6 +17,7 @@ export class RainDataService {
           this.allDaysRainData.push({
             date: new Date(line.year, line.month, line.day),
             liters: line.liters,
+            popUpContent: line.popUpContent,
             svgOffset: 0,
             isFake: false,
           });
@@ -25,6 +26,7 @@ export class RainDataService {
           this.allMonthsRainData.push({
             date: new Date(line.year, line.month, 1),
             liters: line.liters,
+            popUpContent: line.popUpContent,
             svgOffset: 0,
             isFake: false,
           });
