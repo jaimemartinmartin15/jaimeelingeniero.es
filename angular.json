@@ -38,7 +38,12 @@
                 "output": "/assets/pages-weather/rain/"
               },
               {
-                "glob": "sitemap.txt",
+                "glob": "sitemap.xml",
+                "input": ".",
+                "output": "."
+              },
+              {
+                "glob": "robots.txt",
                 "input": ".",
                 "output": "."
               }
