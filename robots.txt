@@ -1,0 +1,11 @@
+User-agent: *
+
+Disallow: /puntuaciones/*
+Allow: /puntuaciones$
+
+Disallow: /ingles$
+Allow: /ingles/*
+
+Allow: /
+
+Sitemap: https://www.jaimeelingeniero.es/sitemap.xml

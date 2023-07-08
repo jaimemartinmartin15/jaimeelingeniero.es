@@ -5,8 +5,18 @@ import { <%= classify(name) %>Component } from './<%= dasherize(name) %>.compone
 const routes: Routes = [
   {
     path: '',
-    title: '<%= classify(name) %> rxjs',
     component: <%= classify(name) %>Component,
+    title: '<%= classify(name) %> rxjs',
+    data: {
+      metaTags: {
+        description: '', // TODO add custom description for this operator
+        keywords: ['<%= name %>', 'demo', 'rxjs'],
+      },
+      headerPrint: {
+        author: 'Jaime Martín Martín',
+        date: '<%= date %>',
+      },
+    },
   },
   {
     path: '**',
