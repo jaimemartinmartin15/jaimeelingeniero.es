@@ -1,29 +1,10 @@
-/* You can add global styles to this file, and also import other style files */
+@import "./shared/styles/buttons";
 
 body {
     margin: 0;
     padding: 0;
     font-family: "ProximaNova", sans-serif;
     font-size: 1.125rem;
-}
-
-.app-button {
-    border: none;
-    background-color: #d17515;
-    color: #fbf2e2;
-    border-radius: 4px;
-    box-shadow: 3px 3px 5px #cec9c1;
-
-    &:active {
-        transform: translateX(1px) translateY(2px);
-        box-shadow: 2px 1px 5px #cec9c1;
-    }
-
-    &:disabled {
-        background-color: #d3b18e;
-        color: #8f5416;
-        box-shadow: none;
-    }
 }
 
 .app-no-break {
