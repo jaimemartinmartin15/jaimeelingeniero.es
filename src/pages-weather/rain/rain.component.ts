@@ -33,8 +33,22 @@ export class RainComponent implements OnInit, AfterViewInit {
 
   public ngOnInit() {
     this.rainDataService.setData(this.activatedRoute.snapshot.data['rainData']);
+    this.updateArraysRainData();
+  }
+
+  private updateArraysRainData() {
+    this.previousDaysRainData = this.rainDataService.getRainDataForDaysInMonthAndYear(
+      this.selectedMonth > 0 ? this.selectedMonth - 1 : 11,
+      this.selectedMonth > 0 ? this.selectedYear : this.selectedYear - 1
+    );
     this.daysRainData = this.rainDataService.getRainDataForDaysInMonthAndYear(this.selectedMonth, this.selectedYear);
+    this.nextDaysRainData = this.rainDataService.getRainDataForDaysInMonthAndYear(
+      this.selectedMonth < 11 ? this.selectedMonth + 1 : 0,
+      this.selectedMonth < 11 ? this.selectedYear : this.selectedYear + 1
+    );
+    this.previousMonthsRainData = this.rainDataService.getRainDataForMonthsInYear(this.selectedYear - 1);
     this.monthsRainData = this.rainDataService.getRainDataForMonthsInYear(this.selectedYear);
+    this.nextMonthsRainData = this.rainDataService.getRainDataForMonthsInYear(this.selectedYear + 1);
   }
 
   public ngAfterViewInit(): void {
@@ -67,10 +81,9 @@ export class RainComponent implements OnInit, AfterViewInit {
     if (this.selectedMonth < 0) {
       this.selectedMonth = 11; // set December last year
       this.selectedYear--;
-      this.monthsRainData = this.rainDataService.getRainDataForMonthsInYear(this.selectedYear);
     }
 
-    this.daysRainData = this.rainDataService.getRainDataForDaysInMonthAndYear(this.selectedMonth, this.selectedYear);
+    this.updateArraysRainData();
   }
 
   public showNextMonth() {
@@ -78,10 +91,9 @@ export class RainComponent implements OnInit, AfterViewInit {
     if (this.selectedMonth > 11) {
       this.selectedMonth = 0; // set January next year
       this.selectedYear++;
-      this.monthsRainData = this.rainDataService.getRainDataForMonthsInYear(this.selectedYear);
     }
 
-    this.daysRainData = this.rainDataService.getRainDataForDaysInMonthAndYear(this.selectedMonth, this.selectedYear);
+    this.updateArraysRainData();
   }
 
   public getFirstDayOfMonthWeekDayIndex(month: number, year: number): number {
@@ -102,14 +114,12 @@ export class RainComponent implements OnInit, AfterViewInit {
 
   public showPreviousYear() {
     this.selectedYear--;
-    this.daysRainData = this.rainDataService.getRainDataForDaysInMonthAndYear(this.selectedMonth, this.selectedYear);
-    this.monthsRainData = this.rainDataService.getRainDataForMonthsInYear(this.selectedYear);
+    this.updateArraysRainData();
   }
 
   public showNextYear() {
     this.selectedYear++;
-    this.daysRainData = this.rainDataService.getRainDataForDaysInMonthAndYear(this.selectedMonth, this.selectedYear);
-    this.monthsRainData = this.rainDataService.getRainDataForMonthsInYear(this.selectedYear);
+    this.updateArraysRainData();
   }
 
   public isDataAvailableForYear(monthsArray: RainData[]) {
@@ -118,7 +128,7 @@ export class RainComponent implements OnInit, AfterViewInit {
 
   public selectMonthOfSelectedYear(month: number) {
     this.selectedMonth = month;
-    this.daysRainData = this.rainDataService.getRainDataForDaysInMonthAndYear(this.selectedMonth, this.selectedYear);
+    this.updateArraysRainData();
   }
 
   public showPopUpForMonth(monthsArray: RainData[], month: number) {
