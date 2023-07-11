@@ -1,7 +1,7 @@
 @import "../../../shared/styles/colors";
 
 .demo-button {
-    stroke: #fbf2e2;
+    stroke: $color-primary-button-text;
     stroke-width: 2;
     fill: $color-orange;
     cursor: pointer;
@@ -10,7 +10,7 @@
         text-anchor: middle;
         dominant-baseline: middle;
         stroke: none;
-        fill: #fbf2e2;
+        fill: $color-primary-button-text;
         font-size: 1.1em;
     }
 }

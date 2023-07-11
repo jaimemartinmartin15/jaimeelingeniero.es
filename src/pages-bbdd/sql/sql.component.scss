@@ -21,7 +21,7 @@ main {
 
 .command-sintax {
     overflow-x: auto;
-    background-color: #f2f2f2;
+    background-color: $color-background-command-sintax;
     padding: 10px 15px;
 }
 
@@ -31,7 +31,7 @@ main {
 
 .collapsible {
     &__title {
-        background-color: #fbfbff;
+        background-color: $color-background-panel;
         border: 2px solid $color-orange;
         border-radius: 5px;
         padding: 7px 15px;

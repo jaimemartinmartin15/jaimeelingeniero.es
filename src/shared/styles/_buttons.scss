@@ -3,7 +3,7 @@
 .app-button {
   border: none;
   background-color: $color-orange;
-  color: #fbf2e2;
+  color: $color-primary-button-text;
   border-radius: 4px;
   box-shadow: 3px 3px 5px $color-box-shadow;
   cursor: pointer;

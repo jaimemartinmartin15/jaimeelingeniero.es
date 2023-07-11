@@ -3,7 +3,7 @@
 :host {
     position: fixed;
     inset: 0;
-    background-color: #3333ff;
+    background-color: $color-blue;
 }
 
 .content {
@@ -102,7 +102,7 @@
             min-height: 35px;
             border: 3px solid $color-orange;
             border-radius: 5px;
-            background-color: #fbf2e2;
+            background-color: $color-primary-button-text;
             padding: 8px;
             font-size: 1.7rem;
             font-weight: 600;

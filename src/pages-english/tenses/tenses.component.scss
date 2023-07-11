@@ -45,7 +45,7 @@ form {
             top: 0;
             left: 15px;
             transform: translateY(-50%);
-            background-color: #fbfbff;
+            background-color: $color-background-panel;
             color: $color-orange;
             padding: 1px 5px;
             border-radius: 5px;
@@ -59,7 +59,7 @@ form {
             border-radius: 5px;
             padding: 11px 15px 7px;
             transition: border-color 0.2s;
-            background-color: #fbfbff;
+            background-color: $color-background-panel;
 
             &::placeholder {
                 color: #b5b5b5;
@@ -87,7 +87,7 @@ form {
         border: 1px solid $color-orange;
         border-radius: 5px;
         padding: 10px;
-        background-color: #fbfbff;
+        background-color: $color-background-panel;
 
         p span.error {
             color: #dd1717;

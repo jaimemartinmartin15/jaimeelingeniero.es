@@ -45,7 +45,7 @@ label {
 
     .options {
         margin-top: 5px;
-        background-color: #fbfbff;
+        background-color: $color-background-panel;
         border: 2px solid black;
         border-radius: 5px;
         display: flex;
@@ -168,7 +168,7 @@ label {
         list-style: none;
 
         .cdk-drag-preview {
-            box-shadow: 3px 3px 5px #cec9c1, -3px -3px 5px #cec9c1;
+            box-shadow: 3px 3px 5px $color-box-shadow, -3px -3px 5px $color-box-shadow;
             background-color: white;
             padding: 5px !important;
             height: auto !important;

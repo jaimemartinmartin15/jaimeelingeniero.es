@@ -71,24 +71,24 @@ a {
         button {
             border: none;
             background-color: $color-orange;
-            color: #fbf2e2;
+            color: $color-primary-button-text;
             width: 30px;
             height: 30px;
             padding: 5px;
             border-radius: 4px;
             font-size: 0.9rem;
-            box-shadow: 3px 3px 5px #cec9c1;
+            box-shadow: 3px 3px 5px $color-box-shadow;
             cursor: pointer;
 
             &:active {
                 transform: translateX(1px) translateY(2px);
-                box-shadow: 2px 1px 5px #cec9c1;
+                box-shadow: 2px 1px 5px $color-box-shadow;
             }
         }
     }
 
     .explanation {
-        background-color: #fbfbff;
+        background-color: $color-background-panel;
         border: 2px solid $color-orange;
         border-radius: 5px;
         padding: 10px;
@@ -119,7 +119,7 @@ a {
     display: flex;
     justify-content: stretch;
     gap: 15px;
-    border-bottom: 2px solid #3333ff;
+    border-bottom: 2px solid $color-blue;
 
     span {
         min-width: 8%;
@@ -130,7 +130,7 @@ a {
         border-top-right-radius: 5px;
 
         &.selected {
-            background-color: #cec9c1;
+            background-color: $color-box-shadow;
         }
 
         &:hover:not(.selected) {
@@ -180,7 +180,7 @@ footer {
         border: none;
 
         span {
-            border-bottom: 2px solid #3333ff;
+            border-bottom: 2px solid $color-blue;
         }
     }
 
