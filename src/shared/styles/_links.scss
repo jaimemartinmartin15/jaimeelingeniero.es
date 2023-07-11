@@ -1,0 +1,12 @@
+@import "./colors";
+
+.app-link {
+  color: $color-orange;
+
+  &:hover {
+    filter: brightness(90%);
+  }
+  &:active {
+    filter: brightness(80%);
+  }
+}

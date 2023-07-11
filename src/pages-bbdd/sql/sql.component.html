@@ -54,7 +54,7 @@
     <p>Estando instalado, para conectarnos con una terminal donde aprender sql tenemos este comando:</p>
 
     <code>
-      <pre class="command-sintax">mysql -h &lt;dominio-o-direccionIP&gt; -u &lt;usuario&gt; -p&lt;password&gt; &lt;nombreBaseDeDatos&gt;</pre>
+      <pre class="app-command-sintax">mysql -h &lt;dominio-o-direccionIP&gt; -u &lt;usuario&gt; -p&lt;password&gt; &lt;nombreBaseDeDatos&gt;</pre>
     </code>
 
     <p>
@@ -79,7 +79,7 @@
     </p>
 
     <code>
-      <pre class="command-sintax">create database &lt;nombre-de-la-base-de-datos&gt;;</pre>
+      <pre class="app-command-sintax">create database &lt;nombre-de-la-base-de-datos&gt;;</pre>
     </code>
 
     <p>
@@ -148,7 +148,7 @@
     </p>
 
     <code>
-      <pre class="command-sintax">DROP DATABASE &lt;nombreDeLaBaseDeDatos&gt;;</pre>
+      <pre class="app-command-sintax">DROP DATABASE &lt;nombreDeLaBaseDeDatos&gt;;</pre>
     </code>
   </section>
 
@@ -161,7 +161,7 @@
     </p>
 
     <code>
-      <pre class="command-sintax">CREATE TABLE nombreTabla (
+      <pre class="app-command-sintax">CREATE TABLE nombreTabla (
   nombreColumna 
     tipo
     [NOT NULL]
@@ -434,7 +434,7 @@
     </p>
 
     <code>
-      <pre class="command-sintax">DROP TABLE nombre_de_la_tabla</pre>
+      <pre class="app-command-sintax">DROP TABLE nombre_de_la_tabla</pre>
     </code>
 
     <p>
@@ -442,7 +442,7 @@
     </p>
 
     <code>
-      <pre class="command-sintax">ALTER TABLE nombreTabla
+      <pre class="app-command-sintax">ALTER TABLE nombreTabla
   ADD [COLUMN] nombreColumna especificación,
   DROP [COLUMN] nombreColumna,
   ALTER [COLUMN] nombreColumna nuevaEspecificación,
@@ -491,7 +491,7 @@ Records: 0  Duplicates: 0  Warnings: 0</pre>
     </p>
 
     <code>
-      <pre class="command-sintax">DESCRIBE &lt;nombreDeLaTabla&gt;;</pre>
+      <pre class="app-command-sintax">DESCRIBE &lt;nombreDeLaTabla&gt;;</pre>
     </code>
 
     <app-terminal-code>
@@ -517,7 +517,7 @@ Records: 0  Duplicates: 0  Warnings: 0</pre>
     </p>
 
     <code>
-      <pre class="command-sintax">INSERT INTO tabla [(columna1, columna2, ...)] VALUES (valor1, valor2, ...);</pre>
+      <pre class="app-command-sintax">INSERT INTO tabla [(columna1, columna2, ...)] VALUES (valor1, valor2, ...);</pre>
     </code>
 
     <p>
@@ -551,7 +551,7 @@ Records: 0  Duplicates: 0  Warnings: 0</pre>
     </p>
 
     <code>
-      <pre class="command-sintax">DELETE FROM tabla WHERE condición</pre>
+      <pre class="app-command-sintax">DELETE FROM tabla WHERE condición</pre>
     </code>
 
     <p>
@@ -569,7 +569,7 @@ Records: 0  Duplicates: 0  Warnings: 0</pre>
     </p>
 
     <code>
-      <pre class="command-sintax">SELECT [ALL | DISTINCT]
+      <pre class="app-command-sintax">SELECT [ALL | DISTINCT]
 expresión
 FROM tabla
 WHERE condición
@@ -885,7 +885,7 @@ ORDER BY columna/nº columna [ASC | DESC]</pre>
     </p>
 
     <code>
-      <pre class="command-sintax">SELECT aliasTablaA.columna, columna, ...
+      <pre class="app-command-sintax">SELECT aliasTablaA.columna, columna, ...
 FROM tablaA aliasTablaA, tablaB, tablaC
 WHERE condición;</pre>
     </code>
@@ -911,7 +911,7 @@ WHERE condición;</pre>
     </p>
 
     <code>
-      <pre class="command-sintax">SELECT expresiones
+      <pre class="app-command-sintax">SELECT expresiones
 FROM tabla1 [alias1] [INNER | LEFT | RIGHT | FULL | CROSS] JOIN tabla2 [alias2] ON condiciónDelJoin;
 WHERE condiciónDeLaConsulta</pre>
     </code>
@@ -1054,7 +1054,7 @@ select me.nombre from MECANICO me, REPARA r, COCHE c, MARCA ma where me.codigo=r
     </p>
 
     <code>
-      <pre class="command-sintax">SELECT expresiones
+      <pre class="app-command-sintax">SELECT expresiones
 FROM tabla1
 WHERE nombreColumna IN (SELECT soloUnaColumna FROM tabla2 WHERE condición);</pre>
     </code>
@@ -1065,7 +1065,7 @@ WHERE nombreColumna IN (SELECT soloUnaColumna FROM tabla2 WHERE condición);</pr
     </p>
 
     <code>
-      <pre class="command-sintax">SELECT *
+      <pre class="app-command-sintax">SELECT *
 FROM tabla1
 WHERE columna > [NOT] ALL | ANY (SELECT soloUnaColumna FROM tabla2 WHERE condición);</pre>
     </code>
@@ -1081,12 +1081,15 @@ WHERE columna > [NOT] ALL | ANY (SELECT soloUnaColumna FROM tabla2 WHERE condici
 
     <p>
       Ahora ya sabemos lo básico para crear y consultar bases de datos relaciones con SQL. Aún queda mucho que aprender
-      y para ello es necesario practicar y asentar unas buenas bases. Para ello te dejo el link que te <a download
-        href="pages-bbdd/assets/scripts.zip">descarga el zip</a> con varios scripts que cargan los datos que he usado yo
-      para este artículo. En el propio zip hay un README.txt con más información.
+      y para ello es necesario practicar y asentar unas buenas bases. Para ello te dejo el link que te <a
+        class="app-link" download href="pages-bbdd/assets/scripts.zip">descarga el zip</a> con varios scripts que cargan
+      los datos que he usado yo para este artículo. En el propio zip hay un README.txt con más información.
     </p>
 
-    <p>También te dejo un <a routerLink="./ejercicios">link con ejercicios</a> resueltos para que practiques consultas.</p>
+    <p>
+      También te dejo un <a class="app-link" routerLink="./ejercicios">link con ejercicios</a> resueltos para que
+      practiques consultas.
+    </p>
 
     <p>Buena suerte! 🍀</p>
   </section>

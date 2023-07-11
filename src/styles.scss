@@ -1,18 +1,10 @@
 @import "./shared/styles/buttons";
+@import "./shared/styles/links";
+@import "./shared/styles/utils";
 
 body {
     margin: 0;
     padding: 0;
     font-family: "ProximaNova", sans-serif;
     font-size: 1.125rem;
-}
-
-.app-no-break {
-    white-space: nowrap;
-}
-
-// for rxjs pages after upgrading highlight.js in routable-lateral-menu resolver
-pre[class~="hljs"] {
-    padding: 10px;
-    overflow-x: auto;
 }

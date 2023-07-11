@@ -1,0 +1,16 @@
+.app-no-break {
+  white-space: nowrap;
+}
+
+// for rxjs pages after upgrading highlight.js in routable-lateral-menu resolver
+pre[class~="hljs"] {
+  padding: 10px;
+  overflow-x: auto;
+}
+
+.app-code-example, // TODO check if the above class about pre hljs can replace this
+.app-command-sintax {
+  overflow-x: auto;
+  background-color: $color-background-command-sintax;
+  padding: 10px 15px;
+}

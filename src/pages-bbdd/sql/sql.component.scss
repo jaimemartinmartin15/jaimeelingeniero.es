@@ -19,12 +19,6 @@ main {
     margin: 20px 10px 10px 10px;
 }
 
-.command-sintax {
-    overflow-x: auto;
-    background-color: $color-background-command-sintax;
-    padding: 10px 15px;
-}
-
 .bbdd-scheme-image {
     width: 100%;
 }
@@ -42,7 +36,9 @@ main {
     app-terminal-code {
         overflow: hidden;
         max-height: 0;
-        transition: max-height 1s, margin-bottom 1s;
+        transition:
+            max-height 1s,
+            margin-bottom 1s;
     }
 
     .app-terminal-code--expanded {
@@ -85,33 +81,6 @@ table {
     margin-left: auto;
     margin-right: auto;
     width: 50%;
-}
-
-.comand-example {
-    display: block;
-    background-color: black;
-    padding: 10px;
-    border-radius: 5px;
-    font-size: 1rem;
-    margin-bottom: 18px;
-
-    :first-child {
-        overflow-x: auto;
-
-        pre {
-            margin: 0;
-            background-color: inherit;
-            color: white;
-        }
-
-        .command {
-            color: #25fa2d;
-        }
-    }
-}
-
-a {
-    color: $color-orange;
 }
 
 @media (max-width: calc($screen-max-width + 10px)) {
