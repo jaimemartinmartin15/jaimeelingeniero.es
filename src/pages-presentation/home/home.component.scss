@@ -80,21 +80,10 @@
         max-width: 850px;
         font-size: 1.15em;
 
-        .my-trayectory-link {
-            border: none;
-            background-color: #d17515;
-            color: #fbf2e2;
+        .app-link-button {
             padding: 9px;
-            border-radius: 4px;
             font-size: 1.5rem;
-            box-shadow: 3px 3px 5px #cec9c1;
             flex-shrink: 0;
-            text-decoration: none;
-
-            &:active {
-                transform: translateX(1px) translateY(2px);
-                box-shadow: 2px 1px 5px #cec9c1;
-            }
         }
     }
 }
@@ -270,7 +259,7 @@
         min-height: calc(98vh - 60px);
 
         .figure-and-title .title {
-            margin: 30px 0
+            margin: 30px 0;
         }
     }
 
