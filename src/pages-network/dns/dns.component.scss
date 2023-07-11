@@ -69,21 +69,10 @@ a {
         margin-bottom: 15px;
 
         button {
-            border: none;
-            background-color: $color-orange;
-            color: $color-primary-button-text;
             width: 30px;
             height: 30px;
             padding: 5px;
-            border-radius: 4px;
             font-size: 0.9rem;
-            box-shadow: 3px 3px 5px $color-box-shadow;
-            cursor: pointer;
-
-            &:active {
-                transform: translateX(1px) translateY(2px);
-                box-shadow: 2px 1px 5px $color-box-shadow;
-            }
         }
     }
 
