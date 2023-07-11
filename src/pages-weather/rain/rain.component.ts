@@ -43,22 +43,22 @@ export class RainComponent implements OnInit, AfterViewInit {
     this.yearGraphicScrollerRef.nativeElement.scrollLeft = this.yearGraphicScrollerRef.nativeElement.clientWidth;
   }
 
-  public get showBadgeForSelectedMonthAndYear(): boolean {
-    return this.monthsRainData.find((m) => m.date.getMonth() === this.selectedMonth)?.popUpContent != undefined;
+  public showBadgeForMonth(monthsArray: RainData[], month: number): boolean {
+    return monthsArray.find((m) => m.date.getMonth() === month)?.popUpContent != undefined;
   }
 
-  public get isTotalAmountOfLitersAvailableForSelectedMonthAndYear(): boolean {
-    return this.monthsRainData.filter((m) => !m.isFake).find((m) => m.date.getMonth() === this.selectedMonth) != undefined;
+  public isTotalAmountOfLitersAvailableForMonth(monthsArray: RainData[], month: number): boolean {
+    return monthsArray.filter((m) => !m.isFake).find((m) => m.date.getMonth() === month) != undefined;
   }
 
-  public get totalAmountOfLitersInSelectedMonthAndYear(): number {
-    return this.monthsRainData.find((m) => m.date.getMonth() === this.selectedMonth)!.liters;
+  public totalAmountOfLitersInMonth(monthsArray: RainData[], month: number): number {
+    return monthsArray.find((m) => m.date.getMonth() === month)!.liters;
   }
 
-  public get weatherIcon(): string {
-    if (this.selectedMonth < 3) return '❄️';
-    if (this.selectedMonth < 6) return '🌹';
-    if (this.selectedMonth < 9) return '☀️';
+  public getWeatherIcon(month: number): string {
+    if (month < 3) return '❄️';
+    if (month < 6) return '🌹';
+    if (month < 9) return '☀️';
     return '🍁';
   }
 
@@ -84,20 +84,20 @@ export class RainComponent implements OnInit, AfterViewInit {
     this.daysRainData = this.rainDataService.getRainDataForDaysInMonthAndYear(this.selectedMonth, this.selectedYear);
   }
 
-  public get firstDayOfMonthWeekDayIndex(): number {
-    return new Date(this.selectedYear, this.selectedMonth, 1).getDay();
+  public getFirstDayOfMonthWeekDayIndex(month: number, year: number): number {
+    return new Date(year, month, 1).getDay();
   }
 
-  public get isDataAvailableForSelectedMonth(): boolean {
-    return this.daysRainData.every((d) => d.isFake);
+  public isDataAvailableForEachDayOfMonth(daysArray: RainData[]): boolean {
+    return !daysArray.every((d) => d.isFake);
   }
 
-  public get isTotalAmountOfLitersAvailableForSelectedYear(): boolean {
-    return this.monthsRainData.some((m) => !m.isFake);
+  public isTotalAmountOfLitersAvailableForYear(monthsArray: RainData[]): boolean {
+    return monthsArray.some((m) => !m.isFake);
   }
 
-  public get totalAmountOfLitersInSelectedYear(): number {
-    return this.monthsRainData.map((m) => m.liters).reduce((a, b) => a + b, 0);
+  public getTotalAmountOfLitersInYear(monthsArray: RainData[]): number {
+    return monthsArray.map((m) => m.liters).reduce((a, b) => a + b, 0);
   }
 
   public showPreviousYear() {
@@ -112,8 +112,8 @@ export class RainComponent implements OnInit, AfterViewInit {
     this.monthsRainData = this.rainDataService.getRainDataForMonthsInYear(this.selectedYear);
   }
 
-  public isDataAvailableForSelectedYear() {
-    return this.monthsRainData.some((m) => !m.isFake);
+  public isDataAvailableForYear(monthsArray: RainData[]) {
+    return monthsArray.some((m) => !m.isFake);
   }
 
   public selectMonthOfSelectedYear(month: number) {
@@ -121,11 +121,11 @@ export class RainComponent implements OnInit, AfterViewInit {
     this.daysRainData = this.rainDataService.getRainDataForDaysInMonthAndYear(this.selectedMonth, this.selectedYear);
   }
 
-  public showPopUpForSelectedMonth() {
-    const month = this.monthsRainData.find((m) => m.date.getMonth() === this.selectedMonth && m.date.getFullYear() === this.selectedYear);
-    if (month?.popUpContent !== undefined) {
+  public showPopUpForMonth(monthsArray: RainData[], month: number) {
+    const foundMonth = monthsArray.find((m) => m.date.getMonth() === month);
+    if (foundMonth?.popUpContent !== undefined) {
       this.popUp.show = true;
-      this.popUp.content = month.popUpContent;
+      this.popUp.content = foundMonth.popUpContent;
     }
   }
 
@@ -155,7 +155,7 @@ export class RainComponent implements OnInit, AfterViewInit {
     }
   }
 
-  public onScrollinYear(e: Event) {
+  public onScrollingYear(e: Event) {
     const scroller = e.target as HTMLDivElement;
     const childrenWidth = scroller.children[0].clientWidth;
     const gapSize = 30; // 30 px as in scss file in .graphic-scroller class

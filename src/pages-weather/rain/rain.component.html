@@ -1,15 +1,31 @@
 <div class="graphic-scroller" #monthGraphicScroller (scroll)="onScrollingMonth($event)">
-  <!-- TODO context -->
-  <ng-container *ngTemplateOutlet="monthContainer; context: {}"></ng-container>
-  <ng-container *ngTemplateOutlet="monthContainer; context: {}"></ng-container>
-  <ng-container *ngTemplateOutlet="monthContainer; context: {}"></ng-container>
+  <ng-container *ngTemplateOutlet="monthContainer; context: { data: {
+      month: selectedMonth > 0 ? selectedMonth -1 : 11,
+      year: selectedMonth > 0 ? selectedYear : selectedYear - 1,
+      daysArray: previousDaysRainData,
+      monthsArray: previousMonthsRainData}}"></ng-container>
+  <ng-container *ngTemplateOutlet="monthContainer; context: { data: {
+      month: selectedMonth,
+      year: selectedYear,
+      daysArray: daysRainData,
+      monthsArray: monthsRainData}}"></ng-container>
+  <ng-container *ngTemplateOutlet="monthContainer; context: {  data: {
+      month: selectedMonth < 11 ? selectedMonth + 1 : 0,
+      year: selectedMonth < 11 ? selectedYear : selectedYear + 1,
+      daysArray: nextDaysRainData,
+      monthsArray: nextMonthsRainData}}"></ng-container>
 </div>
 
-<div class="graphic-scroller" #yearGraphicScroller (scroll)="onScrollinYear($event)">
-  <!-- TODO context -->
-  <ng-container *ngTemplateOutlet="yearContainer; context: {}"></ng-container>
-  <ng-container *ngTemplateOutlet="yearContainer; context: {}"></ng-container>
-  <ng-container *ngTemplateOutlet="yearContainer; context: {}"></ng-container>
+<div class="graphic-scroller" #yearGraphicScroller (scroll)="onScrollingYear($event)">
+  <ng-container *ngTemplateOutlet="yearContainer; context: { data: {
+      year: selectedYear - 1,
+      monthsArray: previousMonthsRainData}}"></ng-container>
+  <ng-container *ngTemplateOutlet="yearContainer; context: { data: {
+      year: selectedYear,
+      monthsArray: monthsRainData}}"></ng-container>
+  <ng-container *ngTemplateOutlet="yearContainer; context: { data: {
+      year: selectedYear + 1,
+      monthsArray: nextMonthsRainData}}"></ng-container>
 </div>
 
 <div class="pop-up-wrapper" *ngIf="popUp.show">
@@ -19,19 +35,19 @@
   </div>
 </div>
 
-<ng-template #monthContainer>
+<ng-template #monthContainer let-data="data">
   <div class="month-graphic-container">
     <div class="header">
-      <span (click)="showPopUpForSelectedMonth()">
+      <span (click)="showPopUpForMonth(data.monthsArray, data.month)">
         <p class="month-and-year">
-          <span class="badge" *ngIf="showBadgeForSelectedMonthAndYear"></span>
-          {{MONTHS[selectedMonth]}} {{selectedYear}}
+          <span class="badge" *ngIf="showBadgeForMonth(data.monthsArray, data.month)"></span>
+          {{MONTHS[data.month]}} {{data.year}}
         </p>
-        <p class="liters" *ngIf="isTotalAmountOfLitersAvailableForSelectedMonthAndYear">
-          {{totalAmountOfLitersInSelectedMonthAndYear}} litros
+        <p class="liters" *ngIf="isTotalAmountOfLitersAvailableForMonth(data.monthsArray, data.month)">
+          {{totalAmountOfLitersInMonth(data.monthsArray, data.month)}} litros
         </p>
       </span>
-      <span class="icon">{{weatherIcon}}</span>
+      <span class="icon">{{getWeatherIcon(data.month)}}</span>
       <div class="change-month-buttons">
         <button (click)="showPreviousMonth()">&lt;</button>
         <button (click)="showNextMonth()">&gt;</button>
@@ -47,8 +63,8 @@
       <li>S</li>
       <li>D</li>
 
-      <li *ngFor="let day of daysRainData; let i=index" (click)="showPopUpForDay(day)"
-        [ngStyle]="i===0 ?{'grid-column-start': firstDayOfMonthWeekDayIndex}:{}">
+      <li *ngFor="let day of data.daysArray let i=index" (click)="showPopUpForDay(day)"
+        [ngStyle]="i===0 ?{'grid-column-start': getFirstDayOfMonthWeekDayIndex(data.month, data.year)}:{}">
         <span class="badge" *ngIf="day.popUpContent !== undefined"></span>
 
         <svg class="pluviometer-svg" viewBox="0 0 300 360">
@@ -74,30 +90,31 @@
       </li>
     </ol>
 
-    <p *ngIf="isDataAvailableForSelectedMonth" class="no-data-available">
+    <p *ngIf="!isDataAvailableForEachDayOfMonth(data.daysArray)" class="no-data-available">
       No hay datos disponibles por día
     </p>
   </div>
 </ng-template>
 
-<ng-template #yearContainer>
+<ng-template #yearContainer let-data="data">
   <div class="year-graphic-container">
     <div class="header">
       <button (click)="showPreviousYear()">&lt;</button>
       <span>
-        <p class="year">{{selectedYear}}</p>
-        <p class="liters" *ngIf="isTotalAmountOfLitersAvailableForSelectedYear">
-          {{totalAmountOfLitersInSelectedYear}} litros
+        <p class="year">{{data.year}}</p>
+        <p class="liters" *ngIf="isTotalAmountOfLitersAvailableForYear(data.monthsArray)">
+          {{getTotalAmountOfLitersInYear(data.monthsArray)}} litros
         </p>
       </span>
       <button (click)="showNextYear()">&gt;</button>
     </div>
 
-    <svg viewBox="0 0 400 300" *ngIf="isDataAvailableForSelectedYear()">
+    <svg viewBox="0 0 400 300" *ngIf="isDataAvailableForYear(data.monthsArray)">
       <!-- water lines -->
-      <line *ngFor="let waterLine of monthsRainData; let i=index" class="water-year-line" [attr.x1]="30 + 30*i" y1="260"
-        [attr.x2]="30 + 30*i" [attr.y2]="waterLine.svgOffset" [attr.stroke]="i===selectedMonth ? '#c1c100' : '#00a2e8'"
-        stroke-width="20" (click)="selectMonthOfSelectedYear(i)" />
+      <line *ngFor="let waterLine of data.monthsArray; let i=index" class="water-year-line" [attr.x1]="30 + 30*i"
+        y1="260" [attr.x2]="30 + 30*i" [attr.y2]="waterLine.svgOffset"
+        [attr.stroke]="i===selectedMonth ? '#c1c100' : '#00a2e8'" stroke-width="20"
+        (click)="selectMonthOfSelectedYear(i)" />
 
       <!-- water liters -->
       <text *ngFor="let waterLine of monthsRainData; let i=index" (click)="selectMonthOfSelectedYear(i)"
@@ -119,7 +136,7 @@
       <text [attr.x]="25 + 30*i" y="290" *ngFor="let month of MONTHS; let i=index">{{month[0]}}</text>
     </svg>
 
-    <p *ngIf="!isDataAvailableForSelectedYear()" class="no-data-available">
+    <p *ngIf="!isDataAvailableForYear(data.monthsArray)" class="no-data-available">
       No hay datos disponibles para este año
     </p>
   </div>
