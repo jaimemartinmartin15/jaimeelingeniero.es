@@ -1,3 +1,5 @@
+@import "../../shared/styles/colors";
+
 :host {
     display: block;
 }
@@ -14,7 +16,7 @@
         align-items: center;
         flex-grow: 1;
         gap: 50px;
-        background-color: #3333ff;
+        background-color: $color-blue;
         padding: 50px;
 
         .figure__picture {
@@ -25,7 +27,7 @@
             height: $figure-size;
             user-select: none;
             border-radius: 50%;
-            border: 5px solid #d17515;
+            border: 5px solid $color-orange;
             background-color: #fcfcfc;
             box-shadow: 0 0 20px #fcfcfc;
             display: flex;
@@ -50,7 +52,7 @@
         top: -1px; // avoids small border line flashing
         z-index: -1;
         background-color: #fcfcfc;
-        fill: #3333ff;
+        fill: $color-blue;
         display: block;
 
         path {
@@ -155,23 +157,24 @@
             align-items: center;
             gap: 5px;
             text-align: center;
-            border: 2.5px solid #d17515;
+            border: 2.5px solid $color-orange;
             border-radius: 5px;
             width: 300px;
             height: 100px;
             transition: box-shadow 0.2s;
             text-decoration: none;
             color: black;
-            background-color: #fefefe;
-            box-shadow: 0 0 5px #c2c2c2;
+            background-color: $color-background-panel;
+            box-shadow: 0 0 5px $color-box-shadow;
 
             &--disabled {
-                border: 2.5px solid #e5c8aa;
-                box-shadow: 0 0 7px #e5c8aa;
+                color: $color-text-disabled;
+                border: 2.5px solid $color-background-disabled;
+                box-shadow: none;
             }
 
             &:hover:not(:last-child) {
-                box-shadow: 0 0 7px #d17515;
+                box-shadow: 0 0 7px $color-orange;
                 cursor: pointer;
             }
         }

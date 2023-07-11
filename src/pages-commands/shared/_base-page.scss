@@ -1,3 +1,5 @@
+@import "../../shared/styles/colors";
+
 :host {
     display: block;
     line-height: 30px;
@@ -10,7 +12,7 @@
     align-items: center;
 
     .link-command {
-        color: #d17515;
+        color: $color-orange;
         text-decoration: none;
     }
 }

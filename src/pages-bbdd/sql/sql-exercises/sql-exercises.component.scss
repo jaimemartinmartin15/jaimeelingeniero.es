@@ -1,3 +1,5 @@
+@import "../../shared/styles/colors";
+
 $screen-max-width: 830px;
 
 :host {
@@ -18,7 +20,7 @@ main {
 }
 
 a {
-  color: #d17515;
+  color: $color-orange;
 }
 
 .primary-key {
@@ -29,7 +31,7 @@ a {
   padding: 15px;
   margin: 0 0 20px 0;
   background-color: #fbfbff;
-  border: 2px solid #d17515;
+  border: 2px solid $color-orange;
   border-radius: 5px;
 
   .exercise-title {
@@ -44,7 +46,7 @@ a {
   app-collapsible {
     [collapsible-header-open],
     [collapsible-header-closed] {
-      color: #d17515;
+      color: $color-orange;
     }
 
     app-terminal-code {

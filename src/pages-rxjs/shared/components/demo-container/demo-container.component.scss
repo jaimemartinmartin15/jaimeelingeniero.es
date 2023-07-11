@@ -1,3 +1,4 @@
+@import "../../../../shared/styles/colors";
 @import "../../styles/base-page";
 @import "../../styles/demo";
 
@@ -5,6 +6,6 @@
     display: block;
     border-radius: 5px;
     background-color: #fbfbff;
-    box-shadow: 0 0 5px #d17515;
+    box-shadow: 0 0 5px $color-orange;
     user-select: none;
 }

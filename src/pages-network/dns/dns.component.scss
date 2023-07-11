@@ -1,3 +1,5 @@
+@import "../../shared/styles/colors";
+
 $page-width: 830px;
 
 :host {
@@ -19,7 +21,7 @@ $page-width: 830px;
 }
 
 a {
-    color: #d17515;
+    color: $color-orange;
 }
 
 .rfc {
@@ -34,7 +36,7 @@ a {
 .definitions,
 #rr-section {
     dt {
-        color: #d17515;
+        color: $color-orange;
 
         &:not(:first-child) {
             margin-top: 15px;
@@ -68,7 +70,7 @@ a {
 
         button {
             border: none;
-            background-color: #d17515;
+            background-color: $color-orange;
             color: #fbf2e2;
             width: 30px;
             height: 30px;
@@ -87,7 +89,7 @@ a {
 
     .explanation {
         background-color: #fbfbff;
-        border: 2px solid #d17515;
+        border: 2px solid $color-orange;
         border-radius: 5px;
         padding: 10px;
         text-align: left;

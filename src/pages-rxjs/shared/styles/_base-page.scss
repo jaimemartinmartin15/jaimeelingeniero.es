@@ -1,3 +1,5 @@
+@import "../../../shared/styles/colors";
+
 :host {
     display: block;
 }
@@ -9,7 +11,7 @@
     align-items: center;
 
     .link-rxjs {
-        color: #d17515;
+        color: $color-orange;
         text-decoration: none;
     }
 }

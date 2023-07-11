@@ -1,8 +1,10 @@
+@import "../../../../shared/styles/colors";
+
 :host {
     display: flex;
     gap: 15px;
     background-image: linear-gradient(to right, rgb(204, 209, 255), rgb(231, 234, 255));
-    border: 4px solid #d17515;
+    border: 4px solid $color-orange;
     border-radius: 5px;
     padding: 10px;
     font-size: 1.7em;

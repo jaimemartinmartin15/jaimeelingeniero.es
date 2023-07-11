@@ -1,3 +1,5 @@
+@import "../../../shared/styles/colors";
+
 $page-width: 830px;
 
 :host {
@@ -13,7 +15,7 @@ $page-width: 830px;
 }
 
 a {
-    color: #d17515;
+    color: $color-orange;
 }
 
 .file-name {

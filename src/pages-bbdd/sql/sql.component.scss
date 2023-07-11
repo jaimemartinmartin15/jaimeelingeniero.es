@@ -1,3 +1,5 @@
+@import "../../shared/styles/colors";
+
 $screen-max-width: 830px;
 
 :host {
@@ -30,7 +32,7 @@ main {
 .collapsible {
     &__title {
         background-color: #fbfbff;
-        border: 2px solid #d17515;
+        border: 2px solid $color-orange;
         border-radius: 5px;
         padding: 7px 15px;
         margin: 5px 0;
@@ -109,7 +111,7 @@ table {
 }
 
 a {
-    color: #d17515;
+    color: $color-orange;
 }
 
 @media (max-width: calc($screen-max-width + 10px)) {
