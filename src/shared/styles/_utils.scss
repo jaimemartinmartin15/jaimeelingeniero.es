@@ -1,0 +1,12 @@
+.app-no-break {
+  white-space: nowrap;
+}
+
+// for rxjs pages after upgrading highlight.js in routable-lateral-menu resolver
+// pre tag is added by the library, so this needs to be global
+pre[class~="hljs"],
+.app-command-sintax {
+  overflow-x: auto;
+  background-color: $color-background-command-sintax;
+  padding: 10px 15px;
+}

@@ -1,3 +1,5 @@
+@import "../../../shared/styles/colors";
+
 $screen-max-width: 830px;
 
 :host {
@@ -17,10 +19,6 @@ main {
   margin: 20px 10px 10px 10px;
 }
 
-a {
-  color: #d17515;
-}
-
 .primary-key {
   text-decoration: underline;
 }
@@ -28,8 +26,8 @@ a {
 .exercise-block {
   padding: 15px;
   margin: 0 0 20px 0;
-  background-color: #fbfbff;
-  border: 2px solid #d17515;
+  background-color: $color-background-panel;
+  border: 2px solid $color-orange;
   border-radius: 5px;
 
   .exercise-title {
@@ -44,7 +42,7 @@ a {
   app-collapsible {
     [collapsible-header-open],
     [collapsible-header-closed] {
-      color: #d17515;
+      color: $color-orange;
     }
 
     app-terminal-code {

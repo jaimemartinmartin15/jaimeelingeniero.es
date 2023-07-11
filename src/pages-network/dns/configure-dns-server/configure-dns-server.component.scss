@@ -1,3 +1,5 @@
+@import "../../../shared/styles/colors";
+
 $page-width: 830px;
 
 :host {
@@ -10,10 +12,6 @@ $page-width: 830px;
 
 .title {
     text-align: center;
-}
-
-a {
-    color: #d17515;
 }
 
 .file-name {

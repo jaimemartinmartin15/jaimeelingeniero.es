@@ -1,3 +1,5 @@
+@import "../shared/styles/colors";
+
 :host {
   display: block;
   max-width: 1000px;
@@ -36,7 +38,7 @@
     }
 
     .menu-section-active {
-      color: #d17515;
+      color: $color-orange;
       font-size: 1.3em;
     }
   }

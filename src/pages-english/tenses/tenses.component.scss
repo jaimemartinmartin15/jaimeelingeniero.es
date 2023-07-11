@@ -1,3 +1,5 @@
+@import "../../shared/styles/colors";
+
 :host {
     display: block;
     padding: 20px 10px;
@@ -9,7 +11,7 @@
 
     a {
         text-decoration: none;
-        color: #d17515;
+        color: $color-orange;
     }
 }
 
@@ -43,8 +45,8 @@ form {
             top: 0;
             left: 15px;
             transform: translateY(-50%);
-            background-color: #fbfbff;
-            color: #d17515;
+            background-color: $color-background-panel;
+            color: $color-orange;
             padding: 1px 5px;
             border-radius: 5px;
         }
@@ -52,19 +54,19 @@ form {
         input {
             width: 100%;
             box-sizing: border-box;
-            border: 2px solid #d17515;
+            border: 2px solid $color-orange;
             font-size: 1.5rem;
             border-radius: 5px;
             padding: 11px 15px 7px;
             transition: border-color 0.2s;
-            background-color: #fbfbff;
+            background-color: $color-background-panel;
 
             &::placeholder {
                 color: #b5b5b5;
             }
 
             &:focus {
-                outline: 1px solid #d17515;
+                outline: 1px solid $color-orange;
             }
 
             &:disabled {
@@ -82,10 +84,10 @@ form {
     }
 
     .solution-panel {
-        border: 1px solid #d17515;
+        border: 1px solid $color-orange;
         border-radius: 5px;
         padding: 10px;
-        background-color: #fbfbff;
+        background-color: $color-background-panel;
 
         p span.error {
             color: #dd1717;

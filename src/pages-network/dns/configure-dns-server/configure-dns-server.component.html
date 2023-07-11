@@ -28,14 +28,14 @@
     <h2>BIND</h2>
 
     <p>
-      El programa por excelencia que actúa como servidor de nombres es <a href="https://www.isc.org/bind/"
-        target="_blank" rel="noopener"><strong>BIND</strong></a>. Significa <i>Berkeley Internet Name Domain</i> y es el
-      programa que usan la mayoría de servidores DNS reales en todo el mundo.
+      El programa por excelencia que actúa como servidor de nombres es <a class="app-link"
+        href="https://www.isc.org/bind/" target="_blank" rel="noopener"><strong>BIND</strong></a>. Significa <i>Berkeley
+        Internet Name Domain</i> y es el programa que usan la mayoría de servidores DNS reales en todo el mundo.
     </p>
 
     <p>
-      La organización <a href="https://www.isc.org/" target="_blank" rel="noopener">Internet Systems Consortium</a> es
-      la encargada de su desarrollo, mantenimiento y actualizaciones. Es de <a
+      La organización <a class="app-link" href="https://www.isc.org/" target="_blank" rel="noopener">Internet Systems
+        Consortium</a> es la encargada de su desarrollo, mantenimiento y actualizaciones. Es de <a class="app-link"
         href="https://github.com/isc-projects/bind9" target="_blank" rel="noopener">código abierto</a> y su versión
       actual es la nueve, por lo que también se le conoce como BIND9. El nombre del proceso que lo implementa es
       <strong>named</strong>.
@@ -50,7 +50,7 @@
     <h2>Instalación</h2>
 
     <p>
-      Podríamos empezar a usar BIND9 fácilmente usando su <a
+      Podríamos empezar a usar BIND9 fácilmente usando su <a class="app-link"
         href="https://hub.docker.com/r/internetsystemsconsortium/bind9" target="_blank" rel="noopener">imagen de
         docker</a>, pero yo lo voy a instalar desde cero en una máquina virtual.
     </p>
@@ -124,7 +124,7 @@ include "/etc/bind/named.conf.default-zones"</pre>
     </p>
 
     <p>
-      Si tienes curiosidad, puedes ver <a
+      Si tienes curiosidad, puedes ver <a class="app-link"
         href="https://bind9.readthedocs.io/en/v9_18_7/reference.html#options-block-definition-and-usage" target="_blank"
         rel="noopener">todas las opciones</a> y que hace cada una.
     </p>
@@ -214,7 +214,7 @@ B.ROOT-SERVERS.NET.   3600000   AAAA   2001:500:200::b
 
     <p>
       En este ejemplo tenemos un total de cuatro RR. Para saber qué significan y cual es el formato puedes visitar el
-      <a [routerLink]="['../']" fragment="rr-section">artículo anterior</a>.
+      <a class="app-link" [routerLink]="['../']" fragment="rr-section">artículo anterior</a>.
     </p>
 
     <p>

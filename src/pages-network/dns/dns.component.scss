@@ -1,3 +1,5 @@
+@import "../../shared/styles/colors";
+
 $page-width: 830px;
 
 :host {
@@ -18,14 +20,6 @@ $page-width: 830px;
     color: #272727;
 }
 
-a {
-    color: #d17515;
-}
-
-.rfc {
-    white-space: nowrap;
-}
-
 .host-name-example-img {
     margin-top: 15px;
     width: 90%;
@@ -34,7 +28,7 @@ a {
 .definitions,
 #rr-section {
     dt {
-        color: #d17515;
+        color: $color-orange;
 
         &:not(:first-child) {
             margin-top: 15px;
@@ -67,27 +61,16 @@ a {
         margin-bottom: 15px;
 
         button {
-            border: none;
-            background-color: #d17515;
-            color: #fbf2e2;
             width: 30px;
             height: 30px;
             padding: 5px;
-            border-radius: 4px;
             font-size: 0.9rem;
-            box-shadow: 3px 3px 5px #cec9c1;
-            cursor: pointer;
-
-            &:active {
-                transform: translateX(1px) translateY(2px);
-                box-shadow: 2px 1px 5px #cec9c1;
-            }
         }
     }
 
     .explanation {
-        background-color: #fbfbff;
-        border: 2px solid #d17515;
+        background-color: $color-background-panel;
+        border: 2px solid $color-orange;
         border-radius: 5px;
         padding: 10px;
         text-align: left;
@@ -117,7 +100,7 @@ a {
     display: flex;
     justify-content: stretch;
     gap: 15px;
-    border-bottom: 2px solid #3333ff;
+    border-bottom: 2px solid $color-blue;
 
     span {
         min-width: 8%;
@@ -128,7 +111,7 @@ a {
         border-top-right-radius: 5px;
 
         &.selected {
-            background-color: #cec9c1;
+            background-color: $color-box-shadow;
         }
 
         &:hover:not(.selected) {
@@ -178,7 +161,7 @@ footer {
         border: none;
 
         span {
-            border-bottom: 2px solid #3333ff;
+            border-bottom: 2px solid $color-blue;
         }
     }
 
