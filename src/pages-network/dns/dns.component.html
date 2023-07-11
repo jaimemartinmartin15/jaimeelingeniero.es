@@ -111,8 +111,10 @@
     <p>
       El DNS es una gran <strong>base de datos distribuida</strong> (repartida por varios lugares) y que tiene una
       <strong>estructura jeráquica</strong> (en forma de árbol con ramas). Data de 1984 y está definido en las <a
-        class="rfc" href="https://www.rfc-editor.org/rfc/rfc1034.html" target="_blank" rel="noopener">RFC-1034</a> y
-      <a class="rfc" href="https://www.rfc-editor.org/rfc/rfc1035.html" target="_blank" rel="noopener">RFC-1035</a> por
+        class="app-link app-no-break" href="https://www.rfc-editor.org/rfc/rfc1034.html" target="_blank"
+        rel="noopener">RFC-1034</a> y
+      <a class="app-link app-no-break" href="https://www.rfc-editor.org/rfc/rfc1035.html" target="_blank"
+        rel="noopener">RFC-1035</a> por
       Paul Mockapetris.
     </p>
 
@@ -151,8 +153,9 @@
         <div *ngIf="dnsResolvingDomainStep === 0">
           Paso 1:
           <br>
-          Primero nuestro ordenador consulta un <a href="https://es.wikipedia.org/wiki/Archivo_hosts" target="_blank"
-            rel="noopener">fichero local</a> (llamado hosts) en el que puede que la resolución ya esté realizada. En
+          Primero nuestro ordenador consulta un <a class="app-link" href="https://es.wikipedia.org/wiki/Archivo_hosts"
+            target="_blank" rel="noopener">fichero local</a> (llamado hosts) en el que puede que la resolución ya esté
+          realizada. En
           este caso no se contactaría ningún servidor y el proceso terminaría.
         </div>
         <div *ngIf="dnsResolvingDomainStep === 1">
@@ -248,21 +251,25 @@
     <h3>Servidores raíz</h3>
 
     <p>
-      Los <a href="https://www.iana.org/domains/root/servers" target="_blank" rel="noopener">servidores raíz</a> son
-      servidores de nombres que tienen la <a href="https://www.iana.org/domains/root/files" target="_blank"
-        rel="noopener">información inicial</a> de la estructura jeráquica de la base de datos del sistema. Conocen a
+      Los <a class="app-link" href="https://www.iana.org/domains/root/servers" target="_blank" rel="noopener">servidores
+        raíz</a> son
+      servidores de nombres que tienen la <a class="app-link" href="https://www.iana.org/domains/root/files"
+        target="_blank" rel="noopener">información inicial</a> de la estructura jeráquica de la base de datos del
+      sistema. Conocen a
       todos los servidores de nombres de nivel superior.
     </p>
 
     <p>
-      De forma lógica existen un total de <a href="https://root-servers.org/" target="_blank" rel="noopener">13
+      De forma lógica existen un total de <a class="app-link" href="https://root-servers.org/" target="_blank"
+        rel="noopener">13
         servidores raíz</a> distribuidos por el mundo, que son mantenidos de forma voluntaria por diversas
       organizaciones. Digo que existen de forma lógica porque en realidad exiten más de mil máquinas sirviendo los
       nombres de nivel superior. Estos 13 servidores se identifican con las letras del abecedario, desde la A hasta la
       M. Cada servidor lógico tiene una dirección IP única, pero dependiendo del lugar del mundo en el que te
       encuentres, la consulta irá a una instancia o a otra, ya que se usa anycast para ello. Esto significa que te
       servirá el servidor más óptimo para tí (dependerá de la distancia, del tráfico que tenga y otras cosas). Puedes
-      ver los mapas en <a href="https://atlas.ripe.net/results/maps/" target="_blank" rel="noopener">atlas.ripe.net</a>.
+      ver los mapas en <a class="app-link" href="https://atlas.ripe.net/results/maps/" target="_blank"
+        rel="noopener">atlas.ripe.net</a>.
     </p>
 
     <img class="anycast-img" src="pages-network/dns/assets/anycast-example.png" alt="Ejemplo anycast">
@@ -273,8 +280,9 @@
 
     <p>
       La base de datos del sistema de dominios esta compuesta por registros de recursos (en inglés Resource Records,
-      RR). Son la <strong>unidad básica de consulta</strong>. Su formato viene especificado en el <a class="rfc"
-        href="https://www.rfc-editor.org/rfc/rfc1033.html" target="_blank" rel="noopener">RFC-1033</a>:
+      RR). Son la <strong>unidad básica de consulta</strong>. Su formato viene especificado en el <a
+        class="app-link app-no-break" href="https://www.rfc-editor.org/rfc/rfc1033.html" target="_blank"
+        rel="noopener">RFC-1033</a>:
     </p>
 
     <div class="rr-format">
@@ -336,8 +344,9 @@
     <h3>Tipos de RR</h3>
 
     <p>
-      Existen muchos <a href="https://es.wikipedia.org/wiki/Anexo:Tipos_de_registros_DNS" target="_blank"
-        rel="noopener">tipos de recursos</a> pero vamos a explicar solo algunos de ellos. Pulsa los diferentes RR para
+      Existen muchos <a class="app-link" href="https://es.wikipedia.org/wiki/Anexo:Tipos_de_registros_DNS"
+        target="_blank" rel="noopener">tipos de recursos</a> pero vamos a explicar solo algunos de ellos. Pulsa los
+      diferentes RR para
       ver los detalles.
     </p>
 
@@ -391,8 +400,9 @@
     <h2>Organización y gestión</h2>
 
     <p>
-      La organización última encargada de gestionar los nombres de dominio es la <a href="https://www.icann.org/es"
-        target="_blank" rel="noopener">ICANN</a> (Internet Corporation for Assigned Names and Numbers ➡️ Corporación de
+      La organización última encargada de gestionar los nombres de dominio es la <a class="app-link"
+        href="https://www.icann.org/es" target="_blank" rel="noopener">ICANN</a> (Internet Corporation for Assigned
+      Names and Numbers ➡️ Corporación de
       Internet para la Asignación de Nombres y Números). Esta gestiona los nombres de dominio de primer nivel y el
       sistema de servidores DNS raíz.
     </p>
@@ -411,10 +421,11 @@
 
     <p>
       En España la organización responsable de la zona .es es
-      <a href="https://www.dominios.es/index.php/es/sobre-dominios/sobre-nosotros" target="_blank"
+      <a class="app-link" href="https://www.dominios.es/index.php/es/sobre-dominios/sobre-nosotros" target="_blank"
         rel="noopener">Red.es</a>.
       A su vez tiene multiples
-      <a href="https://www.dominios.es/es/agentes-registradores/nuestros-agentes-registradores#block-views-block-agentes-registradores"
+      <a class="app-link"
+        href="https://www.dominios.es/es/agentes-registradores/nuestros-agentes-registradores#block-views-block-agentes-registradores"
         target="_blank" rel="noopener">agentes registradores</a> con los que puedes registrar tu dominio.
     </p>
   </section>
@@ -434,7 +445,7 @@
 
     <p>
       Estos datos se almacenan en diferentes bases de datos gestionadas por los registry y los registrars. Para
-      consultar los datos, podemos hacer uso del protocolo whois, definido en el <a class="rfc"
+      consultar los datos, podemos hacer uso del protocolo whois, definido en el <a class="app-link app-no-break"
         href="https://www.rfc-editor.org/rfc/rfc3912.html" target="_blank" rel="noopener">RFC-3912</a>.
     </p>
 
@@ -448,7 +459,8 @@
 
 <footer>
   <p>
-    En el <a routerLink="./configurar-un-servidor">siguiente artículo</a> ➡️ puedes aprender a configurar tu propio
+    En el <a class="app-link" routerLink="./configurar-un-servidor">siguiente artículo</a> ➡️ puedes aprender a
+    configurar tu propio
     servidor DNS casero.
   </p>
 </footer>

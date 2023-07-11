@@ -4,9 +4,11 @@
   color: $color-orange;
 
   &:hover {
-    filter: brightness(90%);
+    filter: brightness(70%);
   }
+
   &:active {
-    filter: brightness(80%);
+    display: inline-block;
+    transform: scale(0.98);
   }
 }
