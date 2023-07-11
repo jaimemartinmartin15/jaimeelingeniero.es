@@ -46,9 +46,9 @@ export class RainComponent implements OnInit, AfterViewInit {
       this.selectedMonth < 11 ? this.selectedMonth + 1 : 0,
       this.selectedMonth < 11 ? this.selectedYear : this.selectedYear + 1
     );
-    this.previousMonthsRainData = this.rainDataService.getRainDataForMonthsInYear(this.selectedYear - 1);
+    this.previousMonthsRainData = this.rainDataService.getRainDataForMonthsInYear(this.selectedMonth > 0 ? this.selectedYear : this.selectedYear - 1);
     this.monthsRainData = this.rainDataService.getRainDataForMonthsInYear(this.selectedYear);
-    this.nextMonthsRainData = this.rainDataService.getRainDataForMonthsInYear(this.selectedYear + 1);
+    this.nextMonthsRainData = this.rainDataService.getRainDataForMonthsInYear(this.selectedMonth < 11 ? this.selectedYear : this.selectedYear + 1);
   }
 
   public ngAfterViewInit(): void {
