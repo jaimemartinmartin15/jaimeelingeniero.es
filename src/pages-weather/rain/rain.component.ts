@@ -20,7 +20,6 @@ export class RainComponent implements OnInit, AfterViewInit {
   public selectedYear = new Date().getFullYear();
   public selectedMonth = new Date().getMonth();
 
-  // TODO populate previous and next arrays
   public previousDaysRainData: RainData[] = [];
   public daysRainData: RainData[] = [];
   public nextDaysRainData: RainData[] = [];
