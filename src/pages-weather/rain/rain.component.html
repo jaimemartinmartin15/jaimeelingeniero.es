@@ -86,6 +86,15 @@
             d="M20,40C100,10 200,10 280,40L280,115C280,150 240,160 220,170L190,345L110,345L80,170C60,160 20,150 20,115Z"
             stroke="none" fill="#e1ffe2" [attr.filter]="'url(#fillpartial'+i+')'" />
 
+          <path d="M86,200C 138,202 146,202, 161,200" [attr.stroke]="[day.svgOffset > 216 ? '#757575' : '#FFF']"
+            stroke-width="9" fill="none" />
+          <path d="M92,240C 138,242 146,242, 164,240" [attr.stroke]="[day.svgOffset > 257 ? '#757575' : '#FFF']"
+            stroke-width="9" fill="none" />
+          <path d="M99,280C 138,282 146,282, 167,280" [attr.stroke]="[day.svgOffset > 292 ? '#757575' : '#FFF']"
+            stroke-width="9" fill="none" />
+          <path d="M106,320C 138,322 146,322, 170,320" [attr.stroke]="[day.svgOffset > 335 ? '#757575' : '#FFF']"
+            stroke-width="9" fill="none" />
+
           <text x="150" y="140" stroke="#e1ffe2" stroke-width="6" fill="#1c9a00" font-size="8.8rem" font-weight="bold"
             text-anchor="middle">{{i+1}}</text>
         </svg>
