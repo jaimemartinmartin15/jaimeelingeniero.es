@@ -19,13 +19,13 @@
 <div class="graphic-scroller" #yearGraphicScroller (scroll)="onScrollingYear($event)">
   <ng-container *ngTemplateOutlet="yearContainer; context: { data: {
       year: selectedYear - 1,
-      monthsArray: previousMonthsRainData}}"></ng-container>
+      monthsArray: previousYearRainData}}"></ng-container>
   <ng-container *ngTemplateOutlet="yearContainer; context: { data: {
       year: selectedYear,
-      monthsArray: monthsRainData}}"></ng-container>
+      monthsArray: yearRainData}}"></ng-container>
   <ng-container *ngTemplateOutlet="yearContainer; context: { data: {
       year: selectedYear + 1,
-      monthsArray: nextMonthsRainData}}"></ng-container>
+      monthsArray: nextYearRainData}}"></ng-container>
 </div>
 
 <div class="pop-up-wrapper" *ngIf="popUp.show">
@@ -117,7 +117,7 @@
         (click)="selectMonthOfSelectedYear(i)" />
 
       <!-- water liters -->
-      <text *ngFor="let waterLine of monthsRainData; let i=index" (click)="selectMonthOfSelectedYear(i)"
+      <text *ngFor="let waterLine of data.monthsArray; let i=index" (click)="selectMonthOfSelectedYear(i)"
         [attr.text-anchor]="waterLine.svgOffset > 200 ? 'end' : 'start'"
         [attr.transform]="'rotate(90,'+(25 + 30*i)+','+waterLine.svgOffset+')'"
         [attr.x]="waterLine.svgOffset > 200 ? (15 + 30*i): (35 + 30*i)" [attr.y]="waterLine.svgOffset +2"

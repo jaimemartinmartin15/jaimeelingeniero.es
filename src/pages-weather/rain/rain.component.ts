@@ -28,6 +28,10 @@ export class RainComponent implements OnInit, AfterViewInit {
   public monthsRainData: RainData[] = [];
   public nextMonthsRainData: RainData[] = [];
 
+  public previousYearRainData: RainData[] = [];
+  public yearRainData: RainData[] = [];
+  public nextYearRainData: RainData[] = [];
+
   public constructor(public readonly rainDataService: RainDataService, private readonly activatedRoute: ActivatedRoute) {}
 
   public ngOnInit() {
@@ -45,9 +49,14 @@ export class RainComponent implements OnInit, AfterViewInit {
       this.selectedMonth < 11 ? this.selectedMonth + 1 : 0,
       this.selectedMonth < 11 ? this.selectedYear : this.selectedYear + 1
     );
+
     this.previousMonthsRainData = this.rainDataService.getRainDataForMonthsInYear(this.selectedMonth > 0 ? this.selectedYear : this.selectedYear - 1);
     this.monthsRainData = this.rainDataService.getRainDataForMonthsInYear(this.selectedYear);
     this.nextMonthsRainData = this.rainDataService.getRainDataForMonthsInYear(this.selectedMonth < 11 ? this.selectedYear : this.selectedYear + 1);
+
+    this.previousYearRainData = this.rainDataService.getRainDataForMonthsInYear(this.selectedYear - 1);
+    this.yearRainData = this.rainDataService.getRainDataForMonthsInYear(this.selectedYear);
+    this.nextYearRainData = this.rainDataService.getRainDataForMonthsInYear(this.selectedYear + 1);
   }
 
   public ngAfterViewInit(): void {

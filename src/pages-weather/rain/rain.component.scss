@@ -120,6 +120,8 @@
   }
 
   .year-graphic-container {
+    min-height: 350px;
+
     .header {
       display: flex;
       justify-content: space-evenly;
