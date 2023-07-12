@@ -6,21 +6,21 @@
   margin: 0 auto;
 }
 
-div[class$="graphic-container"] {
-  width: 50%;
-}
-
 .graphic-scroller {
+  width: 50%;
   display: flex;
   gap: 30px;
-  width: 50%;
   overflow: hidden;
   scroll-snap-type: x mandatory;
 
-  .month-graphic-container {
+  div[class$="graphic-container"] {
     width: 100%;
     flex-shrink: 0;
     scroll-snap-align: center;
+  }
+
+  .month-graphic-container {
+    min-height: 500px;
 
     .header {
       display: flex;
@@ -120,10 +120,6 @@ div[class$="graphic-container"] {
   }
 
   .year-graphic-container {
-    width: 100%;
-    flex-shrink: 0;
-    scroll-snap-align: center;
-
     .header {
       display: flex;
       justify-content: space-evenly;
@@ -212,12 +208,12 @@ div[class$="graphic-container"] {
     flex-wrap: wrap;
   }
 
-  div[class$="graphic-container"] {
-    width: 100%;
-  }
-
   .graphic-scroller {
     width: 100%;
     overflow: auto;
+
+    div[class$="graphic-container"] {
+      width: 100%;
+    }
   }
 }
