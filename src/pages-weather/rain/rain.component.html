@@ -1,31 +1,35 @@
-<div class="graphic-scroller" #monthGraphicScroller (scroll)="onScrollingMonth($event)">
-  <ng-container *ngTemplateOutlet="monthContainer; context: { data: {
+<div class="graphic-scroller-wrapper">
+  <div class="graphic-scroller" #monthGraphicScroller (scroll)="onScrollingMonth($event)">
+    <ng-container *ngTemplateOutlet="monthContainer; context: { data: {
       month: selectedMonth > 0 ? selectedMonth -1 : 11,
       year: selectedMonth > 0 ? selectedYear : selectedYear - 1,
       daysArray: previousDaysRainData,
       monthsArray: previousMonthsRainData}}"></ng-container>
-  <ng-container *ngTemplateOutlet="monthContainer; context: { data: {
-      month: selectedMonth,
-      year: selectedYear,
-      daysArray: daysRainData,
-      monthsArray: monthsRainData}}"></ng-container>
-  <ng-container *ngTemplateOutlet="monthContainer; context: {  data: {
-      month: selectedMonth < 11 ? selectedMonth + 1 : 0,
-      year: selectedMonth < 11 ? selectedYear : selectedYear + 1,
-      daysArray: nextDaysRainData,
-      monthsArray: nextMonthsRainData}}"></ng-container>
+    <ng-container *ngTemplateOutlet="monthContainer; context: { data: {
+        month: selectedMonth,
+        year: selectedYear,
+        daysArray: daysRainData,
+        monthsArray: monthsRainData}}"></ng-container>
+    <ng-container *ngTemplateOutlet="monthContainer; context: {  data: {
+          month: selectedMonth < 11 ? selectedMonth + 1 : 0,
+          year: selectedMonth < 11 ? selectedYear : selectedYear + 1,
+          daysArray: nextDaysRainData,
+          monthsArray: nextMonthsRainData}}"></ng-container>
+  </div>
 </div>
 
-<div class="graphic-scroller" #yearGraphicScroller (scroll)="onScrollingYear($event)">
-  <ng-container *ngTemplateOutlet="yearContainer; context: { data: {
-      year: selectedYear - 1,
-      monthsArray: previousYearRainData}}"></ng-container>
-  <ng-container *ngTemplateOutlet="yearContainer; context: { data: {
+<div class="graphic-scroller-wrapper">
+  <div class="graphic-scroller" #yearGraphicScroller (scroll)="onScrollingYear($event)">
+    <ng-container *ngTemplateOutlet="yearContainer; context: { data: {
+          year: selectedYear - 1,
+          monthsArray: previousYearRainData}}"></ng-container>
+    <ng-container *ngTemplateOutlet="yearContainer; context: { data: {
       year: selectedYear,
       monthsArray: yearRainData}}"></ng-container>
-  <ng-container *ngTemplateOutlet="yearContainer; context: { data: {
+    <ng-container *ngTemplateOutlet="yearContainer; context: { data: {
       year: selectedYear + 1,
       monthsArray: nextYearRainData}}"></ng-container>
+  </div>
 </div>
 
 <div class="pop-up-wrapper" *ngIf="popUp.show">

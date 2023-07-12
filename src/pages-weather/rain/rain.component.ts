@@ -14,6 +14,14 @@ export class RainComponent implements OnInit, AfterViewInit {
   @ViewChild('monthGraphicScroller', { static: false }) monthGraphicScrollerRef: ElementRef;
   @ViewChild('yearGraphicScroller', { static: false }) yearGraphicScrollerRef: ElementRef;
 
+  private get monthScrollerEl(): HTMLDivElement {
+    return this.monthGraphicScrollerRef.nativeElement;
+  }
+
+  private get yearScrollerEl(): HTMLDivElement {
+    return this.yearGraphicScrollerRef.nativeElement;
+  }
+
   public readonly MONTHS = MONTHS;
   public readonly popUp = { show: false, content: '' };
 
@@ -61,8 +69,18 @@ export class RainComponent implements OnInit, AfterViewInit {
 
   public ngAfterViewInit(): void {
     // starts the scrolling in the middle element
-    this.monthGraphicScrollerRef.nativeElement.scrollLeft = this.monthGraphicScrollerRef.nativeElement.clientWidth;
-    this.yearGraphicScrollerRef.nativeElement.scrollLeft = this.yearGraphicScrollerRef.nativeElement.clientWidth;
+    this.monthScrollerEl.scrollLeft = this.monthScrollerEl.clientWidth;
+    this.yearScrollerEl.scrollLeft = this.yearScrollerEl.clientWidth;
+
+    this.updateHeightsOfGraphicWrappers(this.monthScrollerEl.parentElement as HTMLDivElement, this.yearScrollerEl.parentElement as HTMLDivElement);
+  }
+
+  private updateHeightsOfGraphicWrappers(monthsWrapperEl: HTMLDivElement, yearWrapperEl: HTMLDivElement) {
+    setTimeout(() => {
+      // wait change detector to update the view and pick the right heights
+      monthsWrapperEl.style.height = `${this.monthScrollerEl.children[1].clientHeight}px`;
+      yearWrapperEl.style.height = `${this.yearScrollerEl.children[1].clientHeight}px`;
+    }, 0);
   }
 
   public showBadgeForMonth(monthsArray: RainData[], month: number): boolean {
@@ -92,6 +110,7 @@ export class RainComponent implements OnInit, AfterViewInit {
     }
 
     this.updateArraysRainData();
+    this.updateHeightsOfGraphicWrappers(this.monthScrollerEl.parentElement as HTMLDivElement, this.yearScrollerEl.parentElement as HTMLDivElement);
   }
 
   public showNextMonth() {
@@ -102,6 +121,7 @@ export class RainComponent implements OnInit, AfterViewInit {
     }
 
     this.updateArraysRainData();
+    this.updateHeightsOfGraphicWrappers(this.monthScrollerEl.parentElement as HTMLDivElement, this.yearScrollerEl.parentElement as HTMLDivElement);
   }
 
   public getFirstDayOfMonthWeekDayIndex(month: number, year: number): number {
@@ -123,11 +143,13 @@ export class RainComponent implements OnInit, AfterViewInit {
   public showPreviousYear() {
     this.selectedYear--;
     this.updateArraysRainData();
+    this.updateHeightsOfGraphicWrappers(this.monthScrollerEl.parentElement as HTMLDivElement, this.yearScrollerEl.parentElement as HTMLDivElement);
   }
 
   public showNextYear() {
     this.selectedYear++;
     this.updateArraysRainData();
+    this.updateHeightsOfGraphicWrappers(this.monthScrollerEl.parentElement as HTMLDivElement, this.yearScrollerEl.parentElement as HTMLDivElement);
   }
 
   public isDataAvailableForYear(monthsArray: RainData[]) {
