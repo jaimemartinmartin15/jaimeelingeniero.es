@@ -159,6 +159,7 @@ export class RainComponent implements OnInit, AfterViewInit {
   public selectMonthOfSelectedYear(month: number) {
     this.selectedMonth = month;
     this.updateArraysRainData();
+    this.updateHeightsOfGraphicWrappers(this.monthScrollerEl.parentElement as HTMLDivElement, this.yearScrollerEl.parentElement as HTMLDivElement);
   }
 
   public showPopUpForMonth(monthsArray: RainData[], month: number) {
