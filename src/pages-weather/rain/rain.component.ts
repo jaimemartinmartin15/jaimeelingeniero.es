@@ -55,20 +55,12 @@ export class RainComponent implements OnInit, AfterViewInit {
     this.updateArraysRainData();
 
     this.handleScrollSnapEvents();
+    this.handleMonthGraphicScroll();
+    this.handleYearGraphicScroll();
   }
 
   public ngAfterViewInit(): void {
-    // starts the scrolling in the middle element
-    this.monthScrollerEl.scrollTo({
-      top: 0,
-      left: this.monthScrollerEl.clientWidth + GAP_SIZE,
-      behavior: 'instant' as ScrollBehavior,
-    });
-    this.yearScrollerEl.scrollTo({
-      top: 0,
-      left: this.yearScrollerEl.clientWidth + GAP_SIZE,
-      behavior: 'instant' as ScrollBehavior,
-    });
+    this.centerScrollingInstantly();
 
     this.updateHeightsOfGraphicWrappers();
   }
@@ -83,6 +75,19 @@ export class RainComponent implements OnInit, AfterViewInit {
     this.touchEnded$.next(true);
   }
 
+  private centerScrollingInstantly() {
+    this.monthScrollerEl.scrollTo({
+      top: 0,
+      left: this.monthScrollerEl.clientWidth + GAP_SIZE,
+      behavior: 'instant' as ScrollBehavior,
+    });
+    this.yearScrollerEl.scrollTo({
+      top: 0,
+      left: this.yearScrollerEl.clientWidth + GAP_SIZE,
+      behavior: 'instant' as ScrollBehavior,
+    });
+  }
+
   private handleScrollSnapEvents() {
     merge(this.touchEnded$, this.monthGraphicScrollEvents$, this.yearGraphicScrollEvents$)
       .pipe(
@@ -90,11 +95,63 @@ export class RainComponent implements OnInit, AfterViewInit {
         debounceTime(20)
       )
       .subscribe(() => {
-        // scroll must always stop in the middle child to allow scroll prev and next month
+        // assume both graphs have same width
         let childrenWidth = this.monthScrollerEl.children[0].clientWidth;
-        this.monthScrollerEl.scrollLeft = childrenWidth + GAP_SIZE;
-        this.yearScrollerEl.scrollLeft = childrenWidth + GAP_SIZE;
+
+        // update scroll on month graph
+        let scrollLeft = this.monthScrollerEl.scrollLeft;
+        if (scrollLeft > 0 && scrollLeft < (childrenWidth + GAP_SIZE) / 2) {
+          this.monthScrollerEl.scrollLeft = 0;
+        } else if (scrollLeft > (childrenWidth + GAP_SIZE) / 2 && scrollLeft < childrenWidth + GAP_SIZE + (childrenWidth + GAP_SIZE) / 2) {
+          this.monthScrollerEl.scrollLeft = childrenWidth + GAP_SIZE;
+        } else {
+          this.monthScrollerEl.scrollLeft = (childrenWidth + GAP_SIZE) * 2;
+        }
+
+        // update scroll on year graph
+        scrollLeft = this.yearScrollerEl.scrollLeft;
+        if (scrollLeft > 0 && scrollLeft < (childrenWidth + GAP_SIZE) / 2) {
+          this.yearScrollerEl.scrollLeft = 0;
+        } else if (scrollLeft > (childrenWidth + GAP_SIZE) / 2 && scrollLeft < childrenWidth + GAP_SIZE + (childrenWidth + GAP_SIZE) / 2) {
+          this.yearScrollerEl.scrollLeft = childrenWidth + GAP_SIZE;
+        } else {
+          this.yearScrollerEl.scrollLeft = (childrenWidth + GAP_SIZE) * 2;
+        }
       });
+  }
+
+  public handleMonthGraphicScroll() {
+    this.monthGraphicScrollEvents$.subscribe(() => {
+      const childrenWidth = this.monthScrollerEl.children[0].clientWidth;
+
+      // check if the scroll is multiple of a child width taking into account the gap
+      if (this.monthScrollerEl.scrollLeft % (childrenWidth + GAP_SIZE) === 0) {
+        if (this.monthScrollerEl.scrollLeft === 0) {
+          this.showPreviousMonth();
+        } else if (this.monthScrollerEl.scrollLeft === (childrenWidth + GAP_SIZE) * 2) {
+          this.showNextMonth();
+        }
+
+        this.centerScrollingInstantly();
+      }
+    });
+  }
+
+  public handleYearGraphicScroll() {
+    this.yearGraphicScrollEvents$.subscribe(() => {
+      const childrenWidth = this.yearScrollerEl.children[0].clientWidth;
+
+      // check if the scroll is multiple of a child width taking into account the gap
+      if (this.yearScrollerEl.scrollLeft % (childrenWidth + GAP_SIZE) === 0) {
+        if (this.yearScrollerEl.scrollLeft === 0) {
+          this.showPreviousYear();
+        } else if (this.yearScrollerEl.scrollLeft === (childrenWidth + GAP_SIZE) * 2) {
+          this.showNextYear();
+        }
+
+        this.centerScrollingInstantly();
+      }
+    });
   }
 
   private updateArraysRainData() {
