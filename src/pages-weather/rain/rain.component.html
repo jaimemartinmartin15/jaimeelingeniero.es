@@ -1,4 +1,4 @@
-<div class="graphic-scroller" #monthGraphicScroller (scroll)="lastScrollEvent$.next()">
+<div class="graphic-scroller" #monthGraphicScroller (scroll)="monthGraphicScrollEvents$.next()">
   <ng-container *ngTemplateOutlet="monthContainer; context: { data: {
       month: selectedMonth > 0 ? selectedMonth -1 : 11,
       year: selectedMonth > 0 ? selectedYear : selectedYear - 1,
@@ -16,7 +16,7 @@
           monthsArray: nextMonthsRainData}}"></ng-container>
 </div>
 
-<div class="graphic-scroller" #yearGraphicScroller (scroll)="lastScrollEvent$.next()">
+<div class="graphic-scroller" #yearGraphicScroller (scroll)="yearGraphicScrollEvents$.next()">
   <ng-container *ngTemplateOutlet="yearContainer; context: { data: {
           year: selectedYear - 1,
           monthsArray: previousYearRainData}}"></ng-container>

@@ -27,7 +27,8 @@ export class RainComponent implements OnInit, AfterViewInit {
 
   // hanling of custom snap-scroll
   private touchEnded$ = new BehaviorSubject<boolean>(true);
-  public lastScrollEvent$ = new Subject<void>();
+  public monthGraphicScrollEvents$ = new Subject<void>();
+  public yearGraphicScrollEvents$ = new Subject<void>();
 
   public readonly MONTHS = MONTHS;
   public readonly popUp = { show: false, content: '' };
@@ -83,10 +84,10 @@ export class RainComponent implements OnInit, AfterViewInit {
   }
 
   private handleScrollSnapEvents() {
-    merge(this.touchEnded$, this.lastScrollEvent$)
+    merge(this.touchEnded$, this.monthGraphicScrollEvents$, this.yearGraphicScrollEvents$)
       .pipe(
         filter(() => this.touchEnded$.getValue()),
-        debounceTime(150)
+        debounceTime(20)
       )
       .subscribe(() => {
         // scroll must always stop in the middle child to allow scroll prev and next month
