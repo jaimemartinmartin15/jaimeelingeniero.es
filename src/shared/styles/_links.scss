@@ -1,0 +1,14 @@
+@import "./colors";
+
+.app-link {
+  color: $color-orange;
+
+  &:hover {
+    filter: brightness(70%);
+  }
+
+  &:active {
+    display: inline-block;
+    transform: scale(0.98);
+  }
+}

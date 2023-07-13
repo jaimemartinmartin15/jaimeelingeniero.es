@@ -1,3 +1,5 @@
+@import "../../../shared/styles/colors";
+
 :host {
     display: flex;
     justify-content: space-around;
@@ -14,9 +16,9 @@
     bottom: calc(100% + 12px);
     text-align: center;
     background-color: white;
-    border: 2px solid #d17515;
+    border: 2px solid $color-orange;
     border-radius: 5px;
-    box-shadow: 0 0 3px #d17515, 0 0 15px black;
+    box-shadow: 0 0 3px $color-orange, 0 0 15px black;
     padding: 15px 30px;
     box-sizing: border-box;
     display: flex;
@@ -38,7 +40,7 @@
         left: 50%;
         transform: rotate(45deg) translateX(-50%);
         background-color: white;
-        border-bottom: 2px solid #d17515;
-        border-right: 2px solid #d17515;
+        border-bottom: 2px solid $color-orange;
+        border-right: 2px solid $color-orange;
     }
 }

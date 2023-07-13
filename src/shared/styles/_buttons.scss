@@ -1,0 +1,28 @@
+@import "./colors";
+
+.app-button {
+  border: none;
+  background-color: $color-orange;
+  color: $color-primary-button-text;
+  border-radius: 4px;
+  box-shadow: 3px 3px 5px $color-box-shadow;
+  cursor: pointer;
+
+  &:active {
+    transform: translateX(1px) translateY(2px);
+    box-shadow: 2px 1px 5px $color-box-shadow;
+  }
+
+  &:disabled {
+    background-color: $color-background-disabled;
+    color: $color-text-disabled;
+    transform: translateX(0) translateY(0);
+    box-shadow: none;
+    cursor: default;
+  }
+}
+
+.app-link-button {
+  @extend .app-button;
+  text-decoration: none;
+}

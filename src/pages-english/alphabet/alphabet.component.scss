@@ -1,3 +1,5 @@
+@import "../../shared/styles/colors";
+
 :host {
     display: block;
     max-width: 720px;
@@ -18,7 +20,7 @@
 
     .letter {
         padding-top: 5px;
-        border: 2px solid #d17515;
+        border: 2px solid $color-orange;
         border-radius: 5px;
         text-align: center;
         cursor: pointer;

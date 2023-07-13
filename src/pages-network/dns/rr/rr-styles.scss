@@ -1,14 +1,11 @@
+@import "../../../shared/styles/colors";
+
 :host {
     display: block;
 }
 
-pre {
-    overflow-x: auto;
-    background-color: #f2f2f2;
-}
-
 dt {
-    color: #d17515;
+    color: $color-orange;
 
     &:not(:first-child) {
         margin-top: 15px;
