@@ -1,0 +1,43 @@
+<header class="top-header" *ngIf="showTopHeader">
+  <ng-content select="[responsive-layout-top-header]"></ng-content>
+</header>
+
+<div class="content">
+  <div>
+    <header class="flex-content-header" *ngIf="showFlexContentHeader">
+      <ng-content select="[responsive-layout-flex-content-header]"></ng-content>
+    </header>
+
+    <div class="flex-content">
+      <nav class="left-menu" *ngIf="showLeftMenu">
+        <ng-content select="[responsive-layout-left-menu]"></ng-content>
+      </nav>
+
+      <main class="main-content">
+        <header class="content-header" *ngIf="showContentHeader">
+          <ng-content select="[responsive-layout-content-header]"></ng-content>
+        </header>
+
+        <ng-content select="[responsive-layout-main-content]"></ng-content>
+
+        <footer class="content-footer" *ngIf="showContentFooter">
+          <ng-content select="[responsive-layout-content-footer]"></ng-content>
+        </footer>
+      </main>
+
+      <aside class="right-menu" *ngIf="showRightMenu">
+        <nav>
+          <ng-content select="[responsive-layout-right-menu]"></ng-content>
+        </nav>
+      </aside>
+    </div>
+
+    <footer class="flex-content-footer" *ngIf="showFlexContentFooter">
+      <ng-content select="[responsive-layout-flex-content-footer]"></ng-content>
+    </footer>
+  </div>
+</div>
+
+<footer class="bottom-footer" *ngIf="showBottomFooter">
+  <ng-content select="[responsive-layout-bottom-footer]"></ng-content>
+</footer>

@@ -1,3 +1,59 @@
 :host {
   display: block;
 }
+
+.top-header {
+  background-color: rgb(255, 117, 117);
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  background-color: yellow;
+
+  .flex-content-header {
+    background-color: rgb(175, 196, 246);
+  }
+
+  .flex-content {
+    display: flex;
+    justify-content: center;
+
+    .left-menu {
+      min-width: 250px;
+
+      background-color: gainsboro;
+    }
+
+    .main-content {
+      min-width: 800px;
+      max-width: 800px;
+
+      background-color: rgb(188, 188, 255);
+
+      .content-header {
+        background-color: azure;
+      }
+
+      .content-footer {
+        background-color: aquamarine;
+      }
+    }
+
+    .right-menu {
+      min-width: 250px;
+
+      background-color: bisque;
+    }
+  }
+
+  .flex-content-footer {
+    background-color: coral;
+  }
+}
+
+.bottom-footer {
+  background-color: rgb(162, 238, 162);
+}
