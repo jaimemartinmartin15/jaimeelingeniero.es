@@ -9,7 +9,7 @@ const routes: Routes = [
   },
   {
     path: '',
-    loadChildren: () => import('./routable-lateral-menu/routable-lateral-menu.module').then((m) => m.RoutableLateralMenuModule),
+    loadChildren: () => import('./rxjs-layout-page/rxjs-layout-page.module').then((m) => m.RxjsLayoutPageModule),
   },
   {
     path: '**',
