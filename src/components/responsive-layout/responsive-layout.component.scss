@@ -13,6 +13,10 @@
 
   background-color: yellow;
 
+  div:first-child {
+    max-width: 100%;
+  }
+
   .flex-content-header {
     background-color: rgb(175, 196, 246);
   }
@@ -32,6 +36,7 @@
     .main-content {
       flex-grow: 1;
       max-width: 900px;
+      min-width: 0; // fix issue with pre and flex-box
 
       background-color: rgb(188, 188, 255);
 
