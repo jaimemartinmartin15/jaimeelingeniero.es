@@ -18,7 +18,9 @@
           <ng-content select="[responsive-layout-content-header]"></ng-content>
         </header>
 
-        <ng-content select="[responsive-layout-main-content]"></ng-content>
+        <div class="content-content">
+          <ng-content select="[responsive-layout-main-content]"></ng-content>
+        </div>
 
         <footer class="content-footer" *ngIf="showContentFooter">
           <ng-content select="[responsive-layout-content-footer]"></ng-content>
