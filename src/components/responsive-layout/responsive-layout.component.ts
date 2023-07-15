@@ -30,7 +30,7 @@ export class ResponsiveLayoutComponent implements OnInit, AfterContentInit {
   private rightMenuContent: QueryList<HTMLElement>;
   public showRightMenu: boolean = false;
 
-  @ContentChildren('responsiveLayoutFlexContentHeader')
+  @ContentChildren('responsiveLayoutFlexContentFooter')
   private flexContentFooterContent: QueryList<HTMLElement>;
   public showFlexContentFooter: boolean = false;
 
