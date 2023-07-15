@@ -29,7 +29,8 @@
     }
 
     .main-content {
-      width: 800px;
+      flex-grow: 1;
+      max-width: 900px;
 
       background-color: rgb(188, 188, 255);
 
@@ -62,41 +63,3 @@
 .bottom-footer {
   background-color: rgb(162, 238, 162);
 }
-
-// 1300 = 250 (left menu) + 800 (content) + 250 (right menu)
-@media (max-width: 1300px) {
-  .content {
-    .flex-content {
-      .main-content {
-        flex-grow: 1;
-        width: unset; //make main content flexible width
-      }
-    }
-  }
-}
-
-// 1150 = 250 (left menu) + xxx (content)
-// right menu is hidden
-@media (max-width: 1150px) {
-  .content {
-    .flex-content {
-      .main-content {
-        width: 800px; //make main content fixed width again
-      }
-    }
-  }
-}
-
-// 1050 = 250 (left menu) + 800 (content)
-@media (max-width: 1050px) {
-  .content {
-    .flex-content {
-      .main-content {
-        width: unset; //make main content flexible width
-      }
-    }
-  }
-}
-
-// 900 = xxx (content)
-// left menu is hidden

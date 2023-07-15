@@ -50,13 +50,12 @@ export class ResponsiveLayoutComponent implements OnInit, AfterContentInit {
   }
 
   ngOnInit(): void {
-    // 900 = 250 (left menu) + xxx (content)
     window.matchMedia('(max-width: 900px)').addEventListener('change', (e) => {
       this.showLeftMenu = !e.matches && this.leftMenuContent.length > 0;
+      this.showRightMenu = e.matches ? false : !this.showLeftMenu && this.rightMenuContent.length > 0;
     });
-    // 1150 = 250 (left menu) + xxx (content) + 250 (right menu)
     window.matchMedia('(max-width: 1150px)').addEventListener('change', (e) => {
-      this.showRightMenu = !e.matches && this.rightMenuContent.length > 0;
+      this.showRightMenu = this.showLeftMenu ? !e.matches && this.rightMenuContent.length > 0 : this.rightMenuContent.length > 0;
     });
   }
 }
