@@ -1,12 +1,8 @@
-<app-header-print></app-header-print>
+<app-responsive-layout>
+  <app-header-print #responsiveLayoutFlexContentHeader responsive-layout-flex-content-header></app-header-print>
 
-<div class="content">
-  <nav class="left-menu">
-    <a *ngFor="let command of commands" [routerLink]="[command.url]"
-      routerLinkActive="menu-section-active">{{command.display}}</a>
-  </nav>
+  <a #responsiveLayoutLeftMenu responsive-layout-left-menu *ngFor="let command of commands" [routerLink]="[command.url]"
+    routerLinkActive="menu-section-active">{{command.display}}</a>
 
-  <div class="pages">
-    <router-outlet></router-outlet>
-  </div>
-</div>
+  <router-outlet #responsiveLayoutMainContent responsive-layout-main-content></router-outlet>
+</app-responsive-layout>
