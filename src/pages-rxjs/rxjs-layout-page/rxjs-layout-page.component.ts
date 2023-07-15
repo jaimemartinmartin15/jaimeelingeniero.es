@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { HomeLink, LINKS_GROUPS_OPERATORS, LINKS_TO_START } from '../home/menu-links';
+import { HomeMenuLink, LINKS_GROUPS_OPERATORS, LINKS_TO_START } from '../home-menu/home-menu-links';
 
 @Component({
   selector: 'app-rxjs-layout-page',
@@ -7,7 +7,7 @@ import { HomeLink, LINKS_GROUPS_OPERATORS, LINKS_TO_START } from '../home/menu-l
   styleUrls: ['./rxjs-layout-page.component.scss'],
 })
 export class RxjsLayoutPageComponent implements OnInit {
-  public GROUPS_OF_LINKS: HomeLink[];
+  public GROUPS_OF_LINKS: HomeMenuLink[];
 
   public isSmallerThanDesktop: boolean = window.matchMedia('(max-width: 1200px)').matches;
 
