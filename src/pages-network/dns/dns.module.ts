@@ -18,9 +18,10 @@ import { PtrComponent } from './rr/ptr/ptr.component';
 import { SoaComponent } from './rr/soa/soa.component';
 import { TxtComponent } from './rr/txt/txt.component';
 import { WksComponent } from './rr/wks/wks.component';
+import { ResponsiveLayoutModule } from 'src/components/responsive-layout/responsive-layout.module';
 
 @NgModule({
-  imports: [CommonModule, DnsRoutingModule, HeaderPrintModule, TerminalCodeModule],
+  imports: [CommonModule, DnsRoutingModule, HeaderPrintModule, TerminalCodeModule, ResponsiveLayoutModule],
   declarations: [
     DnsComponent,
     ConfigureDnsServerComponent,

@@ -1,466 +1,484 @@
-<app-header-print></app-header-print>
+<app-responsive-layout>
+  <app-header-print #responsiveLayoutFlexContentHeader responsive-layout-flex-content-header></app-header-print>
 
-<main>
-  <h1 class="title">El DNS</h1>
+  <article #responsiveLayoutMainContent responsive-layout-main-content>
+    <h1 class="title">El DNS</h1>
 
-  <section>
-    <h2>Introducción</h2>
+    <section>
+      <h2>Introducción</h2>
 
-    <p>
-      DNS son las siglas de <strong>Sistema de Nombres de Dominio</strong> (del inglés Domain Name System). Es un
-      servicio en internet que se utiliza constantemente sin que te des cuenta.
-    </p>
+      <p>
+        DNS son las siglas de <strong>Sistema de Nombres de Dominio</strong> (del inglés Domain Name System). Es un
+        servicio en internet que se utiliza constantemente sin que te des cuenta.
+      </p>
 
-    <p>
-      Entonces, <strong>¿qué es un nombre de dominio?</strong> Seguramente te suene <i>google.com</i>, o
-      <i>amazon.com</i> o <i>jaimeelingeniero.es</i>. Esto son nombres de dominio. Cuidado, no son páginas web como tal.
-      Las páginas web son recursos en servidores identificados por estos dominios. Un nombre de dominio es una forma
-      fácil de acordarte de algo. ¿Pero de qué?
-    </p>
+      <p>
+        Entonces, <strong>¿qué es un nombre de dominio?</strong> Seguramente te suene <i>google.com</i>, o
+        <i>amazon.com</i> o <i>jaimeelingeniero.es</i>. Esto son nombres de dominio. Cuidado, no son páginas web como
+        tal.
+        Las páginas web son recursos en servidores identificados por estos dominios. Un nombre de dominio es una forma
+        fácil de acordarte de algo. ¿Pero de qué?
+      </p>
 
-    <p>
-      Todos los dispositivos que están conectados a internet tienen una <strong>dirección IP</strong>. Una dirección IP
-      es un número que tiene esta forma <span class="ip">123.256.123.256</span> o esta otra <span
-        class="ip">2001:05dh:ab52::ef48:0240:ffff</span>, y haciendo una similitud es como la dirección exacta de una
-      casa, pero en este caso del dispositivo. Es un identificador único para cada dispositivo conectado a la red de
-      internet.
-    </p>
+      <p>
+        Todos los dispositivos que están conectados a internet tienen una <strong>dirección IP</strong>. Una dirección
+        IP
+        es un número que tiene esta forma <span class="ip">123.256.123.256</span> o esta otra <span
+          class="ip">2001:05dh:ab52::ef48:0240:ffff</span>, y haciendo una similitud es como la dirección exacta de una
+        casa, pero en este caso del dispositivo. Es un identificador único para cada dispositivo conectado a la red de
+        internet.
+      </p>
 
-    <p>
-      El servicio DNS se encarga de <strong>traducir</strong> el nombre de domino en una IP. Recordar un nombre de
-      dominio es mucho más fácil que recordar la IP. ¿A que para tí es más facil quedar con alguien en la puerta <i>del
-        colegio</i> que en la calle <i>Palma, número 4, 08504</i>? Pues <i>el colegio</i> sería el nombre de dominio, y
-      <i>calle Palma, número 4, 08504</i> sería la IP. También puedes verlo como una agenda de contactos de número de
-      teléfono o como el nombre que tenemos las personas en vez de llamarnos por nuestro número de DNI.
-    </p>
+      <p>
+        El servicio DNS se encarga de <strong>traducir</strong> el nombre de domino en una IP. Recordar un nombre de
+        dominio es mucho más fácil que recordar la IP. ¿A que para tí es más facil quedar con alguien en la puerta
+        <i>del
+          colegio</i> que en la calle <i>Palma, número 4, 08504</i>? Pues <i>el colegio</i> sería el nombre de dominio,
+        y
+        <i>calle Palma, número 4, 08504</i> sería la IP. También puedes verlo como una agenda de contactos de número de
+        teléfono o como el nombre que tenemos las personas en vez de llamarnos por nuestro número de DNI.
+      </p>
 
-    <p>
-      Una vez nuestro dispositivo consulta al servidor DNS la IP del dominio que pedimos, ya podemos pedir al servidor
-      con esa IP por lo que sea que estemos buscando. En el caso de la página web, pues habría que conectarse al puerto
-      80, que haciendo otra similitud, sería como llamar a una puerta específica de un edificio en la que nos puedan
-      atender para lo que vamos.
-    </p>
-  </section>
+      <p>
+        Una vez nuestro dispositivo consulta al servidor DNS la IP del dominio que pedimos, ya podemos pedir al servidor
+        con esa IP por lo que sea que estemos buscando. En el caso de la página web, pues habría que conectarse al
+        puerto
+        80, que haciendo otra similitud, sería como llamar a una puerta específica de un edificio en la que nos puedan
+        atender para lo que vamos.
+      </p>
+    </section>
 
-  <section class="definitions">
-    <h2>Definiciones</h2>
+    <section class="definitions">
+      <h2>Definiciones</h2>
 
-    <p>Antes de empezar a entrar en detalles, vamos a definir algunas cosas.</p>
+      <p>Antes de empezar a entrar en detalles, vamos a definir algunas cosas.</p>
 
-    <dl>
-      <dt>Host name:</dt>
-      <dd>
-        Es el nombre de un dispositivo dentro de una red. Consiste de una "palabra" compuesta por letras, números y
-        guiones. El más común en la web es <i>www</i> para el servidor que sirve las páginas web.
+      <dl>
+        <dt>Host name:</dt>
+        <dd>
+          Es el nombre de un dispositivo dentro de una red. Consiste de una "palabra" compuesta por letras, números y
+          guiones. El más común en la web es <i>www</i> para el servidor que sirve las páginas web.
+          <br>
+          <img class="host-name-example-img" src="pages-network/dns/assets/host-name-example.png"
+            alt="Ejemplo de nombres de equipo">
+        </dd>
+
+        <dt>
+          Domain name:
+        </dt>
+        <dd>
+          Los nombres de dominio son secuencias de "palabras" separadas por puntos. Tienen asociados datos. Uno de los
+          datos es la dirección IP de un servidor que nos proporciona el servicio que necesitamos. Por ejemplo, el
+          dominio
+          <i>jaimeelingeniero.es</i> tiene un servidor llamado <i>www</i> que sirve esta página web.
+        </dd>
+
+        <dt>
+          Fully qualified host name (FQHN):
+        </dt>
+        <dd>
+          Es el nombre de la máquina completo, incluyendo el dominio en el que está. Es decir, es el nombre de la
+          máquina
+          más el nombre del dominio. Por ejemplo: <i>www.jaimeelingeniero.es</i>
+        </dd>
+
+        <dt>
+          Top level domains (TLD):
+        </dt>
+        <dd>
+          Los nombres de dominio pueden estar compuestos de varias palabras separadas por puntos. Los nombres de dominio
+          superiores son la última palabra del dominio. Por ejemplo .es, .com, .edu, etc.
+          <br>
+          Estos a su vez se separan en categorías dependiendo del uso:
+          <ul>
+            <li>Genéricos (gTDL). Para albergar contenidos de uso general: .com, .edu, .org, etc.</li>
+            <li>Por países (ccTDL). Dependiendo del país: .es, .fr, .uk, etc.</li>
+            <li>Adicionales. Usados para otras cosas: .aero, .museum, .travel, etc.</li>
+          </ul>
+        </dd>
+
+        <dt>
+          Second level domain:
+        </dt>
+        <dd>
+          Los dominios de nivel secundario son las palabras que están entre el nombre de la máquina y el nombre de nivel
+          superior. Son los que tú eliges para tu página web, por ejemplo. En mi caso sería simplemente
+          jaimeelingeniero.
+        </dd>
+      </dl>
+    </section>
+
+    <section>
+      <h2>El sistema de nombres de dominio</h2>
+
+      <p>
+        Este sistema nace de la necesidad de podernos referir a cada dispositivo con un nombre. ¿Tú te imaginas tenerte
+        que acordar de las personas por su número de DNI? ¿O de su número de teléfono? Al principio había pocos
+        dispositivos conectados a internet, pero con el auge que pegó se hizo necesario inventar este sistema.
+      </p>
+
+      <p>
+        El DNS es una gran <strong>base de datos distribuida</strong> (repartida por varios lugares) y que tiene una
+        <strong>estructura jeráquica</strong> (en forma de árbol con ramas). Data de 1984 y está definido en las <a
+          class="app-link app-no-break" href="https://www.rfc-editor.org/rfc/rfc1034.html" target="_blank"
+          rel="noopener">RFC-1034</a> y
+        <a class="app-link app-no-break" href="https://www.rfc-editor.org/rfc/rfc1035.html" target="_blank"
+          rel="noopener">RFC-1035</a> por
+        Paul Mockapetris.
+      </p>
+
+      <img class="dns-scheme-img" src="pages-network/dns/assets/dns-scheme.png" alt="Esquema del DNS">
+
+      <p>
+        Actualmente no solamente se usa para resolver nombres de dominio, sino que también se usa para resoluciones
+        inversas (dada la IP obtener el nombre de dominio), listar información de la máquina, resolver servidores de
+        correo electrónico y más.
+      </p>
+    </section>
+
+    <section>
+      <h2>Ejemplo básico de funcionamiento</h2>
+
+      <p>
+        Vamos a ver un simple ejemplo de cómo funciona de forma general el sistema, que pasos y que llamadas se
+        realizan.
+        En este caso la máquina intentará obtener la IP de www.jaimeelingeniero.es. Usa los botones para obtener los
+        detalles.
+      </p>
+
+      <div class="dns-resolving-domain">
+        <div class="controls">
+          <button class="app-button" (click)="dnsResolvingDomainStep = 0">1</button>
+          <button class="app-button" (click)="dnsResolvingDomainStep = 1">2</button>
+          <button class="app-button" (click)="dnsResolvingDomainStep = 2">3</button>
+          <button class="app-button" (click)="dnsResolvingDomainStep = 3">4</button>
+          <button class="app-button" (click)="dnsResolvingDomainStep = 4">5</button>
+          <button class="app-button" (click)="dnsResolvingDomainStep = 5">6</button>
+          <button class="app-button" (click)="dnsResolvingDomainStep = 6">7</button>
+          <button class="app-button" (click)="dnsResolvingDomainStep = 7">8</button>
+          <button class="app-button" (click)="dnsResolvingDomainStep = 8">9</button>
+        </div>
+
+        <div class="explanation">
+          <div *ngIf="dnsResolvingDomainStep === 0">
+            Paso 1:
+            <br>
+            Primero nuestro ordenador consulta un <a class="app-link" href="https://es.wikipedia.org/wiki/Archivo_hosts"
+              target="_blank" rel="noopener">fichero local</a> (llamado hosts) en el que puede que la resolución ya esté
+            realizada. En
+            este caso no se contactaría ningún servidor y el proceso terminaría.
+          </div>
+          <div *ngIf="dnsResolvingDomainStep === 1">
+            Paso 2:
+            <br>
+            Si no existe la IP en el fichero hosts se pregunta al servidor DNS. Las IP de los servidores DNS las tenemos
+            que configurar nosotros en nuestro ordenador, aunque normalmente se configuran solas a través del router
+            cuando nos conectamos a una red.
+          </div>
+          <div *ngIf="dnsResolvingDomainStep === 2">
+            Paso 3:
+            <br>
+            El servidor DNS comprueba si tiene la IP de www.jaimeelingeniero.es en su caché (igual alguien más preguntó
+            recientemente por ella). Si la tuviera, la devolvería y el proceso terminaría.
+            <br>
+            Suponiendo que no la tiene cacheada, como tampoco es responsable del dominio, pregunta al servidor raíz.
+          </div>
+          <div *ngIf="dnsResolvingDomainStep === 3">
+            Paso 4:
+            <br>
+            El servidor raíz tampoco tiene la IP de www.jaimeelingeniero.es, sin embargo, sí que conoce a alguien que
+            podría saberla, el servidor DNS .es, y le devuelve su IP para que le contacte.
+          </div>
+          <div *ngIf="dnsResolvingDomainStep === 4">
+            Paso 5:
+            <br>
+            Ahora el servidor DNS pregunta al DNS .es por la IP de www.jaimeelingeniero.es
+          </div>
+          <div *ngIf="dnsResolvingDomainStep === 5">
+            Paso 6:
+            <br>
+            El servidor DNS .es tampoco tiene la IP que buscamos, pero sí conoce a otro que podría saberla, el servidor
+            jaimeelingeniero.es, y le devuelve su IP para que le contacte.
+          </div>
+          <div *ngIf="dnsResolvingDomainStep === 6">
+            Paso 7:
+            <br>
+            Entonces el servidor DNS ahora pregunta al servidor DNS jaimeelingeniero.es
+          </div>
+          <div *ngIf="dnsResolvingDomainStep === 7">
+            Paso 8:
+            <br>
+            Ahora resulta que es el responsable del dominio, por lo que le devuelve la IP que nuestro ordenador buscaba.
+          </div>
+          <div *ngIf="dnsResolvingDomainStep === 8">
+            Paso 9:
+            <br>
+            Finalmente el servidor DNS guarda en su caché la dirección y devuelve la IP de www.jaimeelingeniero.es a
+            nuestro ordenador.
+          </div>
+        </div>
+
+        <img [src]="'pages-network/dns/assets/dns-resolving-domain-'+dnsResolvingDomainStep+'.gif'"
+          alt="Resolviendo el dominio">
+      </div>
+
+      <p>
+        Las consultas de los pasos 3, 5 y 7 se llaman <strong>consultas iterativas</strong>. Estas son las consultas que
+        se hacen entre servidores para obtener las direcciones de otros servidores de dominios de nivel inferior.
         <br>
-        <img class="host-name-example-img" src="pages-network/dns/assets/host-name-example.png"
-          alt="Ejemplo de nombres de equipo">
-      </dd>
+        La consulta del paso 2 se llama <strong>consulta recursiva</strong>. Son las consultas que hacen los clientes
+        (en
+        inglés también llamados <i>resolvers</i>) a los servidores DNS.
+      </p>
+    </section>
 
-      <dt>
-        Domain name:
-      </dt>
-      <dd>
-        Los nombres de dominio son secuencias de "palabras" separadas por puntos. Tienen asociados datos. Uno de los
-        datos es la dirección IP de un servidor que nos proporciona el servicio que necesitamos. Por ejemplo, el dominio
-        <i>jaimeelingeniero.es</i> tiene un servidor llamado <i>www</i> que sirve esta página web.
-      </dd>
+    <section>
+      <h2>Servidores de nombres</h2>
 
-      <dt>
-        Fully qualified host name (FQHN):
-      </dt>
-      <dd>
-        Es el nombre de la máquina completo, incluyendo el dominio en el que está. Es decir, es el nombre de la máquina
-        más el nombre del dominio. Por ejemplo: <i>www.jaimeelingeniero.es</i>
-      </dd>
+      <p>
+        Los servidores de nombres son aplicaciones corriendo en ordenadores muy potentes y que escuchan por el puerto
+        53.
+        Normalmente las comunicaciones se hacen a través de UDP, aunque si la respuesta es muy larga se usa TCP. Cada
+        servidor DNS conoce al menos un servidor DNS raíz y a todos los servidores de dominios de nivel inferior. Los
+        servidores raíz conocen las direcciones IP de todos los servidores de dominios de primer nivel.
+      </p>
 
-      <dt>
-        Top level domains (TLD):
-      </dt>
-      <dd>
-        Los nombres de dominio pueden estar compuestos de varias palabras separadas por puntos. Los nombres de dominio
-        superiores son la última palabra del dominio. Por ejemplo .es, .com, .edu, etc.
-        <br>
-        Estos a su vez se separan en categorías dependiendo del uso:
-        <ul>
-          <li>Genéricos (gTDL). Para albergar contenidos de uso general: .com, .edu, .org, etc.</li>
-          <li>Por países (ccTDL). Dependiendo del país: .es, .fr, .uk, etc.</li>
-          <li>Adicionales. Usados para otras cosas: .aero, .museum, .travel, etc.</li>
-        </ul>
-      </dd>
+      <h3>Tipos de servidores:</h3>
 
-      <dt>
-        Second level domain:
-      </dt>
-      <dd>
-        Los dominios de nivel secundario son las palabras que están entre el nombre de la máquina y el nombre de nivel
-        superior. Son los que tú eliges para tu página web, por ejemplo. En mi caso sería simplemente jaimeelingeniero.
-      </dd>
-    </dl>
-  </section>
+      <p>
+        Los servidores pueden tener la información original recibida directamente por un humano (<strong>servidor
+          primario</strong>), pueden ser una copia para hacer el sistema más escalable (<strong>servidor
+          secundario</strong>) o pueden tener los datos cacheados de alguna consulta anterior (<strong>servidor
+          caché</strong>).
+      </p>
 
-  <section>
-    <h2>El sistema de nombres de dominio</h2>
+      <p>
+        Dependiendo de donde tomen los datos, las respuestas pueden ser <strong>con autoridad</strong> si la información
+        viene de un servidor primario o secundario (tienen la información original), o pueden ser <strong>sin
+          autoridad</strong> en caso de venir de la caché.
+      </p>
 
-    <p>
-      Este sistema nace de la necesidad de podernos referir a cada dispositivo con un nombre. ¿Tú te imaginas tenerte
-      que acordar de las personas por su número de DNI? ¿O de su número de teléfono? Al principio había pocos
-      dispositivos conectados a internet, pero con el auge que pegó se hizo necesario inventar este sistema.
-    </p>
+      <img class="nslookup-img" src="pages-network/dns/assets/no-authoritative-response.png" alt="nslookup screenshot">
 
-    <p>
-      El DNS es una gran <strong>base de datos distribuida</strong> (repartida por varios lugares) y que tiene una
-      <strong>estructura jeráquica</strong> (en forma de árbol con ramas). Data de 1984 y está definido en las <a
-        class="app-link app-no-break" href="https://www.rfc-editor.org/rfc/rfc1034.html" target="_blank"
-        rel="noopener">RFC-1034</a> y
-      <a class="app-link app-no-break" href="https://www.rfc-editor.org/rfc/rfc1035.html" target="_blank"
-        rel="noopener">RFC-1035</a> por
-      Paul Mockapetris.
-    </p>
+      <h3>Servidores raíz</h3>
 
-    <img class="dns-scheme-img" src="pages-network/dns/assets/dns-scheme.png" alt="Esquema del DNS">
+      <p>
+        Los <a class="app-link" href="https://www.iana.org/domains/root/servers" target="_blank"
+          rel="noopener">servidores
+          raíz</a> son
+        servidores de nombres que tienen la <a class="app-link" href="https://www.iana.org/domains/root/files"
+          target="_blank" rel="noopener">información inicial</a> de la estructura jeráquica de la base de datos del
+        sistema. Conocen a
+        todos los servidores de nombres de nivel superior.
+      </p>
 
-    <p>
-      Actualmente no solamente se usa para resolver nombres de dominio, sino que también se usa para resoluciones
-      inversas (dada la IP obtener el nombre de dominio), listar información de la máquina, resolver servidores de
-      correo electrónico y más.
-    </p>
-  </section>
+      <p>
+        De forma lógica existen un total de <a class="app-link" href="https://root-servers.org/" target="_blank"
+          rel="noopener">13
+          servidores raíz</a> distribuidos por el mundo, que son mantenidos de forma voluntaria por diversas
+        organizaciones. Digo que existen de forma lógica porque en realidad exiten más de mil máquinas sirviendo los
+        nombres de nivel superior. Estos 13 servidores se identifican con las letras del abecedario, desde la A hasta la
+        M. Cada servidor lógico tiene una dirección IP única, pero dependiendo del lugar del mundo en el que te
+        encuentres, la consulta irá a una instancia o a otra, ya que se usa anycast para ello. Esto significa que te
+        servirá el servidor más óptimo para tí (dependerá de la distancia, del tráfico que tenga y otras cosas). Puedes
+        ver los mapas en <a class="app-link" href="https://atlas.ripe.net/results/maps/" target="_blank"
+          rel="noopener">atlas.ripe.net</a>.
+      </p>
 
-  <section>
-    <h2>Ejemplo básico de funcionamiento</h2>
+      <img class="anycast-img" src="pages-network/dns/assets/anycast-example.png" alt="Ejemplo anycast">
+    </section>
 
-    <p>
-      Vamos a ver un simple ejemplo de cómo funciona de forma general el sistema, que pasos y que llamadas se realizan.
-      En este caso la máquina intentará obtener la IP de www.jaimeelingeniero.es. Usa los botones para obtener los
-      detalles.
-    </p>
+    <section id="rr-section">
+      <h2>Los registros de recursos</h2>
 
-    <div class="dns-resolving-domain">
-      <div class="controls">
-        <button class="app-button" (click)="dnsResolvingDomainStep = 0">1</button>
-        <button class="app-button" (click)="dnsResolvingDomainStep = 1">2</button>
-        <button class="app-button" (click)="dnsResolvingDomainStep = 2">3</button>
-        <button class="app-button" (click)="dnsResolvingDomainStep = 3">4</button>
-        <button class="app-button" (click)="dnsResolvingDomainStep = 4">5</button>
-        <button class="app-button" (click)="dnsResolvingDomainStep = 5">6</button>
-        <button class="app-button" (click)="dnsResolvingDomainStep = 6">7</button>
-        <button class="app-button" (click)="dnsResolvingDomainStep = 7">8</button>
-        <button class="app-button" (click)="dnsResolvingDomainStep = 8">9</button>
+      <p>
+        La base de datos del sistema de dominios esta compuesta por registros de recursos (en inglés Resource Records,
+        RR). Son la <strong>unidad básica de consulta</strong>. Su formato viene especificado en el <a
+          class="app-link app-no-break" href="https://www.rfc-editor.org/rfc/rfc1033.html" target="_blank"
+          rel="noopener">RFC-1033</a>:
+      </p>
+
+      <div class="rr-format">
+        <div>&lt;NOMBRE&gt;</div>
+        <div>[&lt;TTL&gt;]</div>
+        <div>[&lt;CLASE&gt;]</div>
+        <div>&lt;TIPO&gt;</div>
+        <div>&lt;DATOS&gt;</div>
       </div>
 
-      <div class="explanation">
-        <div *ngIf="dnsResolvingDomainStep === 0">
-          Paso 1:
-          <br>
-          Primero nuestro ordenador consulta un <a class="app-link" href="https://es.wikipedia.org/wiki/Archivo_hosts"
-            target="_blank" rel="noopener">fichero local</a> (llamado hosts) en el que puede que la resolución ya esté
-          realizada. En
-          este caso no se contactaría ningún servidor y el proceso terminaría.
+      <p>El registro se compone de varios campos que se separan con espacios.</p>
+
+      <dl>
+        <dt>NOMBRE</dt>
+        <dd>
+          Define a que nombre de dominio corresponde el registro. En algunos casos se puede omitir y entonces se tomaría
+          el nombre del registro anterior.
+        </dd>
+
+        <dt>TTL</dt>
+        <dd>
+          Se refiere al Time to Live (tiempo de vida). Indica por cuánto tiempo se puede guardar este valor en caché por
+          un servidor antes de volver a preguntar por el registro. Si se omite, se toma el tiempo mínimo especificado en
+          el registro de tipo SOA.
+        </dd>
+
+        <dt>CLASE</dt>
+        <dd>
+          Especifica el grupo de protocolo. Si se omite, se toma la clase del registro anterior. En internet este campo
+          es
+          siempre <strong>IN</strong>.
+        </dd>
+
+        <dt>TIPO</dt>
+        <dd>
+          Especifica el tipo de registro. Indica que formato tendrá el campo de datos.
+        </dd>
+
+        <dt>DATOS</dt>
+        <dd>
+          Cada clase y tipo de registro guarda información diferente, así que dependiendo de esos campos este otro
+          tendrá
+          diferentes valores y formatos.
+        </dd>
+      </dl>
+
+      <p>
+        Además de ese formato se puede además añadir lo siguiente:
+      </p>
+
+      <ul>
+        <li>Paréntesis <strong>()</strong> para agrupar datos en varias lineas.</li>
+        <li>Un punto y coma <strong>;</strong> para poner un comentario. El resto de la linea es ignorado.</li>
+        <li>Asteriscos <strong>*</strong> como comodines.</li>
+        <li>
+          Una arroba <strong>@</strong> denota el nombre de dominio por defecto. Puede estar definido en el fichero de
+          configuración o ser parte del nombre del fichero.
+        </li>
+      </ul>
+
+      <h3>Tipos de RR</h3>
+
+      <p>
+        Existen muchos <a class="app-link" href="https://es.wikipedia.org/wiki/Anexo:Tipos_de_registros_DNS"
+          target="_blank" rel="noopener">tipos de recursos</a> pero vamos a explicar solo algunos de ellos. Pulsa los
+        diferentes RR para
+        ver los detalles.
+      </p>
+
+      <div>
+        <div class="tabs">
+          <span [ngClass]="{selected: tab === 'SOA'}" (click)="tab = 'SOA'">SOA</span>
+          <span [ngClass]="{selected: tab === 'NS'}" (click)="tab = 'NS'">NS</span>
+          <span [ngClass]="{selected: tab === 'A'}" (click)="tab = 'A'">A</span>
+          <span [ngClass]="{selected: tab === 'AAAA'}" (click)="tab = 'AAAA'">AAAA</span>
+          <span [ngClass]="{selected: tab === 'MX'}" (click)="tab = 'MX'">MX</span>
+          <span [ngClass]="{selected: tab === 'CNAME'}" (click)="tab = 'CNAME'">CNAME</span>
+          <span [ngClass]="{selected: tab === 'PTR'}" (click)="tab = 'PTR'">PTR</span>
+          <span [ngClass]="{selected: tab === 'WKS'}" (click)="tab = 'WKS'">WKS</span>
+          <span [ngClass]="{selected: tab === 'HINFO'}" (click)="tab = 'HINFO'">HINFO</span>
+          <span [ngClass]="{selected: tab === 'TXT'}" (click)="tab = 'TXT'">TXT</span>
         </div>
-        <div *ngIf="dnsResolvingDomainStep === 1">
-          Paso 2:
-          <br>
-          Si no existe la IP en el fichero hosts se pregunta al servidor DNS. Las IP de los servidores DNS las tenemos
-          que configurar nosotros en nuestro ordenador, aunque normalmente se configuran solas a través del router
-          cuando nos conectamos a una red.
-        </div>
-        <div *ngIf="dnsResolvingDomainStep === 2">
-          Paso 3:
-          <br>
-          El servidor DNS comprueba si tiene la IP de www.jaimeelingeniero.es en su caché (igual alguien más preguntó
-          recientemente por ella). Si la tuviera, la devolvería y el proceso terminaría.
-          <br>
-          Suponiendo que no la tiene cacheada, como tampoco es responsable del dominio, pregunta al servidor raíz.
-        </div>
-        <div *ngIf="dnsResolvingDomainStep === 3">
-          Paso 4:
-          <br>
-          El servidor raíz tampoco tiene la IP de www.jaimeelingeniero.es, sin embargo, sí que conoce a alguien que
-          podría saberla, el servidor DNS .es, y le devuelve su IP para que le contacte.
-        </div>
-        <div *ngIf="dnsResolvingDomainStep === 4">
-          Paso 5:
-          <br>
-          Ahora el servidor DNS pregunta al DNS .es por la IP de www.jaimeelingeniero.es
-        </div>
-        <div *ngIf="dnsResolvingDomainStep === 5">
-          Paso 6:
-          <br>
-          El servidor DNS .es tampoco tiene la IP que buscamos, pero sí conoce a otro que podría saberla, el servidor
-          jaimeelingeniero.es, y le devuelve su IP para que le contacte.
-        </div>
-        <div *ngIf="dnsResolvingDomainStep === 6">
-          Paso 7:
-          <br>
-          Entonces el servidor DNS ahora pregunta al servidor DNS jaimeelingeniero.es
-        </div>
-        <div *ngIf="dnsResolvingDomainStep === 7">
-          Paso 8:
-          <br>
-          Ahora resulta que es el responsable del dominio, por lo que le devuelve la IP que nuestro ordenador buscaba.
-        </div>
-        <div *ngIf="dnsResolvingDomainStep === 8">
-          Paso 9:
-          <br>
-          Finalmente el servidor DNS guarda en su caché la dirección y devuelve la IP de www.jaimeelingeniero.es a
-          nuestro ordenador.
-        </div>
+
+        <app-soa *ngIf="tab === 'SOA'"></app-soa>
+        <app-ns *ngIf="tab === 'NS'"></app-ns>
+        <app-a *ngIf="tab === 'A'"></app-a>
+        <app-aaaa *ngIf="tab === 'AAAA'"></app-aaaa>
+        <app-mx *ngIf="tab === 'MX'"></app-mx>
+        <app-cname *ngIf="tab === 'CNAME'"></app-cname>
+        <app-ptr *ngIf="tab === 'PTR'"></app-ptr>
+        <app-wks *ngIf="tab === 'WKS'"></app-wks>
+        <app-hinfo *ngIf="tab === 'HINFO'"></app-hinfo>
+        <app-txt *ngIf="tab === 'TXT'"></app-txt>
       </div>
+    </section>
 
-      <img [src]="'pages-network/dns/assets/dns-resolving-domain-'+dnsResolvingDomainStep+'.gif'"
-        alt="Resolviendo el dominio">
-    </div>
+    <section>
+      <h2>Zonas</h2>
 
-    <p>
-      Las consultas de los pasos 3, 5 y 7 se llaman <strong>consultas iterativas</strong>. Estas son las consultas que
-      se hacen entre servidores para obtener las direcciones de otros servidores de dominios de nivel inferior.
-      <br>
-      La consulta del paso 2 se llama <strong>consulta recursiva</strong>. Son las consultas que hacen los clientes (en
-      inglés también llamados <i>resolvers</i>) a los servidores DNS.
-    </p>
-  </section>
+      <p>
+        Una zona no es más que una parte del árbol (sistema jeráquico) del sistema de nombres de dominio. Las zonas se
+        definen en los ficheros de zona y contienen la <strong>información autoritativa</strong> de un dominio. Una zona
+        es administrada por una organización. Esta organización puede delegar responsabilidades de zona para subdominios
+        creando así otra sub-zona.
+      </p>
 
-  <section>
-    <h2>Servidores de nombres</h2>
+      <img class="zone-scheme-img" src="pages-network/dns/assets/zones-scheme.png" alt="Esquema de zonas">
 
-    <p>
-      Los servidores de nombres son aplicaciones corriendo en ordenadores muy potentes y que escuchan por el puerto 53.
-      Normalmente las comunicaciones se hacen a través de UDP, aunque si la respuesta es muy larga se usa TCP. Cada
-      servidor DNS conoce al menos un servidor DNS raíz y a todos los servidores de dominios de nivel inferior. Los
-      servidores raíz conocen las direcciones IP de todos los servidores de dominios de primer nivel.
-    </p>
+      <p>
+        Los ficheros de zona son entregados a un servidor DNS primario. Los servidores secundarios copian estos archivos
+        para poder servir también los dominios. Además cada cierto tiempo comprueban si hay cambios para volver a
+        copiarlos (zone transfer).
+      </p>
+    </section>
 
-    <h3>Tipos de servidores:</h3>
+    <section>
+      <h2>Organización y gestión</h2>
 
-    <p>
-      Los servidores pueden tener la información original recibida directamente por un humano (<strong>servidor
-        primario</strong>), pueden ser una copia para hacer el sistema más escalable (<strong>servidor
-        secundario</strong>) o pueden tener los datos cacheados de alguna consulta anterior (<strong>servidor
-        caché</strong>).
-    </p>
+      <p>
+        La organización última encargada de gestionar los nombres de dominio es la <a class="app-link"
+          href="https://www.icann.org/es" target="_blank" rel="noopener">ICANN</a> (Internet Corporation for Assigned
+        Names and Numbers ➡️ Corporación de
+        Internet para la Asignación de Nombres y Números). Esta gestiona los nombres de dominio de primer nivel y el
+        sistema de servidores DNS raíz.
+      </p>
 
-    <p>
-      Dependiendo de donde tomen los datos, las respuestas pueden ser <strong>con autoridad</strong> si la información
-      viene de un servidor primario o secundario (tienen la información original), o pueden ser <strong>sin
-        autoridad</strong> en caso de venir de la caché.
-    </p>
+      <p>
+        Los dominios de primer nivel de países son delegados a diferentes organizaciones (NIC o
+        <strong>registry</strong>). Estas mantienen los registros y publican las zonas a los servidores
+        correspondientes.
+        Por otro lado, tenemos los agentes registradores (<strong>registrar</strong>). Cualquier persona
+        (<strong>registrant</strong>) puede hablar con ellas (o desde su web) para pedir su propio dominio. El agente
+        registrador pedirá modificar los registros de la zona para incluir el nuevo dominio. Cuando se aprueba el
+        cambio,
+        se realizan y se pasan de nuevo al servidor primario, que actualizará también a los secundarios.
+      </p>
 
-    <img class="nslookup-img" src="pages-network/dns/assets/no-authoritative-response.png" alt="nslookup screenshot">
+      <img class="organization-dns-img" src="pages-network/dns/assets/organization-dns.png"
+        alt="Organización del sistema de nombres de dominio">
 
-    <h3>Servidores raíz</h3>
+      <p>
+        En España la organización responsable de la zona .es es
+        <a class="app-link" href="https://www.dominios.es/index.php/es/sobre-dominios/sobre-nosotros" target="_blank"
+          rel="noopener">Red.es</a>.
+        A su vez tiene multiples
+        <a class="app-link app-no-break"
+          href="https://www.dominios.es/es/agentes-registradores/nuestros-agentes-registradores#block-views-block-agentes-registradores"
+          target="_blank" rel="noopener">agentes registradores</a> con los que puedes registrar tu dominio.
+      </p>
+    </section>
 
-    <p>
-      Los <a class="app-link" href="https://www.iana.org/domains/root/servers" target="_blank" rel="noopener">servidores
-        raíz</a> son
-      servidores de nombres que tienen la <a class="app-link" href="https://www.iana.org/domains/root/files"
-        target="_blank" rel="noopener">información inicial</a> de la estructura jeráquica de la base de datos del
-      sistema. Conocen a
-      todos los servidores de nombres de nivel superior.
-    </p>
+    <section>
+      <h2>Whois</h2>
 
-    <p>
-      De forma lógica existen un total de <a class="app-link" href="https://root-servers.org/" target="_blank"
-        rel="noopener">13
-        servidores raíz</a> distribuidos por el mundo, que son mantenidos de forma voluntaria por diversas
-      organizaciones. Digo que existen de forma lógica porque en realidad exiten más de mil máquinas sirviendo los
-      nombres de nivel superior. Estos 13 servidores se identifican con las letras del abecedario, desde la A hasta la
-      M. Cada servidor lógico tiene una dirección IP única, pero dependiendo del lugar del mundo en el que te
-      encuentres, la consulta irá a una instancia o a otra, ya que se usa anycast para ello. Esto significa que te
-      servirá el servidor más óptimo para tí (dependerá de la distancia, del tráfico que tenga y otras cosas). Puedes
-      ver los mapas en <a class="app-link" href="https://atlas.ripe.net/results/maps/" target="_blank"
-        rel="noopener">atlas.ripe.net</a>.
-    </p>
+      <p>
+        Whois es un servicio o base de datos que almacena <strong>metainformación</strong>. Es decir, almacena que
+        dominios están en uso, quienes son sus titulares, por cuánto tiempo, etc.
+      </p>
 
-    <img class="anycast-img" src="pages-network/dns/assets/anycast-example.png" alt="Ejemplo anycast">
-  </section>
+      <p>
+        De los titulares almacena la información que se introduce en el formulario que se completa cuando se solicita un
+        dominio.
+      </p>
 
-  <section id="rr-section">
-    <h2>Los registros de recursos</h2>
+      <p>
+        Estos datos se almacenan en diferentes bases de datos gestionadas por los registry y los registrars. Para
+        consultar los datos, podemos hacer uso del protocolo whois, definido en el <a class="app-link app-no-break"
+          href="https://www.rfc-editor.org/rfc/rfc3912.html" target="_blank" rel="noopener">RFC-3912</a>.
+      </p>
 
-    <p>
-      La base de datos del sistema de dominios esta compuesta por registros de recursos (en inglés Resource Records,
-      RR). Son la <strong>unidad básica de consulta</strong>. Su formato viene especificado en el <a
-        class="app-link app-no-break" href="https://www.rfc-editor.org/rfc/rfc1033.html" target="_blank"
-        rel="noopener">RFC-1033</a>:
-    </p>
+      <p>
+        Sin embargo, no siempre los datos están disponibles por motivos de privacidad. Imagínate que alguien más quiere
+        el
+        dominio que tú tienes. Podría usar whois para saber quién es el propietario y enviarle correos spam para hacerle
+        la compra del dominio. En este caso solo saldrá el nombre del titular.
+      </p>
+    </section>
+  </article>
 
-    <div class="rr-format">
-      <div>&lt;NOMBRE&gt;</div>
-      <div>[&lt;TTL&gt;]</div>
-      <div>[&lt;CLASE&gt;]</div>
-      <div>&lt;TIPO&gt;</div>
-      <div>&lt;DATOS&gt;</div>
-    </div>
-
-    <p>El registro se compone de varios campos que se separan con espacios.</p>
-
-    <dl>
-      <dt>NOMBRE</dt>
-      <dd>
-        Define a que nombre de dominio corresponde el registro. En algunos casos se puede omitir y entonces se tomaría
-        el nombre del registro anterior.
-      </dd>
-
-      <dt>TTL</dt>
-      <dd>
-        Se refiere al Time to Live (tiempo de vida). Indica por cuánto tiempo se puede guardar este valor en caché por
-        un servidor antes de volver a preguntar por el registro. Si se omite, se toma el tiempo mínimo especificado en
-        el registro de tipo SOA.
-      </dd>
-
-      <dt>CLASE</dt>
-      <dd>
-        Especifica el grupo de protocolo. Si se omite, se toma la clase del registro anterior. En internet este campo es
-        siempre <strong>IN</strong>.
-      </dd>
-
-      <dt>TIPO</dt>
-      <dd>
-        Especifica el tipo de registro. Indica que formato tendrá el campo de datos.
-      </dd>
-
-      <dt>DATOS</dt>
-      <dd>
-        Cada clase y tipo de registro guarda información diferente, así que dependiendo de esos campos este otro tendrá
-        diferentes valores y formatos.
-      </dd>
-    </dl>
-
-    <p>
-      Además de ese formato se puede además añadir lo siguiente:
-    </p>
-
-    <ul>
-      <li>Paréntesis <strong>()</strong> para agrupar datos en varias lineas.</li>
-      <li>Un punto y coma <strong>;</strong> para poner un comentario. El resto de la linea es ignorado.</li>
-      <li>Asteriscos <strong>*</strong> como comodines.</li>
-      <li>
-        Una arroba <strong>@</strong> denota el nombre de dominio por defecto. Puede estar definido en el fichero de
-        configuración o ser parte del nombre del fichero.
-      </li>
-    </ul>
-
-    <h3>Tipos de RR</h3>
-
-    <p>
-      Existen muchos <a class="app-link" href="https://es.wikipedia.org/wiki/Anexo:Tipos_de_registros_DNS"
-        target="_blank" rel="noopener">tipos de recursos</a> pero vamos a explicar solo algunos de ellos. Pulsa los
-      diferentes RR para
-      ver los detalles.
-    </p>
-
-    <div>
-      <div class="tabs">
-        <span [ngClass]="{selected: tab === 'SOA'}" (click)="tab = 'SOA'">SOA</span>
-        <span [ngClass]="{selected: tab === 'NS'}" (click)="tab = 'NS'">NS</span>
-        <span [ngClass]="{selected: tab === 'A'}" (click)="tab = 'A'">A</span>
-        <span [ngClass]="{selected: tab === 'AAAA'}" (click)="tab = 'AAAA'">AAAA</span>
-        <span [ngClass]="{selected: tab === 'MX'}" (click)="tab = 'MX'">MX</span>
-        <span [ngClass]="{selected: tab === 'CNAME'}" (click)="tab = 'CNAME'">CNAME</span>
-        <span [ngClass]="{selected: tab === 'PTR'}" (click)="tab = 'PTR'">PTR</span>
-        <span [ngClass]="{selected: tab === 'WKS'}" (click)="tab = 'WKS'">WKS</span>
-        <span [ngClass]="{selected: tab === 'HINFO'}" (click)="tab = 'HINFO'">HINFO</span>
-        <span [ngClass]="{selected: tab === 'TXT'}" (click)="tab = 'TXT'">TXT</span>
-      </div>
-
-      <app-soa *ngIf="tab === 'SOA'"></app-soa>
-      <app-ns *ngIf="tab === 'NS'"></app-ns>
-      <app-a *ngIf="tab === 'A'"></app-a>
-      <app-aaaa *ngIf="tab === 'AAAA'"></app-aaaa>
-      <app-mx *ngIf="tab === 'MX'"></app-mx>
-      <app-cname *ngIf="tab === 'CNAME'"></app-cname>
-      <app-ptr *ngIf="tab === 'PTR'"></app-ptr>
-      <app-wks *ngIf="tab === 'WKS'"></app-wks>
-      <app-hinfo *ngIf="tab === 'HINFO'"></app-hinfo>
-      <app-txt *ngIf="tab === 'TXT'"></app-txt>
-    </div>
-  </section>
-
-  <section>
-    <h2>Zonas</h2>
-
-    <p>
-      Una zona no es más que una parte del árbol (sistema jeráquico) del sistema de nombres de dominio. Las zonas se
-      definen en los ficheros de zona y contienen la <strong>información autoritativa</strong> de un dominio. Una zona
-      es administrada por una organización. Esta organización puede delegar responsabilidades de zona para subdominios
-      creando así otra sub-zona.
-    </p>
-
-    <img class="zone-scheme-img" src="pages-network/dns/assets/zones-scheme.png" alt="Esquema de zonas">
-
-    <p>
-      Los ficheros de zona son entregados a un servidor DNS primario. Los servidores secundarios copian estos archivos
-      para poder servir también los dominios. Además cada cierto tiempo comprueban si hay cambios para volver a
-      copiarlos (zone transfer).
-    </p>
-  </section>
-
-  <section>
-    <h2>Organización y gestión</h2>
-
-    <p>
-      La organización última encargada de gestionar los nombres de dominio es la <a class="app-link"
-        href="https://www.icann.org/es" target="_blank" rel="noopener">ICANN</a> (Internet Corporation for Assigned
-      Names and Numbers ➡️ Corporación de
-      Internet para la Asignación de Nombres y Números). Esta gestiona los nombres de dominio de primer nivel y el
-      sistema de servidores DNS raíz.
-    </p>
-
-    <p>
-      Los dominios de primer nivel de países son delegados a diferentes organizaciones (NIC o
-      <strong>registry</strong>). Estas mantienen los registros y publican las zonas a los servidores correspondientes.
-      Por otro lado, tenemos los agentes registradores (<strong>registrar</strong>). Cualquier persona
-      (<strong>registrant</strong>) puede hablar con ellas (o desde su web) para pedir su propio dominio. El agente
-      registrador pedirá modificar los registros de la zona para incluir el nuevo dominio. Cuando se aprueba el cambio,
-      se realizan y se pasan de nuevo al servidor primario, que actualizará también a los secundarios.
-    </p>
-
-    <img class="organization-dns-img" src="pages-network/dns/assets/organization-dns.png"
-      alt="Organización del sistema de nombres de dominio">
-
-    <p>
-      En España la organización responsable de la zona .es es
-      <a class="app-link" href="https://www.dominios.es/index.php/es/sobre-dominios/sobre-nosotros" target="_blank"
-        rel="noopener">Red.es</a>.
-      A su vez tiene multiples
-      <a class="app-link app-no-break"
-        href="https://www.dominios.es/es/agentes-registradores/nuestros-agentes-registradores#block-views-block-agentes-registradores"
-        target="_blank" rel="noopener">agentes registradores</a> con los que puedes registrar tu dominio.
-    </p>
-  </section>
-
-  <section>
-    <h2>Whois</h2>
-
-    <p>
-      Whois es un servicio o base de datos que almacena <strong>metainformación</strong>. Es decir, almacena que
-      dominios están en uso, quienes son sus titulares, por cuánto tiempo, etc.
-    </p>
-
-    <p>
-      De los titulares almacena la información que se introduce en el formulario que se completa cuando se solicita un
-      dominio.
-    </p>
-
-    <p>
-      Estos datos se almacenan en diferentes bases de datos gestionadas por los registry y los registrars. Para
-      consultar los datos, podemos hacer uso del protocolo whois, definido en el <a class="app-link app-no-break"
-        href="https://www.rfc-editor.org/rfc/rfc3912.html" target="_blank" rel="noopener">RFC-3912</a>.
-    </p>
-
-    <p>
-      Sin embargo, no siempre los datos están disponibles por motivos de privacidad. Imagínate que alguien más quiere el
-      dominio que tú tienes. Podría usar whois para saber quién es el propietario y enviarle correos spam para hacerle
-      la compra del dominio. En este caso solo saldrá el nombre del titular.
-    </p>
-  </section>
-</main>
-
-<footer>
-  <p>
+  <p #responsiveLayoutContentFooter responsive-layout-content-footer>
     En el <a class="app-link" routerLink="./configurar-un-servidor">siguiente artículo</a> ➡️ puedes aprender a
     configurar tu propio
     servidor DNS casero.
   </p>
-</footer>
+
+</app-responsive-layout>
