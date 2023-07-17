@@ -1,0 +1,51 @@
+@import "../../shared/styles/colors";
+
+:host {
+    display: block;
+}
+
+.subtitle {
+    font-size: 1.3em;
+
+    &:not(:first-of-type) {
+        margin-top: 50px;
+    }
+}
+
+.links-group {
+    display: flex;
+    flex-direction: column;
+
+    a {
+        margin: 15px 0 0 5px;
+        text-decoration: none;
+        color: black;
+        transition: 0.5s;
+        line-height: 25px;
+
+        &:hover:not(.menu-section-active) {
+            font-size: 1.15em;
+
+            &::after {
+                content: "➡️";
+                margin-left: 5px;
+            }
+        }
+    }
+
+    .menu-section-active {
+        color: $color-orange;
+        font-size: 1.3em;
+    }
+}
+
+// as in ResponsiveLayoutComponent
+@media (max-width: 900px) {
+    .back-to-menu-link {
+        display: inline-block;
+        cursor: pointer;
+        text-decoration: none;
+        color: black;
+        padding: 40px 20px 0 20px;
+    }
+}

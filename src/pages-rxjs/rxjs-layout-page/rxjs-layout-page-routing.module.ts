@@ -1,13 +1,13 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { RoutableLateralMenuComponent } from './routable-lateral-menu.component';
-import { RoutableLateralMenuResolver } from './routable-lateral-menu.resolver';
+import { RxjsLayoutPageComponent } from './rxjs-layout-page.component';
+import { RxjsLayoutPageResolver } from './rxjs-layout-page.resolver';
 
 const routes: Routes = [
   {
     path: '',
-    component: RoutableLateralMenuComponent,
-    resolve: [RoutableLateralMenuResolver],
+    component: RxjsLayoutPageComponent,
+    resolve: [RxjsLayoutPageResolver],
     children: [
       {
         path: 'timer',
@@ -121,4 +121,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class RoutableLateralMenuRoutingModule {}
+export class RxjsLayoutPageRoutingModule {}

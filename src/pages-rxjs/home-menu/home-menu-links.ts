@@ -1,4 +1,4 @@
-export interface HomeLink {
+export interface HomeMenuLink {
   subtitle: string;
   links: {
     display: string;
@@ -6,7 +6,7 @@ export interface HomeLink {
   }[];
 }
 
-export const LINKS_TO_START: HomeLink = {
+export const LINKS_TO_START: HomeMenuLink = {
   subtitle: 'Para empezar',
   links: [
     { display: 'Observable', url: '/comprende-rxjs/observable' },
@@ -15,7 +15,7 @@ export const LINKS_TO_START: HomeLink = {
   ],
 };
 
-export const LINKS_GROUPS_OPERATORS: HomeLink[] = [
+export const LINKS_GROUPS_OPERATORS: HomeMenuLink[] = [
   {
     subtitle: 'Transformación',
     links: [

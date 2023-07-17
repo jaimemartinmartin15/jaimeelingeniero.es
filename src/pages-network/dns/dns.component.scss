@@ -4,10 +4,6 @@ $page-width: 830px;
 
 :host {
     display: block;
-    max-width: $page-width;
-    margin: auto;
-    padding: 0 20px 50px 20px;
-    line-height: 30px;
 }
 
 .title {
@@ -132,8 +128,8 @@ $page-width: 830px;
     margin: 0 auto;
 }
 
-footer {
-    margin-top: 50px;
+p[responsive-layout-content-footer] {
+    padding-bottom: 40px;
 }
 
 @media (max-width: 575px) {
@@ -167,16 +163,5 @@ footer {
 
     dd {
         margin: 0;
-    }
-}
-
-@media (max-width: $page-width) {
-    :host {
-        padding: 0 0 35px 0;
-    }
-
-    footer,
-    main {
-        padding: 0 20px;
     }
 }

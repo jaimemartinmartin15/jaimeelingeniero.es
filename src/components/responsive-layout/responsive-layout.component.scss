@@ -1,0 +1,51 @@
+:host {
+  display: block;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  div:first-child {
+    max-width: 100%;
+  }
+
+  .flex-content {
+    display: flex;
+    justify-content: center;
+
+    .left-menu {
+      padding-left: 20px;
+      width: 250px;
+      flex-shrink: 0;
+      position: sticky;
+      top: 60px; // app-header-print height aprox + some margin
+      overflow-y: auto;
+      max-height: calc(100vh - 120px);
+    }
+
+    .main-content {
+      flex-grow: 1;
+      max-width: 900px;
+      min-width: 0; // fix issue with pre and flex-box
+
+      .content-header {
+        padding: 0 20px;
+      }
+
+      .content-content {
+        padding: 20px;
+      }
+
+      .content-footer {
+        padding: 0 20px;
+      }
+    }
+
+    .right-menu {
+      width: 250px;
+      flex-shrink: 0;
+    }
+  }
+}
