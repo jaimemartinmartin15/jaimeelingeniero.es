@@ -1,156 +1,160 @@
-<app-header-print></app-header-print>
+<app-responsive-layout>
+  <app-header-print #responsiveLayoutFlexContentHeader responsive-layout-flex-content-header></app-header-print>
 
-<main>
-  <h1 class="title">Configuración de un servidor DNS</h1>
+  <article #responsiveLayoutMainContent responsive-layout-main-content>
+    <h1 class="title">Configuración de un servidor DNS</h1>
 
-  <section>
-    <h2>Introducción</h2>
+    <section>
+      <h2>Introducción</h2>
 
-    <p>
-      En este artículo voy a explicar como configurar un servidor DNS. Y quizá te preguntes: ¿para qué necesito yo
-      configurar un servidor DNS si ya existen cientos de servidores por todo el mundo que me permiten navegar por
-      internet?
-    </p>
+      <p>
+        En este artículo voy a explicar como configurar un servidor DNS. Y quizá te preguntes: ¿para qué necesito yo
+        configurar un servidor DNS si ya existen cientos de servidores por todo el mundo que me permiten navegar por
+        internet?
+      </p>
 
-    <p>
-      Quizá tengas razón y no lo necesites, pero si eres desarrolador o te dedicas a este mundo te puede resultar útil
-      para <strong>crear tus dominios o zonas locales</strong> a los que solo tú tienes acceso en tu red. Sería una
-      intranet privada. Podrías poner nombres a todos tus dispositivos y estos no serían visibles en internet.
-    </p>
+      <p>
+        Quizá tengas razón y no lo necesites, pero si eres desarrolador o te dedicas a este mundo te puede resultar útil
+        para <strong>crear tus dominios o zonas locales</strong> a los que solo tú tienes acceso en tu red. Sería una
+        intranet privada. Podrías poner nombres a todos tus dispositivos y estos no serían visibles en internet.
+      </p>
 
-    <p>
-      También te permitiría <strong>navegar más rápido</strong>, pues el DNS puede cachear dominios reales y resolverlos
-      en tu propia red, sin tener que acceder a internet para ello.
-    </p>
-  </section>
+      <p>
+        También te permitiría <strong>navegar más rápido</strong>, pues el DNS puede cachear dominios reales y
+        resolverlos
+        en tu propia red, sin tener que acceder a internet para ello.
+      </p>
+    </section>
 
-  <section>
-    <h2>BIND</h2>
+    <section>
+      <h2>BIND</h2>
 
-    <p>
-      El programa por excelencia que actúa como servidor de nombres es <a class="app-link"
-        href="https://www.isc.org/bind/" target="_blank" rel="noopener"><strong>BIND</strong></a>. Significa <i>Berkeley
-        Internet Name Domain</i> y es el programa que usan la mayoría de servidores DNS reales en todo el mundo.
-    </p>
+      <p>
+        El programa por excelencia que actúa como servidor de nombres es <a class="app-link"
+          href="https://www.isc.org/bind/" target="_blank" rel="noopener"><strong>BIND</strong></a>. Significa
+        <i>Berkeley
+          Internet Name Domain</i> y es el programa que usan la mayoría de servidores DNS reales en todo el mundo.
+      </p>
 
-    <p>
-      La organización <a class="app-link" href="https://www.isc.org/" target="_blank" rel="noopener">Internet Systems
-        Consortium</a> es la encargada de su desarrollo, mantenimiento y actualizaciones. Es de <a class="app-link"
-        href="https://github.com/isc-projects/bind9" target="_blank" rel="noopener">código abierto</a> y su versión
-      actual es la nueve, por lo que también se le conoce como BIND9. El nombre del proceso que lo implementa es
-      <strong>named</strong>.
-    </p>
+      <p>
+        La organización <a class="app-link" href="https://www.isc.org/" target="_blank" rel="noopener">Internet Systems
+          Consortium</a> es la encargada de su desarrollo, mantenimiento y actualizaciones. Es de <a class="app-link"
+          href="https://github.com/isc-projects/bind9" target="_blank" rel="noopener">código abierto</a> y su versión
+        actual es la nueve, por lo que también se le conoce como BIND9. El nombre del proceso que lo implementa es
+        <strong>named</strong>.
+      </p>
 
-    <p>
-      Vamos manos a la obra 👷‍♂️🔨
-    </p>
-  </section>
+      <p>
+        Vamos manos a la obra 👷‍♂️🔨
+      </p>
 
-  <section>
-    <h2>Instalación</h2>
+    </section>
 
-    <p>
-      Podríamos empezar a usar BIND9 fácilmente usando su <a class="app-link"
-        href="https://hub.docker.com/r/internetsystemsconsortium/bind9" target="_blank" rel="noopener">imagen de
-        docker</a>, pero yo lo voy a instalar desde cero en una máquina virtual.
-    </p>
+    <section>
+      <h2>Instalación</h2>
 
-    <p>
-      Para ello ejecutamos lo siguiente:
-    </p>
+      <p>
+        Podríamos empezar a usar BIND9 fácilmente usando su <a class="app-link"
+          href="https://hub.docker.com/r/internetsystemsconsortium/bind9" target="_blank" rel="noopener">imagen de
+          docker</a>, pero yo lo voy a instalar desde cero en una máquina virtual.
+      </p>
 
-    <app-terminal-code>
-      <p terminal-code-command>apt update</p>
-      <p terminal-code-command>apt install bind9</p>
-    </app-terminal-code>
+      <p>
+        Para ello ejecutamos lo siguiente:
+      </p>
 
-    <p>
-      Una vez instalado pues ya está. Instalado y corriendo. Lo podemos comprobar ejecutando el siguiente comando:
-    </p>
+      <app-terminal-code>
+        <p terminal-code-command>apt update</p>
+        <p terminal-code-command>apt install bind9</p>
+      </app-terminal-code>
 
-    <app-terminal-code>
-      <p terminal-code-command>systemctl is-active named</p>
-      <p terminal-code-output>active</p>
-    </app-terminal-code>
+      <p>
+        Una vez instalado pues ya está. Instalado y corriendo. Lo podemos comprobar ejecutando el siguiente comando:
+      </p>
 
-    <p>
-      El comando debería sacar por pantalla que el servicio esta <i>active</i>.
-    </p>
-  </section>
+      <app-terminal-code>
+        <p terminal-code-command>systemctl is-active named</p>
+        <p terminal-code-output>active</p>
+      </app-terminal-code>
 
-  <section>
-    <h2>Configuración por defecto</h2>
+      <p>
+        El comando debería sacar por pantalla que el servicio esta <i>active</i>.
+      </p>
+    </section>
 
-    <p>
-      Al instalar BIND se han creado una serie de ficheros de configuración por defecto. Vamos a echarles un vistazo.
-    </p>
+    <section>
+      <h2>Configuración por defecto</h2>
 
-    <h3 class="file-name">/etc/bind/named.conf</h3>
+      <p>
+        Al instalar BIND se han creado una serie de ficheros de configuración por defecto. Vamos a echarles un vistazo.
+      </p>
 
-    <p>
-      Este es el fichero de configuración de BIND. Toda la configuración se encuentra aquí. Pero como podemos ver hay
-      referencias a otros ficheros que también forman parte de la configuración. Esto permite separar cierta
-      configuración y la configuración por zonas en diferentes ficheros, de forma que resulta más fácil gestionarla.
-    </p>
+      <h3 class="file-name">/etc/bind/named.conf</h3>
 
-    <app-terminal-code>
-      <p terminal-code-command>cat /etc/bind/named.conf</p>
-      <pre terminal-code-output>include "/etc/bind/named.conf.options"
+      <p>
+        Este es el fichero de configuración de BIND. Toda la configuración se encuentra aquí. Pero como podemos ver hay
+        referencias a otros ficheros que también forman parte de la configuración. Esto permite separar cierta
+        configuración y la configuración por zonas en diferentes ficheros, de forma que resulta más fácil gestionarla.
+      </p>
+
+      <app-terminal-code>
+        <p terminal-code-command>cat /etc/bind/named.conf</p>
+        <pre terminal-code-output>include "/etc/bind/named.conf.options"
 include "/etc/bind/named.conf.local"
 include "/etc/bind/named.conf.default-zones"</pre>
-    </app-terminal-code>
+      </app-terminal-code>
 
-    <h3 class="file-name">/etc/bind/named.conf.options</h3>
+      <h3 class="file-name">/etc/bind/named.conf.options</h3>
 
-    <p>
-      Este fichero contiene configuración general para el servidor. Tiene un mogollón de opciones. Por defecto el
-      fichero creado al instalar BIND9 se ve así:
-    </p>
+      <p>
+        Este fichero contiene configuración general para el servidor. Tiene un mogollón de opciones. Por defecto el
+        fichero creado al instalar BIND9 se ve así:
+      </p>
 
-    <app-terminal-code>
-      <p terminal-code-command>cat /etc/bind/named.conf.options</p>
-      <pre terminal-code-output>options &#123;
+      <app-terminal-code>
+        <p terminal-code-command>cat /etc/bind/named.conf.options</p>
+        <pre terminal-code-output>options &#123;
    directory "/var/cache/bind";
    dnssec-validation auto;
    listen-on-v6 &#123; any; &#125;;
 &#125;;</pre>
-    </app-terminal-code>
+      </app-terminal-code>
 
-    <p>
-      Por describir un poco lo que hay, <i>directory</i> indica el directorio de trabajo del servidor. Las rutas
-      relativas que pongamos en los ficheros de configuración serán relativas a este directorio.
-      <i>dnssec-validation</i> habilita DNSSEC, que son unas extensiones de seguridad. <i>listen-on-v6</i> especifica la
-      dirección IPv6 en la que el servidor escuchará peticiones DNS.
-    </p>
+      <p>
+        Por describir un poco lo que hay, <i>directory</i> indica el directorio de trabajo del servidor. Las rutas
+        relativas que pongamos en los ficheros de configuración serán relativas a este directorio.
+        <i>dnssec-validation</i> habilita DNSSEC, que son unas extensiones de seguridad. <i>listen-on-v6</i> especifica
+        la dirección IPv6 en la que el servidor escuchará peticiones DNS.
+      </p>
 
-    <p>
-      Si tienes curiosidad, puedes ver <a class="app-link"
-        href="https://bind9.readthedocs.io/en/v9_18_7/reference.html#options-block-definition-and-usage" target="_blank"
-        rel="noopener">todas las opciones</a> y que hace cada una.
-    </p>
+      <p>
+        Si tienes curiosidad, puedes ver <a class="app-link"
+          href="https://bind9.readthedocs.io/en/v9_18_7/reference.html#options-block-definition-and-usage"
+          target="_blank" rel="noopener">todas las opciones</a> y que hace cada una.
+      </p>
 
-    <h3 class="file-name">/etc/bind/named.conf.local</h3>
+      <h3 class="file-name">/etc/bind/named.conf.local</h3>
 
-    <p>
-      Este fichero es el que nos permite definir nuestra configuración local. Normalmente incluiremos otros ficheros con
-      nuestros propios dominios.
-    </p>
+      <p>
+        Este fichero es el que nos permite definir nuestra configuración local. Normalmente incluiremos otros ficheros
+        con nuestros propios dominios.
+      </p>
 
-    <app-terminal-code>
-      <span terminal-code-command>cat /etc/bind/named.conf.local</span>
-      <span terminal-code-output>// Do any local configuration here</span>
-    </app-terminal-code>
+      <app-terminal-code>
+        <span terminal-code-command>cat /etc/bind/named.conf.local</span>
+        <span terminal-code-output>// Do any local configuration here</span>
+      </app-terminal-code>
 
-    <h3 class="file-name">/etc/bind/named.conf.default-zones</h3>
+      <h3 class="file-name">/etc/bind/named.conf.default-zones</h3>
 
-    <p>
-      Este fichero incluye configuración de las zonas predeterminadas como la de loopback, broadcast y los servidores
-      raíces.
-    </p>
+      <p>
+        Este fichero incluye configuración de las zonas predeterminadas como la de loopback, broadcast y los servidores
+        raíces.
+      </p>
 
-    <app-terminal-code>
-      <span terminal-code-command>cat /etc/bind/named.conf.default-zones</span>
-      <pre terminal-code-output>zone "." &#123;
+      <app-terminal-code>
+        <span terminal-code-command>cat /etc/bind/named.conf.default-zones</span>
+        <pre terminal-code-output>zone "." &#123;
     type hint;
     file "/usr/share/dns/root.hints";
 &#125;
@@ -174,33 +178,33 @@ zone "255.in-addr.arpa" &#123;
     type master;
     file "/etc/bind/db.255";
 &#125;</pre>
-    </app-terminal-code>
+      </app-terminal-code>
 
-    <p>
-      Los servidores de nombres deben conocer las direcciones IP de los servidores DNS raíz. Eso lo podemos encontrar en
-      el fichero referenciado <span class="file-name">/usr/share/dns/root.hints</span>:
-    </p>
+      <p>
+        Los servidores de nombres deben conocer las direcciones IP de los servidores DNS raíz. Eso lo podemos encontrar
+        en el fichero referenciado <span class="file-name">/usr/share/dns/root.hints</span>:
+      </p>
 
-    <app-terminal-code>
-      <span terminal-code-command>cat /usr/share/dns/root.hints</span>
-      <pre terminal-code-output>.                     3600000   NS     A.ROOT-SERVERS.NET.
+      <app-terminal-code>
+        <span terminal-code-command>cat /usr/share/dns/root.hints</span>
+        <pre terminal-code-output>.                     3600000   NS     A.ROOT-SERVERS.NET.
 A.ROOT-SERVERS.NET.   3600000   A      198.41.0.4
 A.ROOT-SERVERS.NET.   3600000   AAAA   2001:503:ba3e::2:30
 .                     3600000   NS     B.ROOT-SERVERS.NET.
 B.ROOT-SERVERS.NET.   3600000   A      199.9.14.201
 B.ROOT-SERVERS.NET.   3600000   AAAA   2001:500:200::b
 ...</pre>
-    </app-terminal-code>
+      </app-terminal-code>
 
-    <h3 class="file-name">/etc/bind/db.*</h3>
+      <h3 class="file-name">/etc/bind/db.*</h3>
 
-    <p>
-      Estos ficheros son los ficheros de zona con los mapas de dominio. Nosotros también crearemos los nuestros.
-    </p>
+      <p>
+        Estos ficheros son los ficheros de zona con los mapas de dominio. Nosotros también crearemos los nuestros.
+      </p>
 
-    <app-terminal-code>
-      <span terminal-code-command>cat /etc/bind/db.local</span>
-      <pre terminal-code-output>$TTL   604800
+      <app-terminal-code>
+        <span terminal-code-command>cat /etc/bind/db.local</span>
+        <pre terminal-code-output>$TTL   604800
 @   IN   SOA   localhost. root.localhost. (
                 2
                 604800
@@ -210,76 +214,77 @@ B.ROOT-SERVERS.NET.   3600000   AAAA   2001:500:200::b
 @   IN   NS     localhost.
 @   IN   A      127.0.0.1
 @   IN   AAAA   ::1</pre>
-    </app-terminal-code>
+      </app-terminal-code>
 
-    <p>
-      En este ejemplo tenemos un total de cuatro RR. Para saber qué significan y cual es el formato puedes visitar el
-      <a class="app-link" [routerLink]="['../']" fragment="rr-section">artículo anterior</a>.
-    </p>
+      <p>
+        En este ejemplo tenemos un total de cuatro RR. Para saber qué significan y cual es el formato puedes visitar el
+        <a class="app-link" [routerLink]="['../']" fragment="rr-section">artículo anterior</a>.
+      </p>
 
-    <p>
-      El <strong>$TTL</strong> del inicio indica el tiempo de validez que tendrán por defecto los RR en las cachés.
-    </p>
+      <p>
+        El <strong>$TTL</strong> del inicio indica el tiempo de validez que tendrán por defecto los RR en las cachés.
+      </p>
 
-    <p>
-      El <strong>@</strong> es el nombre de la zona. Para este caso, viene especificado en el fichero <span
-        class="file-name">named.conf.default-zones</span> donde se declara la zona. En otro caso, sería el nombre del
-      fichero sin el <i>db.</i> También se podría indicar con la directiva <strong>$ORIGIN</strong> al igual que el
-      $TTL.
-    </p>
-  </section>
+      <p>
+        El <strong>@</strong> es el nombre de la zona. Para este caso, viene especificado en el fichero <span
+          class="file-name">named.conf.default-zones</span> donde se declara la zona. En otro caso, sería el nombre del
+        fichero sin el <i>db.</i> También se podría indicar con la directiva <strong>$ORIGIN</strong> al igual que el
+        $TTL.
+      </p>
 
-  <section>
-    <h2>Sintaxis de los ficheros de configuración</h2>
+    </section>
 
-    <p>
-      Hay tres tipos de entidades que podemos usar en los ficheros de configuración (no en los ficheros de zona):
-    </p>
+    <section>
+      <h2>Sintaxis de los ficheros de configuración</h2>
 
-    <p>
-      Los <strong>comentarios</strong> son simples anotaciones que podemos poner para hacer aclaraciones. Son ignorados
-      por el programa y su única utilidad es dar información a otras personas que puedan leer o modificar la
-      configuración posteriormente. Hay tres tipos de comentarios:
-      <span class="comment-sintax"><strong>/*</strong> comentario de varias líneas <strong>*/</strong></span>
-      <span class="comment-sintax"><strong>//</strong> comentario de una línea</span>
-      <span class="comment-sintax"><strong>#</strong> comentario de una línea</span>
-    </p>
+      <p>
+        Hay tres tipos de entidades que podemos usar en los ficheros de configuración (no en los ficheros de zona):
+      </p>
 
-    <p>
-      Los <strong>bloques</strong> son contenedores que pueden incluir otros bloques o declaraciones. Algunos bloques no
-      se pueden anidar, como el bloque <i>options</i> que hemos visto, y hay otros bloques que se pueden repetir, como
-      el bloque <i>zone</i>, en cuyo caso hay que ponerles un nombre. El formato es el siguiente:
-      <span class="block-sintax">
-        nombreDelBloque parametro1 parametro2 ... &#123; declaración1: valor; declaración2: argumento valor; ...&#125;
-      </span>
-    </p>
+      <p>
+        Los <strong>comentarios</strong> son simples anotaciones que podemos poner para hacer aclaraciones. Son
+        ignorados por el programa y su única utilidad es dar información a otras personas que puedan leer o modificar la
+        configuración posteriormente. Hay tres tipos de comentarios:
+        <span class="comment-sintax"><strong>/*</strong> comentario de varias líneas <strong>*/</strong></span>
+        <span class="comment-sintax"><strong>//</strong> comentario de una línea</span>
+        <span class="comment-sintax"><strong>#</strong> comentario de una línea</span>
+      </p>
 
-    <p>
-      Las <strong>declaraciones</strong> definen y controlan el comportamiento de BIND. Pueden tener un simple valor o
-      múltiples en forma de nombre de parámetro y valor. Algunas se pueden usar solo en unos bloques y otras se puden
-      utilizar en varios bloques, perdiendo la declaración que tiene ámbito más global. Las declaraciones acaban en
-      punto y coma <strong>;</strong>
-    </p>
-  </section>
+      <p>
+        Los <strong>bloques</strong> son contenedores que pueden incluir otros bloques o declaraciones. Algunos bloques
+        no se pueden anidar, como el bloque <i>options</i> que hemos visto, y hay otros bloques que se pueden repetir,
+        como el bloque <i>zone</i>, en cuyo caso hay que ponerles un nombre. El formato es el siguiente:
+        <span class="block-sintax">
+          nombreDelBloque parametro1 parametro2 ... &#123; declaración1: valor; declaración2: argumento valor; ...&#125;
+        </span>
+      </p>
 
-  <section>
-    <h2>Configurando una zona</h2>
+      <p>
+        Las <strong>declaraciones</strong> definen y controlan el comportamiento de BIND. Pueden tener un simple valor o
+        múltiples en forma de nombre de parámetro y valor. Algunas se pueden usar solo en unos bloques y otras se puden
+        utilizar en varios bloques, perdiendo la declaración que tiene ámbito más global. Las declaraciones acaban en
+        punto y coma <strong>;</strong>
+      </p>
+    </section>
 
-    <p>
-      Ahora vamos a crear un dominio para nuestra red, para los dispositivos de nuestra casa.
-    </p>
+    <section>
+      <h2>Configurando una zona</h2>
 
-    <p>
-      En primer lugar copiaremos el fichero <span class="file-name">/etc/bind/db.local</span> y lo llamaremos <span
-        class="file-name">/etc/bind/db.micasa</span>. Puede que tengas que usar la orden sudo. Tras editar el nuevo
-      fichero se verá así:
-    </p>
+      <p>
+        Ahora vamos a crear un dominio para nuestra red, para los dispositivos de nuestra casa.
+      </p>
 
-    <app-terminal-code>
-      <p terminal-code-command>cp /etc/bind/db.local /etc/bind/db.micasa</p>
-      <p terminal-code-command>pico /etc/bind/db.micasa</p>
-      <p terminal-code-command>cat /etc/bind/db.micasa</p>
-      <pre terminal-code-output>$TTL    604800
+      <p>
+        En primer lugar copiaremos el fichero <span class="file-name">/etc/bind/db.local</span> y lo llamaremos <span
+          class="file-name">/etc/bind/db.micasa</span>. Puede que tengas que usar la orden sudo. Tras editar el nuevo
+        fichero se verá así:
+      </p>
+
+      <app-terminal-code>
+        <p terminal-code-command>cp /etc/bind/db.local /etc/bind/db.micasa</p>
+        <p terminal-code-command>pico /etc/bind/db.micasa</p>
+        <p terminal-code-command>cat /etc/bind/db.micasa</p>
+        <pre terminal-code-output>$TTL    604800
 @   IN   SOA   localhost. mi-correo.gmail.com. (
                              2
                              604800
@@ -290,131 +295,134 @@ B.ROOT-SERVERS.NET.   3600000   AAAA   2001:500:200::b
 sobremesajaime   IN    A     192.168.1.55
 moviljaime       IN    A     192.168.1.54
 impresora        IN    A     192.168.1.42</pre>
-    </app-terminal-code>
+      </app-terminal-code>
 
-    <p>
-      Para que BIND pueda ver este nuevo fichero, lo tenemos que poner en la configuración. El fichero que tenemos que
-      editar es <span class="file-name">/etc/bind/named.conf.local</span>. Así se ve:
-    </p>
+      <p>
+        Para que BIND pueda ver este nuevo fichero, lo tenemos que poner en la configuración. El fichero que tenemos que
+        editar es <span class="file-name">/etc/bind/named.conf.local</span>. Así se ve:
+      </p>
 
-    <app-terminal-code>
-      <span terminal-code-command>cat /etc/bind/named.conf.local</span>
-      <pre terminal-code-output>zone "micasa" &#123;
+      <app-terminal-code>
+        <span terminal-code-command>cat /etc/bind/named.conf.local</span>
+        <pre terminal-code-output>zone "micasa" &#123;
     type master;
     file "/etc/bind/db.micasa";
 &#125;;</pre>
-    </app-terminal-code>
+      </app-terminal-code>
 
-    <p>
-      Por último lo que tenemos que hacer es recargar la cofiguración de BIND:
-    </p>
+      <p>
+        Por último lo que tenemos que hacer es recargar la cofiguración de BIND:
+      </p>
 
-    <app-terminal-code>
-      <span terminal-code-command>service named reload</span>
-    </app-terminal-code>
-  </section>
+      <app-terminal-code>
+        <span terminal-code-command>service named reload</span>
+      </app-terminal-code>
+    </section>
 
-  <section>
-    <h2>Configurando el cliente</h2>
+    <section>
+      <h2>Configurando el cliente</h2>
 
-    <p>
-      Para usar el servidor DNS que hemos configurado, debemos editar las direcciones IP de los servidores DNS en las
-      máquinas que queremos que usen nuestro servidor.
-    </p>
+      <p>
+        Para usar el servidor DNS que hemos configurado, debemos editar las direcciones IP de los servidores DNS en las
+        máquinas que queremos que usen nuestro servidor.
+      </p>
 
-    <p>
-      Por ejemplo, en la propia máquina donde he instalado el servidor sería así:
-    </p>
+      <p>
+        Por ejemplo, en la propia máquina donde he instalado el servidor sería así:
+      </p>
 
-    <img class="configure-dns-ubuntu-img" src="pages-network/dns/assets/configure-dns-ubuntu.png"
-      alt="Configuración DNS ubuntu">
+      <img class="configure-dns-ubuntu-img" src="pages-network/dns/assets/configure-dns-ubuntu.png"
+        alt="Configuración DNS ubuntu">
+      <p>
+        También podríamos editar el fichero <span class="file-name">/etc/resolv.conf</span>, pero al reiniciar la
+        máquina
+        la configuración se borraría:
+      </p>
 
-    <p>
-      También podríamos editar el fichero <span class="file-name">/etc/resolv.conf</span>, pero al reiniciar la máquina
-      la configuración se borraría:
-    </p>
-
-    <app-terminal-code>
-      <span terminal-code-command>cat /etc/resolv.conf</span>
-      <pre terminal-code-output>nameserver &lt;ip_de_la_máquina_donde_has_instalado_bind&gt;
+      <app-terminal-code>
+        <span terminal-code-command>cat /etc/resolv.conf</span>
+        <pre terminal-code-output>nameserver &lt;ip_de_la_máquina_donde_has_instalado_bind&gt;
 # resto de líneas</pre>
-    </app-terminal-code>
+      </app-terminal-code>
 
-    <p>
-      Para editarlo en windows, es un poco más complejo:
-    </p>
+      <p>
+        Para editarlo en windows, es un poco más complejo:
+      </p>
 
-    <img class="configure-dns-windows-img" src="pages-network/dns/assets/configure-dns-windows.png"
-      alt="Configuración DNS ubuntu">
+      <img class="configure-dns-windows-img" src="pages-network/dns/assets/configure-dns-windows.png"
+        alt="Configuración DNS ubuntu">
 
-    <p>
-      A la izquierda tenemos la configuración de windows, y a la derecha la máquina virtual donde está instalado el
-      servidor DNS.
-    </p>
+      <p>
+        A la izquierda tenemos la configuración de windows, y a la derecha la máquina virtual donde está instalado el
+        servidor DNS.
+      </p>
 
-    <p>
-      Ya estaría, ahora nuestras máquinas consultarán al servidor que hemos preparado.
-    </p>
-  </section>
+      <p>
+        Ya estaría, ahora nuestras máquinas consultarán al servidor que hemos preparado.
+      </p>
 
-  <section>
-    <h2>Órdenes de diagnóstico</h2>
+    </section>
 
-    <p>
-      Vamos a probar ahora que lo que hemos configurado es correcto. Para ello necesitamos de unas herramientas que nos
-      ayuden a verificarlo.
-    </p>
+    <section>
+      <h2>Órdenes de diagnóstico</h2>
 
-    <h3>El comando dig</h3>
+      <p>
+        Vamos a probar ahora que lo que hemos configurado es correcto. Para ello necesitamos de unas herramientas que
+        nos ayuden a verificarlo.
+      </p>
 
-    <p>
-      Vamos a probar este comando en la propia máquina donde está instalado el servidor. La sintaxis es esta de abajo.
-      Los parámetros entre corchetes son opcionales. El servidor al que preguntamos se precede con @.
-    </p>
+      <h3>El comando dig</h3>
 
-    <app-terminal-code>
-      <span terminal-code-command>
-        dig [@&lt;ip_o_dominio_servidor_dns&gt;] &lt;nombre_de_dominio_a_resolver&gt; [&lt;tipo_de_registro&gt;]
-      </span>
-    </app-terminal-code>
+      <p>
+        Vamos a probar este comando en la propia máquina donde está instalado el servidor. La sintaxis es esta de abajo.
+        Los parámetros entre corchetes son opcionales. El servidor al que preguntamos se precede con @.
+      </p>
 
-    <p>Vamos probarlo de verdad:</p>
+      <app-terminal-code>
+        <span terminal-code-command>
+          dig [@&lt;ip_o_dominio_servidor_dns&gt;] &lt;nombre_de_dominio_a_resolver&gt; [&lt;tipo_de_registro&gt;]
+        </span>
+      </app-terminal-code>
 
-    <app-terminal-code>
-      <span terminal-code-command>dig sobremesajaime.micasa | grep -v ';'</span>
-      <span terminal-code-output>sobremesajaime.micasa. 604800 IN A 192.168.1.55</span>
-    </app-terminal-code>
+      <p>Vamos probarlo de verdad:</p>
 
-    <p>
-      Bien! Funciona! Vemos que en la respuesta nos devuelve el registro A con la IP que configuramos en el archivo de
-      zona. En este caso no hemos tenido que usar el parámetro del servidor dns porque habíamos configurado la máquina
-      con la IP del servidor DNS en la sección anterior.
-    </p>
+      <app-terminal-code>
+        <span terminal-code-command>dig sobremesajaime.micasa | grep -v ';'</span>
+        <span terminal-code-output>sobremesajaime.micasa. 604800 IN A 192.168.1.55</span>
+      </app-terminal-code>
 
-    <h3>El comando nslookup</h3>
+      <p>
+        Bien! Funciona! Vemos que en la respuesta nos devuelve el registro A con la IP que configuramos en el archivo de
+        zona. En este caso no hemos tenido que usar el parámetro del servidor dns porque habíamos configurado la máquina
+        con la IP del servidor DNS en la sección anterior.
+      </p>
 
-    <p>
-      Para probar la configuración en windows vamos a usar el comando nslookup:
-    </p>
+      <h3>El comando nslookup</h3>
 
-    <app-terminal-code>
-      <span terminal-code-command>nslookup sobremesajaime.micasa</span>
-      <pre terminal-code-output>Servidor:  UnKnown
+      <p>
+        Para probar la configuración en windows vamos a usar el comando nslookup:
+      </p>
+
+      <app-terminal-code>
+        <span terminal-code-command>nslookup sobremesajaime.micasa</span>
+        <pre terminal-code-output>Servidor:  UnKnown
 Address:  192.168.1.51
 Nombre:  sobremesajaime.micasa
 Address:  192.168.1.55</pre>
-    </app-terminal-code>
+      </app-terminal-code>
 
+      <p>
+        También funciona! Genial. El servidor que nos responde es unknown porque no hemos configurado la resolución
+        inversa de su IP y por lo tanto no puede resolver <i>51.1.168.192.in-addr.arpa</i>.
+      </p>
+
+    </section>
+
+    <!-- TODO continue trying to resolve the unknown dns message configuring reverse dns -->
     <p>
-      También funciona! Genial. El servidor que nos responde es unknown porque no hemos configurado la resolución
-      inversa de su IP y por lo tanto no puede resolver <i>51.1.168.192.in-addr.arpa</i>.
+      Y esto es todo. Hemos visto un ejemplo de cómo configurar un dominio casero. Habrá decenas de cosas que puedas
+      hacer también aprendiendo toda la configuración, pero eso ya queda de tu lado aprenderlo 👨‍🎓
     </p>
-  </section>
 
-  <!-- TODO continue trying to resolve the unknown dns message configuring reverse dns -->
-
-  <p>
-    Y esto es todo. Hemos visto un ejemplo de cómo configurar un dominio casero. Habrá decenas de cosas que puedas hacer
-    también aprendiendo toda la configuración, pero eso ya queda de tu lado aprenderlo 👨‍🎓
-  </p>
-</main>
+  </article>
+</app-responsive-layout>
