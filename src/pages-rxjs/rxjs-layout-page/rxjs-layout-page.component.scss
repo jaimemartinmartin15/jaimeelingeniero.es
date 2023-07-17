@@ -2,78 +2,50 @@
 
 :host {
     display: block;
-    max-width: 1200px;
-    margin: auto;
-    padding-bottom: 65px;
 }
 
-.content {
+.subtitle {
+    font-size: 1.3em;
+
+    &:not(:first-of-type) {
+        margin-top: 50px;
+    }
+}
+
+.links-group {
     display: flex;
+    flex-direction: column;
 
-    .left-menu {
-        min-width: 250px;
-        margin-top: 30px;
-        max-height: calc(100vh - 100px);
-        position: sticky;
-        top: 50px;
-        overflow-y: scroll;
+    a {
+        margin: 15px 0 0 5px;
+        text-decoration: none;
+        color: black;
+        transition: 0.5s;
+        line-height: 25px;
 
-        .subtitle {
-            font-size: 1.3em;
+        &:hover:not(.menu-section-active) {
+            font-size: 1.15em;
 
-            &:not(:first-of-type) {
-                margin-top: 50px;
-            }
-        }
-
-        .links-group {
-            display: flex;
-            flex-direction: column;
-
-            a {
-                margin: 15px 0 0 5px;
-                text-decoration: none;
-                color: black;
-                transition: 0.5s;
-                line-height: 25px;
-
-                &:hover:not(.menu-section-active) {
-                    font-size: 1.15em;
-
-                    &::after {
-                        content: "➡️";
-                        margin-left: 5px;
-                    }
-                }
-            }
-
-            .menu-section-active {
-                color: $color-orange;
-                font-size: 1.3em;
+            &::after {
+                content: "➡️";
+                margin-left: 5px;
             }
         }
     }
 
-    .pages {
-        flex-grow: 1;
-        margin: 0 20px;
+    .menu-section-active {
+        color: $color-orange;
+        font-size: 1.3em;
     }
 }
 
-@media (max-width: 1200px) {
-    .content {
-        display: block;
-
-        .left-menu {
-            position: static;
-            overflow: hidden;
-
-            .content-link {
-                cursor: pointer;
-                text-decoration: underline;
-                color: black;
-                padding: 50px 20px;
-            }
-        }
+// as in ResponsiveLayoutComponent
+@media (max-width: 900px) {
+    .back-to-menu-link {
+        display: inline-block;
+        cursor: pointer;
+        text-decoration: none;
+        color: black;
+        padding: 40px 20px 0 20px;
     }
 }

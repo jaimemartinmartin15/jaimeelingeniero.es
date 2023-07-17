@@ -9,12 +9,13 @@ import { HomeMenuLink, LINKS_GROUPS_OPERATORS, LINKS_TO_START } from '../home-me
 export class RxjsLayoutPageComponent implements OnInit {
   public GROUPS_OF_LINKS: HomeMenuLink[];
 
-  public isSmallerThanDesktop: boolean = window.matchMedia('(max-width: 1200px)').matches;
+  // as in ResponsiveLayoutComponent
+  public isShowingLeftMenu: boolean = window.matchMedia('(max-width: 900px)').matches;
 
   public ngOnInit() {
     this.GROUPS_OF_LINKS = [LINKS_TO_START, ...LINKS_GROUPS_OPERATORS];
-    window.matchMedia('(max-width: 1200px)').addEventListener('change', (e) => {
-      this.isSmallerThanDesktop = e.matches;
+    window.matchMedia('(max-width: 900px)').addEventListener('change', (e) => {
+      this.isShowingLeftMenu = e.matches;
     });
   }
 }
