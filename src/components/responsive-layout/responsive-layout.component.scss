@@ -2,23 +2,14 @@
   display: block;
 }
 
-.top-header {
-  background-color: rgb(255, 117, 117);
-}
-
 .content {
   display: flex;
   flex-direction: column;
   align-items: center;
 
-  background-color: yellow;
 
   div:first-child {
     max-width: 100%;
-  }
-
-  .flex-content-header {
-    background-color: rgb(175, 196, 246);
   }
 
   .flex-content {
@@ -30,7 +21,6 @@
       width: 250px;
       flex-shrink: 0;
 
-      background-color: gainsboro;
     }
 
     .main-content {
@@ -38,11 +28,9 @@
       max-width: 900px;
       min-width: 0; // fix issue with pre and flex-box
 
-      background-color: rgb(188, 188, 255);
 
       .content-header {
         padding: 0 20px;
-        background-color: azure;
       }
 
       .content-content {
@@ -51,7 +39,6 @@
 
       .content-footer {
         padding: 0 20px;
-        background-color: aquamarine;
       }
     }
 
@@ -59,15 +46,6 @@
       width: 250px;
       flex-shrink: 0;
 
-      background-color: bisque;
     }
   }
-
-  .flex-content-footer {
-    background-color: coral;
-  }
-}
-
-.bottom-footer {
-  background-color: rgb(162, 238, 162);
 }

@@ -1,10 +1,10 @@
-<header class="top-header" *ngIf="showTopHeader">
+<header *ngIf="showTopHeader">
   <ng-content select="[responsive-layout-top-header]"></ng-content>
 </header>
 
 <div class="content">
   <div>
-    <header class="flex-content-header" *ngIf="showFlexContentHeader">
+    <header *ngIf="showFlexContentHeader">
       <ng-content select="[responsive-layout-flex-content-header]"></ng-content>
     </header>
 
@@ -34,12 +34,12 @@
       </aside>
     </div>
 
-    <footer class="flex-content-footer" *ngIf="showFlexContentFooter">
+    <footer *ngIf="showFlexContentFooter">
       <ng-content select="[responsive-layout-flex-content-footer]"></ng-content>
     </footer>
   </div>
 </div>
 
-<footer class="bottom-footer" *ngIf="showBottomFooter">
+<footer *ngIf="showBottomFooter">
   <ng-content select="[responsive-layout-bottom-footer]"></ng-content>
 </footer>
