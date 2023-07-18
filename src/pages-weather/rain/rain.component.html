@@ -151,7 +151,7 @@
     <div class="header">
       <button (click)="showPreviousYear()">&lt;</button>
       <span>
-        <p class="year">{{data.year}}</p>
+        <p class="year">Meses {{data.year}}</p>
         <p class="liters" *ngIf="isTotalAmountOfLitersAvailableForYear(data.monthsArray)">
           {{getTotalAmountOfLitersInYear(data.monthsArray)}} litros
         </p>
