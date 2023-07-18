@@ -1,4 +1,4 @@
-<div class="graphic-scroller" #monthGraphicScroller (scroll)="monthGraphicScrollEvents$.next()">
+<div class="box graphic-scroller" #monthGraphicScroller (scroll)="monthGraphicScrollEvents$.next()">
   <ng-container *ngTemplateOutlet="monthContainer; context: { data: {
       month: selectedMonth > 0 ? selectedMonth -1 : 11,
       year: selectedMonth > 0 ? selectedYear : selectedYear - 1,
@@ -16,7 +16,7 @@
           monthsArray: nextMonthsRainData}}"></ng-container>
 </div>
 
-<div class="graphic-scroller" #yearGraphicScroller (scroll)="yearGraphicScrollEvents$.next()">
+<div class="box graphic-scroller" #yearGraphicScroller (scroll)="yearGraphicScrollEvents$.next()">
   <ng-container *ngTemplateOutlet="yearContainer; context: { data: {
           year: selectedYear - 1,
           monthsArray: previousYearRainData}}"></ng-container>
@@ -26,6 +26,42 @@
   <ng-container *ngTemplateOutlet="yearContainer; context: { data: {
       year: selectedYear + 1,
       monthsArray: nextYearRainData}}"></ng-container>
+</div>
+
+<div class="box comparation-year-graphic-container">
+  <div class="header">Comparación por años</div>
+
+  <div class="svg-wrapper" #svgComparationYearWrapper>
+    <svg [attr.viewBox]="'0 0 ' + comparationYearSvgWidth + ' 325'" height="360"
+      *ngIf="comparationYearRainData.length > 0">
+      <!-- water lines -->
+      <line *ngFor="let waterLine of comparationYearRainData; let i=index" [attr.x1]="30 + 30*i" y1="260"
+        [attr.x2]="30 + 30*i" [attr.y2]="waterLine.svgOffset" stroke="#00a2e8" stroke-width="20" />
+
+      <!-- water liters -->
+      <text *ngFor="let waterLine of comparationYearRainData; let i=index"
+        [attr.text-anchor]="waterLine.svgOffset > 180 ? 'end' : 'start'"
+        [attr.transform]="'rotate(90,'+(25 + 30*i)+','+waterLine.svgOffset+')'"
+        [attr.x]="waterLine.svgOffset > 180 ? (15 + 30*i): (35 + 30*i)" [attr.y]="waterLine.svgOffset+1.5"
+        [attr.fill]="waterLine.svgOffset > 180 ? '#00a2e8' : 'white'" stroke="none" font-size="1.1rem">
+        <ng-container *ngIf="!waterLine.isFake">{{waterLine.liters}} L</ng-container>
+      </text>
+
+      <!-- y axis -->
+      <line x1="5" y1="0" x2="5" y2="260" stroke="black" stroke-width="5" />
+
+      <!-- x axis -->
+      <line x1="2.5" y1="260" [attr.x2]="comparationYearSvgWidth" y2="260" stroke="black" stroke-width="5" />
+
+      <!-- year numbers -->
+      <text [attr.x]="25 + 30*i" y="265" *ngFor="let year of comparationYearRainData; let i=index"
+        [attr.transform]="'rotate(80,'+(20 + 30*i)+',265)'" font-size="0.9rem">{{year.date.getFullYear()}}</text>
+    </svg>
+  </div>
+
+  <p *ngIf="comparationYearRainData.length === 0" class="no-data-available">
+    No hay datos disponibles sobre lluvia
+  </p>
 </div>
 
 <div class="pop-up-wrapper" *ngIf="popUp.show">
@@ -95,8 +131,8 @@
             stroke-width="9" fill="none" />
 
           <!-- day number -->
-          <text x="150" y="140" stroke="#e1ffe2" stroke-width="6" fill="#1c9a00" font-size="9.2rem" font-weight="bold"
-            text-anchor="middle">{{i+1}}</text>
+          <text x="150" y="140" stroke="#e1ffe2" stroke-width="15" fill="#1c9a00" font-size="8.5rem"
+            paint-order="stroke" text-anchor="middle">{{i+1}}</text>
         </svg>
 
         <span class="liters" *ngIf="!day.isFake">{{day.liters}} L</span>
@@ -114,7 +150,7 @@
     <div class="header">
       <button (click)="showPreviousYear()">&lt;</button>
       <span>
-        <p class="year">{{data.year}}</p>
+        <p class="year">Meses {{data.year}}</p>
         <p class="liters" *ngIf="isTotalAmountOfLitersAvailableForYear(data.monthsArray)">
           {{getTotalAmountOfLitersInYear(data.monthsArray)}} litros
         </p>
@@ -140,7 +176,7 @@
       </text>
 
       <!-- y axis -->
-      <line x1="5" y1="5" x2="5" y2="260" stroke="black" stroke-width="5" />
+      <line x1="5" y1="0" x2="5" y2="260" stroke="black" stroke-width="5" />
 
       <!-- x axis -->
       <line x1="2.5" y1="260" x2="390" y2="260" stroke="black" stroke-width="5" />
