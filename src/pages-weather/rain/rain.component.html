@@ -42,20 +42,20 @@
       <text *ngFor="let waterLine of comparationYearRainData; let i=index"
         [attr.text-anchor]="waterLine.svgOffset > 180 ? 'end' : 'start'"
         [attr.transform]="'rotate(90,'+(25 + 30*i)+','+waterLine.svgOffset+')'"
-        [attr.x]="waterLine.svgOffset > 180 ? (15 + 30*i): (35 + 30*i)" [attr.y]="waterLine.svgOffset +2"
-        [attr.fill]="waterLine.svgOffset > 180 ? '#00a2e8' : 'white'" stroke="none" font-size="1.2rem">
+        [attr.x]="waterLine.svgOffset > 180 ? (15 + 30*i): (35 + 30*i)" [attr.y]="waterLine.svgOffset+1.5"
+        [attr.fill]="waterLine.svgOffset > 180 ? '#00a2e8' : 'white'" stroke="none" font-size="1.1rem">
         <ng-container *ngIf="!waterLine.isFake">{{waterLine.liters}} L</ng-container>
       </text>
 
       <!-- y axis -->
-      <line x1="5" y1="5" x2="5" y2="260" stroke="black" stroke-width="5" />
+      <line x1="5" y1="0" x2="5" y2="260" stroke="black" stroke-width="5" />
 
       <!-- x axis -->
       <line x1="2.5" y1="260" [attr.x2]="comparationYearSvgWidth" y2="260" stroke="black" stroke-width="5" />
 
       <!-- year numbers -->
       <text [attr.x]="25 + 30*i" y="265" *ngFor="let year of comparationYearRainData; let i=index"
-        [attr.transform]="'rotate(80,'+(20 + 30*i)+',265)'">{{year.date.getFullYear()}}</text>
+        [attr.transform]="'rotate(80,'+(20 + 30*i)+',265)'" font-size="0.9rem">{{year.date.getFullYear()}}</text>
     </svg>
   </div>
 
@@ -176,7 +176,7 @@
       </text>
 
       <!-- y axis -->
-      <line x1="5" y1="5" x2="5" y2="260" stroke="black" stroke-width="5" />
+      <line x1="5" y1="0" x2="5" y2="260" stroke="black" stroke-width="5" />
 
       <!-- x axis -->
       <line x1="2.5" y1="260" x2="390" y2="260" stroke="black" stroke-width="5" />
