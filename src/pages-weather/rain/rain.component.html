@@ -39,10 +39,10 @@
 
       <!-- water liters -->
       <text *ngFor="let waterLine of comparationYearData; let i=index"
-        [attr.text-anchor]="waterLine.svgOffset > 200 ? 'end' : 'start'"
+        [attr.text-anchor]="waterLine.svgOffset > 180 ? 'end' : 'start'"
         [attr.transform]="'rotate(90,'+(25 + 30*i)+','+waterLine.svgOffset+')'"
-        [attr.x]="waterLine.svgOffset > 200 ? (15 + 30*i): (35 + 30*i)" [attr.y]="waterLine.svgOffset +2"
-        [attr.fill]="waterLine.svgOffset > 200 ? '#00a2e8' : 'white'" stroke="none" font-size="1.2rem">
+        [attr.x]="waterLine.svgOffset > 180 ? (15 + 30*i): (35 + 30*i)" [attr.y]="waterLine.svgOffset +2"
+        [attr.fill]="waterLine.svgOffset > 180 ? '#00a2e8' : 'white'" stroke="none" font-size="1.2rem">
         <ng-container *ngIf="!waterLine.isFake">{{waterLine.liters}} L</ng-container>
       </text>
 
