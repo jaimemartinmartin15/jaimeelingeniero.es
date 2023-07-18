@@ -31,9 +31,8 @@
 <div class="box comparation-year-graphic-container">
   <div class="header">Comparación por años</div>
 
-  <div class="svg-wrapper">
-    <svg [attr.viewBox]="'0 0 ' + (25 + comparationYearData.length * 30) + ' 310'" height="360"
-      *ngIf="comparationYearData.length > 0">
+  <div class="svg-wrapper" #svgComparationYearWrapper>
+    <svg [attr.viewBox]="'0 0 ' + comparationYearSvgWidth + ' 325'" height="360" *ngIf="comparationYearData.length > 0">
       <!-- water lines -->
       <line *ngFor="let waterLine of comparationYearData; let i=index" [attr.x1]="30 + 30*i" y1="260"
         [attr.x2]="30 + 30*i" [attr.y2]="waterLine.svgOffset" stroke="#00a2e8" stroke-width="20" />
@@ -51,8 +50,7 @@
       <line x1="5" y1="5" x2="5" y2="260" stroke="black" stroke-width="5" />
 
       <!-- x axis -->
-      <line x1="2.5" y1="260" [attr.x2]="25 + comparationYearData.length * 30" y2="260" stroke="black"
-        stroke-width="5" />
+      <line x1="2.5" y1="260" [attr.x2]="comparationYearSvgWidth" y2="260" stroke="black" stroke-width="5" />
 
       <!-- year numbers -->
       <text [attr.x]="25 + 30*i" y="265" *ngFor="let year of comparationYearData; let i=index"

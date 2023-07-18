@@ -16,6 +16,7 @@ const GAP_SIZE = 30; // 30 px as in scss file in .graphic-scroller class
 export class RainComponent implements OnInit, AfterViewInit {
   @ViewChild('monthGraphicScroller', { static: false }) private monthGraphicScrollerRef: ElementRef;
   @ViewChild('yearGraphicScroller', { static: false }) private yearGraphicScrollerRef: ElementRef;
+  @ViewChild('svgComparationYearWrapper', { static: false }) private svgComparationYearWrapperRef: ElementRef;
 
   private get monthScrollerEl(): HTMLDivElement {
     return this.monthGraphicScrollerRef.nativeElement;
@@ -24,6 +25,8 @@ export class RainComponent implements OnInit, AfterViewInit {
   private get yearScrollerEl(): HTMLDivElement {
     return this.yearGraphicScrollerRef.nativeElement;
   }
+
+  public comparationYearSvgWidth: number = 0;
 
   // hanling of custom snap-scroll
   private touchEnded$ = new BehaviorSubject<boolean>(true);
@@ -65,6 +68,16 @@ export class RainComponent implements OnInit, AfterViewInit {
     this.centerScrollingInstantly();
 
     this.updateHeightsOfGraphicWrappers();
+
+    // min width of year comparation graphic
+    setTimeout(() => {
+      // avoid error ExpressionChangedAfterItHasBeenCheckedError
+      const boxWidth = this.svgComparationYearWrapperRef.nativeElement.offsetWidth;
+      const boxHeight = this.svgComparationYearWrapperRef.nativeElement.offsetHeight;
+      const relation = boxHeight / 325; //325 is viewBox in html file
+      this.comparationYearSvgWidth =
+        25 + this.comparationYearData.length * 30 < boxWidth / relation ? boxWidth / relation : 25 + this.comparationYearData.length * 30;
+    }, 0);
   }
 
   @HostListener('touchstart')
