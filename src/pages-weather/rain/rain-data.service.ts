@@ -132,11 +132,10 @@ export class RainDataService {
   }
 
   public calculateSvgOffsetsForComparationYearData() {
-    const minRain = Math.min(...this._comparationYearData.map((h) => h.liters));
     const maxRain = Math.max(...this._comparationYearData.map((h) => h.liters));
     this._comparationYearData.forEach((h) => {
-      // min rain -> offset 220    max rain -> offset 0
-      h.svgOffset = 220 - (220 * (h.liters - minRain)) / (maxRain - minRain);
+      // min rain -> offset 258    max rain -> offset 0
+      h.svgOffset = 258 - (258 * h.liters) / maxRain;
     });
   }
 }

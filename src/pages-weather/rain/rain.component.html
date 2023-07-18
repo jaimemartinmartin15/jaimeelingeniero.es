@@ -31,31 +31,34 @@
 <div class="box comparation-year-graphic-container">
   <div class="header">Comparación por años</div>
 
-  <svg [attr.viewBox]="'0 0 ' + (25 + comparationYearData.length * 30) + ' 310'" height="360"
-    *ngIf="comparationYearData.length > 0">
-    <!-- water lines -->
-    <line *ngFor="let waterLine of comparationYearData; let i=index" [attr.x1]="30 + 30*i" y1="260"
-      [attr.x2]="30 + 30*i" [attr.y2]="waterLine.svgOffset" stroke="#00a2e8" stroke-width="20" />
+  <div class="svg-wrapper">
+    <svg [attr.viewBox]="'0 0 ' + (25 + comparationYearData.length * 30) + ' 310'" height="360"
+      *ngIf="comparationYearData.length > 0">
+      <!-- water lines -->
+      <line *ngFor="let waterLine of comparationYearData; let i=index" [attr.x1]="30 + 30*i" y1="260"
+        [attr.x2]="30 + 30*i" [attr.y2]="waterLine.svgOffset" stroke="#00a2e8" stroke-width="20" />
 
-    <!-- water liters -->
-    <text *ngFor="let waterLine of comparationYearData; let i=index"
-      [attr.text-anchor]="waterLine.svgOffset > 200 ? 'end' : 'start'"
-      [attr.transform]="'rotate(90,'+(25 + 30*i)+','+waterLine.svgOffset+')'"
-      [attr.x]="waterLine.svgOffset > 200 ? (15 + 30*i): (35 + 30*i)" [attr.y]="waterLine.svgOffset +2"
-      [attr.fill]="waterLine.svgOffset > 200 ? '#00a2e8' : 'white'" stroke="none" font-size="1.2rem">
-      <ng-container *ngIf="!waterLine.isFake">{{waterLine.liters}} L</ng-container>
-    </text>
+      <!-- water liters -->
+      <text *ngFor="let waterLine of comparationYearData; let i=index"
+        [attr.text-anchor]="waterLine.svgOffset > 200 ? 'end' : 'start'"
+        [attr.transform]="'rotate(90,'+(25 + 30*i)+','+waterLine.svgOffset+')'"
+        [attr.x]="waterLine.svgOffset > 200 ? (15 + 30*i): (35 + 30*i)" [attr.y]="waterLine.svgOffset +2"
+        [attr.fill]="waterLine.svgOffset > 200 ? '#00a2e8' : 'white'" stroke="none" font-size="1.2rem">
+        <ng-container *ngIf="!waterLine.isFake">{{waterLine.liters}} L</ng-container>
+      </text>
 
-    <!-- y axis -->
-    <line x1="5" y1="5" x2="5" y2="260" stroke="black" stroke-width="5" />
+      <!-- y axis -->
+      <line x1="5" y1="5" x2="5" y2="260" stroke="black" stroke-width="5" />
 
-    <!-- x axis -->
-    <line x1="2.5" y1="260" x2="390" y2="260" stroke="black" stroke-width="5" />
+      <!-- x axis -->
+      <line x1="2.5" y1="260" [attr.x2]="25 + comparationYearData.length * 30" y2="260" stroke="black"
+        stroke-width="5" />
 
-    <!-- year numbers -->
-    <text [attr.x]="25 + 30*i" y="265" *ngFor="let year of comparationYearData; let i=index"
-      [attr.transform]="'rotate(80,'+(20 + 30*i)+',265)'">{{year.date.getFullYear()}}</text>
-  </svg>
+      <!-- year numbers -->
+      <text [attr.x]="25 + 30*i" y="265" *ngFor="let year of comparationYearData; let i=index"
+        [attr.transform]="'rotate(80,'+(20 + 30*i)+',265)'">{{year.date.getFullYear()}}</text>
+    </svg>
+  </div>
 
   <p *ngIf="comparationYearData.length === 0" class="no-data-available">
     No hay datos disponibles sobre lluvia
