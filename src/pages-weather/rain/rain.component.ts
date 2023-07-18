@@ -28,7 +28,7 @@ export class RainComponent implements OnInit, AfterViewInit {
 
   public comparationYearSvgWidth: number = 0;
 
-  // hanling of custom snap-scroll
+  // handling of custom snap-scroll
   private touchEnded$ = new BehaviorSubject<boolean>(true);
   public monthGraphicScrollEvents$ = new Subject<void>();
   public yearGraphicScrollEvents$ = new Subject<void>();
@@ -51,7 +51,7 @@ export class RainComponent implements OnInit, AfterViewInit {
   public yearRainData: RainData[] = [];
   public nextYearRainData: RainData[] = [];
 
-  public comparationYearData: RainData[] = [];
+  public comparationYearRainData: RainData[] = [];
 
   public constructor(public readonly rainDataService: RainDataService, private readonly activatedRoute: ActivatedRoute) {}
 
@@ -69,14 +69,13 @@ export class RainComponent implements OnInit, AfterViewInit {
 
     this.updateHeightsOfGraphicWrappers();
 
-    // min width of year comparation graphic
+    // min width of year comparation graphic (timeout to avoid error ExpressionChangedAfterItHasBeenCheckedError)
     setTimeout(() => {
-      // avoid error ExpressionChangedAfterItHasBeenCheckedError
       const boxWidth = this.svgComparationYearWrapperRef.nativeElement.offsetWidth;
       const boxHeight = this.svgComparationYearWrapperRef.nativeElement.offsetHeight;
       const relation = boxHeight / 325; //325 is viewBox in html file
       this.comparationYearSvgWidth =
-        25 + this.comparationYearData.length * 30 < boxWidth / relation ? boxWidth / relation : 25 + this.comparationYearData.length * 30;
+        25 + this.comparationYearRainData.length * 30 < boxWidth / relation ? boxWidth / relation : 25 + this.comparationYearRainData.length * 30;
     }, 0);
   }
 
@@ -189,7 +188,7 @@ export class RainComponent implements OnInit, AfterViewInit {
     this.nextYearRainData = this.rainDataService.getRainDataForMonthsInYear(this.selectedYear + 1);
 
     // it is cached in the service
-    this.comparationYearData = this.rainDataService.getComparationYearRainData();
+    this.comparationYearRainData = this.rainDataService.getComparationYearRainData();
   }
 
   private updateHeightsOfGraphicWrappers() {
