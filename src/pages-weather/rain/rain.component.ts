@@ -48,6 +48,8 @@ export class RainComponent implements OnInit, AfterViewInit {
   public yearRainData: RainData[] = [];
   public nextYearRainData: RainData[] = [];
 
+  public comparationYearData: RainData[] = [];
+
   public constructor(public readonly rainDataService: RainDataService, private readonly activatedRoute: ActivatedRoute) {}
 
   public ngOnInit() {
@@ -172,6 +174,9 @@ export class RainComponent implements OnInit, AfterViewInit {
     this.previousYearRainData = this.rainDataService.getRainDataForMonthsInYear(this.selectedYear - 1);
     this.yearRainData = this.rainDataService.getRainDataForMonthsInYear(this.selectedYear);
     this.nextYearRainData = this.rainDataService.getRainDataForMonthsInYear(this.selectedYear + 1);
+
+    // it is cached in the service
+    this.comparationYearData = this.rainDataService.getComparationYearRainData();
   }
 
   private updateHeightsOfGraphicWrappers() {
