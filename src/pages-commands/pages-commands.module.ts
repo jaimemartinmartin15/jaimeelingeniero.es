@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { HeaderPrintModule } from 'src/components/header-print/header-print.module';
-import { ResponsiveLayoutModule } from 'src/components/responsive-layout/responsive-layout.module';
+import { HeaderPrintModule } from 'src/shared/components/header-print/header-print.module';
+import { ResponsiveLayoutModule } from 'src/shared/components/responsive-layout/responsive-layout.module';
 import { PagesCommandsRoutingModule } from './pages-commands-routing.module';
 import { PagesCommandsComponent } from './pages-commands.component';
 
