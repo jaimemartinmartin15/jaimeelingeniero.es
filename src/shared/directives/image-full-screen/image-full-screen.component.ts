@@ -42,6 +42,15 @@ export class ImageFullScreenComponent implements AfterContentInit {
 
   @HostListener('click')
   public onClick() {
+    this.closeImage();
+  }
+
+  @HostListener('document:keydown.escape')
+  onKeydownHandler() {
+    this.closeImage();
+  }
+
+  private closeImage(): void {
     this.element.parentElement?.removeChild(this.element);
   }
 }
