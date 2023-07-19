@@ -29,15 +29,13 @@
     margin: 10px 0 20px 0;
   }
 
-  app-collapsible {
-    [collapsible-header-open],
-    [collapsible-header-closed] {
-      color: $color-orange;
-    }
+  [appCollapsibleOpenAction],
+  [appCollapsibleCloseAction] {
+    color: $color-orange;
+  }
 
-    app-terminal-code {
-      margin-bottom: 10px;
-    }
+  app-terminal-code {
+    margin-bottom: 10px;
   }
 }
 

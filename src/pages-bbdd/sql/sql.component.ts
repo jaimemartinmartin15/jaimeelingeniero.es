@@ -5,16 +5,4 @@ import { Component } from '@angular/core';
   templateUrl: './sql.component.html',
   styleUrls: ['./sql.component.scss'],
 })
-export class SqlComponent {
-  public collapsedTables = {
-    createTableMechanic: false,
-    createTablePropulsion: true,
-    createTableBrand: true,
-    createTableConcessionaire: true,
-    createTableClient: true,
-    createTableCar: true,
-    createTableOffer: true,
-    createTableRepair: true,
-    createTableSale: true,
-  };
-}
+export class SqlComponent {}

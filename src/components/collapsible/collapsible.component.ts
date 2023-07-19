@@ -1,38 +1,58 @@
-import { animate, style, transition, trigger } from '@angular/animations';
-import { Component, ElementRef, Input, AfterViewInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ContentChild, ContentChildren, Input, QueryList } from '@angular/core';
+import { merge } from 'rxjs';
+import { CollapsibleCloseActionDirective } from './collapsible-close-action.directive';
+import { CollapsibleContentDirective } from './collapsible-content.directive';
+import { CollapsibleOpenActionDirective } from './collapsible-open-action.directive';
+import { CollapsibleToggleActionDirective } from './collapsible-toggle-action.directive';
 
 @Component({
   selector: 'app-collapsible',
-  templateUrl: './collapsible.component.html',
-  styleUrls: ['./collapsible.component.scss'],
-  animations: [
-    trigger('fade', [
-      transition(':enter', [style({ opacity: 0 }), animate('0s 300ms ease-out', style({ opacity: 1 }))]),
-      transition(':leave', [animate('0s 300ms ease-out', style({ opacity: 0 }))]),
-    ]),
-  ],
+  template: '<ng-content></ng-content>',
+  styles: [':host {display: block;}'],
 })
 export class CollapsibleComponent implements AfterViewInit {
-  @ViewChild('collapsibleContent', { static: false })
-  private collapsibleContent: ElementRef;
+  @ContentChildren(CollapsibleCloseActionDirective)
+  private collapsibleCloseActions: QueryList<CollapsibleCloseActionDirective>;
+
+  @ContentChild(CollapsibleContentDirective)
+  private collapsibleContent: CollapsibleContentDirective;
+
+  @ContentChildren(CollapsibleOpenActionDirective)
+  private collapsibleOpenActions: QueryList<CollapsibleOpenActionDirective>;
+
+  @ContentChildren(CollapsibleToggleActionDirective)
+  private collapsibleToggleActions: QueryList<CollapsibleToggleActionDirective>;
 
   @Input()
   public isOpen = false;
 
-  toggle() {
-    this.isOpen = !this.isOpen;
-    this.isOpen ? this.openCollapsible() : this.closeCollapsible();
-  }
-
   public ngAfterViewInit(): void {
-    this.isOpen ? this.openCollapsible() : this.closeCollapsible();
+    merge(...this.collapsibleOpenActions.map((c) => c.openAction$)).subscribe((e) => this.onClickOpenAction(e));
+    merge(...this.collapsibleCloseActions.map((c) => c.closeAction$)).subscribe((e) => this.onClickCloseAction(e));
+    merge(...this.collapsibleToggleActions.map((c) => c.toggleAction$)).subscribe((e) => this.onClickToggleAction(e));
+
+    this.isOpen
+      ? (this.collapsibleCloseActions.forEach((c) => c.showAction()), this.collapsibleOpenActions.forEach((c) => c.hideAction()))
+      : (this.collapsibleOpenActions.forEach((c) => c.showAction()),
+        this.collapsibleCloseActions.forEach((c) => c.hideAction()),
+        this.collapsibleContent.collapse());
   }
 
-  private openCollapsible() {
-    this.collapsibleContent.nativeElement.style.height = this.collapsibleContent.nativeElement.scrollHeight + 'px';
+  public onClickToggleAction(e: Event): void {
+    this.isOpen ? this.onClickCloseAction(e) : this.onClickOpenAction(e);
   }
 
-  private closeCollapsible() {
-    this.collapsibleContent.nativeElement.style.height = '0px';
+  private onClickOpenAction(e: Event): void {
+    this.isOpen = true;
+    this.collapsibleContent.expand();
+    this.collapsibleCloseActions.forEach((c) => c.showAction());
+    this.collapsibleOpenActions.forEach((c) => c.hideAction());
+  }
+
+  private onClickCloseAction(e: Event): void {
+    this.isOpen = false;
+    this.collapsibleContent.collapse();
+    this.collapsibleOpenActions.forEach((c) => c.showAction());
+    this.collapsibleCloseActions.forEach((c) => c.hideAction());
   }
 }
