@@ -8,6 +8,8 @@ import { ConfigureDnsServerComponent } from './configure-dns-server/configure-dn
 import { DnsRoutingModule } from './dns-routing.module';
 import { DnsComponent } from './dns.component';
 
+import { ResponsiveLayoutModule } from 'src/shared/components/responsive-layout/responsive-layout.module';
+import { ImageFullScreenModule } from 'src/shared/directives/image-full-screen/image-full-screen.module';
 import { AComponent } from './rr/a/a.component';
 import { AAAAComponent } from './rr/aaaa/aaaa.component';
 import { CnameComponent } from './rr/cname/cname.component';
@@ -18,10 +20,9 @@ import { PtrComponent } from './rr/ptr/ptr.component';
 import { SoaComponent } from './rr/soa/soa.component';
 import { TxtComponent } from './rr/txt/txt.component';
 import { WksComponent } from './rr/wks/wks.component';
-import { ResponsiveLayoutModule } from 'src/shared/components/responsive-layout/responsive-layout.module';
 
 @NgModule({
-  imports: [CommonModule, DnsRoutingModule, HeaderPrintModule, TerminalCodeModule, ResponsiveLayoutModule],
+  imports: [CommonModule, DnsRoutingModule, HeaderPrintModule, TerminalCodeModule, ResponsiveLayoutModule, ImageFullScreenModule],
   declarations: [
     DnsComponent,
     ConfigureDnsServerComponent,
