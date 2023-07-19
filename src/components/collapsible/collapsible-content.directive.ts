@@ -16,8 +16,12 @@ export class CollapsibleContentDirective implements AfterContentInit {
   }
 
   public ngAfterContentInit(): void {
-    this.element.style.transition = `height 0.5s`;
-    this.element.style.height = `${this.element.clientHeight}px`;
+    setTimeout(() => {
+      // in case it should appear initially closed,
+      // wait to add the transition (the component will call collapse before the timeout executes)
+      this.element.style.transition = `height 0.5s`;
+      this.element.style.height = `${this.element.clientHeight}px`;
+    }, 0);
   }
 
   public expand() {
