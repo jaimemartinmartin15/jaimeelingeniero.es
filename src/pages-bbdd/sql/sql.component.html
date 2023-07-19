@@ -275,13 +275,10 @@
         crearlas en un orden específico para poder referenciar unas a otras.
       </p>
 
-      <div class="collapsible">
-        <p class="collapsible__title"
-          (click)="collapsedTables.createTableMechanic = !collapsedTables.createTableMechanic">
-          MECANICO
-        </p>
+      <app-collapsible [isOpen]="true">
+        <div appCollapsibleToggleAction>MECANICO</div>
 
-        <app-terminal-code [ngClass]="{'app-terminal-code--expanded': !collapsedTables.createTableMechanic}">
+        <app-terminal-code appCollapsibleContent>
           <pre terminal-code-command>CREATE TABLE MECANICO (
   codigo INT not null primary key,
   nombre VARCHAR(50) not null,
@@ -290,15 +287,12 @@
 
           <span terminal-code-output>Query OK, 0 rows affected (0,02 sec)</span>
         </app-terminal-code>
-      </div>
+      </app-collapsible>
 
-      <div class="collapsible">
-        <p class="collapsible__title"
-          (click)="collapsedTables.createTablePropulsion = !collapsedTables.createTablePropulsion">
-          PROPULSION
-        </p>
+      <app-collapsible>
+        <div appCollapsibleToggleAction>PROPULSION</div>
 
-        <app-terminal-code [ngClass]="{'app-terminal-code--expanded': !collapsedTables.createTablePropulsion}">
+        <app-terminal-code appCollapsibleContent>
           <pre terminal-code-command>CREATE TABLE PROPULSION (
   id INT not null primary key,
   nombre VARCHAR(30) not null
@@ -306,14 +300,12 @@
 
           <span terminal-code-output>Query OK, 0 rows affected (0,02 sec)</span>
         </app-terminal-code>
-      </div>
+      </app-collapsible>
 
-      <div class="collapsible">
-        <p class="collapsible__title" (click)="collapsedTables.createTableBrand = !collapsedTables.createTableBrand">
-          MARCA
-        </p>
+      <app-collapsible>
+        <div appCollapsibleToggleAction>MARCA</div>
 
-        <app-terminal-code [ngClass]="{'app-terminal-code--expanded': !collapsedTables.createTableBrand}">
+        <app-terminal-code appCollapsibleContent>
           <pre terminal-code-command>CREATE TABLE MARCA (
   codigo INT not null primary key,
   nombre VARCHAR(20) not null,
@@ -322,15 +314,12 @@
 
           <span terminal-code-output>Query OK, 0 rows affected (0,01 sec)</span>
         </app-terminal-code>
-      </div>
+      </app-collapsible>
 
-      <div class="collapsible">
-        <p class="collapsible__title"
-          (click)="collapsedTables.createTableConcessionaire = !collapsedTables.createTableConcessionaire">
-          CONCESIONARIO
-        </p>
+      <app-collapsible>
+        <div appCollapsibleToggleAction>CONCESIONARIO</div>
 
-        <app-terminal-code [ngClass]="{'app-terminal-code--expanded': !collapsedTables.createTableConcessionaire}">
+        <app-terminal-code appCollapsibleContent>
           <pre terminal-code-command>CREATE TABLE CONCESIONARIO (
   codigo INT not null primary key, 
   localidad VARCHAR(50) not null,
@@ -340,14 +329,12 @@
 
           <span terminal-code-output>Query OK, 0 rows affected (0,03 sec)</span>
         </app-terminal-code>
-      </div>
+      </app-collapsible>
 
-      <div class="collapsible">
-        <p class="collapsible__title" (click)="collapsedTables.createTableClient = !collapsedTables.createTableClient">
-          CLIENTE
-        </p>
+      <app-collapsible>
+        <div appCollapsibleToggleAction>CLIENTE</div>
 
-        <app-terminal-code [ngClass]="{'app-terminal-code--expanded': !collapsedTables.createTableClient}">
+        <app-terminal-code appCollapsibleContent>
           <pre terminal-code-command>CREATE TABLE CLIENTE (
   dni VARCHAR(15) not null primary key,
   nombre VARCHAR(40) not null,
@@ -357,14 +344,12 @@
 
           <span terminal-code-output>Query OK, 0 rows affected (0,01 sec)</span>
         </app-terminal-code>
-      </div>
+      </app-collapsible>
 
-      <div class="collapsible">
-        <p class="collapsible__title" (click)="collapsedTables.createTableCar = !collapsedTables.createTableCar">
-          COCHE
-        </p>
+      <app-collapsible>
+        <div appCollapsibleToggleAction>COCHE</div>
 
-        <app-terminal-code [ngClass]="{'app-terminal-code--expanded': !collapsedTables.createTableCar}">
+        <app-terminal-code appCollapsibleContent>
           <pre terminal-code-command>CREATE TABLE COCHE (
   codigo INT not null primary key,
   cod_marca INT not null references MARCA(codigo) ON DELETE RESTRICT,
@@ -374,14 +359,12 @@
 
           <span terminal-code-output>Query OK, 0 rows affected (0,02 sec)</span>
         </app-terminal-code>
-      </div>
+      </app-collapsible>
 
-      <div class="collapsible">
-        <p class="collapsible__title" (click)="collapsedTables.createTableOffer = !collapsedTables.createTableOffer">
-          OFRECE
-        </p>
+      <app-collapsible>
+        <div appCollapsibleToggleAction>OFRECE</div>
 
-        <app-terminal-code [ngClass]="{'app-terminal-code--expanded': !collapsedTables.createTableOffer}">
+        <app-terminal-code appCollapsibleContent>
           <pre terminal-code-command>CREATE TABLE OFRECE (
   cod_coche INT not null references COCHE(codigo) ON DELETE RESTRICT,
   cod_concesionario INT not null references CONCESIONARIO(codigo) ON DELETE RESTRICT,
@@ -391,14 +374,12 @@
 
           <span terminal-code-output>Query OK, 0 rows affected (0,02 sec)</span>
         </app-terminal-code>
-      </div>
+      </app-collapsible>
 
-      <div class="collapsible">
-        <p class="collapsible__title" (click)="collapsedTables.createTableRepair = !collapsedTables.createTableRepair">
-          REPARA
-        </p>
+      <app-collapsible>
+        <div appCollapsibleToggleAction>REPARA</div>
 
-        <app-terminal-code [ngClass]="{'app-terminal-code--expanded': !collapsedTables.createTableRepair}">
+        <app-terminal-code appCollapsibleContent>
           <pre terminal-code-command>CREATE TABLE REPARA (
   id INT not null primary key,
   cod_mecanico INT not null references MECANICO(codigo) ON DELETE RESTRICT, 
@@ -409,14 +390,12 @@
 
           <span terminal-code-output>Query OK, 0 rows affected (0,01 sec)</span>
         </app-terminal-code>
-      </div>
+      </app-collapsible>
 
-      <div class="collapsible">
-        <p class="collapsible__title" (click)="collapsedTables.createTableSale = !collapsedTables.createTableSale">
-          VENTA
-        </p>
+      <app-collapsible>
+        <div appCollapsibleToggleAction>VENTA</div>
 
-        <app-terminal-code [ngClass]="{'app-terminal-code--expanded': !collapsedTables.createTableSale}">
+        <app-terminal-code appCollapsibleContent>
           <pre terminal-code-command>CREATE TABLE VENTA (
   num_factura VARCHAR(15) not null primary key,
   cod_cliente VARCHAR(15) not null references CLIENTE(dni) ON DELETE RESTRICT,
@@ -429,7 +408,7 @@
 
           <span terminal-code-output>Query OK, 0 rows affected (0,02 sec)</span>
         </app-terminal-code>
-      </div>
+      </app-collapsible>
     </section>
 
     <section>
