@@ -1,4 +1,6 @@
-import { AfterContentInit, Component, ElementRef, HostListener } from '@angular/core';
+import { AfterContentInit, Component, ElementRef, HostListener, OnInit } from '@angular/core';
+import { NavigationEnd, Router } from '@angular/router';
+import { filter, skip } from 'rxjs';
 
 @Component({
   selector: 'app-image-full-screen',
@@ -15,8 +17,10 @@ import { AfterContentInit, Component, ElementRef, HostListener } from '@angular/
     `,
   ],
 })
-export class ImageFullScreenComponent implements AfterContentInit {
-  public constructor(private readonly elementRef: ElementRef) {}
+export class ImageFullScreenComponent implements OnInit, AfterContentInit {
+  private currentScroll: number;
+
+  public constructor(private readonly elementRef: ElementRef, private readonly router: Router) {}
 
   private get element(): HTMLElement {
     return this.elementRef.nativeElement;
@@ -24,6 +28,22 @@ export class ImageFullScreenComponent implements AfterContentInit {
 
   private get imageRef(): HTMLImageElement {
     return this.element.querySelector('img')!;
+  }
+
+  public ngOnInit(): void {
+    this.currentScroll = window.scrollY;
+
+    // when the user presses back, we want to avoid navigation back. Just close the image.
+    // adding the hash will just remove it when navigating back (user presses back button)
+    location.href += '#image';
+    this.router.events
+      .pipe(
+        filter((e) => e instanceof NavigationEnd),
+        skip(1)
+      )
+      .subscribe(() => {
+        this.closeImage();
+      });
   }
 
   public ngAfterContentInit() {
@@ -52,5 +72,7 @@ export class ImageFullScreenComponent implements AfterContentInit {
 
   private closeImage(): void {
     this.element.parentElement?.removeChild(this.element);
+    // restore the scroll after navigating back
+    setTimeout(() => window.scrollTo({ top: this.currentScroll }), 0);
   }
 }
