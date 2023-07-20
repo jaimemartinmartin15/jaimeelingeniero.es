@@ -1,17 +1,7 @@
 @import "../../shared/styles/colors";
 
-$screen-max-width: 830px;
-
 :host {
     display: block;
-    max-width: $screen-max-width;
-    margin: 0 auto;
-    line-height: 30px;
-    padding-bottom: 30px;
-}
-
-main {
-    padding: 0;
 }
 
 .title {
@@ -23,28 +13,12 @@ main {
     width: 100%;
 }
 
-.collapsible {
-    &__title {
-        background-color: $color-background-panel;
-        border: 2px solid $color-orange;
-        border-radius: 5px;
-        padding: 7px 15px;
-        margin: 5px 0;
-        cursor: pointer;
-    }
-
-    app-terminal-code {
-        overflow: hidden;
-        max-height: 0;
-        transition:
-            max-height 1s,
-            margin-bottom 1s;
-    }
-
-    .app-terminal-code--expanded {
-        max-height: 340px;
-        margin-bottom: 25px;
-    }
+[appCollapsibleToggleAction] {
+    background-color: $color-background-panel;
+    border: 2px solid $color-orange;
+    border-radius: 5px;
+    padding: 7px 15px;
+    margin: 5px 0;
 }
 
 table {
@@ -81,12 +55,6 @@ table {
     margin-left: auto;
     margin-right: auto;
     width: 50%;
-}
-
-@media (max-width: calc($screen-max-width + 10px)) {
-    main {
-        padding: 0 10px;
-    }
 }
 
 @media (max-width: 575px) {

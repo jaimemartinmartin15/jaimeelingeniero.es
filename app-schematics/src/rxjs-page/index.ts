@@ -4,7 +4,7 @@ import { classify, dasherize } from '@angular-devkit/core/src/utils/strings';
 
 import { Schema } from './schema';
 
-const RXJS_ROUTING_MODULE_PATH = 'src/pages-rxjs/routable-lateral-menu/routable-lateral-menu-routing.module.ts';
+const RXJS_ROUTING_MODULE_PATH = 'src/pages-rxjs/rxjs-layout-page/rxjs-layout-page-routing.module.ts';
 
 export function rxjsPage({ name }: Schema): Rule {
   return (tree: Tree, _context: SchematicContext) => {

@@ -1,39 +1,41 @@
-<app-header-print></app-header-print>
+<app-responsive-layout>
+  <app-header-print #responsiveLayoutFlexContentHeader responsive-layout-flex-content-header></app-header-print>
 
-<main>
-  <h1 class="title">Ejercicios con SQL</h1>
+  <article #responsiveLayoutMainContent responsive-layout-main-content>
+    <h1 class="title">Ejercicios con SQL</h1>
 
-  <section>
-    <p>
-      En esta página vamos a resolver ejercicios sobre consultas SQL a una base de datos. Por aquí te dejo el link que
-      <a class="app-link" download href="pages-bbdd/assets/scripts.zip">descarga el zip</a> con los archivos para que
-      cargues la base de datos con la misma información que yo. En el zip encontrarás las instrucciones necesarias para
-      cargarlo. Por si no lo has visto, también te dejo aquí un link a la <a class="app-link" routerLink="../">página de
-        teoría</a>, en la que explico en que consite SQL y cómo utilizarlo desde cero.
-    </p>
-
-    <p>
-      En el caso de que la salida sea muy grande, yo la acotaré con puntos para no tener que poner todas las filas.
-      Puedes ver las soluciones pinchando en "Ver solución". También es posible que algunos resultados varien
-      dependiendo en la fecha que los realices, ya que algunas consultas usan la fecha actual. Vamos a practicar ⚙️
-    </p>
-  </section>
-
-  <section>
-    <div class="exercise-block">
-      <h2 class="exercise-title">Ejercicio 1</h2>
-
-      <p class="exercise-statement">
-        Obtener la información almacenada en la base de datos relacionada con mecánicos, marcas, tipos de propulsión y
-        concesionarios.
+    <section>
+      <p>
+        En esta página vamos a resolver ejercicios sobre consultas SQL a una base de datos. Por aquí te dejo el link que
+        <a class="app-link" download href="pages-bbdd/assets/scripts.zip">descarga el zip</a> con los archivos para que
+        cargues la base de datos con la misma información que yo. En el zip encontrarás las instrucciones necesarias
+        para cargarlo. Por si no lo has visto, también te dejo aquí un link a la <a class="app-link"
+          routerLink="../">página de teoría</a>, en la que explico en que consite SQL y cómo utilizarlo desde cero.
       </p>
 
-      <app-collapsible>
-        <span collapsible-header-closed>Ver solución</span>
-        <span collapsible-header-open>Ocultar solución</span>
-        <app-terminal-code collapsible-content>
-          <span terminal-code-command>select * from MECANICO;</span>
-          <pre terminal-code-output>+--------+---------------------------------------+------------------------+
+      <p>
+        En el caso de que la salida sea muy grande, yo la acotaré con puntos para no tener que poner todas las filas.
+        Puedes ver las soluciones pinchando en "Ver solución". También es posible que algunos resultados varien
+        dependiendo en la fecha que los realices, ya que algunas consultas usan la fecha actual. Vamos a practicar ⚙️
+      </p>
+    </section>
+
+    <section>
+      <div class="exercise-block">
+        <h2 class="exercise-title">Ejercicio 1</h2>
+
+        <p class="exercise-statement">
+          Obtener la información almacenada en la base de datos relacionada con mecánicos, marcas, tipos de propulsión y
+          concesionarios.
+        </p>
+
+        <app-collapsible>
+          <span appCollapsibleOpenAction>Ver solución</span>
+
+          <div appCollapsibleContent>
+            <app-terminal-code>
+              <span terminal-code-command>select * from MECANICO;</span>
+              <pre terminal-code-output>+--------+---------------------------------------+------------------------+
 | codigo | nombre                                | ciudad                 |
 +--------+---------------------------------------+------------------------+
 |      1 | Mecánica Hábil Técnico                | Cuenca                 |
@@ -48,11 +50,10 @@
 |     10 | Neumáticos Eficiente Mantenimiento    | Lugo                   |
 +--------+---------------------------------------+------------------------+
 10 rows in set (0,00 sec)</pre>
-        </app-terminal-code>
-
-        <app-terminal-code collapsible-content>
-          <span terminal-code-command>select * from MARCA;</span>
-          <pre terminal-code-output>+--------+---------------+----------------+
+            </app-terminal-code>
+            <app-terminal-code>
+              <span terminal-code-command>select * from MARCA;</span>
+              <pre terminal-code-output>+--------+---------------+----------------+
 | codigo | nombre        | sede           |
 +--------+---------------+----------------+
 |      1 | Toyota        | Japón          |
@@ -75,11 +76,10 @@
 |     18 | Renault       | Francia        |
 +--------+---------------+----------------+
 18 rows in set (0,00 sec)</pre>
-        </app-terminal-code>
-
-        <app-terminal-code collapsible-content>
-          <span terminal-code-command>select * from PROPULSION;</span>
-          <pre terminal-code-output>+----+---------------------+
+            </app-terminal-code>
+            <app-terminal-code>
+              <span terminal-code-command>select * from PROPULSION;</span>
+              <pre terminal-code-output>+----+---------------------+
 | id | nombre              |
 +----+---------------------+
 |  1 | Gasolina            |
@@ -92,11 +92,10 @@
 |  8 | GNC                 |
 +----+---------------------+
 8 rows in set (0,01 sec)</pre>
-        </app-terminal-code>
-
-        <app-terminal-code collapsible-content>
-          <span terminal-code-command>select * from CONCESIONARIO;</span>
-          <pre terminal-code-output>+--------+----------------------------+---------------+-------------+
+            </app-terminal-code>
+            <app-terminal-code>
+              <span terminal-code-command>select * from CONCESIONARIO;</span>
+              <pre terminal-code-output>+--------+----------------------------+---------------+-------------+
 | codigo | localidad                  | hora_apertura | hora_cierre |
 +--------+----------------------------+---------------+-------------+
 |      1 | Madrid                     | 11:00:00      | 21:00:00    |
@@ -116,24 +115,26 @@
 |     15 | Gijón                      | 11:30:00      | 19:30:00    |
 +--------+----------------------------+---------------+-------------+
 15 rows in set (0,00 sec)</pre>
-        </app-terminal-code>
-      </app-collapsible>
-    </div>
+            </app-terminal-code>
+          </div>
 
-    <div class="exercise-block">
-      <h2 class="exercise-title">Ejercicio 2</h2>
+          <span appCollapsibleCloseAction>Ocultar solución</span>
+        </app-collapsible>
+      </div>
 
-      <p class="exercise-statement">
-        Obtener la fecha de nacimiento de los clientes ordenadas de la más antigua a la más actual sin que se repitan.
-      </p>
+      <div class="exercise-block">
+        <h2 class="exercise-title">Ejercicio 2</h2>
 
-      <app-collapsible>
-        <span collapsible-header-closed>Ver solución</span>
-        <span collapsible-header-open>Ocultar solución</span>
+        <p class="exercise-statement">
+          Obtener la fecha de nacimiento de los clientes ordenadas de la más antigua a la más actual sin que se repitan.
+        </p>
 
-        <app-terminal-code collapsible-content>
-          <span terminal-code-command>select DISTINCT fecha_nac from CLIENTE order by fecha_nac asc;</span>
-          <pre terminal-code-output>+------------+
+        <app-collapsible>
+          <span appCollapsibleOpenAction>Ver solución</span>
+
+          <app-terminal-code appCollapsibleContent>
+            <span terminal-code-command>select DISTINCT fecha_nac from CLIENTE order by fecha_nac asc;</span>
+            <pre terminal-code-output>+------------+
 | fecha_nac  |
 +------------+
 | 1955-01-31 |
@@ -150,26 +151,27 @@
 | 1999-11-03 |
 +------------+
 396 rows in set (0,00 sec)</pre>
-        </app-terminal-code>
-      </app-collapsible>
-    </div>
+          </app-terminal-code>
 
-    <div class="exercise-block">
-      <h2 class="exercise-title">Ejercicio 3</h2>
+          <span appCollapsibleCloseAction>Ocultar solución</span>
+        </app-collapsible>
+      </div>
 
-      <p class="exercise-statement">
-        Obtener el código de los coches que se han vendido por un precio superior a 48.000 euros, junto con el código de
-        concesionario y fecha, ordenados por concesionario y fecha.
-      </p>
+      <div class="exercise-block">
+        <h2 class="exercise-title">Ejercicio 3</h2>
 
-      <app-collapsible>
-        <span collapsible-header-closed>Ver solución</span>
-        <span collapsible-header-open>Ocultar solución</span>
+        <p class="exercise-statement">
+          Obtener el código de los coches que se han vendido por un precio superior a 48.000 euros, junto con el código
+          de concesionario y fecha, ordenados por concesionario y fecha.
+        </p>
 
-        <app-terminal-code collapsible-content>
-          <pre terminal-code-command>select cod_coche, cod_concesionario, fecha from VENTA 
+        <app-collapsible>
+          <span appCollapsibleOpenAction>Ver solución</span>
+
+          <app-terminal-code appCollapsibleContent>
+            <pre terminal-code-command>select cod_coche, cod_concesionario, fecha from VENTA 
 where precio&gt;48000 order by cod_concesionario, fecha;</pre>
-          <pre terminal-code-output>+-----------+-------------------+------------+
+            <pre terminal-code-output>+-----------+-------------------+------------+
 | cod_coche | cod_concesionario | fecha      |
 +-----------+-------------------+------------+
 |        99 |                 1 | 1999-12-28 |
@@ -188,24 +190,25 @@ where precio&gt;48000 order by cod_concesionario, fecha;</pre>
 +-----------+-------------------+------------+
 40 rows in set (0,00 sec)
 </pre>
-        </app-terminal-code>
-      </app-collapsible>
-    </div>
+          </app-terminal-code>
 
-    <div class="exercise-block">
-      <h2 class="exercise-title">Ejercicio 4</h2>
+          <span appCollapsibleCloseAction>Ocultar solución</span>
+        </app-collapsible>
+      </div>
 
-      <p class="exercise-statement">
-        Obtener el código y nombre de las marcas. Incluir tres puntos entre ambos y llamar a la columna 'marcas'.
-      </p>
+      <div class="exercise-block">
+        <h2 class="exercise-title">Ejercicio 4</h2>
 
-      <app-collapsible>
-        <span collapsible-header-closed>Ver solución</span>
-        <span collapsible-header-open>Ocultar solución</span>
+        <p class="exercise-statement">
+          Obtener el código y nombre de las marcas. Incluir tres puntos entre ambos y llamar a la columna 'marcas'.
+        </p>
 
-        <app-terminal-code collapsible-content>
-          <span terminal-code-command>select concat(codigo, ' ... ', nombre) as marcas from MARCA;</span>
-          <pre terminal-code-output>+---------------------+
+        <app-collapsible>
+          <span appCollapsibleOpenAction>Ver solución</span>
+
+          <app-terminal-code appCollapsibleContent>
+            <span terminal-code-command>select concat(codigo, ' ... ', nombre) as marcas from MARCA;</span>
+            <pre terminal-code-output>+---------------------+
 | marcas              |
 +---------------------+
 | 1 ... Toyota        |
@@ -228,58 +231,60 @@ where precio&gt;48000 order by cod_concesionario, fecha;</pre>
 | 18 ... Renault      |
 +---------------------+
 18 rows in set (0,00 sec)</pre>
-        </app-terminal-code>
-      </app-collapsible>
-    </div>
+          </app-terminal-code>
 
-    <div class="exercise-block">
-      <h2 class="exercise-title">Ejercicio 5</h2>
+          <span appCollapsibleCloseAction>Ocultar solución</span>
+        </app-collapsible>
+      </div>
 
-      <p class="exercise-statement">
-        Obtener el número de teléfono del cliente que se llama 'Sara Morales Martínez'.
-      </p>
+      <div class="exercise-block">
+        <h2 class="exercise-title">Ejercicio 5</h2>
 
-      <app-collapsible>
-        <span collapsible-header-closed>Ver solución</span>
-        <span collapsible-header-open>Ocultar solución</span>
+        <p class="exercise-statement">
+          Obtener el número de teléfono del cliente que se llama 'Sara Morales Martínez'.
+        </p>
 
-        <app-terminal-code collapsible-content>
-          <span terminal-code-command>select telefono from CLIENTE where nombre='Sara Morales Martínez';</span>
-          <pre terminal-code-output>+-----------+
+        <app-collapsible>
+          <span appCollapsibleOpenAction>Ver solución</span>
+
+          <app-terminal-code appCollapsibleContent>
+            <span terminal-code-command>select telefono from CLIENTE where nombre='Sara Morales Martínez';</span>
+            <pre terminal-code-output>+-----------+
 | telefono  |
 +-----------+
 | 999575661 |
 +-----------+
 1 row in set (0,00 sec)</pre>
-        </app-terminal-code>
-      </app-collapsible>
-    </div>
+          </app-terminal-code>
 
-    <div class="exercise-block">
-      <h2 class="exercise-title">Ejercicio 6</h2>
+          <span appCollapsibleCloseAction>Ocultar solución</span>
+        </app-collapsible>
+      </div>
 
-      <p class="exercise-statement">
-        Obtener el modelo de los coches que se propulsan con GNC (gas natural comprimido). Previamente busca el código
-        de propulsión para el GNC.
-      </p>
+      <div class="exercise-block">
+        <h2 class="exercise-title">Ejercicio 6</h2>
 
-      <app-collapsible>
-        <span collapsible-header-closed>Ver solución</span>
-        <span collapsible-header-open>Ocultar solución</span>
+        <p class="exercise-statement">
+          Obtener el modelo de los coches que se propulsan con GNC (gas natural comprimido). Previamente busca el código
+          de propulsión para el GNC.
+        </p>
 
-        <app-terminal-code collapsible-content>
-          <span terminal-code-command>select * from PROPULSION where nombre='GNC';</span>
-          <pre terminal-code-output>+----+--------+
+        <app-collapsible>
+          <span appCollapsibleOpenAction>Ver solución</span>
+
+          <div appCollapsibleContent>
+            <app-terminal-code>
+              <span terminal-code-command>select * from PROPULSION where nombre='GNC';</span>
+              <pre terminal-code-output>+----+--------+
 | id | nombre |
 +----+--------+
 |  8 | GNC    |
 +----+--------+
 1 row in set (0,00 sec)</pre>
-        </app-terminal-code>
-
-        <app-terminal-code collapsible-content>
-          <span terminal-code-command>select modelo from COCHE where cod_prop=8;</span>
-          <pre terminal-code-output>+------------+
+            </app-terminal-code>
+            <app-terminal-code>
+              <span terminal-code-command>select modelo from COCHE where cod_prop=8;</span>
+              <pre terminal-code-output>+------------+
 | modelo     |
 +------------+
 | Panda      |
@@ -288,49 +293,52 @@ where precio&gt;48000 order by cod_concesionario, fecha;</pre>
 | Tipo Sedan |
 +------------+
 4 rows in set (0,00 sec)</pre>
-        </app-terminal-code>
-      </app-collapsible>
-    </div>
+            </app-terminal-code>
+          </div>
 
-    <div class="exercise-block">
-      <h2 class="exercise-title">Ejercicio 7</h2>
+          <span appCollapsibleCloseAction>Ocultar solución</span>
+        </app-collapsible>
+      </div>
 
-      <p class="exercise-statement">
-        Obtener la hora de apertura del concesionario cuyo código es 4.
-      </p>
+      <div class="exercise-block">
+        <h2 class="exercise-title">Ejercicio 7</h2>
 
-      <app-collapsible>
-        <span collapsible-header-closed>Ver solución</span>
-        <span collapsible-header-open>Ocultar solución</span>
+        <p class="exercise-statement">
+          Obtener la hora de apertura del concesionario cuyo código es 4.
+        </p>
 
-        <app-terminal-code collapsible-content>
-          <span terminal-code-command>select hora_apertura from CONCESIONARIO where codigo=4;</span>
-          <pre terminal-code-output>+---------------+
+        <app-collapsible>
+          <span appCollapsibleOpenAction>Ver solución</span>
+
+          <app-terminal-code appCollapsibleContent>
+            <span terminal-code-command>select hora_apertura from CONCESIONARIO where codigo=4;</span>
+            <pre terminal-code-output>+---------------+
 | hora_apertura |
 +---------------+
 | 10:00:00      |
 +---------------+
 1 row in set (0,00 sec)</pre>
-        </app-terminal-code>
-      </app-collapsible>
-    </div>
+          </app-terminal-code>
 
-    <div class="exercise-block">
-      <h2 class="exercise-title">Ejercicio 8</h2>
+          <span appCollapsibleCloseAction>Ocultar solución</span>
+        </app-collapsible>
+      </div>
 
-      <p class="exercise-statement">
-        Obtener los concesionarios que ofrecen 39 o más coches de un mismo tipo. Indicar el código de concesionario, el
-        código del coche y la cantidad. Ordenar por la primera columna.
-      </p>
+      <div class="exercise-block">
+        <h2 class="exercise-title">Ejercicio 8</h2>
 
-      <app-collapsible>
-        <span collapsible-header-closed>Ver solución</span>
-        <span collapsible-header-open>Ocultar solución</span>
+        <p class="exercise-statement">
+          Obtener los concesionarios que ofrecen 39 o más coches de un mismo tipo. Indicar el código de concesionario,
+          el código del coche y la cantidad. Ordenar por la primera columna.
+        </p>
 
-        <app-terminal-code collapsible-content>
-          <pre terminal-code-command>select cod_concesionario, cod_coche, cantidad from OFRECE
+        <app-collapsible>
+          <span appCollapsibleOpenAction>Ver solución</span>
+
+          <app-terminal-code appCollapsibleContent>
+            <pre terminal-code-command>select cod_concesionario, cod_coche, cantidad from OFRECE
 where cantidad&gt;=39 order by 1;</pre>
-          <pre terminal-code-output>+-------------------+-----------+----------+
+            <pre terminal-code-output>+-------------------+-----------+----------+
 | cod_concesionario | cod_coche | cantidad |
 +-------------------+-----------+----------+
 |                 1 |       244 |       39 |
@@ -344,25 +352,26 @@ where cantidad&gt;=39 order by 1;</pre>
 |                15 |       312 |       40 |
 +-------------------+-----------+----------+
 59 rows in set (0,00 sec)</pre>
-        </app-terminal-code>
-      </app-collapsible>
-    </div>
+          </app-terminal-code>
 
-    <div class="exercise-block">
-      <h2 class="exercise-title">Ejercicio 9</h2>
+          <span appCollapsibleCloseAction>Ocultar solución</span>
+        </app-collapsible>
+      </div>
 
-      <p class="exercise-statement">
-        Obtener el código de los clientes que han comprado un coche con código 122 ordenados por fecha de compra y
-        precio.
-      </p>
+      <div class="exercise-block">
+        <h2 class="exercise-title">Ejercicio 9</h2>
 
-      <app-collapsible>
-        <span collapsible-header-closed>Ver solución</span>
-        <span collapsible-header-open>Ocultar solución</span>
+        <p class="exercise-statement">
+          Obtener el código de los clientes que han comprado un coche con código 122 ordenados por fecha de compra y
+          precio.
+        </p>
 
-        <app-terminal-code collapsible-content>
-          <span terminal-code-command>select cod_cliente from VENTA where cod_coche=122 order by fecha, precio;</span>
-          <pre terminal-code-output>+-------------+
+        <app-collapsible>
+          <span appCollapsibleOpenAction>Ver solución</span>
+
+          <app-terminal-code appCollapsibleContent>
+            <span terminal-code-command>select cod_cliente from VENTA where cod_coche=122 order by fecha, precio;</span>
+            <pre terminal-code-output>+-------------+
 | cod_cliente |
 +-------------+
 | 57463306Q   |
@@ -370,25 +379,26 @@ where cantidad&gt;=39 order by 1;</pre>
 | 28864068M   |
 +-------------+
 3 rows in set (0,00 sec)</pre>
-        </app-terminal-code>
-      </app-collapsible>
-    </div>
+          </app-terminal-code>
 
-    <div class="exercise-block">
-      <h2 class="exercise-title">Ejercicio 10</h2>
+          <span appCollapsibleCloseAction>Ocultar solución</span>
+        </app-collapsible>
+      </div>
 
-      <p class="exercise-statement">
-        Obtener los números de factura de los coches que se vendieron entre hace 5 y 8 años, y los años que tienen.
-      </p>
+      <div class="exercise-block">
+        <h2 class="exercise-title">Ejercicio 10</h2>
 
-      <app-collapsible>
-        <span collapsible-header-closed>Ver solución</span>
-        <span collapsible-header-open>Ocultar solución</span>
+        <p class="exercise-statement">
+          Obtener los números de factura de los coches que se vendieron entre hace 5 y 8 años, y los años que tienen.
+        </p>
 
-        <app-terminal-code collapsible-content>
-          <pre terminal-code-command>select num_factura, timestampdiff(year, fecha, curdate()) as años from VENTA
+        <app-collapsible>
+          <span appCollapsibleOpenAction>Ver solución</span>
+
+          <app-terminal-code appCollapsibleContent>
+            <pre terminal-code-command>select num_factura, timestampdiff(year, fecha, curdate()) as años from VENTA
 where timestampdiff(year, fecha, curdate())&gt;=5 AND timestampdiff(year, fecha, curdate())&lt;=8;</pre>
-          <pre terminal-code-output>+-------------+-------+
+            <pre terminal-code-output>+-------------+-------+
 | num_factura | años  |
 +-------------+-------+
 | 1           |     8 |
@@ -402,25 +412,26 @@ where timestampdiff(year, fecha, curdate())&gt;=5 AND timestampdiff(year, fecha,
 | 93          |     5 |
 +-------------+-------+
 91 rows in set (0,00 sec)</pre>
-        </app-terminal-code>
-      </app-collapsible>
-    </div>
+          </app-terminal-code>
 
-    <div class="exercise-block">
-      <h2 class="exercise-title">Ejercicio 11</h2>
+          <span appCollapsibleCloseAction>Ocultar solución</span>
+        </app-collapsible>
+      </div>
 
-      <p class="exercise-statement">
-        Obtener el listado de los clientes que este año superan los 50 años.
-      </p>
+      <div class="exercise-block">
+        <h2 class="exercise-title">Ejercicio 11</h2>
 
-      <app-collapsible>
-        <span collapsible-header-closed>Ver solución</span>
-        <span collapsible-header-open>Ocultar solución</span>
+        <p class="exercise-statement">
+          Obtener el listado de los clientes que este año superan los 50 años.
+        </p>
 
-        <app-terminal-code collapsible-content>
-          <pre terminal-code-command>select dni, nombre, telefono from CLIENTE
+        <app-collapsible>
+          <span appCollapsibleOpenAction>Ver solución</span>
+
+          <app-terminal-code appCollapsibleContent>
+            <pre terminal-code-command>select dni, nombre, telefono from CLIENTE
 where extract(year from fecha_nac)=extract(year from curdate())-50;</pre>
-          <pre terminal-code-output>+-----------+--------------------------+-----------+
+            <pre terminal-code-output>+-----------+--------------------------+-----------+
 | dni       | nombre                   | telefono  |
 +-----------+--------------------------+-----------+
 | 10322807S | Joaquín Prieto Cano      | 664815475 |
@@ -432,24 +443,25 @@ where extract(year from fecha_nac)=extract(year from curdate())-50;</pre>
 | 80982751E | Paula Domínguez Martín   | 616891071 |
 +-----------+--------------------------+-----------+
 7 rows in set (0,00 sec)</pre>
-        </app-terminal-code>
-      </app-collapsible>
-    </div>
+          </app-terminal-code>
 
-    <div class="exercise-block">
-      <h2 class="exercise-title">Ejercicio 12</h2>
+          <span appCollapsibleCloseAction>Ocultar solución</span>
+        </app-collapsible>
+      </div>
 
-      <p class="exercise-statement">
-        Obtener los códigos de concesionarios que ofrecen coches por una cantidad de 10.
-      </p>
+      <div class="exercise-block">
+        <h2 class="exercise-title">Ejercicio 12</h2>
 
-      <app-collapsible>
-        <span collapsible-header-closed>Ver solución</span>
-        <span collapsible-header-open>Ocultar solución</span>
+        <p class="exercise-statement">
+          Obtener los códigos de concesionarios que ofrecen coches por una cantidad de 10.
+        </p>
 
-        <app-terminal-code collapsible-content>
-          <span terminal-code-command>select DISTINCT cod_concesionario from OFRECE where cantidad = 10;</span>
-          <pre terminal-code-output>+-------------------+
+        <app-collapsible>
+          <span appCollapsibleOpenAction>Ver solución</span>
+
+          <app-terminal-code appCollapsibleContent>
+            <span terminal-code-command>select DISTINCT cod_concesionario from OFRECE where cantidad = 10;</span>
+            <pre terminal-code-output>+-------------------+
 | cod_concesionario |
 +-------------------+
 |                13 |
@@ -464,25 +476,26 @@ where extract(year from fecha_nac)=extract(year from curdate())-50;</pre>
 |                 7 |
 +-------------------+
 10 rows in set (0,00 sec)</pre>
-        </app-terminal-code>
-      </app-collapsible>
-    </div>
+          </app-terminal-code>
 
-    <div class="exercise-block">
-      <h2 class="exercise-title">Ejercicio 13</h2>
+          <span appCollapsibleCloseAction>Ocultar solución</span>
+        </app-collapsible>
+      </div>
 
-      <p class="exercise-statement">
-        Obtener los concesionarios que abren como pronto a las 10 y cierran como tarde a las 19:30.
-      </p>
+      <div class="exercise-block">
+        <h2 class="exercise-title">Ejercicio 13</h2>
 
-      <app-collapsible>
-        <span collapsible-header-closed>Ver solución</span>
-        <span collapsible-header-open>Ocultar solución</span>
+        <p class="exercise-statement">
+          Obtener los concesionarios que abren como pronto a las 10 y cierran como tarde a las 19:30.
+        </p>
 
-        <app-terminal-code collapsible-content>
-          <span terminal-code-command>select * from CONCESIONARIO where hora_apertura&gt;='10:00:00' and
-            hora_cierre&lt;='19:30:00';</span>
-          <pre terminal-code-output>+--------+------------+---------------+-------------+
+        <app-collapsible>
+          <span appCollapsibleOpenAction>Ver solución</span>
+
+          <app-terminal-code appCollapsibleContent>
+            <span terminal-code-command>select * from CONCESIONARIO where hora_apertura&gt;='10:00:00' and
+              hora_cierre&lt;='19:30:00';</span>
+            <pre terminal-code-output>+--------+------------+---------------+-------------+
 | codigo | localidad  | hora_apertura | hora_cierre |
 +--------+------------+---------------+-------------+
 |      4 | Sevilla    | 10:00:00      | 19:00:00    |
@@ -492,25 +505,27 @@ where extract(year from fecha_nac)=extract(year from curdate())-50;</pre>
 |     15 | Gijón      | 11:30:00      | 19:30:00    |
 +--------+------------+---------------+-------------+
 5 rows in set (0,00 sec)</pre>
-        </app-terminal-code>
-      </app-collapsible>
-    </div>
+          </app-terminal-code>
 
-    <div class="exercise-block">
-      <h2 class="exercise-title">Ejercicio 14</h2>
+          <span appCollapsibleCloseAction>Ocultar solución</span>
+        </app-collapsible>
+      </div>
 
-      <p class="exercise-statement">
-        Seleccionar las reparaciones que cuestan entre 500 y 600 euros o entre 1.300 y 1.500 euros.
-      </p>
+      <div class="exercise-block">
+        <h2 class="exercise-title">Ejercicio 14</h2>
 
-      <app-collapsible>
-        <span collapsible-header-closed>Ver solución</span>
-        <span collapsible-header-open>Ocultar solución</span>
+        <p class="exercise-statement">
+          Seleccionar las reparaciones que cuestan entre 500 y 600 euros o entre 1.300 y 1.500 euros.
+        </p>
 
-        <app-terminal-code collapsible-content>
-          <span terminal-code-command>select * from REPARA where (precio&gt;=500 and precio&lt;=600) or (precio&gt;=1300
-            and precio&lt;=1500);</span>
-          <pre terminal-code-output>+-----+--------------+-----------+------------+---------+
+        <app-collapsible>
+          <span appCollapsibleOpenAction>Ver solución</span>
+
+          <app-terminal-code appCollapsibleContent>
+            <span terminal-code-command>select * from REPARA where (precio&gt;=500 and precio&lt;=600) or
+              (precio&gt;=1300
+              and precio&lt;=1500);</span>
+            <pre terminal-code-output>+-----+--------------+-----------+------------+---------+
 | id  | cod_mecanico | cod_coche | fecha      | precio  |
 +-----+--------------+-----------+------------+---------+
 |   7 |            1 |       291 | 2019-12-02 | 1432.03 |
@@ -524,24 +539,25 @@ where extract(year from fecha_nac)=extract(year from curdate())-50;</pre>
 | 432 |            4 |        69 | 2020-03-23 | 1317.40 |
 +-----+--------------+-----------+------------+---------+
 21 rows in set (0,00 sec)</pre>
-        </app-terminal-code>
-      </app-collapsible>
-    </div>
+          </app-terminal-code>
 
-    <div class="exercise-block">
-      <h2 class="exercise-title">Ejercicio 15</h2>
+          <span appCollapsibleCloseAction>Ocultar solución</span>
+        </app-collapsible>
+      </div>
 
-      <p class="exercise-statement">
-        Obtener el nombre de los mecánicos cuya ciudad empiece por C.
-      </p>
+      <div class="exercise-block">
+        <h2 class="exercise-title">Ejercicio 15</h2>
 
-      <app-collapsible>
-        <span collapsible-header-closed>Ver solución</span>
-        <span collapsible-header-open>Ocultar solución</span>
+        <p class="exercise-statement">
+          Obtener el nombre de los mecánicos cuya ciudad empiece por C.
+        </p>
 
-        <app-terminal-code collapsible-content>
-          <span terminal-code-command>select nombre from MECANICO where ciudad like 'C%';</span>
-          <pre terminal-code-output>+-------------------------------+
+        <app-collapsible>
+          <span appCollapsibleOpenAction>Ver solución</span>
+
+          <app-terminal-code appCollapsibleContent>
+            <span terminal-code-command>select nombre from MECANICO where ciudad like 'C%';</span>
+            <pre terminal-code-output>+-------------------------------+
 | nombre                        |
 +-------------------------------+
 | Mecánica Hábil Técnico        |
@@ -549,24 +565,25 @@ where extract(year from fecha_nac)=extract(year from curdate())-50;</pre>
 | Mecánica Innovador Mecánico   |
 +-------------------------------+
 3 rows in set (0,00 sec)</pre>
-        </app-terminal-code>
-      </app-collapsible>
-    </div>
+          </app-terminal-code>
 
-    <div class="exercise-block">
-      <h2 class="exercise-title">Ejercicio 16</h2>
+          <span appCollapsibleCloseAction>Ocultar solución</span>
+        </app-collapsible>
+      </div>
 
-      <p class="exercise-statement">
-        Obtener el nombre de los clientes que empiezan por J e incluyen alguna L.
-      </p>
+      <div class="exercise-block">
+        <h2 class="exercise-title">Ejercicio 16</h2>
 
-      <app-collapsible>
-        <span collapsible-header-closed>Ver solución</span>
-        <span collapsible-header-open>Ocultar solución</span>
+        <p class="exercise-statement">
+          Obtener el nombre de los clientes que empiezan por J e incluyen alguna L.
+        </p>
 
-        <app-terminal-code collapsible-content>
-          <span terminal-code-command>select * from CLIENTE where nombre like 'J%L%';</span>
-          <pre terminal-code-output>+-----------+-------------------------------+------------+-----------+
+        <app-collapsible>
+          <span appCollapsibleOpenAction>Ver solución</span>
+
+          <app-terminal-code appCollapsibleContent>
+            <span terminal-code-command>select * from CLIENTE where nombre like 'J%L%';</span>
+            <pre terminal-code-output>+-----------+-------------------------------+------------+-----------+
 | dni       | nombre                        | fecha_nac  | telefono  |
 +-----------+-------------------------------+------------+-----------+
 | 03856744P | Julia Gutiérrez García        | 1991-06-19 | 626265672 |
@@ -580,24 +597,25 @@ where extract(year from fecha_nac)=extract(year from curdate())-50;</pre>
 | 99743507F | Javier Prieto Álvarez         | 1964-05-17 | 697795794 |
 +-----------+-------------------------------+------------+-----------+
 32 rows in set (0,00 sec)</pre>
-        </app-terminal-code>
-      </app-collapsible>
-    </div>
+          </app-terminal-code>
 
-    <div class="exercise-block">
-      <h2 class="exercise-title">Ejercicio 17</h2>
+          <span appCollapsibleCloseAction>Ocultar solución</span>
+        </app-collapsible>
+      </div>
 
-      <p class="exercise-statement">
-        Obtener una lista de marcas que no están en Alemania o Japón.
-      </p>
+      <div class="exercise-block">
+        <h2 class="exercise-title">Ejercicio 17</h2>
 
-      <app-collapsible>
-        <span collapsible-header-closed>Ver solución</span>
-        <span collapsible-header-open>Ocultar solución</span>
+        <p class="exercise-statement">
+          Obtener una lista de marcas que no están en Alemania o Japón.
+        </p>
 
-        <app-terminal-code collapsible-content>
-          <span terminal-code-command>select * from MARCA where sede not in ('Alemania', 'Japón');</span>
-          <pre terminal-code-output>+--------+-----------+----------------+
+        <app-collapsible>
+          <span appCollapsibleOpenAction>Ver solución</span>
+
+          <app-terminal-code appCollapsibleContent>
+            <span terminal-code-command>select * from MARCA where sede not in ('Alemania', 'Japón');</span>
+            <pre terminal-code-output>+--------+-----------+----------------+
 | codigo | nombre    | sede           |
 +--------+-----------+----------------+
 |      2 | Ford      | Estados Unidos |
@@ -612,24 +630,25 @@ where extract(year from fecha_nac)=extract(year from curdate())-50;</pre>
 |     18 | Renault   | Francia        |
 +--------+-----------+----------------+
 10 rows in set (0,00 sec)</pre>
-        </app-terminal-code>
-      </app-collapsible>
-    </div>
+          </app-terminal-code>
 
-    <div class="exercise-block">
-      <h2 class="exercise-title">Ejercicio 18</h2>
+          <span appCollapsibleCloseAction>Ocultar solución</span>
+        </app-collapsible>
+      </div>
 
-      <p class="exercise-statement">
-        Seleccionar las propulsiones que tienen un nombre con menos o igual de 8 letras.
-      </p>
+      <div class="exercise-block">
+        <h2 class="exercise-title">Ejercicio 18</h2>
 
-      <app-collapsible>
-        <span collapsible-header-closed>Ver solución</span>
-        <span collapsible-header-open>Ocultar solución</span>
+        <p class="exercise-statement">
+          Seleccionar las propulsiones que tienen un nombre con menos o igual de 8 letras.
+        </p>
 
-        <app-terminal-code collapsible-content>
-          <span terminal-code-command>select * from PROPULSION where length(nombre)&lt;=8;</span>
-          <pre terminal-code-output>+----+----------+
+        <app-collapsible>
+          <span appCollapsibleOpenAction>Ver solución</span>
+
+          <app-terminal-code appCollapsibleContent>
+            <span terminal-code-command>select * from PROPULSION where length(nombre)&lt;=8;</span>
+            <pre terminal-code-output>+----+----------+
 | id | nombre   |
 +----+----------+
 |  1 | Gasolina |
@@ -638,25 +657,26 @@ where extract(year from fecha_nac)=extract(year from curdate())-50;</pre>
 |  8 | GNC      |
 +----+----------+
 4 rows in set (0,00 sec)</pre>
-        </app-terminal-code>
-      </app-collapsible>
-    </div>
+          </app-terminal-code>
 
-    <div class="exercise-block">
-      <h2 class="exercise-title">Ejercicio 19</h2>
+          <span appCollapsibleCloseAction>Ocultar solución</span>
+        </app-collapsible>
+      </div>
 
-      <p class="exercise-statement">
-        Obtener el nombre y edad de los clientes entre 30 y 33 años y ordenarlos de mayor a menor.
-      </p>
+      <div class="exercise-block">
+        <h2 class="exercise-title">Ejercicio 19</h2>
 
-      <app-collapsible>
-        <span collapsible-header-closed>Ver solución</span>
-        <span collapsible-header-open>Ocultar solución</span>
+        <p class="exercise-statement">
+          Obtener el nombre y edad de los clientes entre 30 y 33 años y ordenarlos de mayor a menor.
+        </p>
 
-        <app-terminal-code collapsible-content>
-          <pre terminal-code-command>select nombre, timestampdiff(year, fecha_nac, curdate()) as edad from CLIENTE
+        <app-collapsible>
+          <span appCollapsibleOpenAction>Ver solución</span>
+
+          <app-terminal-code appCollapsibleContent>
+            <pre terminal-code-command>select nombre, timestampdiff(year, fecha_nac, curdate()) as edad from CLIENTE
 where timestampdiff(year, fecha_nac, curdate()) between 30 and 33 order by 2 DESC;</pre>
-          <pre terminal-code-output>+-------------------------------+------+
+            <pre terminal-code-output>+-------------------------------+------+
 | nombre                        | edad |
 +-------------------------------+------+
 | Lucía Delgado Iglesias        |   33 |
@@ -668,32 +688,33 @@ where timestampdiff(year, fecha_nac, curdate()) between 30 and 33 order by 2 DES
 | Lucas Ruiz Rubio              |   30 |
 +-------------------------------+------+
 43 rows in set (0,00 sec)</pre>
-        </app-terminal-code>
-      </app-collapsible>
-    </div>
-  </section>
+          </app-terminal-code>
 
-  <section>
-    <p>
-      Los ejercicios que vienen a continuación implican ya varias tablas.
-    </p>
+          <span appCollapsibleCloseAction>Ocultar solución</span>
+        </app-collapsible>
+      </div>
+    </section>
 
-    <div class="exercise-block">
-      <h2 class="exercise-title">Ejercicio 20</h2>
-
-      <p class="exercise-statement">
-        Obtener el nombre del mecánico, nombre de la marca y modelo de coche que han reparado los mecánicos.
+    <section>
+      <p>
+        Los ejercicios que vienen a continuación implican ya varias tablas.
       </p>
 
-      <app-collapsible>
-        <span collapsible-header-closed>Ver solución</span>
-        <span collapsible-header-open>Ocultar solución</span>
+      <div class="exercise-block">
+        <h2 class="exercise-title">Ejercicio 20</h2>
 
-        <app-terminal-code collapsible-content>
-          <pre terminal-code-command>select me.nombre as 'nombre mecanico', m.nombre as marca, c.modelo
+        <p class="exercise-statement">
+          Obtener el nombre del mecánico, nombre de la marca y modelo de coche que han reparado los mecánicos.
+        </p>
+
+        <app-collapsible>
+          <span appCollapsibleOpenAction>Ver solución</span>
+
+          <app-terminal-code appCollapsibleContent>
+            <pre terminal-code-command>select me.nombre as 'nombre mecanico', m.nombre as marca, c.modelo
 from MARCA m, COCHE c, REPARA r, MECANICO me 
 where m.codigo=c.cod_marca and r.cod_coche=c.codigo and r.cod_mecanico=me.codigo;</pre>
-          <pre terminal-code-output>+---------------------------------------+---------------+--------------------+
+            <pre terminal-code-output>+---------------------------------------+---------------+--------------------+
 | nombre mecanico                       | marca         | modelo             |
 +---------------------------------------+---------------+--------------------+
 | Mecánica Innovador Mecánico           | Fiat          | 500L MPV           |
@@ -707,26 +728,27 @@ where m.codigo=c.cod_marca and r.cod_coche=c.codigo and r.cod_mecanico=me.codigo
 | Electromecánica Eficiente Express     | Volkswagen    | Up                 |
 +---------------------------------------+---------------+--------------------+
 450 rows in set (0,01 sec)</pre>
-        </app-terminal-code>
-      </app-collapsible>
-    </div>
+          </app-terminal-code>
 
-    <div class="exercise-block">
-      <h2 class="exercise-title">Ejercicio 21</h2>
+          <span appCollapsibleCloseAction>Ocultar solución</span>
+        </app-collapsible>
+      </div>
 
-      <p class="exercise-statement">
-        Obtener el nombre de las marcas de los coches que ofrece el concesionario de la localidad de Valencia.
-      </p>
+      <div class="exercise-block">
+        <h2 class="exercise-title">Ejercicio 21</h2>
 
-      <app-collapsible>
-        <span collapsible-header-closed>Ver solución</span>
-        <span collapsible-header-open>Ocultar solución</span>
+        <p class="exercise-statement">
+          Obtener el nombre de las marcas de los coches que ofrece el concesionario de la localidad de Valencia.
+        </p>
 
-        <app-terminal-code collapsible-content>
-          <pre terminal-code-command>select DISTINCT m.nombre from MARCA m, COCHE c, OFRECE o, CONCESIONARIO con
+        <app-collapsible>
+          <span appCollapsibleOpenAction>Ver solución</span>
+
+          <app-terminal-code appCollapsibleContent>
+            <pre terminal-code-command>select DISTINCT m.nombre from MARCA m, COCHE c, OFRECE o, CONCESIONARIO con
 where con.codigo=o.cod_concesionario and o.cod_coche=c.codigo and m.codigo=c.cod_marca
 and con.localidad='Valencia';</pre>
-          <pre terminal-code-output>+------------+
+            <pre terminal-code-output>+------------+
 | nombre     |
 +------------+
 | Toyota     |
@@ -738,28 +760,29 @@ and con.localidad='Valencia';</pre>
 | Renault    |
 +------------+
 15 rows in set (0,00 sec)</pre>
-        </app-terminal-code>
-      </app-collapsible>
-    </div>
+          </app-terminal-code>
 
-    <div class="exercise-block">
-      <h2 class="exercise-title">Ejercicio 22</h2>
+          <span appCollapsibleCloseAction>Ocultar solución</span>
+        </app-collapsible>
+      </div>
 
-      <p class="exercise-statement">
-        Para los coches que se ofrecen en una cantidad mayor o igual a 39, obtener el código y localidad de los
-        concesionarios que los ofrecen, junto al nombre de la marca y modelo del coche y su cantidad.
-      </p>
+      <div class="exercise-block">
+        <h2 class="exercise-title">Ejercicio 22</h2>
 
-      <app-collapsible>
-        <span collapsible-header-closed>Ver solución</span>
-        <span collapsible-header-open>Ocultar solución</span>
+        <p class="exercise-statement">
+          Para los coches que se ofrecen en una cantidad mayor o igual a 39, obtener el código y localidad de los
+          concesionarios que los ofrecen, junto al nombre de la marca y modelo del coche y su cantidad.
+        </p>
 
-        <app-terminal-code collapsible-content>
-          <pre terminal-code-command>select con.codigo, con.localidad, m.nombre as marca, c.modelo, o.cantidad
+        <app-collapsible>
+          <span appCollapsibleOpenAction>Ver solución</span>
+
+          <app-terminal-code appCollapsibleContent>
+            <pre terminal-code-command>select con.codigo, con.localidad, m.nombre as marca, c.modelo, o.cantidad
 from CONCESIONARIO con, OFRECE o, COCHE c, MARCA m
 where con.codigo=o.cod_concesionario and o.cod_coche=c.codigo and c.cod_marca=m.codigo
 and o.cantidad&gt;= 39 order by 2;</pre>
-          <pre terminal-code-output>+--------+----------------------------+---------------+--------------+----------+
+            <pre terminal-code-output>+--------+----------------------------+---------------+--------------+----------+
 | codigo | localidad                  | marca         | modelo       | cantidad |
 +--------+----------------------------+---------------+--------------+----------+
 |     11 | Alicante                   | Nissan        | Juke         |       39 |
@@ -771,27 +794,28 @@ and o.cantidad&gt;= 39 order by 2;</pre>
 |      5 | Zaragoza                   | Fiat          | Talento      |       39 |
 +--------+----------------------------+---------------+--------------+----------+
 59 rows in set (0,00 sec)</pre>
-        </app-terminal-code>
-      </app-collapsible>
-    </div>
+          </app-terminal-code>
 
-    <div class="exercise-block">
-      <h2 class="exercise-title">Ejercicio 23</h2>
+          <span appCollapsibleCloseAction>Ocultar solución</span>
+        </app-collapsible>
+      </div>
 
-      <p class="exercise-statement">
-        Mostrar las reparaciones de hace menos de 1 año, con el nombre del mecánico, modelo del coche y la fecha de
-        reparación.
-      </p>
+      <div class="exercise-block">
+        <h2 class="exercise-title">Ejercicio 23</h2>
 
-      <app-collapsible>
-        <span collapsible-header-closed>Ver solución</span>
-        <span collapsible-header-open>Ocultar solución</span>
+        <p class="exercise-statement">
+          Mostrar las reparaciones de hace menos de 1 año, con el nombre del mecánico, modelo del coche y la fecha de
+          reparación.
+        </p>
 
-        <app-terminal-code collapsible-content>
-          <pre terminal-code-command>select m.nombre, c.modelo, r.fecha from MECANICO m, COCHE c, REPARA r
+        <app-collapsible>
+          <span appCollapsibleOpenAction>Ver solución</span>
+
+          <app-terminal-code appCollapsibleContent>
+            <pre terminal-code-command>select m.nombre, c.modelo, r.fecha from MECANICO m, COCHE c, REPARA r
 where c.codigo=r.cod_coche and r.cod_mecanico=m.codigo
 and timestampdiff(year, r.fecha, curdate())&lt;1 order by 3;</pre>
-          <pre terminal-code-output>+---------------------------------------+------------+------------+
+            <pre terminal-code-output>+---------------------------------------+------------+------------+
 | nombre                                | modelo     | fecha      |
 +---------------------------------------+------------+------------+
 | Técnica Experto de Coches             | Santa Fe   | 2022-06-15 |
@@ -804,27 +828,28 @@ and timestampdiff(year, r.fecha, curdate())&lt;1 order by 3;</pre>
 | Mantenimiento Fiable de Coches        | 508        | 2023-03-15 |
 +---------------------------------------+------------+------------+
 40 rows in set (0,00 sec)</pre>
-        </app-terminal-code>
-      </app-collapsible>
-    </div>
+          </app-terminal-code>
 
-    <div class="exercise-block">
-      <h2 class="exercise-title">Ejercicio 24</h2>
+          <span appCollapsibleCloseAction>Ocultar solución</span>
+        </app-collapsible>
+      </div>
 
-      <p class="exercise-statement">
-        Mostrar los coches de la marca 'Tesla' que han sido reparados en algun taller. Mostrar modelo y nombre del
-        taller.
-      </p>
+      <div class="exercise-block">
+        <h2 class="exercise-title">Ejercicio 24</h2>
 
-      <app-collapsible>
-        <span collapsible-header-closed>Ver solución</span>
-        <span collapsible-header-open>Ocultar solución</span>
+        <p class="exercise-statement">
+          Mostrar los coches de la marca 'Tesla' que han sido reparados en algun taller. Mostrar modelo y nombre del
+          taller.
+        </p>
 
-        <app-terminal-code collapsible-content>
-          <pre terminal-code-command>select c.modelo, me.nombre from MARCA m, COCHE c, REPARA r, MECANICO me
+        <app-collapsible>
+          <span appCollapsibleOpenAction>Ver solución</span>
+
+          <app-terminal-code appCollapsibleContent>
+            <pre terminal-code-command>select c.modelo, me.nombre from MARCA m, COCHE c, REPARA r, MECANICO me
 where m.codigo=c.cod_marca and c.codigo=r.cod_coche and r.cod_mecanico=me.codigo
 and m.nombre='Tesla';</pre>
-          <pre terminal-code-output>+---------+-------------------------------+
+            <pre terminal-code-output>+---------+-------------------------------+
 | modelo  | nombre                        |
 +---------+-------------------------------+
 | Model Y | Técnica Experto de Coches     |
@@ -835,29 +860,30 @@ and m.nombre='Tesla';</pre>
 | Model S | Técnica Preciso del Motor     |
 +---------+-------------------------------+
 6 rows in set (0,00 sec)</pre>
-        </app-terminal-code>
-      </app-collapsible>
-    </div>
+          </app-terminal-code>
 
-    <div class="exercise-block">
-      <h2 class="exercise-title">Ejercicio 25</h2>
+          <span appCollapsibleCloseAction>Ocultar solución</span>
+        </app-collapsible>
+      </div>
 
-      <p class="exercise-statement">
-        Para las personas con primer apellido Gutiérrez, obtener sus nombres, la marca de los coches que han comprado y
-        la fecha de compra. Ordenarlo por el nombre del cliente y la fecha.
-      </p>
+      <div class="exercise-block">
+        <h2 class="exercise-title">Ejercicio 25</h2>
 
-      <app-collapsible>
-        <span collapsible-header-closed>Ver solución</span>
-        <span collapsible-header-open>Ocultar solución</span>
+        <p class="exercise-statement">
+          Para las personas con primer apellido Gutiérrez, obtener sus nombres, la marca de los coches que han comprado
+          y la fecha de compra. Ordenarlo por el nombre del cliente y la fecha.
+        </p>
 
-        <app-terminal-code collapsible-content>
-          <pre terminal-code-command>select cl.nombre, m.nombre, v.fecha
+        <app-collapsible>
+          <span appCollapsibleOpenAction>Ver solución</span>
+
+          <app-terminal-code appCollapsibleContent>
+            <pre terminal-code-command>select cl.nombre, m.nombre, v.fecha
 from CLIENTE cl, VENTA v, COCHE c, MARCA m
 where cl.dni=v.cod_cliente and v.cod_coche=c.codigo and c.cod_marca=m.codigo
 and cl.nombre like '% Gutierrez %'
 order by cl.nombre, v.fecha;</pre>
-          <pre terminal-code-output>+-----------------------------+---------------+------------+
+            <pre terminal-code-output>+-----------------------------+---------------+------------+
 | nombre                      | nombre        | fecha      |
 +-----------------------------+---------------+------------+
 | Carla Gutiérrez Medina      | Renault       | 2006-11-21 |
@@ -869,27 +895,28 @@ order by cl.nombre, v.fecha;</pre>
 | Verónica Gutiérrez Castro   | Fiat          | 1998-03-18 |
 +-----------------------------+---------------+------------+
 7 rows in set (0,01 sec)</pre>
-        </app-terminal-code>
-      </app-collapsible>
-    </div>
+          </app-terminal-code>
 
-    <div class="exercise-block">
-      <h2 class="exercise-title">Ejercicio 26</h2>
+          <span appCollapsibleCloseAction>Ocultar solución</span>
+        </app-collapsible>
+      </div>
 
-      <p class="exercise-statement">
-        Mostrar la localidad de los concesionarios en los que ha comprado coches 'Javier Guerrero Suárez'.
-      </p>
+      <div class="exercise-block">
+        <h2 class="exercise-title">Ejercicio 26</h2>
 
-      <app-collapsible>
-        <span collapsible-header-closed>Ver solución</span>
-        <span collapsible-header-open>Ocultar solución</span>
+        <p class="exercise-statement">
+          Mostrar la localidad de los concesionarios en los que ha comprado coches 'Javier Guerrero Suárez'.
+        </p>
 
-        <app-terminal-code collapsible-content>
-          <pre terminal-code-command>select con.localidad
+        <app-collapsible>
+          <span appCollapsibleOpenAction>Ver solución</span>
+
+          <app-terminal-code appCollapsibleContent>
+            <pre terminal-code-command>select con.localidad
 from CONCESIONARIO con, VENTA v, CLIENTE cl
 where v.cod_cliente=cl.dni and v.cod_concesionario=con.codigo
 and cl.nombre='Javier Guerrero Suárez';</pre>
-          <pre terminal-code-output>+----------------------------+
+            <pre terminal-code-output>+----------------------------+
 | localidad                  |
 +----------------------------+
 | Murcia                     |
@@ -898,27 +925,28 @@ and cl.nombre='Javier Guerrero Suárez';</pre>
 | Barcelona                  |
 +----------------------------+
 4 rows in set (0,00 sec)</pre>
-        </app-terminal-code>
-      </app-collapsible>
-    </div>
+          </app-terminal-code>
 
-    <div class="exercise-block">
-      <h2 class="exercise-title">Ejercicio 27</h2>
+          <span appCollapsibleCloseAction>Ocultar solución</span>
+        </app-collapsible>
+      </div>
 
-      <p class="exercise-statement">
-        Seleccionar el nombre de los clientes que han comprado coches híbrido enchufable.
-      </p>
+      <div class="exercise-block">
+        <h2 class="exercise-title">Ejercicio 27</h2>
 
-      <app-collapsible>
-        <span collapsible-header-closed>Ver solución</span>
-        <span collapsible-header-open>Ocultar solución</span>
+        <p class="exercise-statement">
+          Seleccionar el nombre de los clientes que han comprado coches híbrido enchufable.
+        </p>
 
-        <app-terminal-code collapsible-content>
-          <pre terminal-code-command>select cl.nombre
+        <app-collapsible>
+          <span appCollapsibleOpenAction>Ver solución</span>
+
+          <app-terminal-code appCollapsibleContent>
+            <pre terminal-code-command>select cl.nombre
 from CLIENTE cl, VENTA v, COCHE co, PROPULSION p
 where cl.dni=v.cod_cliente and v.cod_coche=co.codigo and co.cod_prop=p.id
 and p.nombre='hibrido enchufable';</pre>
-          <pre terminal-code-output>+-------------------------------+
+            <pre terminal-code-output>+-------------------------------+
 | nombre                        |
 +-------------------------------+
 | Rosa Sanz Ortega              |
@@ -930,27 +958,27 @@ and p.nombre='hibrido enchufable';</pre>
 | Francisco Rodríguez Marín     |
 +-------------------------------+
 68 rows in set (0,00 sec)</pre>
-        </app-terminal-code>
-      </app-collapsible>
-    </div>
+          </app-terminal-code>
 
-    <div class="exercise-block">
-      <h2 class="exercise-title">Ejercicio 28</h2>
+          <span appCollapsibleCloseAction>Ocultar solución</span>
+        </app-collapsible>
+      </div>
+      <div class="exercise-block">
+        <h2 class="exercise-title">Ejercicio 28</h2>
 
-      <p class="exercise-statement">
-        Mostrar los clientes que han comprado coches en el concesionario de Valencia.
-      </p>
+        <p class="exercise-statement">
+          Mostrar los clientes que han comprado coches en el concesionario de Valencia.
+        </p>
 
-      <app-collapsible>
-        <span collapsible-header-closed>Ver solución</span>
-        <span collapsible-header-open>Ocultar solución</span>
+        <app-collapsible>
+          <span appCollapsibleOpenAction>Ver solución</span>
 
-        <app-terminal-code collapsible-content>
-          <pre terminal-code-command>select cl.dni, cl.nombre
+          <app-terminal-code appCollapsibleContent>
+            <pre terminal-code-command>select cl.dni, cl.nombre
 from CLIENTE cl, VENTA v, CONCESIONARIO c
 where cl.dni=v.cod_cliente and v.cod_concesionario=c.codigo
 and c.localidad="Valencia";</pre>
-          <pre terminal-code-output>+-----------+----------------------------+
+            <pre terminal-code-output>+-----------+----------------------------+
 | dni       | nombre                     |
 +-----------+----------------------------+
 | 88831254L | Isabel Ortiz Castro        |
@@ -962,26 +990,27 @@ and c.localidad="Valencia";</pre>
 | 23488734H | Sofía Marín Ramos          |
 +-----------+----------------------------+
 33 rows in set (0,01 sec)</pre>
-        </app-terminal-code>
-      </app-collapsible>
-    </div>
+          </app-terminal-code>
 
-    <div class="exercise-block">
-      <h2 class="exercise-title">Ejercicio 29</h2>
+          <span appCollapsibleCloseAction>Ocultar solución</span>
+        </app-collapsible>
+      </div>
 
-      <p class="exercise-statement">
-        Mostrar el número disponible de coches de la marca Nissan en el concesionario de Córdoba.
-      </p>
+      <div class="exercise-block">
+        <h2 class="exercise-title">Ejercicio 29</h2>
 
-      <app-collapsible>
-        <span collapsible-header-closed>Ver solución</span>
-        <span collapsible-header-open>Ocultar solución</span>
+        <p class="exercise-statement">
+          Mostrar el número disponible de coches de la marca Nissan en el concesionario de Córdoba.
+        </p>
 
-        <app-terminal-code collapsible-content>
-          <pre terminal-code-command>select o.cantidad, c.modelo from MARCA m, COCHE c, OFRECE o, CONCESIONARIO con
+        <app-collapsible>
+          <span appCollapsibleOpenAction>Ver solución</span>
+
+          <app-terminal-code appCollapsibleContent>
+            <pre terminal-code-command>select o.cantidad, c.modelo from MARCA m, COCHE c, OFRECE o, CONCESIONARIO con
 where con.codigo=o.cod_concesionario and o.cod_coche=c.codigo and c.cod_marca=m.codigo
 and m.nombre="Nissan" and con.localidad="Cordoba";</pre>
-          <pre terminal-code-output>+----------+--------+
+            <pre terminal-code-output>+----------+--------+
 | cantidad | modelo |
 +----------+--------+
 |       11 | Micra  |
@@ -989,53 +1018,55 @@ and m.nombre="Nissan" and con.localidad="Cordoba";</pre>
 |       25 | GT-R   |
 +----------+--------+
 3 rows in set (0,00 sec)</pre>
-        </app-terminal-code>
-      </app-collapsible>
-    </div>
+          </app-terminal-code>
 
-    <div class="exercise-block">
-      <h2 class="exercise-title">Ejercicio 30</h2>
+          <span appCollapsibleCloseAction>Ocultar solución</span>
+        </app-collapsible>
+      </div>
 
-      <p class="exercise-statement">
-        Mostrar la marca y modelo del coche, y la localidad de los concesionarios donde está disponible el coche con
-        codigo 258.
-      </p>
+      <div class="exercise-block">
+        <h2 class="exercise-title">Ejercicio 30</h2>
 
-      <app-collapsible>
-        <span collapsible-header-closed>Ver solución</span>
-        <span collapsible-header-open>Ocultar solución</span>
+        <p class="exercise-statement">
+          Mostrar la marca y modelo del coche, y la localidad de los concesionarios donde está disponible el coche con
+          codigo 258.
+        </p>
 
-        <app-terminal-code collapsible-content>
-          <pre terminal-code-command>select m.nombre, c.modelo, con.localidad, o.cantidad
+        <app-collapsible>
+          <span appCollapsibleOpenAction>Ver solución</span>
+
+          <app-terminal-code appCollapsibleContent>
+            <pre terminal-code-command>select m.nombre, c.modelo, con.localidad, o.cantidad
 from MARCA m, COCHE c, OFRECE o, CONCESIONARIO con
 where m.codigo=c.cod_marca and c.codigo=o.cod_coche and o.cod_concesionario=con.codigo
 and c.codigo=258 and o.cantidad&gt;0;</pre>
-          <pre terminal-code-output>+---------+--------+-----------+----------+
+            <pre terminal-code-output>+---------+--------+-----------+----------+
 | nombre  | modelo | localidad | cantidad |
 +---------+--------+-----------+----------+
 | Peugeot | Expert | Murcia    |       18 |
 | Peugeot | Expert | Palma     |       29 |
 +---------+--------+-----------+----------+
 2 rows in set (0,00 sec)</pre>
-        </app-terminal-code>
-      </app-collapsible>
-    </div>
+          </app-terminal-code>
 
-    <div class="exercise-block">
-      <h2 class="exercise-title">Ejercicio 31</h2>
+          <span appCollapsibleCloseAction>Ocultar solución</span>
+        </app-collapsible>
+      </div>
 
-      <p class="exercise-statement">
-        Obtener todos los modelos de la marca Kia.
-      </p>
+      <div class="exercise-block">
+        <h2 class="exercise-title">Ejercicio 31</h2>
 
-      <app-collapsible>
-        <span collapsible-header-closed>Ver solución</span>
-        <span collapsible-header-open>Ocultar solución</span>
+        <p class="exercise-statement">
+          Obtener todos los modelos de la marca Kia.
+        </p>
 
-        <app-terminal-code collapsible-content>
-          <span terminal-code-command>select DISTINCT c.modelo from MARCA m, COCHE c where m.codigo=c.cod_marca and
-            m.nombre="Kia";</span>
-          <pre terminal-code-output>+-----------+
+        <app-collapsible>
+          <span appCollapsibleOpenAction>Ver solución</span>
+
+          <app-terminal-code appCollapsibleContent>
+            <span terminal-code-command>select DISTINCT c.modelo from MARCA m, COCHE c where m.codigo=c.cod_marca and
+              m.nombre="Kia";</span>
+            <pre terminal-code-output>+-----------+
 | modelo    |
 +-----------+
 | Picanto   |
@@ -1048,29 +1079,30 @@ and c.codigo=258 and o.cantidad&gt;0;</pre>
 | Telluride |
 +-----------+
 8 rows in set (0,00 sec)</pre>
-        </app-terminal-code>
-      </app-collapsible>
-    </div>
+          </app-terminal-code>
 
-    <div class="exercise-block">
-      <h2 class="exercise-title">Ejercicio 32</h2>
+          <span appCollapsibleCloseAction>Ocultar solución</span>
+        </app-collapsible>
+      </div>
 
-      <p class="exercise-statement">
-        Mostrar la información de los mecánicos, el nombre de la marca y modelo del coche, de mecánicos que han reparado
-        coches cuya marca contienen la vocal I seguida inmediatamente por una A o coches cuyo modelo contienen la vocal
-        E seguida inmediatamente por la vocal O. Ordenar la salida por nombre del mecánico.
-      </p>
+      <div class="exercise-block">
+        <h2 class="exercise-title">Ejercicio 32</h2>
 
-      <app-collapsible>
-        <span collapsible-header-closed>Ver solución</span>
-        <span collapsible-header-open>Ocultar solución</span>
+        <p class="exercise-statement">
+          Mostrar la información de los mecánicos, el nombre de la marca y modelo del coche, de mecánicos que han
+          reparado coches cuya marca contienen la vocal I seguida inmediatamente por una A o coches cuyo modelo
+          contienen la vocal E seguida inmediatamente por la vocal O. Ordenar la salida por nombre del mecánico.
+        </p>
 
-        <app-terminal-code collapsible-content>
-          <pre terminal-code-command>select DISTINCT me.nombre, me.ciudad, ma.nombre, c.modelo
+        <app-collapsible>
+          <span appCollapsibleOpenAction>Ver solución</span>
+
+          <app-terminal-code appCollapsibleContent>
+            <pre terminal-code-command>select DISTINCT me.nombre, me.ciudad, ma.nombre, c.modelo
 from MARCA ma, COCHE c, REPARA r, MECANICO me
 where ma.codigo=c.cod_marca and c.codigo=r.cod_coche and r.cod_mecanico=me.codigo
 and (ma.nombre LIKE "%IA%" OR c.modelo LIKE "%EO%") ORDER BY 1;</pre>
-          <pre terminal-code-output>+---------------------------------------+------------------------+------------+--------------------+
+            <pre terminal-code-output>+---------------------------------------+------------------------+------------+--------------------+
 | nombre                                | ciudad                 | nombre     | modelo             |
 +---------------------------------------+------------------------+------------+--------------------+
 | Diagnóstico Hábil Total               | Burgos                 | Fiat       | 500L Trekking      |
@@ -1084,28 +1116,29 @@ and (ma.nombre LIKE "%IA%" OR c.modelo LIKE "%EO%") ORDER BY 1;</pre>
 | Técnica Preciso del Motor             | Castellón de la Plana  | Volkswagen | Arteon             |
 +---------------------------------------+------------------------+------------+--------------------+
 80 rows in set (0,01 sec)</pre>
-        </app-terminal-code>
-      </app-collapsible>
-    </div>
+          </app-terminal-code>
 
-    <div class="exercise-block">
-      <h2 class="exercise-title">Ejercicio 33</h2>
+          <span appCollapsibleCloseAction>Ocultar solución</span>
+        </app-collapsible>
+      </div>
 
-      <p class="exercise-statement">
-        Mostrar el dni, nombre y teléfono de los clientes que han comprado un coche en el concesionario de Murcia en el
-        año 2020.
-      </p>
+      <div class="exercise-block">
+        <h2 class="exercise-title">Ejercicio 33</h2>
 
-      <app-collapsible>
-        <span collapsible-header-closed>Ver solución</span>
-        <span collapsible-header-open>Ocultar solución</span>
+        <p class="exercise-statement">
+          Mostrar el dni, nombre y teléfono de los clientes que han comprado un coche en el concesionario de Murcia en
+          el año 2020.
+        </p>
 
-        <app-terminal-code collapsible-content>
-          <pre terminal-code-command>select cl.dni, cl.nombre, cl.telefono, v.fecha
+        <app-collapsible>
+          <span appCollapsibleOpenAction>Ver solución</span>
+
+          <app-terminal-code appCollapsibleContent>
+            <pre terminal-code-command>select cl.dni, cl.nombre, cl.telefono, v.fecha
 from CLIENTE cl, VENTA v, CONCESIONARIO con
 where cl.dni=v.cod_cliente and v.cod_concesionario=con.codigo
 and con.localidad="Murcia" and YEAR(v.fecha)=2020;</pre>
-          <pre terminal-code-output>+-----------+------------------------------------+-----------+------------+
+            <pre terminal-code-output>+-----------+------------------------------------+-----------+------------+
 | dni       | nombre                             | telefono  | fecha      |
 +-----------+------------------------------------+-----------+------------+
 | 04287342E | Sara Hernández Jiménez             | 904816461 | 2020-06-14 |
@@ -1114,26 +1147,27 @@ and con.localidad="Murcia" and YEAR(v.fecha)=2020;</pre>
 | 73454716H | Miriam Blanco Romero               | 684549080 | 2020-09-05 |
 +-----------+------------------------------------+-----------+------------+
 4 rows in set (0,00 sec)</pre>
-        </app-terminal-code>
-      </app-collapsible>
-    </div>
+          </app-terminal-code>
 
-    <div class="exercise-block">
-      <h2 class="exercise-title">Ejercicio 34</h2>
+          <span appCollapsibleCloseAction>Ocultar solución</span>
+        </app-collapsible>
+      </div>
 
-      <p class="exercise-statement">
-        Mostrar el nombre de las marcas de coche y la sede que ha reparado el taller con código 1.
-      </p>
+      <div class="exercise-block">
+        <h2 class="exercise-title">Ejercicio 34</h2>
 
-      <app-collapsible>
-        <span collapsible-header-closed>Ver solución</span>
-        <span collapsible-header-open>Ocultar solución</span>
+        <p class="exercise-statement">
+          Mostrar el nombre de las marcas de coche y la sede que ha reparado el taller con código 1.
+        </p>
 
-        <app-terminal-code collapsible-content>
-          <pre terminal-code-command>select DISTINCT ma.nombre, ma.sede from MARCA ma, COCHE c, REPARA r, MECANICO me
+        <app-collapsible>
+          <span appCollapsibleOpenAction>Ver solución</span>
+
+          <app-terminal-code appCollapsibleContent>
+            <pre terminal-code-command>select DISTINCT ma.nombre, ma.sede from MARCA ma, COCHE c, REPARA r, MECANICO me
 where ma.codigo=c.cod_marca and c.codigo=r.cod_coche and r.cod_mecanico=me.codigo
 and me.codigo=1;</pre>
-          <pre terminal-code-output>+---------+----------------+
+            <pre terminal-code-output>+---------+----------------+
 | nombre  | sede           |
 +---------+----------------+
 | Fiat    | Italia         |
@@ -1148,57 +1182,59 @@ and me.codigo=1;</pre>
 | Mazda   | Japón          |
 +---------+----------------+
 10 rows in set (0,00 sec)</pre>
-        </app-terminal-code>
-      </app-collapsible>
-    </div>
-  </section>
+          </app-terminal-code>
 
-  <section>
-    <p>
-      Los ejercicios a continuación son similares a los anteriores que implicaban varias tablas, pero se resuelven
-      usando las cláusulas JOIN, LEFT JOIN o RIGHT JOIN.
-    </p>
+          <span appCollapsibleCloseAction>Ocultar solución</span>
+        </app-collapsible>
+      </div>
+    </section>
 
-    <div class="exercise-block">
-      <h2 class="exercise-title">Ejercicio 35</h2>
-
-      <p class="exercise-statement">
-        Seleccionar los modelos de coche propulsados con hidrógeno y que sean de la marca con código 1.
+    <section>
+      <p>
+        Los ejercicios a continuación son similares a los anteriores que implicaban varias tablas, pero se resuelven
+        usando las cláusulas JOIN, LEFT JOIN o RIGHT JOIN.
       </p>
 
-      <app-collapsible>
-        <span collapsible-header-closed>Ver solución</span>
-        <span collapsible-header-open>Ocultar solución</span>
+      <div class="exercise-block">
+        <h2 class="exercise-title">Ejercicio 35</h2>
 
-        <app-terminal-code collapsible-content>
-          <pre terminal-code-command>select c.modelo from COCHE c JOIN PROPULSION p ON c.cod_prop=p.id
+        <p class="exercise-statement">
+          Seleccionar los modelos de coche propulsados con hidrógeno y que sean de la marca con código 1.
+        </p>
+
+        <app-collapsible>
+          <span appCollapsibleOpenAction>Ver solución</span>
+
+          <app-terminal-code appCollapsibleContent>
+            <pre terminal-code-command>select c.modelo from COCHE c JOIN PROPULSION p ON c.cod_prop=p.id
 where c.cod_marca=1 and p.nombre="Hidrógeno";</pre>
-          <pre terminal-code-output>+--------+
+            <pre terminal-code-output>+--------+
 | modelo |
 +--------+
 | Mirai  |
 +--------+
 1 row in set (0,00 sec)</pre>
-        </app-terminal-code>
-      </app-collapsible>
-    </div>
+          </app-terminal-code>
 
-    <div class="exercise-block">
-      <h2 class="exercise-title">Ejercicio 36</h2>
+          <span appCollapsibleCloseAction>Ocultar solución</span>
+        </app-collapsible>
+      </div>
 
-      <p class="exercise-statement">
-        Obtener un listado de los coches de la marca Chevrolet que han sido reparados.
-      </p>
+      <div class="exercise-block">
+        <h2 class="exercise-title">Ejercicio 36</h2>
 
-      <app-collapsible>
-        <span collapsible-header-closed>Ver solución</span>
-        <span collapsible-header-open>Ocultar solución</span>
+        <p class="exercise-statement">
+          Obtener un listado de los coches de la marca Chevrolet que han sido reparados.
+        </p>
 
-        <app-terminal-code collapsible-content>
-          <pre terminal-code-command>select m.nombre, c.modelo
+        <app-collapsible>
+          <span appCollapsibleOpenAction>Ver solución</span>
+
+          <app-terminal-code appCollapsibleContent>
+            <pre terminal-code-command>select m.nombre, c.modelo
 from (MARCA m JOIN COCHE c ON m.codigo=c.cod_marca) JOIN REPARA r ON c.cod_marca=r.id
 where m.nombre="Chevrolet";</pre>
-          <pre terminal-code-output>+-----------+----------+
+            <pre terminal-code-output>+-----------+----------+
 | nombre    | modelo   |
 +-----------+----------+
 | Chevrolet | Bel Air  |
@@ -1209,27 +1245,28 @@ where m.nombre="Chevrolet";</pre>
 | Chevrolet | Nova     |
 +-----------+----------+
 6 rows in set (0,00 sec)</pre>
-        </app-terminal-code>
-      </app-collapsible>
-    </div>
+          </app-terminal-code>
 
-    <div class="exercise-block">
-      <h2 class="exercise-title">Ejercicio 37</h2>
+          <span appCollapsibleCloseAction>Ocultar solución</span>
+        </app-collapsible>
+      </div>
 
-      <p class="exercise-statement">
-        Obtener la lista de modelos de coche que ha comprado el cliente con DNI 98531793A.
-      </p>
+      <div class="exercise-block">
+        <h2 class="exercise-title">Ejercicio 37</h2>
 
-      <app-collapsible>
-        <span collapsible-header-closed>Ver solución</span>
-        <span collapsible-header-open>Ocultar solución</span>
+        <p class="exercise-statement">
+          Obtener la lista de modelos de coche que ha comprado el cliente con DNI 98531793A.
+        </p>
 
-        <app-terminal-code collapsible-content>
-          <pre terminal-code-command>select co.modelo
+        <app-collapsible>
+          <span appCollapsibleOpenAction>Ver solución</span>
+
+          <app-terminal-code appCollapsibleContent>
+            <pre terminal-code-command>select co.modelo
 from (CLIENTE cl JOIN VENTA v ON cl.dni=v.cod_cliente)
 JOIN COCHE co ON co.codigo=v.cod_coche
 where cl.dni="98531793A";</pre>
-          <pre terminal-code-output>+--------+
+            <pre terminal-code-output>+--------+
 | modelo |
 +--------+
 | CX-5   |
@@ -1238,56 +1275,58 @@ where cl.dni="98531793A";</pre>
 | Arteon |
 +--------+
 4 rows in set (0,00 sec)</pre>
-        </app-terminal-code>
-      </app-collapsible>
-    </div>
+          </app-terminal-code>
 
-    <div class="exercise-block">
-      <h2 class="exercise-title">Ejercicio 38</h2>
+          <span appCollapsibleCloseAction>Ocultar solución</span>
+        </app-collapsible>
+      </div>
 
-      <p class="exercise-statement">
-        Mostrar la localidad del concesionario donde ha realizado compras el cliente con número de teléfono
-        670436964.
-      </p>
+      <div class="exercise-block">
+        <h2 class="exercise-title">Ejercicio 38</h2>
 
-      <app-collapsible>
-        <span collapsible-header-closed>Ver solución</span>
-        <span collapsible-header-open>Ocultar solución</span>
+        <p class="exercise-statement">
+          Mostrar la localidad del concesionario donde ha realizado compras el cliente con número de teléfono
+          670436964.
+        </p>
 
-        <app-terminal-code collapsible-content>
-          <pre terminal-code-command>select con.localidad
+        <app-collapsible>
+          <span appCollapsibleOpenAction>Ver solución</span>
+
+          <app-terminal-code appCollapsibleContent>
+            <pre terminal-code-command>select con.localidad
 from (CONCESIONARIO con JOIN VENTA v ON con.codigo=v.cod_concesionario)
 JOIN CLIENTE cl ON cl.dni=v.cod_cliente
 where cl.telefono="670436964";</pre>
-          <pre terminal-code-output>+-----------+
+            <pre terminal-code-output>+-----------+
 | localidad |
 +-----------+
 | Alicante  |
 +-----------+
 1 row in set (0,00 sec)</pre>
-        </app-terminal-code>
-      </app-collapsible>
-    </div>
+          </app-terminal-code>
 
-    <div class="exercise-block">
-      <h2 class="exercise-title">Ejercicio 39</h2>
+          <span appCollapsibleCloseAction>Ocultar solución</span>
+        </app-collapsible>
+      </div>
 
-      <p class="exercise-statement">
-        Obtener el listado de clientes que han comprado coches propulsados con diésel a partir del día 20 de junio del
-        2020.
-      </p>
+      <div class="exercise-block">
+        <h2 class="exercise-title">Ejercicio 39</h2>
 
-      <app-collapsible>
-        <span collapsible-header-closed>Ver solución</span>
-        <span collapsible-header-open>Ocultar solución</span>
+        <p class="exercise-statement">
+          Obtener el listado de clientes que han comprado coches propulsados con diésel a partir del día 20 de junio del
+          2020.
+        </p>
 
-        <app-terminal-code collapsible-content>
-          <pre terminal-code-command>select cl.dni, cl.nombre, cl.telefono, v.fecha
+        <app-collapsible>
+          <span appCollapsibleOpenAction>Ver solución</span>
+
+          <app-terminal-code appCollapsibleContent>
+            <pre terminal-code-command>select cl.dni, cl.nombre, cl.telefono, v.fecha
 from ((CLIENTE cl JOIN VENTA v ON cl.dni=v.cod_cliente)
 JOIN COCHE co ON v.cod_coche=co.codigo)
 JOIN PROPULSION p ON co.cod_prop=p.id
 where p.nombre="Diésel" and v.fecha &gt; '2020-06-20';</pre>
-          <pre terminal-code-output>+-----------+------------------------------+-----------+------------+
+            <pre terminal-code-output>+-----------+------------------------------+-----------+------------+
 | dni       | nombre                       | telefono  | fecha      |
 +-----------+------------------------------+-----------+------------+
 | 60002680E | Jesús Muñoz Alonso           | 967695378 | 2022-11-14 |
@@ -1299,30 +1338,31 @@ where p.nombre="Diésel" and v.fecha &gt; '2020-06-20';</pre>
 | 92126794V | Luisa Martín Torres          | 954102552 | 2021-07-11 |
 +-----------+------------------------------+-----------+------------+
 16 rows in set (0,00 sec)</pre>
-        </app-terminal-code>
-      </app-collapsible>
-    </div>
+          </app-terminal-code>
 
-    <div class="exercise-block">
-      <h2 class="exercise-title">Ejercicio 40</h2>
+          <span appCollapsibleCloseAction>Ocultar solución</span>
+        </app-collapsible>
+      </div>
 
-      <p class="exercise-statement">
-        Obtener la lista de coches (código, marca y modelo) que ofrece el concesionario con código 1 y si el coche se ha
-        vendido, indicar el número de factura, dni y el nombre del cliente.
-      </p>
+      <div class="exercise-block">
+        <h2 class="exercise-title">Ejercicio 40</h2>
 
-      <app-collapsible>
-        <span collapsible-header-closed>Ver solución</span>
-        <span collapsible-header-open>Ocultar solución</span>
+        <p class="exercise-statement">
+          Obtener la lista de coches (código, marca y modelo) que ofrece el concesionario con código 1 y si el coche se
+          ha vendido, indicar el número de factura, dni y el nombre del cliente.
+        </p>
 
-        <app-terminal-code collapsible-content>
-          <pre terminal-code-command>select co.codigo as cod_coche, ma.nombre as marca, co.modelo, v.num_factura, cl.dni, cl.nombre
+        <app-collapsible>
+          <span appCollapsibleOpenAction>Ver solución</span>
+
+          <app-terminal-code appCollapsibleContent>
+            <pre terminal-code-command>select co.codigo as cod_coche, ma.nombre as marca, co.modelo, v.num_factura, cl.dni, cl.nombre
 from (((MARCA ma JOIN COCHE co ON ma.codigo=co.cod_marca)
 JOIN OFRECE o ON co.codigo=o.cod_coche)
 LEFT JOIN VENTA v ON o.cod_coche=v.cod_coche and o.cod_concesionario=v.cod_concesionario)
 LEFT JOIN CLIENTE cl ON v.cod_cliente=cl.dni
 where o.cod_concesionario=1 order by num_factura DESC;</pre>
-          <pre terminal-code-output>+-----------+---------------+------------+-------------+-----------+-------------------------------+
+            <pre terminal-code-output>+-----------+---------------+------------+-------------+-----------+-------------------------------+
 | cod_coche | marca         | modelo     | num_factura | dni       | nombre                        |
 +-----------+---------------+------------+-------------+-----------+-------------------------------+
 |       315 | Seat          | Leon       | 96          | 55189313J | Isabel Morales Gómez          |
@@ -1342,29 +1382,30 @@ where o.cod_concesionario=1 order by num_factura DESC;</pre>
 |        88 | Audi          | A7         | NULL        | NULL      | NULL                          |
 +-----------+---------------+------------+-------------+-----------+-------------------------------+
 71 rows in set (0,00 sec)</pre>
-        </app-terminal-code>
-      </app-collapsible>
-    </div>
+          </app-terminal-code>
 
-    <div class="exercise-block">
-      <h2 class="exercise-title">Ejercicio 41</h2>
+          <span appCollapsibleCloseAction>Ocultar solución</span>
+        </app-collapsible>
+      </div>
 
-      <p class="exercise-statement">
-        Listar las marcas, modelos y propulsión de los coches que no están disponibles en el concesionario de Gijón.
-      </p>
+      <div class="exercise-block">
+        <h2 class="exercise-title">Ejercicio 41</h2>
 
-      <app-collapsible>
-        <span collapsible-header-closed>Ver solución</span>
-        <span collapsible-header-open>Ocultar solución</span>
+        <p class="exercise-statement">
+          Listar las marcas, modelos y propulsión de los coches que no están disponibles en el concesionario de Gijón.
+        </p>
 
-        <app-terminal-code collapsible-content>
-          <pre terminal-code-command>select ma.nombre, co.modelo, p.nombre
+        <app-collapsible>
+          <span appCollapsibleOpenAction>Ver solución</span>
+
+          <app-terminal-code appCollapsibleContent>
+            <pre terminal-code-command>select ma.nombre, co.modelo, p.nombre
 from (((CONCESIONARIO con JOIN OFRECE o ON con.codigo=o.cod_concesionario and con.localidad="Gijón")
 RIGHT JOIN COCHE co ON o.cod_coche=co.codigo)
 JOIN MARCA ma ON ma.codigo=co.cod_marca)
 JOIN PROPULSION p ON co.cod_prop=p.id
 where o.cod_coche is null; </pre>
-          <pre terminal-code-output>+---------------+--------------------+---------------------+
+            <pre terminal-code-output>+---------------+--------------------+---------------------+
 | nombre        | modelo             | nombre              |
 +---------------+--------------------+---------------------+
 | Toyota        | Corolla            | Gasolina            |
@@ -1380,30 +1421,31 @@ where o.cod_coche is null; </pre>
 | Renault       | Laguna             | Híbrido             |
 +---------------+--------------------+---------------------+
 303 rows in set (0,00 sec)</pre>
-        </app-terminal-code>
-      </app-collapsible>
-    </div>
+          </app-terminal-code>
 
-    <div class="exercise-block">
-      <h2 class="exercise-title">Ejercicio 42</h2>
+          <span appCollapsibleCloseAction>Ocultar solución</span>
+        </app-collapsible>
+      </div>
 
-      <p class="exercise-statement">
-        Obtener el nombre de los clientes que han comprado coches en los concesionarios de Bilbao (código 10) o Zaragoza
-        (código 5).
-      </p>
+      <div class="exercise-block">
+        <h2 class="exercise-title">Ejercicio 42</h2>
 
-      <app-collapsible>
-        <span collapsible-header-closed>Ver solución</span>
-        <span collapsible-header-open>Ocultar solución</span>
+        <p class="exercise-statement">
+          Obtener el nombre de los clientes que han comprado coches en los concesionarios de Bilbao (código 10) o
+          Zaragoza (código 5).
+        </p>
 
-        <div collapsible-content>
-          <span>Solución 1:</span>
+        <app-collapsible>
+          <span appCollapsibleOpenAction>Ver solución</span>
 
-          <app-terminal-code>
-            <pre terminal-code-command>select cl.dni, cl.nombre
+          <div appCollapsibleContent>
+            <span>Solución 1:</span>
+
+            <app-terminal-code>
+              <pre terminal-code-command>select cl.dni, cl.nombre
 from CLIENTE cl JOIN VENTA v ON cl.dni=v.cod_cliente
 where v.cod_concesionario IN (5, 10);</pre>
-            <pre terminal-code-output>+-----------+------------------------------+
+              <pre terminal-code-output>+-----------+------------------------------+
 | dni       | nombre                       |
 +-----------+------------------------------+
 | 03186492D | Eva Rubio Ramos              |
@@ -1414,15 +1456,15 @@ where v.cod_concesionario IN (5, 10);</pre>
 | 60360886J | Jorge Calvo Morales          |
 +-----------+------------------------------+
 82 rows in set (0,00 sec)</pre>
-          </app-terminal-code>
+            </app-terminal-code>
 
-          <span>Solución 2:</span>
+            <span>Solución 2:</span>
 
-          <app-terminal-code>
-            <pre terminal-code-command>select cl.dni, cl.nombre
+            <app-terminal-code>
+              <pre terminal-code-command>select cl.dni, cl.nombre
 from CLIENTE cl JOIN VENTA v ON cl.dni=v.cod_cliente
 where v.cod_concesionario=5 or v.cod_concesionario=10;</pre>
-            <pre terminal-code-output>+-----------+------------------------------+
+              <pre terminal-code-output>+-----------+------------------------------+
 | dni       | nombre                       |
 +-----------+------------------------------+
 | 03186492D | Eva Rubio Ramos              |
@@ -1433,19 +1475,19 @@ where v.cod_concesionario=5 or v.cod_concesionario=10;</pre>
 | 60360886J | Jorge Calvo Morales          |
 +-----------+------------------------------+
 82 rows in set (0,00 sec)</pre>
-          </app-terminal-code>
+            </app-terminal-code>
 
-          <span>Solución 3:</span>
+            <span>Solución 3:</span>
 
-          <app-terminal-code>
-            <pre terminal-code-command>select cl.dni, cl.nombre
+            <app-terminal-code>
+              <pre terminal-code-command>select cl.dni, cl.nombre
 from CLIENTE cl JOIN VENTA v ON cl.dni=v.cod_cliente
 where v.cod_concesionario=5
 union all
 select cl.dni, cl.nombre
 from CLIENTE cl JOIN VENTA v ON cl.dni=v.cod_cliente
 where v.cod_concesionario=10;</pre>
-            <pre terminal-code-output>+-----------+------------------------------+
+              <pre terminal-code-output>+-----------+------------------------------+
 | dni       | nombre                       |
 +-----------+------------------------------+
 | 03186492D | Eva Rubio Ramos              |
@@ -1462,28 +1504,29 @@ where v.cod_concesionario=10;</pre>
 | 51916482J | Miguel Gil González          |
 +-----------+------------------------------+
 82 rows in set (0,00 sec)</pre>
-          </app-terminal-code>
-        </div>
-      </app-collapsible>
-    </div>
+            </app-terminal-code>
+          </div>
 
-    <div class="exercise-block">
-      <h2 class="exercise-title">Ejercicio 43</h2>
+          <span appCollapsibleCloseAction>Ocultar solución</span>
+        </app-collapsible>
+      </div>
 
-      <p class="exercise-statement">
-        Obtener el nombre de los clientes que han comprado coches tanto en el concesionario con código 13 como en el
-        concesionario con código 1.
-      </p>
+      <div class="exercise-block">
+        <h2 class="exercise-title">Ejercicio 43</h2>
 
-      <app-collapsible>
-        <span collapsible-header-closed>Ver solución</span>
-        <span collapsible-header-open>Ocultar solución</span>
+        <p class="exercise-statement">
+          Obtener el nombre de los clientes que han comprado coches tanto en el concesionario con código 13 como en el
+          concesionario con código 1.
+        </p>
 
-        <app-terminal-code collapsible-content>
-          <pre terminal-code-command>select cl.nombre from VENTA v JOIN CLIENTE cl ON cl.dni=v.cod_cliente where v.cod_concesionario=13
+        <app-collapsible>
+          <span appCollapsibleOpenAction>Ver solución</span>
+
+          <app-terminal-code appCollapsibleContent>
+            <pre terminal-code-command>select cl.nombre from VENTA v JOIN CLIENTE cl ON cl.dni=v.cod_cliente where v.cod_concesionario=13
 intersect
 select cl.nombre from VENTA v JOIN CLIENTE cl ON cl.dni=v.cod_cliente where v.cod_concesionario=1;</pre>
-          <pre terminal-code-output>+----------------------+
+            <pre terminal-code-output>+----------------------+
 | nombre               |
 +----------------------+
 | David Romero López   |
@@ -1491,28 +1534,29 @@ select cl.nombre from VENTA v JOIN CLIENTE cl ON cl.dni=v.cod_cliente where v.co
 | Hugo Serrano Prieto  |
 +----------------------+
 3 rows in set (0,00 sec)</pre>
-        </app-terminal-code>
-      </app-collapsible>
-    </div>
+          </app-terminal-code>
 
-    <div class="exercise-block">
-      <h2 class="exercise-title">Ejercicio 44</h2>
+          <span appCollapsibleCloseAction>Ocultar solución</span>
+        </app-collapsible>
+      </div>
 
-      <p class="exercise-statement">
-        Obtener un listado de los clientes llamados Silvia y que han comprado un coche en el concesionario de Alicante
-        (código 11). Mostrar los datos de la venta. Todos los clientes llamados Silvia aparecerán igualmente en el
-        listado.
-      </p>
+      <div class="exercise-block">
+        <h2 class="exercise-title">Ejercicio 44</h2>
 
-      <app-collapsible>
-        <span collapsible-header-closed>Ver solución</span>
-        <span collapsible-header-open>Ocultar solución</span>
+        <p class="exercise-statement">
+          Obtener un listado de los clientes llamados Silvia y que han comprado un coche en el concesionario de Alicante
+          (código 11). Mostrar los datos de la venta. Todos los clientes llamados Silvia aparecerán igualmente en el
+          listado.
+        </p>
 
-        <app-terminal-code collapsible-content>
-          <pre terminal-code-command>select cl.nombre, cl.dni, v.num_factura, v.precio
+        <app-collapsible>
+          <span appCollapsibleOpenAction>Ver solución</span>
+
+          <app-terminal-code appCollapsibleContent>
+            <pre terminal-code-command>select cl.nombre, cl.dni, v.num_factura, v.precio
 from CLIENTE cl LEFT JOIN VENTA v ON cl.dni=v.cod_cliente and v.cod_concesionario=4
 where cl.nombre LIKE 'Silvia%';</pre>
-          <pre terminal-code-output>+------------------------------+-----------+-------------+----------+
+            <pre terminal-code-output>+------------------------------+-----------+-------------+----------+
 | nombre                       | dni       | num_factura | precio   |
 +------------------------------+-----------+-------------+----------+
 | Silvia Iglesias Ramírez      | 31140191J | 298         | 42247.97 |
@@ -1525,47 +1569,49 @@ where cl.nombre LIKE 'Silvia%';</pre>
 | Silvia Castro Moreno         | 98366460Q | 410         | 49058.20 |
 +------------------------------+-----------+-------------+----------+
 8 rows in set (0,01 sec)</pre>
-        </app-terminal-code>
-      </app-collapsible>
-    </div>
+          </app-terminal-code>
 
-    <div class="exercise-block">
-      <h2 class="exercise-title">Ejercicio 45</h2>
+          <span appCollapsibleCloseAction>Ocultar solución</span>
+        </app-collapsible>
+      </div>
 
-      <p class="exercise-statement">
-        Listar las localidades de los concesionarios que coinciden con las ciudades de algún mecánico.
-      </p>
+      <div class="exercise-block">
+        <h2 class="exercise-title">Ejercicio 45</h2>
 
-      <app-collapsible>
-        <span collapsible-header-closed>Ver solución</span>
-        <span collapsible-header-open>Ocultar solución</span>
+        <p class="exercise-statement">
+          Listar las localidades de los concesionarios que coinciden con las ciudades de algún mecánico.
+        </p>
 
-        <app-terminal-code collapsible-content>
-          <pre terminal-code-command>select localidad from CONCESIONARIO
+        <app-collapsible>
+          <span appCollapsibleOpenAction>Ver solución</span>
+
+          <app-terminal-code appCollapsibleContent>
+            <pre terminal-code-command>select localidad from CONCESIONARIO
 INTERSECT
 select ciudad from MECANICO;</pre>
-          <pre terminal-code-output>Empty set (0,00 sec)</pre>
-        </app-terminal-code>
-      </app-collapsible>
-    </div>
+            <pre terminal-code-output>Empty set (0,00 sec)</pre>
+          </app-terminal-code>
 
-    <div class="exercise-block">
-      <h2 class="exercise-title">Ejercicio 46</h2>
+          <span appCollapsibleCloseAction>Ocultar solución</span>
+        </app-collapsible>
+      </div>
 
-      <p class="exercise-statement">
-        Obtener un listado de marcas y modelos que ofrecen coches no propulsados con diésel o gasolina.
-      </p>
+      <div class="exercise-block">
+        <h2 class="exercise-title">Ejercicio 46</h2>
 
-      <app-collapsible>
-        <span collapsible-header-closed>Ver solución</span>
-        <span collapsible-header-open>Ocultar solución</span>
+        <p class="exercise-statement">
+          Obtener un listado de marcas y modelos que ofrecen coches no propulsados con diésel o gasolina.
+        </p>
 
-        <app-terminal-code collapsible-content>
-          <pre terminal-code-command>select DISTINCT m.nombre as marca, c.modelo, p.nombre
+        <app-collapsible>
+          <span appCollapsibleOpenAction>Ver solución</span>
+
+          <app-terminal-code appCollapsibleContent>
+            <pre terminal-code-command>select DISTINCT m.nombre as marca, c.modelo, p.nombre
 from (MARCA m JOIN COCHE c ON m.codigo=c.cod_marca)
 JOIN PROPULSION p ON c.cod_prop=p.id
 where p.nombre NOT IN ('diesel', 'gasolina');</pre>
-          <pre terminal-code-output>+---------------+------------+---------------------+
+            <pre terminal-code-output>+---------------+------------+---------------------+
 | marca         | modelo     | nombre              |
 +---------------+------------+---------------------+
 | Toyota        | Corolla    | Híbrido eléctrico   |
@@ -1578,84 +1624,87 @@ where p.nombre NOT IN ('diesel', 'gasolina');</pre>
 | Renault       | Laguna     | Híbrido             |
 +---------------+------------+---------------------+
 111 rows in set (0,00 sec)</pre>
-        </app-terminal-code>
-      </app-collapsible>
-    </div>
-  </section>
+          </app-terminal-code>
 
-  <section>
-    <p>
-      Los ejercicios enunciados a continuación son sobre consultas con GROUP BY y funciones.
-    </p>
+          <span appCollapsibleCloseAction>Ocultar solución</span>
+        </app-collapsible>
+      </div>
+    </section>
 
-    <div class="exercise-block">
-      <h2 class="exercise-title">Ejercicio 47</h2>
-
-      <p class="exercise-statement">
-        Hallar el número de clientes cuyo número de teléfono empieza con 97.
+    <section>
+      <p>
+        Los ejercicios enunciados a continuación son sobre consultas con GROUP BY y funciones.
       </p>
 
-      <app-collapsible>
-        <span collapsible-header-closed>Ver solución</span>
-        <span collapsible-header-open>Ocultar solución</span>
+      <div class="exercise-block">
+        <h2 class="exercise-title">Ejercicio 47</h2>
 
-        <app-terminal-code collapsible-content>
-          <span terminal-code-command>select count(*) from CLIENTE where telefono like '97%';</span>
-          <pre terminal-code-output>+----------+
+        <p class="exercise-statement">
+          Hallar el número de clientes cuyo número de teléfono empieza con 97.
+        </p>
+
+        <app-collapsible>
+          <span appCollapsibleOpenAction>Ver solución</span>
+
+          <app-terminal-code appCollapsibleContent>
+            <span terminal-code-command>select count(*) from CLIENTE where telefono like '97%';</span>
+            <pre terminal-code-output>+----------+
 | count(*) |
 +----------+
 |       11 |
 +----------+
 1 row in set (0,00 sec)</pre>
-        </app-terminal-code>
-      </app-collapsible>
-    </div>
+          </app-terminal-code>
 
-    <div class="exercise-block">
-      <h2 class="exercise-title">Ejercicio 48</h2>
+          <span appCollapsibleCloseAction>Ocultar solución</span>
+        </app-collapsible>
+      </div>
 
-      <p class="exercise-statement">
-        Calcular la edad máxima, mínima y media de los clientes.
-      </p>
+      <div class="exercise-block">
+        <h2 class="exercise-title">Ejercicio 48</h2>
 
-      <app-collapsible>
-        <span collapsible-header-closed>Ver solución</span>
-        <span collapsible-header-open>Ocultar solución</span>
+        <p class="exercise-statement">
+          Calcular la edad máxima, mínima y media de los clientes.
+        </p>
 
-        <app-terminal-code collapsible-content>
-          <pre terminal-code-command>select
+        <app-collapsible>
+          <span appCollapsibleOpenAction>Ver solución</span>
+
+          <app-terminal-code appCollapsibleContent>
+            <pre terminal-code-command>select
 min(timestampdiff(YEAR, fecha_nac, CURDATE())) as EDAD_MIN,
 max(timestampdiff(YEAR, fecha_nac, CURDATE())) as EDAD_MAX,
 avg(timestampdiff(YEAR, fecha_nac, CURDATE())) as MEDIA
 FROM CLIENTE;</pre>
-          <pre terminal-code-output>+----------+----------+---------+
+            <pre terminal-code-output>+----------+----------+---------+
 | EDAD_MIN | EDAD_MAX | MEDIA   |
 +----------+----------+---------+
 |       23 |       68 | 44.6775 |
 +----------+----------+---------+
 1 row in set (0,00 sec)</pre>
-        </app-terminal-code>
-      </app-collapsible>
-    </div>
+          </app-terminal-code>
 
-    <div class="exercise-block">
-      <h2 class="exercise-title">Ejercicio 49</h2>
+          <span appCollapsibleCloseAction>Ocultar solución</span>
+        </app-collapsible>
+      </div>
 
-      <p class="exercise-statement">
-        Obtener el número de ventas realizadas por cada concesionario en el año 2001. Obtenerlo por orden ascendente de
-        código de concesionario.
-      </p>
+      <div class="exercise-block">
+        <h2 class="exercise-title">Ejercicio 49</h2>
 
-      <app-collapsible>
-        <span collapsible-header-closed>Ver solución</span>
-        <span collapsible-header-open>Ocultar solución</span>
+        <p class="exercise-statement">
+          Obtener el número de ventas realizadas por cada concesionario en el año 2001. Obtenerlo por orden ascendente
+          de código de concesionario.
+        </p>
 
-        <app-terminal-code collapsible-content>
-          <pre terminal-code-command>select cod_concesionario, count(*) as NUM_VENTAS
+        <app-collapsible>
+          <span appCollapsibleOpenAction>Ver solución</span>
+
+          <app-terminal-code appCollapsibleContent>
+            <pre terminal-code-command>select cod_concesionario, count(*) as NUM_VENTAS
 from VENTA
 where year(fecha)=2001
 GROUP BY cod_concesionario ORDER BY 1;</pre>
-          <pre terminal-code-output>+-------------------+------------+
+            <pre terminal-code-output>+-------------------+------------+
 | cod_concesionario | NUM_VENTAS |
 +-------------------+------------+
 |                 1 |          2 |
@@ -1667,27 +1716,28 @@ GROUP BY cod_concesionario ORDER BY 1;</pre>
 |                14 |          5 |
 +-------------------+------------+
 13 rows in set (0,00 sec)</pre>
-        </app-terminal-code>
-      </app-collapsible>
-    </div>
+          </app-terminal-code>
 
-    <div class="exercise-block">
-      <h2 class="exercise-title">Ejercicio 50</h2>
+          <span appCollapsibleCloseAction>Ocultar solución</span>
+        </app-collapsible>
+      </div>
 
-      <p class="exercise-statement">
-        Obtener el número de coches por propulsión que existen en la base de datos.
-      </p>
+      <div class="exercise-block">
+        <h2 class="exercise-title">Ejercicio 50</h2>
 
-      <app-collapsible>
-        <span collapsible-header-closed>Ver solución</span>
-        <span collapsible-header-open>Ocultar solución</span>
+        <p class="exercise-statement">
+          Obtener el número de coches por propulsión que existen en la base de datos.
+        </p>
 
-        <app-terminal-code collapsible-content>
-          <pre terminal-code-command>select p.nombre as propulsion, count(p.id) as cantidad
+        <app-collapsible>
+          <span appCollapsibleOpenAction>Ver solución</span>
+
+          <app-terminal-code appCollapsibleContent>
+            <pre terminal-code-command>select p.nombre as propulsion, count(p.id) as cantidad
 from COCHE c JOIN PROPULSION p ON c.cod_prop=p.id
 GROUP BY p.nombre
 ORDER BY 2;</pre>
-          <pre terminal-code-output>+---------------------+----------+
+            <pre terminal-code-output>+---------------------+----------+
 | propulsion          | cantidad |
 +---------------------+----------+
 | Hidrógeno           |        1 |
@@ -1700,26 +1750,27 @@ ORDER BY 2;</pre>
 | Gasolina            |      140 |
 +---------------------+----------+
 8 rows in set (0,00 sec)</pre>
-        </app-terminal-code>
-      </app-collapsible>
-    </div>
+          </app-terminal-code>
 
-    <div class="exercise-block">
-      <h2 class="exercise-title">Ejercicio 51</h2>
+          <span appCollapsibleCloseAction>Ocultar solución</span>
+        </app-collapsible>
+      </div>
 
-      <p class="exercise-statement">
-        Listar la cantidad de coches diferentes (por id) ofertada por cada concesionario.
-      </p>
+      <div class="exercise-block">
+        <h2 class="exercise-title">Ejercicio 51</h2>
 
-      <app-collapsible>
-        <span collapsible-header-closed>Ver solución</span>
-        <span collapsible-header-open>Ocultar solución</span>
+        <p class="exercise-statement">
+          Listar la cantidad de coches diferentes (por id) ofertada por cada concesionario.
+        </p>
 
-        <app-terminal-code collapsible-content>
-          <span terminal-code-command>
-            select cod_concesionario, count(cod_coche) from OFRECE GROUP BY cod_concesionario ORDER BY 1;
-          </span>
-          <pre terminal-code-output>+-------------------+------------------+
+        <app-collapsible>
+          <span appCollapsibleOpenAction>Ver solución</span>
+
+          <app-terminal-code appCollapsibleContent>
+            <span terminal-code-command>
+              select cod_concesionario, count(cod_coche) from OFRECE GROUP BY cod_concesionario ORDER BY 1;
+            </span>
+            <pre terminal-code-output>+-------------------+------------------+
 | cod_concesionario | count(cod_coche) |
 +-------------------+------------------+
 |                 1 |               61 |
@@ -1739,27 +1790,28 @@ ORDER BY 2;</pre>
 |                15 |               50 |
 +-------------------+------------------+
 15 rows in set (0,00 sec)</pre>
-        </app-terminal-code>
-      </app-collapsible>
-    </div>
+          </app-terminal-code>
 
-    <div class="exercise-block">
-      <h2 class="exercise-title">Ejercicio 52</h2>
+          <span appCollapsibleCloseAction>Ocultar solución</span>
+        </app-collapsible>
+      </div>
 
-      <p class="exercise-statement">
-        Obtener los códigos de los coches y el número total ofertado de ellos en el conjunto de todos los
-        concesionarios.
-      </p>
+      <div class="exercise-block">
+        <h2 class="exercise-title">Ejercicio 52</h2>
 
-      <app-collapsible>
-        <span collapsible-header-closed>Ver solución</span>
-        <span collapsible-header-open>Ocultar solución</span>
+        <p class="exercise-statement">
+          Obtener los códigos de los coches y el número total ofertado de ellos en el conjunto de todos los
+          concesionarios.
+        </p>
 
-        <app-terminal-code collapsible-content>
-          <pre terminal-code-command>select c.codigo, c.modelo, sum(o.cantidad)
+        <app-collapsible>
+          <span appCollapsibleOpenAction>Ver solución</span>
+
+          <app-terminal-code appCollapsibleContent>
+            <pre terminal-code-command>select c.codigo, c.modelo, sum(o.cantidad)
 from COCHE c LEFT JOIN OFRECE o ON c.codigo=o.cod_coche
 group by c.codigo, c.modelo;</pre>
-          <pre terminal-code-output>+--------+--------------------+-----------------+
+            <pre terminal-code-output>+--------+--------------------+-----------------+
 | codigo | modelo             | sum(o.cantidad) |
 +--------+--------------------+-----------------+
 |      1 | Corolla            |              59 |
@@ -1774,26 +1826,27 @@ group by c.codigo, c.modelo;</pre>
 |    353 | Laguna             |              55 |
 +--------+--------------------+-----------------+
 353 rows in set (0,00 sec)</pre>
-        </app-terminal-code>
-      </app-collapsible>
-    </div>
+          </app-terminal-code>
 
-    <div class="exercise-block">
-      <h2 class="exercise-title">Ejercicio 53</h2>
+          <span appCollapsibleCloseAction>Ocultar solución</span>
+        </app-collapsible>
+      </div>
 
-      <p class="exercise-statement">
-        Indicar para los años 2011 a 2016 el número de clientes que realizaron compras de coches esos años.
-      </p>
+      <div class="exercise-block">
+        <h2 class="exercise-title">Ejercicio 53</h2>
 
-      <app-collapsible>
-        <span collapsible-header-closed>Ver solución</span>
-        <span collapsible-header-open>Ocultar solución</span>
+        <p class="exercise-statement">
+          Indicar para los años 2011 a 2016 el número de clientes que realizaron compras de coches esos años.
+        </p>
 
-        <app-terminal-code collapsible-content>
-          <pre terminal-code-command>select YEAR(fecha), count(cod_cliente)
+        <app-collapsible>
+          <span appCollapsibleOpenAction>Ver solución</span>
+
+          <app-terminal-code appCollapsibleContent>
+            <pre terminal-code-command>select YEAR(fecha), count(cod_cliente)
 from VENTA where YEAR(fecha) between 2011 and 2016
 group by YEAR(fecha) order by 1;</pre>
-          <pre terminal-code-output>+-------------+--------------------+
+            <pre terminal-code-output>+-------------+--------------------+
 | YEAR(fecha) | count(cod_cliente) |
 +-------------+--------------------+
 |        2011 |                 17 |
@@ -1804,26 +1857,27 @@ group by YEAR(fecha) order by 1;</pre>
 |        2016 |                 21 |
 +-------------+--------------------+
 6 rows in set (0,00 sec)</pre>
-        </app-terminal-code>
-      </app-collapsible>
-    </div>
+          </app-terminal-code>
 
-    <div class="exercise-block">
-      <h2 class="exercise-title">Ejercicio 54</h2>
+          <span appCollapsibleCloseAction>Ocultar solución</span>
+        </app-collapsible>
+      </div>
 
-      <p class="exercise-statement">
-        Obtener los códigos de coches que se han reparado más de 4 veces, indicando el número total de reparaciones por
-        coche.
-      </p>
+      <div class="exercise-block">
+        <h2 class="exercise-title">Ejercicio 54</h2>
 
-      <app-collapsible>
-        <span collapsible-header-closed>Ver solución</span>
-        <span collapsible-header-open>Ocultar solución</span>
+        <p class="exercise-statement">
+          Obtener los códigos de coches que se han reparado más de 4 veces, indicando el número total de reparaciones
+          por coche.
+        </p>
 
-        <app-terminal-code collapsible-content>
-          <span terminal-code-command>
-            select cod_coche, count(id) from REPARA group by cod_coche having count(id) &gt; 4 order by 1;</span>
-          <pre terminal-code-output>+-----------+-----------+
+        <app-collapsible>
+          <span appCollapsibleOpenAction>Ver solución</span>
+
+          <app-terminal-code appCollapsibleContent>
+            <span terminal-code-command>
+              select cod_coche, count(id) from REPARA group by cod_coche having count(id) &gt; 4 order by 1;</span>
+            <pre terminal-code-output>+-----------+-----------+
 | cod_coche | count(id) |
 +-----------+-----------+
 |        26 |         5 |
@@ -1833,24 +1887,25 @@ group by YEAR(fecha) order by 1;</pre>
 |       311 |         5 |
 +-----------+-----------+
 5 rows in set (0,00 sec)</pre>
-        </app-terminal-code>
-      </app-collapsible>
-    </div>
+          </app-terminal-code>
 
-    <div class="exercise-block">
-      <h2 class="exercise-title">Ejercicio 55</h2>
+          <span appCollapsibleCloseAction>Ocultar solución</span>
+        </app-collapsible>
+      </div>
 
-      <p class="exercise-statement">
-        Obtener para cada coche, el número medio de cantidad ofertada por los concesionarios.
-      </p>
+      <div class="exercise-block">
+        <h2 class="exercise-title">Ejercicio 55</h2>
 
-      <app-collapsible>
-        <span collapsible-header-closed>Ver solución</span>
-        <span collapsible-header-open>Ocultar solución</span>
+        <p class="exercise-statement">
+          Obtener para cada coche, el número medio de cantidad ofertada por los concesionarios.
+        </p>
 
-        <app-terminal-code collapsible-content>
-          <span terminal-code-command>select cod_coche, avg(cantidad) as media from OFRECE group by cod_coche;</span>
-          <pre terminal-code-output>+-----------+---------+
+        <app-collapsible>
+          <span appCollapsibleOpenAction>Ver solución</span>
+
+          <app-terminal-code appCollapsibleContent>
+            <span terminal-code-command>select cod_coche, avg(cantidad) as media from OFRECE group by cod_coche;</span>
+            <pre terminal-code-output>+-----------+---------+
 | cod_coche | media   |
 +-----------+---------+
 |         1 | 29.5000 |
@@ -1864,59 +1919,61 @@ group by YEAR(fecha) order by 1;</pre>
 |       353 | 27.5000 |
 +-----------+---------+
 353 rows in set (0,00 sec)</pre>
-        </app-terminal-code>
-      </app-collapsible>
-    </div>
+          </app-terminal-code>
 
-    <div class="exercise-block">
-      <h2 class="exercise-title">Ejercicio 56</h2>
+          <span appCollapsibleCloseAction>Ocultar solución</span>
+        </app-collapsible>
+      </div>
 
-      <p class="exercise-statement">
-        Obtener la fecha de reparación más reciente.
-      </p>
+      <div class="exercise-block">
+        <h2 class="exercise-title">Ejercicio 56</h2>
 
-      <app-collapsible>
-        <span collapsible-header-closed>Ver solución</span>
-        <span collapsible-header-open>Ocultar solución</span>
+        <p class="exercise-statement">
+          Obtener la fecha de reparación más reciente.
+        </p>
 
-        <app-terminal-code collapsible-content>
-          <pre terminal-code-command>select r1.fecha from REPARA r1, REPARA r2
+        <app-collapsible>
+          <span appCollapsibleOpenAction>Ver solución</span>
+
+          <app-terminal-code appCollapsibleContent>
+            <pre terminal-code-command>select r1.fecha from REPARA r1, REPARA r2
 group by r1.id having r1.fecha = max(r2.fecha);</pre>
-          <pre terminal-code-output>+------------+
+            <pre terminal-code-output>+------------+
 | fecha      |
 +------------+
 | 2023-03-15 |
 +------------+
 1 row in set (0,07 sec)</pre>
-        </app-terminal-code>
-      </app-collapsible>
-    </div>
-  </section>
+          </app-terminal-code>
 
-  <section>
-    <p>
-      Los ejercicios que viene a continuación incluyen consultas <a class="app-link" routerLink="../"
-        fragment="consultas-con-subselect">subselect sin correlación</a>.
-    </p>
+          <span appCollapsibleCloseAction>Ocultar solución</span>
+        </app-collapsible>
+      </div>
+    </section>
 
-    <div class="exercise-block">
-      <h2 class="exercise-title">Ejercicio 57</h2>
-
-      <p class="exercise-statement">
-        Listar los modelos de los coches que ofrece el concesionario de Vigo (código 14) en una cantidad superior al
-        coche con código 215.
+    <section>
+      <p>
+        Los ejercicios que viene a continuación incluyen consultas <a class="app-link" routerLink="../"
+          fragment="consultas-con-subselect">subselect sin correlación</a>.
       </p>
 
-      <app-collapsible>
-        <span collapsible-header-closed>Ver solución</span>
-        <span collapsible-header-open>Ocultar solución</span>
+      <div class="exercise-block">
+        <h2 class="exercise-title">Ejercicio 57</h2>
 
-        <app-terminal-code collapsible-content>
-          <pre terminal-code-command>select DISTINCT co.modelo
+        <p class="exercise-statement">
+          Listar los modelos de los coches que ofrece el concesionario de Vigo (código 14) en una cantidad superior al
+          coche con código 215.
+        </p>
+
+        <app-collapsible>
+          <span appCollapsibleOpenAction>Ver solución</span>
+
+          <app-terminal-code appCollapsibleContent>
+            <pre terminal-code-command>select DISTINCT co.modelo
 from COCHE co JOIN OFRECE o ON co.codigo=o.cod_coche
 where cod_concesionario=14 and cantidad&gt;(select cantidad
   from OFRECE where cod_coche=215 and cod_concesionario=14);</pre>
-          <pre terminal-code-output>+----------+
+            <pre terminal-code-output>+----------+
 | modelo   |
 +----------+
 | Mustang  |
@@ -1930,28 +1987,29 @@ where cod_concesionario=14 and cantidad&gt;(select cantidad
 | Mégane   |
 +----------+
 20 rows in set (0,00 sec)</pre>
-        </app-terminal-code>
-      </app-collapsible>
-    </div>
+          </app-terminal-code>
 
-    <div class="exercise-block">
-      <h2 class="exercise-title">Ejercicio 58</h2>
+          <span appCollapsibleCloseAction>Ocultar solución</span>
+        </app-collapsible>
+      </div>
 
-      <p class="exercise-statement">
-        Listar el nombre de los clientes que tienen el número de teléfono que comienza por 66 y tienen una fecha de
-        nacimiento anterior a la de algún cliente con número que empieza por 990.
-      </p>
+      <div class="exercise-block">
+        <h2 class="exercise-title">Ejercicio 58</h2>
 
-      <app-collapsible>
-        <span collapsible-header-closed>Ver solución</span>
-        <span collapsible-header-open>Ocultar solución</span>
+        <p class="exercise-statement">
+          Listar el nombre de los clientes que tienen el número de teléfono que comienza por 66 y tienen una fecha de
+          nacimiento anterior a la de algún cliente con número que empieza por 990.
+        </p>
 
-        <app-terminal-code collapsible-content>
-          <pre terminal-code-command>select * from CLIENTE
+        <app-collapsible>
+          <span appCollapsibleOpenAction>Ver solución</span>
+
+          <app-terminal-code appCollapsibleContent>
+            <pre terminal-code-command>select * from CLIENTE
 where telefono like '66%' and fecha_nac &lt; any (select
   fecha_nac from CLIENTE where telefono like '990%')
 order by 3;</pre>
-          <pre terminal-code-output>+-----------+-----------------------------+------------+-----------+
+            <pre terminal-code-output>+-----------+-----------------------------+------------+-----------+
 | dni       | nombre                      | fecha_nac  | telefono  |
 +-----------+-----------------------------+------------+-----------+
 | 89531049H | Isabel Álvarez Gallego      | 1958-01-05 | 669448370 |
@@ -1963,25 +2021,26 @@ order by 3;</pre>
 | 96117956N | Verónica Ramírez Guerrero   | 1991-04-14 | 664405671 |
 +-----------+-----------------------------+------------+-----------+
 21 rows in set (0,00 sec)</pre>
-        </app-terminal-code>
-      </app-collapsible>
-    </div>
+          </app-terminal-code>
 
-    <div class="exercise-block">
-      <h2 class="exercise-title">Ejercicio 59</h2>
+          <span appCollapsibleCloseAction>Ocultar solución</span>
+        </app-collapsible>
+      </div>
 
-      <p class="exercise-statement">
-        Listar las reparaciones hechas después que todas las ventas.
-      </p>
+      <div class="exercise-block">
+        <h2 class="exercise-title">Ejercicio 59</h2>
 
-      <app-collapsible>
-        <span collapsible-header-closed>Ver solución</span>
-        <span collapsible-header-open>Ocultar solución</span>
+        <p class="exercise-statement">
+          Listar las reparaciones hechas después que todas las ventas.
+        </p>
 
-        <div collapsible-content>
-          <app-terminal-code>
-            <span terminal-code-command>select * from REPARA where fecha &gt; all (select fecha from VENTA);</span>
-            <pre terminal-code-output>+-----+--------------+-----------+------------+---------+
+        <app-collapsible>
+          <span appCollapsibleOpenAction>Ver solución</span>
+
+          <div appCollapsibleContent>
+            <app-terminal-code>
+              <span terminal-code-command>select * from REPARA where fecha &gt; all (select fecha from VENTA);</span>
+              <pre terminal-code-output>+-----+--------------+-----------+------------+---------+
 | id  | cod_mecanico | cod_coche | fecha      | precio  |
 +-----+--------------+-----------+------------+---------+
 |  49 |            3 |       281 | 2023-02-18 | 4321.51 |
@@ -1993,37 +2052,38 @@ order by 3;</pre>
 | 447 |            3 |       189 | 2023-01-25 | 1252.60 |
 +-----+--------------+-----------+------------+---------+
 15 rows in set (0,00 sec)</pre>
-          </app-terminal-code>
+            </app-terminal-code>
 
-          Otra solución también sería:
+            <span>Otra solución también sería:</span>
 
-          <app-terminal-code>
-            <span terminal-code-command>select * from REPARA where fecha &gt; (select max(fecha) from VENTA);</span>
-            <pre terminal-code-output>Mismo resultado que antes</pre>
-          </app-terminal-code>
-        </div>
-      </app-collapsible>
-    </div>
+            <app-terminal-code>
+              <span terminal-code-command>select * from REPARA where fecha &gt; (select max(fecha) from VENTA);</span>
+              <pre terminal-code-output>Mismo resultado que antes</pre>
+            </app-terminal-code>
+          </div>
 
-    <div class="exercise-block">
-      <h2 class="exercise-title">Ejercicio 60</h2>
+          <span appCollapsibleCloseAction>Ocultar solución</span>
+        </app-collapsible>
+      </div>
 
-      <p class="exercise-statement">
-        Clientes con número de teléfono coincidente con las dos primeras cifras del teléfono de Julia Gil Delgado y que
-        hayan nacido en el mismo año que Juan Pérez Navarro.
-      </p>
+      <div class="exercise-block">
+        <h2 class="exercise-title">Ejercicio 60</h2>
 
-      <app-collapsible>
-        <span collapsible-header-closed>Ver solución</span>
-        <span collapsible-header-open>Ocultar solución</span>
+        <p class="exercise-statement">
+          Clientes con número de teléfono coincidente con las dos primeras cifras del teléfono de Julia Gil Delgado y
+          que hayan nacido en el mismo año que Juan Pérez Navarro.
+        </p>
 
-        <app-terminal-code collapsible-content>
-          <pre terminal-code-command>select * from CLIENTE
+        <app-collapsible>
+          <span appCollapsibleOpenAction>Ver solución</span>
+
+          <app-terminal-code appCollapsibleContent>
+            <pre terminal-code-command>select * from CLIENTE
 where substring(telefono, 1, 2)=(select substring(telefono, 1, 2) from CLIENTE
   where nombre="Julia Gil Delgado")
 and YEAR(fecha_nac)=(select YEAR(fecha_nac) from CLIENTE
   where nombre="Juan Pérez Navarro");</pre>
-          <pre terminal-code-output>+-----------+------------------------+------------+-----------+
+            <pre terminal-code-output>+-----------+------------------------+------------+-----------+
 | dni       | nombre                 | fecha_nac  | telefono  |
 +-----------+------------------------+------------+-----------+
 | 69007223B | Celia Delgado López    | 1993-09-04 | 672286210 |
@@ -2031,113 +2091,118 @@ and YEAR(fecha_nac)=(select YEAR(fecha_nac) from CLIENTE
 | 89771451N | Julia Gil Delgado      | 1993-08-07 | 671661503 |
 +-----------+------------------------+------------+-----------+
 3 rows in set (0,00 sec)</pre>
-        </app-terminal-code>
-      </app-collapsible>
-    </div>
+          </app-terminal-code>
 
-    <div class="exercise-block">
-      <h2 class="exercise-title">Ejercicio 61</h2>
+          <span appCollapsibleCloseAction>Ocultar solución</span>
+        </app-collapsible>
+      </div>
 
-      <p class="exercise-statement">
-        Datos del concesionario que tiene el mayor número de ventas.
-      </p>
+      <div class="exercise-block">
+        <h2 class="exercise-title">Ejercicio 61</h2>
 
-      <app-collapsible>
-        <span collapsible-header-closed>Ver solución</span>
-        <span collapsible-header-open>Ocultar solución</span>
+        <p class="exercise-statement">
+          Datos del concesionario que tiene el mayor número de ventas.
+        </p>
 
-        <app-terminal-code collapsible-content>
-          <pre terminal-code-command>select * from CONCESIONARIO where codigo in (select cod_concesionario from VENTA
+        <app-collapsible>
+          <span appCollapsibleOpenAction>Ver solución</span>
+
+          <app-terminal-code appCollapsibleContent>
+            <pre terminal-code-command>select * from CONCESIONARIO where codigo in (select cod_concesionario from VENTA
   group by cod_concesionario having count(*)=(select max(cantidad)
     from (select count(*) as cantidad
       from VENTA group by cod_concesionario) AS T));</pre>
-          <pre terminal-code-output>+--------+-----------+---------------+-------------+
+            <pre terminal-code-output>+--------+-----------+---------------+-------------+
 | codigo | localidad | hora_apertura | hora_cierre |
 +--------+-----------+---------------+-------------+
 |      4 | Sevilla   | 10:00:00      | 19:00:00    |
 +--------+-----------+---------------+-------------+
 1 row in set (0,00 sec)</pre>
-        </app-terminal-code>
-      </app-collapsible>
-    </div>
+          </app-terminal-code>
 
-    <div class="exercise-block">
-      <h2 class="exercise-title">Ejercicio 62</h2>
+          <span appCollapsibleCloseAction>Ocultar solución</span>
+        </app-collapsible>
+      </div>
 
-      <p class="exercise-statement">
-        Datos del mecánico que realizó durante el año 2018 el mayor número de reparaciones. Indicar también la cantidad.
-      </p>
+      <div class="exercise-block">
+        <h2 class="exercise-title">Ejercicio 62</h2>
 
-      <app-collapsible>
-        <span collapsible-header-closed>Ver solución</span>
-        <span collapsible-header-open>Ocultar solución</span>
+        <p class="exercise-statement">
+          Datos del mecánico que realizó durante el año 2018 el mayor número de reparaciones. Indicar también la
+          cantidad.
+        </p>
 
-        <app-terminal-code collapsible-content>
-          <pre terminal-code-command>select * from MECANICO as m1 JOIN (select cod_mecanico, count(*) as cantidad
+        <app-collapsible>
+          <span appCollapsibleOpenAction>Ver solución</span>
+
+          <app-terminal-code appCollapsibleContent>
+            <pre terminal-code-command>select * from MECANICO as m1 JOIN (select cod_mecanico, count(*) as cantidad
   from REPARA where YEAR(fecha)=2018 group by cod_mecanico) as T
 ON m1.codigo=T.cod_mecanico
 where codigo in (select cod_mecanico from REPARA
   where YEAR(fecha)=2018 group by cod_mecanico having count(*)=(select max(cantidad)
     from (select count(*) as cantidad
       from REPARA where YEAR(fecha)=2018 group by cod_mecanico) as W));</pre>
-          <pre terminal-code-output>+--------+------------------------------------+--------+--------------+----------+
+            <pre terminal-code-output>+--------+------------------------------------+--------+--------------+----------+
 | codigo | nombre                             | ciudad | cod_mecanico | cantidad |
 +--------+------------------------------------+--------+--------------+----------+
 |      5 | Electromecánica Eficiente Express  | Girona |            5 |       11 |
 |      6 | Mantenimiento Fiable de Coches     | Teruel |            6 |       11 |
 +--------+------------------------------------+--------+--------------+----------+
 2 rows in set (0,00 sec)</pre>
-        </app-terminal-code>
-      </app-collapsible>
-    </div>
+          </app-terminal-code>
 
-    <div class="exercise-block">
-      <h2 class="exercise-title">Ejercicio 63</h2>
+          <span appCollapsibleCloseAction>Ocultar solución</span>
+        </app-collapsible>
+      </div>
 
-      <p class="exercise-statement">
-        Obtener los datos del cliente con mayor edad.
-      </p>
+      <div class="exercise-block">
+        <h2 class="exercise-title">Ejercicio 63</h2>
 
-      <app-collapsible>
-        <span collapsible-header-closed>Ver solución</span>
-        <span collapsible-header-open>Ocultar solución</span>
+        <p class="exercise-statement">
+          Obtener los datos del cliente con mayor edad.
+        </p>
 
-        <app-terminal-code collapsible-content>
-          <span terminal-code-command>
-            select * from CLIENTE where fecha_nac &lt;= all (select fecha_nac from CLIENTE);
-          </span>
-          <pre terminal-code-output>+-----------+-------------------------+------------+-----------+
+        <app-collapsible>
+          <span appCollapsibleOpenAction>Ver solución</span>
+
+          <app-terminal-code appCollapsibleContent>
+            <span terminal-code-command>
+              select * from CLIENTE where fecha_nac &lt;= all (select fecha_nac from CLIENTE);
+            </span>
+            <pre terminal-code-output>+-----------+-------------------------+------------+-----------+
 | dni       | nombre                  | fecha_nac  | telefono  |
 +-----------+-------------------------+------------+-----------+
 | 39913933K | Andrea Rubio Gutiérrez  | 1955-01-31 | 651808030 |
 +-----------+-------------------------+------------+-----------+
 1 row in set (0,00 sec)</pre>
-        </app-terminal-code>
-      </app-collapsible>
-    </div>
-  </section>
+          </app-terminal-code>
 
-  <section>
-    <p>
-      Los ejercicios que viene a continuación incluyen consultas <a class="app-link" routerLink="../"
-        fragment="consultas-con-subselect">subselect con correlación</a>.
-    </p>
+          <span appCollapsibleCloseAction>Ocultar solución</span>
+        </app-collapsible>
+      </div>
+    </section>
 
-    <div class="exercise-block">
-      <h2 class="exercise-title">Ejercicio 64</h2>
-
-      <p class="exercise-statement">
-        Datos de las las últimas reparaciones de cada código de coche.
+    <section>
+      <p>
+        Los ejercicios que viene a continuación incluyen consultas <a class="app-link" routerLink="../"
+          fragment="consultas-con-subselect">subselect con correlación</a>.
       </p>
 
-      <app-collapsible>
-        <span collapsible-header-closed>Ver solución</span>
-        <span collapsible-header-open>Ocultar solución</span>
+      <div class="exercise-block">
+        <h2 class="exercise-title">Ejercicio 64</h2>
 
-        <app-terminal-code collapsible-content>
-          <pre terminal-code-command>select * from REPARA r where fecha=(select min(fecha)
+        <p class="exercise-statement">
+          Datos de las las últimas reparaciones de cada código de coche.
+        </p>
+
+        <app-collapsible>
+          <span appCollapsibleOpenAction>Ver solución</span>
+
+          <app-terminal-code appCollapsibleContent>
+            <pre terminal-code-command>select * from REPARA r where fecha=(select min(fecha)
   from REPARA where cod_coche=r.cod_coche);</pre>
-          <pre terminal-code-output>+-----+--------------+-----------+------------+---------+
+            <pre terminal-code-output>+-----+--------------+-----------+------------+---------+
 | id  | cod_mecanico | cod_coche | fecha      | precio  |
 +-----+--------------+-----------+------------+---------+
 |   6 |            3 |        93 | 2020-04-16 | 1543.17 |
@@ -2151,25 +2216,26 @@ where codigo in (select cod_mecanico from REPARA
 | 450 |            5 |       129 | 2016-10-17 | 1019.38 |
 +-----+--------------+-----------+------------+---------+
 259 rows in set (0,04 sec)</pre>
-        </app-terminal-code>
-      </app-collapsible>
-    </div>
+          </app-terminal-code>
 
-    <div class="exercise-block">
-      <h2 class="exercise-title">Ejercicio 65</h2>
+          <span appCollapsibleCloseAction>Ocultar solución</span>
+        </app-collapsible>
+      </div>
 
-      <p class="exercise-statement">
-        Verificar si hay algún modelo de coche que no ha sido reparado nunca. Si es así, indicar los datos del coche.
-      </p>
+      <div class="exercise-block">
+        <h2 class="exercise-title">Ejercicio 65</h2>
 
-      <app-collapsible>
-        <span collapsible-header-closed>Ver solución</span>
-        <span collapsible-header-open>Ocultar solución</span>
+        <p class="exercise-statement">
+          Verificar si hay algún modelo de coche que no ha sido reparado nunca. Si es así, indicar los datos del coche.
+        </p>
 
-        <app-terminal-code collapsible-content>
-          <pre terminal-code-command>select * from COCHE c where not exists (select * from REPARA
+        <app-collapsible>
+          <span appCollapsibleOpenAction>Ver solución</span>
+
+          <app-terminal-code appCollapsibleContent>
+            <pre terminal-code-command>select * from COCHE c where not exists (select * from REPARA
   where c.codigo=cod_coche);</pre>
-          <pre terminal-code-output>+--------+-----------+---------------+------------+
+            <pre terminal-code-output>+--------+-----------+---------------+------------+
 | codigo | cod_marca | modelo        | propulsion |
 +--------+-----------+---------------+------------+
 |      2 |         1 | Corolla       |          3 |
@@ -2184,29 +2250,30 @@ where codigo in (select cod_mecanico from REPARA
 |    352 |        18 | Laguna        |          2 |
 +--------+-----------+---------------+------------+
 94 rows in set (0,00 sec)</pre>
-        </app-terminal-code>
-      </app-collapsible>
-    </div>
+          </app-terminal-code>
 
-    <div class="exercise-block">
-      <h2 class="exercise-title">Ejercicio 66</h2>
+          <span appCollapsibleCloseAction>Ocultar solución</span>
+        </app-collapsible>
+      </div>
 
-      <p class="exercise-statement">
-        Indicar si hay coches ofertados por los concesionarios que no han sido vendidos en ese concesionario. Mostrar
-        los datos del coche y del concesionario.
-      </p>
+      <div class="exercise-block">
+        <h2 class="exercise-title">Ejercicio 66</h2>
 
-      <app-collapsible>
-        <span collapsible-header-closed>Ver solución</span>
-        <span collapsible-header-open>Ocultar solución</span>
+        <p class="exercise-statement">
+          Indicar si hay coches ofertados por los concesionarios que no han sido vendidos en ese concesionario. Mostrar
+          los datos del coche y del concesionario.
+        </p>
 
-        <app-terminal-code collapsible-content>
-          <pre terminal-code-command>select c.codigo as cod_coche, c.cod_marca, c.modelo, con.codigo, con.localidad, o.cantidad
+        <app-collapsible>
+          <span appCollapsibleOpenAction>Ver solución</span>
+
+          <app-terminal-code appCollapsibleContent>
+            <pre terminal-code-command>select c.codigo as cod_coche, c.cod_marca, c.modelo, con.codigo, con.localidad, o.cantidad
 from (COCHE c JOIN OFRECE o ON c.codigo=o.cod_coche)
 JOIN CONCESIONARIO con ON con.codigo=o.cod_concesionario
 where not exists (select * from VENTA v
   where o.cod_coche=v.cod_coche and o.cod_concesionario=v.cod_concesionario);</pre>
-          <pre terminal-code-output>+-----------+-----------+------------------+--------+----------------------------+----------+
+            <pre terminal-code-output>+-----------+-----------+------------------+--------+----------------------------+----------+
 | cod_coche | cod_marca | modelo           | codigo | localidad                  | cantidad |
 +-----------+-----------+------------------+--------+----------------------------+----------+
 |         1 |         1 | Corolla          |      5 | Zaragoza                   |       20 |
@@ -2222,25 +2289,26 @@ where not exists (select * from VENTA v
 |       353 |        18 | Laguna           |     14 | Vigo                       |       23 |
 +-----------+-----------+------------------+--------+----------------------------+----------+
 367 rows in set (0,00 sec)</pre>
-        </app-terminal-code>
-      </app-collapsible>
-    </div>
+          </app-terminal-code>
 
-    <div class="exercise-block">
-      <h2 class="exercise-title">Ejercicio 67</h2>
+          <span appCollapsibleCloseAction>Ocultar solución</span>
+        </app-collapsible>
+      </div>
 
-      <p class="exercise-statement">
-        Mostrar la última reparación de cada mecánico.
-      </p>
+      <div class="exercise-block">
+        <h2 class="exercise-title">Ejercicio 67</h2>
 
-      <app-collapsible>
-        <span collapsible-header-closed>Ver solución</span>
-        <span collapsible-header-open>Ocultar solución</span>
+        <p class="exercise-statement">
+          Mostrar la última reparación de cada mecánico.
+        </p>
 
-        <app-terminal-code collapsible-content>
-          <pre terminal-code-command>select * from REPARA r1 where fecha=(select max(fecha)
+        <app-collapsible>
+          <span appCollapsibleOpenAction>Ver solución</span>
+
+          <app-terminal-code appCollapsibleContent>
+            <pre terminal-code-command>select * from REPARA r1 where fecha=(select max(fecha)
   from REPARA r2 where r1.cod_mecanico=r2.cod_mecanico) order by 2;</pre>
-          <pre terminal-code-output>+-----+--------------+-----------+------------+---------+
+            <pre terminal-code-output>+-----+--------------+-----------+------------+---------+
 | id  | cod_mecanico | cod_coche | fecha      | precio  |
 +-----+--------------+-----------+------------+---------+
 | 434 |            1 |        30 | 2023-02-01 |  461.69 |
@@ -2255,28 +2323,29 @@ where not exists (select * from VENTA v
 | 396 |           10 |       196 | 2023-02-21 | 1547.22 |
 +-----+--------------+-----------+------------+---------+
 10 rows in set (0,04 sec)</pre>
-        </app-terminal-code>
-      </app-collapsible>
-    </div>
+          </app-terminal-code>
 
-    <div class="exercise-block">
-      <h2 class="exercise-title">Ejercicio 68</h2>
+          <span appCollapsibleCloseAction>Ocultar solución</span>
+        </app-collapsible>
+      </div>
 
-      <p class="exercise-statement">
-        Listado de concesionarios indicando el coche en más cantidad que ofrecen.
-      </p>
+      <div class="exercise-block">
+        <h2 class="exercise-title">Ejercicio 68</h2>
 
-      <app-collapsible>
-        <span collapsible-header-closed>Ver solución</span>
-        <span collapsible-header-open>Ocultar solución</span>
+        <p class="exercise-statement">
+          Listado de concesionarios indicando el coche en más cantidad que ofrecen.
+        </p>
 
-        <app-terminal-code collapsible-content>
-          <pre terminal-code-command>select c1.codigo as cod_coche, c1.modelo, con1.localidad as concesionario, o1.cantidad
+        <app-collapsible>
+          <span appCollapsibleOpenAction>Ver solución</span>
+
+          <app-terminal-code appCollapsibleContent>
+            <pre terminal-code-command>select c1.codigo as cod_coche, c1.modelo, con1.localidad as concesionario, o1.cantidad
 from (OFRECE o1 JOIN CONCESIONARIO con1 ON o1.cod_concesionario=con1.codigo)
 JOIN COCHE c1 ON c1.codigo=o1.cod_coche where cantidad &gt;= all (select cantidad
   from OFRECE o2 where o1.cod_concesionario=o2.cod_concesionario)
 order by 3;</pre>
-          <pre terminal-code-output>+-----------+------------+----------------------------+----------+
+            <pre terminal-code-output>+-----------+------------+----------------------------+----------+
 | cod_coche | modelo     | concesionario              | cantidad |
 +-----------+------------+----------------------------+----------+
 |        41 | Serie 2    | Alicante                   |       40 |
@@ -2290,27 +2359,28 @@ order by 3;</pre>
 |       191 | Ceed       | Zaragoza                   |       40 |
 +-----------+------------+----------------------------+----------+
 34 rows in set (0,01 sec)</pre>
-        </app-terminal-code>
-      </app-collapsible>
-    </div>
+          </app-terminal-code>
 
-    <div class="exercise-block">
-      <h2 class="exercise-title">Ejercicio 69</h2>
+          <span appCollapsibleCloseAction>Ocultar solución</span>
+        </app-collapsible>
+      </div>
 
-      <p class="exercise-statement">
-        Listar los clientes que no han hecho compras de coche en los concesionarios del código 1 al 5.
-      </p>
+      <div class="exercise-block">
+        <h2 class="exercise-title">Ejercicio 69</h2>
 
-      <app-collapsible>
-        <span collapsible-header-closed>Ver solución</span>
-        <span collapsible-header-open>Ocultar solución</span>
+        <p class="exercise-statement">
+          Listar los clientes que no han hecho compras de coche en los concesionarios del código 1 al 5.
+        </p>
 
-        <app-terminal-code collapsible-content>
-          <pre terminal-code-command>select DISTINCT c1.dni, c1.nombre
+        <app-collapsible>
+          <span appCollapsibleOpenAction>Ver solución</span>
+
+          <app-terminal-code appCollapsibleContent>
+            <pre terminal-code-command>select DISTINCT c1.dni, c1.nombre
 from CLIENTE c1 JOIN VENTA v1 ON c1.dni=v1.cod_cliente
 where not exists (select * from VENTA v2
   where v1.cod_cliente=v2.cod_cliente and cod_concesionario between 1 and 5);</pre>
-          <pre terminal-code-output>+-----------+------------------------------------+
+            <pre terminal-code-output>+-----------+------------------------------------+
 | dni       | nombre                             |
 +-----------+------------------------------------+
 | 47545518L | Beatriz González Fernández         |
@@ -2322,26 +2392,27 @@ where not exists (select * from VENTA v2
 | 21885852V | Juan Martín Iglesias               |
 +-----------+------------------------------------+
 207 rows in set (0,00 sec)</pre>
-        </app-terminal-code>
-      </app-collapsible>
-    </div>
+          </app-terminal-code>
 
-    <div class="exercise-block">
-      <h2 class="exercise-title">Ejercicio 70</h2>
+          <span appCollapsibleCloseAction>Ocultar solución</span>
+        </app-collapsible>
+      </div>
 
-      <p class="exercise-statement">
-        Listar los concesionarios que han vendido coches que no han sido reparados.
-      </p>
+      <div class="exercise-block">
+        <h2 class="exercise-title">Ejercicio 70</h2>
 
-      <app-collapsible>
-        <span collapsible-header-closed>Ver solución</span>
-        <span collapsible-header-open>Ocultar solución</span>
+        <p class="exercise-statement">
+          Listar los concesionarios que han vendido coches que no han sido reparados.
+        </p>
 
-        <app-terminal-code collapsible-content>
-          <pre terminal-code-command>select * from CONCESIONARIO c1 where exists (select * from VENTA v1
+        <app-collapsible>
+          <span appCollapsibleOpenAction>Ver solución</span>
+
+          <app-terminal-code appCollapsibleContent>
+            <pre terminal-code-command>select * from CONCESIONARIO c1 where exists (select * from VENTA v1
   where c1.codigo=v1.cod_concesionario and not exists (select * from REPARA r1
     where v1.cod_coche=r1.cod_coche));</pre>
-          <pre terminal-code-output>+--------+----------------------------+---------------+-------------+
+            <pre terminal-code-output>+--------+----------------------------+---------------+-------------+
 | codigo | localidad                  | hora_apertura | hora_cierre |
 +--------+----------------------------+---------------+-------------+
 |      1 | Madrid                     | 11:00:00      | 21:00:00    |
@@ -2353,25 +2424,26 @@ where not exists (select * from VENTA v2
 |     15 | Gijón                      | 11:30:00      | 19:30:00    |
 +--------+----------------------------+---------------+-------------+
 15 rows in set (0,01 sec)</pre>
-        </app-terminal-code>
-      </app-collapsible>
-    </div>
+          </app-terminal-code>
 
-    <div class="exercise-block">
-      <h2 class="exercise-title">Ejercicio 71</h2>
+          <span appCollapsibleCloseAction>Ocultar solución</span>
+        </app-collapsible>
+      </div>
 
-      <p class="exercise-statement">
-        Listar los coches que no han sido reparados.
-      </p>
+      <div class="exercise-block">
+        <h2 class="exercise-title">Ejercicio 71</h2>
 
-      <app-collapsible>
-        <span collapsible-header-closed>Ver solución</span>
-        <span collapsible-header-open>Ocultar solución</span>
+        <p class="exercise-statement">
+          Listar los coches que no han sido reparados.
+        </p>
 
-        <app-terminal-code collapsible-content>
-          <pre terminal-code-command>select * from COCHE c1 where not exists (select * from REPARA r1
+        <app-collapsible>
+          <span appCollapsibleOpenAction>Ver solución</span>
+
+          <app-terminal-code appCollapsibleContent>
+            <pre terminal-code-command>select * from COCHE c1 where not exists (select * from REPARA r1
   where c1.codigo=r1.cod_coche);</pre>
-          <pre terminal-code-output>+--------+-----------+---------------+------------+
+            <pre terminal-code-output>+--------+-----------+---------------+------------+
 | codigo | cod_marca | modelo        | propulsion |
 +--------+-----------+---------------+------------+
 |      2 |         1 | Corolla       |          3 |
@@ -2383,113 +2455,115 @@ where not exists (select * from VENTA v2
 |    352 |        18 | Laguna        |          2 |
 +--------+-----------+---------------+------------+
 94 rows in set (0,00 sec)</pre>
-        </app-terminal-code>
-      </app-collapsible>
-    </div>
-  </section>
-
-  <section>
-    <p>
-      El siguiente ejercicio tiene una complejidad especial. Es de división (álgebra relacional) e implica una doble
-      negación:
-    </p>
-
-    <div class="exercise-block">
-      <h2 class="exercise-title">Ejercicio 72</h2>
-
-      <p class="exercise-statement">
-        Clientes que han comprado coches en todos los concesionarios.
-      </p>
-
-      <app-collapsible>
-        <span collapsible-header-closed>Ver solución</span>
-        <span collapsible-header-open>Ocultar solución</span>
-
-        <div collapsible-content>
-          <app-terminal-code>
-            <pre terminal-code-command>select * from CLIENTE c1 where not exists (select * from CONCESIONARIO c1
-  where not exists (select * from VENTA v1
-    where v1.cod_concesionario=c1.codigo and c1.dni=v1.cod_cliente));</pre>
-            <pre terminal-code-output>Empty set (0,11 sec)</pre>
           </app-terminal-code>
 
-          <p>
-            El enunciado es lo mismo que buscar clientes tal que no existe un concesionario en el que no hayan hecho una
-            compra.
-          </p>
-        </div>
-      </app-collapsible>
-    </div>
-  </section>
+          <span appCollapsibleCloseAction>Ocultar solución</span>
+        </app-collapsible>
+      </div>
+    </section>
 
-  <section>
-    <p>
-      A continuación se pide crear una base de datos muy simple, con tres tablas. Se pedirá insertar datos, eliminarlos
-      e investigar que sucede.
-    </p>
+    <section>
+      <p>
+        El siguiente ejercicio tiene una complejidad especial. Es de división (álgebra relacional) e implica una doble
+        negación:
+      </p>
 
-    <div class="exercise-block">
-      <h2 class="exercise-title">Ejercicio 73</h2>
+      <div class="exercise-block">
+        <h2 class="exercise-title">Ejercicio 72</h2>
 
-      <div class="exercise-statement">
-        <p>Crear las tablas correspondientes a una base de datos para gestionar una inmobiliaria:</p>
+        <p class="exercise-statement">
+          Clientes que han comprado coches en todos los concesionarios.
+        </p>
 
-        <pre class="exercise-73">INQUILINO(<span class="primary-key">dni</span>, nombre, apellido)
+        <app-collapsible>
+          <span appCollapsibleOpenAction>Ver solución</span>
+
+          <div appCollapsibleContent>
+            <app-terminal-code>
+              <pre terminal-code-command>select * from CLIENTE c1 where not exists (select * from CONCESIONARIO c1
+  where not exists (select * from VENTA v1
+    where v1.cod_concesionario=c1.codigo and c1.dni=v1.cod_cliente));</pre>
+              <pre terminal-code-output>Empty set (0,11 sec)</pre>
+            </app-terminal-code>
+
+            <p>
+              El enunciado es lo mismo que buscar clientes tal que no existe un concesionario en el que no hayan hecho
+              una compra.
+            </p>
+          </div>
+
+          <span appCollapsibleCloseAction>Ocultar solución</span>
+        </app-collapsible>
+      </div>
+    </section>
+
+    <section>
+      <p>
+        A continuación se pide crear una base de datos muy simple, con tres tablas. Se pedirá insertar datos,
+        eliminarlos e investigar que sucede.
+      </p>
+
+      <div class="exercise-block">
+        <h2 class="exercise-title">Ejercicio 73</h2>
+
+        <div class="exercise-statement">
+          <p>Crear las tablas correspondientes a una base de datos para gestionar una inmobiliaria:</p>
+
+          <pre class="exercise-73">INQUILINO(<span class="primary-key">dni</span>, nombre, apellido)
 PISO(<span class="primary-key">codigo</span>, ciudad, metros2)
 ALQUILER(<span class="primary-key">piso, inquilino</span>, precio, fecha_inicio, fecha_fin)</pre>
 
-        <p>Las restricciones son las siguientes:</p>
+          <p>Las restricciones son las siguientes:</p>
 
-        <ul>
-          <li>Los atributos subrayados son los atributos primarios de cada tabla.</li>
-          <li>
-            Los atributos dni y codigo son de tipo entero. Los atributos piso e inquilino hacen referencia a ellos.
-          </li>
-          <li>No se permiten inquilinos con mismo nombre y apellido.</li>
-          <li>Ningún atributo de la tabla PISO puede ser nulo.</li>
-          <li>Los metros cuadrados de un piso serán entre 100 y 500. Por defecto son 150 si no se especifica.</li>
-          <li>El precio de un alquiler tendrá un valor entre 100 y 1000. Por defecto serán 400.</li>
-          <li>Por defecto la tabla ALQUILER tomará como fecha de inicio la fecha en que se inserta la tupla.</li>
-          <li>La fecha de fin de un alquiler puede ser nula.</li>
-        </ul>
-      </div>
+          <ul>
+            <li>Los atributos subrayados son los atributos primarios de cada tabla.</li>
+            <li>
+              Los atributos dni y codigo son de tipo entero. Los atributos piso e inquilino hacen referencia a ellos.
+            </li>
+            <li>No se permiten inquilinos con mismo nombre y apellido.</li>
+            <li>Ningún atributo de la tabla PISO puede ser nulo.</li>
+            <li>Los metros cuadrados de un piso serán entre 100 y 500. Por defecto son 150 si no se especifica.</li>
+            <li>El precio de un alquiler tendrá un valor entre 100 y 1000. Por defecto serán 400.</li>
+            <li>Por defecto la tabla ALQUILER tomará como fecha de inicio la fecha en que se inserta la tupla.</li>
+            <li>La fecha de fin de un alquiler puede ser nula.</li>
+          </ul>
+        </div>
 
-      <app-collapsible>
-        <span collapsible-header-closed>Ver solución</span>
-        <span collapsible-header-open>Ocultar solución</span>
+        <app-collapsible>
+          <span appCollapsibleOpenAction>Ver solución</span>
 
-        <div collapsible-content>
-          <app-terminal-code>
-            <span terminal-code-command>create database inmobiliaria;</span>
-            <pre terminal-code-output>Query OK, 1 row affected (0,01 sec)</pre>
-          </app-terminal-code>
+          <div appCollapsibleContent>
+            <app-terminal-code>
+              <span terminal-code-command>create database inmobiliaria;</span>
+              <pre terminal-code-output>Query OK, 1 row affected (0,01 sec)</pre>
+            </app-terminal-code>
 
-          <app-terminal-code>
-            <span terminal-code-command>use inmobiliaria;</span>
-            <pre terminal-code-output>Database changed</pre>
-          </app-terminal-code>
+            <app-terminal-code>
+              <span terminal-code-command>use inmobiliaria;</span>
+              <pre terminal-code-output>Database changed</pre>
+            </app-terminal-code>
 
-          <app-terminal-code>
-            <pre terminal-code-command>create table INQUILINO (
+            <app-terminal-code>
+              <pre terminal-code-command>create table INQUILINO (
   dni INTEGER NOT NULL PRIMARY KEY,
   nombre VARCHAR(50) NOT NULL,
   apellido VARCHAR(50) NOT NULL,
   CONSTRAINT nombreYApellidoUnico UNIQUE (nombre, apellido)
 );</pre>
-            <pre terminal-code-output>Query OK, 1 row affected (0,01 sec)</pre>
-          </app-terminal-code>
+              <pre terminal-code-output>Query OK, 1 row affected (0,01 sec)</pre>
+            </app-terminal-code>
 
-          <app-terminal-code>
-            <pre terminal-code-command>create table PISO (
+            <app-terminal-code>
+              <pre terminal-code-command>create table PISO (
   codigo INTEGER NOT NULL PRIMARY KEY,
   ciudad VARCHAR(50) NOT NULL,
   metros2 INTEGER NOT NULL DEFAULT 150 CHECK (metros2&gt;=100 and metros2&lt;=500)
 );</pre>
-            <pre terminal-code-output>Query OK, 0 rows affected (0,02 sec)</pre>
-          </app-terminal-code>
+              <pre terminal-code-output>Query OK, 0 rows affected (0,02 sec)</pre>
+            </app-terminal-code>
 
-          <app-terminal-code>
-            <pre terminal-code-command>create table ALQUILER (
+            <app-terminal-code>
+              <pre terminal-code-command>create table ALQUILER (
   piso INTEGER NOT NULL,
   inquilino INTEGER NOT NULL,
   precio DECIMAL(7,2) NOT NULL DEFAULT 400 CHECK (precio>=100 and precio<=1000),
@@ -2500,27 +2574,28 @@ ALQUILER(<span class="primary-key">piso, inquilino</span>, precio, fecha_inicio,
   FOREIGN KEY (inquilino) REFERENCES INQUILINO(dni) ON DELETE RESTRICT ON UPDATE RESTRICT,
   FOREIGN KEY (piso) REFERENCES PISO(codigo) ON DELETE RESTRICT ON UPDATE RESTRICT
 );</pre>
-            <pre terminal-code-output>Query OK, 0 rows affected (0,02 sec)</pre>
-          </app-terminal-code>
-        </div>
-      </app-collapsible>
-    </div>
+              <pre terminal-code-output>Query OK, 0 rows affected (0,02 sec)</pre>
+            </app-terminal-code>
+          </div>
 
-    <div class="exercise-block">
-      <h2 class="exercise-title">Ejercicio 74</h2>
+          <span appCollapsibleCloseAction>Ocultar solución</span>
+        </app-collapsible>
+      </div>
 
-      <p class="exercise-statement">
-        Comprobar la estructura de las tablas creadas. Para ello puedes usar el comando DESCRIBE, específico de MySQL.
-      </p>
+      <div class="exercise-block">
+        <h2 class="exercise-title">Ejercicio 74</h2>
 
-      <app-collapsible>
-        <span collapsible-header-closed>Ver solución</span>
-        <span collapsible-header-open>Ocultar solución</span>
+        <p class="exercise-statement">
+          Comprobar la estructura de las tablas creadas. Para ello puedes usar el comando DESCRIBE, específico de MySQL.
+        </p>
 
-        <div collapsible-content>
-          <app-terminal-code>
-            <span terminal-code-command>describe INQUILINO;</span>
-            <pre terminal-code-output>+----------+-------------+------+-----+---------+-------+
+        <app-collapsible>
+          <span appCollapsibleOpenAction>Ver solución</span>
+
+          <div appCollapsibleContent>
+            <app-terminal-code>
+              <span terminal-code-command>describe INQUILINO;</span>
+              <pre terminal-code-output>+----------+-------------+------+-----+---------+-------+
 | Field    | Type        | Null | Key | Default | Extra |
 +----------+-------------+------+-----+---------+-------+
 | dni      | int         | NO   | PRI | NULL    |       |
@@ -2528,11 +2603,11 @@ ALQUILER(<span class="primary-key">piso, inquilino</span>, precio, fecha_inicio,
 | apellido | varchar(50) | NO   |     | NULL    |       |
 +----------+-------------+------+-----+---------+-------+
 3 rows in set (0,00 sec)</pre>
-          </app-terminal-code>
+            </app-terminal-code>
 
-          <app-terminal-code>
-            <span terminal-code-command>describe PISO;</span>
-            <pre terminal-code-output>+---------+-------------+------+-----+---------+-------+
+            <app-terminal-code>
+              <span terminal-code-command>describe PISO;</span>
+              <pre terminal-code-output>+---------+-------------+------+-----+---------+-------+
 | Field   | Type        | Null | Key | Default | Extra |
 +---------+-------------+------+-----+---------+-------+
 | codigo  | int         | NO   | PRI | NULL    |       |
@@ -2540,11 +2615,11 @@ ALQUILER(<span class="primary-key">piso, inquilino</span>, precio, fecha_inicio,
 | metros2 | int         | NO   |     | 150     |       |
 +---------+-------------+------+-----+---------+-------+
 3 rows in set (0,01 sec)</pre>
-          </app-terminal-code>
+            </app-terminal-code>
 
-          <app-terminal-code>
-            <span terminal-code-command>describe ALQUILER;</span>
-            <pre terminal-code-output>+--------------+--------------+------+-----+-----------+-------------------+
+            <app-terminal-code>
+              <span terminal-code-command>describe ALQUILER;</span>
+              <pre terminal-code-output>+--------------+--------------+------+-----+-----------+-------------------+
 | Field        | Type         | Null | Key | Default   | Extra             |
 +--------------+--------------+------+-----+-----------+-------------------+
 | piso         | int          | NO   | PRI | NULL      |                   |
@@ -2554,139 +2629,144 @@ ALQUILER(<span class="primary-key">piso, inquilino</span>, precio, fecha_inicio,
 | fecha_fin    | date         | YES  |     | NULL      |                   |
 +--------------+--------------+------+-----+-----------+-------------------+
 5 rows in set (0,00 sec)</pre>
-          </app-terminal-code>
-        </div>
-      </app-collapsible>
-    </div>
+            </app-terminal-code>
+          </div>
 
-    <div class="exercise-block">
-      <h2 class="exercise-title">Ejercicio 75</h2>
+          <span appCollapsibleCloseAction>Ocultar solución</span>
+        </app-collapsible>
+      </div>
 
-      <p class="exercise-statement">
-        Insertar los siguientes datos para un PISO: código 1 en la ciudad de Ávila. Insertarla sin especificar los
-        metros cuadrados y comprobar que se asignan por defecto.
-      </p>
+      <div class="exercise-block">
+        <h2 class="exercise-title">Ejercicio 75</h2>
 
-      <app-collapsible>
-        <span collapsible-header-closed>Ver solución</span>
-        <span collapsible-header-open>Ocultar solución</span>
+        <p class="exercise-statement">
+          Insertar los siguientes datos para un PISO: código 1 en la ciudad de Ávila. Insertarla sin especificar los
+          metros cuadrados y comprobar que se asignan por defecto.
+        </p>
 
-        <div collapsible-content>
-          <app-terminal-code>
-            <span terminal-code-command>insert into PISO (codigo, ciudad) values (1, 'Ávila');</span>
-            <pre terminal-code-output>Query OK, 1 row affected (0,01 sec)</pre>
-          </app-terminal-code>
+        <app-collapsible>
+          <span appCollapsibleOpenAction>Ver solución</span>
 
-          <app-terminal-code>
-            <span terminal-code-command>select * from PISO;</span>
-            <pre terminal-code-output>+--------+--------+---------+
+          <div appCollapsibleContent>
+            <app-terminal-code>
+              <span terminal-code-command>insert into PISO (codigo, ciudad) values (1, 'Ávila');</span>
+              <pre terminal-code-output>Query OK, 1 row affected (0,01 sec)</pre>
+            </app-terminal-code>
+
+            <app-terminal-code>
+              <span terminal-code-command>select * from PISO;</span>
+              <pre terminal-code-output>+--------+--------+---------+
 | codigo | ciudad | metros2 |
 +--------+--------+---------+
 |      1 | Ávila  |     150 |
 +--------+--------+---------+
 1 row in set (0,00 sec)</pre>
-          </app-terminal-code>
-        </div>
-      </app-collapsible>
-    </div>
+            </app-terminal-code>
+          </div>
 
-    <div class="exercise-block">
-      <h2 class="exercise-title">Ejercicio 76</h2>
+          <span appCollapsibleCloseAction>Ocultar solución</span>
+        </app-collapsible>
+      </div>
 
-      <p class="exercise-statement">
-        Insertar la siguiente información relativa a un INQUILINO: Jose Castro con dni 357159.
-      </p>
+      <div class="exercise-block">
+        <h2 class="exercise-title">Ejercicio 76</h2>
 
-      <app-collapsible>
-        <span collapsible-header-closed>Ver solución</span>
-        <span collapsible-header-open>Ocultar solución</span>
+        <p class="exercise-statement">
+          Insertar la siguiente información relativa a un INQUILINO: Jose Castro con dni 357159.
+        </p>
 
-        <app-terminal-code collapsible-content>
-          <span terminal-code-command>insert into INQUILINO values (357159, 'Jose', 'Castro');</span>
-          <pre terminal-code-output>Query OK, 1 row affected (0,01 sec)</pre>
-        </app-terminal-code>
-      </app-collapsible>
-    </div>
+        <app-collapsible>
+          <span appCollapsibleOpenAction>Ver solución</span>
 
-    <div class="exercise-block">
-      <h2 class="exercise-title">Ejercicio 77</h2>
-
-      <p class="exercise-statement">
-        Insertar una tupla en la tabla ALQUILER indicando que el inquilino anterior alquila el piso anterior por un
-        precio de 300 euros. Comprobar los datos insertados.
-      </p>
-
-      <app-collapsible>
-        <span collapsible-header-closed>Ver solución</span>
-        <span collapsible-header-open>Ocultar solución</span>
-
-        <div collapsible-content>
-          <app-terminal-code>
-            <span terminal-code-command>insert into ALQUILER (piso, inquilino, precio) values (1, 357159, 300);</span>
+          <app-terminal-code appCollapsibleContent>
+            <span terminal-code-command>insert into INQUILINO values (357159, 'Jose', 'Castro');</span>
             <pre terminal-code-output>Query OK, 1 row affected (0,01 sec)</pre>
           </app-terminal-code>
 
-          <app-terminal-code>
-            <span terminal-code-command>select * from ALQUILER;</span>
-            <pre terminal-code-output>+------+-----------+--------+--------------+-----------+
+          <span appCollapsibleCloseAction>Ocultar solución</span>
+        </app-collapsible>
+      </div>
+
+      <div class="exercise-block">
+        <h2 class="exercise-title">Ejercicio 77</h2>
+
+        <p class="exercise-statement">
+          Insertar una tupla en la tabla ALQUILER indicando que el inquilino anterior alquila el piso anterior por un
+          precio de 300 euros. Comprobar los datos insertados.
+        </p>
+
+        <app-collapsible>
+          <span appCollapsibleOpenAction>Ver solución</span>
+
+          <div appCollapsibleContent>
+            <app-terminal-code>
+              <span terminal-code-command>insert into ALQUILER (piso, inquilino, precio) values (1, 357159, 300);</span>
+              <pre terminal-code-output>Query OK, 1 row affected (0,01 sec)</pre>
+            </app-terminal-code>
+
+            <app-terminal-code>
+              <span terminal-code-command>select * from ALQUILER;</span>
+              <pre terminal-code-output>+------+-----------+--------+--------------+-----------+
 | piso | inquilino | precio | fecha_inicio | fecha_fin |
 +------+-----------+--------+--------------+-----------+
 |    1 |    357159 | 300.00 | 2023-06-11   | NULL      |
 +------+-----------+--------+--------------+-----------+
 1 row in set (0,00 sec)</pre>
-          </app-terminal-code>
-        </div>
-      </app-collapsible>
-    </div>
+            </app-terminal-code>
+          </div>
 
-    <div class="exercise-block">
-      <h2 class="exercise-title">Ejercicio 78</h2>
+          <span appCollapsibleCloseAction>Ocultar solución</span>
+        </app-collapsible>
+      </div>
 
-      <p class="exercise-statement">
-        Insertar en la tabla ALQUILER una nueva tupla del inquilino con dni 987654 en el piso con código 1. ¿Qué
-        sucede?
-      </p>
+      <div class="exercise-block">
+        <h2 class="exercise-title">Ejercicio 78</h2>
 
-      <app-collapsible>
-        <span collapsible-header-closed>Ver solución</span>
-        <span collapsible-header-open>Ocultar solución</span>
+        <p class="exercise-statement">
+          Insertar en la tabla ALQUILER una nueva tupla del inquilino con dni 987654 en el piso con código 1. ¿Qué
+          sucede?
+        </p>
 
-        <div collapsible-content>
-          <app-terminal-code>
-            <span terminal-code-command>insert into ALQUILER (piso, inquilino) values (1, 987654);</span>
-            <pre
-              terminal-code-output>ERROR 1452 (23000): Cannot add or update a child row: a foreign key constraint fails (`inmobiliaria`.`ALQUILER`, CONSTRAINT `ALQUILER_ibfk_1` FOREIGN KEY (`inquilino`) REFERENCES `INQUILINO` (`dni`) ON DELETE RESTRICT ON UPDATE RESTRICT)</pre>
-          </app-terminal-code>
+        <app-collapsible>
+          <span appCollapsibleOpenAction>Ver solución</span>
 
-          <p>
-            Lo que sucede es que se produce un error porque el inquilino con dni 987654 no existe en la tabla INQUILINO
-            y por lo tanto no se le puede hacer referencia.
-          </p>
-        </div>
-      </app-collapsible>
-    </div>
+          <div appCollapsibleContent>
+            <app-terminal-code>
+              <span terminal-code-command>insert into ALQUILER (piso, inquilino) values (1, 987654);</span>
+              <pre
+                terminal-code-output>ERROR 1452 (23000): Cannot add or update a child row: a foreign key constraint fails (`inmobiliaria`.`ALQUILER`, CONSTRAINT `ALQUILER_ibfk_1` FOREIGN KEY (`inquilino`) REFERENCES `INQUILINO` (`dni`) ON DELETE RESTRICT ON UPDATE RESTRICT)</pre>
+            </app-terminal-code>
 
-    <div class="exercise-block">
-      <h2 class="exercise-title">Ejercicio 79</h2>
+            <p>
+              Lo que sucede es que se produce un error porque el inquilino con dni 987654 no existe en la tabla
+              INQUILINO y por lo tanto no se le puede hacer referencia.
+            </p>
+          </div>
 
-      <p class="exercise-statement">
-        Modificar la tabla INQUILINO para almacenar también su edad.
-      </p>
+          <span appCollapsibleCloseAction>Ocultar solución</span>
+        </app-collapsible>
+      </div>
 
-      <app-collapsible>
-        <span collapsible-header-closed>Ver solución</span>
-        <span collapsible-header-open>Ocultar solución</span>
+      <div class="exercise-block">
+        <h2 class="exercise-title">Ejercicio 79</h2>
 
-        <div collapsible-content>
-          <app-terminal-code>
-            <span terminal-code-command>alter table INQUILINO add edad INTEGER;</span>
-            <pre terminal-code-output>Query OK, 0 rows affected (0,01 sec)
+        <p class="exercise-statement">
+          Modificar la tabla INQUILINO para almacenar también su edad.
+        </p>
+
+        <app-collapsible>
+          <span appCollapsibleOpenAction>Ver solución</span>
+
+          <div appCollapsibleContent>
+            <app-terminal-code>
+              <span terminal-code-command>alter table INQUILINO add edad INTEGER;</span>
+              <pre terminal-code-output>Query OK, 0 rows affected (0,01 sec)
 Records: 0  Duplicates: 0  Warnings: 0</pre>
-          </app-terminal-code>
+            </app-terminal-code>
 
-          <app-terminal-code>
-            <span terminal-code-command>describe INQUILINO;</span>
-            <pre terminal-code-output>+----------+-------------+------+-----+---------+-------+
+            <app-terminal-code>
+              <span terminal-code-command>describe INQUILINO;</span>
+              <pre terminal-code-output>+----------+-------------+------+-----+---------+-------+
 | Field    | Type        | Null | Key | Default | Extra |
 +----------+-------------+------+-----+---------+-------+
 | dni      | int         | NO   | PRI | NULL    |       |
@@ -2695,85 +2775,90 @@ Records: 0  Duplicates: 0  Warnings: 0</pre>
 | edad     | int         | YES  |     | NULL    |       |
 +----------+-------------+------+-----+---------+-------+
 4 rows in set (0,00 sec)</pre>
-          </app-terminal-code>
+            </app-terminal-code>
 
-          <app-terminal-code>
-            <span terminal-code-command>select * from INQUILINO;</span>
-            <pre terminal-code-output>+--------+--------+----------+------+
+            <app-terminal-code>
+              <span terminal-code-command>select * from INQUILINO;</span>
+              <pre terminal-code-output>+--------+--------+----------+------+
 | dni    | nombre | apellido | edad |
 +--------+--------+----------+------+
 | 357159 | Jose   | Castro   | NULL |
 +--------+--------+----------+------+
 1 row in set (0,00 sec)</pre>
-          </app-terminal-code>
-        </div>
-      </app-collapsible>
-    </div>
+            </app-terminal-code>
+          </div>
 
-    <div class="exercise-block">
-      <h2 class="exercise-title">Ejercicio 80</h2>
+          <span appCollapsibleCloseAction>Ocultar solución</span>
+        </app-collapsible>
+      </div>
 
-      <p class="exercise-statement">
-        Insertar un nuevo INQUILINO con dni 123654 y nombre Jose Castro. ¿Qué sucede? Eliminar la restricción y volver a
-        intentarlo.
-      </p>
+      <div class="exercise-block">
+        <h2 class="exercise-title">Ejercicio 80</h2>
 
-      <app-collapsible>
-        <span collapsible-header-closed>Ver solución</span>
-        <span collapsible-header-open>Ocultar solución</span>
+        <p class="exercise-statement">
+          Insertar un nuevo INQUILINO con dni 123654 y nombre Jose Castro. ¿Qué sucede? Eliminar la restricción y volver
+          a intentarlo.
+        </p>
 
-        <div collapsible-content>
-          <app-terminal-code>
-            <span terminal-code-command>insert into INQUILINO (dni, nombre, apellido) values (123654, 'Jose',
-              'Castro');</span>
-            <pre
-              terminal-code-output>ERROR 1062 (23000): Duplicate entry 'Jose-Castro' for key 'INQUILINO.nombreYApellidoUnico'</pre>
-          </app-terminal-code>
+        <app-collapsible>
+          <span appCollapsibleOpenAction>Ver solución</span>
 
-          <p>
-            No permite insertar el nuevo inquilino ya que hay una restricción que no permite a dos inquilinos tener el
-            mismo nombre y apellidos.
-          </p>
+          <div appCollapsibleContent>
+            <app-terminal-code>
+              <span terminal-code-command>insert into INQUILINO (dni, nombre, apellido) values (123654, 'Jose',
+                'Castro');</span>
+              <pre
+                terminal-code-output>ERROR 1062 (23000): Duplicate entry 'Jose-Castro' for key 'INQUILINO.nombreYApellidoUnico'</pre>
+            </app-terminal-code>
 
-          <app-terminal-code collapsible-content>
-            <span terminal-code-command>alter table INQUILINO drop constraint nombreYApellidoUnico;</span>
-            <pre terminal-code-output>Query OK, 0 rows affected (0,02 sec)
+            <p>
+              No permite insertar el nuevo inquilino ya que hay una restricción que no permite a dos inquilinos tener el
+              mismo nombre y apellidos.
+            </p>
+
+            <app-terminal-code>
+              <span terminal-code-command>alter table INQUILINO drop constraint nombreYApellidoUnico;</span>
+              <pre terminal-code-output>Query OK, 0 rows affected (0,02 sec)
 Records: 0  Duplicates: 0  Warnings: 0</pre>
-          </app-terminal-code>
+            </app-terminal-code>
 
-          <p>
-            Después de eliminar la restricción ya sí nos deja insertar la tupla. El nombre de la restricción lo sabemos
-            porque lo indicamos al crear la tabla. Si no lo supiéramos, tendríamos que tratar de violarla para que nos
-            indique el nombre.
-          </p>
-        </div>
-      </app-collapsible>
-    </div>
+            <p>
+              Después de eliminar la restricción ya sí nos deja insertar la tupla. El nombre de la restricción lo
+              sabemos porque lo indicamos al crear la tabla. Si no lo supiéramos, tendríamos que tratar de violarla para
+              que nos indique el nombre.
+            </p>
+          </div>
 
-    <div class="exercise-block">
-      <h2 class="exercise-title">Ejercicio 81</h2>
+          <span appCollapsibleCloseAction>Ocultar solución</span>
+        </app-collapsible>
+      </div>
 
-      <p class="exercise-statement">
-        Eliminar la tabla PISO. ¿Qué sucede?
-      </p>
+      <div class="exercise-block">
+        <h2 class="exercise-title">Ejercicio 81</h2>
 
-      <app-collapsible>
-        <span collapsible-header-closed>Ver solución</span>
-        <span collapsible-header-open>Ocultar solución</span>
+        <p class="exercise-statement">
+          Eliminar la tabla PISO. ¿Qué sucede?
+        </p>
 
-        <div collapsible-content>
-          <app-terminal-code>
-            <span terminal-code-command>drop table PISO;</span>
-            <pre
-              terminal-code-output>ERROR 3730 (HY000): Cannot drop table 'PISO' referenced by a foreign key constraint 'ALQUILER_ibfk_2' on table 'ALQUILER'.</pre>
-          </app-terminal-code>
+        <app-collapsible>
+          <span appCollapsibleOpenAction>Ver solución</span>
 
-          <p>
-            No nos permite eliminar la tabla ya que tiene valores referenciados por otras tablas. Primero debemos
-            eliminar las tablas que hacen referencia a ella y luego finalmente eliminaremos la tabla.
-          </p>
-        </div>
-      </app-collapsible>
-    </div>
-  </section>
-</main>
+          <div appCollapsibleContent>
+            <app-terminal-code>
+              <span terminal-code-command>drop table PISO;</span>
+              <pre
+                terminal-code-output>ERROR 3730 (HY000): Cannot drop table 'PISO' referenced by a foreign key constraint 'ALQUILER_ibfk_2' on table 'ALQUILER'.</pre>
+            </app-terminal-code>
+
+            <p>
+              No nos permite eliminar la tabla ya que tiene valores referenciados por otras tablas. Primero debemos
+              eliminar las tablas que hacen referencia a ella y luego finalmente eliminaremos la tabla.
+            </p>
+          </div>
+
+          <span appCollapsibleCloseAction>Ocultar solución</span>
+        </app-collapsible>
+      </div>
+    </section>
+  </article>
+</app-responsive-layout>

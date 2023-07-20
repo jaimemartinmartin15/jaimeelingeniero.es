@@ -16,6 +16,7 @@ const GAP_SIZE = 30; // 30 px as in scss file in .graphic-scroller class
 export class RainComponent implements OnInit, AfterViewInit {
   @ViewChild('monthGraphicScroller', { static: false }) private monthGraphicScrollerRef: ElementRef;
   @ViewChild('yearGraphicScroller', { static: false }) private yearGraphicScrollerRef: ElementRef;
+  @ViewChild('svgComparationYearWrapper', { static: false }) private svgComparationYearWrapperRef: ElementRef;
 
   private get monthScrollerEl(): HTMLDivElement {
     return this.monthGraphicScrollerRef.nativeElement;
@@ -25,7 +26,9 @@ export class RainComponent implements OnInit, AfterViewInit {
     return this.yearGraphicScrollerRef.nativeElement;
   }
 
-  // hanling of custom snap-scroll
+  public comparationYearSvgWidth: number = 0;
+
+  // handling of custom snap-scroll
   private touchEnded$ = new BehaviorSubject<boolean>(true);
   public monthGraphicScrollEvents$ = new Subject<void>();
   public yearGraphicScrollEvents$ = new Subject<void>();
@@ -48,6 +51,8 @@ export class RainComponent implements OnInit, AfterViewInit {
   public yearRainData: RainData[] = [];
   public nextYearRainData: RainData[] = [];
 
+  public comparationYearRainData: RainData[] = [];
+
   public constructor(public readonly rainDataService: RainDataService, private readonly activatedRoute: ActivatedRoute) {}
 
   public ngOnInit() {
@@ -63,6 +68,15 @@ export class RainComponent implements OnInit, AfterViewInit {
     this.centerScrollingInstantly();
 
     this.updateHeightsOfGraphicWrappers();
+
+    // min width of year comparation graphic (timeout to avoid error ExpressionChangedAfterItHasBeenCheckedError)
+    setTimeout(() => {
+      const boxWidth = this.svgComparationYearWrapperRef.nativeElement.offsetWidth;
+      const boxHeight = this.svgComparationYearWrapperRef.nativeElement.offsetHeight;
+      const relation = boxHeight / 325; //325 is viewBox in html file
+      this.comparationYearSvgWidth =
+        25 + this.comparationYearRainData.length * 30 < boxWidth / relation ? boxWidth / relation : 25 + this.comparationYearRainData.length * 30;
+    }, 0);
   }
 
   @HostListener('touchstart')
@@ -172,6 +186,9 @@ export class RainComponent implements OnInit, AfterViewInit {
     this.previousYearRainData = this.rainDataService.getRainDataForMonthsInYear(this.selectedYear - 1);
     this.yearRainData = this.rainDataService.getRainDataForMonthsInYear(this.selectedYear);
     this.nextYearRainData = this.rainDataService.getRainDataForMonthsInYear(this.selectedYear + 1);
+
+    // it is cached in the service
+    this.comparationYearRainData = this.rainDataService.getComparationYearRainData();
   }
 
   private updateHeightsOfGraphicWrappers() {

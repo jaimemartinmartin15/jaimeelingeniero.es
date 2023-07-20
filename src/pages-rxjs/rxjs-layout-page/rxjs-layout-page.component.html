@@ -1,0 +1,18 @@
+<app-responsive-layout (onLeftMenuChange)="showHideBackLink($event)">
+  <app-header-print #responsiveLayoutFlexContentHeader responsive-layout-flex-content-header></app-header-print>
+
+  <ng-container *ngFor="let group of GROUPS_OF_LINKS" #responsiveLayoutLeftMenu
+    ngProjectAs="[responsive-layout-left-menu]">
+    <h3 class="subtitle">{{group.subtitle}}</h3>
+
+    <div class="links-group">
+      <a *ngFor="let lesson of group.links" [routerLink]="[lesson.url]"
+        routerLinkActive="menu-section-active">{{lesson.display}}</a>
+    </div>
+  </ng-container>
+
+  <a #responsiveLayoutContentHeader responsive-layout-content-header routerLink="['/comprende-rxjs/']"
+    class="back-to-menu-link" *ngIf="!isShowingLeftMenu">⬅️ Volver al menú de operadores</a>
+
+  <router-outlet #responsiveLayoutMainContent responsive-layout-main-content></router-outlet>
+</app-responsive-layout>

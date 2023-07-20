@@ -1,13 +1,7 @@
 @import "../../../shared/styles/colors";
 
-$page-width: 830px;
-
 :host {
     display: block;
-    max-width: $page-width;
-    margin: auto;
-    padding: 0 20px 50px 20px;
-    line-height: 30px;
 }
 
 .title {
@@ -54,11 +48,7 @@ app-terminal-code {
     width: 100%;
 }
 
-@media (max-width: $page-width) {
-    :host {
-        padding: 0 0 35px 0;
-    }
-
+@media (max-width: 830px) {
     .configure-dns-ubuntu-img {
         width: 100%;
     }

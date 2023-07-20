@@ -10,6 +10,8 @@ export class RainDataService {
   // lines of type xx/mm/yyyy-liters
   private allMonthsRainData: RainData[] = [];
 
+  private _comparationYearData: RainData[] = [];
+
   public setData(data: LineData[]): void {
     data.forEach((line) => {
       switch (line.lineType) {
@@ -104,5 +106,36 @@ export class RainDataService {
     }
 
     return requestedMonths.sort((a, b) => a.date.getTime() - b.date.getTime());
+  }
+
+  public getComparationYearRainData(): RainData[] {
+    if (this._comparationYearData.length !== 0) {
+      return this._comparationYearData;
+    }
+
+    const minYear = Math.min(...this.allMonthsRainData.map((m) => m.date.getFullYear()));
+    const maxYear = Math.max(...this.allMonthsRainData.map((m) => m.date.getFullYear()));
+    for (let year = minYear; year <= maxYear; year++) {
+      const totalAmountOfLitersInYear = this.allMonthsRainData
+        .filter((m) => m.date.getFullYear() === year)
+        .map((m) => m.liters)
+        .reduce((a, b) => a + b, 0);
+      this._comparationYearData.push({
+        date: new Date(year, 0, 1),
+        liters: totalAmountOfLitersInYear,
+        isFake: !this.allMonthsRainData.some((h) => h.date.getFullYear() === year),
+        svgOffset: 0,
+      });
+    }
+    this.calculateSvgOffsetsForComparationYearData();
+    return this._comparationYearData;
+  }
+
+  public calculateSvgOffsetsForComparationYearData() {
+    const maxRain = Math.max(...this._comparationYearData.map((h) => h.liters));
+    this._comparationYearData.forEach((h) => {
+      // min rain -> offset 258    max rain -> offset 0
+      h.svgOffset = 258 - (258 * h.liters) / maxRain;
+    });
   }
 }

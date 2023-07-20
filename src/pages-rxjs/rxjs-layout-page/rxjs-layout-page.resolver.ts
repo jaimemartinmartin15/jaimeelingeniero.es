@@ -4,7 +4,7 @@ import { Resolve } from '@angular/router';
 import { Observable } from 'rxjs';
 
 @Injectable()
-export class RoutableLateralMenuResolver implements Resolve<unknown[]> {
+export class RxjsLayoutPageResolver implements Resolve<unknown[]> {
   public constructor(@Inject(DOCUMENT) private document: Document) {}
 
   public resolve(): Observable<unknown[]> | Promise<unknown[]> | unknown[] {

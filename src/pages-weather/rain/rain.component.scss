@@ -1,146 +1,68 @@
 :host {
   display: flex;
+  flex-wrap: wrap;
   gap: 40px;
   padding: 15px;
   max-width: 1000px;
   margin: 0 auto;
 }
 
+.box {
+  width: calc(50% - 20px);
+}
+
 .graphic-scroller {
-  width: 50%;
   display: flex;
   align-items: flex-start;
   gap: 30px;
   overflow: hidden;
   scroll-behavior: smooth;
   transition: height 0.5s;
+}
 
-  div[class$="graphic-container"] {
-    width: 100%;
-    flex-shrink: 0;
-  }
+.month-graphic-container {
+  width: 100%;
+  flex-shrink: 0;
 
-  .month-graphic-container {
-    .header {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      gap: 15px;
-      margin: 10px;
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 15px;
+    margin: 10px;
 
-      & span:first-of-type:has(.badge) {
-        cursor: pointer;
-      }
-
-      .month-and-year {
-        position: relative;
-        margin: 0;
-        font-size: 1.5rem;
-        font-weight: bold;
-
-        .badge {
-          position: absolute;
-          top: 0;
-          right: -10px;
-        }
-      }
-
-      .liters {
-        margin: 0;
-        color: #00a2e8;
-        font-weight: bold;
-        font-size: 1rem;
-      }
-
-      .icon {
-        flex-grow: 1;
-        font-size: 1.8rem;
-      }
-
-      .change-month-buttons {
-        display: flex;
-        gap: 10px;
-
-        button {
-          background-color: #cbf0ff;
-          border: 2px solid black;
-          border-radius: 3px;
-          width: 42px;
-          height: 42px;
-          cursor: pointer;
-          font-size: 1.5rem;
-        }
-      }
+    & span:first-of-type:has(.badge) {
+      cursor: pointer;
     }
 
-    .calendar {
-      display: grid;
-      grid-template-columns: repeat(7, 1fr);
-      list-style: none;
-      padding: 0;
-
-      li:nth-child(-n + 7) {
-        // these are the initials of the week days LMXJVSD
-        font-weight: bold;
-        text-align: center;
-      }
-
-      li:nth-child(n + 8) {
-        // these are the boxes for each day
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 3px;
-        position: relative;
-        margin-top: 15px;
-
-        &:has(.badge) {
-          cursor: pointer;
-        }
-
-        .badge {
-          position: absolute;
-          top: -3px;
-          right: 5px;
-        }
-
-        .pluviometer-svg {
-          display: block;
-          width: 70%;
-        }
-
-        .liters {
-          font-size: 0.8rem;
-          color: #00a2e8;
-          font-weight: bold;
-        }
-      }
-    }
-  }
-
-  .year-graphic-container {
-    .header {
-      display: flex;
-      justify-content: space-evenly;
-      align-items: center;
-      gap: 15px;
-      margin: 10px 10px 40px 10px;
+    .month-and-year {
+      position: relative;
+      margin: 0;
       font-size: 1.5rem;
       font-weight: bold;
-      text-align: center;
 
-      .year {
-        margin: 0;
-        font-size: 1.5rem;
-        font-weight: bold;
+      .badge {
+        position: absolute;
+        top: 0;
+        right: -10px;
       }
+    }
 
-      .liters {
-        margin: 0;
-        color: #00a2e8;
-        font-weight: bold;
-        font-size: 1rem;
-      }
+    .liters {
+      margin: 0;
+      color: #00a2e8;
+      font-weight: bold;
+      font-size: 1rem;
+    }
+
+    .icon {
+      flex-grow: 1;
+      font-size: 1.8rem;
+    }
+
+    .change-month-buttons {
+      display: flex;
+      gap: 10px;
 
       button {
         background-color: #cbf0ff;
@@ -152,10 +74,108 @@
         font-size: 1.5rem;
       }
     }
+  }
 
-    .water-year-line {
-      cursor: pointer;
+  .calendar {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    list-style: none;
+    padding: 0;
+
+    li:nth-child(-n + 7) {
+      // these are the initials of the week days LMXJVSD
+      font-weight: bold;
+      text-align: center;
     }
+
+    li:nth-child(n + 8) {
+      // these are the boxes for each day
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 3px;
+      position: relative;
+      margin-top: 15px;
+
+      &:has(.badge) {
+        cursor: pointer;
+      }
+
+      .badge {
+        position: absolute;
+        top: -3px;
+        right: 5px;
+      }
+
+      .pluviometer-svg {
+        display: block;
+        width: 70%;
+      }
+
+      .liters {
+        font-size: 0.8rem;
+        color: #00a2e8;
+        font-weight: bold;
+      }
+    }
+  }
+}
+
+.year-graphic-container {
+  width: 100%;
+  flex-shrink: 0;
+
+  .header {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    gap: 15px;
+    margin: 10px 10px 40px 10px;
+    font-size: 1.5rem;
+    font-weight: bold;
+    text-align: center;
+
+    .year {
+      margin: 0;
+      font-size: 1.5rem;
+      font-weight: bold;
+    }
+
+    .liters {
+      margin: 0;
+      color: #00a2e8;
+      font-weight: bold;
+      font-size: 1rem;
+    }
+
+    button {
+      background-color: #cbf0ff;
+      border: 2px solid black;
+      border-radius: 3px;
+      width: 42px;
+      height: 42px;
+      cursor: pointer;
+      font-size: 1.5rem;
+    }
+  }
+
+  .water-year-line {
+    cursor: pointer;
+  }
+}
+
+.comparation-year-graphic-container {
+  text-align: center;
+
+  .header {
+    font-size: 1.5rem;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 30px;
+  }
+
+  .svg-wrapper {
+    overflow: auto;
   }
 }
 
@@ -203,12 +223,11 @@
 }
 
 @media (max-width: 992px) {
-  :host {
-    flex-wrap: wrap;
+  .box {
+    width: 100%;
   }
 
   .graphic-scroller {
-    width: 100%;
     overflow-x: auto;
     overflow-y: hidden;
   }
