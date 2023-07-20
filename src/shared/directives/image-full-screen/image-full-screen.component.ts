@@ -18,8 +18,6 @@ import { filter, skip } from 'rxjs';
   ],
 })
 export class ImageFullScreenComponent implements OnInit, AfterContentInit {
-  private currentScroll: number;
-
   public constructor(private readonly elementRef: ElementRef, private readonly router: Router) {}
 
   private get element(): HTMLElement {
@@ -31,8 +29,6 @@ export class ImageFullScreenComponent implements OnInit, AfterContentInit {
   }
 
   public ngOnInit(): void {
-    this.currentScroll = window.scrollY;
-
     // when the user presses back, we want to avoid navigation back. Just close the image.
     // adding the hash will just remove it when navigating back (user presses back button)
     location.href += '#image';
@@ -46,14 +42,15 @@ export class ImageFullScreenComponent implements OnInit, AfterContentInit {
       });
   }
 
+  // animation to open the image
   public ngAfterContentInit() {
     this.imageRef.style.width = '100%';
     this.imageRef.style.maxWidth = '0%';
     this.imageRef.style.maxHeight = '100%';
     this.imageRef.style.objectFit = 'contain';
-    this.imageRef.style.transition = 'all 0.5s';
+    this.imageRef.style.transition = 'all 0.3s';
     this.element.style.backgroundColor = '#0000';
-    this.element.style.transition = 'all 0.5s';
+    this.element.style.transition = 'all 0.3s';
     setTimeout(() => {
       this.imageRef.style.maxWidth = '100%';
       this.element.style.backgroundColor = '#000E';
@@ -72,7 +69,5 @@ export class ImageFullScreenComponent implements OnInit, AfterContentInit {
 
   private closeImage(): void {
     this.element.parentElement?.removeChild(this.element);
-    // restore the scroll after navigating back
-    setTimeout(() => window.scrollTo({ top: this.currentScroll }), 0);
   }
 }
