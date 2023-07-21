@@ -292,4 +292,10 @@ export class RainComponent implements OnInit, AfterViewInit {
       this.popUp.content = day.popUpContent;
     }
   }
+
+  public selectYear(year: number) {
+    this.selectedYear = year;
+    this.updateArraysRainData();
+    this.updateHeightsOfGraphicWrappers();
+  }
 }
