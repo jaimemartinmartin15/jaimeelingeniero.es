@@ -299,5 +299,9 @@
         .title {
             font-size: $title-size;
         }
+
+        app-carousel {
+            gap: 0;
+        }
     }
 }

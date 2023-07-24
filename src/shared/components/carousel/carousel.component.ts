@@ -28,8 +28,10 @@ export class CarouselComponent implements AfterViewInit {
   private setCarouselContentWidth() {
     const childWidth = this.items.get(0)?.nativeElement.offsetWidth;
     const gapSize = 20; // .content gap in scss file
-    const itemsToShow = Math.min(this.showElementsAtSameTime, Math.floor((window.innerWidth - 200) / (childWidth + gapSize)));
-
+    const itemsToShow = Math.min(
+      this.showElementsAtSameTime,
+      Math.max(Math.floor((document.documentElement.clientWidth - 200) / (childWidth + gapSize)), 1)
+    );
     this.scroller.nativeElement.style.width = `${(childWidth + gapSize) * itemsToShow}px`;
   }
 
