@@ -143,39 +143,63 @@
         font-size: 4em;
     }
 
-    .tiles-container {
+    .carousel {
         display: flex;
-        justify-content: center;
-        align-items: center;
-        flex-wrap: wrap;
-        gap: 20px;
+        justify-content: space-between;
+        gap: 40px;
 
-        .tile {
+        .prev-button,
+        .next-button {
             display: flex;
-            flex-direction: column;
-            justify-content: center;
             align-items: center;
-            gap: 5px;
-            text-align: center;
-            border: 2.5px solid $color-orange;
-            border-radius: 5px;
-            width: 300px;
-            height: 100px;
-            transition: box-shadow 0.2s;
-            text-decoration: none;
-            color: black;
-            background-color: $color-background-panel;
-            box-shadow: 0 0 5px $color-box-shadow;
+            width: 30px;
+            cursor: pointer;
 
-            &--disabled {
-                color: $color-text-disabled;
-                border: 2.5px solid $color-background-disabled;
-                box-shadow: none;
+            svg {
+                stroke: black;
+                stroke-width: 15;
+                stroke-linejoin: round;
+                fill: none;
+                stroke-linecap: round;
             }
+        }
 
-            &:hover:not(:last-child) {
-                box-shadow: 0 0 7px $color-orange;
-                cursor: pointer;
+        .tiles-container {
+            min-width: 800px;
+            max-width: 800px;
+            display: flex;
+            gap: 20px;
+            overflow: hidden;
+            scroll-snap-type: x mandatory;
+            scroll-behavior: smooth;
+
+            .tile {
+                scroll-snap-align: center;
+                min-width: 250px;
+                max-width: 250px;
+                height: 300px;
+                box-sizing: border-box;
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+                text-decoration: none;
+                color: black;
+                border: 2px solid $color-orange;
+                border-radius: 5px;
+                box-shadow: 0px 0px 10px 0px $color-box-shadow;
+
+                div {
+                    flex-grow: 1;
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
+                    align-items: center;
+                    gap: 15px;
+
+                    span:first-child {
+                        color: $color-orange;
+                    }
+                }
             }
         }
     }
@@ -304,7 +328,7 @@
             font-size: $title-size;
         }
 
-        .tiles-container {
+        .carousel {
             width: 100%;
 
             .tile {

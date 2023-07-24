@@ -104,16 +104,28 @@
 <section class="learning">
   <h1 class="title">Aprender</h1>
 
-  <div class="tiles-container">
-    <a routerLink="comprende-rxjs" class="tile"><span>Frontend</span><span>RxJS</span></a>
+  <div class="carousel">
+    <div class="prev-button" (click)="showPrevCardLearningCarousel()">
+      <svg viewBox="0 0 50 100">
+        <path d="M40,10L10,50L40,90" />
+      </svg>
+    </div>
 
-    <a routerLink="redes/dns" class="tile"><span>Redes</span><span>Servicio DNS</span></a>
+    <div class="tiles-container" #scrollerLearningCarousel>
+      <a class="tile" *ngFor="let tile of LEARN_TILES" [routerLink]="tile.link">
+        <img [src]="tile.img" alt="image">
+        <div>
+          <span>{{tile.topic}}</span>
+          <span>{{tile.subtopic}}</span>
+        </div>
+      </a>
+    </div>
 
-    <a routerLink="bases-de-datos/sql" class="tile"><span>Bases de datos</span><span>SQL</span></a>
-
-    <a routerLink="comandos" class="tile"><span>Sistemas operativos</span><span>Comandos</span></a>
-
-    <a class="tile tile--disabled"><span>...</span><span>Más en el porvenir</span></a>
+    <div class="next-button" (click)="showNextCardLearningCarousel()">
+      <svg viewBox="0 0 50 100">
+        <path d="M10,10L40,50L10,90" />
+      </svg>
+    </div>
   </div>
 </section>
 

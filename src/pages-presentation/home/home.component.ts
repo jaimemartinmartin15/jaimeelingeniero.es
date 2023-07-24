@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { intervalArray } from 'src/utils/arrays';
 import { calculateCurrentAge } from 'src/utils/dates';
 import { rotateProfilePicture } from './home.animations';
@@ -21,6 +21,9 @@ const VIEW_BOX_HEIGHT_DESKTOP = 10;
   animations: [rotateProfilePicture],
 })
 export class HomeComponent implements OnInit {
+  @ViewChild('scrollerLearningCarousel')
+  public learningCarousel: ElementRef;
+
   public years: number;
 
   // profile animation
@@ -48,6 +51,13 @@ export class HomeComponent implements OnInit {
   public viewBoxHeight = this.isMobileViewPort ? VIEW_BOX_HEIGHT_MOBILE : VIEW_BOX_HEIGHT_DESKTOP;
   public waveViewBox = `0 0 ${this.viewBoxWidth} ${this.viewBoxHeight}`;
   public wavePath = '';
+
+  public LEARN_TILES = [
+    { link: 'comprende-rxjs', topic: 'Frontend', subtopic: 'RxJS', img: 'assets/home/frontendrxjscard.png' },
+    { link: 'redes/dns', topic: 'Redes', subtopic: 'DNS', img: 'assets/home/redesdnscard.png' },
+    { link: 'bases-de-datos/sql', topic: 'Bases de datos', subtopic: 'SQL', img: 'assets/home/basesdedatossqlcard.png' },
+    { link: 'comandos', topic: 'Sistemas operativos', subtopic: 'Comandos', img: 'assets/home/sistemasoperativoscomandoscard.png' },
+  ];
 
   public ngOnInit(): void {
     this.years = calculateCurrentAge(new Date(1996, 10, 15));
@@ -131,5 +141,15 @@ export class HomeComponent implements OnInit {
     this.wavePath += ` ${this.viewBoxWidth},${heightValues[Math.trunc(Math.random() * heightValues.length)]}L${this.viewBoxWidth},0z`;
 
     this.scheduleWaveAnimation(ANIMATION_WAVE_TIME);
+  }
+
+  public showPrevCardLearningCarousel() {
+    const childWidth = this.learningCarousel.nativeElement.children[0].clientWidth;
+    this.learningCarousel.nativeElement.scrollLeft -= childWidth;
+  }
+
+  public showNextCardLearningCarousel() {
+    const childWidth = this.learningCarousel.nativeElement.children[0].clientWidth;
+    this.learningCarousel.nativeElement.scrollLeft += childWidth;
   }
 }
