@@ -1,12 +1,4 @@
-import {
-  AfterViewInit,
-  Component,
-  ContentChildren,
-  ElementRef,
-  Input,
-  QueryList,
-  ViewChild
-} from '@angular/core';
+import { AfterViewInit, Component, ContentChildren, ElementRef, HostListener, Input, QueryList, ViewChild } from '@angular/core';
 
 @Component({
   selector: 'app-carousel',
@@ -25,18 +17,29 @@ export class CarouselComponent implements AfterViewInit {
 
   public ngAfterViewInit(): void {
     this.items.forEach((e) => (e.nativeElement.style.scrollSnapAlign = 'start'));
-    const childWith = this.items.get(0)?.nativeElement.offsetWidth;
-    // 20 is .content gap in scss file
-    this.scroller.nativeElement.style.width = `${(childWith + 20) * this.showElementsAtSameTime}px`;
+    this.setCarouselContentWidth();
+  }
+
+  @HostListener('window:resize', ['$event'])
+  onResize() {
+    this.setCarouselContentWidth();
+  }
+
+  private setCarouselContentWidth() {
+    const childWidth = this.items.get(0)?.nativeElement.offsetWidth;
+    const gapSize = 20; // .content gap in scss file
+    const itemsToShow = Math.min(this.showElementsAtSameTime, Math.floor((window.innerWidth - 200) / (childWidth + gapSize)));
+
+    this.scroller.nativeElement.style.width = `${(childWidth + gapSize) * itemsToShow}px`;
   }
 
   public scrollPrev() {
-    const childWith = this.items.get(0)?.nativeElement.offsetWidth;
-    this.scroller.nativeElement.scrollLeft -= childWith;
+    const childWidth = this.items.get(0)?.nativeElement.offsetWidth;
+    this.scroller.nativeElement.scrollLeft -= childWidth;
   }
 
   public scrollNext() {
-    const childWith = this.items.get(0)?.nativeElement.offsetWidth;
-    this.scroller.nativeElement.scrollLeft += childWith;
+    const childWidth = this.items.get(0)?.nativeElement.offsetWidth;
+    this.scroller.nativeElement.scrollLeft += childWidth;
   }
 }
