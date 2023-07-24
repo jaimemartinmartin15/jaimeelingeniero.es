@@ -104,56 +104,28 @@
 <section class="learning">
   <h1 class="title">Aprender</h1>
 
-  <div class="carousel">
-    <div class="prev-button" (click)="showPrevCardCarousel(learningCarousel)">
-      <svg viewBox="0 0 50 100">
-        <path d="M40,10L10,50L40,90" />
-      </svg>
-    </div>
-
-    <div class="tiles-container" #scrollerLearningCarousel>
-      <a class="tile" *ngFor="let tile of LEARN_TILES" [routerLink]="tile.link">
-        <img [src]="tile.img" alt="image">
-        <div>
-          <span>{{tile.topic}}</span>
-          <span>{{tile.subtopic}}</span>
-        </div>
-      </a>
-    </div>
-
-    <div class="next-button" (click)="showNextCardCarousel(learningCarousel)">
-      <svg viewBox="0 0 50 100">
-        <path d="M10,10L40,50L10,90" />
-      </svg>
-    </div>
-  </div>
+  <app-carousel [showElementsAtSameTime]="3">
+    <a #carouselItem class="carousel-item" *ngFor="let tile of LEARN_TILES" [routerLink]="tile.link">
+      <img [src]="tile.img" alt="image">
+      <div>
+        <span>{{tile.topic}}</span>
+        <span>{{tile.subtopic}}</span>
+      </div>
+    </a>
+  </app-carousel>
 </section>
 
 <section class="personal-projects">
   <h1 class="title">Proyectos personales</h1>
 
-  <div class="carousel">
-    <div class="prev-button" (click)="showPrevCardCarousel(personalProjectsCarousel)">
-      <svg viewBox="0 0 50 100">
-        <path d="M40,10L10,50L40,90" />
-      </svg>
-    </div>
-
-    <div class="tiles-container" #scrollerPersonalProjectsCarousel>
-      <a class="tile" *ngFor="let tile of PERSONAL_PROJECTS_TILES" [routerLink]="tile.link">
-        <img [src]="tile.img" alt="image">
-        <div>
-          <span>{{tile.title}}</span>
-        </div>
-      </a>
-    </div>
-
-    <div class="next-button" (click)="showNextCardCarousel(personalProjectsCarousel)">
-      <svg viewBox="0 0 50 100">
-        <path d="M10,10L40,50L10,90" />
-      </svg>
-    </div>
-  </div>
+  <app-carousel [showElementsAtSameTime]="2">
+    <a #carouselItem class="carousel-item" *ngFor="let tile of PERSONAL_PROJECTS_TILES" [routerLink]="tile.link">
+      <img [src]="tile.img" alt="image">
+      <div>
+        <span>{{tile.title}}</span>
+      </div>
+    </a>
+  </app-carousel>
 </section>
 
 <footer class="contact">

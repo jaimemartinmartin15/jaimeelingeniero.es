@@ -144,63 +144,29 @@
         font-size: 4em;
     }
 
-    .carousel {
+    .carousel-item {
+        width: 250px;
+        height: 300px;
+        box-sizing: border-box;
         display: flex;
+        flex-direction: column;
         justify-content: space-between;
-        gap: 40px;
+        text-decoration: none;
+        color: black;
+        border: 2px solid $color-orange;
+        border-radius: 5px;
+        box-shadow: 0px 0px 10px 0px $color-box-shadow;
 
-        .prev-button,
-        .next-button {
+        div {
+            flex-grow: 1;
             display: flex;
+            flex-direction: column;
+            justify-content: center;
             align-items: center;
-            width: 30px;
-            cursor: pointer;
+            gap: 15px;
 
-            svg {
-                stroke: black;
-                stroke-width: 15;
-                stroke-linejoin: round;
-                fill: none;
-                stroke-linecap: round;
-            }
-        }
-
-        .tiles-container {
-            min-width: 800px;
-            max-width: 800px;
-            display: flex;
-            gap: 20px;
-            overflow: hidden;
-            scroll-snap-type: x mandatory;
-            scroll-behavior: smooth;
-
-            .tile {
-                scroll-snap-align: start;
-                min-width: 250px;
-                max-width: 250px;
-                height: 300px;
-                box-sizing: border-box;
-                display: flex;
-                flex-direction: column;
-                justify-content: space-between;
-                text-decoration: none;
-                color: black;
-                border: 2px solid $color-orange;
-                border-radius: 5px;
-                box-shadow: 0px 0px 10px 0px $color-box-shadow;
-
-                div {
-                    flex-grow: 1;
-                    display: flex;
-                    flex-direction: column;
-                    justify-content: center;
-                    align-items: center;
-                    gap: 15px;
-
-                    span:first-child {
-                        color: $color-orange;
-                    }
-                }
+            span:first-child {
+                color: $color-orange;
             }
         }
     }
@@ -246,16 +212,6 @@
             }
         }
     }
-
-    .personal-projects,
-    .learning {
-        .carousel {
-            .tiles-container {
-                min-width: 530px;
-                max-width: 530px;
-            }
-        }
-    }
 }
 
 @media (max-width: 991px) {
@@ -290,27 +246,6 @@
             align-items: flex-start;
             max-width: 340px;
             gap: 15px;
-        }
-    }
-
-    .personal-projects,
-    .learning {
-        .carousel {
-            .prev-button,
-            .next-button {
-                width: 15px;
-            }
-
-            .tiles-container {
-                min-width: 215px;
-                max-width: 215px;
-                overflow: auto;
-
-                .tile {
-                    min-width: 210px;
-                    max-width: 210px;
-                }
-            }
         }
     }
 }
