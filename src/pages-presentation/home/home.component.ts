@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { intervalArray } from 'src/utils/arrays';
 import { calculateCurrentAge } from 'src/utils/dates';
 import { rotateProfilePicture } from './home.animations';
@@ -48,6 +48,18 @@ export class HomeComponent implements OnInit {
   public viewBoxHeight = this.isMobileViewPort ? VIEW_BOX_HEIGHT_MOBILE : VIEW_BOX_HEIGHT_DESKTOP;
   public waveViewBox = `0 0 ${this.viewBoxWidth} ${this.viewBoxHeight}`;
   public wavePath = '';
+
+  // carousels
+  public LEARN_TILES = [
+    { link: 'comprende-rxjs', topic: 'Frontend', subtopic: 'RxJS', img: 'assets/home/frontendrxjscard.png' },
+    { link: 'redes/dns', topic: 'Redes', subtopic: 'DNS', img: 'assets/home/redesdnscard.png' },
+    { link: 'bases-de-datos/sql', topic: 'Bases de datos', subtopic: 'SQL', img: 'assets/home/basesdedatossqlcard.png' },
+    { link: 'comandos', topic: 'Sistemas operativos', subtopic: 'Comandos', img: 'assets/home/sistemasoperativoscomandoscard.png' },
+  ];
+  public PERSONAL_PROJECTS_TILES = [
+    { link: 'lluvias', title: 'Lluvias', img: 'assets/home/lluvias.png' },
+    { link: 'puntuaciones', title: 'Puntuaciones', img: 'assets/home/puntuaciones.png' },
+  ];
 
   public ngOnInit(): void {
     this.years = calculateCurrentAge(new Date(1996, 10, 15));

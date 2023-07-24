@@ -104,17 +104,28 @@
 <section class="learning">
   <h1 class="title">Aprender</h1>
 
-  <div class="tiles-container">
-    <a routerLink="comprende-rxjs" class="tile"><span>Frontend</span><span>RxJS</span></a>
+  <app-carousel [showElementsAtSameTime]="3">
+    <a #carouselItem class="carousel-item" *ngFor="let tile of LEARN_TILES" [routerLink]="tile.link">
+      <img [src]="tile.img" alt="image">
+      <div>
+        <span>{{tile.topic}}</span>
+        <span>{{tile.subtopic}}</span>
+      </div>
+    </a>
+  </app-carousel>
+</section>
 
-    <a routerLink="redes/dns" class="tile"><span>Redes</span><span>Servicio DNS</span></a>
+<section class="personal-projects">
+  <h1 class="title">Proyectos personales</h1>
 
-    <a routerLink="bases-de-datos/sql" class="tile"><span>Bases de datos</span><span>SQL</span></a>
-
-    <a routerLink="comandos" class="tile"><span>Sistemas operativos</span><span>Comandos</span></a>
-
-    <a class="tile tile--disabled"><span>...</span><span>Más en el porvenir</span></a>
-  </div>
+  <app-carousel [showElementsAtSameTime]="2">
+    <a #carouselItem class="carousel-item" *ngFor="let tile of PERSONAL_PROJECTS_TILES" [routerLink]="tile.link">
+      <img [src]="tile.img" alt="image">
+      <div>
+        <span>{{tile.title}}</span>
+      </div>
+    </a>
+  </app-carousel>
 </section>
 
 <footer class="contact">
