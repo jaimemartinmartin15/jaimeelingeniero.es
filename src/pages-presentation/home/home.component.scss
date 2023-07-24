@@ -174,7 +174,7 @@
             scroll-behavior: smooth;
 
             .tile {
-                scroll-snap-align: center;
+                scroll-snap-align: start;
                 min-width: 250px;
                 max-width: 250px;
                 height: 300px;
@@ -241,6 +241,15 @@
             }
         }
     }
+
+    .learning {
+        .carousel {
+            .tiles-container {
+                min-width: 530px;
+                max-width: 530px;
+            }
+        }
+    }
 }
 
 @media (max-width: 991px) {
@@ -275,6 +284,26 @@
             align-items: flex-start;
             max-width: 340px;
             gap: 15px;
+        }
+    }
+
+    .learning {
+        .carousel {
+            .prev-button,
+            .next-button {
+                width: 15px;
+            }
+
+            .tiles-container {
+                min-width: 215px;
+                max-width: 215px;
+                overflow: auto;
+
+                .tile {
+                    min-width: 210px;
+                    max-width: 210px;
+                }
+            }
         }
     }
 }
@@ -326,16 +355,6 @@
 
         .title {
             font-size: $title-size;
-        }
-
-        .carousel {
-            width: 100%;
-
-            .tile {
-                width: 90%;
-                max-width: 320px;
-                height: 80px;
-            }
         }
     }
 }
