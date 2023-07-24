@@ -21,12 +21,6 @@ const VIEW_BOX_HEIGHT_DESKTOP = 10;
   animations: [rotateProfilePicture],
 })
 export class HomeComponent implements OnInit {
-  @ViewChild('scrollerLearningCarousel')
-  public learningCarousel: ElementRef;
-
-  @ViewChild('scrollerPersonalProjectsCarousel')
-  public personalProjectsCarousel: ElementRef;
-
   public years: number;
 
   // profile animation
@@ -55,13 +49,13 @@ export class HomeComponent implements OnInit {
   public waveViewBox = `0 0 ${this.viewBoxWidth} ${this.viewBoxHeight}`;
   public wavePath = '';
 
+  // carousels
   public LEARN_TILES = [
     { link: 'comprende-rxjs', topic: 'Frontend', subtopic: 'RxJS', img: 'assets/home/frontendrxjscard.png' },
     { link: 'redes/dns', topic: 'Redes', subtopic: 'DNS', img: 'assets/home/redesdnscard.png' },
     { link: 'bases-de-datos/sql', topic: 'Bases de datos', subtopic: 'SQL', img: 'assets/home/basesdedatossqlcard.png' },
     { link: 'comandos', topic: 'Sistemas operativos', subtopic: 'Comandos', img: 'assets/home/sistemasoperativoscomandoscard.png' },
   ];
-
   public PERSONAL_PROJECTS_TILES = [
     { link: 'lluvias', title: 'Lluvias', img: 'assets/home/lluvias.png' },
     { link: 'puntuaciones', title: 'Puntuaciones', img: 'assets/home/puntuaciones.png' },
@@ -149,15 +143,5 @@ export class HomeComponent implements OnInit {
     this.wavePath += ` ${this.viewBoxWidth},${heightValues[Math.trunc(Math.random() * heightValues.length)]}L${this.viewBoxWidth},0z`;
 
     this.scheduleWaveAnimation(ANIMATION_WAVE_TIME);
-  }
-
-  public showPrevCardCarousel(carousel: ElementRef) {
-    const childWidth = carousel.nativeElement.children[0].clientWidth;
-    carousel.nativeElement.scrollLeft -= childWidth;
-  }
-
-  public showNextCardCarousel(carousel: ElementRef) {
-    const childWidth = carousel.nativeElement.children[0].clientWidth;
-    carousel.nativeElement.scrollLeft += childWidth;
   }
 }
