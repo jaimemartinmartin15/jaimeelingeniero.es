@@ -129,6 +129,7 @@
     }
 }
 
+.personal-projects,
 .learning {
     display: flex;
     justify-content: center;
@@ -205,6 +206,10 @@
     }
 }
 
+.personal-projects {
+    background-color: white;
+}
+
 .contact {
     background-color: rgb(126, 126, 126);
     padding: 50px;
@@ -242,6 +247,7 @@
         }
     }
 
+    .personal-projects,
     .learning {
         .carousel {
             .tiles-container {
@@ -287,6 +293,7 @@
         }
     }
 
+    .personal-projects,
     .learning {
         .carousel {
             .prev-button,
@@ -350,6 +357,7 @@
         }
     }
 
+    .personal-projects,
     .learning {
         padding: 20px;
 

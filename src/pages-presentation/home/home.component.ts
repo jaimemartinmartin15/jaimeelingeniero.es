@@ -24,6 +24,9 @@ export class HomeComponent implements OnInit {
   @ViewChild('scrollerLearningCarousel')
   public learningCarousel: ElementRef;
 
+  @ViewChild('scrollerPersonalProjectsCarousel')
+  public personalProjectsCarousel: ElementRef;
+
   public years: number;
 
   // profile animation
@@ -57,6 +60,11 @@ export class HomeComponent implements OnInit {
     { link: 'redes/dns', topic: 'Redes', subtopic: 'DNS', img: 'assets/home/redesdnscard.png' },
     { link: 'bases-de-datos/sql', topic: 'Bases de datos', subtopic: 'SQL', img: 'assets/home/basesdedatossqlcard.png' },
     { link: 'comandos', topic: 'Sistemas operativos', subtopic: 'Comandos', img: 'assets/home/sistemasoperativoscomandoscard.png' },
+  ];
+
+  public PERSONAL_PROJECTS_TILES = [
+    { link: 'lluvias', title: 'Lluvias', img: 'assets/home/lluvias.png' },
+    { link: 'puntuaciones', title: 'Puntuaciones', img: 'assets/home/puntuaciones.png' },
   ];
 
   public ngOnInit(): void {
@@ -143,13 +151,13 @@ export class HomeComponent implements OnInit {
     this.scheduleWaveAnimation(ANIMATION_WAVE_TIME);
   }
 
-  public showPrevCardLearningCarousel() {
-    const childWidth = this.learningCarousel.nativeElement.children[0].clientWidth;
-    this.learningCarousel.nativeElement.scrollLeft -= childWidth;
+  public showPrevCardCarousel(carousel: ElementRef) {
+    const childWidth = carousel.nativeElement.children[0].clientWidth;
+    carousel.nativeElement.scrollLeft -= childWidth;
   }
 
-  public showNextCardLearningCarousel() {
-    const childWidth = this.learningCarousel.nativeElement.children[0].clientWidth;
-    this.learningCarousel.nativeElement.scrollLeft += childWidth;
+  public showNextCardCarousel(carousel: ElementRef) {
+    const childWidth = carousel.nativeElement.children[0].clientWidth;
+    carousel.nativeElement.scrollLeft += childWidth;
   }
 }
