@@ -1,0 +1,39 @@
+:host {
+  display: flex;
+  gap: 20px;
+}
+
+.prev-button,
+.next-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+  cursor: pointer;
+
+  svg {
+    width: 20px;
+    stroke: black;
+    stroke-width: 15;
+    stroke-linejoin: round;
+    fill: none;
+    stroke-linecap: round;
+  }
+}
+
+.content {
+  display: flex;
+  gap: 20px;
+  padding: 20px;
+  overflow: hidden;
+  box-sizing: border-box;
+  scroll-behavior: smooth;
+  scroll-snap-type: x mandatory;
+  scroll-padding-left: 9px;
+}
+
+@media (max-width: 991px) {
+  .content {
+    overflow: auto;
+  }
+}
