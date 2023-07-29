@@ -1,5 +1,5 @@
 {
-    "inputDir": "src/svg/files",
+    "inputDirs": ["src/svg/files"],
     "outputDir": "src/svg/generated",
     "prefix": "app",
     "modules": [
