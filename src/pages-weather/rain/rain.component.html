@@ -109,7 +109,7 @@
 
         <svg class="pluviometer-svg" viewBox="0 0 300 360">
           <!-- the filter includes the water inside -->
-          <filter [id]="'fillpartial'+i">
+          <filter [id]="'fillpartial'+day.date.getFullYear()+''+day.date.getMonth()+''+i">
             <feFlood flood-color="#00a2e8" />
             <feOffset [attr.dy]="day.svgOffset"></feOffset>
             <feComposite operator="in" in2="SourceGraphic" />
@@ -122,7 +122,8 @@
             stroke="#b5e61d" stroke-width="40" />
           <path
             d="M20,40C100,10 200,10 280,40L280,115C280,150 240,160 220,170L190,345L110,345L80,170C60,160 20,150 20,115Z"
-            stroke="none" fill="#e1ffe2" [attr.filter]="'url(#fillpartial'+i+')'" />
+            stroke="none" fill="#e1ffe2"
+            [attr.filter]="'url(#fillpartial'+day.date.getFullYear()+''+day.date.getMonth()+''+i+')'" />
 
           <!-- measure lines -->
           <path d="M86,200C 138,202 146,202, 161,200" [attr.stroke]="[day.svgOffset > 216 ? '#757575' : '#FFF']"
