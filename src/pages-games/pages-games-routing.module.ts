@@ -34,7 +34,7 @@ const routes: Routes = [
         description:
           'Utiliza esta aplicación cuando estes jugando a las cartas con amigos o la familia y anota las puntuaciones para saber quién gana. Obtén estadísticas y bonitos gráficos.',
         keywords: ['tabla', 'puntuaciones', 'cartas', 'juego', 'online', 'ranking', 'clasificacion'],
-        favIcon: 'assets/favicons/puntuaciones/favicon-{size}x{size}.png',
+        favIcon: 'assets/pages-games/favicons/favicon-{size}x{size}.png',
       },
     },
     canActivateChild: [PagesGamesNavigationGuard],

@@ -9,7 +9,7 @@ export class RainDataResolver implements Resolve<LineData[]> {
   public constructor(private readonly http: HttpClient) {}
 
   public resolve(): Observable<LineData[]> {
-    return this.http.get('assets/pages-weather/rain/rain-data.txt', { responseType: 'text' }).pipe(
+    return this.http.get('assets/no-cached/pages-weather/rain/rain-data.txt', { responseType: 'text' }).pipe(
       map((response) =>
         response
           .split(/\r?\n/) // divide the lines

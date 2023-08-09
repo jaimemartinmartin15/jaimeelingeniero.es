@@ -27,15 +27,50 @@
             "tsConfig": "tsconfig.app.json",
             "inlineStyleLanguage": "scss",
             "assets": [
-              "src/assets",
-              "src/pages-network/dns/assets",
-              "src/pages-english/alphabet/assets",
-              "src/pages-english/tenses/assets",
-              "src/pages-bbdd/assets",
               {
                 "glob": "**/*",
+                "input": "src/assets/",
+                "output": "/assets/"
+              },
+              {
+                "glob": "**/*",
+                "input": "src/pages-presentation/home/assets",
+                "output": "/assets/pages-presentation/home/"
+              },
+              {
+                "glob": "**/*",
+                "input": "src/pages-network/dns/assets",
+                "output": "/assets/pages-network/dns/"
+              },
+              {
+                "glob": "**/*",
+                "input": "src/pages-english/alphabet/assets",
+                "output": "/assets/pages-english/alphabet/"
+              },
+              {
+                "glob": "**/*",
+                "input": "src/pages-english/tenses/assets",
+                "output": "/assets/pages-english/tenses/"
+              },
+              {
+                "glob": "**/*",
+                "input": "src/pages-bbdd/assets",
+                "output": "/assets/pages-bbdd/"
+              },
+              {
+                "glob": "rain-data.txt",
+                "input": "src/pages-weather/rain/assets",
+                "output": "/assets/no-cached/pages-weather/rain/"
+              },
+              {
+                "glob": "**/favicons/*",
                 "input": "src/pages-weather/rain/assets",
                 "output": "/assets/pages-weather/rain/"
+              },
+              {
+                "glob": "**/favicons/*",
+                "input": "src/pages-games/assets",
+                "output": "/assets/pages-games/"
               },
               {
                 "glob": "sitemap.xml",

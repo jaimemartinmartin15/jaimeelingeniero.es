@@ -25,4 +25,4 @@ jobs:
       - name: Upload file
         run: |
           aws --version
-          aws s3 cp verbs.json s3://jaimeelingeniero.es/pages-english/tenses/assets/verbs.json
+          aws s3 cp verbs.json s3://jaimeelingeniero.es/assets/no-cached/pages-english/tenses/verbs.json
