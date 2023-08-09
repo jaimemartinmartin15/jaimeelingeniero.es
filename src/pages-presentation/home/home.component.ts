@@ -29,16 +29,16 @@ export class HomeComponent implements OnInit {
   public stateRotateProfilePicture: 'showPhoto' | 'showLogo' = 'showPhoto';
   public profilePictureIndex = 0;
   public profilePictures: string[] = [
-    'assets/home/profile.png',
-    'assets/home/jame1.png',
-    'assets/home/profile.png',
-    'assets/home/jame2.png',
-    'assets/home/profile.png',
-    'assets/home/jame3.png',
-    'assets/home/profile.png',
-    'assets/home/jame4.png',
-    'assets/home/profile.png',
-    'assets/home/jame5.png',
+    'assets/pages-presentation/home/profile.png',
+    'assets/pages-presentation/home/jame1.png',
+    'assets/pages-presentation/home/profile.png',
+    'assets/pages-presentation/home/jame2.png',
+    'assets/pages-presentation/home/profile.png',
+    'assets/pages-presentation/home/jame3.png',
+    'assets/pages-presentation/home/profile.png',
+    'assets/pages-presentation/home/jame4.png',
+    'assets/pages-presentation/home/profile.png',
+    'assets/pages-presentation/home/jame5.png',
   ];
 
   // wave animation
@@ -51,14 +51,19 @@ export class HomeComponent implements OnInit {
 
   // carousels
   public LEARN_TILES = [
-    { link: 'comprende-rxjs', topic: 'Frontend', subtopic: 'RxJS', img: 'assets/home/frontendrxjscard.png' },
-    { link: 'redes/dns', topic: 'Redes', subtopic: 'DNS', img: 'assets/home/redesdnscard.png' },
-    { link: 'bases-de-datos/sql', topic: 'Bases de datos', subtopic: 'SQL', img: 'assets/home/basesdedatossqlcard.png' },
-    { link: 'comandos', topic: 'Sistemas operativos', subtopic: 'Comandos', img: 'assets/home/sistemasoperativoscomandoscard.png' },
+    { link: 'comprende-rxjs', topic: 'Frontend', subtopic: 'RxJS', img: 'assets/pages-presentation/home/frontendrxjscard.png' },
+    { link: 'redes/dns', topic: 'Redes', subtopic: 'DNS', img: 'assets/pages-presentation/home/redesdnscard.png' },
+    { link: 'bases-de-datos/sql', topic: 'Bases de datos', subtopic: 'SQL', img: 'assets/pages-presentation/home/basesdedatossqlcard.png' },
+    {
+      link: 'comandos',
+      topic: 'Sistemas operativos',
+      subtopic: 'Comandos',
+      img: 'assets/pages-presentation/home/sistemasoperativoscomandoscard.png',
+    },
   ];
   public PERSONAL_PROJECTS_TILES = [
-    { link: 'lluvias', title: 'Lluvias', img: 'assets/home/lluvias.png' },
-    { link: 'puntuaciones', title: 'Puntuaciones', img: 'assets/home/puntuaciones.png' },
+    { link: 'lluvias', title: 'Lluvias', img: 'assets/pages-presentation/home/lluvias.png' },
+    { link: 'puntuaciones', title: 'Puntuaciones', img: 'assets/pages-presentation/home/puntuaciones.png' },
   ];
 
   public ngOnInit(): void {

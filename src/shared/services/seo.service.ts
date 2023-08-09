@@ -56,7 +56,7 @@ export class SeoService {
     for (let i = 0; i < linkElementsFavIcon.length; i++) {
       let linkElement = linkElementsFavIcon.item(i) as HTMLLinkElement;
       const size = linkElement.sizes.value.split('x')[0];
-      linkElement.href = favIconPath != undefined ? favIconPath.replaceAll('{size}', size) : `assets/favicons/default/favicon-${size}x${size}.png`;
+      linkElement.href = favIconPath != undefined ? favIconPath.replaceAll('{size}', size) : `assets/favicons/favicon-${size}x${size}.png`;
     }
   }
 
