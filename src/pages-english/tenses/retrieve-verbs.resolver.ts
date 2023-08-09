@@ -9,6 +9,6 @@ export class RetrieveVerbsResolver implements Resolve<Verb[]> {
   public constructor(private readonly http: HttpClient) {}
 
   public resolve(): Observable<Verb[]> {
-    return this.http.get<Verb[]>('/assets/no-cached/pages-english/tenses/verbs.json');
+    return this.http.get<Verb[]>('assets/no-cached/pages-english/tenses/verbs.json');
   }
 }
