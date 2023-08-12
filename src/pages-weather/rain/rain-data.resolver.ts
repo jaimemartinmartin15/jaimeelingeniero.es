@@ -2,13 +2,13 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Resolve } from '@angular/router';
 import { Observable, map } from 'rxjs';
-import { LineData, LineType } from './line-data';
+import { LineFile, LineType } from './line-file';
 
 @Injectable()
-export class RainDataResolver implements Resolve<LineData[]> {
+export class RainDataResolver implements Resolve<LineFile[]> {
   public constructor(private readonly http: HttpClient) {}
 
-  public resolve(): Observable<LineData[]> {
+  public resolve(): Observable<LineFile[]> {
     return this.http.get('assets/no-cached/pages-weather/rain/rain-data.txt', { responseType: 'text' }).pipe(
       map((response) =>
         response

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { LineData, LineType } from './line-data';
+import { LineFile, LineType } from './line-file';
 import { RainData } from './rain-data';
 
 @Injectable()
@@ -12,7 +12,7 @@ export class RainDataService {
 
   private _comparationYearData: RainData[] = [];
 
-  public setData(data: LineData[]): void {
+  public setData(data: LineFile[]): void {
     data.forEach((line) => {
       switch (line.lineType) {
         case LineType.DAY:

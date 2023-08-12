@@ -3,7 +3,7 @@ export enum LineType {
   MONTH,
 }
 
-export interface LineData {
+export interface LineFile {
   lineType: LineType;
   day: number;
   month: number;
