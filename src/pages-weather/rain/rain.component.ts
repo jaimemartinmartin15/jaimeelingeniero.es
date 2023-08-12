@@ -14,24 +14,24 @@ const GAP_SIZE = 30; // 30 px as in scss file in .graphic-scroller class
   providers: [RainDataService],
 })
 export class RainComponent implements OnInit, AfterViewInit {
-  @ViewChild('monthGraphicScroller', { static: false }) private monthGraphicScrollerRef: ElementRef;
-  @ViewChild('yearGraphicScroller', { static: false }) private yearGraphicScrollerRef: ElementRef;
-  @ViewChild('svgComparationYearWrapper', { static: false }) private svgComparationYearWrapperRef: ElementRef;
+  @ViewChild('daysGraphicScroller', { static: false }) private daysGraphicScrollerRef: ElementRef;
+  @ViewChild('monthsGraphicScroller', { static: false }) private monthsGraphicScrollerRef: ElementRef;
+  @ViewChild('yearsGraphicSvgWrapper', { static: false }) private yearsGraphicSvgWrapperRef: ElementRef;
 
-  private get monthScrollerEl(): HTMLDivElement {
-    return this.monthGraphicScrollerRef.nativeElement;
+  private get daysScrollerEl(): HTMLDivElement {
+    return this.daysGraphicScrollerRef.nativeElement;
   }
 
-  private get yearScrollerEl(): HTMLDivElement {
-    return this.yearGraphicScrollerRef.nativeElement;
+  private get monthsScrollerEl(): HTMLDivElement {
+    return this.monthsGraphicScrollerRef.nativeElement;
   }
 
-  public comparationYearSvgWidth: number = 0;
+  public yearsGraphicSvgWidth: number = 0;
 
   // handling of custom snap-scroll
   private touchEnded$ = new BehaviorSubject<boolean>(true);
-  public monthGraphicScrollEvents$ = new Subject<void>();
-  public yearGraphicScrollEvents$ = new Subject<void>();
+  public daysGraphicScrollEvents$ = new Subject<void>();
+  public monthsGraphicScrollEvents$ = new Subject<void>();
 
   public readonly MONTHS = MONTHS;
   public readonly popUp = { show: false, content: '' };
@@ -39,19 +39,15 @@ export class RainComponent implements OnInit, AfterViewInit {
   public selectedYear = new Date().getFullYear();
   public selectedMonth = new Date().getMonth();
 
-  public previousDaysRainData: RainData[] = [];
-  public daysRainData: RainData[] = [];
-  public nextDaysRainData: RainData[] = [];
+  public daysGraphicPreviousRainData: RainData[] = [];
+  public daysGraphicRainData: RainData[] = [];
+  public daysGraphicNextRainData: RainData[] = [];
 
-  public previousMonthsRainData: RainData[] = [];
-  public monthsRainData: RainData[] = [];
-  public nextMonthsRainData: RainData[] = [];
+  public monthsGraphicPreviousRainData: RainData[] = [];
+  public monthsGraphicRainData: RainData[] = [];
+  public monthsGraphicNextRainData: RainData[] = [];
 
-  public previousYearRainData: RainData[] = [];
-  public yearRainData: RainData[] = [];
-  public nextYearRainData: RainData[] = [];
-
-  public comparationYearRainData: RainData[] = [];
+  public yearsGraphicRainData: RainData[] = [];
 
   public constructor(public readonly rainDataService: RainDataService, private readonly activatedRoute: ActivatedRoute) {}
 
@@ -69,13 +65,13 @@ export class RainComponent implements OnInit, AfterViewInit {
 
     this.updateHeightsOfGraphicWrappers();
 
-    // min width of year comparation graphic (timeout to avoid error ExpressionChangedAfterItHasBeenCheckedError)
+    // min width of years-graphic (timeout to avoid error ExpressionChangedAfterItHasBeenCheckedError)
     setTimeout(() => {
-      const boxWidth = this.svgComparationYearWrapperRef.nativeElement.offsetWidth;
-      const boxHeight = this.svgComparationYearWrapperRef.nativeElement.offsetHeight;
+      const boxWidth = this.yearsGraphicSvgWrapperRef.nativeElement.offsetWidth;
+      const boxHeight = this.yearsGraphicSvgWrapperRef.nativeElement.offsetHeight;
       const relation = boxHeight / 325; //325 is viewBox in html file
-      this.comparationYearSvgWidth =
-        25 + this.comparationYearRainData.length * 30 < boxWidth / relation ? boxWidth / relation : 25 + this.comparationYearRainData.length * 30;
+      this.yearsGraphicSvgWidth =
+        25 + this.yearsGraphicRainData.length * 30 < boxWidth / relation ? boxWidth / relation : 25 + this.yearsGraphicRainData.length * 30;
     }, 0);
   }
 
@@ -90,59 +86,59 @@ export class RainComponent implements OnInit, AfterViewInit {
   }
 
   private centerScrollingInstantly() {
-    this.monthScrollerEl.scrollTo({
+    this.daysScrollerEl.scrollTo({
       top: 0,
-      left: this.monthScrollerEl.clientWidth + GAP_SIZE,
+      left: this.daysScrollerEl.clientWidth + GAP_SIZE,
       behavior: 'instant' as ScrollBehavior,
     });
-    this.yearScrollerEl.scrollTo({
+    this.monthsScrollerEl.scrollTo({
       top: 0,
-      left: this.yearScrollerEl.clientWidth + GAP_SIZE,
+      left: this.monthsScrollerEl.clientWidth + GAP_SIZE,
       behavior: 'instant' as ScrollBehavior,
     });
   }
 
   private handleScrollSnapEvents() {
-    merge(this.touchEnded$, this.monthGraphicScrollEvents$, this.yearGraphicScrollEvents$)
+    merge(this.touchEnded$, this.daysGraphicScrollEvents$, this.monthsGraphicScrollEvents$)
       .pipe(
         filter(() => this.touchEnded$.getValue()),
         debounceTime(20)
       )
       .subscribe(() => {
         // assume both graphs have same width
-        let childrenWidth = this.monthScrollerEl.children[0].clientWidth;
+        let childrenWidth = this.daysScrollerEl.children[0].clientWidth;
 
         // update scroll on month graph
-        let scrollLeft = this.monthScrollerEl.scrollLeft;
+        let scrollLeft = this.daysScrollerEl.scrollLeft;
         if (scrollLeft > 0 && scrollLeft < (childrenWidth + GAP_SIZE) / 2) {
-          this.monthScrollerEl.scrollLeft = 0;
+          this.daysScrollerEl.scrollLeft = 0;
         } else if (scrollLeft > (childrenWidth + GAP_SIZE) / 2 && scrollLeft < childrenWidth + GAP_SIZE + (childrenWidth + GAP_SIZE) / 2) {
-          this.monthScrollerEl.scrollLeft = childrenWidth + GAP_SIZE;
+          this.daysScrollerEl.scrollLeft = childrenWidth + GAP_SIZE;
         } else {
-          this.monthScrollerEl.scrollLeft = (childrenWidth + GAP_SIZE) * 2;
+          this.daysScrollerEl.scrollLeft = (childrenWidth + GAP_SIZE) * 2;
         }
 
         // update scroll on year graph
-        scrollLeft = this.yearScrollerEl.scrollLeft;
+        scrollLeft = this.monthsScrollerEl.scrollLeft;
         if (scrollLeft > 0 && scrollLeft < (childrenWidth + GAP_SIZE) / 2) {
-          this.yearScrollerEl.scrollLeft = 0;
+          this.monthsScrollerEl.scrollLeft = 0;
         } else if (scrollLeft > (childrenWidth + GAP_SIZE) / 2 && scrollLeft < childrenWidth + GAP_SIZE + (childrenWidth + GAP_SIZE) / 2) {
-          this.yearScrollerEl.scrollLeft = childrenWidth + GAP_SIZE;
+          this.monthsScrollerEl.scrollLeft = childrenWidth + GAP_SIZE;
         } else {
-          this.yearScrollerEl.scrollLeft = (childrenWidth + GAP_SIZE) * 2;
+          this.monthsScrollerEl.scrollLeft = (childrenWidth + GAP_SIZE) * 2;
         }
       });
   }
 
   public handleMonthGraphicScroll() {
-    this.monthGraphicScrollEvents$.subscribe(() => {
-      const childrenWidth = this.monthScrollerEl.children[0].clientWidth;
+    this.daysGraphicScrollEvents$.subscribe(() => {
+      const childrenWidth = this.daysScrollerEl.children[0].clientWidth;
 
       // check if the scroll is multiple of a child width taking into account the gap
-      if (this.monthScrollerEl.scrollLeft % (childrenWidth + GAP_SIZE) === 0) {
-        if (this.monthScrollerEl.scrollLeft === 0) {
+      if (this.daysScrollerEl.scrollLeft % (childrenWidth + GAP_SIZE) === 0) {
+        if (this.daysScrollerEl.scrollLeft === 0) {
           this.showPreviousMonth();
-        } else if (this.monthScrollerEl.scrollLeft === (childrenWidth + GAP_SIZE) * 2) {
+        } else if (this.daysScrollerEl.scrollLeft === (childrenWidth + GAP_SIZE) * 2) {
           this.showNextMonth();
         }
 
@@ -152,14 +148,14 @@ export class RainComponent implements OnInit, AfterViewInit {
   }
 
   public handleYearGraphicScroll() {
-    this.yearGraphicScrollEvents$.subscribe(() => {
-      const childrenWidth = this.yearScrollerEl.children[0].clientWidth;
+    this.monthsGraphicScrollEvents$.subscribe(() => {
+      const childrenWidth = this.monthsScrollerEl.children[0].clientWidth;
 
       // check if the scroll is multiple of a child width taking into account the gap
-      if (this.yearScrollerEl.scrollLeft % (childrenWidth + GAP_SIZE) === 0) {
-        if (this.yearScrollerEl.scrollLeft === 0) {
+      if (this.monthsScrollerEl.scrollLeft % (childrenWidth + GAP_SIZE) === 0) {
+        if (this.monthsScrollerEl.scrollLeft === 0) {
           this.showPreviousYear();
-        } else if (this.yearScrollerEl.scrollLeft === (childrenWidth + GAP_SIZE) * 2) {
+        } else if (this.monthsScrollerEl.scrollLeft === (childrenWidth + GAP_SIZE) * 2) {
           this.showNextYear();
         }
 
@@ -169,46 +165,47 @@ export class RainComponent implements OnInit, AfterViewInit {
   }
 
   private updateArraysRainData() {
-    this.previousDaysRainData = this.rainDataService.getRainDataPerDays(
+    this.daysGraphicPreviousRainData = this.rainDataService.getRainDataPerDays(
       this.selectedMonth > 0 ? this.selectedMonth - 1 : 11,
       this.selectedMonth > 0 ? this.selectedYear : this.selectedYear - 1
     );
-    this.daysRainData = this.rainDataService.getRainDataPerDays(this.selectedMonth, this.selectedYear);
-    this.nextDaysRainData = this.rainDataService.getRainDataPerDays(
+    this.daysGraphicRainData = this.rainDataService.getRainDataPerDays(this.selectedMonth, this.selectedYear);
+    this.daysGraphicNextRainData = this.rainDataService.getRainDataPerDays(
       this.selectedMonth < 11 ? this.selectedMonth + 1 : 0,
       this.selectedMonth < 11 ? this.selectedYear : this.selectedYear + 1
     );
 
-    this.previousMonthsRainData = this.rainDataService.getRainDataPerMonths(this.selectedMonth > 0 ? this.selectedYear : this.selectedYear - 1);
-    this.monthsRainData = this.rainDataService.getRainDataPerMonths(this.selectedYear);
-    this.nextMonthsRainData = this.rainDataService.getRainDataPerMonths(this.selectedMonth < 11 ? this.selectedYear : this.selectedYear + 1);
-
-    this.previousYearRainData = this.rainDataService.getRainDataPerMonths(this.selectedYear - 1);
-    this.yearRainData = this.rainDataService.getRainDataPerMonths(this.selectedYear);
-    this.nextYearRainData = this.rainDataService.getRainDataPerMonths(this.selectedYear + 1);
+    this.monthsGraphicPreviousRainData = this.rainDataService.getRainDataPerMonths(this.selectedYear - 1);
+    this.monthsGraphicRainData = this.rainDataService.getRainDataPerMonths(this.selectedYear);
+    this.monthsGraphicNextRainData = this.rainDataService.getRainDataPerMonths(this.selectedYear + 1);
 
     // it is cached in the service
-    this.comparationYearRainData = this.rainDataService.getRainDataPerYear();
+    this.yearsGraphicRainData = this.rainDataService.getRainDataPerYear();
   }
 
   private updateHeightsOfGraphicWrappers() {
     setTimeout(() => {
       // wait change detector to update the view and pick the right heights
-      this.monthScrollerEl.style.height = `${this.monthScrollerEl.children[1].clientHeight}px`;
-      this.yearScrollerEl.style.height = `${this.yearScrollerEl.children[1].clientHeight}px`;
+      this.daysScrollerEl.style.height = `${this.daysScrollerEl.children[1].clientHeight}px`;
+      this.monthsScrollerEl.style.height = `${this.monthsScrollerEl.children[1].clientHeight}px`;
     }, 0);
   }
 
-  public showBadgeForMonth(monthsArray: RainData[], month: number): boolean {
-    return monthsArray.find((m) => m.date.getMonth() === month)?.popUpContent != undefined;
+  public showBadgeForMonth(month: number, year: number): boolean {
+    return this.rainDataService.getRainDataPerMonths(year).find((m) => m.date.getMonth() === month)?.popUpContent !== undefined;
   }
 
-  public isTotalAmountOfLitersAvailableForMonth(monthsArray: RainData[], month: number): boolean {
-    return monthsArray.filter((m) => !m.isFake).find((m) => m.date.getMonth() === month) != undefined;
+  public isTotalAmountOfLitersAvailableForMonth(month: number, year: number): boolean {
+    return (
+      this.rainDataService
+        .getRainDataPerMonths(year)
+        .filter((m) => !m.isFake)
+        .find((m) => m.date.getMonth() === month) != undefined
+    );
   }
 
-  public totalAmountOfLitersInMonth(monthsArray: RainData[], month: number): number {
-    return monthsArray.find((m) => m.date.getMonth() === month)!.liters;
+  public totalAmountOfLitersInMonth(month: number, year: number): number {
+    return this.rainDataService.getRainDataPerMonths(year).find((m) => m.date.getMonth() === month)!.liters;
   }
 
   public getWeatherIcon(month: number): string {
@@ -244,16 +241,12 @@ export class RainComponent implements OnInit, AfterViewInit {
     return new Date(year, month, 1).getDay();
   }
 
-  public isDataAvailableForEachDayOfMonth(daysArray: RainData[]): boolean {
-    return !daysArray.every((d) => d.isFake);
+  public isTotalAmountOfLitersAvailableForYear(year: number): boolean {
+    return this.rainDataService.getRainDataPerYear().find((y) => y.date.getFullYear() === year) !== undefined;
   }
 
-  public isTotalAmountOfLitersAvailableForYear(monthsArray: RainData[]): boolean {
-    return monthsArray.some((m) => !m.isFake);
-  }
-
-  public getTotalAmountOfLitersInYear(monthsArray: RainData[]): number {
-    return monthsArray.map((m) => m.liters).reduce((a, b) => a + b, 0);
+  public getTotalAmountOfLitersInYear(year: number): number {
+    return this.rainDataService.getRainDataPerYear().find((y) => y.date.getFullYear() === year)!.liters;
   }
 
   public showPreviousYear() {
@@ -268,18 +261,14 @@ export class RainComponent implements OnInit, AfterViewInit {
     this.updateHeightsOfGraphicWrappers();
   }
 
-  public isDataAvailableForYear(monthsArray: RainData[]) {
-    return monthsArray.some((m) => !m.isFake);
-  }
-
   public selectMonthOfSelectedYear(month: number) {
     this.selectedMonth = month;
     this.updateArraysRainData();
     this.updateHeightsOfGraphicWrappers();
   }
 
-  public showPopUpForMonth(monthsArray: RainData[], month: number) {
-    const foundMonth = monthsArray.find((m) => m.date.getMonth() === month);
+  public showPopUpForMonth(month: number, year: number) {
+    const foundMonth = this.rainDataService.getRainDataPerMonths(year).find((m) => m.date.getMonth() === month);
     if (foundMonth?.popUpContent !== undefined) {
       this.popUp.show = true;
       this.popUp.content = foundMonth.popUpContent;
