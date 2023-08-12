@@ -14,12 +14,17 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
       - name: Add new line
-        run: echo "$(date +%d/%m/%Y)-0" >> src/pages-weather/rain/assets/rain-data.txt
-      - name: Push changes
+        run: |
+          # 27 is the line number to add the new line
+          sed "27 i $(date +%d/%m/%Y)-0" src/pages-weather/rain/assets/rain-data.txt > rain-data.tmp
+          mv rain-data.tmp src/pages-weather/rain/assets/rain-data.txt
+          # remove to not commit it in next step
+          rm rain-data.tmp
+      - name: Commit and push
         run: |
           git config --global user.name 'Github action'
           git config --global user.email 'jaimemartinmartin15@users.noreply.github.com'
-          git commit -am "Automatic update rain data file"
+          git commit -am "Automatic update rain-data.txt"
           git push
       - name: Set AWS credentials
         uses: aws-actions/configure-aws-credentials@v1-node16

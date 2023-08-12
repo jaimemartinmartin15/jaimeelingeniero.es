@@ -21,6 +21,7 @@
 #   If there is any MONTH line for the year (it could be calculated also from day data lines) the graph will show.
 #   For missing months no water line or liters number is shown (0 liters is considered).
 #
+# !! Workflow 'annotate-new-rain-data.yml' will add in line 27 the new line
 
 # AGOSTO 2023
 11/08/2023-0[40 días sin llover desde el 2 de julio]
