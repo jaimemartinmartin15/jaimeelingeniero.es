@@ -15,8 +15,8 @@ jobs:
         uses: actions/checkout@v3
       - name: Add new line
         run: |
-          # 30 is the line number to add the new line
-          sed "30 i $(date +%d/%m/%Y)-0" src/pages-weather/rain/assets/rain-data.txt > rain-data.tmp
+          # 27 is the line number to add the new line in rain-data.txt
+          sed "27 i $(date +%d/%m/%Y)-0" src/pages-weather/rain/assets/rain-data.txt > rain-data.tmp
           mv rain-data.tmp src/pages-weather/rain/assets/rain-data.txt
           # remove to not commit it in next step
           rm rain-data.tmp

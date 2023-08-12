@@ -1,62 +1,109 @@
 import { Injectable } from '@angular/core';
+import { getNumberOfDaysInMonth } from 'src/utils/dates';
 import { LineFile, LineType } from './line-file';
 import { RainData } from './rain-data';
 
 @Injectable()
 export class RainDataService {
-  // lines of type dd/mm/yyyy-liters
-  private allDaysRainData: RainData[] = [];
+  // lines of type dd/mm/yyyy-liters[optional pop up content]
+  private rainDataPerDay: RainData[] = [];
 
-  // lines of type xx/mm/yyyy-liters
-  private allMonthsRainData: RainData[] = [];
+  // lines of type xx/mm/yyyy-liters[optional pop up content]
+  // or derived from raindataPerDay
+  private rainDataPerMonth: RainData[] = [];
 
-  private _comparationYearData: RainData[] = [];
+  // lines of type xx/xx/yyyy-liters
+  // or derived from raindataPerMonth
+  private rainDataPerYear: RainData[] = [];
 
-  public setData(data: LineFile[]): void {
-    data.forEach((line) => {
-      switch (line.lineType) {
+  public setData(lines: LineFile[]): void {
+    this.splitLinesByType(lines);
+
+    this.calculateDerivedMonthsFromDays();
+    this.calculateDerivedYearsFromMonths();
+
+    this.calculateSvgOffsetsForDays();
+    this.calculateSvgOffsetsForMonths();
+    this.calculateSvgOffsetsForYears();
+  }
+
+  private splitLinesByType(lines: LineFile[]) {
+    lines.forEach((l) => {
+      switch (l.lineType) {
         case LineType.DAY:
-          this.allDaysRainData.push({
-            date: new Date(line.year, line.month, line.day),
-            liters: line.liters,
-            popUpContent: line.popUpContent,
+          this.rainDataPerDay.push({
+            date: new Date(l.year, l.month, l.day),
+            liters: l.liters,
+            popUpContent: l.popUpContent,
             svgOffset: 0,
             isFake: false,
           });
           break;
         case LineType.MONTH:
-          this.allMonthsRainData.push({
-            date: new Date(line.year, line.month, 1),
-            liters: line.liters,
-            popUpContent: line.popUpContent,
+          this.rainDataPerMonth.push({
+            date: new Date(l.year, l.month, 1),
+            liters: l.liters,
+            popUpContent: l.popUpContent,
+            svgOffset: 0,
+            isFake: false,
+          });
+          break;
+        case LineType.YEAR:
+          this.rainDataPerYear.push({
+            date: new Date(l.year, 0, 1),
+            liters: l.liters,
             svgOffset: 0,
             isFake: false,
           });
           break;
       }
     });
-
-    // add new month for those months which rain is calculated adding their days
-    const separator = '/';
-    const missingMonths: Map<string, number> = new Map();
-    this.allDaysRainData.forEach((d) => {
-      const keyDate = `${d.date.getMonth()}${separator}${d.date.getFullYear()}`;
-      missingMonths.set(keyDate, (missingMonths.get(keyDate) ?? 0) + d.liters);
-    });
-    missingMonths.forEach((value, key) => {
-      const month = +key.split(separator)[0];
-      const year = +key.split(separator)[1];
-      if (this.allMonthsRainData.find((m) => m.date.getMonth() === month && m.date.getFullYear() === year) == undefined) {
-        this.allMonthsRainData.push({ date: new Date(year, month, 1), liters: value, svgOffset: 0, isFake: false });
-      }
-    });
-
-    this.calculateSvgOffsetsForAllDays();
-    this.calculateSvgOffsetsForAllMonths();
   }
 
-  private calculateSvgOffsetsForAllDays() {
-    this.allDaysRainData.forEach((day) => {
+  private calculateDerivedMonthsFromDays() {
+    const SEPARATOR = '-';
+    const existingMonthsFromDays = [...new Set(this.rainDataPerDay.map((d) => `${d.date.getMonth()}${SEPARATOR}${d.date.getFullYear()}`))].map(
+      (l) => ({
+        month: +l.split(SEPARATOR)[0],
+        year: +l.split(SEPARATOR)[1],
+      })
+    );
+
+    existingMonthsFromDays.forEach(({ month, year }) => {
+      if (this.rainDataPerMonth.find((m) => m.date.getMonth() === month && m.date.getFullYear() === year) === undefined) {
+        this.rainDataPerMonth.push({
+          date: new Date(year, month, 1),
+          liters: this.rainDataPerDay
+            .filter((d) => d.date.getMonth() === month && d.date.getFullYear() === year)
+            .map((d) => d.liters)
+            .reduce((a, b) => a + b, 0),
+          svgOffset: 0,
+          isFake: false,
+        });
+      }
+    });
+  }
+
+  private calculateDerivedYearsFromMonths() {
+    const existingYearsFromMonths = [...new Set(this.rainDataPerMonth.map((d) => d.date.getFullYear()))];
+
+    existingYearsFromMonths.forEach((year) => {
+      if (this.rainDataPerYear.find((y) => y.date.getFullYear() === year) === undefined) {
+        this.rainDataPerYear.push({
+          date: new Date(year, 0, 1),
+          liters: this.rainDataPerMonth
+            .filter((d) => d.date.getFullYear() === year)
+            .map((d) => d.liters)
+            .reduce((a, b) => a + b, 0),
+          svgOffset: 0,
+          isFake: false,
+        });
+      }
+    });
+  }
+
+  private calculateSvgOffsetsForDays() {
+    this.rainDataPerDay.forEach((day) => {
       // 360 is svg viewBox height for the pluviometer
       // then, pluviometer: offset 0 -> full water (35 L)    offset 360 -> empty water (0 L)
       // start from offset 185 to not fill full pluviometer (difference 178)   offset 185 -> 35 L     offset 363 -> 0 L  (363 avoids shadow)
@@ -65,25 +112,31 @@ export class RainDataService {
     });
   }
 
-  private calculateSvgOffsetsForAllMonths() {
+  private calculateSvgOffsetsForMonths() {
     // pick months year by year and calculate the offset of each month
-    const years = new Set<number>(this.allMonthsRainData.map((m) => m.date.getFullYear()));
+    const years = new Set<number>(this.rainDataPerMonth.map((m) => m.date.getFullYear()));
     years.forEach((year) => {
-      const monthsOfTheYear = this.allMonthsRainData.filter((m) => m.date.getFullYear() === year);
+      const monthsOfTheYear = this.rainDataPerMonth.filter((m) => m.date.getFullYear() === year);
       const maxLiters = Math.max(...monthsOfTheYear.map((m) => m.liters));
       // 0 L -> 258 (svg x axis height aprox)    MAX L -> 0
       monthsOfTheYear.forEach((m) => (m.svgOffset = 258 - 258 * (m.liters / maxLiters)));
     });
   }
 
-  public getRainDataForDaysInMonthAndYear(month: number, year: number): RainData[] {
-    // by using 0 as the day it will give us the last day of the prior month
-    const totalNumberOfDaysInMonth = new Date(year, month + 1, 0).getDate();
-    const today = new Date();
-    const requestedDays = this.allDaysRainData.filter((d) => d.date.getMonth() === month && d.date.getFullYear() === year);
-    if (year <= today.getFullYear() && month <= today.getMonth() && requestedDays.length > 0 && requestedDays.length < totalNumberOfDaysInMonth) {
-      // if it is requesting days for a month in the past (current included too)
-      // and there are missing days (maybe started to log on day 17) then add fake missing days
+  public calculateSvgOffsetsForYears() {
+    const maxRain = Math.max(...this.rainDataPerYear.map((h) => h.liters));
+    this.rainDataPerYear.forEach((h) => {
+      // min rain -> offset 258    max rain -> offset 0
+      h.svgOffset = 258 - (258 * h.liters) / maxRain;
+    });
+  }
+
+  public getRainDataPerDays(month: number, year: number): RainData[] {
+    const requestedDays = this.rainDataPerDay.filter((d) => d.date.getMonth() === month && d.date.getFullYear() === year);
+    const totalNumberOfDaysInMonth = getNumberOfDaysInMonth(month, year);
+
+    // add missing days of the month if there is at least one day for the month
+    if (requestedDays.length > 0 && requestedDays.length < totalNumberOfDaysInMonth) {
       for (let day = 1; day <= totalNumberOfDaysInMonth; day++) {
         if (requestedDays.find((d) => d.date.getDate() === day) === undefined) {
           requestedDays.push({ date: new Date(year, month, day), liters: 0, svgOffset: 363, isFake: true });
@@ -94,10 +147,11 @@ export class RainDataService {
     return requestedDays.sort((a, b) => a.date.getTime() - b.date.getTime());
   }
 
-  public getRainDataForMonthsInYear(year: number): RainData[] {
-    const requestedMonths = this.allMonthsRainData.filter((m) => m.date.getFullYear() === year);
-    if (requestedMonths.length < 12) {
-      // if there are missing data for any month in the requested year, add fake missing months
+  public getRainDataPerMonths(year: number): RainData[] {
+    const requestedMonths = this.rainDataPerMonth.filter((m) => m.date.getFullYear() === year);
+
+    // add missing months if there is at least one month for the year
+    if (requestedMonths.length > 0 && requestedMonths.length < 12) {
       for (let month = 0; month < 12; month++) {
         if (requestedMonths.find((m) => m.date.getMonth() === month) === undefined) {
           requestedMonths.push({ date: new Date(year, month, 1), liters: 0, svgOffset: 258, isFake: true });
@@ -108,34 +162,19 @@ export class RainDataService {
     return requestedMonths.sort((a, b) => a.date.getTime() - b.date.getTime());
   }
 
-  public getComparationYearRainData(): RainData[] {
-    if (this._comparationYearData.length !== 0) {
-      return this._comparationYearData;
-    }
+  public getRainDataPerYear(): RainData[] {
+    const minYear = Math.min(...this.rainDataPerYear.map((m) => m.date.getFullYear()));
+    const maxYear = Math.max(...this.rainDataPerYear.map((m) => m.date.getFullYear()));
 
-    const minYear = Math.min(...this.allMonthsRainData.map((m) => m.date.getFullYear()));
-    const maxYear = Math.max(...this.allMonthsRainData.map((m) => m.date.getFullYear()));
+    const requestedYears = [...this.rainDataPerYear];
+
+    // add missing years between minYear and MaxYear
     for (let year = minYear; year <= maxYear; year++) {
-      const totalAmountOfLitersInYear = this.allMonthsRainData
-        .filter((m) => m.date.getFullYear() === year)
-        .map((m) => m.liters)
-        .reduce((a, b) => a + b, 0);
-      this._comparationYearData.push({
-        date: new Date(year, 0, 1),
-        liters: totalAmountOfLitersInYear,
-        isFake: !this.allMonthsRainData.some((h) => h.date.getFullYear() === year),
-        svgOffset: 0,
-      });
+      if (requestedYears.find((y) => y.date.getFullYear() === year) === undefined) {
+        requestedYears.push({ date: new Date(year, 0, 1), liters: 0, svgOffset: 258, isFake: true });
+      }
     }
-    this.calculateSvgOffsetsForComparationYearData();
-    return this._comparationYearData;
-  }
 
-  public calculateSvgOffsetsForComparationYearData() {
-    const maxRain = Math.max(...this._comparationYearData.map((h) => h.liters));
-    this._comparationYearData.forEach((h) => {
-      // min rain -> offset 258    max rain -> offset 0
-      h.svgOffset = 258 - (258 * h.liters) / maxRain;
-    });
+    return requestedYears.sort((a, b) => a.date.getTime() - b.date.getTime());
   }
 }

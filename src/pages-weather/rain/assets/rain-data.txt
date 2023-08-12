@@ -2,7 +2,7 @@
 #
 # Lines starting with # or empty are ignored.
 #
-# !! Workflow 'annotate-new-rain-data.yml' will automatically add a new DAY entry in line 30
+# !! Workflow 'annotate-new-rain-data.yml' will automatically add a new DAY entry in line 27
 #
 # LINE FORMATS
 # ===========
@@ -18,9 +18,6 @@
 #
 # NOTES
 # =====
-#
-#   [+] Avoid duplicated entries for same day, month or year as it will produce unexpected behaviour
-#   [+] Avoid adding new entries in future as it will produce unexpected behaviour
 #
 #   [+] If there are not MONTH entries, they can be calculated based on DAY entries.
 #   [+] If there are not YEAR entries, they can be calculated based on MONTH entries.

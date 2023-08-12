@@ -169,26 +169,26 @@ export class RainComponent implements OnInit, AfterViewInit {
   }
 
   private updateArraysRainData() {
-    this.previousDaysRainData = this.rainDataService.getRainDataForDaysInMonthAndYear(
+    this.previousDaysRainData = this.rainDataService.getRainDataPerDays(
       this.selectedMonth > 0 ? this.selectedMonth - 1 : 11,
       this.selectedMonth > 0 ? this.selectedYear : this.selectedYear - 1
     );
-    this.daysRainData = this.rainDataService.getRainDataForDaysInMonthAndYear(this.selectedMonth, this.selectedYear);
-    this.nextDaysRainData = this.rainDataService.getRainDataForDaysInMonthAndYear(
+    this.daysRainData = this.rainDataService.getRainDataPerDays(this.selectedMonth, this.selectedYear);
+    this.nextDaysRainData = this.rainDataService.getRainDataPerDays(
       this.selectedMonth < 11 ? this.selectedMonth + 1 : 0,
       this.selectedMonth < 11 ? this.selectedYear : this.selectedYear + 1
     );
 
-    this.previousMonthsRainData = this.rainDataService.getRainDataForMonthsInYear(this.selectedMonth > 0 ? this.selectedYear : this.selectedYear - 1);
-    this.monthsRainData = this.rainDataService.getRainDataForMonthsInYear(this.selectedYear);
-    this.nextMonthsRainData = this.rainDataService.getRainDataForMonthsInYear(this.selectedMonth < 11 ? this.selectedYear : this.selectedYear + 1);
+    this.previousMonthsRainData = this.rainDataService.getRainDataPerMonths(this.selectedMonth > 0 ? this.selectedYear : this.selectedYear - 1);
+    this.monthsRainData = this.rainDataService.getRainDataPerMonths(this.selectedYear);
+    this.nextMonthsRainData = this.rainDataService.getRainDataPerMonths(this.selectedMonth < 11 ? this.selectedYear : this.selectedYear + 1);
 
-    this.previousYearRainData = this.rainDataService.getRainDataForMonthsInYear(this.selectedYear - 1);
-    this.yearRainData = this.rainDataService.getRainDataForMonthsInYear(this.selectedYear);
-    this.nextYearRainData = this.rainDataService.getRainDataForMonthsInYear(this.selectedYear + 1);
+    this.previousYearRainData = this.rainDataService.getRainDataPerMonths(this.selectedYear - 1);
+    this.yearRainData = this.rainDataService.getRainDataPerMonths(this.selectedYear);
+    this.nextYearRainData = this.rainDataService.getRainDataPerMonths(this.selectedYear + 1);
 
     // it is cached in the service
-    this.comparationYearRainData = this.rainDataService.getComparationYearRainData();
+    this.comparationYearRainData = this.rainDataService.getRainDataPerYear();
   }
 
   private updateHeightsOfGraphicWrappers() {
