@@ -1,8 +1,10 @@
 # README
 #
-# Lines starting with # or empty are ignored. Spaces in front are also ignored in such lines
+# Lines starting with # or empty are ignored.
 #
-# LINE FORMAT
+# !! Workflow 'annotate-new-rain-data.yml' will automatically add a new DAY entry in line 30
+#
+# LINE FORMATS
 # ===========
 #
 #   [+] Rain per DAY: dd/mm/yyyy-LITERS[optional pop up content] # comment
@@ -11,17 +13,18 @@
 #   [+] Rain per MONTH: xx/mm/yyyy-LITERS[optional pop up content] # comment
 #       Example: xx/05/2017-27[Big snow this month last five days] # it rained a total of 27 liters for the full month of May (no data available for each day)
 #
-# Advertising for days graph:
-#   Duplicated DAY lines for same day will produce unexpected behaviour.
-#   DAY data lines for future days also produce unexpected behaviour.
-#   If there is at least one DAY line for the month it will show all days of the month. Missing DAY lines for the month will not show liters
-#   The total amount of liters is shown if there is a DAY line or a MONTH line. If there is a MONTH line, liters are taken from this line (it is not the sum of the days)
+#   [+] Rain per YEAR: xx/xx/yyyy-LITERS # comment
+#       Example: xx/xx/2008-252 # it rained a total of 252 liters for the full year of 2008 (no data available for each day or month)
 #
-# Advertising for months graph:
-#   If there is any MONTH line for the year (it could be calculated also from day data lines) the graph will show.
-#   For missing months no water line or liters number is shown (0 liters is considered).
+# NOTES
+# =====
 #
-# !! Workflow 'annotate-new-rain-data.yml' will add in line 27 the new line
+#   [+] Avoid duplicated entries for same day, month or year as it will produce unexpected behaviour
+#   [+] Avoid adding new entries in future as it will produce unexpected behaviour
+#
+#   [+] If there are not MONTH entries, they can be calculated based on DAY entries.
+#   [+] If there are not YEAR entries, they can be calculated based on MONTH entries.
+#
 
 # AGOSTO 2023
 11/08/2023-0[40 días sin llover desde el 2 de julio]
