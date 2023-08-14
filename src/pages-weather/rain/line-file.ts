@@ -1,9 +1,10 @@
 export enum LineType {
   DAY,
   MONTH,
+  YEAR,
 }
 
-export interface LineData {
+export interface LineFile {
   lineType: LineType;
   day: number;
   month: number;

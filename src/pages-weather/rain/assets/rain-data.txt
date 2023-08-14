@@ -1,153 +1,160 @@
 # README
 #
-# Lines starting with # or empty are ignored. Spaces in front are also ignored in such lines
+# Lines starting with # or empty are ignored.
 #
-# Format of lines [pop up content is optional]
-#   Month graph (day data line):
-#     dd/mm/yyyy-LITERS[pop up content] # comment
-#     example: 02/07/2023-8[Rain of three days] # it rained 8 liters on 2 July 2023
-#   Year graph (month data line):
-#     xx/mm/yyyy-LITERS[pop up content] # comment
-#     example: xx/05/2017-27[Big snow this month last five days] # it rained a total of 27 liters for the full month of May (no data available for each day)
+# !! Workflow 'annotate-new-rain-data.yml' will automatically add a new DAY entry in line 27
 #
-# Advertising for month graph:
-#   Duplicated day data lines for same day will produce unexpected behaviour.
-#   Day data lines for future days also produce unexpected behaviour.
-#   If there is at least one day data line for the month it will show all days of the month. Missing day data lines for the month will not show liters
-#   The total amount of liters is shown if there is a day data line or a month data line. If there is a month data line, liters are taken from this line (it is not the sum of the days)
+# LINE FORMATS
+# ===========
 #
-# Advertising for year graph:
-#   If there is any month data line for the year (it could be calculated also from day data lines) the graph will show.
-#   For missing months no water line or liters number is shown (0 liters is considered).
+#   [+] Rain per DAY: dd/mm/yyyy-LITERS[optional pop up content] # comment
+#       Example: 02/07/2023-8[Rain of three days] # it rained 8 liters on 2 July 2023
 #
-
-# AÑO 2017 (primer mes mayo)
-xx/05/2017-27
-xx/06/2017-26
-xx/07/2017-39
-xx/08/2017-14
-xx/09/2017-0
-xx/10/2017-7
-xx/11/2017-24
-xx/12/2017-35
-
-# AÑO 2018
-xx/01/2018-41[Gran nevada días 6 y 7]
-xx/02/2018-55
-xx/03/2018-85
-xx/04/2018-75
-xx/05/2018-72
-xx/06/2018-65
-xx/07/2018-6
-xx/08/2018-6
-xx/09/2018-14
-xx/10/2018-46
-xx/11/2018-75
-xx/12/2018-25
-
-# AÑO 2019
-xx/01/2019-20
-xx/02/2019-3
-xx/03/2019-14
-xx/04/2019-65
-xx/05/2019-2
-xx/06/2019-2
-xx/07/2019-12
-xx/08/2019-58
-xx/09/2019-35
-xx/10/2019-60
-xx/11/2019-67
-xx/12/2019-83
-
-# AÑO 2020
-xx/01/2020-15
-xx/02/2020-0
-xx/03/2020-62
-xx/04/2020-118
-xx/05/2020-39
-xx/06/2020-25
-xx/07/2020-2
-xx/08/2020-8
-xx/09/2020-57
-xx/10/2020-71
-xx/11/2020-61
-xx/12/2020-58
-
-# AÑO 2021
-xx/01/2021-32[Gran nevada por la borrasca Filomena]
-xx/02/2021-75
-xx/03/2021-8
-xx/04/2021-71
-xx/05/2021-19
-xx/06/2021-42
-xx/07/2021-9
-xx/08/2021-17
-xx/09/2021-61
-xx/10/2021-50
-xx/11/2021-52
-xx/12/2021-28
-
-# AÑO 2022
-xx/01/2022-12
-xx/02/2022-4
-xx/03/2022-91
-xx/04/2022-37
-xx/05/2022-1
-xx/06/2022-16
-xx/07/2022-0
-xx/08/2022-7.5
-xx/09/2022-20
-xx/10/2022-59.5
-xx/11/2022-60
-xx/12/2022-81
-
-# AÑO 2023 (a partir de julio los datos son por día)
-xx/01/2023-61
-xx/02/2023-7
-xx/03/2023-31
-xx/04/2023-8
-xx/05/2023-86
-xx/06/2023-86
-
-# JULIO 2023
-01/07/2023-0
-02/07/2023-8
-03/07/2023-0
-04/07/2023-0
-05/07/2023-0
-06/07/2023-0
-07/07/2023-0
-08/07/2023-0
-09/07/2023-0
-10/07/2023-0
-11/07/2023-0
-12/07/2023-0
-13/07/2023-0
-14/07/2023-0
-15/07/2023-0
-16/07/2023-0
-17/07/2023-0
-18/07/2023-0
-19/07/2023-0
-20/07/2023-0
-21/07/2023-0
-22/07/2023-0
-23/07/2023-0
-24/07/2023-0
-25/07/2023-0
-26/07/2023-0
-27/07/2023-0
-28/07/2023-0
-29/07/2023-0
-30/07/2023-0
-31/07/2023-0
+#   [+] Rain per MONTH: xx/mm/yyyy-LITERS[optional pop up content] # comment
+#       Example: xx/05/2017-27[Big snow this month last five days] # it rained a total of 27 liters for the full month of May (no data available for each day)
+#
+#   [+] Rain per YEAR: xx/xx/yyyy-LITERS # comment
+#       Example: xx/xx/2008-252 # it rained a total of 252 liters for the full year of 2008 (no data available for each day or month)
+#
+# NOTES
+# =====
+#
+#   [+] If there are not MONTH entries, they can be calculated based on DAY entries.
+#   [+] If there are not YEAR entries, they can be calculated based on MONTH entries.
+#
 
 # AGOSTO 2023
-01/08/2023-0
-02/08/2023-0
-03/08/2023-0
-04/08/2023-0
-05/08/2023-0
-06/08/2023-0
+13/08/2023-0[42 días sin llover desde el 2 de julio]
+12/08/2023-0
+11/08/2023-0
+10/08/2023-0
+09/08/2023-0
+08/08/2023-0
 07/08/2023-0
-08/08/2023-0[37 días sin llover desde el 2 de julio]
+06/08/2023-0
+05/08/2023-0
+04/08/2023-0
+03/08/2023-0
+02/08/2023-0
+01/08/2023-0
+
+# JULIO 2023
+31/07/2023-0
+30/07/2023-0
+29/07/2023-0
+28/07/2023-0
+27/07/2023-0
+26/07/2023-0
+25/07/2023-0
+24/07/2023-0
+23/07/2023-0
+22/07/2023-0
+21/07/2023-0
+20/07/2023-0
+19/07/2023-0
+18/07/2023-0
+17/07/2023-0
+16/07/2023-0
+15/07/2023-0
+14/07/2023-0
+13/07/2023-0
+12/07/2023-0
+11/07/2023-0
+10/07/2023-0
+09/07/2023-0
+08/07/2023-0
+07/07/2023-0
+06/07/2023-0
+05/07/2023-0
+04/07/2023-0
+03/07/2023-0
+02/07/2023-8
+01/07/2023-0
+
+# AÑO 2023 (a partir de julio los datos son por día)
+xx/06/2023-86
+xx/05/2023-86
+xx/04/2023-8
+xx/03/2023-31
+xx/02/2023-7
+xx/01/2023-61
+
+# AÑO 2022
+xx/12/2022-81
+xx/11/2022-60
+xx/10/2022-59.5
+xx/09/2022-20
+xx/08/2022-7.5
+xx/07/2022-0
+xx/06/2022-16
+xx/05/2022-1
+xx/04/2022-37
+xx/03/2022-91
+xx/02/2022-4
+xx/01/2022-12
+
+# AÑO 2021
+xx/12/2021-28
+xx/11/2021-52
+xx/10/2021-50
+xx/09/2021-61
+xx/08/2021-17
+xx/07/2021-9
+xx/06/2021-42
+xx/05/2021-19
+xx/04/2021-71
+xx/03/2021-8
+xx/02/2021-75
+xx/01/2021-32[Gran nevada por la borrasca Filomena]
+
+# AÑO 2020
+xx/12/2020-58
+xx/11/2020-61
+xx/10/2020-71
+xx/09/2020-57
+xx/08/2020-8
+xx/07/2020-2
+xx/06/2020-25
+xx/05/2020-39
+xx/04/2020-118
+xx/03/2020-62
+xx/02/2020-0
+xx/01/2020-15
+
+# AÑO 2019
+xx/12/2019-83
+xx/11/2019-67
+xx/10/2019-60
+xx/09/2019-35
+xx/08/2019-58
+xx/07/2019-12
+xx/06/2019-2
+xx/05/2019-2
+xx/04/2019-65
+xx/03/2019-14
+xx/02/2019-3
+xx/01/2019-20
+
+# AÑO 2018
+xx/12/2018-25
+xx/11/2018-75
+xx/10/2018-46
+xx/09/2018-14
+xx/08/2018-6
+xx/07/2018-6
+xx/06/2018-65
+xx/05/2018-72
+xx/04/2018-75
+xx/03/2018-85
+xx/02/2018-55
+xx/01/2018-41[Gran nevada días 6 y 7]
+
+# AÑO 2017 (primer mes mayo)
+xx/12/2017-35
+xx/11/2017-24
+xx/10/2017-7
+xx/09/2017-0
+xx/08/2017-14
+xx/07/2017-39
+xx/06/2017-26
+xx/05/2017-27
