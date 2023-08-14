@@ -7,8 +7,10 @@
   margin: 0 auto;
 }
 
-.box {
+figure {
   width: calc(50% - 20px);
+  margin: 0;
+  padding: 0;
 }
 
 .graphic-scroller {
@@ -20,7 +22,7 @@
   transition: height 0.5s;
 }
 
-.month-graphic-container {
+.days-graphic-container {
   width: 100%;
   flex-shrink: 0;
 
@@ -121,7 +123,7 @@
   }
 }
 
-.year-graphic-container {
+.months-graphic-container {
   width: 100%;
   flex-shrink: 0;
 
@@ -164,7 +166,7 @@
   }
 }
 
-.comparation-year-graphic-container {
+.years-graphic-container {
   text-align: center;
 
   .header {
@@ -223,7 +225,7 @@
 }
 
 @media (max-width: 992px) {
-  .box {
+  figure {
     width: 100%;
   }
 
