@@ -171,4 +171,16 @@ export class RainComponent extends SnapScrollHelper implements OnInit, AfterView
     this.updateArraysRainData();
     this.updateHeightsOfGraphicWrappers();
   }
+
+  public showBadgeForYear(year: number): boolean {
+    return this.rainDataService.getRainDataPerYear().find((y) => y.date.getFullYear() === year)?.popUpContent !== undefined;
+  }
+
+  public showPopUpForYear(year: number): void {
+    const foundYear = this.rainDataService.getRainDataPerYear().find((y) => y.date.getFullYear() === year);
+    if (foundYear?.popUpContent !== undefined) {
+      this.popUp.show = true;
+      this.popUp.content = foundYear.popUpContent;
+    }
+  }
 }

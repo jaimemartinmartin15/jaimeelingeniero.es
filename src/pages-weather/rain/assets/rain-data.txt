@@ -13,8 +13,8 @@
 #   [+] Rain per MONTH: xx/mm/yyyy-LITERS[optional pop up content] # comment
 #       Example: xx/05/2017-27[Big snow this month last five days] # it rained a total of 27 liters for the full month of May (no data available for each day)
 #
-#   [+] Rain per YEAR: xx/xx/yyyy-LITERS # comment
-#       Example: xx/xx/2008-252 # it rained a total of 252 liters for the full year of 2008 (no data available for each day or month)
+#   [+] Rain per YEAR: xx/xx/yyyy-LITERS[optional pop up content] # comment
+#       Example: xx/xx/2008-252[Bad collection] # it rained a total of 252 liters for the full year of 2008 (no data available for each day or month)
 #
 # NOTES
 # =====

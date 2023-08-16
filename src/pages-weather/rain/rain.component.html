@@ -150,11 +150,12 @@
   <div class="months-graphic-container">
     <div class="header">
       <button (click)="showPreviousYear()">&lt;</button>
-      <span>
+      <span (click)="showPopUpForYear(data.year)">
         <p class="year">Meses {{data.year}}</p>
         <p class="liters" *ngIf="isTotalAmountOfLitersAvailableForYear(data.year)">
           {{getTotalAmountOfLitersInYear(data.year)}} litros
         </p>
+        <span class="badge" *ngIf="showBadgeForYear(data.year)"></span>
       </span>
       <button (click)="showNextYear()">&gt;</button>
     </div>
