@@ -150,6 +150,20 @@ figure {
       font-size: 1rem;
     }
 
+    span {
+      position: relative;
+
+      &:has(.badge) {
+        cursor: pointer;
+      }
+
+      .badge {
+        position: absolute;
+        top: 0;
+        right: -15px;
+      }
+    }
+
     button {
       background-color: #cbf0ff;
       border: 2px solid black;

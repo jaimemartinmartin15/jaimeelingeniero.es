@@ -2,6 +2,7 @@ name: Update rain data
 run-name: Update rain-data.txt
 
 on:
+  workflow_dispatch: # allow manual trigger
   push:
     paths: ["src/pages-weather/rain/assets/rain-data.txt"]
 

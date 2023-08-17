@@ -2,6 +2,7 @@ name: Update verbs list tenses
 run-name: Update verbs.json
 
 on:
+  workflow_dispatch: # allow manual trigger
   push:
     paths: ["src/pages-english/tenses/assets/verbs.json"]
 

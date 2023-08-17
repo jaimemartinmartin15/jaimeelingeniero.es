@@ -2,6 +2,7 @@ name: Deploy Webpage
 run-name: Deploy jaimeelingeniero.es to AWS S3
 
 on:
+  workflow_dispatch: # allow manual trigger
   push:
     tags: ["[1-9].[0-9][0-9]?.[0-9][0-9]?"]
 
@@ -37,4 +38,8 @@ jobs:
       - name: Deploy
         run: |
           aws --version
-          aws s3 sync ./dist/jaimeelingeniero s3://jaimeelingeniero.es --delete
+          aws s3 sync ./dist/jaimeelingeniero \
+                      s3://jaimeelingeniero.es \
+                      --delete \
+                      --exclude src/pages-english/tenses/assets/verbs.json \
+                      --exclude src/pages-weather/rain/assets/rain-data.txt

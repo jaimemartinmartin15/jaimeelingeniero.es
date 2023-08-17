@@ -9,11 +9,11 @@ export class RainDataService {
   private rainDataPerDay: RainData[] = [];
 
   // lines of type xx/mm/yyyy-liters[optional pop up content]
-  // or derived from raindataPerDay
+  // or derived from rainDataPerDay
   private rainDataPerMonth: RainData[] = [];
 
-  // lines of type xx/xx/yyyy-liters
-  // or derived from raindataPerMonth
+  // lines of type xx/xx/yyyy-liters[optional pop up content]
+  // or derived from rainDataPerMonth
   private rainDataPerYear: RainData[] = [];
 
   public setData(lines: LineFile[]): void {
@@ -52,6 +52,7 @@ export class RainDataService {
           this.rainDataPerYear.push({
             date: new Date(l.year, 0, 1),
             liters: l.liters,
+            popUpContent: l.popUpContent,
             svgOffset: 0,
             isFake: false,
           });
