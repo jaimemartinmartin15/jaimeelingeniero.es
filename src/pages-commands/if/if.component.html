@@ -100,4 +100,121 @@ No existen las órdenes algo1 ni algo2</pre>
       Podemos comprobar que los mensajes de las órdenes también son impresos por la consola.
     </p>
   </section>
+
+  <section>
+    <h2>Evaluación de expresiones</h2>
+
+    <p>
+      Ya hemos visto lo básico. El valor de retorno de una orden es utilizado para decidir si se ejecuta el bloque de
+      instrucciones asociado. ¿Pero cómo podemos hacer para comparar variables y otras cosas?
+    </p>
+
+    <p>
+      Para ello existen órdenes a las que les pasamos expresiones como argumentos, y estas órdenes se encargan de
+      evaluar estos argumentos y devolver el valor correspondiente. La orden más útil es <i>test</i>. Estas son algunas
+      de las opciones que tiene para <strong>tratar ficheros</strong>:
+    </p>
+
+    <ul>
+      <li><strong>-a ruta</strong>: devuelve verdadero si la ruta existe.</li>
+      <li><strong>-d ruta</strong>: devuelve verdadero si la ruta existe y es un directorio.</li>
+      <li><strong>-f ruta</strong>: devuelve verdadero si la ruta existe y es un fichero.</li>
+      <li><strong>-r ruta</strong>: devuelve verdadero si la ruta existe y tiene permiso de lectura.</li>
+      <li><strong>-w ruta</strong>: devuelve verdadero si la ruta existe y tiene permiso de escritura.</li>
+      <li><strong>-x ruta</strong>: devuelve verdadero si la ruta existe y tiene permiso de ejecución o acceso.</li>
+    </ul>
+
+    <app-terminal-code>
+      <pre terminal-code-command>if test -f fichero1.txt
+then
+  echo "La ruta existe y es un fichero"
+fi</pre>
+      <span terminal-code-output>La ruta existe y es un fichero</span>
+    </app-terminal-code>
+
+    <p>También podemos <strong>comparar cadenas</strong> de caracteres. Estas son las opciones:</p>
+
+    <ul>
+      <li><strong>-z cadena</strong>: la cadena tiene longitud nula.</li>
+      <li><strong>-n cadena</strong>: la cadena no tiene longitud nula.</li>
+      <li><strong>cadena1 = cadena2</strong>: las cadenas son iguales.</li>
+      <li><strong>cadena1 != cadena2</strong>: las cadenas no son iguales.</li>
+    </ul>
+
+    <app-terminal-code>
+      <pre terminal-code-command>if test "$USER" = jaime
+then
+  echo "El usuario es jaime"
+fi</pre>
+      <span terminal-code-output>El usuario es jaime</span>
+    </app-terminal-code>
+
+    <p>
+      Al poner las comillas en la variable, nos aseguramos que a la orden se le pasa un valor en caso de que la
+      variable no exista.
+    </p>
+
+    <p>Para <strong>comparar números</strong> estas son las opciones:</p>
+
+    <ul>
+      <li><strong>n1 -eq n2</strong>: los números son iguales.</li>
+      <li><strong>n1 -ne n2</strong>: los números son diferentes.</li>
+      <li><strong>n1 -gt n2</strong>: n1 es mayor que n2.</li>
+      <li><strong>n1 -lt n2</strong>: n1 es menor que n2.</li>
+      <li><strong>n1 -ge n2</strong>: n1 es mayor o igual que n2.</li>
+      <li><strong>n1 -le n2</strong>: n1 es menor o igual que n2.</li>
+    </ul>
+
+    <app-terminal-code>
+      <pre terminal-code-command>if test $((011)) -eq 9
+then
+  echo "Los números son iguales"
+fi</pre>
+      <span terminal-code-output>Los números son iguales</span>
+    </app-terminal-code>
+
+    <p>
+      Cosas a tener en cuenta: si usamos la opcion = para comparar números, en realidad se comparan cadenas de
+      caracteres, así que cuidado. Hay que usar el dolar y los paréntesis para interpretar el número en octal y
+      convertirlo a decimal, y entonces hacer la comparación.
+    </p>
+
+    <p>
+      El siguiente grupo de opciones que nos permite la orden test, es para poder combinar varias expresiones. Se trata
+      de los <strong>operadores lógicos</strong>:
+    </p>
+
+    <ul>
+      <li><strong>! expresión</strong>: si la expresión es falsa, se convierte en verdadera.</li>
+      <li>
+        <strong>expresión1 -a expresión2</strong>: solo si las dos expresiones son verdaderas, devuelve verdadero (AND).
+      </li>
+      <li>
+        <strong>expresión1 -o expresión2</strong>: si cualquiera de las dos expresiones es verdadera, devuelve verdadero
+        (OR).
+      </li>
+    </ul>
+
+    <app-terminal-code>
+      <pre terminal-code-command>if test 4 -lt 8 -a 10 -eq 10
+then
+  echo "Las dos condiciones son verdaderas"
+fi</pre>
+      <span terminal-code-output>Las dos condiciones son verdaderas</span>
+    </app-terminal-code>
+
+    <p>
+      Quizá te estes preguntando ahora cuál es la precedencia de los operadores. En la práctica, lo más sencillo es
+      cubrir entre paréntesis las expresiones. Estos paréntesis deben ir precedidos de \ para escaparlos del significado
+      que le da la terminal. Deja también un espacio entre el paréntesis y la expresión.
+    </p>
+
+    <app-terminal-code>
+      <pre terminal-code-command>if test \( $((7 % 4)) -eq 0 \) -o \( -n "hola" \)
+then
+  echo "Al menos una condición es verdadera"
+fi</pre>
+      <span terminal-code-output>Al menos una condición es verdadera</span>
+    </app-terminal-code>
+  </section>
 </article>
