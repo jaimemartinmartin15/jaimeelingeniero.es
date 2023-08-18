@@ -237,4 +237,36 @@ fi</pre>
       <span terminal-code-output>Al menos una condición es verdadera</span>
     </app-terminal-code>
   </section>
+
+  <section>
+    <h2>Extra</h2>
+
+    <p>
+      Además de usar la orden <i>test</i>, las terminales también admiten otra sintaxis que es con corchetes
+      (equivalente a la orden test):
+    </p>
+
+    <pre class="app-command-sintax">if [ expresión ]
+then
+  # instrucciones si la expresión es verdadera
+fi</pre>
+
+    <p>
+      En el caso específico de la consola bash, también se permiten dobles corches ( <strong>[[</strong> expresión
+      <strong>]]</strong> ), con algunas mejoras como el uso de operadores lógicos con <strong>||</strong> y
+      <strong>&amp;&amp;</strong>, uso de comparadores <strong>&lt;</strong> o <strong>&gt;</strong>, o no ser necesario
+      cubrir las variables con comillas entre otras.
+    </p>
+
+    <app-terminal-code>
+      <pre terminal-code-command>SALUDO="hola mundo"
+NUM=8
+
+if [[ $NUM -eq 8 && $SALUDO == "hola mundo" ]]
+then
+  echo "NUM vale 8 y el saludo es \"hola mundo\""
+fi</pre>
+      <span terminal-code-output>NUM vale 8 y el saludo es "hola mundo"</span>
+    </app-terminal-code>
+  </section>
 </article>
