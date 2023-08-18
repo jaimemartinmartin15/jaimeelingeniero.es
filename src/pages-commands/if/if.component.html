@@ -111,8 +111,16 @@ No existen las órdenes algo1 ni algo2</pre>
 
     <p>
       Para ello existen órdenes a las que les pasamos expresiones como argumentos, y estas órdenes se encargan de
-      evaluar estos argumentos y devolver el valor correspondiente. La orden más útil es <i>test</i>. Estas son algunas
-      de las opciones que tiene para <strong>tratar ficheros</strong>:
+      evaluar estos argumentos y devolver el valor correspondiente. La orden más útil es <a class="app-link"
+        href="https://man7.org/linux/man-pages/man1/test.1.html" target="_blank" rel="noopener">test</a>.
+    </p>
+  </section>
+
+  <section>
+    <h2>Tratamiento de ficheros</h2>
+
+    <p>
+      Estas son algunas de las opciones que tiene <i>test</i> para <strong>tratar ficheros</strong>:
     </p>
 
     <ul>
@@ -131,6 +139,10 @@ then
 fi</pre>
       <span terminal-code-output>La ruta existe y es un fichero</span>
     </app-terminal-code>
+  </section>
+
+  <section>
+    <h2>Comparar cadenas</h2>
 
     <p>También podemos <strong>comparar cadenas</strong> de caracteres. Estas son las opciones:</p>
 
@@ -153,6 +165,10 @@ fi</pre>
       Al poner las comillas en la variable, nos aseguramos que a la orden se le pasa un valor en caso de que la
       variable no exista.
     </p>
+  </section>
+
+  <section>
+    <h2>Comparar números</h2>
 
     <p>Para <strong>comparar números</strong> estas son las opciones:</p>
 
@@ -178,6 +194,10 @@ fi</pre>
       caracteres, así que cuidado. Hay que usar el dolar y los paréntesis para interpretar el número en octal y
       convertirlo a decimal, y entonces hacer la comparación.
     </p>
+  </section>
+
+  <section>
+    <h2>Operadores lógicos</h2>
 
     <p>
       El siguiente grupo de opciones que nos permite la orden test, es para poder combinar varias expresiones. Se trata
