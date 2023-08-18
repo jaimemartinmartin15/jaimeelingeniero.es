@@ -12,6 +12,10 @@ const routes: Routes = [
         loadChildren: () => import('./find/find.module').then((m) => m.FindModule),
       },
       {
+        path: 'if',
+        loadChildren: () => import('./if/if.module').then((m) => m.IfModule),
+      },
+      {
         path: '**',
         redirectTo: 'find',
       },

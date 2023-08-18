@@ -1,0 +1,103 @@
+<article>
+  <div class="page-header">
+    <h1 class="title">If</h1>
+  </div>
+
+  <section>
+    <p>
+      Esta sentencia de control no está pensada para ejecutarla como un comando, aunque se puede. Es útil para escribir
+      scripts que se ejecutan en la terminal. Esta es su sintaxis:
+    </p>
+
+    <pre class="app-command-sintax">if &lt;orden&gt;
+then
+  # instrucciones si la orden devuelve el código de exito 0
+fi</pre>
+
+    <p>
+      Los procesos al terminar su ejecución siempre devuelven un código de retorno al sistema operativo. El código 0
+      significa éxito, y un número positivo significa que ha habido algún error.
+    </p>
+  </section>
+
+  <section>
+    <h2>Primer ejemplo</h2>
+
+    <p>Para entender un poco mejor como funciona, vamos a ver un primer ejemplo:</p>
+
+    <app-terminal-code>
+      <p terminal-code-command>true</p>
+      <p terminal-code-command>echo $?</p>
+      <span terminal-code-output>0</span>
+    </app-terminal-code>
+
+    <p>Podemos ver que valor de retorno devolvió el último proceso ejecutado con <i>echo $?</i>. Por tanto:</p>
+
+    <app-terminal-code>
+      <pre terminal-code-command>if true
+then
+  echo "La ejecución fue bien"
+fi</pre>
+      <span terminal-code-output>La ejecución fue bien</span>
+    </app-terminal-code>
+
+    <p>
+      Como la orden <i>true</i> siempre devuelve éxito, se imprime el mensaje.
+    </p>
+  </section>
+
+  <section>
+    <h2>Elif y else</h2>
+
+    <p>
+      Podemos también proporcionar más instrucciones en el caso de que la orden falle.
+    </p>
+
+    <pre class="app-command-sintax">if &lt;orden&gt;
+then
+  # instrucciones si la orden devuelve el código de exito 0
+
+elif &lt;orden2&gt;
+then
+  # instrucciones si la orden2 devuelve el código de exito 0
+
+elif &lt;orden3&gt;
+then
+  # instrucciones si la orden3 devuelve el código de exito 0
+
+else
+  # instrucciones si la orden3 retorna un código de error distinto de 0
+fi</pre>
+
+    <p>
+      Es posible concatenar tantos <i>elif</i> como necesitemos, pero ten en cuenta que las órdenes se van ejecutando
+      una y otra vez hasta que una retorna éxito y se ejecutan las instrucciones asociadas. Tanto los <i>elif</i> como
+      el <i>else</i> son opcionales.
+    </p>
+
+    <app-terminal-code>
+      <pre terminal-code-command>if algo1
+then
+  echo "La orden algo1 existe"
+elif algo2
+then
+  echo "La orden algo2 existe"
+else
+  echo "No existen las órdenes algo1 ni algo2"
+fi</pre>
+      <pre terminal-code-output>Orden «algo1» no encontrada. Quizá quiso decir:
+  la orden «algos» del paquete snap «algos (1.0.0)»
+Consulte «snap info &lt;nombre del snap&gt;» para ver más versiones.
+      
+Orden «algo2» no encontrada. Quizá quiso decir:
+  la orden «algos» del paquete snap «algos (1.0.0)»
+Consulte «snap info &lt;nombre del snap&gt;» para ver más versiones.
+      
+No existen las órdenes algo1 ni algo2</pre>
+    </app-terminal-code>
+
+    <p>
+      Podemos comprobar que los mensajes de las órdenes también son impresos por la consola.
+    </p>
+  </section>
+</article>
