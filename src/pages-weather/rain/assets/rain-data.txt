@@ -84,6 +84,7 @@ xx/02/2023-7
 xx/01/2023-61
 
 # AÑO 2022
+xx/xx/2022-389[Muy caro todo a cuenta de la guerra de Ucrania. Cosecha regular tirando a bueno.]
 xx/12/2022-81
 xx/11/2022-60
 xx/10/2022-59.5
@@ -98,6 +99,7 @@ xx/02/2022-4
 xx/01/2022-12
 
 # AÑO 2021
+xx/xx/2021-464[Muy buen año de cosecha]
 xx/12/2021-28
 xx/11/2021-52
 xx/10/2021-50
@@ -112,6 +114,7 @@ xx/02/2021-75
 xx/01/2021-32[Gran nevada por la borrasca Filomena]
 
 # AÑO 2020
+xx/xx/2020-516[Muy buen año de cosecha]
 xx/12/2020-58
 xx/11/2020-61
 xx/10/2020-71
@@ -126,6 +129,7 @@ xx/02/2020-0
 xx/01/2020-15
 
 # AÑO 2019
+xx/xx/2019-421[Cosecha mermada. Regular. Año tirando a malo]
 xx/12/2019-83
 xx/11/2019-67
 xx/10/2019-60
@@ -154,7 +158,6 @@ xx/02/2018-55
 xx/01/2018-41[Gran nevada días 6 y 7]
 
 # AÑO 2017 (primer mes mayo)
-xx/xx/2017-172[Cosecha mermada. Regular. Tirando a malo]
 xx/12/2017-35
 xx/11/2017-24
 xx/10/2017-7
