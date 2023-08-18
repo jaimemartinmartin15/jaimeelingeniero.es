@@ -1,0 +1,272 @@
+<article>
+  <div class="page-header">
+    <h1 class="title">If</h1>
+  </div>
+
+  <section>
+    <p>
+      Esta sentencia de control no está pensada para ejecutarla como un comando, aunque se puede. Es útil para escribir
+      scripts que se ejecutan en la terminal. Esta es su sintaxis:
+    </p>
+
+    <pre class="app-command-sintax">if &lt;orden&gt;
+then
+  # instrucciones si la orden devuelve el código de exito 0
+fi</pre>
+
+    <p>
+      Los procesos al terminar su ejecución siempre devuelven un código de retorno al sistema operativo. El código 0
+      significa éxito, y un número positivo significa que ha habido algún error.
+    </p>
+  </section>
+
+  <section>
+    <h2>Primer ejemplo</h2>
+
+    <p>Para entender un poco mejor como funciona, vamos a ver un primer ejemplo:</p>
+
+    <app-terminal-code>
+      <p terminal-code-command>true</p>
+      <p terminal-code-command>echo $?</p>
+      <span terminal-code-output>0</span>
+    </app-terminal-code>
+
+    <p>Podemos ver que valor de retorno devolvió el último proceso ejecutado con <i>echo $?</i>. Por tanto:</p>
+
+    <app-terminal-code>
+      <pre terminal-code-command>if true
+then
+  echo "La ejecución fue bien"
+fi</pre>
+      <span terminal-code-output>La ejecución fue bien</span>
+    </app-terminal-code>
+
+    <p>
+      Como la orden <i>true</i> siempre devuelve éxito, se imprime el mensaje.
+    </p>
+  </section>
+
+  <section>
+    <h2>Elif y else</h2>
+
+    <p>
+      Podemos también proporcionar más instrucciones en el caso de que la orden falle.
+    </p>
+
+    <pre class="app-command-sintax">if &lt;orden&gt;
+then
+  # instrucciones si la orden devuelve el código de exito 0
+
+elif &lt;orden2&gt;
+then
+  # instrucciones si la orden2 devuelve el código de exito 0
+
+elif &lt;orden3&gt;
+then
+  # instrucciones si la orden3 devuelve el código de exito 0
+
+else
+  # instrucciones si la orden3 retorna un código de error distinto de 0
+fi</pre>
+
+    <p>
+      Es posible concatenar tantos <i>elif</i> como necesitemos, pero ten en cuenta que las órdenes se van ejecutando
+      una y otra vez hasta que una retorna éxito y se ejecutan las instrucciones asociadas. Tanto los <i>elif</i> como
+      el <i>else</i> son opcionales.
+    </p>
+
+    <app-terminal-code>
+      <pre terminal-code-command>if algo1
+then
+  echo "La orden algo1 existe"
+elif algo2
+then
+  echo "La orden algo2 existe"
+else
+  echo "No existen las órdenes algo1 ni algo2"
+fi</pre>
+      <pre terminal-code-output>Orden «algo1» no encontrada. Quizá quiso decir:
+  la orden «algos» del paquete snap «algos (1.0.0)»
+Consulte «snap info &lt;nombre del snap&gt;» para ver más versiones.
+      
+Orden «algo2» no encontrada. Quizá quiso decir:
+  la orden «algos» del paquete snap «algos (1.0.0)»
+Consulte «snap info &lt;nombre del snap&gt;» para ver más versiones.
+      
+No existen las órdenes algo1 ni algo2</pre>
+    </app-terminal-code>
+
+    <p>
+      Podemos comprobar que los mensajes de las órdenes también son impresos por la consola.
+    </p>
+  </section>
+
+  <section>
+    <h2>Evaluación de expresiones</h2>
+
+    <p>
+      Ya hemos visto lo básico. El valor de retorno de una orden es utilizado para decidir si se ejecuta el bloque de
+      instrucciones asociado. ¿Pero cómo podemos hacer para comparar variables y otras cosas?
+    </p>
+
+    <p>
+      Para ello existen órdenes a las que les pasamos expresiones como argumentos, y estas órdenes se encargan de
+      evaluar estos argumentos y devolver el valor correspondiente. La orden más útil es <a class="app-link"
+        href="https://man7.org/linux/man-pages/man1/test.1.html" target="_blank" rel="noopener">test</a>.
+    </p>
+  </section>
+
+  <section>
+    <h2>Tratamiento de ficheros</h2>
+
+    <p>
+      Estas son algunas de las opciones que tiene <i>test</i> para <strong>tratar ficheros</strong>:
+    </p>
+
+    <ul>
+      <li><strong>-a ruta</strong>: devuelve verdadero si la ruta existe.</li>
+      <li><strong>-d ruta</strong>: devuelve verdadero si la ruta existe y es un directorio.</li>
+      <li><strong>-f ruta</strong>: devuelve verdadero si la ruta existe y es un fichero.</li>
+      <li><strong>-r ruta</strong>: devuelve verdadero si la ruta existe y tiene permiso de lectura.</li>
+      <li><strong>-w ruta</strong>: devuelve verdadero si la ruta existe y tiene permiso de escritura.</li>
+      <li><strong>-x ruta</strong>: devuelve verdadero si la ruta existe y tiene permiso de ejecución o acceso.</li>
+    </ul>
+
+    <app-terminal-code>
+      <pre terminal-code-command>if test -f fichero1.txt
+then
+  echo "La ruta existe y es un fichero"
+fi</pre>
+      <span terminal-code-output>La ruta existe y es un fichero</span>
+    </app-terminal-code>
+  </section>
+
+  <section>
+    <h2>Comparar cadenas</h2>
+
+    <p>También podemos <strong>comparar cadenas</strong> de caracteres. Estas son las opciones:</p>
+
+    <ul>
+      <li><strong>-z cadena</strong>: la cadena tiene longitud nula.</li>
+      <li><strong>-n cadena</strong>: la cadena no tiene longitud nula.</li>
+      <li><strong>cadena1 = cadena2</strong>: las cadenas son iguales.</li>
+      <li><strong>cadena1 != cadena2</strong>: las cadenas no son iguales.</li>
+    </ul>
+
+    <app-terminal-code>
+      <pre terminal-code-command>if test "$USER" = jaime
+then
+  echo "El usuario es jaime"
+fi</pre>
+      <span terminal-code-output>El usuario es jaime</span>
+    </app-terminal-code>
+
+    <p>
+      Al poner las comillas en la variable, nos aseguramos que a la orden se le pasa un valor en caso de que la
+      variable no exista.
+    </p>
+  </section>
+
+  <section>
+    <h2>Comparar números</h2>
+
+    <p>Para <strong>comparar números</strong> estas son las opciones:</p>
+
+    <ul>
+      <li><strong>n1 -eq n2</strong>: los números son iguales.</li>
+      <li><strong>n1 -ne n2</strong>: los números son diferentes.</li>
+      <li><strong>n1 -gt n2</strong>: n1 es mayor que n2.</li>
+      <li><strong>n1 -lt n2</strong>: n1 es menor que n2.</li>
+      <li><strong>n1 -ge n2</strong>: n1 es mayor o igual que n2.</li>
+      <li><strong>n1 -le n2</strong>: n1 es menor o igual que n2.</li>
+    </ul>
+
+    <app-terminal-code>
+      <pre terminal-code-command>if test $((011)) -eq 9
+then
+  echo "Los números son iguales"
+fi</pre>
+      <span terminal-code-output>Los números son iguales</span>
+    </app-terminal-code>
+
+    <p>
+      Cosas a tener en cuenta: si usamos la opcion = para comparar números, en realidad se comparan cadenas de
+      caracteres, así que cuidado. Hay que usar el dolar y los paréntesis para interpretar el número en octal y
+      convertirlo a decimal, y entonces hacer la comparación.
+    </p>
+  </section>
+
+  <section>
+    <h2>Operadores lógicos</h2>
+
+    <p>
+      El siguiente grupo de opciones que nos permite la orden test, es para poder combinar varias expresiones. Se trata
+      de los <strong>operadores lógicos</strong>:
+    </p>
+
+    <ul>
+      <li><strong>! expresión</strong>: si la expresión es falsa, se convierte en verdadera.</li>
+      <li>
+        <strong>expresión1 -a expresión2</strong>: solo si las dos expresiones son verdaderas, devuelve verdadero (AND).
+      </li>
+      <li>
+        <strong>expresión1 -o expresión2</strong>: si cualquiera de las dos expresiones es verdadera, devuelve verdadero
+        (OR).
+      </li>
+    </ul>
+
+    <app-terminal-code>
+      <pre terminal-code-command>if test 4 -lt 8 -a 10 -eq 10
+then
+  echo "Las dos condiciones son verdaderas"
+fi</pre>
+      <span terminal-code-output>Las dos condiciones son verdaderas</span>
+    </app-terminal-code>
+
+    <p>
+      Quizá te estes preguntando ahora cuál es la precedencia de los operadores. En la práctica, lo más sencillo es
+      cubrir entre paréntesis las expresiones. Estos paréntesis deben ir precedidos de \ para escaparlos del significado
+      que le da la terminal. Deja también un espacio entre el paréntesis y la expresión.
+    </p>
+
+    <app-terminal-code>
+      <pre terminal-code-command>if test \( $((7 % 4)) -eq 0 \) -o \( -n "hola" \)
+then
+  echo "Al menos una condición es verdadera"
+fi</pre>
+      <span terminal-code-output>Al menos una condición es verdadera</span>
+    </app-terminal-code>
+  </section>
+
+  <section>
+    <h2>Extra</h2>
+
+    <p>
+      Además de usar la orden <i>test</i>, las terminales también admiten otra sintaxis que es con corchetes
+      (equivalente a la orden test):
+    </p>
+
+    <pre class="app-command-sintax">if [ expresión ]
+then
+  # instrucciones si la expresión es verdadera
+fi</pre>
+
+    <p>
+      En el caso específico de la consola bash, también se permiten dobles corches ( <strong>[[</strong> expresión
+      <strong>]]</strong> ), con algunas mejoras como el uso de operadores lógicos con <strong>||</strong> y
+      <strong>&amp;&amp;</strong>, uso de comparadores <strong>&lt;</strong> o <strong>&gt;</strong>, o no ser necesario
+      cubrir las variables con comillas entre otras.
+    </p>
+
+    <app-terminal-code>
+      <pre terminal-code-command>SALUDO="hola mundo"
+NUM=8
+
+if [[ $NUM -eq 8 && $SALUDO == "hola mundo" ]]
+then
+  echo "NUM vale 8 y el saludo es \"hola mundo\""
+fi</pre>
+      <span terminal-code-output>NUM vale 8 y el saludo es "hola mundo"</span>
+    </app-terminal-code>
+  </section>
+</article>

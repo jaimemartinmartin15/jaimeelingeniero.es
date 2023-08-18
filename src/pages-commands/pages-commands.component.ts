@@ -6,5 +6,8 @@ import { Component } from '@angular/core';
   styleUrls: ['./pages-commands.component.scss'],
 })
 export class PagesCommandsComponent {
-  public readonly commands: { display: string; url: string }[] = [{ display: 'find', url: '/comandos/find' }];
+  public readonly commands: { display: string; url: string }[] = [
+    { display: 'find', url: '/comandos/find' },
+    { display: 'if', url: '/comandos/if' },
+  ];
 }
