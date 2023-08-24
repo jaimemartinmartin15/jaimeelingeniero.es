@@ -24,13 +24,13 @@
 #
 
 # AGOSTO 2023
-23/08/2023-0
-22/08/2023-0
-21/08/2023-0
-20/08/2023-0
-19/08/2023-0
+23/08/2023-0[52 días sin llover desde el 2 de julio.] # vacaciones
+22/08/2023-0 # vacaciones
+21/08/2023-0 # vacaciones
+20/08/2023-0 # vacaciones
+19/08/2023-0 # vacaciones
 18/08/2023-0
-17/08/2023-0[46 días sin llover desde el 2 de julio]
+17/08/2023-0
 16/08/2023-0
 15/08/2023-0
 14/08/2023-0
@@ -105,7 +105,7 @@ xx/02/2022-4
 xx/01/2022-12
 
 # AÑO 2021
-xx/xx/2021-464[Muy buen año de cosecha]
+xx/xx/2021-464[Muy buen año de cosecha.]
 xx/12/2021-28
 xx/11/2021-52
 xx/10/2021-50
@@ -120,7 +120,7 @@ xx/02/2021-75
 xx/01/2021-32[Gran nevada por la borrasca Filomena]
 
 # AÑO 2020
-xx/xx/2020-516[Muy buen año de cosecha]
+xx/xx/2020-516[Muy buen año de cosecha.]
 xx/12/2020-58
 xx/11/2020-61
 xx/10/2020-71
@@ -135,7 +135,7 @@ xx/02/2020-0
 xx/01/2020-15
 
 # AÑO 2019
-xx/xx/2019-421[Cosecha mermada. Regular. Año tirando a malo]
+xx/xx/2019-421[Cosecha mermada. Regular. Año tirando a malo.]
 xx/12/2019-83
 xx/11/2019-67
 xx/10/2019-60
