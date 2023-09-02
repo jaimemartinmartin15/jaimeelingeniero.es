@@ -23,15 +23,17 @@
 #   [+] If there are not YEAR entries, they can be calculated based on MONTH entries.
 #
 
+# SEPTIEMBRE 2023
+01/09/2023-5.5[Después de 60 días sin lluvia desde el 2 de julio, en la madrugada del día 1 al día 2 ha llovido durante una tormenta. Los días 25 y 26 de agosto pinteó algo, pero el pluviómetro no recogió nada. El otro pluviómetro recogió 7 litros.]
+
 # AGOSTO 2023
-01/09/2023-0
 31/08/2023-0
 30/08/2023-0
 29/08/2023-0
 28/08/2023-0
 27/08/2023-0
 26/08/2023-0
-25/08/2023-0[54 días sin llover desde el 2 de julio. Esta noche pinteó algo.]
+25/08/2023-0
 24/08/2023-0
 23/08/2023-0 # vacaciones
 22/08/2023-0 # vacaciones
