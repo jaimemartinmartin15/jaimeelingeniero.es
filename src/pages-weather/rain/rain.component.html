@@ -76,7 +76,7 @@
     <div class="header">
       <span (click)="showPopUpForMonth(data.month, data.year)">
         <p class="month-and-year">
-          <span class="badge" [style.backgroundColor]="popUp.color" *ngIf="showBadgeForMonth(data.month, data.year)"></span>
+          <span class="badge" [style.backgroundColor]="getBadgeColorForMonth(data.month, data.year)" *ngIf="showBadgeForMonth(data.month, data.year)"></span>
           {{MONTHS[data.month]}} {{data.year}}
         </p>
         <p class="liters" *ngIf="isTotalAmountOfLitersAvailableForMonth(data.month, data.year)">
@@ -101,7 +101,7 @@
 
       <li *ngFor="let day of data.daysArray let i=index" (click)="showPopUpForDay(day)"
         [ngStyle]="i === 0 ? {'grid-column-start': getFirstDayOfMonthWeekDayIndex(data.month, data.year)} : {}">
-        <span class="badge" [style.backgroundColor]="popUp.color" *ngIf="day.hasMessage"></span>
+        <span class="badge" [style.backgroundColor]="day.bulletColor" *ngIf="day.hasMessage"></span>
 
         <svg class="pluviometer-svg" viewBox="0 0 300 360">
           <!-- the filter includes the water inside -->
@@ -154,7 +154,7 @@
         <p class="liters" *ngIf="isTotalAmountOfLitersAvailableForYear(data.year)">
           {{getTotalAmountOfLitersInYear(data.year)}} litros
         </p>
-        <span class="badge" [style.backgroundColor]="popUp.color" *ngIf="showBadgeForYear(data.year)"></span>
+        <span class="badge" [style.backgroundColor]="getBadgeColorForYear(data.year)" *ngIf="showBadgeForYear(data.year)"></span>
       </span>
       <button (click)="showNextYear()">&gt;</button>
     </div>

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { getNumberOfDaysInMonth } from 'src/utils/dates';
-import { DATE_PLACEHOLDER, DATE_SEPARATOR, DEFAULT_BULLET_COLOR } from './constants';
+import { DATE_PLACEHOLDER, DATE_SEPARATOR } from './constants';
 import { FileLine } from './file-line';
 import { RainData } from './rain-data';
 import { compareDates } from './utils';
@@ -54,7 +54,7 @@ export class RainDataService {
           new RainData({
             date: `${DATE_PLACEHOLDER}${DATE_SEPARATOR}${month + 1}${DATE_SEPARATOR}${year}`,
             liters: `${litersInMonth}`,
-            bulletColor: DEFAULT_BULLET_COLOR,
+            bulletColor: '',
             popUpContent: '',
           })
         );
@@ -79,7 +79,7 @@ export class RainDataService {
           new RainData({
             date: `${DATE_PLACEHOLDER}${DATE_SEPARATOR}${DATE_PLACEHOLDER}${DATE_SEPARATOR}${year}`,
             liters: `${litersInYear}`,
-            bulletColor: DEFAULT_BULLET_COLOR,
+            bulletColor: '',
             popUpContent: '',
           })
         );
@@ -129,7 +129,7 @@ export class RainDataService {
           const mockData = new RainData({
             date: `${day}${DATE_SEPARATOR}${month + 1}${DATE_SEPARATOR}${year}`,
             liters: '',
-            bulletColor: DEFAULT_BULLET_COLOR,
+            bulletColor: '',
             popUpContent: '',
           });
           mockData.svgOffset = 363;
@@ -151,7 +151,7 @@ export class RainDataService {
           const mockData = new RainData({
             date: `${DATE_PLACEHOLDER}${DATE_SEPARATOR}${month + 1}${DATE_SEPARATOR}${year}`,
             liters: '',
-            bulletColor: DEFAULT_BULLET_COLOR,
+            bulletColor: '',
             popUpContent: '',
           });
           mockData.svgOffset = 258;
@@ -175,7 +175,7 @@ export class RainDataService {
         const mockData = new RainData({
           date: `${DATE_PLACEHOLDER}${DATE_SEPARATOR}${DATE_PLACEHOLDER}${DATE_SEPARATOR}${year}`,
           liters: '',
-          bulletColor: DEFAULT_BULLET_COLOR,
+          bulletColor: '',
           popUpContent: '',
         });
         mockData.svgOffset = 258;

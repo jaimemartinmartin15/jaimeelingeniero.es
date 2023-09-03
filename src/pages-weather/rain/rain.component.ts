@@ -4,7 +4,6 @@ import { MONTHS } from 'src/utils/dates';
 import { RainData } from './rain-data';
 import { RainDataService } from './rain-data.service';
 import { SnapScrollHelper } from './snap-scroll-helper';
-import { DEFAULT_BULLET_COLOR } from './constants';
 
 @Component({
   selector: 'app-rain',
@@ -14,7 +13,7 @@ import { DEFAULT_BULLET_COLOR } from './constants';
 })
 export class RainComponent extends SnapScrollHelper implements OnInit, AfterViewInit {
   public readonly MONTHS = MONTHS;
-  public readonly popUp = { show: false, content: '', color: DEFAULT_BULLET_COLOR };
+  public readonly popUp = { show: false, content: '' };
 
   public selectedYear = new Date().getFullYear();
   public selectedMonth = new Date().getMonth();
@@ -78,6 +77,10 @@ export class RainComponent extends SnapScrollHelper implements OnInit, AfterView
 
   public showBadgeForMonth(month: number, year: number): boolean {
     return this.rainDataService.getRainDataPerMonths(year).find((m) => m.month === month)?.hasMessage ?? false;
+  }
+
+  public getBadgeColorForMonth(month: number, year: number): string {
+    return this.rainDataService.getRainDataPerMonths(year).find((m) => m.month === month)!.bulletColor;
   }
 
   public isTotalAmountOfLitersAvailableForMonth(month: number, year: number): boolean {
@@ -157,7 +160,6 @@ export class RainComponent extends SnapScrollHelper implements OnInit, AfterView
     if (foundMonth?.hasMessage) {
       this.popUp.show = true;
       this.popUp.content = foundMonth.popUpContent;
-      this.popUp.color = foundMonth.bulletColor;
     }
   }
 
@@ -165,7 +167,6 @@ export class RainComponent extends SnapScrollHelper implements OnInit, AfterView
     if (day.hasMessage) {
       this.popUp.show = true;
       this.popUp.content = day.popUpContent;
-      this.popUp.color = day.bulletColor;
     }
   }
 
@@ -179,12 +180,15 @@ export class RainComponent extends SnapScrollHelper implements OnInit, AfterView
     return this.rainDataService.getRainDataPerYear().find((y) => y.year === year)?.hasMessage ?? false;
   }
 
+  public getBadgeColorForYear(year: number): string {
+    return this.rainDataService.getRainDataPerYear().find((y) => y.year === year)!.bulletColor;
+  }
+
   public showPopUpForYear(year: number): void {
     const foundYear = this.rainDataService.getRainDataPerYear().find((y) => y.year === year);
     if (foundYear?.hasMessage) {
       this.popUp.show = true;
       this.popUp.content = foundYear.popUpContent;
-      this.popUp.color = foundYear.bulletColor;
     }
   }
 }
