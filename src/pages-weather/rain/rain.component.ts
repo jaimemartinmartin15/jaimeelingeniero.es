@@ -4,6 +4,7 @@ import { MONTHS } from 'src/utils/dates';
 import { RainData } from './rain-data';
 import { RainDataService } from './rain-data.service';
 import { SnapScrollHelper } from './snap-scroll-helper';
+import { DEFAULT_BULLET_COLOR } from './constants';
 
 @Component({
   selector: 'app-rain',
@@ -13,7 +14,7 @@ import { SnapScrollHelper } from './snap-scroll-helper';
 })
 export class RainComponent extends SnapScrollHelper implements OnInit, AfterViewInit {
   public readonly MONTHS = MONTHS;
-  public readonly popUp = { show: false, content: '' };
+  public readonly popUp = { show: false, content: '', color: DEFAULT_BULLET_COLOR };
 
   public selectedYear = new Date().getFullYear();
   public selectedMonth = new Date().getMonth();
@@ -76,20 +77,20 @@ export class RainComponent extends SnapScrollHelper implements OnInit, AfterView
   }
 
   public showBadgeForMonth(month: number, year: number): boolean {
-    return this.rainDataService.getRainDataPerMonths(year).find((m) => m.date.getMonth() === month)?.popUpContent !== undefined;
+    return this.rainDataService.getRainDataPerMonths(year).find((m) => m.month === month)?.hasMessage ?? false;
   }
 
   public isTotalAmountOfLitersAvailableForMonth(month: number, year: number): boolean {
     return (
       this.rainDataService
         .getRainDataPerMonths(year)
-        .filter((m) => !m.isFake)
-        .find((m) => m.date.getMonth() === month) != undefined
+        .filter((m) => !m.hasLiters)
+        .find((m) => m.month === month) != undefined
     );
   }
 
   public totalAmountOfLitersInMonth(month: number, year: number): number {
-    return this.rainDataService.getRainDataPerMonths(year).find((m) => m.date.getMonth() === month)!.liters;
+    return this.rainDataService.getRainDataPerMonths(year).find((m) => m.month === month)!.liters;
   }
 
   public getWeatherIcon(month: number): string {
@@ -126,11 +127,11 @@ export class RainComponent extends SnapScrollHelper implements OnInit, AfterView
   }
 
   public isTotalAmountOfLitersAvailableForYear(year: number): boolean {
-    return this.rainDataService.getRainDataPerYear().find((y) => y.date.getFullYear() === year) !== undefined;
+    return this.rainDataService.getRainDataPerYear().find((y) => y.year === year)?.hasLiters ?? false;
   }
 
   public getTotalAmountOfLitersInYear(year: number): number {
-    return this.rainDataService.getRainDataPerYear().find((y) => y.date.getFullYear() === year)!.liters;
+    return this.rainDataService.getRainDataPerYear().find((y) => y.year === year)!.liters;
   }
 
   public showPreviousYear() {
@@ -152,17 +153,19 @@ export class RainComponent extends SnapScrollHelper implements OnInit, AfterView
   }
 
   public showPopUpForMonth(month: number, year: number) {
-    const foundMonth = this.rainDataService.getRainDataPerMonths(year).find((m) => m.date.getMonth() === month);
-    if (foundMonth?.popUpContent !== undefined) {
+    const foundMonth = this.rainDataService.getRainDataPerMonths(year).find((m) => m.month === month);
+    if (foundMonth?.hasMessage) {
       this.popUp.show = true;
       this.popUp.content = foundMonth.popUpContent;
+      this.popUp.color = foundMonth.bulletColor;
     }
   }
 
   public showPopUpForDay(day: RainData) {
-    if (day.popUpContent !== undefined) {
+    if (day.hasMessage) {
       this.popUp.show = true;
       this.popUp.content = day.popUpContent;
+      this.popUp.color = day.bulletColor;
     }
   }
 
@@ -173,14 +176,15 @@ export class RainComponent extends SnapScrollHelper implements OnInit, AfterView
   }
 
   public showBadgeForYear(year: number): boolean {
-    return this.rainDataService.getRainDataPerYear().find((y) => y.date.getFullYear() === year)?.popUpContent !== undefined;
+    return this.rainDataService.getRainDataPerYear().find((y) => y.year === year)?.hasMessage ?? false;
   }
 
   public showPopUpForYear(year: number): void {
-    const foundYear = this.rainDataService.getRainDataPerYear().find((y) => y.date.getFullYear() === year);
-    if (foundYear?.popUpContent !== undefined) {
+    const foundYear = this.rainDataService.getRainDataPerYear().find((y) => y.year === year);
+    if (foundYear?.hasMessage) {
       this.popUp.show = true;
       this.popUp.content = foundYear.popUpContent;
+      this.popUp.color = foundYear.bulletColor;
     }
   }
 }
