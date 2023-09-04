@@ -24,6 +24,7 @@
 #
 
 # SEPTIEMBRE 2023
+04/09/2023-0
 03/09/2023-49[El pluviómetro pasó de los 35 que marca como máximo pero no se desbordó. El otro pluviometro cogió 55 litros.]
 02/09/2023-35.5[En apenas una hora cayeron 29 litros con algo de granizo durante una tormenta fuerte. El otro pluviómetro recogió 40 litros.]
 01/09/2023-5.5[Después de 60 días sin lluvia desde el 2 de julio, en la madrugada del día 1 al día 2 ha llovido durante una tormenta. Los días 25 y 26 de agosto pinteó algo, pero el pluviómetro no recogió nada. El otro pluviómetro recogió 7 litros.]
