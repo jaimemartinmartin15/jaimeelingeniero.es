@@ -1,0 +1,84 @@
+:host {
+  display: block;
+  background-color: #c8c8c8;
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 15px;
+}
+
+.selected-data {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  .arrow {
+    width: 30px;
+    transition: transform 0.3s;
+
+    &--rotated {
+      transform: rotate(180deg);
+    }
+  }
+}
+
+.collapsible-container {
+  hr {
+    border: 1px solid black;
+  }
+
+  .option {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    padding: 10px 0;
+
+    .alias-url {
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
+
+    .delete-icon {
+      flex-shrink: 0;
+      display: inline-block;
+      width: 20px;
+      height: 20px;
+      background-color: #bc2f2f;
+      clip-path: polygon(
+        20% 0%,
+        0% 20%,
+        30% 50%,
+        0% 80%,
+        20% 100%,
+        50% 70%,
+        80% 100%,
+        100% 80%,
+        70% 50%,
+        100% 20%,
+        80% 0%,
+        50% 30%
+      );
+    }
+  }
+
+  .new-option {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 10px;
+
+    input {
+      flex-grow: 1;
+      display: inline-block;
+      padding: 5px;
+      border: 2px solid black;
+      border-radius: 5px;
+      font-size: 1.3rem;
+      margin-bottom: 2px;
+    }
+
+    .arrow {
+      width: 30px;
+    }
+  }
+}

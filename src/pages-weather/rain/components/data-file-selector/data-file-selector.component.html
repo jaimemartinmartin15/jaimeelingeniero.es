@@ -1,0 +1,27 @@
+<app-collapsible #collapsible>
+  <div appCollapsibleToggleAction class="selected-data">
+    <span>Datos de <strong>{{this.selectedDataFile.alias}}</strong></span>
+    <svg viewBox="0 0 10 10" [ngClass]="{arrow: true, 'arrow--rotated': collapsible.isOpen}">
+      <polygon points="2,4 8,4 5,7" />
+    </svg>
+  </div>
+
+  <div appCollapsibleContent class="collapsible-container">
+    <hr>
+
+    <div class="option" *ngFor="let file of dataFiles; let i = index">
+      <span class="alias-url" (click)="selectDataFile(file)">
+        <span>{{file.alias}} </span>
+        <span>({{file.url}})</span>
+      </span>
+      <span class="delete-icon" (click)="deleteDataFile(file)"></span>
+    </div>
+
+    <div class="new-option">
+      <input #dataFileInputRef type="text" placeholder="alias:url">
+      <svg viewBox="0 0 100 100" class="arrow" (click)="addNewDataFile(dataFileInputRef)">
+        <polygon points="23,15 90,50 23,85 45,50" fill="white" />
+      </svg>
+    </div>
+  </div>
+</app-collapsible>
