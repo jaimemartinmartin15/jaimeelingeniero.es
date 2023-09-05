@@ -10,11 +10,11 @@
     <hr>
 
     <div class="option" *ngFor="let file of dataFiles; let i = index">
-      <span class="alias-url" (click)="selectDataFile(file)">
-        <span>{{file.alias}} </span>
-        <span>({{file.url}})</span>
+      <span class="alias" (click)="selectDataFile(file)"> {{file.alias}} </span>
+
+      <span class="delete-icon-wrapper">
+        <span class="delete-icon" (click)="deleteDataFile(file)"></span>
       </span>
-      <span class="delete-icon" (click)="deleteDataFile(file)"></span>
     </div>
 
     <div class="new-option">

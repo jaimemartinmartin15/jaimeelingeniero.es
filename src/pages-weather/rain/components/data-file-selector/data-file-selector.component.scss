@@ -29,37 +29,45 @@
   .option {
     display: flex;
     justify-content: space-between;
+    align-items: center;
     gap: 10px;
     margin: 10px 0;
     padding: 5px 0;
 
-    .alias-url {
+    .alias {
+      flex-grow: 1;
       cursor: pointer;
-      overflow: hidden;
-      white-space: nowrap;
-      text-overflow: ellipsis;
     }
 
-    .delete-icon {
+    .delete-icon-wrapper {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 30px;
+      height: 30px;
+      cursor: pointer;
       flex-shrink: 0;
-      display: inline-block;
-      width: 20px;
-      height: 20px;
-      background-color: #bc2f2f;
-      clip-path: polygon(
-        20% 0%,
-        0% 20%,
-        30% 50%,
-        0% 80%,
-        20% 100%,
-        50% 70%,
-        80% 100%,
-        100% 80%,
-        70% 50%,
-        100% 20%,
-        80% 0%,
-        50% 30%
-      );
+
+      .delete-icon {
+        display: inline-block;
+        width: 80%;
+        height: 80%;
+        background-color: #bc2f2f;
+        clip-path: polygon(
+          20% 0%,
+          0% 20%,
+          30% 50%,
+          0% 80%,
+          20% 100%,
+          50% 70%,
+          80% 100%,
+          100% 80%,
+          70% 50%,
+          100% 20%,
+          80% 0%,
+          50% 30%
+        );
+      }
     }
   }
 
