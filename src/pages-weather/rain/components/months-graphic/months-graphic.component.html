@@ -1,0 +1,49 @@
+<div class="header">
+  <button (click)="showPreviousYear.emit()">&lt;</button>
+
+  <span class="content" (click)="showYearPopUp()">
+    <p class="year">Meses {{year}}</p>
+
+    <p class="liters" *ngIf="isTotalAmountOfLitersAvailableForYear()">
+      {{totalAmountOfLitersInYear()}} litros
+    </p>
+
+    <span class="badge" [style.backgroundColor]="getBadgeColorForYear()" *ngIf="existsMessageForYear()"></span>
+  </span>
+
+  <button (click)="showNextYear.emit()">&gt;</button>
+</div>
+
+<svg viewBox="0 0 400 300" *ngIf="!loading && rainPerMonths.length > 0">
+  <!-- water lines -->
+  <line *ngFor="let waterLine of rainPerMonths; let i=index" class="water-year-line" [attr.x1]="30 + 30*i" y1="260"
+    [attr.x2]="30 + 30*i" [attr.y2]="waterLine.svgOffset" [attr.stroke]="i === selectedMonth ? '#c1c100' : '#00a2e8'"
+    stroke-width="20" (click)="showMonth.emit(i)" style="cursor: pointer" />
+
+  <!-- water liters -->
+  <text *ngFor="let waterLine of rainPerMonths; let i=index" (click)="showMonth.emit(i)"
+    [attr.text-anchor]="waterLine.svgOffset > 200 ? 'end' : 'start'"
+    [attr.transform]="'rotate(90,'+(25 + 30*i)+','+waterLine.svgOffset+')'"
+    [attr.x]="waterLine.svgOffset > 200 ? (15 + 30*i): (35 + 30*i)" [attr.y]="waterLine.svgOffset +2"
+    [attr.fill]="waterLine.svgOffset > 200 ? i===selectedMonth ? '#c1c100': '#00a2e8' : 'white'" stroke="none"
+    font-size="1.2rem" style="cursor: pointer">
+    <ng-container *ngIf="waterLine.hasLiters">{{waterLine.liters}} L</ng-container>
+  </text>
+
+  <!-- y axis -->
+  <line x1="5" y1="0" x2="5" y2="260" stroke="black" stroke-width="5" />
+
+  <!-- x axis -->
+  <line x1="2.5" y1="260" x2="390" y2="260" stroke="black" stroke-width="5" />
+
+  <!-- month initial letters -->
+  <text [attr.x]="25 + 30*i" y="290" *ngFor="let month of MONTHS; let i=index">{{month[0]}}</text>
+</svg>
+
+<p *ngIf="!loading && rainPerMonths.length === 0" class="no-data-available">
+  No hay datos disponibles para este año
+</p>
+
+<p *ngIf="loading" class="loading">
+  Cargando...
+</p>
