@@ -19,6 +19,9 @@ export class DataFileSelectorComponent implements OnInit {
   public isLoading: EventEmitter<boolean> = new EventEmitter();
 
   @Output()
+  public error: EventEmitter<boolean> = new EventEmitter();
+
+  @Output()
   public loadNewDataFile: EventEmitter<FileLine[]> = new EventEmitter();
 
   public constructor(private readonly http: HttpClient) {}
@@ -74,6 +77,9 @@ export class DataFileSelectorComponent implements OnInit {
         tap((fileLines) => this.loadNewDataFile.emit(fileLines)),
         finalize(() => this.isLoading.emit(false))
       )
-      .subscribe();
+      .subscribe({
+        next: () => this.error.emit(false),
+        error: () => this.error.emit(true),
+      });
   }
 }

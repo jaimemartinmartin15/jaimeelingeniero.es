@@ -20,6 +20,9 @@ export class MonthsGraphicComponent implements OnChanges {
   @Input()
   public loading: boolean;
 
+  @Input()
+  public error: boolean;
+
   @Output()
   public showPopUp: EventEmitter<string> = new EventEmitter();
 
@@ -67,7 +70,7 @@ export class MonthsGraphicComponent implements OnChanges {
   public isTotalAmountOfLitersAvailableForYear(): boolean {
     const years = this.rainDataService.getRainDataPerYear();
     const foundYear = years.find((y) => y.year === this.year);
-    return !this.loading && foundYear !== undefined && foundYear.hasLiters;
+    return !this.error && !this.loading && foundYear !== undefined && foundYear.hasLiters;
   }
 
   public totalAmountOfLitersInYear(): number {

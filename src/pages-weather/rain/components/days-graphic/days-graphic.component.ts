@@ -20,6 +20,9 @@ export class DaysGraphicComponent implements OnChanges {
   @Input()
   public loading: boolean;
 
+  @Input()
+  public error: boolean;
+
   @Output()
   public showPopUp: EventEmitter<string> = new EventEmitter();
 
@@ -64,7 +67,7 @@ export class DaysGraphicComponent implements OnChanges {
   public isTotalAmountOfLitersAvailableForMonth() {
     const months = this.rainDataService.getRainDataPerMonths(this.year);
     const foundMonth = months.find((m) => m.month === this.month);
-    return !this.loading && foundMonth !== undefined && foundMonth.hasLiters;
+    return !this.error && !this.loading && foundMonth !== undefined && foundMonth.hasLiters;
   }
 
   public totalAmountOfLitersInMonth(): number {

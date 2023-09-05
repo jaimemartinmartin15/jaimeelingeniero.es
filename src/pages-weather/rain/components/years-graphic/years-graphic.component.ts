@@ -17,6 +17,9 @@ export class YearsGraphicComponent implements OnChanges {
   @Input()
   public loading: boolean;
 
+  @Input()
+  public error: boolean;
+
   @Output()
   public showYear: EventEmitter<number> = new EventEmitter();
 
@@ -29,7 +32,7 @@ export class YearsGraphicComponent implements OnChanges {
   public ngOnChanges(changes: SimpleChanges): void {
     this.rainPerYears = this.rainDataService.getRainDataPerYear();
 
-    if (changes['loading']?.previousValue === true && changes['loading'].currentValue === false) {
+    if (changes['loading']?.previousValue === true && changes['loading'].currentValue === false && !this.error) {
       // wait until data is loaded and then wait to adapt the view to calculate the svg width correctly
       setTimeout(() => {
         const boxWidth = this.yearsGraphicSvgWrapperRef.nativeElement.offsetWidth;

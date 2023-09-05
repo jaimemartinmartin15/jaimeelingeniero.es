@@ -27,7 +27,7 @@
   <li>S</li>
   <li>D</li>
 
-  <ng-container *ngIf="!loading && rainPerDays.length > 0">
+  <ng-container *ngIf="!error && !loading && rainPerDays.length > 0">
     <li *ngFor="let day of rainPerDays let i=index" (click)="showDayPopUp(day)"
       [ngStyle]="i === 0 ? {'grid-column-start': getFirstDayOfMonthWeekDayIndex()} : {}">
       <span class="badge" [style.backgroundColor]="day.bulletColor" *ngIf="day.hasMessage"></span>
@@ -69,10 +69,14 @@
   </ng-container>
 </ol>
 
-<p *ngIf="!loading && rainPerDays.length === 0" class="no-data-available">
+<p *ngIf="!error && !loading && rainPerDays.length === 0" class="no-data-available">
   No hay datos disponibles por día
 </p>
 
 <p *ngIf="loading" class="loading">
   Cargando...
+</p>
+
+<p *ngIf="error && !loading" class="error">
+  Se ha producido un error al cargar los datos
 </p>

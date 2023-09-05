@@ -13,6 +13,7 @@ export class RainComponent extends SnapScrollHelper implements OnInit, AfterView
   public readonly popUp = { show: false, content: '' };
 
   public isDataFileLoading: boolean = false;
+  public isErrorLoadingDataFile: boolean = false;
 
   public selectedYear = new Date().getFullYear();
   public selectedMonth = new Date().getMonth();

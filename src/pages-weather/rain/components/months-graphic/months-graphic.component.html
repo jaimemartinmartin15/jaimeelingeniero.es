@@ -14,7 +14,7 @@
   <button (click)="showNextYear.emit()">&gt;</button>
 </div>
 
-<svg viewBox="0 0 400 300" *ngIf="!loading && rainPerMonths.length > 0">
+<svg viewBox="0 0 400 300" *ngIf="!error && !loading && rainPerMonths.length > 0">
   <!-- water lines -->
   <line *ngFor="let waterLine of rainPerMonths; let i=index" class="water-year-line" [attr.x1]="30 + 30*i" y1="260"
     [attr.x2]="30 + 30*i" [attr.y2]="waterLine.svgOffset" [attr.stroke]="i === selectedMonth ? '#c1c100' : '#00a2e8'"
@@ -40,10 +40,14 @@
   <text [attr.x]="25 + 30*i" y="290" *ngFor="let month of MONTHS; let i=index">{{month[0]}}</text>
 </svg>
 
-<p *ngIf="!loading && rainPerMonths.length === 0" class="no-data-available">
+<p *ngIf="!error && !loading && rainPerMonths.length === 0" class="no-data-available">
   No hay datos disponibles para este año
 </p>
 
 <p *ngIf="loading" class="loading">
   Cargando...
+</p>
+
+<p *ngIf="error && !loading" class="error">
+  Se ha producido un error al cargar los datos
 </p>

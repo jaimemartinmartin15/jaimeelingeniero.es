@@ -1,7 +1,8 @@
 <h2 class="header">Comparación por años</h2>
 
 <div class="svg-wrapper" #yearsGraphicSvgWrapper>
-  <svg [attr.viewBox]="'0 0 ' + yearsGraphicSvgWidth + ' 325'" height="360" *ngIf="!loading && rainPerYears.length > 0">
+  <svg [attr.viewBox]="'0 0 ' + yearsGraphicSvgWidth + ' 325'" height="360"
+    *ngIf="!error && !loading && rainPerYears.length > 0">
     <!-- water lines -->
     <line *ngFor="let waterLine of rainPerYears; let i=index" [attr.x1]="30 + 30*i" y1="260" [attr.x2]="30 + 30*i"
       [attr.y2]="waterLine.svgOffset" [attr.stroke]="waterLine.year === selectedYear ? '#c1c100' : '#00a2e8'"
@@ -30,10 +31,14 @@
   </svg>
 </div>
 
-<p *ngIf="!loading && rainPerYears.length === 0">
+<p *ngIf="!error && !loading && rainPerYears.length === 0">
   No hay datos disponibles sobre lluvia
 </p>
 
 <p *ngIf="loading">
   Cargando...
+</p>
+
+<p *ngIf="error && !loading">
+  Se ha producido un error al cargar los datos
 </p>
