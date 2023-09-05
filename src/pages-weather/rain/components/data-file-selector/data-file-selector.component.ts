@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, EventEmitter, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { finalize, map, tap } from 'rxjs';
 import { COMMENT, DEFAULT_DATA_FILE, LINE_SEPARATOR } from '../../constants';
 import { FileLine } from '../../file-line';
@@ -15,8 +15,11 @@ export class DataFileSelectorComponent implements OnInit {
   public dataFiles: DataFile[] = [];
   public selectedDataFile: DataFile;
 
-  public isLoading$: EventEmitter<boolean> = new EventEmitter();
-  public loadNewDataFile$: EventEmitter<FileLine[]> = new EventEmitter();
+  @Output()
+  public isLoading: EventEmitter<boolean> = new EventEmitter();
+
+  @Output()
+  public loadNewDataFile: EventEmitter<FileLine[]> = new EventEmitter();
 
   public constructor(private readonly http: HttpClient) {}
 
@@ -49,7 +52,7 @@ export class DataFileSelectorComponent implements OnInit {
 
   public selectDataFile(dataFile: DataFile): void {
     this.selectedDataFile = dataFile;
-    this.isLoading$.emit(true);
+    this.isLoading.emit(true);
     this.http
       .get(dataFile.url, { responseType: 'text' })
       .pipe(
@@ -68,8 +71,8 @@ export class DataFileSelectorComponent implements OnInit {
               };
             })
         ),
-        tap((fileLines) => this.loadNewDataFile$.emit(fileLines)),
-        finalize(() => this.isLoading$.emit(false))
+        tap((fileLines) => this.loadNewDataFile.emit(fileLines)),
+        finalize(() => this.isLoading.emit(false))
       )
       .subscribe();
   }
