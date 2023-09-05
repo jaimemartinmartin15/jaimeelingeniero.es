@@ -1,0 +1,78 @@
+<div class="header">
+  <span (click)="showMonthPopUp()">
+    <p class="month-and-year">
+      <span class="badge" [style.backgroundColor]="getBadgeColorForMonth()" *ngIf="existsMessageForMonth()"></span>
+      <span>{{MONTHS[month]}} {{year}}</span>
+    </p>
+
+    <p class="liters" *ngIf="isTotalAmountOfLitersAvailableForMonth()">
+      {{totalAmountOfLitersInMonth()}} litros
+    </p>
+  </span>
+
+  <span class="icon">{{getWeatherIcon()}}</span>
+
+  <div class="change-month-buttons">
+    <button (click)="showPreviousMonth.emit()">&lt;</button>
+    <button (click)="showNextMonth.emit()">&gt;</button>
+  </div>
+</div>
+
+<ol class="calendar">
+  <li>L</li>
+  <li>M</li>
+  <li>X</li>
+  <li>J</li>
+  <li>V</li>
+  <li>S</li>
+  <li>D</li>
+
+  <ng-container *ngIf="!loading && rainPerDays.length > 0">
+    <li *ngFor="let day of rainPerDays let i=index" (click)="showDayPopUp(day)"
+      [ngStyle]="i === 0 ? {'grid-column-start': getFirstDayOfMonthWeekDayIndex()} : {}">
+      <span class="badge" [style.backgroundColor]="day.bulletColor" *ngIf="day.hasMessage"></span>
+
+      <svg class="pluviometer-svg" viewBox="0 0 300 360">
+        <!-- the filter includes the water inside -->
+        <filter [id]="'fillpartial'+day.year+''+day.month+''+i">
+          <feFlood flood-color="#00a2e8" />
+          <feOffset [attr.dy]="day.svgOffset"></feOffset>
+          <feComposite operator="in" in2="SourceGraphic" />
+          <feComposite operator="over" in2="SourceGraphic" />
+        </filter>
+
+        <!-- border and background -->
+        <path
+          d="M20,40C100,10 200,10 280,40L280,115C280,150 240,160 220,170L190,350L110,350L80,170C60,160 20,150 20,115Z"
+          stroke="#b5e61d" stroke-width="40" />
+        <path
+          d="M20,40C100,10 200,10 280,40L280,115C280,150 240,160 220,170L190,345L110,345L80,170C60,160 20,150 20,115Z"
+          stroke="none" fill="#e1ffe2" [attr.filter]="'url(#fillpartial'+day.year+''+day.month+''+i+')'" />
+
+        <!-- measure lines -->
+        <path d="M86,200C 138,202 146,202, 161,200" [attr.stroke]="[day.svgOffset > 216 ? '#757575' : '#FFF']"
+          stroke-width="9" fill="none" />
+        <path d="M92,240C 138,242 146,242, 164,240" [attr.stroke]="[day.svgOffset > 257 ? '#757575' : '#FFF']"
+          stroke-width="9" fill="none" />
+        <path d="M99,280C 138,282 146,282, 167,280" [attr.stroke]="[day.svgOffset > 292 ? '#757575' : '#FFF']"
+          stroke-width="9" fill="none" />
+        <path d="M106,320C 138,322 146,322, 170,320" [attr.stroke]="[day.svgOffset > 335 ? '#757575' : '#FFF']"
+          stroke-width="9" fill="none" />
+
+        <!-- day number -->
+        <text x="150" y="140" stroke="#e1ffe2" stroke-width="15" fill="#1c9a00" font-size="8.5rem" paint-order="stroke"
+          text-anchor="middle">{{i+1}}</text>
+      </svg>
+
+      <span class="liters" *ngIf="day.hasLiters">{{day.liters}} L</span>
+    </li>
+  </ng-container>
+</ol>
+
+<p *ngIf="!loading && rainPerDays.length === 0" class="no-data-available">
+  No hay datos disponibles por día
+</p>
+
+<p *ngIf="loading" class="loading">
+  Cargando...
+</p>
