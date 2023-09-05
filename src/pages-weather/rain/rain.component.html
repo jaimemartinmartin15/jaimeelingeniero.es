@@ -1,4 +1,4 @@
-<app-data-file-selector (isLoading)="isDataFileLoading = $event" (error)="isErrorLoadingDataFile = $event"
+<app-data-file-selector (isLoading)="isDataFileLoading = $event" (error)="onLoadDataFileError($event)"
   (loadNewDataFile)="onLoadDataFile($event)">
 </app-data-file-selector>
 

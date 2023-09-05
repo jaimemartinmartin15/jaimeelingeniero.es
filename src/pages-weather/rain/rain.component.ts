@@ -32,6 +32,11 @@ export class RainComponent extends SnapScrollHelper implements OnInit, AfterView
     this.centerScrollingInstantly();
   }
 
+  public onLoadDataFileError(error: boolean) {
+    this.isErrorLoadingDataFile = error;
+    this.updateHeightsOfGraphicWrappers();
+  }
+
   public onLoadDataFile(fileLines: FileLine[]) {
     this.rainDataService.setData(fileLines);
 
