@@ -4,6 +4,13 @@
   flex-shrink: 0;
 }
 
+.badge {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+
 .liters {
   color: #00a2e8;
   font-weight: bold;
@@ -27,10 +34,6 @@
     font-weight: bold;
 
     .badge {
-      display: inline-block;
-      width: 10px;
-      height: 10px;
-      border-radius: 50%;
       position: absolute;
       top: 0;
       right: -10px;
