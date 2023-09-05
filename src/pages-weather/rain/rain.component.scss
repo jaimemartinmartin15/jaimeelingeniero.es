@@ -2,6 +2,12 @@
   display: block;
 }
 
+.data-file-selector {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
 .figures-container {
   display: flex;
   flex-wrap: wrap;
@@ -33,6 +39,7 @@ figure {
   position: fixed;
   inset: 0;
   background-color: rgba(0, 0, 0, 0.411);
+  z-index: 20;
 
   .content {
     display: flex;
