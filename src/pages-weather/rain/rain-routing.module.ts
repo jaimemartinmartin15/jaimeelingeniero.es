@@ -1,15 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { RainComponent } from './rain.component';
-import { RainDataResolver } from './rain-data.resolver';
 
 const routes: Routes = [
   {
     path: '',
     component: RainComponent,
-    resolve: {
-      rainData: RainDataResolver,
-    },
     title: 'Lluvia caída del cielo',
     data: {
       metaTags: {
