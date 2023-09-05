@@ -12,7 +12,6 @@ export abstract class SnapScrollHelper {
 
   @ViewChild('daysGraphicScroller', { static: false }) protected daysGraphicScrollerRef: ElementRef;
   @ViewChild('monthsGraphicScroller', { static: false }) protected monthsGraphicScrollerRef: ElementRef;
-  @ViewChild('yearsGraphicSvgWrapper', { static: false }) protected yearsGraphicSvgWrapperRef: ElementRef;
 
   protected get daysScrollerEl(): HTMLDivElement {
     return this.daysGraphicScrollerRef.nativeElement;
