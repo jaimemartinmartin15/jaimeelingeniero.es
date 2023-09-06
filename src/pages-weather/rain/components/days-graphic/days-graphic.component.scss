@@ -1,0 +1,116 @@
+:host {
+  display: block;
+  width: 100%;
+  flex-shrink: 0;
+}
+
+.badge {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+
+.liters {
+  color: #00a2e8;
+  font-weight: bold;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 15px;
+  margin: 10px;
+
+  span:first-of-type:has(.badge) {
+    cursor: pointer;
+  }
+
+  .month-and-year {
+    position: relative;
+    margin: 0;
+    font-size: 1.5rem;
+    font-weight: bold;
+
+    .badge {
+      position: absolute;
+      top: 0;
+      right: -10px;
+    }
+  }
+
+  .liters {
+    margin: 0;
+    font-size: 1rem;
+  }
+
+  .icon {
+    flex-grow: 1;
+    font-size: 1.8rem;
+  }
+
+  .change-month-buttons {
+    display: flex;
+    gap: 10px;
+
+    button {
+      background-color: #cbf0ff;
+      border: 2px solid black;
+      border-radius: 3px;
+      width: 42px;
+      height: 42px;
+      cursor: pointer;
+      font-size: 1.5rem;
+    }
+  }
+}
+
+.calendar {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  list-style: none;
+  padding: 0;
+
+  li:nth-child(-n + 7) {
+    // these are the initials of the week days LMXJVSD
+    font-weight: bold;
+    text-align: center;
+  }
+
+  li:nth-child(n + 8) {
+    // these are the boxes for each day
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3px;
+    position: relative;
+    margin-top: 15px;
+
+    &:has(.badge) {
+      cursor: pointer;
+    }
+
+    .badge {
+      position: absolute;
+      top: -3px;
+      right: 5px;
+    }
+
+    .pluviometer-svg {
+      display: block;
+      width: 70%;
+    }
+
+    .liters {
+      font-size: 0.8rem;
+    }
+  }
+}
+
+.no-data-available,
+.loading,
+.error {
+  margin-top: 40px;
+  text-align: center;
+}

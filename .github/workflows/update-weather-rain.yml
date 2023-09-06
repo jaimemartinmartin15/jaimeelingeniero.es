@@ -4,7 +4,7 @@ run-name: Update rain-data.txt
 on:
   workflow_dispatch: # allow manual trigger
   push:
-    paths: ["src/pages-weather/rain/assets/rain-data.txt"]
+    paths: ["src/pages-weather/rain/assets/*.txt"]
 
 jobs:
   update-rain-data:
@@ -22,4 +22,5 @@ jobs:
       - name: Upload file
         run: |
           aws --version
-          aws s3 cp src/pages-weather/rain/assets/rain-data.txt s3://jaimeelingeniero.es/assets/no-cached/pages-weather/rain/rain-data.txt
+          aws s3 cp src/pages-weather/rain/assets/jaime-rain-data.txt s3://jaimeelingeniero.es/assets/no-cached/pages-weather/rain/jaime-rain-data.txt
+          aws s3 cp src/pages-weather/rain/assets/pluviometro2-rain-data.txt s3://jaimeelingeniero.es/assets/no-cached/pages-weather/rain/pluviometro2-rain-data.txt

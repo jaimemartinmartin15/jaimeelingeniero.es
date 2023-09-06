@@ -1,0 +1,44 @@
+<h2 class="header">Comparación por años</h2>
+
+<div class="svg-wrapper" #yearsGraphicSvgWrapper>
+  <svg [attr.viewBox]="'0 0 ' + yearsGraphicSvgWidth + ' 325'" height="360"
+    *ngIf="!error && !loading && rainPerYears.length > 0">
+    <!-- water lines -->
+    <line *ngFor="let waterLine of rainPerYears; let i=index" [attr.x1]="30 + 30*i" y1="260" [attr.x2]="30 + 30*i"
+      [attr.y2]="waterLine.svgOffset" [attr.stroke]="waterLine.year === selectedYear ? '#c1c100' : '#00a2e8'"
+      stroke-width="20" (click)="showYear.emit(waterLine.year)" style="cursor: pointer" />
+
+    <!-- water liters -->
+    <text *ngFor="let waterLine of rainPerYears; let i=index"
+      [attr.text-anchor]="waterLine.svgOffset > 180 ? 'end' : 'start'"
+      [attr.transform]="'rotate(90,'+(25 + 30*i)+','+waterLine.svgOffset+')'"
+      [attr.x]="waterLine.svgOffset > 180 ? (15 + 30*i): (35 + 30*i)" [attr.y]="waterLine.svgOffset+1.5"
+      [attr.fill]="waterLine.svgOffset > 180 ? '#00a2e8' : 'white'"
+      [attr.fill]="waterLine.svgOffset > 200 ? waterLine.year === selectedYear ? '#c1c100': '#00a2e8' : 'white'"
+      stroke="none" font-size="1.1rem" (click)="showYear.emit(waterLine.year)" style="cursor: pointer">
+      <ng-container *ngIf="waterLine.hasLiters">{{waterLine.liters}} L</ng-container>
+    </text>
+
+    <!-- y axis -->
+    <line x1="5" y1="0" x2="5" y2="260" stroke="black" stroke-width="5" />
+
+    <!-- x axis -->
+    <line x1="2.5" y1="260" [attr.x2]="yearsGraphicSvgWidth" y2="260" stroke="black" stroke-width="5" />
+
+    <!-- year numbers -->
+    <text [attr.x]="25 + 30*i" y="265" *ngFor="let year of rainPerYears; let i=index"
+      [attr.transform]="'rotate(80,'+(20 + 30*i)+',265)'" font-size="0.9rem">{{year.year}}</text>
+  </svg>
+</div>
+
+<p *ngIf="!error && !loading && rainPerYears.length === 0">
+  No hay datos disponibles sobre lluvia
+</p>
+
+<p *ngIf="loading">
+  Cargando...
+</p>
+
+<p *ngIf="error && !loading">
+  Se ha producido un error al cargar los datos
+</p>
