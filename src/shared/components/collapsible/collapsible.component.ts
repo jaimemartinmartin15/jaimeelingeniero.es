@@ -27,9 +27,9 @@ export class CollapsibleComponent implements AfterViewInit {
   public isOpen = false;
 
   public ngAfterViewInit(): void {
-    merge(...this.collapsibleOpenActions.map((c) => c.openAction$)).subscribe((e) => this.onClickOpenAction(e));
-    merge(...this.collapsibleCloseActions.map((c) => c.closeAction$)).subscribe((e) => this.onClickCloseAction(e));
-    merge(...this.collapsibleToggleActions.map((c) => c.toggleAction$)).subscribe((e) => this.onClickToggleAction(e));
+    merge(...this.collapsibleOpenActions.map((c) => c.openAction$)).subscribe(() => this.onClickOpenAction());
+    merge(...this.collapsibleCloseActions.map((c) => c.closeAction$)).subscribe(() => this.onClickCloseAction());
+    merge(...this.collapsibleToggleActions.map((c) => c.toggleAction$)).subscribe(() => this.onClickToggleAction());
 
     this.isOpen
       ? (this.collapsibleCloseActions.forEach((c) => c.showAction()), this.collapsibleOpenActions.forEach((c) => c.hideAction()))
@@ -38,18 +38,18 @@ export class CollapsibleComponent implements AfterViewInit {
         this.collapsibleContent.collapse());
   }
 
-  public onClickToggleAction(e: Event): void {
-    this.isOpen ? this.onClickCloseAction(e) : this.onClickOpenAction(e);
+  public onClickToggleAction(): void {
+    this.isOpen ? this.onClickCloseAction() : this.onClickOpenAction();
   }
 
-  private onClickOpenAction(e: Event): void {
+  private onClickOpenAction(): void {
     this.isOpen = true;
     this.collapsibleContent.expand();
     this.collapsibleCloseActions.forEach((c) => c.showAction());
     this.collapsibleOpenActions.forEach((c) => c.hideAction());
   }
 
-  private onClickCloseAction(e: Event): void {
+  private onClickCloseAction(): void {
     this.isOpen = false;
     this.collapsibleContent.collapse();
     this.collapsibleOpenActions.forEach((c) => c.showAction());

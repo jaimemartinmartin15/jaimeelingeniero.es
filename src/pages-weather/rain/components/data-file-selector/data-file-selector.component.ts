@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
 import { finalize, map, tap } from 'rxjs';
+import { CollapsibleComponent } from 'src/shared/components/collapsible/collapsible.component';
 import { COMMENT, DEFAULT_DATA_FILE, LINE_SEPARATOR } from '../../constants';
 import { FileLine } from '../../file-line';
 import { LOCAL_STORE_KEYS } from '../../local-storage-keys';
@@ -12,6 +13,9 @@ import { DataFile } from './data-file';
   styleUrls: ['./data-file-selector.component.scss'],
 })
 export class DataFileSelectorComponent implements OnInit {
+  @ViewChild(CollapsibleComponent)
+  public collapsibleComponentRef: CollapsibleComponent;
+
   public dataFiles: DataFile[] = [];
   public selectedDataFile: DataFile;
 
@@ -76,6 +80,7 @@ export class DataFileSelectorComponent implements OnInit {
         ),
         tap((fileLines) => this.loadNewDataFile.emit(fileLines)),
         tap(() => localStorage.setItem(LOCAL_STORE_KEYS.DEFAULT_DATA_FILE, JSON.stringify(this.selectedDataFile))),
+        tap(() => this.collapsibleComponentRef.onClickToggleAction()),
         finalize(() => this.isLoading.emit(false))
       )
       .subscribe({
