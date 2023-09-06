@@ -42,14 +42,14 @@ export class CollapsibleComponent implements AfterViewInit {
     this.isOpen ? this.onClickCloseAction() : this.onClickOpenAction();
   }
 
-  private onClickOpenAction(): void {
+  public onClickOpenAction(): void {
     this.isOpen = true;
     this.collapsibleContent.expand();
     this.collapsibleCloseActions.forEach((c) => c.showAction());
     this.collapsibleOpenActions.forEach((c) => c.hideAction());
   }
 
-  private onClickCloseAction(): void {
+  public onClickCloseAction(): void {
     this.isOpen = false;
     this.collapsibleContent.collapse();
     this.collapsibleOpenActions.forEach((c) => c.showAction());

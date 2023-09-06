@@ -88,7 +88,7 @@ export class DataFileSelectorComponent implements OnInit {
         ),
         tap((fileLines) => this.loadNewDataFile.emit(fileLines)),
         tap(() => localStorage.setItem(LOCAL_STORE_KEYS.DEFAULT_DATA_FILE, JSON.stringify(this.selectedDataFile))),
-        tap(() => this.collapsibleComponentRef.onClickToggleAction()),
+        tap(() => this.collapsibleComponentRef.onClickCloseAction()),
         finalize(() => this.isLoading.emit(false))
       )
       .subscribe({
