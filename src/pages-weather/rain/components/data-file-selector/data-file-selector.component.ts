@@ -37,9 +37,17 @@ export class DataFileSelectorComponent implements OnInit {
     this.selectDataFile(this.selectedDataFile);
   }
 
-  public addNewDataFile(inputRef: HTMLInputElement) {
-    // TODO add validation (and adapt height of the collapsible)
+  public addNewDataFile(event: Event) {
+    event.preventDefault();
+
+    const inputRef = (event.target as HTMLButtonElement).parentElement?.querySelector('input') as HTMLInputElement;
     const value = inputRef.value;
+    if (!value.includes(':')) {
+      inputRef.classList.add('error');
+      return;
+    }
+
+    inputRef.classList.remove('error');
     inputRef.value = '';
     const newFile = { alias: value.split(':')[0].trim(), url: value.split(/:(.*)/s)[1].trim() };
     this.dataFiles.push(newFile);

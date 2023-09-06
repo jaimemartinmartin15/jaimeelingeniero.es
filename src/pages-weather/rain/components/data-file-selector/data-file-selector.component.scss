@@ -85,11 +85,22 @@
       border-radius: 5px;
       font-size: 1.3rem;
       margin-bottom: 2px;
+
+      &.error {
+        // used in the component with js
+        border: 2px solid #bc2f2f;
+        outline-color: #bc2f2f;
+      }
     }
 
-    .arrow {
-      cursor: pointer;
-      width: 30px;
+    button {
+      border: none;
+      background-color: transparent;
+
+      .arrow {
+        cursor: pointer;
+        width: 30px;
+      }
     }
   }
 }

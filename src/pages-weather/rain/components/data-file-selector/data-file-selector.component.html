@@ -17,11 +17,14 @@
       </span>
     </div>
 
-    <div class="new-option">
-      <input #dataFileInputRef type="text" placeholder="alias:url">
-      <svg viewBox="0 0 100 100" class="arrow" (click)="addNewDataFile(dataFileInputRef)">
-        <polygon points="23,15 90,50 23,85 45,50" fill="white" />
-      </svg>
-    </div>
+    <form class="new-option" (submit)="addNewDataFile($event)">
+      <input type="text" placeholder="alias:url">
+
+      <button type="submit">
+        <svg viewBox="0 0 100 100" class="arrow">
+          <polygon points="23,15 90,50 23,85 45,50" fill="white" />
+        </svg>
+      </button>
+    </form>
   </div>
 </app-collapsible>
