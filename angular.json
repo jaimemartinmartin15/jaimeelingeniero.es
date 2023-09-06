@@ -58,7 +58,7 @@
                 "output": "/assets/pages-bbdd/"
               },
               {
-                "glob": "rain-data.txt",
+                "glob": "*.txt",
                 "input": "src/pages-weather/rain/assets",
                 "output": "/assets/no-cached/pages-weather/rain/"
               },

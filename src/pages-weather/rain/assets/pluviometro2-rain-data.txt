@@ -6,8 +6,11 @@
 #
 
 # SEPTIEMBRE 2023
-02/09/2023;29;red;A las 15:00 h ya han caído 29 litros en apenas una hora con algo de granizo.
-01/09/2023;5.5;red;Después de 60 días sin lluvia desde el 2 de julio, en la madrugada del día 1 al día 2 ha llovido durante una tormenta. Los días 25 y 26 de agosto pinteó algo, pero el pluviómetro no recogió nada. El otro pluviómetro recogió 7 litros.
+05/09/2023;0
+04/09/2023;0
+03/09/2023;55
+02/09/2023;40
+01/09/2023;7
 
 # AGOSTO 2023
 31/08/2023;0
@@ -18,11 +21,11 @@
 26/08/2023;0
 25/08/2023;0
 24/08/2023;0
-23/08/2023;0 # vacaciones
-22/08/2023;0 # vacaciones
-21/08/2023;0 # vacaciones
-20/08/2023;0 # vacaciones
-19/08/2023;0 # vacaciones
+23/08/2023;0
+22/08/2023;0
+21/08/2023;0
+20/08/2023;0
+19/08/2023;0
 18/08/2023;0
 17/08/2023;0
 16/08/2023;0
@@ -84,7 +87,7 @@ xx/02/2023;7
 xx/01/2023;61
 
 # AÑO 2022
-xx/xx/2022;;red;Muy caro todo a cuenta de la guerra de Ucrania. Cosecha regular tirando a bueno.
+xx/xx/2022;;olive;Muy caro todo a cuenta de la guerra de Ucrania. Cosecha regular tirando a bueno.
 xx/12/2022;81
 xx/11/2022;60
 xx/10/2022;59.5
@@ -99,7 +102,7 @@ xx/02/2022;4
 xx/01/2022;12
 
 # AÑO 2021
-xx/xx/2021;;red;Muy buen año de cosecha.
+xx/xx/2021;;springgreen;Muy buen año de cosecha.
 xx/12/2021;28
 xx/11/2021;52
 xx/10/2021;50
@@ -111,10 +114,10 @@ xx/05/2021;19
 xx/04/2021;71
 xx/03/2021;8
 xx/02/2021;75
-xx/01/2021;32;red;Gran nevada por la borrasca Filomena
+xx/01/2021;32;turquoise;Gran nevada por la borrasca Filomena
 
 # AÑO 2020
-xx/xx/2020;;red;Muy buen año de cosecha.
+xx/xx/2020;;springgreen;Muy buen año de cosecha.
 xx/12/2020;58
 xx/11/2020;61
 xx/10/2020;71
@@ -129,7 +132,7 @@ xx/02/2020;0
 xx/01/2020;15
 
 # AÑO 2019
-xx/xx/2019;;red;Cosecha mermada. Regular. Año tirando a malo.
+xx/xx/2019;;chocolate;Cosecha mermada. Regular. Año tirando a malo.
 xx/12/2019;83
 xx/11/2019;67
 xx/10/2019;60
@@ -155,7 +158,7 @@ xx/05/2018;72
 xx/04/2018;75
 xx/03/2018;85
 xx/02/2018;55
-xx/01/2018;41;red;Gran nevada días 6 y 7
+xx/01/2018;41;turquoise;Gran nevada días 6 y 7
 
 # AÑO 2017 (primer mes mayo)
 xx/12/2017;35

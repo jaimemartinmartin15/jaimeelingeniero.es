@@ -15,14 +15,16 @@ jobs:
         uses: actions/checkout@v3
       - name: Add new line
         run: |
-          # 9 is the line number to add the new line in rain-data.txt
-          sed "9 i $(date +%d/%m/%Y)-0" src/pages-weather/rain/assets/rain-data.txt > rain-data.tmp
-          mv rain-data.tmp src/pages-weather/rain/assets/rain-data.txt
+          # 9 is the line number to add the new line
+          sed "9 i $(date +%d/%m/%Y)-0" src/pages-weather/rain/assets/jaime-rain-data.txt > rain-data.tmp
+          mv rain-data.tmp src/pages-weather/rain/assets/jaime-rain-data.txt
+          sed "9 i $(date +%d/%m/%Y)-0" src/pages-weather/rain/assets/pluviometro2-rain-data.txt > rain-data.tmp
+          mv rain-data.tmp src/pages-weather/rain/assets/pluviometro2-rain-data.txt
       - name: Commit and push
         run: |
           git config --global user.name 'Github action'
           git config --global user.email 'jaimemartinmartin15@users.noreply.github.com'
-          git commit -am "Automatic update rain-data.txt"
+          git commit -am "Automatic update rain-data.txt files"
           git push
       - name: Set AWS credentials
         uses: aws-actions/configure-aws-credentials@v1-node16
@@ -33,4 +35,5 @@ jobs:
       - name: Upload file
         run: |
           aws --version
-          aws s3 cp src/pages-weather/rain/assets/rain-data.txt s3://jaimeelingeniero.es/assets/no-cached/pages-weather/rain/rain-data.txt
+          aws s3 cp src/pages-weather/rain/assets/jaime-rain-data.txt s3://jaimeelingeniero.es/assets/no-cached/pages-weather/rain/jaime-rain-data.txt
+          aws s3 cp src/pages-weather/rain/assets/pluviometro2-rain-data.txt s3://jaimeelingeniero.es/assets/no-cached/pages-weather/rain/pluviometro2-rain-data.txt
