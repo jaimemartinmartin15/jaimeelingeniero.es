@@ -1,0 +1,79 @@
+# Lines starting with # or empty are ignored.
+#
+# !! Workflow 'annotate-new-rain-data.yml' will automatically add a new DAY entry in line 9
+#
+# LINE FORMAT: date ; liters ; bullet color ; pop up message
+#
+
+# SEPTIEMBRE 2023
+05/09/2023;0
+04/09/2023;0
+03/09/2023;49;skyblue;El pluviómetro pasó de los 35 que marca como máximo pero no se desbordó.
+02/09/2023;35.5;mediumpurple;En apenas una hora cayeron 29 litros con algo de granizo durante una tormenta fuerte.
+01/09/2023;5.5;skyblue;Después de 60 días sin lluvia desde el 2 de julio, en la madrugada del día 1 al día 2 ha llovido durante una tormenta. Los días 25 y 26 de agosto pinteó algo, pero el pluviómetro no recogió nada.
+
+# AGOSTO 2023
+31/08/2023;0
+30/08/2023;0
+29/08/2023;0
+28/08/2023;0
+27/08/2023;0
+26/08/2023;0
+25/08/2023;0
+24/08/2023;0
+23/08/2023;0 # vacaciones
+22/08/2023;0 # vacaciones
+21/08/2023;0 # vacaciones
+20/08/2023;0 # vacaciones
+19/08/2023;0 # vacaciones
+18/08/2023;0
+17/08/2023;0
+16/08/2023;0
+15/08/2023;0
+14/08/2023;0
+13/08/2023;0
+12/08/2023;0
+11/08/2023;0
+10/08/2023;0
+09/08/2023;0
+08/08/2023;0
+07/08/2023;0
+06/08/2023;0
+05/08/2023;0
+04/08/2023;0
+03/08/2023;0
+02/08/2023;0
+01/08/2023;0
+
+# JULIO 2023
+31/07/2023;0
+30/07/2023;0
+29/07/2023;0
+28/07/2023;0
+27/07/2023;0
+26/07/2023;0
+25/07/2023;0
+24/07/2023;0
+23/07/2023;0
+22/07/2023;0
+21/07/2023;0
+20/07/2023;0
+19/07/2023;0
+18/07/2023;0
+17/07/2023;0
+16/07/2023;0
+15/07/2023;0
+14/07/2023;0
+13/07/2023;0
+12/07/2023;0
+11/07/2023;0
+10/07/2023;0
+09/07/2023;0
+08/07/2023;0
+07/07/2023;0
+06/07/2023;0
+05/07/2023;0
+04/07/2023;0
+03/07/2023;0
+02/07/2023;8
+01/07/2023;0

@@ -1,0 +1,106 @@
+:host {
+  display: block;
+  background-color: #c8c8c8;
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 15px;
+}
+
+.selected-data {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  .arrow {
+    width: 30px;
+    transition: transform 0.3s;
+
+    &--rotated {
+      transform: rotate(180deg);
+    }
+  }
+}
+
+.collapsible-container {
+  hr {
+    border: 1px solid black;
+  }
+
+  .option {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    margin: 10px 0;
+    padding: 5px 0;
+
+    .alias {
+      flex-grow: 1;
+      cursor: pointer;
+    }
+
+    .delete-icon-wrapper {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 30px;
+      height: 30px;
+      cursor: pointer;
+      flex-shrink: 0;
+
+      .delete-icon {
+        display: inline-block;
+        width: 80%;
+        height: 80%;
+        background-color: #bc2f2f;
+        clip-path: polygon(
+          20% 0%,
+          0% 20%,
+          30% 50%,
+          0% 80%,
+          20% 100%,
+          50% 70%,
+          80% 100%,
+          100% 80%,
+          70% 50%,
+          100% 20%,
+          80% 0%,
+          50% 30%
+        );
+      }
+    }
+  }
+
+  .new-option {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 10px;
+
+    input {
+      flex-grow: 1;
+      display: inline-block;
+      padding: 5px;
+      border: 2px solid black;
+      border-radius: 5px;
+      font-size: 1.3rem;
+      margin-bottom: 2px;
+
+      &.error {
+        // used in the component with js
+        border: 2px solid #bc2f2f;
+        outline-color: #bc2f2f;
+      }
+    }
+
+    button {
+      border: none;
+      background-color: transparent;
+
+      .arrow {
+        cursor: pointer;
+        width: 30px;
+      }
+    }
+  }
+}
