@@ -12,7 +12,8 @@
     <div class="option" *ngFor="let file of dataFiles; let i = index">
       <span class="alias" (click)="selectDataFile(file)"> {{file.alias}} </span>
 
-      <svg viewBox="0 0 100 100" appTrashCanSvg class="trash-can-svg" (click)="deleteDataFile(file)"></svg>
+      <svg viewBox="0 0 100 100" appTrashCanSvg class="trash-can-svg"
+        (click)="popUp.show=true; popUp.dataFile = file;"></svg>
     </div>
 
     <form class="new-option" (submit)="addNewDataFile($event)">
@@ -26,3 +27,16 @@
     </form>
   </div>
 </app-collapsible>
+
+<div class="pop-up-wrapper" *ngIf="popUp.show">
+  <div class="content">
+    <p>
+      ¿Seguro que quieres eliminar los datos de <strong>{{popUp.dataFile.alias}}</strong>?
+    </p>
+
+    <div class="buttons-wrapper">
+      <button class="keep" (click)="popUp.show = false">Mantener</button>
+      <button class="delete" (click)="deleteDataFile(popUp.dataFile)">Eliminar</button>
+    </div>
+  </div>
+</div>

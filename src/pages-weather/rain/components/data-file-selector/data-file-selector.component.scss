@@ -82,3 +82,48 @@
     }
   }
 }
+
+.pop-up-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.411);
+  z-index: 20;
+
+  .content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    border: 3px solid black;
+    border-radius: 8px;
+    background-color: white;
+    width: 80%;
+    max-width: 500px;
+
+    .buttons-wrapper {
+      display: flex;
+      justify-content: space-evenly;
+      width: 100%;
+
+      button {
+        margin-top: 20px;
+        border: none;
+        background-color: unset;
+        text-decoration: underline;
+        font-size: 1.2rem;
+        cursor: pointer;
+
+        &.keep {
+          color: #00a2e8;
+        }
+
+        &.delete {
+          color: #bc2f2f;
+        }
+      }
+    }
+  }
+}
