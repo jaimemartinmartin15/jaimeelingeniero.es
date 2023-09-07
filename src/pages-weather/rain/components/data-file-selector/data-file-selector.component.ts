@@ -16,6 +16,8 @@ export class DataFileSelectorComponent implements OnInit {
   @ViewChild(CollapsibleComponent)
   public collapsibleComponentRef: CollapsibleComponent;
 
+  public popUp: { show: boolean; dataFile: DataFile } = { show: false, dataFile: { alias: '', url: '' } };
+
   public dataFiles: DataFile[] = [];
   public selectedDataFile: DataFile;
 
@@ -61,8 +63,8 @@ export class DataFileSelectorComponent implements OnInit {
       localStorage.removeItem(LOCAL_STORE_KEYS.DEFAULT_DATA_FILE);
     } else {
       localStorage.setItem(LOCAL_STORE_KEYS.DATA_FILES, JSON.stringify(this.dataFiles));
-      // TODO replace default data file (and adapt height of the collapsible)
     }
+    this.popUp.show = false;
   }
 
   public selectDataFile(dataFile: DataFile): void {

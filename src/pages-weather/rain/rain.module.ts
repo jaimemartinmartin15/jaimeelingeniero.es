@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { CollapsibleModule } from 'src/shared/components/collapsible/collapsible.module';
+import { PagesWeatherSvgModule } from 'src/svg/generated/pages-weather-svg.module';
 import { DataFileSelectorComponent } from './components/data-file-selector/data-file-selector.component';
 import { DaysGraphicComponent } from './components/days-graphic/days-graphic.component';
 import { MonthsGraphicComponent } from './components/months-graphic/months-graphic.component';
@@ -10,7 +11,7 @@ import { RainRoutingModule } from './rain-routing.module';
 import { RainComponent } from './rain.component';
 
 @NgModule({
-  imports: [CommonModule, RainRoutingModule, HttpClientModule, CollapsibleModule],
+  imports: [CommonModule, RainRoutingModule, HttpClientModule, CollapsibleModule, PagesWeatherSvgModule],
   declarations: [RainComponent, DataFileSelectorComponent, DaysGraphicComponent, MonthsGraphicComponent, YearsGraphicComponent],
 })
 export class RainModule {}
