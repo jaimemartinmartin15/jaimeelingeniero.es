@@ -6,6 +6,7 @@
 #
 
 # SEPTIEMBRE 2023
+06/09/2023;0
 05/09/2023;0
 04/09/2023;0
 03/09/2023;49;skyblue;El pluviómetro pasó de los 35 que marca como máximo pero no se desbordó.
