@@ -12,9 +12,7 @@
     <div class="option" *ngFor="let file of dataFiles; let i = index">
       <span class="alias" (click)="selectDataFile(file)"> {{file.alias}} </span>
 
-      <span class="delete-icon-wrapper">
-        <span class="delete-icon" (click)="deleteDataFile(file)"></span>
-      </span>
+      <svg viewBox="0 0 100 100" appTrashCanSvg class="trash-can-svg" (click)="deleteDataFile(file)"></svg>
     </div>
 
     <form class="new-option" (submit)="addNewDataFile($event)">
