@@ -16,9 +16,9 @@ jobs:
       - name: Add new line
         run: |
           # 9 is the line number to add the new line
-          sed "9 i $(date +%d/%m/%Y)-0" src/pages-weather/rain/assets/jaime-rain-data.txt > rain-data.tmp
+          sed "9 i $(date +%d/%m/%Y);0" src/pages-weather/rain/assets/jaime-rain-data.txt > rain-data.tmp
           mv rain-data.tmp src/pages-weather/rain/assets/jaime-rain-data.txt
-          sed "9 i $(date +%d/%m/%Y)-0" src/pages-weather/rain/assets/pluviometro2-rain-data.txt > rain-data.tmp
+          sed "9 i $(date +%d/%m/%Y);0" src/pages-weather/rain/assets/pluviometro2-rain-data.txt > rain-data.tmp
           mv rain-data.tmp src/pages-weather/rain/assets/pluviometro2-rain-data.txt
       - name: Commit and push
         run: |
