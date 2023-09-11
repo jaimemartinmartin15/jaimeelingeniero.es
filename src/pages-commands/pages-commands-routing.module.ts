@@ -5,6 +5,11 @@ import { PagesCommandsComponent } from './pages-commands.component';
 const routes: Routes = [
   {
     path: '',
+    pathMatch: 'full',
+    loadChildren: () => import('./menu/menu.module').then((m) => m.MenuModule),
+  },
+  {
+    path: '',
     component: PagesCommandsComponent,
     children: [
       {
@@ -14,10 +19,6 @@ const routes: Routes = [
       {
         path: 'if',
         loadChildren: () => import('./if/if.module').then((m) => m.IfModule),
-      },
-      {
-        path: '**',
-        redirectTo: 'find',
       },
     ],
   },
