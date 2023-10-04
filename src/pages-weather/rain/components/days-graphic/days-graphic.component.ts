@@ -90,6 +90,7 @@ export class DaysGraphicComponent implements OnChanges {
   }
 
   public getFirstDayOfMonthWeekDayIndex(): number {
-    return new Date(this.year, this.month, 1).getDay();
+    // getDay(): 0 -> Sunday, 1 -> Monday, ... , 6 -> Saturday
+    return new Date(this.year, this.month, 1).getDay() || 7;
   }
 }
