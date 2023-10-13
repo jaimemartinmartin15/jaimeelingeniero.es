@@ -1,25 +1,15 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { PagesCommandsComponent } from './pages-commands.component';
 
 const routes: Routes = [
   {
     path: '',
-    component: PagesCommandsComponent,
-    children: [
-      {
-        path: 'find',
-        loadChildren: () => import('./find/find.module').then((m) => m.FindModule),
-      },
-      {
-        path: 'if',
-        loadChildren: () => import('./if/if.module').then((m) => m.IfModule),
-      },
-      {
-        path: '**',
-        redirectTo: 'find',
-      },
-    ],
+    pathMatch: 'full',
+    loadChildren: () => import('./menu/menu.module').then((m) => m.MenuModule),
+  },
+  {
+    path: '',
+    loadChildren: () => import('./commands-layout-page/commands-layout-page.module').then((m) => m.CommandsLayoutPageModule),
   },
   {
     path: '**',
