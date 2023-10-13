@@ -13,7 +13,7 @@ a {
   transition: 0.5s;
   line-height: 25px;
 
-  &:first-of-type {
+  &:first-of-type:not(.back-to-menu-link) {
     margin-top: 30px;
   }
 
