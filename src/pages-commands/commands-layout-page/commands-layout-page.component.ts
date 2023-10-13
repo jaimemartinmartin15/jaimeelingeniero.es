@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { COMMANDS_LIST } from './menu/menu-links';
+import { COMMANDS_LIST } from '../menu/menu-links';
 
 @Component({
-  selector: 'app-pages-commands',
-  templateUrl: './pages-commands.component.html',
-  styleUrls: ['./pages-commands.component.scss'],
+  selector: 'app-commands-layout-page',
+  templateUrl: './commands-layout-page.component.html',
+  styleUrls: ['./commands-layout-page.component.scss'],
 })
-export class PagesCommandsComponent {
+export class CommandsLayoutPageComponent {
   public isShowingLeftMenu: boolean = false;
   public readonly COMMANDS = COMMANDS_LIST;
 
