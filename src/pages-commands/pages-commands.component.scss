@@ -31,3 +31,14 @@ a {
   color: $color-orange;
   font-size: 1.3em;
 }
+
+// 900px as in ResponsiveLayoutComponent
+@media (max-width: 900px) {
+  .back-to-menu-link {
+    display: inline-block;
+    cursor: pointer;
+    text-decoration: none;
+    color: black;
+    padding: 40px 20px 0 20px;
+  }
+}

@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { COMMANDS_LIST } from './menu/menu-links';
 
 @Component({
   selector: 'app-pages-commands',
@@ -6,8 +7,11 @@ import { Component } from '@angular/core';
   styleUrls: ['./pages-commands.component.scss'],
 })
 export class PagesCommandsComponent {
-  public readonly commands: { display: string; url: string }[] = [
-    { display: 'find', url: '/comandos/find' },
-    { display: 'if', url: '/comandos/if' },
-  ];
+  public isShowingLeftMenu: boolean = false;
+  public readonly COMMANDS = COMMANDS_LIST;
+
+  public showHideBackLink(showLeftMenu: boolean) {
+    // Avoid error ExpressionChangedAfterItHasBeenCheckedError
+    setTimeout(() => (this.isShowingLeftMenu = showLeftMenu), 0);
+  }
 }

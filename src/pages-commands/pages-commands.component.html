@@ -1,8 +1,11 @@
-<app-responsive-layout>
+<app-responsive-layout (onLeftMenuChange)="showHideBackLink($event)">
   <app-header-print #responsiveLayoutFlexContentHeader responsive-layout-flex-content-header></app-header-print>
 
-  <a #responsiveLayoutLeftMenu responsive-layout-left-menu *ngFor="let command of commands" [routerLink]="[command.url]"
+  <a #responsiveLayoutLeftMenu responsive-layout-left-menu *ngFor="let command of COMMANDS" [routerLink]="[command.url]"
     routerLinkActive="menu-section-active">{{command.display}}</a>
+
+  <a #responsiveLayoutContentHeader responsive-layout-content-header routerLink="['/comandos/']"
+    class="back-to-menu-link" *ngIf="!isShowingLeftMenu">⬅️ Volver a la lista de comandos</a>
 
   <router-outlet #responsiveLayoutMainContent responsive-layout-main-content></router-outlet>
 </app-responsive-layout>
