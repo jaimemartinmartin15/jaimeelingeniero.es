@@ -5,4 +5,4 @@ import { Component } from '@angular/core';
   templateUrl: './nmap.component.html',
   styleUrls: ['./nmap.component.scss'],
 })
-export class Nmap {}
+export class NmapComponent {}

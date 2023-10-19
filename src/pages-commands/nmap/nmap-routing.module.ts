@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { Nmap } from './nmap.component';
+import { NmapComponent } from './nmap.component';
 
 const routes: Routes = [
   {
     path: '',
-    component: Nmap,
+    component: NmapComponent,
     title: 'Nmap',
     data: {
       metaTags: {
