@@ -44,7 +44,7 @@
         <!-- border and background -->
         <path
           d="M20,40C100,10 200,10 280,40L280,115C280,150 240,160 220,170L190,350L110,350L80,170C60,160 20,150 20,115Z"
-          stroke="#b5e61d" stroke-width="40" />
+          [attr.stroke]="day.hasLiters && day.liters > 0 ? '#08ccbf' : '#b5e61d'" stroke-width="40" />
         <path
           d="M20,40C100,10 200,10 280,40L280,115C280,150 240,160 220,170L190,345L110,345L80,170C60,160 20,150 20,115Z"
           stroke="none" fill="#e1ffe2" [attr.filter]="'url(#fillpartial'+day.year+''+day.month+''+i+')'" />
