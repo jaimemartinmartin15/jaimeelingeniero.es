@@ -7,6 +7,94 @@
   </div>
 
   <section>
-    TODO
+    <p>
+      Este comando es utilizado para escanear redes, detectar dispositivos, escanear puertos, detectar servicios y
+      muchas más cosas relacionadas con las redes de ordenadores. Es la abreviatura de <strong>Network Mapping</strong>.
+    </p>
+
+    <p>
+      Lo primero que tenemos que tener claro a la hora de usar este comando, son las direcciones o nombres de dominio
+      que queremos escanear y analizar. Todo lo que recibe nmap que no es un parámetro, se considera un objetivo a
+      escanear.
+    </p>
+  </section>
+
+  <section>
+    <h2>Indicar el objetivo</h2>
+
+    <p>
+      Podemos especificar a nmap los objetivos que queremos escanear de múltiples formas.
+    </p>
+
+    <p>
+      Una de ellas sería pasarle una a una las direcciones IP (o nombres de dominio) <strong>separadas por
+        espacios</strong>:
+    </p>
+
+    <app-terminal-code>
+      <span terminal-code-command>nmap 192.168.1.7 192.168.1.2 undominio.example.com</span>
+    </app-terminal-code>
+
+    <p>
+      En caso de querer escanear una red entera, también podemos usar la <strong>notación CIDR</strong>. Es decir,
+      podemos indicarle la máscara con el número de bits:
+    </p>
+
+    <app-terminal-code>
+      <span terminal-code-command>nmap 192.168.1.4/24 undominio.example.com/28</span>
+    </app-terminal-code>
+
+    <p>
+      En este ejemplo, se escanearán 256 objetivos dada la primera IP (no importa cual sea el último número, se
+      escaneará de la IP 192.168.1.0 a la 192.168.1.255 ambas incluidas) y 16 objetivos para el nombre de dominio.
+    </p>
+
+    <p>
+      Otra forma más que tenemos de pasar las direcciones IP es <strong>usando rangos</strong>. Estos se indican con
+      guiones y se puede especificar una lista de rangos con comas. Con el siguiente ejemplo lo entenderemos:
+    </p>
+
+    <app-terminal-code>
+      <span terminal-code-command>nmap 192.168.3-5,7.1</span>
+    </app-terminal-code>
+
+    <p>
+      Aquí hemos indicado que el tercer número será 3, 4, 5 o 7. Si omitimos un número cerca del guión, si es el
+      de la izquierda, se asume que es 0 y si es el de la derecha se asume que es 255. Si sólo usamos el guión es como
+      poner 0-255. El guión a secas no se puede usar en el primer número de la IP, ya que se consideraría como un
+      parámetro. Tenemos que indicar el inicio del rango explicitamente.
+    </p>
+
+    <p>
+      También podemos indicar los objetivos a escanear <strong>desde un fichero</strong> que contenga las IP
+      especificadas como hemos explicado anteriormente. Para especificar que tome los objetivos de la entrada
+      estandard pasamos un guión en vez del nombre del fichero.
+    </p>
+
+    <app-terminal-code>
+      <div terminal-code-command>nmap -iL objetivos.txt</div>
+      <div terminal-code-command>aCommandThatReturnsTargets | nmap -iL -</div>
+    </app-terminal-code>
+
+    <p>
+      Una forma más de especificar objetivos es indicarle a nmap que genere un número de <strong>IP aleatorias</strong>.
+      Si le pasamos como argumento un 0, generaría infinitas direcciones IP (se quedaría escaneando infinitamente).
+      <!-- TODO check if it is possible generating random ip in a range. Use the option that does not scan, just prints the ips -->
+    </p>
+
+    <app-terminal-code>
+      <div terminal-code-command>nmap -iR 10</div>
+    </app-terminal-code>
+
+    <p>
+      A parte de indicar que máquinas escanear, podemos indicar que <strong>excluya ciertas direcciones</strong> que no
+      deben escanearse. Estas direcciones las hay que pasar separadas por comas, en vez de por espacios. Por lo tanto no
+      podemos usar comas para indicar una lista de rangos de IP. En ese caso deberíamos usar la opción <i>--excludefile
+        &lt;filename&gt;</i>.
+    </p>
+
+    <app-terminal-code>
+      <div terminal-code-command>nmap 192.168.1.0/24 --exclude 192.168.1.10,dominioprivado.example.com</div>
+    </app-terminal-code>
   </section>
 </article>
