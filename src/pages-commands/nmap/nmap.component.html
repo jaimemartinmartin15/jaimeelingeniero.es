@@ -97,4 +97,81 @@
       <div terminal-code-command>nmap 192.168.1.0/24 --exclude 192.168.1.10,dominioprivado.example.com</div>
     </app-terminal-code>
   </section>
+
+  <section>
+    <h2>Fases de nmap</h2>
+
+    <p>
+      Nmap funciona por fases. Cada fase se ejecuta de forma secuencial, y no pasa a la siguiente hasta que termina la
+      anterior. Podemos usar opciones para cambiar el comportamiento de nmap en cada fase. Pero veamos primero cuales
+      son esas fases.
+    </p>
+
+    <p>
+      La <strong>primera fase</strong> de nmap es obtener una lista completa de las máquinas que hay que escanear. Esta
+      fase no se puede saltar ya que es necesaria para continuar con el resto. Ya hemos visto como pasarle a nmap las
+      máquinas que queremos escanear, o incluso pedirle que las busque aleatoriamente. En esta fase, si pasamos nombres
+      de dominio, se resuelven las direcciones IP usando <a class="app-link" routerLink="/redes/dns">el DNS</a>.
+    </p>
+
+    <p>
+      La <strong>segunda fase</strong> consiste en averiguar si cada una de las máquinas indicadas está encendida.
+      Esta fase se llama <i>host discovery</i> o <i>ping scanning</i>. Esta fase se ejecuta por defecto, aunque se puede
+      saltar si estamos seguros de que las máquinas ya están encendidas. Nmap así lo asumirá. Más adelante veremos que
+      técnicas usa nmap para comprobar si una máquina está encendida o apagada.
+    </p>
+
+    <p>
+      La <strong>tercera fase</strong> consiste en realizar resolución inversa DNS de sólamente aquellas máquinas que
+      parecen estar encendidas. Así es el comportamiento por defecto de nmap. También podríamos indicarle que se salte
+      esta fase (que no resuelva ninguna dirección) o que haga resolución inversa DNS de todas las máquinas, incluso si
+      están apagadas.
+    </p>
+
+    <p>
+      La <strong>cuarta fase</strong> es el escaneo de puertos. En esta fase nmap trata de averiguar que puertos están
+      abiertos, cerrados o filtrados. Para ello, por defecto envía pruebas a los 1000 puertos más conocidos de una lista
+      interna que tiene en un fichero llamado <i>nmap-services</i>. Por supuesto, también le podremos indicar nosotros
+      que puertos escanear. Esta fase es opcional.
+    </p>
+
+    <!-- TODO add rest of phases here -->
+  </section>
+
+  <section>
+    <h2>Opciones para las fases</h2>
+
+    <p>
+      Hemos ido diciendo que algunas fases se pueden saltar o que se puede cambiar el comportamiento. A continuación
+      dejo una lista de parámetros que podemos pasar a nmap y lo que hacen.
+    </p>
+
+    <ul>
+      <li>
+        <strong>-Pn</strong>: con esta opción le indicamos a nmap que se salte la fase dos, host discovery. Nmap asumirá
+        que todas las máquinas están encendidas y procederá con las siguientes fases.
+      </li>
+
+      <li>
+        <strong>-sL</strong>: es una forma muy simple de host discovery, sin enviar ninguna prueba a las máquinas.
+        Esta opción simplemente lista las direcciones IP que se escanearían (fase uno) y termina. Por defecto realizará
+        también resolución inversa DNS (fase tres).
+      </li>
+
+      <li>
+        <strong>-n</strong>: en la tercera fase de resolución inversa de DNS, podemos indicar a nmap que no haga
+        resolución inversa de ninguna máquina.
+      </li>
+
+      <li>
+        <strong>-R</strong>: justo lo contario que la anterior. Indicamos que en la tercera fase de resolución inversa
+        de DNS, se haga la resolución de todas las máquinas, incluso si están apagadas.
+      </li>
+
+      <li>
+        <strong>-sn</strong>: esta opción permite saltarse la fase cuatro, la de escaneo de puertos. Al usarla, sabremos
+        que máquinas están activas y cuáles apagadas, pero no realizaremos un escaneo de sus puertos.
+      </li>
+    </ul>
+  </section>
 </article>
