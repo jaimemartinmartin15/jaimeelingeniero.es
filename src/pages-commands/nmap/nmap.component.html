@@ -174,4 +174,68 @@
       </li>
     </ul>
   </section>
+
+  <section>
+    <h2>Host discovery (fase dos)</h2>
+
+    <p>
+      Nmap usa una serie de pruebas para descubrir si una máquina está encendida o apagada. A continuación indico cuales
+      son esas pruebas y que parámetros las activan para que nmap use esas técnicas.
+    </p>
+
+    <p>
+      <strong>TCP SYNC (-PS&lt;puertos&gt;)</strong>: esta opción envía por defecto al puerto 80 un paquete TCP vacío
+      con el flag SYNC en la cabecera activado. Si el puerto está cerrado, se recibirá de vuelta un paquete RST. Si el
+      puerto está abierto, se recibirá un paquete SYN/ACK TCP. En ambos casos la máquina desvela estar activa. Si no se
+      recibe respuesta, puede ser por un firewall, y el puerto se marca como filtered. Podemos indicar los puertos al
+      igual que las direcciones IP, por ejemplo, <i>nmap -PS15-20,45 example.com</i>.
+    </p>
+
+    <p>
+      <strong>TCP ACK (-PA&lt;puertos&gt;)</strong>: esta opción es similar a la anterior. La diferencia es que el flag
+      ACK es activado en lugar del flag SYNC. Como aún no existe una conexión TCP, el puerto debería responder con un
+      RST, desvelando así estar la máquina activa. La razón por la que existe esta opción es para evitar algunos
+      firewalls. La lista de puertos la podemos indicar igual que antes.
+    </p>
+
+    <p>
+      <strong>UDP (-PU&lt;puertos&gt;)</strong>: esta opción envía por defecto al puerto 40125 un paquete UDP. Con esta
+      opción es recomendable elegir un puerto alto que probablemente esté cerrado, para así recibir como respuesta un
+      ICMP puerto inalcanzable, desvelando así la máquina estar activa. Si por el contrario el puerto está activo, el
+      servicio que escuche por ahí probablemente ignore el paquete y no responda.
+    </p>
+
+    <p>
+      <strong>ICMP echo (-PE)</strong>: nmap envía un paquete ICMP tipo 8 (echo request) al objetivo, esperando como
+      respuesta un paquete ICMP tipo 0 (echo reply). Si hay respuesta, la máquina está activa. Si no la hay, puede que
+      un firewall esté bloqueando el paquete o que la máquina esté apagada.
+    </p>
+
+    <p>
+      <strong>ICMP timestamp (-PP)</strong>: similar a la opción anterior, nmap envía un paquete ICMP tipo 13 y espera
+      una respuesta ICMP tipo 14. Se usa como alternativa para pasar firewalls.
+    </p>
+
+    <p>
+      <strong>ICMP address mask (-PM)</strong>: otra alternativa más para descubrir si una máquina está activa, es
+      enviar un paquete ICMP tipo 17 y espera una respuesta ICMP tipo 18.
+    </p>
+
+    <p>
+      <strong>IP protocol (-PO&lt;protocolos&gt;)</strong>: nmap envía envía paquetes IP con diferentes protocolos en su
+      cabecera. La lista de protocolos tiene el mismo formato que los puertos. Por defecto se usan los protocolos uno
+      (ICMP), dos (IGMP) y cuatro (IP-in-IP). Esta prueba espera un paquete de vuelta con el mismo tipo de protocolo o
+      un mensaje indicando que el protocolo no es soportado. En ambos casos la máquina desvela estar activa.
+    </p>
+
+    <p>
+      <strong>ARP (-PR)</strong>: cuando nmap detecta que el objetivo está en una red local, usa el Address Resolution
+      Protocol para averiguar la dirección MAC asociada a la IP del objetivo, con el objetivo de que la máquina que
+      tenga asignada esa IP le responda desvelando estar activa.
+    </p>
+
+    <p>
+      Por defecto, las opciones que usa nmap son -PE -PS443 -PA80 -PP.
+    </p>
+  </section>
 </article>
