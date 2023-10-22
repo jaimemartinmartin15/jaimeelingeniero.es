@@ -1,8 +1,0 @@
-<app-responsive-layout>
-  <app-header-print #responsiveLayoutFlexContentHeader responsive-layout-flex-content-header></app-header-print>
-
-  <a #responsiveLayoutLeftMenu responsive-layout-left-menu *ngFor="let command of commands" [routerLink]="[command.url]"
-    routerLinkActive="menu-section-active">{{command.display}}</a>
-
-  <router-outlet #responsiveLayoutMainContent responsive-layout-main-content></router-outlet>
-</app-responsive-layout>

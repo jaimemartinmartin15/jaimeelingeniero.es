@@ -1,0 +1,7 @@
+<h1 class="screen-title">Comandos</h1>
+
+<ul class="commands-list">
+  <li class="command-link" *ngFor="let command of COMMANDS_LIST">
+    <a [routerLink]="command.url">{{command.display}}</a>
+  </li>
+</ul>
