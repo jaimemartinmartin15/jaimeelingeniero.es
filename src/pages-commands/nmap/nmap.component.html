@@ -238,4 +238,79 @@
       Por defecto, las opciones que usa nmap son -PE -PS443 -PA80 -PP.
     </p>
   </section>
+
+  <section>
+    <h2>Escaneo de puertos (fase cuatro)</h2>
+
+    <p>
+      Una vez se identifican las máquinas que están activas, se procede a su escaneo de puertos para identificar en que
+      estado se encuentran. Nmap reconoce <strong>seis estados</strong>:
+    </p>
+
+    <ol>
+      <li>
+        <strong>open</strong>: significa que hay una aplicación aceptando conexiones en ese puerto, por TCP o por UDP.
+      </li>
+
+      <li>
+        <strong>closed</strong>: significa que nmap recibe respuesta de dichos puertos, pero que no hay ninguna
+        aplicación escuchando.
+      </li>
+
+      <li>
+        <strong>filtered</strong>: nmap no puede determinar si el puerto está abierto, ya que las pruebas de escaneo no
+        llegan al puerto. Esto puede ser porque haya un firewall de por medio que deseche los paquetes sin enviar
+        respuesta siquiera.
+      </li>
+
+      <li>
+        <strong>unfiltered</strong>: las pruebas que nmap envía llegan al puerto, pero nmap no es capaz de determinar si
+        está abierto o cerrado. Sólo el tipo de escaneo ACK que veremos luego clasifica los puertos en este estado.
+      </li>
+
+      <li>
+        <strong>open|filtered</strong>: nmap no puede determinar si el puerto está en estado open o filtered. Este
+        estado se produce cuando el puerto que está abierto no manda una respuesta. Los escaneos de tipo UDP, IP
+        protocol, FIN, NULL, y Xmas clasifican los puertos en este estado.
+      </li>
+
+      <li>
+        <strong>closed|filtered</strong>: nmap no puede determinar si el puerto esta en estado closed o filtered. Sólo
+        el escaneo de tipo TCP Idle clasifica los puertos así.
+      </li>
+    </ol>
+
+    <p>
+      Para <strong>indicar los puertos</strong> que nmap debe escanear, podemos usar la opción <i>-p</i>. Dependiendo
+      del tipo de escaneo que hagamos, los puertos serán para dichos protocolos de escaneo. Para explicarlo vamos a ver
+      unos ejemplos, que se entenderá mejor.
+    </p>
+
+    <p>
+      <i>-p 22</i> escanea sólo el puerto 22 (TCP, UDP o los dos dependiendo del escaneo que digamos a nmap).
+    </p>
+
+    <p>
+      <i>-p ssh</i> escanea el puerto con dicho nombre. Algunos nombres incluyen varios puertos.
+    </p>
+
+    <p>
+      <i>-p 22,80,443</i> escanea la lista de puertos separados por comas.
+    </p>
+
+    <p>
+      <i>-p80-85,443,8000-8005,8080-8085</i> escanea la lista de rangos de puertos separados con el guión y por comas.
+    </p>
+
+    <p>
+      <i>-p-</i> escanea todos los puertos, desde el puerto 1 al 65536, ya que se omite el inicio y final del rango. El
+      puerto cero se excluye ya que está reservado para los programadores.
+    </p>
+
+    <p>
+      <i>-pT:21,23,110,U:53,111,137,161</i> especifica que puertos escanear para TCP y cuales para UDP indicando dos
+      listas precedidas con T: y U: respectivamente. La lista solo tiene sentido si también le indicamos a nmap un tipo
+      de escaneo que sea UDP o TCP.
+    </p>
+  </section>
 </article>
