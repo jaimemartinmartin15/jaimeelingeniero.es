@@ -313,4 +313,62 @@
       de escaneo que sea UDP o TCP.
     </p>
   </section>
+
+  <section>
+    <h2>Tipos de escaneo de puertos</h2>
+
+    <p>
+      Elegidos los puertos que vamos a escanear, debemos indicar a nmap que método usar para descubrir su estado. Todos
+      los métodos tienen sus ventajas y desventajas, así que vamos a detallar su funcionamiento.
+    </p>
+
+    <section>
+      <h3>TCP SYNC (-sS)</h3>
+
+      <p>
+        Este es el tipo de escaneo por defecto y más popular. Es rápido y diferencia bien el estado de los puertos entre
+        open, closed y filtered.
+      </p>
+
+      <p>
+        Veamos como identifica nmap un <strong>puerto abierto</strong> con la siguiente imagen:
+      </p>
+
+      <img appImageFullScreen class="scan-port" src="assets/pages-commands/nmap/scan_tcp_sync_open.png"
+        alt="Puerto tcp abierto">
+
+      <p>
+        Primeramente nmap envía un paquete TCP con el flag SYNC activado. Como el puerto está abierto en la máquina
+        objetivo, responde con un paquete TCP con los flags SYNC y ACK activados. Como el primer paquete fue enviado por
+        nmap, y no por el sistema, el sitema no espera el paquete SYNC/ACK y cierra la conexión inmediatamente enviando
+        un paquete TCP con el flag RST activado.
+      </p>
+
+      <p>
+        Ahora vamos a ver como detecta un <strong>puerto cerrado</strong>:
+      </p>
+
+      <img appImageFullScreen class="scan-port" src="assets/pages-commands/nmap/scan_tcp_sync_closed.png"
+        alt="Puerto tcp cerrado">
+
+      <p>
+        Nmap envía el paquete TCP SYNC igual que antes. Esta vez la máquina objetivo tiene el puerto cerrado, así que
+        retorna inmediatamente un paquete RST.
+      </p>
+
+      <p>
+        Por último nos queda ver como detectar un <strong>puerto filtrado</strong>:
+      </p>
+
+      <img appImageFullScreen class="scan-port" src="assets/pages-commands/nmap/scan_tcp_sync_filtered.png"
+        alt="Puerto tcp filtrado">
+
+      <p>
+        Nmap envía varios paquetes TCP SYNC como en los ejemplos anteriores, pero no recibe ninguna respuesta tras
+        varios intentos y tiempos de espera. Puede que haya un cortafuegos de por medio, o que la máquina esté apagada,
+        o que la red sea inestable. También podría haber recibido algún paquete ICMP <span class="app-no-break">tipo
+          3</span>. En ese caso también se marca como filtrado.
+      </p>
+    </section>
+  </section>
 </article>
