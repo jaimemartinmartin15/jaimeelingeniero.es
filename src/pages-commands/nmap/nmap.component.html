@@ -370,5 +370,25 @@
           3</span>. En ese caso también se marca como filtrado.
       </p>
     </section>
+
+    <section>
+      <h3>TCP Connect (-sT)</h3>
+
+      <p>
+        Este tipo de escaneo es la alternativa por defecto al anterior cuando el usuario no es privilegiado. Nmap
+        establece una conexión completa a través del sistema operativo llamando a la función <i>connect</i>. Para
+        detectar <strong>puertos cerrados y filtrados</strong>, el proceso es exactamente el mismo que el descrito
+        anteriormente. Pero veamos como funciona la detección de un <strong>puerto abierto</strong>.
+      </p>
+
+      <img appImageFullScreen class="scan-port" src="assets/pages-commands/nmap/scan_tcp_connect_open.png"
+        alt="Puerto tcp abierto">
+
+      <p>
+        En este caso, es el sistema operativo quien gestiona la conexión desde el inicio, y acaba enviando un paquete
+        ACK al objetivo para completar la conexión. Nmap también detecta que el sistema envía este paquete y envía otro
+        paquete más RST para cerrar la conexión inmediatamente.
+      </p>
+    </section>
   </section>
 </article>
