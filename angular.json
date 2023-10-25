@@ -48,6 +48,11 @@
                 "output": "/assets/pages-english/alphabet/"
               },
               {
+                "glob": "**/*",
+                "input": "src/pages-commands/nmap/assets",
+                "output": "/assets/pages-commands/nmap/"
+              },
+              {
                 "glob": "verbs.json",
                 "input": "src/pages-english/tenses/assets",
                 "output": "/assets/no-cached/pages-english/tenses/"
