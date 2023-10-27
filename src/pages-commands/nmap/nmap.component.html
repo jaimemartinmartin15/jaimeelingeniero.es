@@ -457,5 +457,26 @@
         puerto estaría en estado filtrado.
       </p>
     </section>
+
+    <section>
+      <h3>Window scan (-sW)</h3>
+
+      <p>
+        Este tipo de escaneo no se basa en los flags de la cabecera TCP, sino en el tamaño de ventana. El funcionamiento
+        es igual que el escaneo TCP ACK, pero nmap inspecciona dicho campo. Describámoslo.
+      </p>
+
+      <p>
+        Nmap envía un paquete con el flag ACK activado. El objetivo debería responder entonces a este paquete con un
+        RST. La simpleza de este escaneo para diferenciar si el puerto está abierto o no, es fijarse en el tamaño de la
+        ventana devuelto en el paquete RST. Algunos sistemas devuelven un valor cero en dicho campo si el puerto está
+        cerrado, y un valor positivo si el puerto está abierto.
+      </p>
+
+      <p>
+        Como muchos otros tipos de escaneo, esto no siempre funciona ya que por motivos de seguridad estas cosas se van
+        arreglando. Aún así, siempre se puede probar y tener suerte.
+      </p>
+    </section>
   </section>
 </article>
