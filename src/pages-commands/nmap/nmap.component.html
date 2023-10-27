@@ -390,5 +390,51 @@
         paquete más RST para cerrar la conexión inmediatamente.
       </p>
     </section>
+
+    <section>
+      <h3>UDP (-sU)</h3>
+
+      <p>
+        Esta es la opción para escanear puertos por el protocolo UDP. Lo que nmap hace, es enviar paquetes a cada uno de
+        los puertos indicados. <strong>Basándose en la respuesta o la falta de esta</strong>, el puerto queda
+        clasificado.
+      </p>
+
+      <p>Si se recibe una respuesta, aunque no es común, el puerto está <strong>abierto</strong>.</p>
+
+      <p>Si no se recibe ninguna respuesta, el puerto queda en <strong>abierto|filtrado</strong>.</p>
+
+      <p>
+        Si se recibe un paquete ICMP tipo 3 código 3 (puerto inalcanzable), el puerto se clasifica
+        <strong>cerrado</strong>.
+      </p>
+
+      <p>Si se recibe un paquete ICMP de otro tipo, el puerto se clasifica como <strong>filtrado</strong>.</p>
+
+      <p>
+        Normalmente cuando un puerto UDP está abierto, la aplicación que escucha en el puerto desecha el paquete UDP
+        porque lo considera inválido (nmap envía un paquete vacío). Al no tener respuesta, no se puede saber si ha sido
+        filtrado o si está abierto y el paquete ha sido ignorado. Pero fijándose en el resto de puertos (si se indica
+        que están cerrados), podría llegarse a deducir que el puerto está realmente abierto. También podría considerarse
+        añadir la opción de detección de versión, en cuyo caso nmap enviaría contenido en el paquete (basándose en un
+        fichero llamado <i>nmap-service-probes</i>), pudiendo llegar a producir una respuesta del servicio.
+      </p>
+
+      <p>
+        Otro inconeniente que tienen los escaneos de tipo UDP es que son lentos, ya que normalmente las máquinas tienen
+        un límite de mensajes por tiempo para enviar respuestas que indican que el puerto está cerrado. Esto hace que
+        nmap tenga que esperar para enviar otra prueba para poder confirmar el estado del puerto. Si el puerto está
+        abierto o filtrado, al no recibir respuesta, nmap tiene que esperar a que cumpla el tiempo para enviar otra
+        pruebas más antes de decidir el estado.
+      </p>
+
+      <p>
+        Otra alternativa (manual) para descubrir si el puerto está filtrado en vez de abierto, es realizar un trazado de
+        rutas. Si hacemos un trazado a un puerto que sabemos que está abierto veremos que encaminadores va recorriendo
+        el paquete. Después hacemos lo mismo para el puerto que no sabemos el estado. Si resulta que la ruta que siguen
+        los paquetes se detiene antes, es porque hay un cortafuegos de por medio que impide la llegada del paquete. El
+        puerto estaría en estado filtrado.
+      </p>
+    </section>
   </section>
 </article>
