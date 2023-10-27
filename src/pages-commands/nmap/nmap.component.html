@@ -392,6 +392,27 @@
     </section>
 
     <section>
+      <h3>Otros tipos de escaneo TCP</h3>
+
+      <p>
+        La gran mayoría del resto de escaneos TCP se basa en cambiar los flags de la cabecera para evadir las reglas de
+        los cortafuegos. Nmap provee por defecto los escaneos FIN (-sF) con el flag FIN activado, NULL (-sN) con ningún
+        flag activado, Xmas (-sX) con los flags FIN, PSH y URG activados, y ACK (-sA) con el flag ACK activado. Pero
+        también provee la posibilidad de establecer cada uno de ellos independientemente con la opción <i
+          class="app-no-break">--scan-flags</i>.
+      </p>
+
+      <img appImageFullScreen class="tcp-header" src="assets/pages-commands/nmap/tcp_header.png" alt="Cabecera TCP">
+
+      <p>
+        Este tipo de escaneos van dirigidos a máquinas muy específicas, que siguen ciertas especificaciones que
+        devuelven ciertas respuestas a dichos flags. Inspeccionando las respuestas se puede descartar el estado de un
+        puerto. Los flags se pueden indicar al comando con un número, por ejemplo el 9 en binario sería 001001 (PSH y
+        FIN), o con los alias, por ejemplo <i class="app-no-break">--scanflags URGACKPSHRSTSYNFIN</i>.
+      </p>
+    </section>
+
+    <section>
       <h3>UDP (-sU)</h3>
 
       <p>
