@@ -5,7 +5,20 @@
 # LINE FORMAT: date ; liters ; bullet color ; pop up message
 #
 
+# NOVIEMBRE 2023
+01/11/2023;12;deepskyblue;Estos días además hacía mucho, mucho viento.
+
 # OCTUBRE 2023
+31/10/2023;0
+30/10/2023;1
+29/10/2023;27
+28/10/2023;0
+27/10/2023;7
+26/10/2023;9
+25/10/2023;0
+24/10/2023;7
+23/10/2023;4
+22/10/2023;11
 21/10/2023;0
 20/10/2023;0
 19/10/2023;29
