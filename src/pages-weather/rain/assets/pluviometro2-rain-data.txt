@@ -5,8 +5,10 @@
 # LINE FORMAT: date ; liters ; bullet color ; pop up message
 #
 
-# OCTUBRE 2023
+# NOVIEMBRE 2023
 01/11/2023;0
+
+# OCTUBRE 2023
 31/10/2023;0
 30/10/2023;2
 29/10/2023;31

@@ -4,8 +4,9 @@
   <span class="content" (click)="showYearPopUp()">
     <p class="year">Meses {{year}}</p>
 
-    <p class="liters" *ngIf="isTotalAmountOfLitersAvailableForYear()">
-      {{totalAmountOfLitersInYear()}} litros
+    <p class="liters-and-average" *ngIf="isTotalAmountOfLitersAvailableForYear()">
+      <span class="liters">{{totalAmountOfLitersInYear()}} litros</span> - 
+      <span class="average">&#216; {{average.liters}} litros</span>
     </p>
 
     <span class="badge" [style.backgroundColor]="getBadgeColorForYear()" *ngIf="existsMessageForYear()"></span>
@@ -15,6 +16,9 @@
 </div>
 
 <svg viewBox="0 0 400 300" *ngIf="!error && !loading && rainPerMonths.length > 0">
+  <!-- average line -->
+  <line x1="3" [attr.y1]="average.svg" x2="390" [attr.y2]="average.svg" stroke="#adadad" stroke-width="1.2" />
+
   <!-- water lines -->
   <line *ngFor="let waterLine of rainPerMonths; let i=index" class="water-year-line" [attr.x1]="30 + 30*i" y1="260"
     [attr.x2]="30 + 30*i" [attr.y2]="waterLine.svgOffset" [attr.stroke]="i === selectedMonth ? '#c1c100' : '#00a2e8'"

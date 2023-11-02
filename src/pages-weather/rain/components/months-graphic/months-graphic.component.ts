@@ -10,6 +10,7 @@ import { RainDataService } from '../../rain-data.service';
 })
 export class MonthsGraphicComponent implements OnChanges {
   public readonly MONTHS = MONTHS;
+  public average: { svg: number; liters: number } = { svg: 0, liters: 0 };
 
   @Input()
   public selectedMonth: number;
@@ -41,6 +42,16 @@ export class MonthsGraphicComponent implements OnChanges {
 
   public ngOnChanges() {
     this.rainPerMonths = this.rainDataService.getRainDataPerMonths(this.year);
+    if (this.rainPerMonths.length > 0) {
+      const litersOfMonthsWithRain = this.rainPerMonths.filter((m) => m.hasLiters).map((m) => m.liters);
+      const averageOfRain = litersOfMonthsWithRain.reduce((a, b) => a + b, 0) / litersOfMonthsWithRain.length;
+      const maxAmountOfRainInMonth = Math.max(...litersOfMonthsWithRain);
+      this.average = {
+        // maxAmountOfRainInMonth -> 0   0 -> 260 (as in svg y axis)
+        svg: 260 - (260 / maxAmountOfRainInMonth) * averageOfRain,
+        liters: Math.round(averageOfRain),
+      };
+    }
   }
 
   public existsMessageForYear(): boolean {

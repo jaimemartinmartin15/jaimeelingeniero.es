@@ -27,11 +27,18 @@
       font-weight: bold;
     }
 
-    .liters {
+    .liters-and-average {
       margin: 0;
-      color: #00a2e8;
       font-weight: bold;
       font-size: 1rem;
+
+      .liters {
+        color: #00a2e8;
+      }
+
+      .average {
+        color: #adadad;
+      }
     }
 
     .badge {
