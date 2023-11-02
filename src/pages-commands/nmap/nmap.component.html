@@ -142,7 +142,29 @@
       que puertos escanear. Esta fase es opcional.
     </p>
 
-    <!-- TODO add rest of phases here -->
+    <p>
+      La <strong>quinta fase</strong> es la detección de versiones. Nmap por defecto indica el servicio (e incluso
+      versión) que se ejecuta en un puerto abierto basándose en datos que almacena en el fichero <i>nmap-services</i>.
+      Pero también puede envíar una serie de paquetes de prueba para cercionarse. Esta fase no se ejecuta por defecto.
+    </p>
+
+    <p>
+      La <strong>sexta fase</strong> es la detección del sistema operativo de la máquina objetivo. Sí, también es capaz
+      de detectar que sistema operativo se ejecuta en otra máquina si así se lo pedimos. Como siempre, esto lo detecta
+      enviando una serie de paquetes de prueba y examinando las respuestas.
+    </p>
+
+    <p>
+      La <strong>séptima y octava fases</strong> son el trazado de rutas y el escaneado mediante scripts, que obtienen
+      la ruta de nodos por la que pasan los paquetes y su resolución DNS inversa, además de detectar vulnerabilidades,
+      programas maliciosos y detección de versiones avanzado entre otras. Estas opciones hay que activarlas mediante un
+      parámetro.
+    </p>
+
+    <p>
+      La <strong>novena fase</strong> y última es la salida. Nmap muestra por pantalla o reporta en un fichero los
+      resultados obtenidos.
+    </p>
   </section>
 
   <section>
@@ -178,6 +200,28 @@
       <li>
         <strong>-sn</strong>: esta opción permite saltarse la fase cuatro, la de escaneo de puertos. Al usarla, sabremos
         que máquinas están activas y cuáles apagadas, pero no realizaremos un escaneo de sus puertos.
+      </li>
+
+      <li>
+        <strong>-sV </strong>: activa la fase cinco de detección de versiones.
+      </li>
+
+      <li>
+        <strong>-O</strong>: activa la fase seis para detectar el sistema operativo de la máquina objetivo.
+      </li>
+
+      <li>
+        <strong>--traceroute</strong>: habilita la fase siete, para obtener la lista de nodos intermedios y su
+        resolución DNS inversa.
+      </li>
+
+      <li>
+        <strong>-sC</strong>: activa el sistema de scripts de nmap (fase ocho).
+      </li>
+
+      <li>
+        <strong>-oN, -oX, -oG</strong>: nmap permite mostrar la salida en diferentes formatos, ya sea para que los
+        lea un humano directamente de la pantalla o los procese otro programa.
       </li>
     </ul>
   </section>
