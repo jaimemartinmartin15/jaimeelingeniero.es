@@ -2,7 +2,7 @@
   <div class="page-header">
     <h1 class="title">Nmap</h1>
     <a class="link-command" href="https://nmap.org/book/toc.html" target="_blank" rel="noopener">
-      book nmap ➡️
+      libro nmap ➡️
     </a>
   </div>
 
@@ -10,6 +10,13 @@
     <p>
       Este comando es utilizado para escanear redes, detectar dispositivos, escanear puertos, detectar servicios y
       muchas más cosas relacionadas con las redes de ordenadores. Es la abreviatura de <strong>Network Mapping</strong>.
+    </p>
+
+    <p>
+      En este artículo no voy a profundizar demasiado en todos los detalles de funcionamiento, pero daré una descripción
+      general de como funcionan. Para un completo entendimiento, sugiero leer el libro que dejo en el link de arriba o
+      buscar por internet. También advertir que el uso de este comando para ciertas redes te puede acarrear problemas
+      legales. Dicho esto, empezemos.
     </p>
 
     <p>
@@ -396,10 +403,10 @@
 
       <p>
         La gran mayoría del resto de escaneos TCP se basa en cambiar los flags de la cabecera para evadir las reglas de
-        los cortafuegos. Nmap provee por defecto los escaneos FIN (-sF) con el flag FIN activado, NULL (-sN) con ningún
-        flag activado, Xmas (-sX) con los flags FIN, PSH y URG activados, y ACK (-sA) con el flag ACK activado. Pero
-        también provee la posibilidad de establecer cada uno de ellos independientemente con la opción <i
-          class="app-no-break">--scan-flags</i>.
+        los cortafuegos. Nmap provee opciones para los escaneos FIN (-sF) con el flag FIN activado, NULL (-sN) con
+        ningún flag activado, Xmas (-sX) con los flags FIN, PSH y URG activados, ACK (-sA) con el flag ACK activado y
+        Maimon (-sM) con los flags FIN y ACK activados. Pero también provee la posibilidad de establecer cada uno de
+        ellos independientemente con la opción <i class="app-no-break">--scan-flags</i>.
       </p>
 
       <img appImageFullScreen class="tcp-header" src="assets/pages-commands/nmap/tcp_header.png" alt="Cabecera TCP">
@@ -476,6 +483,75 @@
       <p>
         Como muchos otros tipos de escaneo, esto no siempre funciona ya que por motivos de seguridad estas cosas se van
         arreglando. Aún así, siempre se puede probar y tener suerte.
+      </p>
+    </section>
+
+    <section>
+      <h3>Idle scan (-sI)</h3>
+
+      <p>
+        Este tipo de escaneo requiere un compinche (una máquina zombie). La máquina que ejecuta nmap no llegará a enviar
+        ni siquiera un paquete a la máquina objetivo (o al menos así parecerá). Vamos a describir como funciona.
+      </p>
+
+      <p>
+        Cada paquete IP que envía una máquina tiene un número, que en algunas máquinas simplemente se va incrementado
+        con cada uno que se envía. Este es el campo ID de la cabecera IP. Para comenzar el escaneo nmap obtiene el ID
+        de la máquina zombie y lo anota. A continuación nmap manda un paquete SYN a la máquina objetivo, pero
+        manipulando la IP de origen como si fuera la máquina zombie. Dependiendo del estado del puerto, la máquina
+        objetivo enviará una respuesta a la máquina zombie, y la máquina zombie podría producir otra respuesta, ya que
+        no espera recibir nada. Después nmap vuelve a comprobar el ID de la máquina zombie. Dependiendo cuánto se haya
+        incrementado deduce el estado del puerto.
+      </p>
+
+      <p>
+        Este es el proceso para detectar un <strong>puerto abierto</strong>:
+      </p>
+
+      <img appImageFullScreen class="scan-port" src="assets/pages-commands/nmap/scan_idle_open.png"
+        alt="Puerto abierto">
+
+      <p>
+        En el paso 1 nmap obtiene el ID de la máquina zombie. En el paso 2 nmap envía una petición de conexión a la
+        máquina objetivo, pero lo hace haciéndose pasar por la máquina zombie. Como el puerto está abierto, la máquina
+        objetivo envía un paquete SYN/ACK para aceptar establecer la conexión, pero se lo envía a la máquina zombie, que
+        no lo espera. Y esta responde con un paquete RST incrementado su ID. A continuación nmap vuelve a comprobar el
+        estado del ID de la máquina zombie, y descubre que se ha incrementado en dos, deduciendo que el puerto está
+        abierto.
+      </p>
+
+      <p>
+        Este es el proceso para identificra un <strong>puerto cerrado</strong>:
+      </p>
+
+      <img appImageFullScreen class="scan-port" src="assets/pages-commands/nmap/scan_idle_closed.png"
+        alt="Puerto cerrado">
+
+      <p>
+        El paso 1 es igual que en el paso anterior. Después en el paso 2, como el puerto está cerrado, la máquina
+        objetivo envía directamente un paquete RST a la máquina zombie. Y la máquina zombie no hace nada. En el paso 3
+        nmap vuelve a comprobar el ID y observa que solo se ha incrementado en 1, por lo que el puerto no está abierto.
+      </p>
+
+      <p>
+        Y el proceso para identificar un <strong>puerto filtrado</strong> es este:
+      </p>
+
+      <img appImageFullScreen class="scan-port" src="assets/pages-commands/nmap/scan_idle_filtered.png"
+        alt="Puerto filtrado">
+
+      <p>
+        El primero paso igual que antes. En el segundo nmap envía el paquete SYN a la máquina objetivo suplantando a la
+        máquina zombie. Pero la máquina objetivo no responde. Nmap comprueba de nuevo el ID de la máquina zombie, y
+        deduce que el uerto no está abierto.
+      </p>
+
+      <p>
+        Como vemos, no hay forma de diferenciar si el puerto está cerrado o filtrado. Este tipo de escaneo puede llevar
+        mucho tiempo y dar muchos falsos positivos, ya que si la máquina tiene más tráfico, el ID se incrementará con
+        paquetes de otras conexiones. Lo bueno que tiene es que la IP origen desde donde se realiza el escaneo no es
+        conocida por la máquina objetivo, y la IP de la máquina zombie podría estar permitida por los cortafuegos que
+        permitirían que haya tráfico.
       </p>
     </section>
   </section>
