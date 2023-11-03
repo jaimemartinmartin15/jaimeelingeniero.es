@@ -223,6 +223,10 @@
         <strong>-oN, -oX, -oG</strong>: nmap permite mostrar la salida en diferentes formatos, ya sea para que los
         lea un humano directamente de la pantalla o los procese otro programa.
       </li>
+
+      <li>
+        <strong>-v</strong>: indica a nmap que muestre los resultados según los va generando, sin esperar al final.
+      </li>
     </ul>
   </section>
 
@@ -640,4 +644,42 @@
       describir aquí para no hacerlo muy largo. Aunque normalmente, el servicio y versión suelen quedar identificados.
     </p>
   </section>
+
+  <section>
+    <h2>Detección del SO (fase seis)</h2>
+
+    <p>
+      Al igual que nmap puede detectar que aplicación y versión está escuchando por un puerto, nmap también puede
+      detectar que sistema operativo está ejecutando la máquina objetivo.
+    </p>
+
+    <p>
+      Como siempre, lo descubre enviando paquetes y obteniendo respuestas, analizándolas y comparando con una gran base
+      de datos (el fichero <i>nmap-os-db</i>). En este caso envía 16 pruebas TCP, UDP y ICMP especialmente diseñadas
+      para distinguir el sistema operativo, modificando los bits o campos de las cabeceras. No voy a detallar el
+      funcionamiento porque requiere muchos conocimientos que no son necesarios para usar el comando, y tomaría mucho
+      texto explicarlo. En el link que he dejado al principio, viene explicado si tienes curiosidad y tiempo.
+    </p>
+
+    <p>
+      En esta fase además nmap puede detectar que tipo de dispositivo es, si una impresora, un enrutador, un cortafuegos
+      o un dispositivo de uso general entre otros.
+    </p>
+  </section>
+
+  <footer>
+    <h2>Final</h2>
+
+    <p>
+      Con esto llegamos al final de este artículo. Espero que hayas aprendido y descubierto las triquiñuelas que usa
+      nmap para escanear redes y que variedad de funcionalidades ofrece. Hay muchas más cosas que aprender y explicar,
+      pero se haría eterno. Sé que no he puesto muchos ejemplos de como ejecutar el comando, pero es que simplemente
+      consiste en pasarle los parámetros indicados durante el artículo para activar las funciones.
+    </p>
+
+    <p>
+      Queda de tu mano seguir explorando y aprendiendo a usar este comando con infinitas posibilidades. Y recuerda, se
+      responsable.
+    </p>
+  </footer>
 </article>
