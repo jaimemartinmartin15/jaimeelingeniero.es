@@ -1,0 +1,704 @@
+<article>
+  <div class="page-header">
+    <h1 class="title">Nmap</h1>
+    <a class="link-command" href="https://nmap.org/book/toc.html" target="_blank" rel="noopener">
+      libro nmap ➡️
+    </a>
+  </div>
+
+  <section>
+    <p>
+      Este comando es utilizado para escanear redes, detectar dispositivos, escanear puertos, detectar servicios y
+      muchas más cosas relacionadas con las redes de ordenadores. Es la abreviatura de <strong>Network Mapping</strong>.
+    </p>
+
+    <p>
+      En este artículo no voy a profundizar demasiado en todos los detalles de funcionamiento, pero daré una descripción
+      general de cómo funcionan. Para un completo entendimiento, sugiero leer el libro que dejo en el link de arriba o
+      buscar por internet. También advertir que el uso de este comando para ciertas redes te puede acarrear problemas
+      legales. Dicho esto, empezemos.
+    </p>
+
+    <p>
+      Lo primero que tenemos que tener claro a la hora de usar este comando, son las direcciones o nombres de dominio
+      que queremos escanear y analizar. Todo lo que recibe nmap que no es un parámetro, se considera un objetivo a
+      escanear.
+    </p>
+  </section>
+
+  <section>
+    <h2>Indicar el objetivo</h2>
+
+    <p>
+      Podemos especificar a nmap los objetivos que queremos escanear de múltiples formas.
+    </p>
+
+    <p>
+      Una de ellas sería pasarle una a una las direcciones IP (o nombres de dominio) <strong>separadas por
+        espacios</strong>:
+    </p>
+
+    <app-terminal-code>
+      <span terminal-code-command>nmap 192.168.1.7 192.168.1.2 undominio.example.com</span>
+    </app-terminal-code>
+
+    <p>
+      En caso de querer escanear una red entera, también podemos usar la <strong>notación CIDR</strong>. Es decir,
+      podemos indicarle la máscara con el número de bits:
+    </p>
+
+    <app-terminal-code>
+      <span terminal-code-command>nmap 192.168.1.4/24 undominio.example.com/28</span>
+    </app-terminal-code>
+
+    <p>
+      En este ejemplo, se escanearán 256 objetivos dada la primera IP (no importa cual sea el último número, se
+      escaneará de la IP 192.168.1.0 a la 192.168.1.255 ambas incluidas) y 16 objetivos para el nombre de dominio.
+    </p>
+
+    <p>
+      Otra forma más que tenemos de pasar las direcciones IP es <strong>usando rangos</strong>. Estos se indican con
+      guiones y se puede especificar una lista de rangos con comas. Con el siguiente ejemplo lo entenderemos:
+    </p>
+
+    <app-terminal-code>
+      <span terminal-code-command>nmap 192.168.3-5,7.1</span>
+    </app-terminal-code>
+
+    <p>
+      Aquí hemos indicado que el tercer número será 3, 4, 5 o 7. Si omitimos un número cerca del guión, si es el
+      de la izquierda, se asume que es 0 y si es el de la derecha se asume que es 255. Si sólo usamos el guión es como
+      poner 0-255. El guión a secas no se puede usar en el primer número de la IP, ya que se consideraría como un
+      parámetro. Tenemos que indicar el inicio del rango explicitamente.
+    </p>
+
+    <p>
+      También podemos indicar los objetivos a escanear <strong>desde un fichero</strong> que contenga las IP
+      especificadas como hemos explicado anteriormente. Para especificar que tome los objetivos de la entrada
+      estandard pasamos un guión en vez del nombre del fichero.
+    </p>
+
+    <app-terminal-code>
+      <div terminal-code-command>nmap -iL objetivos.txt</div>
+      <div terminal-code-command>aCommandThatReturnsTargets | nmap -iL -</div>
+    </app-terminal-code>
+
+    <p>
+      Una forma más de especificar objetivos es indicarle a nmap que genere un número de <strong>IP aleatorias</strong>.
+      Si le pasamos como argumento un 0, generaría infinitas direcciones IP (se quedaría escaneando infinitamente).
+    </p>
+
+    <app-terminal-code>
+      <div terminal-code-command>nmap -iR 10</div>
+    </app-terminal-code>
+
+    <p>
+      A parte de indicar que máquinas escanear, podemos indicar que <strong>excluya ciertas direcciones</strong> que no
+      deben escanearse. Estas direcciones las hay que pasar separadas por comas, en vez de por espacios. Por lo tanto no
+      podemos usar comas para indicar una lista de rangos de IP. En ese caso deberíamos usar la opción <i>--excludefile
+        &lt;filename&gt;</i>.
+    </p>
+
+    <app-terminal-code>
+      <div terminal-code-command>nmap 192.168.1.0/24 --exclude 192.168.1.10,dominioprivado.example.com</div>
+    </app-terminal-code>
+  </section>
+
+  <section>
+    <h2>Fases de nmap</h2>
+
+    <p>
+      Nmap funciona por fases. Cada fase se ejecuta de forma secuencial, y no pasa a la siguiente hasta que termina la
+      anterior. Podemos usar opciones para cambiar el comportamiento de nmap en cada fase. Pero veamos primero cuales
+      son esas fases.
+    </p>
+
+    <p>
+      La <strong>primera fase</strong> de nmap es obtener una lista completa de las máquinas que hay que escanear. Esta
+      fase no se puede saltar ya que es necesaria para continuar con el resto. Ya hemos visto como pasarle a nmap las
+      máquinas que queremos escanear, o incluso pedirle que las busque aleatoriamente. En esta fase, si pasamos nombres
+      de dominio, se resuelven las direcciones IP usando <a class="app-link" routerLink="/redes/dns">el DNS</a>.
+    </p>
+
+    <p>
+      La <strong>segunda fase</strong> consiste en averiguar si cada una de las máquinas indicadas está encendida.
+      Esta fase se llama <i>host discovery</i> o <i>ping scanning</i>. Esta fase se ejecuta por defecto, aunque se puede
+      saltar si estamos seguros de que las máquinas ya están encendidas. Nmap así lo asumirá. Más adelante veremos que
+      técnicas usa nmap para comprobar si una máquina está encendida o apagada.
+    </p>
+
+    <p>
+      La <strong>tercera fase</strong> consiste en realizar resolución inversa DNS de sólamente aquellas máquinas que
+      parecen estar encendidas. Así es el comportamiento por defecto de nmap. También podríamos indicarle que se salte
+      esta fase (que no resuelva ninguna dirección) o que haga resolución inversa DNS de todas las máquinas, incluso si
+      están apagadas.
+    </p>
+
+    <p>
+      La <strong>cuarta fase</strong> es el escaneo de puertos. En esta fase nmap trata de averiguar que puertos están
+      abiertos, cerrados o filtrados. Para ello, por defecto envía pruebas a los 1000 puertos más conocidos de una lista
+      interna que tiene en un fichero llamado <i>nmap-services</i>. Por supuesto, también le podremos indicar nosotros
+      que puertos escanear. Esta fase es opcional.
+    </p>
+
+    <p>
+      La <strong>quinta fase</strong> es la detección de versiones. Nmap por defecto indica el servicio (e incluso
+      versión) que se ejecuta en un puerto abierto basándose en datos que almacena en el fichero <i>nmap-services</i>.
+      Pero también puede envíar una serie de paquetes de prueba para cercionarse. Esta fase no se ejecuta por defecto.
+    </p>
+
+    <p>
+      La <strong>sexta fase</strong> es la detección del sistema operativo de la máquina objetivo. Sí, también es capaz
+      de detectar que sistema operativo se ejecuta en otra máquina si así se lo pedimos. Como siempre, esto lo detecta
+      enviando una serie de paquetes de prueba y examinando las respuestas.
+    </p>
+
+    <p>
+      La <strong>séptima y octava fases</strong> son el trazado de rutas y el escaneado mediante scripts, que obtienen
+      la ruta de nodos por la que pasan los paquetes y su resolución DNS inversa, además de detectar vulnerabilidades,
+      programas maliciosos y detección de versiones avanzado entre otras. Estas opciones hay que activarlas mediante un
+      parámetro.
+    </p>
+
+    <p>
+      La <strong>novena fase</strong> y última es la salida. Nmap muestra por pantalla o reporta en un fichero los
+      resultados obtenidos.
+    </p>
+  </section>
+
+  <section>
+    <h2>Opciones para las fases</h2>
+
+    <p>
+      Hemos ido diciendo que algunas fases se pueden saltar o que se puede cambiar el comportamiento. A continuación
+      dejo una lista de parámetros que podemos pasar a nmap y lo que hacen.
+    </p>
+
+    <ul>
+      <li>
+        <strong>-Pn</strong>: con esta opción le indicamos a nmap que se salte la fase dos, host discovery. Nmap asumirá
+        que todas las máquinas están encendidas y procederá con las siguientes fases.
+      </li>
+
+      <li>
+        <strong>-sL</strong>: es una forma muy simple de host discovery, sin enviar ninguna prueba a las máquinas.
+        Esta opción simplemente lista las direcciones IP que se escanearían (fase uno) y termina. Por defecto realizará
+        también resolución inversa DNS (fase tres).
+      </li>
+
+      <li>
+        <strong>-n</strong>: en la tercera fase de resolución inversa de DNS, podemos indicar a nmap que no haga
+        resolución inversa de ninguna máquina.
+      </li>
+
+      <li>
+        <strong>-R</strong>: justo lo contario que la anterior. Indicamos que en la tercera fase de resolución inversa
+        de DNS, se haga la resolución de todas las máquinas, incluso si están apagadas.
+      </li>
+
+      <li>
+        <strong>-sn</strong>: esta opción permite saltarse la fase cuatro, la de escaneo de puertos. Al usarla, sabremos
+        que máquinas están activas y cuáles apagadas, pero no realizaremos un escaneo de sus puertos.
+      </li>
+
+      <li>
+        <strong>-sV </strong>: activa la fase cinco de detección de versiones.
+      </li>
+
+      <li>
+        <strong>-O</strong>: activa la fase seis para detectar el sistema operativo de la máquina objetivo.
+      </li>
+
+      <li>
+        <strong>--traceroute</strong>: habilita la fase siete, para obtener la lista de nodos intermedios y su
+        resolución DNS inversa.
+      </li>
+
+      <li>
+        <strong>-sC</strong>: activa el sistema de scripts de nmap (fase ocho).
+      </li>
+
+      <li>
+        <strong>-oN, -oX, -oG</strong>: nmap permite mostrar la salida en diferentes formatos, ya sea para que los
+        lea un humano directamente de la pantalla o los procese otro programa.
+      </li>
+
+      <li>
+        <strong>-v</strong>: indica a nmap que muestre los resultados según los va generando, sin esperar al final.
+      </li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Host discovery (fase dos)</h2>
+
+    <p>
+      Nmap usa una serie de pruebas para descubrir si una máquina está encendida o apagada. A continuación indico cuales
+      son esas pruebas y que parámetros las activan para que nmap use esas técnicas.
+    </p>
+
+    <p>
+      <strong>TCP SYNC (-PS&lt;puertos&gt;)</strong>: esta opción envía por defecto al puerto 80 un paquete TCP vacío
+      con el flag SYNC en la cabecera activado. Si el puerto está cerrado, se recibirá de vuelta un paquete RST. Si el
+      puerto está abierto, se recibirá un paquete SYN/ACK TCP. En ambos casos la máquina desvela estar activa. Si no se
+      recibe respuesta, puede ser por un firewall, y el puerto se marca como filtered. Podemos indicar los puertos al
+      igual que las direcciones IP, por ejemplo, <i>nmap -PS15-20,45 example.com</i>.
+    </p>
+
+    <p>
+      <strong>TCP ACK (-PA&lt;puertos&gt;)</strong>: esta opción es similar a la anterior. La diferencia es que el flag
+      ACK es activado en lugar del flag SYNC. Como aún no existe una conexión TCP, el puerto debería responder con un
+      RST, desvelando así estar la máquina activa. La razón por la que existe esta opción es para evitar algunos
+      firewalls. La lista de puertos la podemos indicar igual que antes.
+    </p>
+
+    <p>
+      <strong>UDP (-PU&lt;puertos&gt;)</strong>: esta opción envía por defecto al puerto 40125 un paquete UDP. Con esta
+      opción es recomendable elegir un puerto alto que probablemente esté cerrado, para así recibir como respuesta un
+      ICMP puerto inalcanzable, desvelando así la máquina estar activa. Si por el contrario el puerto está activo, el
+      servicio que escuche por ahí probablemente ignore el paquete y no responda.
+    </p>
+
+    <p>
+      <strong>ICMP echo (-PE)</strong>: nmap envía un paquete ICMP tipo 8 (echo request) al objetivo, esperando como
+      respuesta un paquete ICMP tipo 0 (echo reply). Si hay respuesta, la máquina está activa. Si no la hay, puede que
+      un firewall esté bloqueando el paquete o que la máquina esté apagada.
+    </p>
+
+    <p>
+      <strong>ICMP timestamp (-PP)</strong>: similar a la opción anterior, nmap envía un paquete ICMP tipo 13 y espera
+      una respuesta ICMP tipo 14. Se usa como alternativa para pasar firewalls.
+    </p>
+
+    <p>
+      <strong>ICMP address mask (-PM)</strong>: otra alternativa más para descubrir si una máquina está activa, es
+      enviar un paquete ICMP tipo 17 y espera una respuesta ICMP tipo 18.
+    </p>
+
+    <p>
+      <strong>IP protocol (-PO&lt;protocolos&gt;)</strong>: nmap envía envía paquetes IP con diferentes protocolos en su
+      cabecera. La lista de protocolos tiene el mismo formato que los puertos. Por defecto se usan los protocolos uno
+      (ICMP), dos (IGMP) y cuatro (IP-in-IP). Esta prueba espera un paquete de vuelta con el mismo tipo de protocolo o
+      un mensaje indicando que el protocolo no es soportado. En ambos casos la máquina desvela estar activa.
+    </p>
+
+    <p>
+      <strong>ARP (-PR)</strong>: cuando nmap detecta que el objetivo está en una red local, usa el Address Resolution
+      Protocol para averiguar la dirección MAC asociada a la IP del objetivo, con el objetivo de que la máquina que
+      tenga asignada esa IP le responda desvelando estar activa.
+    </p>
+
+    <p>
+      Por defecto, las opciones que usa nmap son -PE -PS443 -PA80 -PP.
+    </p>
+  </section>
+
+  <section>
+    <h2>Escaneo de puertos (fase cuatro)</h2>
+
+    <p>
+      Una vez se identifican las máquinas que están activas, se procede a su escaneo de puertos para identificar en que
+      estado se encuentran. Nmap reconoce <strong>seis estados</strong>:
+    </p>
+
+    <ol>
+      <li>
+        <strong>open</strong>: significa que hay una aplicación aceptando conexiones en ese puerto, por TCP o por UDP.
+      </li>
+
+      <li>
+        <strong>closed</strong>: significa que nmap recibe respuesta de dichos puertos, pero que no hay ninguna
+        aplicación escuchando.
+      </li>
+
+      <li>
+        <strong>filtered</strong>: nmap no puede determinar si el puerto está abierto, ya que las pruebas de escaneo no
+        llegan al puerto. Esto puede ser porque haya un firewall de por medio que deseche los paquetes sin enviar
+        respuesta siquiera.
+      </li>
+
+      <li>
+        <strong>unfiltered</strong>: las pruebas que nmap envía llegan al puerto, pero nmap no es capaz de determinar si
+        está abierto o cerrado. Sólo el tipo de escaneo ACK que veremos luego clasifica los puertos en este estado.
+      </li>
+
+      <li>
+        <strong>open|filtered</strong>: nmap no puede determinar si el puerto está en estado open o filtered. Este
+        estado se produce cuando el puerto que está abierto no manda una respuesta. Los escaneos de tipo UDP, IP
+        protocol, FIN, NULL, y Xmas clasifican los puertos en este estado.
+      </li>
+
+      <li>
+        <strong>closed|filtered</strong>: nmap no puede determinar si el puerto esta en estado closed o filtered. Sólo
+        el escaneo de tipo TCP Idle clasifica los puertos así.
+      </li>
+    </ol>
+
+    <p>
+      Para <strong>indicar los puertos</strong> que nmap debe escanear, podemos usar la opción <i>-p</i>. Dependiendo
+      del tipo de escaneo que hagamos, los puertos serán para dichos protocolos de escaneo. Para explicarlo vamos a ver
+      unos ejemplos, que se entenderá mejor.
+    </p>
+
+    <p>
+      <i>-p 22</i> escanea sólo el puerto 22 (TCP, UDP o los dos dependiendo del escaneo que digamos a nmap).
+    </p>
+
+    <p>
+      <i>-p ssh</i> escanea el puerto con dicho nombre. Algunos nombres incluyen varios puertos.
+    </p>
+
+    <p>
+      <i>-p 22,80,443</i> escanea la lista de puertos separados por comas.
+    </p>
+
+    <p>
+      <i>-p80-85,443,8000-8005,8080-8085</i> escanea la lista de rangos de puertos separados con el guión y por comas.
+    </p>
+
+    <p>
+      <i>-p-</i> escanea todos los puertos, desde el puerto 1 al 65536, ya que se omite el inicio y final del rango. El
+      puerto cero se excluye ya que está reservado para los programadores.
+    </p>
+
+    <p>
+      <i>-pT:21,23,110,U:53,111,137,161</i> especifica que puertos escanear para TCP y cuales para UDP indicando dos
+      listas precedidas con T: y U: respectivamente. La lista solo tiene sentido si también le indicamos a nmap un tipo
+      de escaneo que sea UDP o TCP.
+    </p>
+  </section>
+
+  <section>
+    <h2>Tipos de escaneo de puertos</h2>
+
+    <p>
+      Elegidos los puertos que vamos a escanear, debemos indicar a nmap que método usar para descubrir su estado. Todos
+      los métodos tienen sus ventajas y desventajas, así que vamos a detallar su funcionamiento.
+    </p>
+
+    <section>
+      <h3>TCP SYNC (-sS)</h3>
+
+      <p>
+        Este es el tipo de escaneo por defecto y más popular. Es rápido y diferencia bien el estado de los puertos entre
+        open, closed y filtered.
+      </p>
+
+      <p>
+        Veamos como identifica nmap un <strong>puerto abierto</strong> con la siguiente imagen:
+      </p>
+
+      <img appImageFullScreen class="scan-port" src="assets/pages-commands/nmap/scan_tcp_sync_open.png"
+        alt="Puerto tcp abierto">
+
+      <p>
+        Primeramente nmap envía un paquete TCP con el flag SYNC activado. Como el puerto está abierto en la máquina
+        objetivo, responde con un paquete TCP con los flags SYNC y ACK activados. Como el primer paquete fue enviado por
+        nmap, y no por el sistema, el sitema no espera el paquete SYNC/ACK y cierra la conexión inmediatamente enviando
+        un paquete TCP con el flag RST activado.
+      </p>
+
+      <p>
+        Ahora vamos a ver como detecta un <strong>puerto cerrado</strong>:
+      </p>
+
+      <img appImageFullScreen class="scan-port" src="assets/pages-commands/nmap/scan_tcp_sync_closed.png"
+        alt="Puerto tcp cerrado">
+
+      <p>
+        Nmap envía el paquete TCP SYNC igual que antes. Esta vez la máquina objetivo tiene el puerto cerrado, así que
+        retorna inmediatamente un paquete RST.
+      </p>
+
+      <p>
+        Por último nos queda ver como detectar un <strong>puerto filtrado</strong>:
+      </p>
+
+      <img appImageFullScreen class="scan-port" src="assets/pages-commands/nmap/scan_tcp_sync_filtered.png"
+        alt="Puerto tcp filtrado">
+
+      <p>
+        Nmap envía varios paquetes TCP SYNC como en los ejemplos anteriores, pero no recibe ninguna respuesta tras
+        varios intentos y tiempos de espera. Puede que haya un cortafuegos de por medio, o que la máquina esté apagada,
+        o que la red sea inestable. También podría haber recibido algún paquete ICMP <span class="app-no-break">tipo
+          3</span>. En ese caso también se marca como filtrado.
+      </p>
+    </section>
+
+    <section>
+      <h3>TCP Connect (-sT)</h3>
+
+      <p>
+        Este tipo de escaneo es la alternativa por defecto al anterior cuando el usuario no es privilegiado. Nmap
+        establece una conexión completa a través del sistema operativo llamando a la función <i>connect</i>. Para
+        detectar <strong>puertos cerrados y filtrados</strong>, el proceso es exactamente el mismo que el descrito
+        anteriormente. Pero veamos como funciona la detección de un <strong>puerto abierto</strong>.
+      </p>
+
+      <img appImageFullScreen class="scan-port" src="assets/pages-commands/nmap/scan_tcp_connect_open.png"
+        alt="Puerto tcp abierto">
+
+      <p>
+        En este caso, es el sistema operativo quien gestiona la conexión desde el inicio, y acaba enviando un paquete
+        ACK al objetivo para completar la conexión. Nmap también detecta que el sistema envía este paquete y envía otro
+        paquete más RST para cerrar la conexión inmediatamente.
+      </p>
+    </section>
+
+    <section>
+      <h3>Otros tipos de escaneo TCP</h3>
+
+      <p>
+        La gran mayoría del resto de escaneos TCP se basa en cambiar los flags de la cabecera para evadir las reglas de
+        los cortafuegos. Nmap provee opciones para los escaneos FIN (-sF) con el flag FIN activado, NULL (-sN) con
+        ningún flag activado, Xmas (-sX) con los flags FIN, PSH y URG activados, ACK (-sA) con el flag ACK activado y
+        Maimon (-sM) con los flags FIN y ACK activados. Pero también provee la posibilidad de establecer cada uno de
+        ellos independientemente con la opción <i class="app-no-break">--scan-flags</i>.
+      </p>
+
+      <img appImageFullScreen class="tcp-header" src="assets/pages-commands/nmap/tcp_header.png" alt="Cabecera TCP">
+
+      <p>
+        Este tipo de escaneos van dirigidos a máquinas muy específicas, que siguen ciertas especificaciones que
+        devuelven ciertas respuestas a dichos flags. Inspeccionando las respuestas se puede descartar el estado de un
+        puerto. Los flags se pueden indicar al comando con un número, por ejemplo el 9 en binario sería 001001 (PSH y
+        FIN), o con los alias, por ejemplo <i class="app-no-break">--scanflags URGACKPSHRSTSYNFIN</i>.
+      </p>
+    </section>
+
+    <section>
+      <h3>UDP (-sU)</h3>
+
+      <p>
+        Esta es la opción para escanear puertos por el protocolo UDP. Lo que nmap hace, es enviar paquetes a cada uno de
+        los puertos indicados. <strong>Basándose en la respuesta o la falta de esta</strong>, el puerto queda
+        clasificado.
+      </p>
+
+      <p>Si se recibe una respuesta, aunque no es común, el puerto está <strong>abierto</strong>.</p>
+
+      <p>Si no se recibe ninguna respuesta, el puerto queda en <strong>abierto|filtrado</strong>.</p>
+
+      <p>
+        Si se recibe un paquete ICMP tipo 3 código 3 (puerto inalcanzable), el puerto se clasifica
+        <strong>cerrado</strong>.
+      </p>
+
+      <p>Si se recibe un paquete ICMP de otro tipo, el puerto se clasifica como <strong>filtrado</strong>.</p>
+
+      <p>
+        Normalmente cuando un puerto UDP está abierto, la aplicación que escucha en el puerto desecha el paquete UDP
+        porque lo considera inválido (nmap envía un paquete vacío). Al no tener respuesta, no se puede saber si ha sido
+        filtrado o si está abierto y el paquete ha sido ignorado. Pero fijándose en el resto de puertos (si se indica
+        que están cerrados), podría llegarse a deducir que el puerto está realmente abierto. También podría considerarse
+        añadir la opción de detección de versión, en cuyo caso nmap enviaría contenido en el paquete (basándose en un
+        fichero llamado <i>nmap-service-probes</i>), pudiendo llegar a producir una respuesta del servicio.
+      </p>
+
+      <p>
+        Otro inconeniente que tienen los escaneos de tipo UDP es que son lentos, ya que normalmente las máquinas tienen
+        un límite de mensajes por tiempo para enviar respuestas que indican que el puerto está cerrado. Esto hace que
+        nmap tenga que esperar para enviar otra prueba para poder confirmar el estado del puerto. Si el puerto está
+        abierto o filtrado, al no recibir respuesta, nmap tiene que esperar a que cumpla el tiempo para enviar otra
+        pruebas más antes de decidir el estado.
+      </p>
+
+      <p>
+        Otra alternativa (manual) para descubrir si el puerto está filtrado en vez de abierto, es realizar un trazado de
+        rutas. Si hacemos un trazado a un puerto que sabemos que está abierto veremos que encaminadores va recorriendo
+        el paquete. Después hacemos lo mismo para el puerto que no sabemos el estado. Si resulta que la ruta que siguen
+        los paquetes se detiene antes, es porque hay un cortafuegos de por medio que impide la llegada del paquete. El
+        puerto estaría en estado filtrado.
+      </p>
+    </section>
+
+    <section>
+      <h3>Window scan (-sW)</h3>
+
+      <p>
+        Este tipo de escaneo no se basa en los flags de la cabecera TCP, sino en el tamaño de ventana. El funcionamiento
+        es igual que el escaneo TCP ACK, pero nmap inspecciona dicho campo. Describámoslo.
+      </p>
+
+      <p>
+        Nmap envía un paquete con el flag ACK activado. El objetivo debería responder entonces a este paquete con un
+        RST. La simpleza de este escaneo para diferenciar si el puerto está abierto o no, es fijarse en el tamaño de la
+        ventana devuelto en el paquete RST. Algunos sistemas devuelven un valor cero en dicho campo si el puerto está
+        cerrado, y un valor positivo si el puerto está abierto.
+      </p>
+
+      <p>
+        Como muchos otros tipos de escaneo, esto no siempre funciona ya que por motivos de seguridad estas cosas se van
+        arreglando. Aún así, siempre se puede probar y tener suerte.
+      </p>
+    </section>
+
+    <section>
+      <h3>Idle scan (-sI)</h3>
+
+      <p>
+        Este tipo de escaneo requiere un compinche (una máquina zombie). La máquina que ejecuta nmap no llegará a enviar
+        ni siquiera un paquete a la máquina objetivo (o al menos así parecerá). Vamos a describir como funciona.
+      </p>
+
+      <p>
+        Cada paquete IP que envía una máquina tiene un número, que en algunas máquinas simplemente se va incrementado
+        con cada uno que se envía. Este es el campo ID de la cabecera IP. Para comenzar el escaneo nmap obtiene el ID
+        de la máquina zombie y lo anota. A continuación nmap manda un paquete SYN a la máquina objetivo, pero
+        manipulando la IP de origen como si fuera la máquina zombie. Dependiendo del estado del puerto, la máquina
+        objetivo enviará una respuesta a la máquina zombie, y la máquina zombie podría producir otra respuesta, ya que
+        no espera recibir nada. Después nmap vuelve a comprobar el ID de la máquina zombie. Dependiendo cuánto se haya
+        incrementado deduce el estado del puerto.
+      </p>
+
+      <p>
+        Este es el proceso para detectar un <strong>puerto abierto</strong>:
+      </p>
+
+      <img appImageFullScreen class="scan-port" src="assets/pages-commands/nmap/scan_idle_open.png"
+        alt="Puerto abierto">
+
+      <p>
+        En el paso 1 nmap obtiene el ID de la máquina zombie. En el paso 2 nmap envía una petición de conexión a la
+        máquina objetivo, pero lo hace haciéndose pasar por la máquina zombie. Como el puerto está abierto, la máquina
+        objetivo envía un paquete SYN/ACK para aceptar establecer la conexión, pero se lo envía a la máquina zombie, que
+        no lo espera. Y esta responde con un paquete RST incrementado su ID. A continuación nmap vuelve a comprobar el
+        estado del ID de la máquina zombie, y descubre que se ha incrementado en dos, deduciendo que el puerto está
+        abierto.
+      </p>
+
+      <p>
+        Este es el proceso para identificra un <strong>puerto cerrado</strong>:
+      </p>
+
+      <img appImageFullScreen class="scan-port" src="assets/pages-commands/nmap/scan_idle_closed.png"
+        alt="Puerto cerrado">
+
+      <p>
+        El paso 1 es igual que en el paso anterior. Después en el paso 2, como el puerto está cerrado, la máquina
+        objetivo envía directamente un paquete RST a la máquina zombie. Y la máquina zombie no hace nada. En el paso 3
+        nmap vuelve a comprobar el ID y observa que solo se ha incrementado en 1, por lo que el puerto no está abierto.
+      </p>
+
+      <p>
+        Y el proceso para identificar un <strong>puerto filtrado</strong> es este:
+      </p>
+
+      <img appImageFullScreen class="scan-port" src="assets/pages-commands/nmap/scan_idle_filtered.png"
+        alt="Puerto filtrado">
+
+      <p>
+        El primero paso igual que antes. En el segundo nmap envía el paquete SYN a la máquina objetivo suplantando a la
+        máquina zombie. Pero la máquina objetivo no responde. Nmap comprueba de nuevo el ID de la máquina zombie, y
+        deduce que el uerto no está abierto.
+      </p>
+
+      <p>
+        Como vemos, no hay forma de diferenciar si el puerto está cerrado o filtrado. Este tipo de escaneo puede llevar
+        mucho tiempo y dar muchos falsos positivos, ya que si la máquina tiene más tráfico, el ID se incrementará con
+        paquetes de otras conexiones. Lo bueno que tiene es que la IP origen desde donde se realiza el escaneo no es
+        conocida por la máquina objetivo, y la IP de la máquina zombie podría estar permitida por los cortafuegos que
+        permitirían que haya tráfico.
+      </p>
+    </section>
+  </section>
+
+  <section>
+    <h2>Detección de versiones (fase cinco)</h2>
+
+    <p>
+      Cuando nmap detecta que un puerto está abierto, reporta que servicio <i>es probable</i> que se ejecute en dicho
+      puerto basándose en el número y un fichero con información llamado <i>nmap-services</i>. Pero nada evita que un
+      administrador abra el puerto para dar servicio a cualquier otro programa, y que por lo tanto nmap no esté en lo
+      cierto. También puede ser que más de un servicio use el mismo número de puerto, en tal caso, nmap no podría decir
+      cual de los posibles servicios está escuchando por ahí.
+    </p>
+
+    <p>
+      Esta fase se encarga de resolver estas incertidumbres que surgen, y de determinar la versión y nombre del programa
+      que escucha por el puerto. Ahora veremos un poco cómo se descubren estos datos para los puertos que se detectan
+      como abiertos o incluso <span class="app-no-break">abierto|filtrado</span>.
+    </p>
+
+    <p>
+      Si el puerto es TCP, nmap comienza estableciendo una conexión con la máquina objetivo. Después espera
+      aproximadamente cinco segundos. Muchos servicios se identifican a sí mismos enviando el nombre y versión. Nmap
+      compara el mensaje recibido con mensajes conocidos en el fichero <i>nmap-service-probes</i>. Si hay alguna
+      coincidencia, el servicio y versión quedan identificados y aquí se termina. En algunas ocasiones solo se puede
+      identificar el servicio, pero no la versión. En ese caso nmap continúa.
+    </p>
+
+    <p>
+      Nmap empieza a enviar ahora pruebas (tanto para puertos UDP como TCP). Ya que la mayoría de veces el servicio
+      y el puerto tienen relación, nmap envía pruebas específicas para ese servicio basándose en el número de puerto.
+      Inspeccionando las respuestas y comparando otra vez con una base de datos nmap puede identificar el servicio y la
+      versión. También puede suceder que solo se averigüe el servicio, pero no la versión. En tal caso, nmap selecciona
+      nuevas pruebas para ese servicio.
+    </p>
+
+    <p>
+      Si aún así nmap no detecta el servicio o versión, seguirá probando con otras técnicas más complejas que no voy a
+      describir aquí para no hacerlo muy largo. Aunque normalmente, el servicio y versión suelen quedar identificados.
+    </p>
+  </section>
+
+  <section>
+    <h2>Detección del SO (fase seis)</h2>
+
+    <p>
+      Al igual que nmap puede detectar que aplicación y versión está escuchando por un puerto, nmap también puede
+      detectar que sistema operativo está ejecutando la máquina objetivo.
+    </p>
+
+    <p>
+      Como siempre, lo descubre enviando paquetes y obteniendo respuestas, analizándolas y comparando con una gran base
+      de datos (el fichero <i>nmap-os-db</i>). En este caso envía 16 pruebas TCP, UDP y ICMP especialmente diseñadas
+      para distinguir el sistema operativo, modificando los bits o campos de las cabeceras. No voy a detallar el
+      funcionamiento porque requiere muchos conocimientos que no son necesarios para usar el comando, y tomaría mucho
+      texto explicarlo. En el link que he dejado al principio, viene explicado si tienes curiosidad y tiempo.
+    </p>
+
+    <p>
+      En esta fase además nmap puede detectar que tipo de dispositivo es, si una impresora, un enrutador, un cortafuegos
+      o un dispositivo de uso general entre otros.
+    </p>
+  </section>
+
+  <section>
+    <h2>Rendimiento</h2>
+
+    <p>
+      Enviar paquetes, esperar por las respuestas, hacer reintentos, tiempos de espera que se terminan... hacen que un
+      escaneo pueda llegar a prolongarse hasta una semana.
+    </p>
+
+    <p>
+      Nmap admite opciones de mejora de rendimiento y además ofrece unas plantillas listas para usar con valores
+      preestablecidos para estas opciones. Estas plantillas se utilizan usando el parametro <strong>-TX</strong>, donde
+      X es un número desde el 1 (escaneo paranoico, muy lento) hasta 5 (escaneo insano, muy rápido). Por defecto nmap
+      usa la plantilla -T3.
+    </p>
+
+    <p>
+      Entre las opciones que se permiten cambiar, está el número de pruebas en paralelo que nmap puede enviar, el número
+      de reintentos, los tiempos de espera, el tamaño de los grupos que nmap crea con las máquinas para organizarse, y
+      más.
+    </p>
+  </section>
+
+  <footer>
+    <h2>Final</h2>
+
+    <p>
+      Con esto llegamos al final de este artículo. Espero que hayas aprendido y descubierto las triquiñuelas que usa
+      nmap para escanear redes y que variedad de funcionalidades ofrece. Hay muchas más cosas que aprender y explicar,
+      pero se haría eterno. Sé que no he puesto muchos ejemplos de como ejecutar el comando, pero es que simplemente
+      consiste en pasarle los parámetros indicados durante el artículo para activar las funciones.
+    </p>
+
+    <p>
+      Queda de tu mano seguir explorando y aprendiendo a usar este comando con infinitas posibilidades. Y recuerda, se
+      responsable.
+    </p>
+  </footer>
+</article>

@@ -15,6 +15,10 @@ const routes: Routes = [
         path: 'if',
         loadChildren: () => import('../if/if.module').then((m) => m.IfModule),
       },
+      {
+        path: 'nmap',
+        loadChildren: () => import('../nmap/nmap.module').then((m) => m.NmapModule),
+      },
     ],
   },
 ];
