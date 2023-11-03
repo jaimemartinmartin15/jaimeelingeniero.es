@@ -599,4 +599,45 @@
       </p>
     </section>
   </section>
+
+  <!-- TODO  ¿ add section about performance and explain templates that use params to paralelize and so on ? -->
+
+  <section>
+    <h2>Detección de versiones (fase cinco)</h2>
+
+    <p>
+      Cuando nmap detecta que un puerto está abierto, reporta que servicio <i>es probable</i> que se ejecute en dicho
+      puerto basándose en el número y un fichero con información llamado <i>nmap-services</i>. Pero nada evita que un
+      administrador abra el puerto para dar servicio a cualquier otro programa, y que por lo tanto nmap no esté en lo
+      cierto. También puede ser que más de un servicio use el mismo número de puerto, en tal caso, nmap no podría decir
+      cual de los posibles servicios está escuchando por ahí.
+    </p>
+
+    <p>
+      Esta fase se encarga de resolver estas incertidumbres que surgen, y de determinar la versión y nombre del programa
+      que escucha por el puerto. Ahora veremos un poco cómo se descubren estos datos para los puertos que se detectan
+      como abiertos o incluso <span class="app-no-break">abierto|filtrado</span>.
+    </p>
+
+    <p>
+      Si el puerto es TCP, nmap comienza estableciendo una conexión con la máquina objetivo. Después espera
+      aproximadamente cinco segundos. Muchos servicios se identifican a sí mismos enviando el nombre y versión. Nmap
+      compara el mensaje recibido con mensajes conocidos en el fichero <i>nmap-service-probes</i>. Si hay alguna
+      coincidencia, el servicio y versión quedan identificados y aquí se termina. En algunas ocasiones solo se puede
+      identificar el servicio, pero no la versión. En ese caso nmap continúa.
+    </p>
+
+    <p>
+      Nmap empieza a enviar ahora pruebas (tanto para puertos UDP como TCP). Ya que la mayoría de veces el servicio
+      y el puerto tienen relación, nmap envía pruebas específicas para ese servicio basándose en el número de puerto.
+      Inspeccionando las respuestas y comparando otra vez con una base de datos nmap puede identificar el servicio y la
+      versión. También puede suceder que solo se averigüe el servicio, pero no la versión. En tal caso, nmap selecciona
+      nuevas pruebas para ese servicio.
+    </p>
+
+    <p>
+      Si aún así nmap no detecta el servicio o versión, seguirá probando con otras técnicas más complejas que no voy a
+      describir aquí para no hacerlo muy largo. Aunque normalmente, el servicio y versión suelen quedar identificados.
+    </p>
+  </section>
 </article>
