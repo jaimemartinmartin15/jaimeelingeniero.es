@@ -14,7 +14,7 @@ const routes: Routes = [
       },
       headerPrint: {
         author: 'Jaime Martín Martín',
-        date: '19 de octubre de 2023', // TODO adjust date
+        date: '3 de noviembre de 2023',
       },
     },
   },
