@@ -86,7 +86,6 @@
     <p>
       Una forma más de especificar objetivos es indicarle a nmap que genere un número de <strong>IP aleatorias</strong>.
       Si le pasamos como argumento un 0, generaría infinitas direcciones IP (se quedaría escaneando infinitamente).
-      <!-- TODO check if it is possible generating random ip in a range. Use the option that does not scan, just prints the ips -->
     </p>
 
     <app-terminal-code>
@@ -604,8 +603,6 @@
     </section>
   </section>
 
-  <!-- TODO  ¿ add section about performance and explain templates that use params to paralelize and so on ? -->
-
   <section>
     <h2>Detección de versiones (fase cinco)</h2>
 
@@ -664,6 +661,28 @@
     <p>
       En esta fase además nmap puede detectar que tipo de dispositivo es, si una impresora, un enrutador, un cortafuegos
       o un dispositivo de uso general entre otros.
+    </p>
+  </section>
+
+  <section>
+    <h2>Rendimiento</h2>
+
+    <p>
+      Enviar paquetes, esperar por las respuestas, hacer reintentos, tiempos de espera que se terminan... hacen que un
+      escaneo pueda llegar a prolongarse hasta una semana.
+    </p>
+
+    <p>
+      Nmap admite opciones de mejora de rendimiento y además ofrece unas plantillas listas para usar con valores
+      preestablecidos para estas opciones. Estas plantillas se utilizan usando el parametro <strong>-TX</strong>, donde
+      X es un número desde el 1 (escaneo paranoico, muy lento) hasta 5 (escaneo insano, muy rápido). Por defecto nmap
+      usa la plantilla -T3.
+    </p>
+
+    <p>
+      Entre las opciones que se permiten cambiar, está el número de pruebas en paralelo que nmap puede enviar, el número
+      de reintentos, los tiempos de espera, el tamaño de los grupos que nmap crea con las máquinas para organizarse, y
+      más.
     </p>
   </section>
 
