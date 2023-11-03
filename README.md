@@ -41,7 +41,7 @@ There is a (private) [Trello board](https://trello.com/b/gnJWWpVh/jaime-el-ingen
 ## General reminders to build new feature
 
 * Add new `<url>` entry to [sitemap.xml](./sitemap.xml)
-* Check the robots.txt if necessary
+* Check the [robots.txt](./robots.txt) if necessary
 * In routing module:
   * Add title for the new page
   * Add router data metaTags (description and keywords)
