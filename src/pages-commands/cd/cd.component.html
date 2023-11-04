@@ -1,0 +1,183 @@
+<article>
+  <div class="page-header">
+    <h1 class="title">Cd</h1>
+    <a class="link-command" href="https://man7.org/linux/man-pages/man1/cd.1p.html" target="_blank" rel="noopener">
+      man cd ➡️
+    </a>
+  </div>
+
+  <section>
+    <p>
+      El comando cd permite cambiar de directorio cuando estás usando la terminal. En inglés significa <strong> change
+        directory</strong>, de ahí que se llame cd.
+    </p>
+
+    <p>
+      Su uso es realmente sencillo. Simplemente escribe el comando e indícale la ruta de la carpeta a la que quieres ir.
+    </p>
+
+    <app-terminal-code>
+      <span terminal-code-command>cd ruta/a-una-carpeta/del/sistema-de-ficheros</span>
+    </app-terminal-code>
+
+    <p>
+      Las rutas pueden ser de dos tipos:
+    </p>
+
+    <ul>
+      <li>
+        <strong>absolutas</strong>: empiezan con "/" y dan la ubicación de la carpeta desde el directorio raíz.
+      </li>
+      <li>
+        <strong>relativas</strong>: no empiezan con "/" y dan la ubicación de la carpeta desde el directorio actual.
+      </li>
+    </ul>
+
+    <img class="directory-tree" appImageFullScreen src="assets/pages-commands/cd/directory_tree.png" alt="Árbol de directorios">
+
+    <p>
+      Existe en cada directorio otros dos "ocultos" que hacen referencia al directorio en sí y al directorio padre.
+      Estos son los directorios <strong>.</strong> (un punto) y <strong>..</strong> (dos puntos seguidos)
+      respectivamente.
+    </p>
+
+    <app-terminal-code>
+      <div terminal-code-command>cd ../directorio-hermano-del-actual</div>
+      <div terminal-code-command>cd ./directorio-hijo</div>
+      <div terminal-code-command>cd directorio-hijo</div>
+      <div terminal-code-command>cd /directorio/desde/la-raiz</div>
+    </app-terminal-code>
+
+    <p>
+      El segundo y el tercer comando son equivalentes.
+    </p>
+
+    <p>
+      Otra opción más que tenemos para referirnos a rutas relativas es <strong>~</strong> (la virgulilla). Esto es lo
+      mismo que indicar la ruta de forma relativa a nuestro directorio de usuario.
+    </p>
+
+    <app-terminal-code>
+      <div terminal-code-command>cd ~/documentos</div>
+      <div terminal-code-command>pwd</div>
+      <div terminal-code-output>/home/jaime/documentos</div>
+    </app-terminal-code>
+
+    <p>
+      El comando pwd nos indica la ruta actual en la que nos encontramos.
+      <!-- TODO add link to pwd command -->
+    </p>
+
+    <p>
+      Si ejecutamos el comando <strong>sin pasarle ninguna ruta</strong>, nos lleva al directorio de nuestro usuario, al
+      home del usuario.
+    </p>
+
+    <app-terminal-code>
+      <div terminal-code-command>cd</div>
+      <div terminal-code-command>pwd</div>
+      <div terminal-code-output>/home/jaime</div>
+    </app-terminal-code>
+
+    <p>
+      También podemos pasarle un <strong>guion como ruta</strong>. En este caso, nos lleva al último directorio en el
+      que estábamos.
+    </p>
+
+    <app-terminal-code>
+      <div terminal-code-command>cd /directorio1/hijo</div>
+      <div terminal-code-command>cd /directorio2</div>
+      <div terminal-code-command>cd -</div>
+      <div terminal-code-output>/directorio1/hijo</div>
+    </app-terminal-code>
+
+    <p>
+      <!-- TODO add link to mkdir command -->
+      Otro caso de uso más que se me ocurre, es justo después de crear una carpeta con el comando mkdir. En este caso
+      podemos usar la ruta <strong>!$</strong> o <strong>$_</strong>, que significa, el último argumento del comando
+      anterior. La diferencia entre estas dos, es que la primera expande la expresión y queda reflejada en el historial
+      de comandos, mientras que con la segunda no queda reflejada. Así podemos crear la carpeta y luego movernos a ella:
+    </p>
+
+    <app-terminal-code>
+      <div terminal-code-command>mkdir -p una/carpeta/muy/larga/y/tediosa/de/teclear</div>
+      <div terminal-code-command>cd !$</div>
+      <div terminal-code-output>cd una/carpeta/muy/larga/y/tediosa/de/teclear</div>
+    </app-terminal-code>
+
+    <p>
+      La opción !$ imprime como salida el comando que se va a ejecutar después de la expansión. La opción $_ no lo hace.
+    </p>
+  </section>
+
+  <section>
+    <h2>Otras opciones</h2>
+
+    <p>
+      El comando cd acepta dos opciones delante de la ruta. Estas son <strong class="app-no-break">-P</strong> y <strong
+        class="app-no-break">-L</strong>. Por defecto, si no se indica nada, se usa -L.
+    </p>
+
+    <p>
+      Estas opciones están relacionadas con los enlaces simbólicos. Creo que lo más fácil para ver como funciona es con
+      un ejemplo. Tenemos estos directorios:
+    </p>
+
+    <app-terminal-code>
+      <span terminal-code-command>ls -l</span>
+      <pre terminal-code-output>drwxrwxr-x 3 jaime jaime 4096 nov  4 11:42 test1
+drwxrwxr-x 2 jaime jaime 4096 nov  4 11:55 test2
+drwxrwxr-x 3 jaime jaime 4096 nov  4 13:58 test3
+lrwxrwxrwx 1 jaime jaime   21 nov  4 14:00 test4 -> test1/hijo1/carpeta1/</pre>
+    </app-terminal-code>
+
+    <p>
+      El último es un enlace simbólico, que apunta a una carpeta dentro de test1. Si simplemente nos movemos a test4 con
+      el comando cd, pasa esto:
+    </p>
+
+    <app-terminal-code>
+      <div terminal-code-command>cd test4</div>
+      <div terminal-code-command>pwd</div>
+      <div terminal-code-output>/home/jaime/test/test4</div>
+    </app-terminal-code>
+
+    <p>
+      Ahora vamos a usar la opción -P y a ver que pasa:
+    </p>
+
+    <app-terminal-code>
+      <div terminal-code-command>cd -P test4</div>
+      <div terminal-code-command>pwd</div>
+      <div terminal-code-output>/home/jaime/test/test1/hijo1/carpeta1</div>
+    </app-terminal-code>
+
+    <p>
+      Por defecto, los enlaces simbólicos no se procesan. Pero si ponemos la opción -P sí se procesan. Vamos a ver la
+      diferencia con otro ejemplo:
+    </p>
+
+    <app-terminal-code>
+      <div terminal-code-command>cd test4/../</div>
+      <div terminal-code-command>pwd</div>
+      <div terminal-code-output>/home/jaime/test</div>
+    </app-terminal-code>
+
+    <p>
+      Y ahora con la opción -P:
+    </p>
+
+    <app-terminal-code>
+      <div terminal-code-command>cd -P test4/../</div>
+      <div terminal-code-command>pwd</div>
+      <div terminal-code-output>/home/jaime/test/test1/hijo1</div>
+    </app-terminal-code>
+
+    <p>
+      ¿Se ve la diferencia? En el primer ejemplo cambiamos de directorio al link simbólico y volvemos al directorio
+      padre. Por lo tanto nos quedamos en el mismo directorio en el que estábamos. Sin embargo, en el segundo ejemplo,
+      primero se procesa el enlace simbólico, llevándonos a una carpeta muy anidada, y luego subiendo un nivel al
+      directorio padre. Por lo tanto el directorio final es diferente.
+    </p>
+  </section>
+</article>
