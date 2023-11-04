@@ -110,5 +110,74 @@
     </p>
   </section>
 
-  <!-- TODO section about -P and -L (default) options -->
+  <section>
+    <h2>Otras opciones</h2>
+
+    <p>
+      El comando cd acepta dos opciones delante de la ruta. Estas son <strong class="app-no-break">-P</strong> y <strong
+        class="app-no-break">-L</strong>. Por defecto, si no se indica nada, se usa -L.
+    </p>
+
+    <p>
+      Estas opciones están relacionadas con los enlaces simbólicos. Creo que lo más fácil para ver como funciona es con
+      un ejemplo. Tenemos estos directorios:
+    </p>
+
+    <app-terminal-code>
+      <span terminal-code-command>ls -l</span>
+      <pre terminal-code-output>drwxrwxr-x 3 jaime jaime 4096 nov  4 11:42 test1
+drwxrwxr-x 2 jaime jaime 4096 nov  4 11:55 test2
+drwxrwxr-x 3 jaime jaime 4096 nov  4 13:58 test3
+lrwxrwxrwx 1 jaime jaime   21 nov  4 14:00 test4 -> test1/hijo1/carpeta1/</pre>
+    </app-terminal-code>
+
+    <p>
+      El último es un enlace simbólico, que apunta a una carpeta dentro de test1. Si simplemente nos movemos a test4 con
+      el comando cd, pasa esto:
+    </p>
+
+    <app-terminal-code>
+      <div terminal-code-command>cd test4</div>
+      <div terminal-code-command>pwd</div>
+      <div terminal-code-output>/home/jaime/test/test4</div>
+    </app-terminal-code>
+
+    <p>
+      Ahora vamos a usar la opción -P y a ver que pasa:
+    </p>
+
+    <app-terminal-code>
+      <div terminal-code-command>cd -P test4</div>
+      <div terminal-code-command>pwd</div>
+      <div terminal-code-output>/home/jaime/test/test1/hijo1/carpeta1</div>
+    </app-terminal-code>
+
+    <p>
+      Por defecto, los enlaces simbólicos no se procesan. Pero si ponemos la opción -P sí se procesan. Vamos a ver la
+      diferencia con otro ejemplo:
+    </p>
+
+    <app-terminal-code>
+      <div terminal-code-command>cd test4/../</div>
+      <div terminal-code-command>pwd</div>
+      <div terminal-code-output>/home/jaime/test</div>
+    </app-terminal-code>
+
+    <p>
+      Y ahora con la opción -P:
+    </p>
+
+    <app-terminal-code>
+      <div terminal-code-command>cd -P test4/../</div>
+      <div terminal-code-command>pwd</div>
+      <div terminal-code-output>/home/jaime/test/test1/hijo1</div>
+    </app-terminal-code>
+
+    <p>
+      ¿Se ve la diferencia? En el primer ejemplo cambiamos de directorio al link simbólico y volvemos al directorio
+      padre. Por lo tanto nos quedamos en el mismo directorio en el que estábamos. Sin embargo, en el segundo ejemplo,
+      primero se procesa el enlace simbólico, llevándonos a una carpeta muy anidada, y luego subiendo un nivel al
+      directorio padre. Por lo tanto el directorio final es diferente.
+    </p>
+  </section>
 </article>
