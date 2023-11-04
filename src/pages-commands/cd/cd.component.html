@@ -90,5 +90,25 @@
       <div terminal-code-command>cd -</div>
       <div terminal-code-output>/directorio1/hijo</div>
     </app-terminal-code>
+
+    <p>
+      <!-- TODO add link to mkdir command -->
+      Otro caso de uso más que se me ocurre, es justo después de crear una carpeta con el comando mkdir. En este caso
+      podemos usar la ruta <strong>!$</strong> o <strong>$_</strong>, que significa, el último argumento del comando
+      anterior. La diferencia entre estas dos, es que la primera expande la expresión y queda reflejada en el historial
+      de comandos, mientras que con la segunda no queda reflejada. Así podemos crear la carpeta y luego movernos a ella:
+    </p>
+
+    <app-terminal-code>
+      <div terminal-code-command>mkdir -p una/carpeta/muy/larga/y/tediosa/de/teclear</div>
+      <div terminal-code-command>cd !$</div>
+      <div terminal-code-output>cd una/carpeta/muy/larga/y/tediosa/de/teclear</div>
+    </app-terminal-code>
+
+    <p>
+      La opción !$ imprime como salida el comando que se va a ejecutar después de la expansión. La opción $_ no lo hace.
+    </p>
   </section>
+
+  <!-- TODO section about -P and -L (default) options -->
 </article>
