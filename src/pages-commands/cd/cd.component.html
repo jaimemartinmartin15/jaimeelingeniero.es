@@ -7,6 +7,77 @@
   </div>
 
   <section>
-    <!-- <p>TODO</p> -->
+    <p>
+      El comando cd permite cambiar de directorio cuando estás usando la terminal. En inglés significa <strong> change
+        directory</strong>, de ahí que se llame cd.
+    </p>
+
+    <p>
+      Su uso es realmente sencillo. Simplemente escribe el comando e indícale la ruta de la carpeta a la que quieres ir.
+    </p>
+
+    <app-terminal-code>
+      <span terminal-code-command>cd ruta/a-una-carpeta/del/sistema-de-ficheros</span>
+    </app-terminal-code>
+
+    <p>
+      Las rutas pueden ser de dos tipos:
+    </p>
+
+    <ul>
+      <li>
+        <strong>absolutas</strong>: empiezan con "/" y dan la ubicación de la carpeta desde el directorio raíz.
+      </li>
+      <li>
+        <strong>relativas</strong>: no empiezan con "/" y dan la ubicación de la carpeta desde el directorio actual.
+      </li>
+    </ul>
+
+    <!-- TODO poner imagen explicando ejemplo con un arbol ? -->
+
+    <p>
+      Existe en cada directorio otros dos "ocultos" que hacen referencia al directorio en sí y al directorio padre.
+      Estos son los directorios <strong>.</strong> (un punto) y <strong>..</strong> (dos puntos seguidos)
+      respectivamente.
+    </p>
+
+    <app-terminal-code>
+      <div terminal-code-command>cd ../directorio-hermano-del-actual</div>
+      <div terminal-code-command>cd ./directorio-hijo</div>
+      <div terminal-code-command>cd directorio-hijo</div>
+      <div terminal-code-command>cd /directorio/desde/la-raiz</div>
+    </app-terminal-code>
+
+    <p>
+      El segundo y el tercer comando son equivalentes.
+    </p>
+
+    <p>
+      Si ejecutamos el comando <strong>sin pasarle ninguna ruta</strong>, nos lleva al directorio de nuestro usuario, al
+      home del usuario.
+    </p>
+
+    <app-terminal-code>
+      <div terminal-code-command>cd</div>
+      <div terminal-code-command>pwd</div>
+      <div terminal-code-output>/home/jaime</div>
+    </app-terminal-code>
+
+    <p>
+      El comando pwd nos indica la ruta actual en la que nos encontramos.
+      <!-- TODO add link to pwd command -->
+    </p>
+
+    <p>
+      También podemos pasarle un <strong>guion como ruta</strong>. En este caso, nos lleva al último directorio en el
+      que estábamos.
+    </p>
+
+    <app-terminal-code>
+      <div terminal-code-command>cd /directorio1/hijo</div>
+      <div terminal-code-command>cd /directorio2</div>
+      <div terminal-code-command>cd -</div>
+      <div terminal-code-output>/directorio1/hijo</div>
+    </app-terminal-code>
   </section>
 </article>
