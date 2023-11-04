@@ -53,6 +53,22 @@
     </p>
 
     <p>
+      Otra opción más que tenemos para referirnos a rutas relativas es <strong>~</strong> (la virgulilla). Esto es lo
+      mismo que indicar la ruta de forma relativa a nuestro directorio de usuario.
+    </p>
+
+    <app-terminal-code>
+      <div terminal-code-command>cd ~/documentos</div>
+      <div terminal-code-command>pwd</div>
+      <div terminal-code-output>/home/jaime/documentos</div>
+    </app-terminal-code>
+
+    <p>
+      El comando pwd nos indica la ruta actual en la que nos encontramos.
+      <!-- TODO add link to pwd command -->
+    </p>
+
+    <p>
       Si ejecutamos el comando <strong>sin pasarle ninguna ruta</strong>, nos lleva al directorio de nuestro usuario, al
       home del usuario.
     </p>
@@ -62,11 +78,6 @@
       <div terminal-code-command>pwd</div>
       <div terminal-code-output>/home/jaime</div>
     </app-terminal-code>
-
-    <p>
-      El comando pwd nos indica la ruta actual en la que nos encontramos.
-      <!-- TODO add link to pwd command -->
-    </p>
 
     <p>
       También podemos pasarle un <strong>guion como ruta</strong>. En este caso, nos lleva al último directorio en el
