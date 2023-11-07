@@ -6,6 +6,7 @@
 #
 
 # NOVIEMBRE 2023
+07/11/2023;0
 06/11/2023;0
 05/11/2023;6;palevioletred;Corresponde al sábado y el domingo.
 04/11/2023;0
