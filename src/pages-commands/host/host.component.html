@@ -54,9 +54,9 @@ example.com mail is handled by 0 .</pre>
 
     <p>
       Los <a routerLink="/redes/dns" fragment="rr-section">registros de recursos</a> que se almacenan en la base de
-      datos tienen una clase y un tipo. Por defecto se obtiene la información de los registros con clase IN y tipos A,
-      AAAA y MX para la resolución directa, y el registro PTR para resolución inversa, pero también podemos especificar
-      otros con las opciones <strong>-c</strong> y <strong>-t</strong>.
+      datos tienen una clase y un tipo. Hemos visto que por defecto se obtiene la información de los registros con clase
+      IN y tipos A, AAAA y MX para la resolución directa, y el registro PTR para resolución inversa, pero también
+      podemos especificar otros con las opciones <strong>-c</strong> y <strong>-t</strong>.
     </p>
 
     <app-terminal-code>
@@ -65,7 +65,8 @@ example.com mail is handled by 0 .</pre>
     </app-terminal-code>
 
     <p>
-      Para obtener todos los tipos al mismo tiempo, podemos usar la opción <strong>-a</strong> (ANY):
+      Para obtener todos los tipos al mismo tiempo, podemos usar la opción <strong>-a</strong>, que equivale a
+      <strong>-t ANY</strong>:
     </p>
 
     <app-terminal-code>
@@ -93,13 +94,13 @@ Received 383 bytes from 127.0.0.53#53 in 76 ms</pre>
     </app-terminal-code>
 
     <p>
-      La opción -a activa también el modo verbose.
+      La opción -a activa también el modo verbose (opción <strong>-v</strong>).
     </p>
 
     <p>
-      Con la opción <strong>-C</strong> podemos obtener todos los registros SOA de la zona que existen en los diferentes
-      servidores que la sirven (registros NS). Con la opción <strong>-4</strong> forzamos sólo a usar IPv4. Para usar
-      sólo IPv6 sería la opción <strong>-6</strong>.
+      Con la opción <strong>-C</strong> podemos obtener los registros SOA de cada uno de los diferentes servidores
+      autoritativos que sirven la zona (registros NS). Con la opción <strong>-4</strong> forzamos sólo a usar IPv4. Para
+      usar sólo IPv6 sería la opción <strong>-6</strong>.
     </p>
 
     <app-terminal-code>
@@ -143,7 +144,7 @@ jaimeelingeniero.es has address 52.84.66.68</pre>
   </section>
 
   <section>
-    <h2>Consultas recursivas</h2>
+    <h2>Consultas iterativas</h2>
 
     <p>
       En esta sección vamos a ver en directo cómo funciona el sistema DNS, es decir, las peticiones que hacen los
