@@ -23,6 +23,10 @@ const routes: Routes = [
         path: 'cd',
         loadChildren: () => import('../cd/cd.module').then((m) => m.CdModule),
       },
+      {
+        path: 'host',
+        loadChildren: () => import('../host/host.module').then((m) => m.HostModule),
+      },
     ],
   },
 ];
