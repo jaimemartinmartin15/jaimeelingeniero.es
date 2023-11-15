@@ -19,6 +19,14 @@ const routes: Routes = [
         path: 'nmap',
         loadChildren: () => import('../nmap/nmap.module').then((m) => m.NmapModule),
       },
+      {
+        path: 'cd',
+        loadChildren: () => import('../cd/cd.module').then((m) => m.CdModule),
+      },
+      {
+        path: 'host',
+        loadChildren: () => import('../host/host.module').then((m) => m.HostModule),
+      },
     ],
   },
 ];

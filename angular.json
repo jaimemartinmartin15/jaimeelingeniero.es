@@ -53,6 +53,11 @@
                 "output": "/assets/pages-commands/nmap/"
               },
               {
+                "glob": "**/*",
+                "input": "src/pages-commands/cd/assets",
+                "output": "/assets/pages-commands/cd/"
+              },
+              {
                 "glob": "verbs.json",
                 "input": "src/pages-english/tenses/assets",
                 "output": "/assets/no-cached/pages-english/tenses/"

@@ -118,7 +118,13 @@
     <loc>https://www.jaimeelingeniero.es/comandos</loc>
   </url>
   <url>
+    <loc>https://www.jaimeelingeniero.es/comandos/cd</loc>
+  </url>
+  <url>
     <loc>https://www.jaimeelingeniero.es/comandos/find</loc>
+  </url>
+  <url>
+    <loc>https://www.jaimeelingeniero.es/comandos/host</loc>
   </url>
   <url>
     <loc>https://www.jaimeelingeniero.es/comandos/if</loc>
