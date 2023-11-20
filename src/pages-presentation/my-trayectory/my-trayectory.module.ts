@@ -1,12 +1,10 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
-import { MyTrayectoryComponent } from './my-trayectory.component';
+import { NgModule } from '@angular/core';
 import { MyTrayectoryRoutingModule } from './my-trayectory-routing.module';
-import { TrayectoryPanelModule } from './trayectory-panel/trayectory-panel.module';
+import { MyTrayectoryComponent } from './my-trayectory.component';
 
 @NgModule({
-  imports: [CommonModule, MyTrayectoryRoutingModule, TrayectoryPanelModule],
+  imports: [CommonModule, MyTrayectoryRoutingModule],
   declarations: [MyTrayectoryComponent],
 })
 export class MyTrayectoryModule {}
