@@ -1,3 +1,36 @@
+@import "../../shared/styles/colors";
+
 :host {
     display: block;
+}
+
+.back--blue {
+    background-color: $color-blue;
+    height: 40vh;
+}
+
+.back--white {
+    background-color: #fcfcfc;
+    height: 60vh;
+}
+
+.content {
+    position: fixed;
+    top: calc(10vw / 2);
+    bottom: calc(10vw / 2);
+    left: calc((100vw - min(1200px, 90%)) / 2);
+    width: min(1200px, 90%);
+    background-color: white;
+    border-radius: 5px;
+}
+
+@media (max-width: 575px) {
+    .content {
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        width: 100vw;
+        border-radius: 0;
+    }
 }
