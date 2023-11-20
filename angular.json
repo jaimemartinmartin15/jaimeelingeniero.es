@@ -39,6 +39,11 @@
               },
               {
                 "glob": "**/*",
+                "input": "src/pages-presentation/my-trayectory/assets",
+                "output": "/assets/pages-presentation/my-trayectory/"
+              },
+              {
+                "glob": "**/*",
                 "input": "src/pages-network/dns/assets",
                 "output": "/assets/pages-network/dns/"
               },
