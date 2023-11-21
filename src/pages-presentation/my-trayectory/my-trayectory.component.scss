@@ -71,7 +71,7 @@
             h2 {
                 font-size: 1.5rem;
                 margin: 5px 0;
-                color: #7575db;
+                color: $color-blue;
             }
 
             .location,
@@ -104,6 +104,13 @@
                 font-size: 0.9rem;
             }
         }
+
+        .references p {
+            border: 1px solid black;
+            border-radius: 5px;
+            padding: 10px;
+            font-size: 0.85rem;
+        }
     }
 }
 
@@ -114,6 +121,7 @@
 
         figure {
             width: 100%;
+            position: static;
 
             img {
                 max-height: 360px;
