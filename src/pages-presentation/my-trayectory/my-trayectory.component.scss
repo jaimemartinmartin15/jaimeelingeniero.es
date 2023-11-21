@@ -4,32 +4,33 @@
     display: block;
 }
 
-.back--blue {
-    background-color: $color-blue;
+.background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
     height: 40vh;
-}
-
-.back--white {
-    background-color: #fcfcfc;
-    height: 60vh;
+    background-color: $color-blue;
 }
 
 .content {
-    position: fixed;
-    top: calc(10vw / 2);
-    bottom: 0;
-    left: calc((100vw - min(850px, 90%)) / 2);
-    width: min(850px, 90%);
+    position: relative;
+    max-width: 1050px;
+    margin: 150px auto 0;
     background-color: white;
     border-radius: 5px;
     display: flex;
-    gap: 30px;
+    gap: 10px;
+    padding: 20px;
+    box-sizing: border-box;
 
     figure {
         flex-shrink: 0;
+        align-self: flex-start;
+        position: sticky;
+        top: 10vh;
         width: 30%;
         margin: 0;
-        padding: 20px;
 
         img {
             width: 100%;
@@ -51,26 +52,23 @@
             }
         }
     }
-}
 
-main {
-    flex-grow: 1;
+    .cv {
+        flex-grow: 1;
+    }
 }
 
 @media (max-width: 575px) {
     .content {
-        top: 0;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        width: 100vw;
-        height: 100vh;
         border-radius: 0;
         flex-direction: column;
-        overflow: auto;
 
         figure {
-            display: none;
+            width: 100%;
+
+            img {
+                max-height: 360px;
+            }
         }
     }
 }
