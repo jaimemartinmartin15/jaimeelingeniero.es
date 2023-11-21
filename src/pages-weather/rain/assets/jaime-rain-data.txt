@@ -6,7 +6,7 @@
 #
 
 # NOVIEMBRE 2023
-20/11/2023;1;mediumvioletred;Junto con el acumulado de otros días. La niebla fue muy meona.
+20/11/2023;1;mediumvioletred;Junto con el acumulado de otros días. La niebla fue muy meona. # 0.7 de otros días más 0.3 de hoy
 19/11/2023;0
 18/11/2023;0
 17/11/2023;0
@@ -22,9 +22,9 @@
 07/11/2023;0
 06/11/2023;1
 05/11/2023;2
-04/11/2023;3 # 3.2
+04/11/2023;3
 03/11/2023;1
-02/11/2023;2 # 2.5
+02/11/2023;2
 01/11/2023;12;deepskyblue;Estos días además hacía mucho, mucho viento.
 
 # OCTUBRE 2023
