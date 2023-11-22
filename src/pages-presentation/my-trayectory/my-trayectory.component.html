@@ -12,12 +12,20 @@
 
   <main class="cv">
     <nav>
-      <a class="app-link" routerLink="./" fragment="sumario">Sumario</a>
-      <a class="app-link" routerLink="./" fragment="experiencia">Experiencia</a>
-      <a class="app-link" routerLink="./" fragment="educacion">Educación</a>
-      <a class="app-link" routerLink="./" fragment="idiomas">Idiomas</a>
-      <a class="app-link" routerLink="./" fragment="tecnologias">Tecnologías</a>
-      <a class="app-link" routerLink="./" fragment="referencias">Referencias</a>
+      <button (click)="toggleNavigationBar()" class="burger">
+        <div></div>
+        <div></div>
+        <div></div>
+      </button>
+
+      <div class="links" (click)="toggleNavigationBar()" #links>
+        <a class="app-link" routerLink="./" fragment="sumario">Sumario</a>
+        <a class="app-link" routerLink="./" fragment="experiencia">Experiencia</a>
+        <a class="app-link" routerLink="./" fragment="educacion">Educación</a>
+        <a class="app-link" routerLink="./" fragment="idiomas">Idiomas</a>
+        <a class="app-link" routerLink="./" fragment="tecnologias">Tecnologías</a>
+        <a class="app-link" routerLink="./" fragment="referencias">Referencias</a>
+      </div>
     </nav>
 
     <article id="sumario">
