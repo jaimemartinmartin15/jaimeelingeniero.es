@@ -56,6 +56,17 @@
     .cv {
         flex-grow: 1;
 
+        nav {
+            position: sticky;
+            top: -1px;
+            background-color: white;
+            padding: 20px;
+            z-index: 999;
+            display: flex;
+            justify-content: space-around;
+            gap: 10px;
+        }
+
         article {
             h1 {
                 color: $color-orange;
@@ -127,14 +138,14 @@
             }
         }
 
-        .tech div {
+        #tecnologias div {
             display: flex;
             align-items: center;
             gap: 10px;
             margin-bottom: 10px;
         }
 
-        .references p {
+        #referencias p {
             border: 1px solid black;
             border-radius: 5px;
             padding: 10px;
