@@ -13,6 +13,32 @@
     background-color: $color-blue;
 }
 
+.bullet {
+    display: inline-block;
+    width: 15px;
+    height: 15px;
+    position: relative;
+    border-radius: 50%;
+    margin-right: 5px;
+    background-color: $color-blue;
+
+    &--half::after {
+        content: "";
+        width: 13px;
+        height: 13px;
+        position: absolute;
+        left: 50%;
+        top: 1px;
+        background-color: white;
+        clip-path: circle(50% at left);
+    }
+
+    &--empty {
+        background-color: transparent;
+        border: 1px solid $color-blue;
+    }
+}
+
 .content {
     position: relative;
     max-width: 1050px;
@@ -118,38 +144,19 @@
             div {
                 margin-top: 1px;
                 margin-bottom: -5px;
-
-                .bullet {
-                    display: inline-block;
-                    width: 15px;
-                    height: 15px;
-                    position: relative;
-                    border-radius: 50%;
-                    margin-right: 5px;
-                    background-color: $color-blue;
-
-                    &--half::after {
-                        content: "";
-                        width: 13px;
-                        height: 13px;
-                        position: absolute;
-                        left: 50%;
-                        top: 1px;
-                        background-color: white;
-                        clip-path: circle(50% at left);
-                    }
-
-                    &--empty {
-                        background-color: transparent;
-                        border: 1px solid $color-blue;
-                    }
-                }
             }
 
             .note {
                 display: inline-block;
                 font-size: 0.7rem;
             }
+        }
+
+        .tech {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 10px;
         }
 
         .references p {
