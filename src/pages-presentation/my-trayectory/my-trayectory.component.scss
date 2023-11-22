@@ -127,20 +127,22 @@
             }
         }
 
-        .idiom {
-            font-weight: bold;
-            display: flex;
-            gap: 7px;
-            margin-bottom: 20px;
-
-            div {
+        #idiomas {
+            &>div {
                 display: flex;
-                flex-direction: column;
-                gap: 2px;
+                gap: 60px;
 
-                .note {
-                    display: inline-block;
-                    font-size: 0.7rem;
+                .idiom {
+                    font-weight: bold;
+
+                    div {
+                        margin-bottom: 5px;
+                    }
+
+                    .note {
+                        display: inline-block;
+                        font-size: 0.8rem;
+                    }
                 }
             }
         }
@@ -206,6 +208,13 @@
                 }
             }
         }
+    }
+}
+
+@media (max-width: 768px) {
+    .content .cv #idiomas div {
+        flex-direction: column;
+        gap: 10px;
     }
 }
 
