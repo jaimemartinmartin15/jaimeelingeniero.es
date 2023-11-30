@@ -60,7 +60,7 @@
             position: sticky;
             top: -1px;
             background-color: white;
-            padding: 20px;
+            padding: 20px 0;
             z-index: 999;
 
             .burger {
@@ -69,7 +69,7 @@
 
             .links {
                 display: flex;
-                justify-content: space-around;
+                justify-content: space-between;
                 gap: 10px;
             }
         }
@@ -128,7 +128,7 @@
         }
 
         #idiomas {
-            &>div {
+            & > div {
                 display: flex;
                 gap: 60px;
 
@@ -147,11 +147,24 @@
             }
         }
 
-        #tecnologias div {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            margin-bottom: 10px;
+        #tecnologias {
+            ul {
+                padding-left: 0;
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(min-content, 200px));
+                gap: 5px;
+
+                li {
+                    display: flex;
+                    align-items: center;
+                    gap: 10px;
+                    margin-bottom: 10px;
+
+                    svg {
+                        width: 30px;
+                    }
+                }
+            }
         }
 
         #referencias p {
