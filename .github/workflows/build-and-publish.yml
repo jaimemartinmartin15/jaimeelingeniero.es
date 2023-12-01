@@ -41,6 +41,4 @@ jobs:
           aws s3 sync ./dist/jaimeelingeniero \
                       s3://jaimeelingeniero.es \
                       --delete \
-                      --exclude assets/no-cached/pages-english/tenses/verbs.json \
-                      --exclude assets/no-cached/pages-weather/rain/jaime-rain-data.txt \
-                      --exclude assets/no-cached/pages-weather/rain/pluviometro2-rain-data.txt
+                      --exclude assets/no-cached/pages-english/tenses/verbs.json

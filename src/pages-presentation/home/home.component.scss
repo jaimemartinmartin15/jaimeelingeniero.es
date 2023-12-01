@@ -90,45 +90,6 @@
     }
 }
 
-.technologies {
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    padding: 50px;
-
-    .title {
-        text-align: center;
-        font-size: 4em;
-    }
-
-    .tech-list {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
-        gap: 50px;
-        max-width: 1200px;
-
-        .tech {
-            $tech-size: 150px;
-
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            width: $tech-size;
-            height: $tech-size;
-
-            svg {
-                user-select: none;
-                width: $tech-size;
-                padding: 10px 0 10px;
-            }
-        }
-    }
-}
-
 .personal-projects,
 .learning {
     display: flex;
@@ -136,7 +97,7 @@
     align-items: center;
     flex-direction: column;
     min-height: 100vh;
-    background-color: #fcfcfc;
+    background-color: white;
     padding: 50px;
 
     .title {
@@ -173,7 +134,7 @@
 }
 
 .personal-projects {
-    background-color: white;
+    background-color: #fcfcfc;
 }
 
 .contact {
@@ -266,29 +227,6 @@
 
         .title {
             font-size: $title-size;
-        }
-    }
-
-    .technologies {
-        padding: 20px;
-
-        .title {
-            font-size: $title-size;
-        }
-
-        .tech-list {
-            gap: 25px;
-
-            .tech {
-                $tech-size: 130px;
-
-                width: $tech-size;
-                height: $tech-size;
-
-                svg {
-                    width: $tech-size;
-                }
-            }
         }
     }
 

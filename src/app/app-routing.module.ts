@@ -46,7 +46,18 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes, { anchorScrolling: 'enabled' })],
+  imports: [
+    RouterModule.forRoot(routes, {
+      anchorScrolling: 'enabled',
+      scrollOffset() {
+        if (location.pathname.includes('mi-trayectoria')) {
+          // exception because of the sticky header
+          return [0, 70];
+        }
+        return [0, 0];
+      },
+    }),
+  ],
   exports: [RouterModule],
 })
 export class AppRoutingModule {}

@@ -1,0 +1,30 @@
+@import "../../../shared/styles/colors";
+
+:host {
+  display: inline-flex;
+  gap: 5px;
+}
+
+.bullet {
+  display: inline-block;
+  width: 15px;
+  height: 15px;
+  position: relative;
+  border-radius: 50%;
+  border: 2px solid $color-blue;
+  background-color: $color-orange;
+
+  &--half::after {
+    content: "";
+    width: 15px;
+    height: 15px;
+    position: absolute;
+    left: 50%;
+    background-color: white;
+    clip-path: circle(50% at left);
+  }
+
+  &--empty {
+    background-color: white;
+  }
+}

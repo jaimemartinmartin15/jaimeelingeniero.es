@@ -39,6 +39,11 @@
               },
               {
                 "glob": "**/*",
+                "input": "src/pages-presentation/my-trayectory/assets",
+                "output": "/assets/pages-presentation/my-trayectory/"
+              },
+              {
+                "glob": "**/*",
                 "input": "src/pages-network/dns/assets",
                 "output": "/assets/pages-network/dns/"
               },
@@ -66,16 +71,6 @@
                 "glob": "**/*",
                 "input": "src/pages-bbdd/assets",
                 "output": "/assets/pages-bbdd/"
-              },
-              {
-                "glob": "*.txt",
-                "input": "src/pages-weather/rain/assets",
-                "output": "/assets/no-cached/pages-weather/rain/"
-              },
-              {
-                "glob": "**/favicons/*",
-                "input": "src/pages-weather/rain/assets",
-                "output": "/assets/pages-weather/rain/"
               },
               {
                 "glob": "**/favicons/*",

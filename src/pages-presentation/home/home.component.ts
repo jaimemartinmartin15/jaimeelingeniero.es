@@ -61,10 +61,6 @@ export class HomeComponent implements OnInit {
       img: 'assets/pages-presentation/home/sistemasoperativoscomandoscard.png',
     },
   ];
-  public PERSONAL_PROJECTS_TILES = [
-    { link: 'lluvias', title: 'Lluvias', img: 'assets/pages-presentation/home/lluvias.png' },
-    { link: 'puntuaciones', title: 'Puntuaciones', img: 'assets/pages-presentation/home/puntuaciones.png' },
-  ];
 
   public ngOnInit(): void {
     this.years = calculateCurrentAge(new Date(1996, 10, 15));
