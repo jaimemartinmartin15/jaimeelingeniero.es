@@ -1,12 +1,13 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
-import { MyTrayectoryComponent } from './my-trayectory.component';
+import { NgModule } from '@angular/core';
+import { ContactIconsSvgModule } from 'src/svg/generated/contact-icons-svg.module';
+import { TechnologiesSvgModule } from 'src/svg/generated/technologies-svg.module';
+import { BulletsComponent } from './bullets/bullets.component';
 import { MyTrayectoryRoutingModule } from './my-trayectory-routing.module';
-import { TrayectoryPanelModule } from './trayectory-panel/trayectory-panel.module';
+import { MyTrayectoryComponent } from './my-trayectory.component';
 
 @NgModule({
-  imports: [CommonModule, MyTrayectoryRoutingModule, TrayectoryPanelModule],
-  declarations: [MyTrayectoryComponent],
+  imports: [CommonModule, MyTrayectoryRoutingModule, TechnologiesSvgModule, ContactIconsSvgModule],
+  declarations: [MyTrayectoryComponent, BulletsComponent],
 })
 export class MyTrayectoryModule {}

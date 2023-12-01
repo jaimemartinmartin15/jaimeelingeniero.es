@@ -1,20 +1,257 @@
+@import "../../shared/styles/colors";
+
 :host {
     display: block;
-    margin: 45px 25px 25px 25px;
 }
 
-.intro-text {
-    margin-bottom: 30px;
+.background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 40vh;
+    background-color: $color-blue;
 }
 
-.panel {
-    margin-bottom: 20px;
+.content {
+    position: relative;
+    max-width: 1050px;
+    margin: 150px auto 0;
+    background-color: white;
+    border-radius: 5px;
+    display: flex;
+    gap: 10px;
+    padding: 20px;
+    box-sizing: border-box;
+
+    figure {
+        flex-shrink: 0;
+        align-self: flex-start;
+        position: sticky;
+        top: 10vh;
+        width: 30%;
+        margin: 40px 0 0;
+        text-align: center;
+
+        img {
+            width: 65%;
+            object-fit: contain;
+        }
+
+        figcaption {
+            margin-top: 10px;
+
+            .name {
+                font-size: 20px;
+            }
+
+            .profession {
+                margin-top: 10px;
+                font-size: 24px;
+            }
+        }
+
+        address {
+            display: flex;
+            justify-content: space-evenly;
+            margin-top: 20px;
+
+            a svg {
+                width: 30px;
+            }
+        }
+    }
+
+    .cv {
+        flex-grow: 1;
+
+        nav {
+            position: sticky;
+            top: -1px;
+            background-color: white;
+            padding: 20px 0;
+            z-index: 999;
+
+            .burger {
+                display: none;
+            }
+
+            .links {
+                display: flex;
+                justify-content: space-between;
+                gap: 10px;
+            }
+        }
+
+        article {
+            h1 {
+                color: $color-orange;
+                font-size: 1rem;
+                margin-top: 50px;
+            }
+
+            hr {
+                border: 1px solid $color-orange;
+            }
+        }
+
+        .education,
+        .experience {
+            margin: 15px 0;
+
+            h2 {
+                font-size: 1.5rem;
+                margin: 5px 0;
+                color: $color-blue;
+            }
+
+            .location,
+            .company-and-position {
+                font-size: 0.9rem;
+                color: #525252;
+                margin: 5px 0 10px;
+            }
+
+            .description {
+                margin: 0;
+                margin-bottom: 10px;
+            }
+
+            .technologies {
+                font-size: 0.9rem;
+
+                span {
+                    font-weight: bold;
+                    color: purple;
+                }
+            }
+
+            .date,
+            .date-and-location {
+                display: flex;
+                justify-content: space-between;
+                margin-top: 5px;
+                padding-right: 20px;
+                font-size: 0.9rem;
+            }
+        }
+
+        #idiomas {
+            & > div {
+                display: flex;
+                gap: 60px;
+
+                .idiom {
+                    font-weight: bold;
+
+                    div {
+                        margin-bottom: 5px;
+                    }
+
+                    .note {
+                        display: inline-block;
+                        font-size: 0.8rem;
+                    }
+                }
+            }
+        }
+
+        #tecnologias {
+            ul {
+                padding-left: 0;
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(min-content, 200px));
+                gap: 5px;
+
+                li {
+                    display: flex;
+                    align-items: center;
+                    gap: 10px;
+                    margin-bottom: 10px;
+
+                    svg {
+                        width: 30px;
+                    }
+                }
+            }
+        }
+
+        #referencias p {
+            border: 1px solid black;
+            border-radius: 5px;
+            padding: 10px;
+            font-size: 0.85rem;
+        }
+    }
 }
 
-@media (min-width: 768px) {
-    :host {
-        max-width: 740px;
-        padding: 45px;
-        margin: auto;
+@media (max-width: 991px) {
+    .content {
+        margin-top: 0;
+
+        figure {
+            margin-top: 70px;
+            top: 65px; // adapted to the height of the burger
+        }
+
+        .cv nav {
+            position: fixed;
+            top: 0;
+            right: 0;
+            left: 0;
+            min-height: 25px;
+
+            .burger {
+                position: absolute;
+                top: 20px;
+                right: 20px;
+                display: block;
+                background-color: transparent;
+                border: none;
+
+                div {
+                    width: 35px;
+                    height: 5px;
+                    background-color: black;
+                    margin: 6px 0;
+                    border-radius: 15px;
+                }
+            }
+
+            .links {
+                flex-direction: column;
+                align-items: center;
+                display: none;
+                padding-top: 50px; // height of the burger
+
+                &--show {
+                    // used in ts file
+                    display: flex;
+                }
+            }
+        }
+    }
+}
+
+@media (max-width: 768px) {
+    .content .cv #idiomas div {
+        flex-direction: column;
+        gap: 10px;
+    }
+}
+
+@media (max-width: 575px) {
+    .content {
+        border-radius: 0;
+        flex-direction: column;
+
+        figure {
+            width: 100%;
+            position: static;
+
+            img {
+                max-height: 360px;
+            }
+        }
     }
 }
