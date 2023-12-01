@@ -29,10 +29,6 @@
         {
             "name": "PagesGamesSvg",
             "files": ["deal-cards"]
-        },
-        {
-            "name": "PagesWeatherSvg",
-            "files": ["trash-can"]
         }
     ]
 }
