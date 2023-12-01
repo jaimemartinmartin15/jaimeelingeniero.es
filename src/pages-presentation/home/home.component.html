@@ -63,10 +63,16 @@
   <h1 class="title">Proyectos personales</h1>
 
   <app-carousel [showElementsAtSameTime]="2">
-    <a #carouselItem class="carousel-item" *ngFor="let tile of PERSONAL_PROJECTS_TILES" [routerLink]="tile.link">
-      <img [src]="tile.img" alt="image">
+    <a #carouselItem class="carousel-item" href="https://lluvias.jaimeelingeniero.es">
+      <img src="assets/pages-presentation/home/lluvias.png" alt="image">
       <div>
-        <span>{{tile.title}}</span>
+        <span>Lluvias</span>
+      </div>
+    </a>
+    <a #carouselItem class="carousel-item" routerLink="puntuaciones">
+      <img src="assets/pages-presentation/home/puntuaciones.png" alt="image">
+      <div>
+        <span>Puntuaciones</span>
       </div>
     </a>
   </app-carousel>
