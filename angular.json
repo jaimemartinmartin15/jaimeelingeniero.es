@@ -73,16 +73,6 @@
                 "output": "/assets/pages-bbdd/"
               },
               {
-                "glob": "*.txt",
-                "input": "src/pages-weather/rain/assets",
-                "output": "/assets/no-cached/pages-weather/rain/"
-              },
-              {
-                "glob": "**/favicons/*",
-                "input": "src/pages-weather/rain/assets",
-                "output": "/assets/pages-weather/rain/"
-              },
-              {
                 "glob": "**/favicons/*",
                 "input": "src/pages-games/assets",
                 "output": "/assets/pages-games/"
