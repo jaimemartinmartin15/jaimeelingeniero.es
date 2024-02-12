@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-pages-games',
-  template: '<router-outlet></router-outlet>',
-  styles: [':host{display: block; height: 100vh}'],
+  templateUrl: './pages-games.component.html',
+  styleUrls: ['./pages-games.component.scss'],
 })
 export class PagesGamesComponent {}
