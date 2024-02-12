@@ -73,11 +73,6 @@
                 "output": "/assets/pages-bbdd/"
               },
               {
-                "glob": "**/favicons/*",
-                "input": "src/pages-games/assets",
-                "output": "/assets/pages-games/"
-              },
-              {
                 "glob": "sitemap.xml",
                 "input": ".",
                 "output": "."
