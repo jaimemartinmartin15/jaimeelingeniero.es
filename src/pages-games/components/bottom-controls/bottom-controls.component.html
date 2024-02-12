@@ -1,9 +1,0 @@
-<button class="app-button" (click)="goToGameConfigView()">Juego nuevo</button>
-<button class="app-button" (click)="showViewNavigation = !showViewNavigation">Cambiar vista</button>
-<button class="app-button" (click)="enterNewRound()">Nueva ronda</button>
-
-<div class="view-list" *ngIf="showViewNavigation" (click)="showViewNavigation = false">
-  <a [routerLink]="['../', ROUTING_PATHS.RANKING]">🥇 Ranking</a>
-  <a [routerLink]="['../', ROUTING_PATHS.SCOREBOARD]">📋 Tabla</a>
-  <a [routerLink]="['../', ROUTING_PATHS.STATISTICS]">📊 Estadísticas</a>
-</div>

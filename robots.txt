@@ -1,8 +1,5 @@
 User-agent: *
 
-Disallow: /puntuaciones/*
-Allow: /puntuaciones$
-
 Disallow: /ingles$
 Allow: /ingles/*
 
